@@ -6,8 +6,7 @@ while true {
     guard let input = readLine() else { break }
 
     var userPick = 0
-//    let comPick = Int.random(in: 1...3)
-    let comPick = 2
+    let comPick = Int.random(in: 1...3)
     
     switch input {
     case "0","1","2","3" :
