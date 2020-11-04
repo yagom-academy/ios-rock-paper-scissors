@@ -19,13 +19,7 @@ func printComputerPick(_ computerPick : Int) {
 }
 
 //userPick기준으로 비기고 이기고 지는거 정리
-//user 1=가위
-//1-1 비겼다, 1가위-2바위 졌다 , 1가위-3보 이겼다
-//user 2=바위
-//2바위-1가위 이겼다, 2-2 비겼다, 2바위-3보 졌다
-//user 3=보
-//3보-1가위 졌다, 3보-2바위 이겼다, 3-3 비겼다
-func comparePick(_ usersPick : String, _ computerPick : Int){
+func comparePick(_ usersPick : String, _ computerPick : Int) {
     if usersPick == String(computerPick){
         print("비겼습니다.")
         rockPaperScissors()
@@ -33,30 +27,42 @@ func comparePick(_ usersPick : String, _ computerPick : Int){
         switch computerPick {
         case 2:
             print("졌습니다.")
+            mukChiPa("컴퓨터")
         default:
             print("이겼습니다.")
+            mukChiPa("사용자")
         }
     } else if usersPick == "2" {
         switch computerPick {
         case 1:
             print("이겼습니다.")
+            mukChiPa("사용자")
         default:
             print("졌습니다.")
+            mukChiPa("컴퓨터")
         }
     } else  {
         switch computerPick {
         case 1:
             print("졌습니다.")
+            mukChiPa("컴퓨터")
         default:
             print("이겼습니다.")
+            mukChiPa("사용자")
         }
     }
+}
+
+//rockPaperScissors()에서 승패가 갈린경우 mukChiPa()호출!
+func mukChiPa(_ rockPaperScissorWinner : String) {
+    print("[\(rockPaperScissorWinner) 턴] 묵(1),찌(2),빠(3)! <종료 : 0> : ", terminator : "")
 }
 
 func rockPaperScissors() {
     print("가위(1),바위(2),보(3)! <종료 : 0> : ", terminator : "")
     guard let usersPick = readLine() else { return }
     let computerPick = Int.random(in: 1...3)
+
 //유저에게 입력받은 usersPick이 String타입임을 확인
 //print(type(of: usersPick))
     switch usersPick {
