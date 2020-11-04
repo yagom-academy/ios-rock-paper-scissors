@@ -20,6 +20,54 @@ func printComputerPick(_ computerPick : Int) {
     }
 }
 
+//userPick기준으로 비기고 이기고 지는거 정리
+//user 1=가위
+//1-1 비겼다, 1가위-2바위 졌다 , 1가위-3보 이겼다
+//user 2=바위
+//2바위-1가위 이겼다, 2-2 비겼다, 2바위-3보 졌다
+//user 3=보
+//3보-1가위 졌다, 3보-2바위 이겼다, 3-3 비겼다
+func comparePick(_ usersPick : String, _ computerPick : Int){
+    if usersPick == String(computerPick){
+        print("비겼습니다.")
+        rockPaperScissors()
+    } else if usersPick == "1" {
+        switch computerPick {
+        case 2:
+            print("졌습니다.")
+            break
+        case 3:
+            print("이겼습니다.")
+            break
+        default:
+            print("default case code")
+        }
+    } else if usersPick == "2" {
+        switch computerPick {
+        case 1:
+            print("이겼습니다.")
+            break
+        case 3:
+            print("졌습니다.")
+            break
+        default:
+            print("default case code")
+        }
+    } else if usersPick == "3" {
+        switch computerPick {
+        case 1:
+            print("졌습니다.")
+            break
+        case 2:
+            print("이겼습니다.")
+            break
+        default:
+            print("default case code")
+        }
+    } else {
+        print("1...3이 아닌 다른값이 들어올 경우가 있을까??")
+    }
+}
 
 func rockPaperScissors() {
     print("가위(1),바위(2),보(3)! <종료 : 0> : ", terminator : "")
@@ -34,14 +82,19 @@ func rockPaperScissors() {
     case "1" :
         print("사용자 : 가위")
         printComputerPick(computerPick)
+        comparePick(usersPick, computerPick)
     case "2" :
         print("사용자 : 바위")
         printComputerPick(computerPick)
+        comparePick(usersPick, computerPick)
     case "3" :
         print("사용자 : 보")
         printComputerPick(computerPick)
+        comparePick(usersPick, computerPick)
     default:
         print("잘못된 입력입니다. 다시 시도해 주세요.")
+        //한줄안띄워주면 눈이 너무 아파서 한줄개행
+        print()
         rockPaperScissors()
     }
 }
