@@ -1,4 +1,14 @@
 
+func matchResult(_ user: Int, _ computer: Int) {
+    switch user {
+    case 0:
+        "exit"
+        case us
+    default:
+        <#code#>
+    }
+}
+
 func rockPaperScissors() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     guard let input = readLine() else {
@@ -33,11 +43,8 @@ func rockPaperScissors() {
 
 
 func mukzzipa(_ userPicked: Int, _ computerPicked: Int) {
-    var mukzzipaUserPick = userPicked
-    var mukzzipaComputerPick = computerPicked
-    
-    switch mukzzipaUserPick {
-    case mukzzipaComputerPick + 1, mukzzipaComputerPick - 2 :
+    switch userPicked {
+    case computerPicked + 1, computerPicked - 2 :
         print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     default :
         print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
@@ -46,18 +53,21 @@ func mukzzipa(_ userPicked: Int, _ computerPicked: Int) {
     
     guard let mukzzipaInput = readLine() else {
         print("잘못된 입력값입니다. 다시 시도해주세요.")
-        mukzzipa(mukzzipaUserPick, mukzzipaComputerPick)
+        mukzzipa(computerPicked, userPicked)
+        // 승패가 바뀌는 것과 같으니 입력값을 서로 바꿔준다.
         return
     }
 
-    mukzzipaComputerPick = Int.random(in: 1...3)
+    var mukzzipaUserPick = 0
+    let mukzzipaComputerPick = Int.random(in: 1...3)
     
     switch mukzzipaInput {
     case "0", "1", "2", "3" :
         mukzzipaUserPick = Int(mukzzipaInput)!
     default :
         print("잘못된 입력값입니다. 다시 시도해주세요.")
-        mukzzipa(mukzzipaUserPick, mukzzipaComputerPick)
+        mukzzipa(computerPicked, userPicked)
+        // 승패가 바뀌는 것과 같으니 입력값을 서로 바꿔준다.
     }
     
 }
