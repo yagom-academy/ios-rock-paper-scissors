@@ -44,33 +44,9 @@ func judgmentWinDrawLose(computer : Int, user : Int) -> String {
  난수를 통해서 1~3중 하나의 값을 갖는다
  code by kkomal
  */
-@discardableResult
-func isChoiceComputer() -> Int {
-    let computerNum = Int.random(in: 1...3)
-    return computerNum
-}
-
-/*
- 사용자에게 가위 바위 보 중 하나를 입력받는 함수
- 0~3값만 입력받게하고 다른 값 입력시 예외처리
- code by kkomal
- */
-func inputRockPaperScissors() {
-    printRockPaperScissors()
-    guard let input = readLine() else { return print("게임 종료") }
-    guard let userNum = Int(input) else { return print("게임 종료") }
-    
-    if 0 > userNum || userNum > 3 {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-    }
-    else if userNum == 0 {
-        return print("게임 종료")
-    }
-    else {
-        judgmentWinDrawLose(computer: isChoiceComputer(), user: userNum)
-    }
-    
-    return inputRockPaperScissors()
+func createComputerRockPaperScissors() -> Int {
+    let computerNumber = Int.random(in: 1...3)
+    return computerNumber
 }
 
 /*
@@ -78,17 +54,8 @@ func inputRockPaperScissors() {
  code by kkomal
  */
 func inputRockPaperScissors() -> String {
-    guard let input = readLine() else { exit(0) }
-    return input
-}
-
-func inputRockPaperScissors2() -> String {
-    guard let input = readLine() else { return "아무키나 입력하세요." }
-    return input
-}
-
-func inputRockPaperScissors3() -> String? {
-    let input = readLine()
+    // 입력값이 nil이 되는 경우 종료시켜준다.
+    guard let input = readLine() else { print("입력값이 nil이라서 종료됩니다."); exit(0) }
     return input
 }
 
@@ -97,12 +64,12 @@ func inputRockPaperScissors3() -> String? {
  -1, 0, 1, 2, 3 중 하나를 반환한다
  code by kkomal
  */
-func verifyInput(userInput: String) -> Int {
-    var userNum = Int(userInput) ?? -1 //숫자가 아닌 값이면 -1로 변환
-    if userNum > 3 || userNum < 0 {
-        userNum = -1
+func verifyInput(userInput : String) -> Int {
+    var userNumber = Int(userInput) ?? -1 // 숫자가 아닌 값이면 -1로 변환
+    if userNumber > 3 || userNumber < 0 {
+        userNumber = -1
     }
-    return userNum
+    return userNumber
 }
 
 /*
@@ -111,25 +78,27 @@ func verifyInput(userInput: String) -> Int {
  */
 func RockPaperScissorsGame() {
     printRockPaperScissors()
-    var userNum : Int = 0
-    userNum = verifyInput(userInput: inputRockPaperScissors())
-    switch userNum {
+    var userNumber : Int = 0
+    userNumber = verifyInput(userInput: inputRockPaperScissors())
+    switch userNumber {
     case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return RockPaperScissorsGame()
     case 0 : // 사용자 입력이 0인 경우
         return print("게임 종료")
     default : // 사용자 입력이 1,2,3 중에 하나인 경우
-        var resultString : String = ""
-        resultString = judgmentWinDrawLose(computer: createComputerRockPaperScissors(), user: userNum)
-        if resultString == "비겼습니다!" {
+        var result : String = ""
+        result = judgmentWinDrawLose(computer: createComputerRockPaperScissors(), user: userNumber)
+        if result == "비겼습니다!" {
             return RockPaperScissorsGame()
         }
     }
 }
 
+/*
+ 메인 함수
+ */
 func main(){
     RockPaperScissorsGame()
 }
-
 main()
