@@ -15,7 +15,6 @@ func mukChiBa(winner: State) {
         if let input: String = readLine() {
             if let userRPSValue: Int = Int(input) {
                 let computerRPSValue: Int = Int.random(in: 1...3)
-                print("컴퓨터 값: \(computerRPSValue)")
                 switch userRPSValue {
                 case 0:
                     print("게임 종료")
