@@ -49,7 +49,7 @@ func scissorsRockPaper() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         // 유저 입력 받기
-        guard let input = readLine(), let inputNumber = Int(input) else {
+        guard let input = readLine(), let inputNumber = Int(input), inputNumber >= 0, inputNumber <= 3 else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         }
@@ -70,7 +70,7 @@ func scissorsRockPaper() {
         let gameResult = scissorsRockPaperResult(myHand: myHand, otherHand: computerHand)
         
         // 결과 출력
-        print("\(myHand)(나) vs \(computerHand)(컴) : " , terminator: "")
+        //print("\(myHand)(나) vs \(computerHand)(컴) : " , terminator: "")
         printResultMessage(gameResult: gameResult)
         
         // 비겼으면 게임 종료, 아니면 다시 처음부터
