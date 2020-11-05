@@ -72,6 +72,38 @@ func inputRockPaperScissors() {
 }
 
 /*
+ 사용자에게 입력받는 함수
+ code by kkomal
+ */
+func inputRockPaperScissors() -> String {
+    guard let input = readLine() else { exit(0) }
+    return input
+}
+
+func inputRockPaperScissors2() -> String {
+    guard let input = readLine() else { return "아무키나 입력하세요." }
+    return input
+}
+
+func inputRockPaperScissors3() -> String? {
+    let input = readLine()
+    return input
+}
+
+/*
+ 사용자에게 입력받은 값을 확인하는 함수
+ -1, 0, 1, 2, 3 중 하나를 반환한다
+ code by kkomal
+ */
+func verifyInput(userInput: String) -> Int {
+    var userNum = Int(userInput) ?? -1 //숫자가 아닌 값이면 -1로 변환
+    if userNum > 3 || userNum < 0 {
+        userNum = -1
+    }
+    return userNum
+}
+
+/*
  가위 바위 보 게임을 수행하는 함수
  code by jake
  */
@@ -92,3 +124,5 @@ func RockPaperScissorsGame() {
 func main(){
     RockPaperScissorsGame()
 }
+
+main()
