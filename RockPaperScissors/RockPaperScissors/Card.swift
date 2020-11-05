@@ -11,13 +11,13 @@ struct Card{
     var cardIdx: Int
     var isMyTurn: Bool
     var winSet = [0,2,3,1]
-    //var winSet = [(0,0),(1,2),(2,3),(3,1)]
+    
     init() {
         self.cardIdx = 0
         self.isMyTurn = true
     }
-    //승패결정
     
+    //승패결정
     func playGame(_ idx1: Int, _ idx2: Int) -> Bool{
         if winSet[idx1] == idx2{
             return false

@@ -11,7 +11,7 @@ var partnerCard = Card()
 
 // 가위바위보 게임
 func playRoundOne(){
-    while(true){ //내꺼
+    while(true){
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :",terminator:"")
         let myCardIdx = Int(readLine()!) ?? -1
         
@@ -94,7 +94,7 @@ func playRoundTwo(){
         }
     }
 }
-
+//
 playRoundOne()
 
 
