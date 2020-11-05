@@ -1,11 +1,14 @@
 
-func matchResult(_ user: Int, _ computer: Int) {
+func matchResult(_ user: Int, _ computer: Int) -> String {
     switch user {
     case 0:
-        "exit"
-        case us
+        return "exit"
+    case computer:
+        return "draw"
+    case computer + 1, computer - 2:
+        return "userWin"
     default:
-        <#code#>
+        return "computerWin"
     }
 }
 
@@ -28,13 +31,13 @@ func rockPaperScissors() {
         rockPaperScissors()
     }
 
-    switch userPick {
-    case 0:
+    switch matchResult(userPick, computerPick) {
+    case "exit":
         break
-    case computerPick:
+    case "draw":
         print("비겼습니다!")
         rockPaperScissors()
-    case computerPick + 1, computerPick - 2:
+    case "userWin":
         print("이겼습니다!")
     default:
         print("졌습니다!")
@@ -43,10 +46,10 @@ func rockPaperScissors() {
 
 
 func mukzzipa(_ userPicked: Int, _ computerPicked: Int) {
-    switch userPicked {
-    case computerPicked + 1, computerPicked - 2 :
+    switch matchResult(userPicked, computerPicked) {
+    case "userWin":
         print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
-    default :
+    default:
         print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     // 가위바위보 결과, 이기고 진 경우에만 들어갈 함수이기 때문에 2가지 case만 필요
     }
