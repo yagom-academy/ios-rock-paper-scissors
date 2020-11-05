@@ -14,10 +14,10 @@ while(true) {
     
     if input == "1" || input == "2" || input == "3" {
         let randomNumber: Int = Int.random(in: 1...3)
-        if numberOfCasesToWin.contains(where: { $0 == (Int(input), randomNumber) }) {
+        if numberOfCasesToWin.contains(where: { $0 == (Int(input)!, randomNumber) }) {
             print("이겼습니다!")
             break
-        } else if Int(input) == randomNumber {
+        } else if Int(input)! == randomNumber {
             print("비겼습니다!")
         } else {
             print("졌습니다!")
