@@ -11,7 +11,7 @@ func scissorsRockPaper () {
     print("가위(1), 바위(2), 보(3)!<종료 : 0> : ", terminator: " ")
     
     guard let users: String = readLine() else {return}
-    let computer = arc4random_uniform(3) + 1
+    let computer = Int.random(in: 1...3)
     
     switch users {
     case "0":
@@ -62,7 +62,7 @@ func rockScissorsPaper(result: String) {
     case "lose":
         print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)!<종료 : 0> : ",terminator: " ")
         guard let users: String = readLine() else{return}
-        let computer = arc4random_uniform(3) + 1
+        let computer = Int.random(in: 1...3)
         
         if ((users=="1" && computer==2) || (users=="2" && computer==3) || (users=="3" && computer==1)) {
             print("사용자의 턴입니다")
@@ -108,3 +108,4 @@ func rockScissorsPaper(result: String) {
 
 //게임 호출
 scissorsRockPaper()
+
