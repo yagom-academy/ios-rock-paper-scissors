@@ -5,3 +5,9 @@ enum State {
     case lose
     case draw
 }
+
+enum RockPaperScissors: Int {
+    case rock = 2
+    case paper = 3
+    case scissors = 1
+}
