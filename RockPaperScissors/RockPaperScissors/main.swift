@@ -6,36 +6,97 @@
 
 import Foundation
 
-print("Hello,World!")
-
-
 var myCard = Card()
 var partnerCard = Card()
 
 func playRoundOne(){
     while(true){
-        let myCardIdx = Int(readLine()!)!
-        myCard.cardIdx = myCardIdx
-        partnerCard.cardIdx = 1 //1,2,3 중 랜덤값 고르기
-        if myCard.cardIdx != partnerCard.cardIdx{
-            if myCard.didWin(myCard.cardIdx,partnerCard.cardIdx){
-                myCard.isMyTurn = true
-            }else{
-                myCard.isMyTurn = false
-            }
-            playRoundTwo() //묵찌빠
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> :",terminator:"")
+        let myCardIdx = Int(readLine()!) ?? -1
+        
+        guard myCardIdx != 0 else {
+            print("게임 종료")
             return
         }
-        
+        if 0 < myCardIdx , myCardIdx <= 3 {
+            myCard.cardIdx = myCardIdx
+            partnerCard.cardIdx = Int.random(in: 1...3)
+            
+            print(myCard.cardIdx, partnerCard.cardIdx)
+            
+            if myCard.cardIdx != partnerCard.cardIdx{
+                if myCard.playGameOne(myCard.cardIdx,partnerCard.cardIdx){
+                    myCard.isMyTurn = true
+                    partnerCard.isMyTurn = false
+                    print("이겼습니다!")
+                }else{
+                    myCard.isMyTurn = false
+                    partnerCard.isMyTurn = true
+                    print("졌습니다!")
+                }
+                playRoundTwo()
+                return
+            }else{
+                print("비겼습니다!")
+            }
+            
+            
+        }else{
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        }
     }
 }
 
 func playRoundTwo(){
+    print("묵찌빠 게임 시작")
+    
+    while(true){
+        if myCard.isMyTurn{
+            print("[사용자턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :",terminator:"")
+        }else{
+            print("[컴퓨터턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :",terminator:"")
+        }
+        
+        let myCardIdx = Int(readLine()!) ?? -1
+        
+        guard myCardIdx != 0 else {
+            print("게임 종료")
+            return
+        }
+        
+        if 0 < myCardIdx , myCardIdx <= 3 {
+            myCard.cardIdx = myCardIdx
+            partnerCard.cardIdx = Int.random(in: 1...3)
+            
+            print(myCard.cardIdx, partnerCard.cardIdx)
+            
+            if myCard.cardIdx != partnerCard.cardIdx{
+                if myCard.playGameOne(partnerCard.cardIdx,myCard.cardIdx){
+                    myCard.isMyTurn = true
+                    partnerCard.isMyTurn = false
+                }else{
+                    myCard.isMyTurn = false
+                    partnerCard.isMyTurn = true
+                }
+            }else{
+                if myCard.isMyTurn{
+                    print("사용자의 승리!")
+                }else{
+                    print("컴퓨터의 승리!")
+                }
+                return
+            }
+            
+            
+        }else{
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        }
+    }
+    
     
 }
 
-
 playRoundOne()
-//()//가위바위보
+
 
 

@@ -15,19 +15,35 @@ struct Card{
         self.isMyTurn = true
     }
     
-//    func changeCard(_ newCard:Int){
-//        self.cardIdx = newCard
-//    }
-    
     //승패결정
-    func didWin(_ myCardIdx: Int, _ partnerCardIdx: Int) -> Bool{
-        if partnerCardIdx == (myCardIdx + 1) % 3 {
-            //1 2 3
-            //1 2 3
-            
-            // 1 > 2 > 3 > 1 묵 찌
-            return true
+    func playGameOne(_ idx1: Int, _ idx2: Int) -> Bool{
+        if idx1 == 1{
+            if idx2 == 2 {
+                return false
+            }else{
+                return true
+            }
         }
-        return false
+        if idx1 == 2{
+            if idx2 == 3 {
+                return false
+            }else{
+                return true
+            }
+        }
+        if idx1 == 3{
+            if idx2 == 1 {
+                return false
+            }else{
+                return true
+            }
+        }
+        return true
     }
+    
+//    func playGameTwo(_ idx1: Int, _ idx2: Int) -> Bool{
+//    }
+
 }
+
+
