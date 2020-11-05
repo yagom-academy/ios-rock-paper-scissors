@@ -53,9 +53,69 @@ func comparePick(_ usersPick : String, _ computerPick : Int) {
     }
 }
 
+//rockPaperScissorWinner 라는 매개변수를 추가해 오버로딩
+func comparePick(_ usersPick : String, _ computerPick : Int, _ rockPaperScissorWinner : String) {
+    if usersPick == String(computerPick){
+        print("\(rockPaperScissorWinner)가 이겼습니다.")
+    } else if usersPick == "1" {
+        switch computerPick {
+        case 2:
+            print("졌습니다.")
+            mukChiPa("컴퓨터")
+        default:
+            print("이겼습니다.")
+            mukChiPa("사용자")
+        }
+    } else if usersPick == "2" {
+        switch computerPick {
+        case 1:
+            print("이겼습니다.")
+            mukChiPa("사용자")
+        default:
+            print("졌습니다.")
+            mukChiPa("컴퓨터")
+        }
+    } else  {
+        switch computerPick {
+        case 1:
+            print("졌습니다.")
+            mukChiPa("컴퓨터")
+        default:
+            print("이겼습니다.")
+            mukChiPa("사용자")
+        }
+    }
+}
+
 //rockPaperScissors()에서 승패가 갈린경우 mukChiPa()호출!
 func mukChiPa(_ rockPaperScissorWinner : String) {
     print("[\(rockPaperScissorWinner) 턴] 묵(1),찌(2),빠(3)! <종료 : 0> : ", terminator : "")
+    guard let usersPick = readLine() else { return }
+    let computerPick = Int.random(in: 1...3)
+    
+    switch usersPick {
+    case "0" :
+        print("묵찌빠 프로그램이 종료됩니다.")
+        break
+    case "1" :
+        print("사용자 : 가위")
+        printComputerPick(computerPick)
+        comparePick(usersPick, computerPick, rockPaperScissorWinner)
+    case "2" :
+        print("사용자 : 바위")
+        printComputerPick(computerPick)
+        comparePick(usersPick, computerPick, rockPaperScissorWinner)
+    case "3" :
+        print("사용자 : 보")
+        printComputerPick(computerPick)
+        comparePick(usersPick, computerPick, rockPaperScissorWinner)
+// 잘못된 입력을 한 경우 컴퓨터에게 턴을 넘깁니다
+    default:
+        print("잘못된 입력입니다. 컴퓨터에게 턴을 넘깁니다.")
+//한줄안띄워주면 눈이 너무 아파서 한줄개행
+        print()
+        mukChiPa("컴퓨터")
+    }
 }
 
 func rockPaperScissors() {
