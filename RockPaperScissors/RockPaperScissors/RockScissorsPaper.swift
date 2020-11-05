@@ -7,13 +7,8 @@
 
 import Foundation
 
-enum state {
-    case win
-    case lose
-    case draw
-}
 
-func rockScissorsPaper() -> state {
+func rockScissorsPaper() -> State {
     while true {
         print("가위(1), 바위(2), 보(3)! <종료 0> : ", separator: "", terminator: "")
         // 입력 받기
@@ -37,15 +32,15 @@ func rockScissorsPaper() -> state {
             switch randNumber {
             case 1: //컴퓨터가 가위를 냈을 때
                 if readNumber == 1 { print("비겼습니다!") }
-                else if readNumber == 2 { print("이겼습니다!"); return state.win }
-                else if readNumber == 3 { print("졌습니다!"); return state.lose }
+                else if readNumber == 2 { print("이겼습니다!"); return State.win }
+                else if readNumber == 3 { print("졌습니다!"); return State.lose }
             case 2: //컴퓨터가 바위를 냈을 때
-                if readNumber == 1 { print("졌습니다!"); return state.lose }
+                if readNumber == 1 { print("졌습니다!"); return State.lose }
                 else if readNumber == 2 { print("비겼습니다!") }
-                else if readNumber == 3 { print("이겼습니다!"); return state.win }
+                else if readNumber == 3 { print("이겼습니다!"); return State.win }
             case 3: //컴퓨터가 보를 냈을 때
-                if readNumber == 1 { print("이겼습니다!"); return state.win }
-                else if readNumber == 2 { print("졌습니다!"); return state.lose }
+                if readNumber == 1 { print("이겼습니다!"); return State.win }
+                else if readNumber == 2 { print("졌습니다!"); return State.lose }
                 else if readNumber == 3 { print("비겼습니다!") }
             default:
                 print("Error!")
