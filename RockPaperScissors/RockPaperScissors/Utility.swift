@@ -1,6 +1,6 @@
 import Foundation
 
-enum State {
+enum GameResultState {
     case win
     case lose
     case draw

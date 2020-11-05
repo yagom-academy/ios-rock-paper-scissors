@@ -1,7 +1,7 @@
 struct MukChiBa {
-    private var userWinningState: State
+    private var userWinningState: GameResultState
     
-    init(userWinningState: State) {
+    init(userWinningState: GameResultState) {
         self.userWinningState = userWinningState
     }
     
