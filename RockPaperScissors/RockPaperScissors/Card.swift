@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 struct Card{
     var cardIdx: Int
     var isMyTurn: Bool
@@ -19,15 +20,22 @@ struct Card{
 //        self.cardIdx = newCard
 //    }
     
-    //승패결정
+    // 가위바위보 승패결정
     func didWin(_ myCardIdx: Int, _ partnerCardIdx: Int) -> Bool{
-        if partnerCardIdx == (myCardIdx + 1) % 3 {
-            //1 2 3
-            //1 2 3
-            
-            // 1 > 2 > 3 > 1 묵 찌
-            return true
+        let difference = myCardIdx - partnerCardIdx
+        
+        if abs(difference) == 1 {
+            if difference > 0 {
+                return true
+            } else {
+                return false
+            }
+        } else { // {가위(1), 보(3)} or {보(3), 가위(1)}
+            if difference < 0 { // {가위(1), 보(3)}
+                return true
+            } else { // {보(3), 가위(1)}
+                return false
+            }
         }
-        return false
     }
 }
