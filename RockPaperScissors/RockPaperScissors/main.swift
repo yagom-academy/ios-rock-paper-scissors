@@ -44,3 +44,13 @@ func judgmentWinDrawLose (computer : Int, user : Int) -> Int {
     return resultNum
 }
 
+/*
+ 컴퓨터의 패를 정해주는 함수
+ 난수를 통해서 1~3중 하나의 값을 갖는다
+ code by kkomal
+ */
+@discardableResult
+func isChoiceCom() -> Int {
+    let comNum = arc4random_uniform(3) + 1
+    return Int(comNum)
+}
