@@ -71,8 +71,24 @@ func inputRockPaperScissors() {
     return inputRockPaperScissors()
 }
 
-inputRockPaperScissors()
+/*
+ 가위 바위 보 게임을 수행하는 함수
+ code by jake
+ */
+func RockPaperScissorsGame() {
+    printRockPaperScissors()
+    userNum : Int = verifyInput(userInput : inputRockPaperScissors())
+    switch userNum {
+    case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return RockPaperScissorsGame()
+    case 0 : // 사용자 입력이 0인 경우
+        return print("게임 종료")
+    default : // 사용자 입력이 1,2,3 중에 하나인 경우
+        judgmentWinDrawLose(computer: isChoiceComputer(), user: userNum)
+    }
+}
 
-
-
-
+func main(){
+    RockPaperScissorsGame()
+}
