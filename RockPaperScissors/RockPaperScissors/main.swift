@@ -76,4 +76,3 @@ inputRockPaperScissors()
 
 
 
-//꼬말
