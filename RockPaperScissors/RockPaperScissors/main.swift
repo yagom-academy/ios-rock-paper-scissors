@@ -20,6 +20,7 @@ func printRockPaperScissors () {
  즉, 0이나 4이상의 숫자에 대한 예외처리는 입력 받을 때 처리 되어야할 것 같다.
  code by jake
  */
+@discardableResult
 func judgmentWinDrawLose (computer : Int, user : Int) -> Int {
     // resultNum = 1 비겼습니다.
     // resultNum = 2 졌습니다.
@@ -54,3 +55,28 @@ func isChoiceCom() -> Int {
     let comNum = arc4random_uniform(3) + 1
     return Int(comNum)
 }
+
+/*
+ 사용자에게 가위 바위 보 중 하나를 입력받는 함수
+ 0~3값만 입력받게하고 다른 값 입력시 예외처리
+ code by kkomal
+ */
+func inputRockPaperScissors() {
+    printRockPaperScissors()
+    guard let input = readLine() else { return print("게임 종료") }
+    guard let userNum = Int(input) else { return print("게임 종료") }
+    
+    if 0 > userNum || userNum > 3 {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+    else if userNum == 0 {
+        return print("게임 종료")
+    }
+    else {
+        judgmentWinDrawLose(computer: isChoiceCom(), user: userNum)
+    }
+    
+    return inputRockPaperScissors()
+}
+
+inputRockPaperScissors()
