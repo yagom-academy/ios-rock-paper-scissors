@@ -51,9 +51,9 @@ func judgmentWinDrawLose (computer : Int, user : Int) -> Int {
  code by kkomal
  */
 @discardableResult
-func isChoiceCom() -> Int {
-    let comNum = arc4random_uniform(3) + 1
-    return Int(comNum)
+func isChoiceComputer() -> Int {
+    let computerNum = Int.random(in: 1...3)
+    return computerNum
 }
 
 /*
@@ -73,7 +73,7 @@ func inputRockPaperScissors() {
         return print("게임 종료")
     }
     else {
-        judgmentWinDrawLose(computer: isChoiceCom(), user: userNum)
+        judgmentWinDrawLose(computer: isChoiceComputer(), user: userNum)
     }
     
     return inputRockPaperScissors()
