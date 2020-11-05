@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4176B04F2552DB3000AD16B9 /* RockScissorsPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4176B04E2552DB3000AD16B9 /* RockScissorsPaper.swift */; };
 		41EBB1572552FC5400E8EB1C /* MukChiBa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EBB1562552FC5400E8EB1C /* MukChiBa.swift */; };
+		B4DDD9F82553BCF8009C6DA7 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DDD9F72553BCF8009C6DA7 /* Utility.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		4176B04E2552DB3000AD16B9 /* RockScissorsPaper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RockScissorsPaper.swift; sourceTree = "<group>"; };
 		41EBB1562552FC5400E8EB1C /* MukChiBa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukChiBa.swift; sourceTree = "<group>"; };
+		B4DDD9F72553BCF8009C6DA7 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,6 +66,7 @@
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				4176B04E2552DB3000AD16B9 /* RockScissorsPaper.swift */,
 				41EBB1562552FC5400E8EB1C /* MukChiBa.swift */,
+				B4DDD9F72553BCF8009C6DA7 /* Utility.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4DDD9F82553BCF8009C6DA7 /* Utility.swift in Sources */,
 				4176B04F2552DB3000AD16B9 /* RockScissorsPaper.swift in Sources */,
 				41EBB1572552FC5400E8EB1C /* MukChiBa.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
