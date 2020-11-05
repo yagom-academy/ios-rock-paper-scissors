@@ -11,22 +11,39 @@ var partnerCard = Card()
 var currentTurn = Turn.사용자
 
 // 가위바위보 게임
+
+func getUserInput()->Int{
+    let inputNum = Int(readLine()!) ?? -1
+    
+    guard inputNum != 0 else {
+        print("게임 종료")
+        return 0
+    }
+    
+    guard 0<inputNum,inputNum<=3 else{
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return -1
+    }
+    
+    return inputNum
+    
+}
+
 func playRoundOne(){
     while(true){
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator:"")
-        let myCardIdx = Int(readLine()!) ?? -1
         
-        guard myCardIdx != 0 else {
-            print("게임 종료")
-            return
-        }
+        let input = getUserInput()
         
-        if myCardIdx < 1 || myCardIdx > 3 {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+        switch input{
+        case -1:
             continue
+        case 0:
+           return
+        default:
+            myCard.cardIdx = input
         }
         
-        myCard.cardIdx = myCardIdx
         partnerCard.cardIdx = Int.random(in: 1...3)
         
         print(myCard.cardIdx, partnerCard.cardIdx)
@@ -49,40 +66,34 @@ func playRoundOne(){
 
 func playRoundTwo(){
     print("묵찌빠 게임 시작")
-  
+    
     while(true){
-        print("[\(currentTurn)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ",terminator:"")
+        print("[\(currentTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ",terminator:"")
         
-        let myCardIdx = Int(readLine()!) ?? -1
+        let input = getUserInput()
         
-        guard myCardIdx != 0 else {
-            print("게임 종료")
-            return
-        }
-        
-        if myCardIdx < 1 || myCardIdx > 3 {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+        switch input{
+        case -1:
             continue
+        case 0:
+            exit(0)
+        default:
+            myCard.cardIdx = input
         }
         
-        myCard.cardIdx = myCardIdx
         partnerCard.cardIdx = Int.random(in: 1...3)
         
         print(myCard.cardIdx, partnerCard.cardIdx)
         
         if myCard.cardIdx != partnerCard.cardIdx{
-            if myCard.playGame(partnerCard.cardIdx,myCard.cardIdx){
-                currentTurn = Turn.사용자
-            }else{
-                currentTurn = Turn.컴퓨터
-            }
+            currentTurn = myCard.playGame(partnerCard.cardIdx, myCard.cardIdx) ? Turn.사용자 : Turn.컴퓨터
         }else{
             print("\(currentTurn)의 승리!")
             return
         }
     }
 }
-//
+
 playRoundOne()
 
 
