@@ -79,7 +79,8 @@ func inputRockPaperScissors() {
  */
 func RockPaperScissorsGame() {
     printRockPaperScissors()
-    userNum : Int = verifyInput(userInput : inputRockPaperScissors())
+    var userNum : Int = 0
+    userNum = verifyInput(userInput: inputRockPaperScissors())
     switch userNum {
     case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -87,7 +88,11 @@ func RockPaperScissorsGame() {
     case 0 : // 사용자 입력이 0인 경우
         return print("게임 종료")
     default : // 사용자 입력이 1,2,3 중에 하나인 경우
-        judgmentWinDrawLose(computer: isChoiceComputer(), user: userNum)
+        var resultString : String = ""
+        resultString = judgmentWinDrawLose(computer: createComputerRockPaperScissors(), user: userNum)
+        if resultString == "비겼습니다!" {
+            return RockPaperScissorsGame()
+        }
     }
 }
 
