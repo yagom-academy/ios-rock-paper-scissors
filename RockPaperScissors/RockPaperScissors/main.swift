@@ -39,8 +39,10 @@ func rockPaperScissors() {
         rockPaperScissors()
     case "userWin":
         print("이겼습니다!")
+        mukzzipa(userPick, computerPick)
     default:
         print("졌습니다!")
+        mukzzipa(userPick, computerPick)
     }
 }
 
@@ -68,8 +70,13 @@ func mukzzipa(_ userPicked: Int, _ computerPicked: Int) {
         mukzzipaUserPick = Int(mukzzipaInput)!
     default :
         print("잘못된 입력값입니다. 다시 시도해주세요.")
-        mukzzipa(computerPicked, userPicked)
-        // 승패가 바뀌는 것과 같으니 입력값을 서로 바꿔준다.
+        if matchResult(userPicked, computerPicked) == "userWin" {
+            mukzzipa(computerPicked, userPicked)
+            // 턴이 바뀌어야하니 입력값을 서로 바꿔준다.
+        } else {
+            mukzzipa(userPicked, computerPicked)
+            // 컴퓨터 턴일 때 잘못입력할 경우, 턴이 유지 되어야 한다.
+        }
     }
     
     switch matchResult(mukzzipaUserPick, mukzzipaComputerPick) {
@@ -90,3 +97,5 @@ func mukzzipa(_ userPicked: Int, _ computerPicked: Int) {
     }
 }
 
+rockPaperScissors()
+ 
