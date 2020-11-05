@@ -20,21 +20,23 @@ func printRockPaperScissors() {
  즉, 0이나 4이상의 숫자에 대한 예외처리는 입력 받을 때 처리 되어야할 것 같다.
  code by jake
  */
-func judgmentWinDrawLose(computer : Int, user : Int) {
+func judgmentWinDrawLose(computer : Int, user : Int) -> String {
+    var result : String = ""
     switch computer {
     case 1 : // computer 가위인 경우
-        if user == 1 { print("비겼습니다!") }
-        else if user == 2 { print("이겼습니다!") }
-        else { print("졌습니다!") }
+        if user == 1 { print("비겼습니다!"); result = "비겼습니다!" }
+        else if user == 2 { print("이겼습니다!"); result = "이겼습니다!" }
+        else { print("졌습니다!"); result = "졌습니다!" }
     case 2 : // computer 바위인 경우
-        if user == 1 { print("졌습니다!") }
-        else if user == 2 { print("비겼습니다!") }
-        else { print("이겼습니다!") }
+        if user == 1 { print("졌습니다!"); result = "졌습니다!" }
+        else if user == 2 { print("비겼습니다!"); result = "비겼습니다!" }
+        else { print("이겼습니다!"); result = "이겼습니다!" }
     default : // computer 보인 경우
-        if user == 1 { print("이겼습니다!") }
-        else if user == 2 { print("졌습니다!") }
-        else { print("비겼습니다!") }
+        if user == 1 { print("이겼습니다!"); result = "이겼습니다!" }
+        else if user == 2 { print("졌습니다!"); result = "졌습니다!" }
+        else { print("비겼습니다!"); result = "비겼습니다!" }
     }
+    return result
 }
 
 /*
