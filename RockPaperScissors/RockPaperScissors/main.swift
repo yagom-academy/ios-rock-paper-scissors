@@ -75,10 +75,22 @@ func gameScissorRockPaper(user: Int, computer: Int) -> Int {
     return result
 }
 
+func convertHand(_ origin: Int) -> Int {
+    switch origin {
+    case 1:
+        return 2
+    case 2:
+        return 1
+    case 3:
+        return 3
+    default:
+        return 0
+    }
+}
+
 /*
  * step 1
  */
-
 // 게임 종료
 var exit = false
 
@@ -108,7 +120,10 @@ while !exit {
             continue
         }
         
-        // 이기거나 진 경우는 묵찌빠로 넘어감
+        // 이기거나 진 경우는 묵찌빠로 넘어감 -> step1, step2에서 숫자가 의미하는 손 상태가 다르므로 변환 필요
+        userHand = convertHand(userHand)
+        computerHand = convertHand(computerHand)
+        
         break
     }
     // 잘못된 입력
@@ -118,6 +133,9 @@ while !exit {
 }
 
 
-if !exit {
+/*
+ * step 2
+ */
+while !exit {
     
 }
