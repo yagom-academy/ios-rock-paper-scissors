@@ -1,5 +1,5 @@
-func mukChiBa(winner: state) {
-    var result: state = winner
+func mukChiBa(winner: State) {
+    var result: State = winner
     
     while true {
         var winnerName: String = ""
