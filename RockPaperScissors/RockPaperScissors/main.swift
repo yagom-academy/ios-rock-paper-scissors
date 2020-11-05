@@ -72,3 +72,4 @@ func inputRockPaperScissors() {
 }
 
 inputRockPaperScissors()
+
