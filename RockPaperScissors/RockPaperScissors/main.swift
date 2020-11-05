@@ -76,3 +76,44 @@ func rockScissorPaperGame() -> Int {
     return condition
 }
 
+func mukchiba() {
+    // winner에 승리자가 player이면 1, computer이면 2
+    var winner: Int = rockScissorPaperGame()
+    var condition: Int = 3 // rspWinnerChecker에서 받아오는 값
+    
+    while true {
+        if winner == 1 { print("[사용자 턴] ", terminator: "") }
+        else { print("[컴퓨터 턴] ", terminator: "") }
+        print("묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
+        
+        guard let input = readLine() else { return }
+        
+        switch input {
+        case "0":
+            print("게임 종료")
+            break
+        case "1":
+            condition = mcbWinnerChecker(1)
+        case "2":
+            condition = mcbWinnerChecker(2)
+        case "3":
+            condition = mcbWinnerChecker(3)
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        }
+        
+        switch condition {
+        case 0:
+            if winner == 1 { print("사용자의 ", terminator: "") }
+            else { print("컴퓨터의 ", terminator: "") }
+            print("승리!")
+            return
+        case 1:
+            winner = 1
+        default:
+            winner = 2
+        }
+    }
+}
+
+mukchiba()
