@@ -73,3 +73,7 @@ func inputRockPaperScissors() {
 
 inputRockPaperScissors()
 
+
+
+
+//꼬말
