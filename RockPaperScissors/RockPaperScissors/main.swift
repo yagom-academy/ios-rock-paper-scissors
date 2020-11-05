@@ -9,7 +9,13 @@ import Foundation
 // step 1의 고정 출력문
 let order = "가위(1), 바위(2), 보(3)! <종료: 0> : "
 // step 2의 고정 출력문
-let orderRPS = ""
+let orderRPS = "묵(1), 찌(2), 빠(3)! <종료: 0> : "
+
+let userString = "[사용자 턴] "
+let computerString = "[컴퓨터 턴] "
+
+let userWin = "사용자의 승리!"
+let computerWin = "컴퓨터의 승리!"
 
 let errorInput = "잘못된 입력입니다. 다시 시도해주세요."
 
@@ -22,8 +28,8 @@ var computerHand: Int
 // 사용자의 손 상태
 var userHand: Int
 
-// 묵찌빠 턴 (1: 사용자, -1: 컴퓨터)
-var gameTurn: Int
+// 묵찌빠 턴 (1: 사용자, -1: 컴퓨터, 0: 불가)
+var gameTurn = 0
 
 /*
  * 가위바위보 (step1) 게임 함수
@@ -89,6 +95,39 @@ func convertHand(_ origin: Int) -> Int {
 }
 
 /*
+ * 묵찌빠 (step2) 게임 함수
+ * return 0 -> 패가 같음
+ * return 1 -> 사용자 턴
+ * return -1 -> 컴퓨터 턴
+ */
+func gameRockPaperScissor(user: Int, computer: Int) -> Int {
+    // 패가 같음 -> 현재 턴인 사람이 승리
+    if user == computer {
+        return 0
+    }
+    
+    switch user {
+    case 1:
+        if computer == 3 {
+            return -1
+        }
+        return 1
+    case 2:
+        if computer == 1 {
+            return -1
+        }
+        return 1
+    case 3:
+        if computer == 2 {
+            return -1
+        }
+        return 1
+    default:
+        return 0
+    }
+}
+
+/*
  * step 1
  */
 // 게임 종료
@@ -137,5 +176,40 @@ while !exit {
  * step 2
  */
 while !exit {
+    print((gameTurn == 1 ? userString : computerString) + orderRPS)
     
+    guard let input = readLine() else {
+        exit = true
+        break
+    }
+    
+    if let number = Int(input),
+       number >= 0 && number <= 3 {
+        // 게임 종료
+        if number == 0 {
+            exit = true
+            break
+        }
+        
+        userHand = number
+        computerHand = Int.random(in: 1...3)
+        
+        // 묵찌빠 결과
+        let result = gameRockPaperScissor(user: userHand, computer: computerHand)
+        // 패가 동일하다면 턴이 이김
+        if result == 0 {
+            // 사용자 턴이라면 사용자가 승리
+            gameTurn > 0 ? print(userWin) : print(computerWin)
+            exit = true
+            break
+        }
+        
+        gameTurn = result
+    }
+    // 잘못된 입력
+    else {
+        // 컴퓨터한테 턴이 넘어감
+        gameTurn = -1
+        print(errorInput)
+    }
 }
