@@ -45,7 +45,7 @@ func judgmentWinDrawLose(computer : Int, user : Int) -> String {
  code by kkomal
  */
 func createComputerRockPaperScissors() -> Int {
-    let computerNumber = Int.random(in: 1...3)
+    let computerNumber = Int.random(in : 1...3)
     return computerNumber
 }
 
@@ -79,7 +79,7 @@ func verifyInput(userInput : String) -> Int {
 func startRockPaperScissors() {
     printRockPaperScissors()
     var userNumber : Int = 0
-    userNumber = verifyInput(userInput: inputRockPaperScissors())
+    userNumber = verifyInput(userInput : inputRockPaperScissors())
     switch userNumber {
     case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -88,9 +88,13 @@ func startRockPaperScissors() {
         return print("게임 종료")
     default : // 사용자 입력이 1,2,3 중에 하나인 경우
         var result : String = ""
-        result = judgmentWinDrawLose(computer: createComputerRockPaperScissors(), user: userNumber)
+        result = judgmentWinDrawLose(computer : createComputerRockPaperScissors(), user : userNumber)
         if result == "비겼습니다!" {
             return startRockPaperScissors()
+        } else if result == "이겼습니다!" {
+            startMukChiPa(rockPaperScissorsWinner : "사용자")
+        } else {
+            startMukChiPa(rockPaperScissorsWinner : "컴퓨터")
         }
     }
 }
@@ -100,8 +104,7 @@ func startRockPaperScissors() {
  code by kkomal
  */
 func printMukChiPa(whoseTurn : String) {
-    //whoseTurn의 공격
-    print("[\(whoseTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0> : ", terminator:"")
+    print("[\(whoseTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0> : ", terminator:"") //whoseTurn의 공격
 }
 
 /*
@@ -121,6 +124,7 @@ func printMukChiPaResult(_ judgement : String) {
 
 /*
  묵찌빠 결과 비교하는 함수
+ code by jake
  */
 func judgementMukChiPaWinLose(computer : Int, user : Int, turn : String) -> String {
     var result : String = ""
@@ -143,11 +147,12 @@ func judgementMukChiPaWinLose(computer : Int, user : Int, turn : String) -> Stri
 
 /*
  묵 찌 빠 게임을 수행하는 함수
+ code by jake
  */
 func startMukChiPa(rockPaperScissorsWinner : String) {
     printMukChiPa(whoseTurn : rockPaperScissorsWinner) // 묵찌빠 출력해주는 함수
     var userNumber : Int = 0
-    userNumber = verifyInput(userInput: inputRockPaperScissors())
+    userNumber = verifyInput(userInput : inputRockPaperScissors())
     switch userNumber {
     case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우 -> 컴퓨터 턴으로 넘어감
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -156,13 +161,13 @@ func startMukChiPa(rockPaperScissorsWinner : String) {
         return print("게임 종료")
     default : // 사용자 입력이 1,2,3 중에 하나인 경우
         var judgment : String = ""
-        judgment = judgementMukChiPaWinLose(computer: createComputerRockPaperScissors(), user: userNumber, turn : rockPaperScissorsWinner)
+        judgment = judgementMukChiPaWinLose(computer : createComputerRockPaperScissors(), user : userNumber, turn : rockPaperScissorsWinner)
         if judgment == "사용자" { // 사용자가 이긴 경우
             printMukChiPaResult(judgment)
-            startMukChiPa(rockPaperScissorsWinner: judgment)
+            startMukChiPa(rockPaperScissorsWinner : judgment)
         } else if judgment == "컴퓨터" { // 컴퓨터가 이긴 경우
             printMukChiPaResult(judgment)
-            startMukChiPa(rockPaperScissorsWinner: judgment)
+            startMukChiPa(rockPaperScissorsWinner : judgment)
         } else {
             printMukChiPaResult(judgment)
         }
