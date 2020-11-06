@@ -15,8 +15,7 @@ enum Game {
         case .gawibawibo:
             return "가위(1), 바위(2), 보(3)! <종료 : 0> :"
         case .mukzzibba:
-            guard let winner = turn else { return "" }
-            return "[\(winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
+            return "[\(turn!) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
         }
     }
 }
