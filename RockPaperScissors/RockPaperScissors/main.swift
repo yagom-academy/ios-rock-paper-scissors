@@ -104,4 +104,20 @@ func printMukChiPa(whoseTurn : String) {
     print("[\(whoseTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0> : ", terminator:"")
 }
 
+/*
+ 결과를 출력하는 함수
+ code by kkomal
+ */
+func printMukChiPaResult(_ judgement : String) {
+//    var gameResult : String = ""
+    switch judgement {
+    case "사용자" : //사용자의 턴으로 넘어왔을 경우
+        return print("사용자의 턴입니다")
+    case "컴퓨터": //컴퓨터의 턴으로 넘어갔을 경우
+        return print("컴퓨터의 턴입니다")
+    default : //묵찌빠 게임이 종료 되었을 경우
+        return print(judgement)
+    }
+}
+
 startRockPaperScissors()
