@@ -54,14 +54,17 @@ func checkWhoIsWinner(_ playerHand: Hand, vs computerHand: Hand) {
 }
 
 // 컴퓨터의 패를 결정하고, 사용자의 패를 입력받은 후 비교하고 출력
-func playRockPaperSsissorsGame() -> Bool {
+func playRockPaperScissorsGame() -> Bool {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
     
     var player: Hand = .empty
-    guard let computer: Hand = Hand(rawValue: Int.random(in: 1...3)) else { return true }
+    guard let computer: Hand = Hand(rawValue: Int.random(in: 1...3)) else { 
+        playRockPaperScissorsGame()
+        return true // 1. 여기를 false로 해야하는 건지.. true로 해야하는 건지 모르겠어요
+    }
     guard let input = readLine() else {
         printInputErrorAndResartRPSGame()
-        return true
+        return true // 2. 여기랑
     }
     
     if input == "0" {
@@ -74,19 +77,20 @@ func playRockPaperSsissorsGame() -> Bool {
         }
     } else {
         printInputErrorAndResartRPSGame()
-        return true
+        return true // 3. 여기도요! 다시 palyRockPaperScissorGame을 부르면, 순환? 함수같은 느낌인데, 
+        // 마지막 true값이 다음 함수에 전달되는건지, 중간에 true가 전달되는건지 모르겠어요. 하지만 마지막 값이 전달된다고 생각하고 짰습니다!
     }
     
-    print("player: \(player) vs computer: \(computer)")
+    print("player: \(player) vs computer: \(computer)") // 값 확인용 출력, 삭제 예정
     checkWhoIsWinner(player, vs: computer)
     print(playerIs.rawValue)
     // 비긴 경우 새로 시작
-    if playerIs == .draw { playRockPaperSsissorsGame() }
+    if playerIs == .draw { playRockPaperScissorsGame() }
     return true
 }
 
 func palyMukchibaGame() {
-    if !playRockPaperSsissorsGame() { return }
+    if !playRockPaperScissorsGame() { return }
     var winnerIs: WinnerIs = .empty
     if playerIs == .win { winnerIs = .player }
     else if playerIs == .lose { winnerIs = .computer }
@@ -115,15 +119,15 @@ func palyMukchibaGame() {
             continue
         }
         
-        print("player: \(player) vs computer: \(computer)")
+        print("player: \(player) vs computer: \(computer)") // 값 확인용 출력, 삭제 예정
         checkWhoIsWinner(player, vs: computer)
         if playerIs == .draw {
             print("\(winnerIs.rawValue)의 승리!")
             break
         }
-        print("\(winnerIs.rawValue)턴 입니다.")
         if playerIs == .win { winnerIs = .player }
         else if playerIs == .lose { winnerIs = .computer }
+        print("\(winnerIs.rawValue)턴 입니다.")
     }
 }
 
