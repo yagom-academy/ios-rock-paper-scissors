@@ -6,6 +6,17 @@
 
 import Foundation
 
+enum PlayState {
+    case win
+    case lose
+}
+
+enum Hand: String {
+    case sisssors = "1"
+    case rock = "2"
+    case paper = "3"
+}
+
 // 가위(1), 바위(2), 보(3)
 // return 값: 비긴경우 0, 사람이 이긴경우 1, 컴퓨터가 이긴경우 2
 func rspWinnerChecker(_ player: Int) -> Int {
