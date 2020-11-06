@@ -27,7 +27,7 @@ struct MukChiBa {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
     
-    mutating func mukChiBaPlay(userRPSValue: RockPaperScissors) {
+    mutating func playMukChiBa(userRPSValue: RockPaperScissors) {
         let computerInputValue: Int = Int.random(in: 1...3)
         let computerRPSValue: RockPaperScissors = inputToRPS(userValue: computerInputValue)
 
