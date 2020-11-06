@@ -17,40 +17,6 @@ enum Hand: String {
     case paper = "3"
 }
 
-// 가위(1), 바위(2), 보(3)
-// return 값: 비긴경우 0, 사람이 이긴경우 1, 컴퓨터가 이긴경우 2
-func rspWinnerChecker(_ player: Int) -> Int {
-    let computer = Int.random(in: 1...3)
-    
-    // 비긴경우
-    if player == computer { return 0 }
-    // 사용자가 보 일때 판단
-    if player == 3 {
-        if computer == 2 { return 1 }
-        else { return 2 }
-    }
-    // 그 외
-    if (player - computer) == -1 { return 2 }
-    return 1
-}
-
-// 묵(1), 찌(2), 빠(3)
-// return 값: 비긴경우 0, 사람이 이긴경우 1, 컴퓨터가 이긴경우 2
-func mcbWinnerChecker(_ player: Int) -> Int {
-    let computer = Int.random(in: 1...3)
-    
-    // 비긴경우
-    if player == computer { return 0 }
-    // 사용자가 보 일때 판단
-    if player == 3 {
-        if computer == 1 { return 1 }
-        else { return 2 }
-    }
-    // 그 외
-    if (player - computer) == -1 { return 1 }
-    return 2
-}
-
 // return 값: 에러 -1, 사용자 승리 1, 컴퓨터 승리 2 -> 묵찌빠에서 사용하기 위해
 func rockScissorPaperGame() -> Int {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
