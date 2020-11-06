@@ -43,7 +43,7 @@ struct MukChiBa {
         }
     }
     
-    func isGameOver(_ gameState: GameState) -> Bool {
+    private func isGameOver(_ gameState: GameState) -> Bool {
         if gameState == .gameOver {
             return true
         } else {
