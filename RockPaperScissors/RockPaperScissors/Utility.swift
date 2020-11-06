@@ -11,3 +11,8 @@ enum RockPaperScissors: Int {
     case paper = 3
     case scissors = 1
 }
+
+enum GameState {
+    case gameOver
+    case gameIsNotOver
+}
