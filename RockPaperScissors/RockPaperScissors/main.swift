@@ -5,11 +5,29 @@
 //
 
 import Foundation
+/*
+ 가위바위보를 직관적으로 보이게 하기 위해 열거형 사용
+ code by kkomal
+ */
+enum RockPaperScissors : Int {
+    case Scissors = 1
+    case Rock = 2
+}
+
+/*
+ 묵찌빠를 직관적으로 보이게 하기 위해 열거형 사용
+ code by kkomal
+ */
+enum mukChiPa : Int {
+    case Muk = 1
+    case Chi = 2
+}
 
 /*
 게임 시작할 때 최초로 출력해주는 함수
 code by jake
 */
+
 func printRockPaperScissors() {
     print("가위(1).바위(2).보(3)! <종료 : 0> : ", terminator:"")
 }
@@ -20,20 +38,22 @@ func printRockPaperScissors() {
  즉, 0이나 4이상의 숫자에 대한 예외처리는 입력 받을 때 처리 되어야할 것 같다.
  code by jake
  */
-func judgmentWinDrawLose(computer : Int, user : Int) -> String {
-    var result : String = ""
-    switch computer {
-    case 1 : // computer 가위인 경우
-        if user == 1 { print("비겼습니다!"); result = "비겼습니다!" }
-        else if user == 2 { print("이겼습니다!"); result = "이겼습니다!" }
+func judgmentWinDrawLose(computerHand : Int, userHand : Int) -> String {
+    var result : String = "승패를 판단하지 못했습니다. 오류입니다."
+    let Scissors = RockPaperScissors.Scissors.rawValue
+    let Rock = RockPaperScissors.Rock.rawValue
+    switch computerHand {
+    case Scissors :
+        if userHand == Scissors { print("비겼습니다!"); result = "비겼습니다!" }
+        else if userHand == Rock { print("이겼습니다!"); result = "이겼습니다!" }
         else { print("졌습니다!"); result = "졌습니다!" }
-    case 2 : // computer 바위인 경우
-        if user == 1 { print("졌습니다!"); result = "졌습니다!" }
-        else if user == 2 { print("비겼습니다!"); result = "비겼습니다!" }
+    case Rock :
+        if userHand == Scissors { print("졌습니다!"); result = "졌습니다!" }
+        else if userHand == Rock { print("비겼습니다!"); result = "비겼습니다!" }
         else { print("이겼습니다!"); result = "이겼습니다!" }
-    default : // computer 보인 경우
-        if user == 1 { print("이겼습니다!"); result = "이겼습니다!" }
-        else if user == 2 { print("졌습니다!"); result = "졌습니다!" }
+    default :
+        if userHand == Scissors { print("이겼습니다!"); result = "이겼습니다!" }
+        else if userHand == Rock { print("졌습니다!"); result = "졌습니다!" }
         else { print("비겼습니다!"); result = "비겼습니다!" }
     }
     return result
@@ -78,8 +98,9 @@ func verifyInput(userInput : String) -> Int {
  */
 func startRockPaperScissors() {
     printRockPaperScissors()
-    var userNumber : Int = 0
-    userNumber = verifyInput(userInput : inputRockPaperScissors())
+    var number : Int?
+    number = verifyInput(userInput : inputRockPaperScissors())
+    guard let userNumber = number else { print("검증하지 못한 입력 값 이라서 종료됩니다."); return }
     switch userNumber {
     case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -87,8 +108,8 @@ func startRockPaperScissors() {
     case 0 : // 사용자 입력이 0인 경우
         return print("게임 종료")
     default : // 사용자 입력이 1,2,3 중에 하나인 경우
-        var result : String = ""
-        result = judgmentWinDrawLose(computer : createComputerRockPaperScissors(), user : userNumber)
+        var result : String = "가위 바위 보 승패를 판단하지 못했습니다. 오류입니다."
+        result = judgmentWinDrawLose(computerHand : createComputerRockPaperScissors(), userHand : userNumber)
         if result == "비겼습니다!" {
             return startRockPaperScissors()
         } else if result == "이겼습니다!" {
@@ -108,17 +129,23 @@ func printMukChiPa(whoseTurn : String) {
 }
 
 /*
- 결과를 출력하는 함수
+ 묵찌빠 비교 결과 승리자를 출력하는 함수
  code by kkomal
  */
-func printMukChiPaResult(_ judgement : String) {
+func printMukChiPaResult(by judgement : String) {
+    print(judgement)
+}
+
+/*
+ 묵찌빠 비교 결과 턴을 출력하는 함수
+ code by kkomal
+ */
+func printTurn(by judgement : String) {
     switch judgement {
-    case "사용자" : //사용자의 턴으로 넘어왔을 경우
-        return print("사용자의 턴입니다")
-    case "컴퓨터": //컴퓨터의 턴으로 넘어갔을 경우
-        return print("컴퓨터의 턴입니다")
-    default : //묵찌빠 게임이 종료 되었을 경우
-        return print(judgement)
+    case "사용자" : // 사용자의 턴으로 넘어왔을 경우
+        print("\(judgement)의 턴입니다")
+    default : // 컴퓨터의 턴으로 넘어갔을 경우
+        print("\(judgement)의 턴입니다")
     }
 }
 
@@ -126,20 +153,22 @@ func printMukChiPaResult(_ judgement : String) {
  묵찌빠 결과 비교하는 함수
  code by jake
  */
-func judgementMukChiPaWinLose(computer : Int, user : Int, turn : String) -> String {
-    var result : String = ""
-        switch computer {
-        case 1 : // computer 묵인 경우
-            if user == 1 { result = "\(turn)의 승리!" }
-            else if user == 2 { result = "컴퓨터" }
+func judgementMukChiPaWinLose(computerHand : Int, userHand : Int, turn : String) -> String {
+    var result : String = "승패를 구별하지 못했습니다. 오류입니다."
+    let Muk = mukChiPa.Muk.rawValue
+    let Chi = mukChiPa.Chi.rawValue
+        switch computerHand {
+        case Muk :
+            if userHand == Muk { result = "\(turn)의 승리!" }
+            else if userHand == Chi { result = "컴퓨터" }
             else { result = "사용자" }
-        case 2 : // computer 찌인 경우
-            if user == 1 { result = "사용자" }
-            else if user == 2 { result = "\(turn)의 승리!" }
+        case Chi :
+            if userHand == Muk { result = "사용자" }
+            else if userHand == Chi { result = "\(turn)의 승리!" }
             else { result = "컴퓨터" }
-        default : // computer 빠인 경우
-            if user == 1 { result = "사용자" }
-            else if user == 2 { result = "컴퓨터" }
+        default :
+            if userHand == Muk { result = "사용자" }
+            else if userHand == Chi { result = "컴퓨터" }
             else { result = "\(turn)의 승리!" }
         }
     return result
@@ -151,25 +180,26 @@ func judgementMukChiPaWinLose(computer : Int, user : Int, turn : String) -> Stri
  */
 func startMukChiPa(rockPaperScissorsWinner : String) {
     printMukChiPa(whoseTurn : rockPaperScissorsWinner) // 묵찌빠 출력해주는 함수
-    var userNumber : Int = 0
-    userNumber = verifyInput(userInput : inputRockPaperScissors())
-    switch userNumber {
+    var number : Int?
+    number = verifyInput(userInput : inputRockPaperScissors())
+    guard let userVerifiedInputNumber = number else { print("검증하지 못한 입력 값 이라서 종료됩니다."); return }
+    switch userVerifiedInputNumber {
     case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우 -> 컴퓨터 턴으로 넘어감
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startMukChiPa(rockPaperScissorsWinner : "컴퓨터")
     case 0 : // 사용자 입력이 0인 경우
         return print("게임 종료")
     default : // 사용자 입력이 1,2,3 중에 하나인 경우
-        var judgment : String = ""
-        judgment = judgementMukChiPaWinLose(computer : createComputerRockPaperScissors(), user : userNumber, turn : rockPaperScissorsWinner)
-        if judgment == "사용자" { // 사용자가 이긴 경우
-            printMukChiPaResult(judgment)
+        var judgment : String = "묵찌빠 승패를 판단하지 못했습니다. 오류입니다."
+        judgment = judgementMukChiPaWinLose(computerHand : createComputerRockPaperScissors(), userHand : userVerifiedInputNumber, turn : rockPaperScissorsWinner)
+        if judgment == "사용자" { // 묵찌빠 비교 결과 사용자의 턴인 경우
+            printTurn(by : judgment)
             startMukChiPa(rockPaperScissorsWinner : judgment)
-        } else if judgment == "컴퓨터" { // 컴퓨터가 이긴 경우
-            printMukChiPaResult(judgment)
+        } else if judgment == "컴퓨터" { // 묵찌빠 비교 결과 컴퓨터의 턴인 경우
+            printTurn(by : judgment)
             startMukChiPa(rockPaperScissorsWinner : judgment)
-        } else {
-            printMukChiPaResult(judgment)
+        } else { // 묵찌빠 비교 결과 승리자가 나온 경우
+            printMukChiPaResult(by : judgment)
         }
     }
 }
