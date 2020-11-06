@@ -109,7 +109,6 @@ func printMukChiPa(whoseTurn : String) {
  code by kkomal
  */
 func printMukChiPaResult(_ judgement : String) {
-//    var gameResult : String = ""
     switch judgement {
     case "사용자" : //사용자의 턴으로 넘어왔을 경우
         return print("사용자의 턴입니다")
@@ -119,5 +118,28 @@ func printMukChiPaResult(_ judgement : String) {
         return print(judgement)
     }
 }
+
+/*
+ 묵찌빠 결과 비교하는 함수
+ */
+func judgementMukChiPaWinLose(computer : Int, user : Int, turn : String) -> String {
+    var result : String = ""
+        switch computer {
+        case 1 : // computer 묵인 경우
+            if user == 1 { result = "\(turn)의 승리!" }
+            else if user == 2 { result = "컴퓨터" }
+            else { result = "사용자" }
+        case 2 : // computer 찌인 경우
+            if user == 1 { result = "사용자" }
+            else if user == 2 { result = "\(turn)의 승리!" }
+            else { result = "컴퓨터" }
+        default : // computer 빠인 경우
+            if user == 1 { result = "사용자" }
+            else if user == 2 { result = "컴퓨터" }
+            else { result = "\(turn)의 승리!" }
+        }
+    return result
+}
+
 
 startRockPaperScissors()
