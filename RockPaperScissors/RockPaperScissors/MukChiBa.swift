@@ -47,7 +47,7 @@ struct MukChiBa {
         }
     }
     
-    func inputToRPS(userValue: Int) -> RockPaperScissors {
+    private func inputToRPS(userValue: Int) -> RockPaperScissors {
         if userValue == 1 {
             return .scissors
         } else if userValue == 2 {
