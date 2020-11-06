@@ -1,8 +1,8 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
@@ -55,7 +55,7 @@ func createComputerRockPaperScissors() -> Int {
  */
 func inputRockPaperScissors() -> String {
     // 입력값이 nil이 되는 경우 종료시켜준다.
-    guard let input = readLine() else { print("입력값이 nil이라서 종료됩니다."); exit(0) }
+    guard let input = readLine() else { print("입력하지 않아서 종료합니다."); return "0" }
     return input
 }
 
@@ -76,29 +76,32 @@ func verifyInput(userInput : String) -> Int {
  가위 바위 보 게임을 수행하는 함수
  code by jake
  */
-func RockPaperScissorsGame() {
+func startRockPaperScissors() {
     printRockPaperScissors()
     var userNumber : Int = 0
     userNumber = verifyInput(userInput: inputRockPaperScissors())
     switch userNumber {
     case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        return RockPaperScissorsGame()
+        return startRockPaperScissors()
     case 0 : // 사용자 입력이 0인 경우
         return print("게임 종료")
     default : // 사용자 입력이 1,2,3 중에 하나인 경우
         var result : String = ""
         result = judgmentWinDrawLose(computer: createComputerRockPaperScissors(), user: userNumber)
         if result == "비겼습니다!" {
-            return RockPaperScissorsGame()
+            return startRockPaperScissors()
         }
     }
 }
 
 /*
- 메인 함수
+ 턴을 출력하는 함수
+ code by kkomal
  */
-func main(){
-    RockPaperScissorsGame()
+func printMukChiPa(whoseTurn : String) {
+    //whoseTurn의 공격
+    print("[\(whoseTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0> : ", terminator:"")
 }
-main()
+
+startRockPaperScissors()
