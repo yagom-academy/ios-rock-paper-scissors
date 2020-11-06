@@ -8,7 +8,7 @@
 import Foundation
 
 
-func rockScissorsPaper() -> GameResultState {
+func rockScissorsPaper() -> GameResult {
     while true {
         print("가위(1), 바위(2), 보(3)! <종료 0> : ", separator: "", terminator: "")
         // 입력 받기
@@ -37,15 +37,15 @@ func rockScissorsPaper() -> GameResultState {
             switch comRockPaperScissors {
             case .scissors: //컴퓨터가 가위를 냈을 때
                 if userRockPaperScissors == RockPaperScissors.scissors { print("비겼습니다!") }
-                else if userRockPaperScissors == RockPaperScissors.rock { print("이겼습니다!"); return GameResultState.win }
-                else if userRockPaperScissors == RockPaperScissors.paper { print("졌습니다!"); return GameResultState.lose }
+                else if userRockPaperScissors == RockPaperScissors.rock { print("이겼습니다!"); return GameResult.win }
+                else if userRockPaperScissors == RockPaperScissors.paper { print("졌습니다!"); return GameResult.lose }
             case .rock: //컴퓨터가 바위를 냈을 때
-                if userRockPaperScissors == RockPaperScissors.scissors { print("졌습니다!"); return GameResultState.lose }
+                if userRockPaperScissors == RockPaperScissors.scissors { print("졌습니다!"); return GameResult.lose }
                 else if userRockPaperScissors == RockPaperScissors.rock { print("비겼습니다!") }
-                else if userRockPaperScissors == RockPaperScissors.paper { print("이겼습니다!"); return GameResultState.win }
+                else if userRockPaperScissors == RockPaperScissors.paper { print("이겼습니다!"); return GameResult.win }
             case .paper: //컴퓨터가 보를 냈을 때
-                if userRockPaperScissors == RockPaperScissors.scissors { print("이겼습니다!"); return GameResultState.win }
-                else if userRockPaperScissors == RockPaperScissors.rock { print("졌습니다!"); return GameResultState.lose }
+                if userRockPaperScissors == RockPaperScissors.scissors { print("이겼습니다!"); return GameResult.win }
+                else if userRockPaperScissors == RockPaperScissors.rock { print("졌습니다!"); return GameResult.lose }
                 else if userRockPaperScissors == RockPaperScissors.paper { print("비겼습니다!") }
             }
         }
