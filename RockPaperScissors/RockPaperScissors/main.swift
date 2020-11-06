@@ -1,8 +1,8 @@
 let result = rockScissorsPaper()
 
 var mukChiBa: MukChiBa = MukChiBa(userWinningState: result)
-var gameResult: Bool = mukChiBa.gamePlay()
+var gameResult: Bool = mukChiBa.playGame()
 
 while !gameResult {
-    gameResult = mukChiBa.gamePlay()
+    gameResult = mukChiBa.playGame()
 }
