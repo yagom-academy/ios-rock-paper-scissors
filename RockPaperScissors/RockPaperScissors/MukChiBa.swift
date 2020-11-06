@@ -1,6 +1,6 @@
 struct MukChiBa {
     private var userWinningState: GameResult
-    private var gameState: GameState
+    private var gameState: GameStatus
     
     init(userWinningState: GameResult) {
         self.userWinningState = userWinningState
@@ -43,7 +43,7 @@ struct MukChiBa {
         }
     }
     
-    private func isGameOver(_ gameState: GameState) -> Bool {
+    private func isGameOver(_ gameState: GameStatus) -> Bool {
         if gameState == .gameOver {
             return true
         } else {
@@ -73,7 +73,7 @@ struct MukChiBa {
             case "1", "2", "3":
                 if let userRPSIntValue = Int(userInput) {
                     let userRPSValue = inputToRPS(userValue: userRPSIntValue)
-                    mukChiBaPlay(userRPSValue: userRPSValue)
+                    playMukChiBa(userRPSValue: userRPSValue)
                     return isGameOver(gameState)
                 }
             default:
