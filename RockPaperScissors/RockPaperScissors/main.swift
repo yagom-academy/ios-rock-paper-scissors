@@ -44,36 +44,36 @@ struct GamersStatus {
 }
 
 // 턴의 주체를 반환하는 것이 아닌, 턴의 주체를 분기 태워서 그에 해당하는 턴 String을 return합니다:) -> 묵찌빠 게임 시작시 [***턴] 묵(1), 찌(2)... 이떄 사용
-func turnMessage(currnetGameTurn: GameStatus) -> String {
+func turnMessage(currnetGameTurn: GameStatus) -> String? {
     switch currnetGameTurn {
     case .computer:
         return "[컴퓨터 턴] "
     case .user:
         return "[사용자 턴] "
     default:
-        return ""
+        return nil
     }
 }
 
-func winMessage(currnetGameTurn: GameStatus) -> String {
+func winMessage(currnetGameTurn: GameStatus) -> String? {
     switch currnetGameTurn {
     case .computer:
         return "컴퓨터의 승리!"
     case .user:
         return "사용자의 승리!"
     default:
-        return ""
+        return nil
     }
 }
 
-func nextTurnMessage(nextTurn: GameStatus) -> String {
+func nextTurnMessage(nextTurn: GameStatus) -> String? {
     switch nextTurn {
     case .computer:
         return "컴퓨터의 턴입니다"
     case .user:
         return "사용자의 턴입니다"
     default:
-        return ""
+        return nil
     }
 }
 
@@ -189,11 +189,12 @@ func gameRSP(gamersStatus: GamersStatus) -> GamersStatus? {
     var nextGamersStatus = gamersStatus
     while true {
         guard let order = gameStartString["RSP"],
-              let gameTurn = nextGamersStatus.gameTurn else {
+              let gameTurn = nextGamersStatus.gameTurn,
+              let turnMessageString = turnMessage(currnetGameTurn: gameTurn) else {
             print(ErrorMessage.errorSystem.rawValue)
             continue
         }
-        print(turnMessage(currnetGameTurn: gameTurn) + order)
+        print(turnMessageString + order)
         
         // 잘못된 입력이라면 메세지 출력 후 다시 입력 받기
         guard let input = readLine() else {
@@ -223,14 +224,24 @@ func gameRSP(gamersStatus: GamersStatus) -> GamersStatus? {
             let nextTurn = game(user: userHand, computer: computerHand)
             
             if nextTurn == .draw {
-                print(winMessage(currnetGameTurn: gameTurn))
-                
-                // 게임 종료
-                return nil
+                if let winMessageString = winMessage(currnetGameTurn: gameTurn) {
+                    print(winMessageString)
+                    return nil
+                }
+                else {
+                    print(ErrorMessage.errorSystem.rawValue)
+                    continue
+                }
             }
             
-            nextGamersStatus.gameTurn = nextTurn
-            print(nextTurnMessage(nextTurn: nextTurn))
+            if let nextTurnMessageString = nextTurnMessage(nextTurn: nextTurn) {
+                nextGamersStatus.gameTurn = nextTurn
+                print(nextTurnMessageString)
+            }
+            else {
+                print(ErrorMessage.errorSystem.rawValue)
+                continue
+            }
         }
         else {
             print(ErrorMessage.errorInput.rawValue)
