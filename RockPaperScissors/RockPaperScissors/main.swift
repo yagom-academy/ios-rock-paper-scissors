@@ -1,8 +1,8 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
@@ -45,7 +45,7 @@ func judgmentWinDrawLose(computer : Int, user : Int) -> String {
  code by kkomal
  */
 func createComputerRockPaperScissors() -> Int {
-    let computerNumber = Int.random(in: 1...3)
+    let computerNumber = Int.random(in : 1...3)
     return computerNumber
 }
 
@@ -55,7 +55,7 @@ func createComputerRockPaperScissors() -> Int {
  */
 func inputRockPaperScissors() -> String {
     // 입력값이 nil이 되는 경우 종료시켜준다.
-    guard let input = readLine() else { print("입력값이 nil이라서 종료됩니다."); exit(0) }
+    guard let input = readLine() else { print("입력하지 않아서 종료합니다."); return "0" }
     return input
 }
 
@@ -76,29 +76,102 @@ func verifyInput(userInput : String) -> Int {
  가위 바위 보 게임을 수행하는 함수
  code by jake
  */
-func RockPaperScissorsGame() {
+func startRockPaperScissors() {
     printRockPaperScissors()
     var userNumber : Int = 0
-    userNumber = verifyInput(userInput: inputRockPaperScissors())
+    userNumber = verifyInput(userInput : inputRockPaperScissors())
     switch userNumber {
     case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        return RockPaperScissorsGame()
+        return startRockPaperScissors()
     case 0 : // 사용자 입력이 0인 경우
         return print("게임 종료")
     default : // 사용자 입력이 1,2,3 중에 하나인 경우
         var result : String = ""
-        result = judgmentWinDrawLose(computer: createComputerRockPaperScissors(), user: userNumber)
+        result = judgmentWinDrawLose(computer : createComputerRockPaperScissors(), user : userNumber)
         if result == "비겼습니다!" {
-            return RockPaperScissorsGame()
+            return startRockPaperScissors()
+        } else if result == "이겼습니다!" {
+            startMukChiPa(rockPaperScissorsWinner : "사용자")
+        } else {
+            startMukChiPa(rockPaperScissorsWinner : "컴퓨터")
         }
     }
 }
 
 /*
- 메인 함수
+ 턴을 출력하는 함수
+ code by kkomal
  */
-func main(){
-    RockPaperScissorsGame()
+func printMukChiPa(whoseTurn : String) {
+    print("[\(whoseTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0> : ", terminator:"") //whoseTurn의 공격
 }
-main()
+
+/*
+ 결과를 출력하는 함수
+ code by kkomal
+ */
+func printMukChiPaResult(_ judgement : String) {
+    switch judgement {
+    case "사용자" : //사용자의 턴으로 넘어왔을 경우
+        return print("사용자의 턴입니다")
+    case "컴퓨터": //컴퓨터의 턴으로 넘어갔을 경우
+        return print("컴퓨터의 턴입니다")
+    default : //묵찌빠 게임이 종료 되었을 경우
+        return print(judgement)
+    }
+}
+
+/*
+ 묵찌빠 결과 비교하는 함수
+ code by jake
+ */
+func judgementMukChiPaWinLose(computer : Int, user : Int, turn : String) -> String {
+    var result : String = ""
+        switch computer {
+        case 1 : // computer 묵인 경우
+            if user == 1 { result = "\(turn)의 승리!" }
+            else if user == 2 { result = "컴퓨터" }
+            else { result = "사용자" }
+        case 2 : // computer 찌인 경우
+            if user == 1 { result = "사용자" }
+            else if user == 2 { result = "\(turn)의 승리!" }
+            else { result = "컴퓨터" }
+        default : // computer 빠인 경우
+            if user == 1 { result = "사용자" }
+            else if user == 2 { result = "컴퓨터" }
+            else { result = "\(turn)의 승리!" }
+        }
+    return result
+}
+
+/*
+ 묵 찌 빠 게임을 수행하는 함수
+ code by jake
+ */
+func startMukChiPa(rockPaperScissorsWinner : String) {
+    printMukChiPa(whoseTurn : rockPaperScissorsWinner) // 묵찌빠 출력해주는 함수
+    var userNumber : Int = 0
+    userNumber = verifyInput(userInput : inputRockPaperScissors())
+    switch userNumber {
+    case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우 -> 컴퓨터 턴으로 넘어감
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        startMukChiPa(rockPaperScissorsWinner : "컴퓨터")
+    case 0 : // 사용자 입력이 0인 경우
+        return print("게임 종료")
+    default : // 사용자 입력이 1,2,3 중에 하나인 경우
+        var judgment : String = ""
+        judgment = judgementMukChiPaWinLose(computer : createComputerRockPaperScissors(), user : userNumber, turn : rockPaperScissorsWinner)
+        if judgment == "사용자" { // 사용자가 이긴 경우
+            printMukChiPaResult(judgment)
+            startMukChiPa(rockPaperScissorsWinner : judgment)
+        } else if judgment == "컴퓨터" { // 컴퓨터가 이긴 경우
+            printMukChiPaResult(judgment)
+            startMukChiPa(rockPaperScissorsWinner : judgment)
+        } else {
+            printMukChiPaResult(judgment)
+        }
+    }
+}
+
+startRockPaperScissors()
