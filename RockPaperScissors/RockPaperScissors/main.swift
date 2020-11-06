@@ -14,13 +14,16 @@ let gameStartString: [String : String] = [
 
 // error 메시지
 enum ErrorMessage : String {
-    case errorSystem = "시스템 에러로 인해 다시 시도해주세요."
-    case errorInput = "잘못된 입력입니다. 다시 시도해주세요."
-    case exit = "게임을 종료합니다."
+    case system = "시스템 에러로 인해 다시 시도해주세요."
+    case input = "잘못된 입력입니다. 다시 시도해주세요."
 }
 
+// 종료 코드
+private let exitCode = 0
+let exitMessage = "게임을 종료합니다."
+
 // 손 상태
-enum HandStatus {
+enum HandState {
     case rock, scissor, paper
 }
 
@@ -32,23 +35,20 @@ enum GameStatus : String {
 }
 
 struct GamersStatus {
-    var computerHand: HandStatus?
-    var userHand: HandStatus?
+    var computerHand: HandState?
+    var userHand: HandState?
     var gameTurn: GameStatus?
     
-    init(computerHand: HandStatus?, userHand: HandStatus?, gameTurn: GameStatus?) {
+    init(computerHand: HandState?, userHand: HandState?, gameTurn: GameStatus?) {
         self.computerHand = computerHand
         self.userHand = userHand
         self.gameTurn = gameTurn
     }
 }
 
-// 종료 코드
-private let exitCode = 0
-
 // 턴의 주체를 반환하는 것이 아닌, 턴의 주체를 분기 태워서 그에 해당하는 턴 String을 return합니다:) -> 묵찌빠 게임 시작시 [***턴] 묵(1), 찌(2)... 이떄 사용
-func turnMessage(currnetGameTurn: GameStatus) -> String? {
-    switch currnetGameTurn {
+func turnMessage(currentGameTurn: GameStatus) -> String? {
+    switch currentGameTurn {
     case .computer:
         return "[컴퓨터 턴] "
     case .user:
@@ -58,8 +58,8 @@ func turnMessage(currnetGameTurn: GameStatus) -> String? {
     }
 }
 
-func winMessage(currnetGameTurn: GameStatus) -> String? {
-    switch currnetGameTurn {
+func winMessage(currentGameTurn: GameStatus) -> String? {
+    switch currentGameTurn {
     case .computer:
         return "컴퓨터의 승리!"
     case .user:
@@ -80,51 +80,51 @@ func nextTurnMessage(nextTurn: GameStatus) -> String? {
     }
 }
 
-func game(user: HandStatus, computer: HandStatus) -> GameStatus {
+func game(user: HandState, computer: HandState) -> GameStatus {
     if user == computer {
-        return GameStatus.draw
+        return .draw
     }
     
     switch user {
     case .rock:
         if computer == .paper {
-            return GameStatus.computer
+            return .computer
         }
-        return GameStatus.user
+        return .user
     case .scissor:
         if computer == .rock {
-            return GameStatus.computer
+            return .computer
         }
-        return GameStatus.user
+        return .user
     case .paper:
         if computer == .scissor {
-            return GameStatus.computer
+            return .computer
         }
-        return GameStatus.user
+        return .user
     }
 }
 
-func SRPNumberToHand(_ number: Int) -> HandStatus? {
+func SRPNumberToHand(_ number: Int) -> HandState? {
     switch number {
     case 1:
-        return HandStatus.scissor
+        return .scissor
     case 2:
-        return HandStatus.rock
+        return .rock
     case 3:
-        return HandStatus.paper
+        return .paper
     default:
         return nil
     }
 }
 
-func RSPNumberToHand(_ number: Int) -> HandStatus? {
+func RSPNumberToHand(_ number: Int) -> HandState? {
     switch number {
     case 1:
-        return HandStatus.rock
+        return .rock
     case 2:
-        return HandStatus.paper
+        return .paper
     case 3:
-        return HandStatus.scissor
+        return .scissor
     default:
         return nil
     }
@@ -135,14 +135,14 @@ func gameSRP(gamersStatus: GamersStatus) -> GamersStatus? {
     var nextGamersStatus = gamersStatus
     while true {
         guard let order = gameStartString["SRP"] else {
-            print(ErrorMessage.errorSystem.rawValue)
+            print(ErrorMessage.system.rawValue)
             continue
         }
         print(order)
         
         // 잘못된 입력이라면 메세지 출력 후 다시 입력 받기
         guard let input = readLine() else {
-            print(ErrorMessage.errorInput.rawValue)
+            print(ErrorMessage.input.rawValue)
             continue
         }
         
@@ -150,7 +150,7 @@ func gameSRP(gamersStatus: GamersStatus) -> GamersStatus? {
            number >= 0 && number <= 3 {
             // 게임 종료
             if number == exitCode {
-                print(ErrorMessage.exit.rawValue)
+                print(exitMessage)
                 return nil
             }
             
@@ -160,7 +160,7 @@ func gameSRP(gamersStatus: GamersStatus) -> GamersStatus? {
             guard let userHand = nextGamersStatus.userHand,
                   let computerHand = nextGamersStatus.computerHand else {
                 // fail convert handstatus
-                print(ErrorMessage.errorSystem.rawValue)
+                print(ErrorMessage.system.rawValue)
                 continue
             }
             nextGamersStatus.gameTurn = game(user: userHand, computer: computerHand)
@@ -181,7 +181,7 @@ func gameSRP(gamersStatus: GamersStatus) -> GamersStatus? {
             return nextGamersStatus
         }
         else {
-            print(ErrorMessage.errorInput.rawValue)
+            print(ErrorMessage.input.rawValue)
         }
     }
     
@@ -193,15 +193,15 @@ func gameRSP(gamersStatus: GamersStatus) -> GamersStatus? {
     while true {
         guard let order = gameStartString["RSP"],
               let gameTurn = nextGamersStatus.gameTurn,
-              let turnMessageString = turnMessage(currnetGameTurn: gameTurn) else {
-            print(ErrorMessage.errorSystem.rawValue)
+              let turnMessageString = turnMessage(currentGameTurn: gameTurn) else {
+            print(ErrorMessage.system.rawValue)
             continue
         }
         print(turnMessageString + order)
         
         // 잘못된 입력이라면 메세지 출력 후 다시 입력 받기
         guard let input = readLine() else {
-            print(ErrorMessage.errorInput.rawValue)
+            print(ErrorMessage.input.rawValue)
             continue
         }
         
@@ -209,7 +209,7 @@ func gameRSP(gamersStatus: GamersStatus) -> GamersStatus? {
            number >= 0 && number <= 3 {
             // 개임 종료
             if number == exitCode {
-                print(ErrorMessage.exit.rawValue)
+                print(exitMessage)
                 return nil
             }
             
@@ -220,19 +220,19 @@ func gameRSP(gamersStatus: GamersStatus) -> GamersStatus? {
                   let computerHand = nextGamersStatus.computerHand,
                   let gameTurn = nextGamersStatus.gameTurn else {
                 // fail convert handstatus or gameTurn
-                print(ErrorMessage.errorSystem.rawValue)
+                print(ErrorMessage.system.rawValue)
                 continue
             }
             
             let nextTurn = game(user: userHand, computer: computerHand)
             
             if nextTurn == .draw {
-                if let winMessageString = winMessage(currnetGameTurn: gameTurn) {
+                if let winMessageString = winMessage(currentGameTurn: gameTurn) {
                     print(winMessageString)
                     return nil
                 }
                 else {
-                    print(ErrorMessage.errorSystem.rawValue)
+                    print(ErrorMessage.system.rawValue)
                     continue
                 }
             }
@@ -242,12 +242,12 @@ func gameRSP(gamersStatus: GamersStatus) -> GamersStatus? {
                 print(nextTurnMessageString)
             }
             else {
-                print(ErrorMessage.errorSystem.rawValue)
+                print(ErrorMessage.system.rawValue)
                 continue
             }
         }
         else {
-            print(ErrorMessage.errorInput.rawValue)
+            print(ErrorMessage.input.rawValue)
             // 잘못된 입력일 경우 무조건 컴퓨터에게로 턴이 넘어감
             nextGamersStatus.gameTurn = GameStatus.computer
         }
