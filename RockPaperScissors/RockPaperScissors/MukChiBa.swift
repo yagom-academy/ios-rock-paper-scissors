@@ -1,8 +1,10 @@
 struct MukChiBa {
     private var userWinningState: GameResult
+    private var gameState: GameState
     
     init(userWinningState: GameResult) {
         self.userWinningState = userWinningState
+        self.gameState = .gameIsNotOver
     }
     
     func printWinnerTurn() {
@@ -21,21 +23,27 @@ struct MukChiBa {
         }
     }
     
-    mutating func mukChiBaPlay(userRPSValue: RockPaperScissors) -> Bool {
+    mutating func mukChiBaPlay(userRPSValue: RockPaperScissors) {
         let computerInputValue: Int = Int.random(in: 1...3)
         let computerRPSValue: RockPaperScissors = inputToRPS(userValue: computerInputValue)
 
         if userRPSValue == computerRPSValue {
             printWinnerResult()
-            return false
+            gameState = .gameOver
         } else if (userRPSValue == RockPaperScissors.rock && computerRPSValue == RockPaperScissors.scissors) || (userRPSValue == RockPaperScissors.scissors && computerRPSValue == RockPaperScissors.paper) || (userRPSValue == RockPaperScissors.paper && computerRPSValue == RockPaperScissors.rock) {
             userWinningState = .win
-            return true
+            gameState = .gameIsNotOver
         } else if (userRPSValue == RockPaperScissors.rock && computerRPSValue == RockPaperScissors.paper) || (userRPSValue == RockPaperScissors.scissors && computerRPSValue == RockPaperScissors.rock) || (userRPSValue == RockPaperScissors.paper && computerRPSValue == RockPaperScissors.scissors) {
             userWinningState = .lose
+            gameState = .gameIsNotOver
+        }
+    }
+    
+    func isGameOver(_ gameState: GameState) -> Bool {
+        if gameState == .gameOver {
             return true
         } else {
-            return true
+            return false
         }
     }
     
@@ -61,16 +69,17 @@ struct MukChiBa {
             case "1", "2", "3":
                 if let userRPSIntValue = Int(userInput) {
                     let userRPSValue = inputToRPS(userValue: userRPSIntValue)
-                    return mukChiBaPlay(userRPSValue: userRPSValue)
+                    mukChiBaPlay(userRPSValue: userRPSValue)
+                    return isGameOver(gameState)
                 }
             default:
                 userWinningState = .lose
                 print("잘못된 입력입니다. 다시 시도해주세요.")
-                return true
+                return isGameOver(gameState)
             }
         }
         
-        return true
+        return isGameOver(gameState)
     }
 }
 
