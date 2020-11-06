@@ -43,6 +43,9 @@ struct GamersStatus {
     }
 }
 
+// 종료 코드
+private let exitCode = 0
+
 // 턴의 주체를 반환하는 것이 아닌, 턴의 주체를 분기 태워서 그에 해당하는 턴 String을 return합니다:) -> 묵찌빠 게임 시작시 [***턴] 묵(1), 찌(2)... 이떄 사용
 func turnMessage(currnetGameTurn: GameStatus) -> String? {
     switch currnetGameTurn {
@@ -146,7 +149,7 @@ func gameSRP(gamersStatus: GamersStatus) -> GamersStatus? {
         if let number = Int(input),
            number >= 0 && number <= 3 {
             // 게임 종료
-            if number == 0 {
+            if number == exitCode {
                 print(ErrorMessage.exit.rawValue)
                 return nil
             }
@@ -205,7 +208,7 @@ func gameRSP(gamersStatus: GamersStatus) -> GamersStatus? {
         if let number = Int(input),
            number >= 0 && number <= 3 {
             // 개임 종료
-            if number == 0 {
+            if number == exitCode {
                 print(ErrorMessage.exit.rawValue)
                 return nil
             }
