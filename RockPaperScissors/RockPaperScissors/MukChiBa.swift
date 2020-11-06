@@ -59,7 +59,7 @@ struct MukChiBa {
         }
     }
     
-    mutating func gamePlay() -> Bool {
+    mutating func playGame() -> Bool {
         printWinnerTurn()
         if let userInput: String = readLine() {
             switch userInput {
