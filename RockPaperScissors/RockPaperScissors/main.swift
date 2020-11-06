@@ -104,7 +104,6 @@ func playRoundTwo() {
             playerCard.cardIdx = input
             computerCard.cardIdx = Int.random(in: 1...3)
         }
-        
         /// 랜덤값 뭐들어갔는지 확인용
 //        print(playerCard.cardIdx, computerCard.cardIdx)
         
@@ -120,6 +119,5 @@ func playRoundTwo() {
         }
     }
 }
-
 /// 가위바위보 실행
-playRoundOne()
+playRoundOne() 
