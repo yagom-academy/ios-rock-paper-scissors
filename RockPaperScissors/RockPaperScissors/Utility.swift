@@ -12,7 +12,7 @@ enum RockPaperScissors: Int {
     case scissors = 1
 }
 
-enum GameState {
+enum GameStatus {
     case gameOver
     case gameIsNotOver
 }
