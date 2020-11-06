@@ -21,20 +21,33 @@ struct MukChiBa {
         }
     }
     
-    mutating func mukChiBaPlay(userRPSValue: Int) -> Bool {
-        let computerRPSValue: Int = Int.random(in: 1...3)
+    mutating func mukChiBaPlay(userRPSValue: RockPaperScissors) -> Bool {
+        let computerInputValue: Int = Int.random(in: 1...3)
+        let computerRPSValue: RockPaperScissors = inputToRPS(userValue: computerInputValue)
 
         if userRPSValue == computerRPSValue {
             printWinnerResult()
             return false
-        } else if (userRPSValue == 1 && computerRPSValue == 2) || (userRPSValue == 2 && computerRPSValue == 3) || (userRPSValue == 3 && computerRPSValue == 1) {
+        } else if (userRPSValue == RockPaperScissors.rock && computerRPSValue == RockPaperScissors.scissors) || (userRPSValue == RockPaperScissors.scissors && computerRPSValue == RockPaperScissors.paper) || (userRPSValue == RockPaperScissors.paper && computerRPSValue == RockPaperScissors.rock) {
             userWinningState = .win
             return true
-        } else if (userRPSValue == 1 && computerRPSValue == 3) || (userRPSValue == 2 && computerRPSValue == 1) || (userRPSValue == 3 && computerRPSValue == 2) {
+        } else if (userRPSValue == RockPaperScissors.rock && computerRPSValue == RockPaperScissors.paper) || (userRPSValue == RockPaperScissors.scissors && computerRPSValue == RockPaperScissors.rock) || (userRPSValue == RockPaperScissors.paper && computerRPSValue == RockPaperScissors.scissors) {
             userWinningState = .lose
             return true
         } else {
             return true
+        }
+    }
+    
+    func inputToRPS(userValue: Int) -> RockPaperScissors {
+        if userValue == 1 {
+            return .scissors
+        } else if userValue == 2 {
+            return .rock
+        } else if userValue == 3 {
+            return .paper
+        } else {
+            return .scissors
         }
     }
     
@@ -46,8 +59,9 @@ struct MukChiBa {
                 print("게임 종료")
                 return false
             case "1", "2", "3":
-                if let userInputToInt = Int(userInput) {
-                    return mukChiBaPlay(userRPSValue: userInputToInt)
+                if let userRPSIntValue = Int(userInput) {
+                    let userRPSValue = inputToRPS(userValue: userRPSIntValue)
+                    return mukChiBaPlay(userRPSValue: userRPSValue)
                 }
             default:
                 userWinningState = .lose
@@ -59,3 +73,4 @@ struct MukChiBa {
         return true
     }
 }
+
