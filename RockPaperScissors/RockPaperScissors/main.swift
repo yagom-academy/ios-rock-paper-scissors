@@ -141,5 +141,32 @@ func judgementMukChiPaWinLose(computer : Int, user : Int, turn : String) -> Stri
     return result
 }
 
+/*
+ 묵 찌 빠 게임을 수행하는 함수
+ */
+func startMukChiPa(rockPaperScissorsWinner : String) {
+    printMukChiPa(whoseTurn : rockPaperScissorsWinner) // 묵찌빠 출력해주는 함수
+    var userNumber : Int = 0
+    userNumber = verifyInput(userInput: inputRockPaperScissors())
+    switch userNumber {
+    case -1 : // 사용자 입력이 0,1,2,3이 아닌 경우 -> 컴퓨터 턴으로 넘어감
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        startMukChiPa(rockPaperScissorsWinner : "컴퓨터")
+    case 0 : // 사용자 입력이 0인 경우
+        return print("게임 종료")
+    default : // 사용자 입력이 1,2,3 중에 하나인 경우
+        var judgment : String = ""
+        judgment = judgementMukChiPaWinLose(computer: createComputerRockPaperScissors(), user: userNumber, turn : rockPaperScissorsWinner)
+        if judgment == "사용자" { // 사용자가 이긴 경우
+            printMukChiPaResult(judgment)
+            startMukChiPa(rockPaperScissorsWinner: judgment)
+        } else if judgment == "컴퓨터" { // 컴퓨터가 이긴 경우
+            printMukChiPaResult(judgment)
+            startMukChiPa(rockPaperScissorsWinner: judgment)
+        } else {
+            printMukChiPaResult(judgment)
+        }
+    }
+}
 
 startRockPaperScissors()
