@@ -3,7 +3,6 @@
 //  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
 //
-
 import Foundation
 
 // 플레이어 승리 상태
@@ -34,7 +33,7 @@ var playerIs: PlayerIs = .draw
 // 입력 에러 출력 및 가위바위보 게임 재시작
 func printInputErrorAndResartRPSGame() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
-    playRockPaperSsissorsGame()
+    playRockPaperScissorsGame()
 }
 
 // 누가 이겼는지 확인
