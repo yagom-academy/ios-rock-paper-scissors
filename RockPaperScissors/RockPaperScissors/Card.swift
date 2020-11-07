@@ -22,12 +22,12 @@ struct Card {
     ///
     /// - Returns: True or False (해당 카드 객체의 승 또는 패)
     func didWin(against computerIdx: Int, on executedGame: GameName) -> Bool {
-        var myIdx = self.cardIdx - 1
-    
-    guard 0 <= myIdx, myIdx < winCases.count  else {
-        fatalError("입력된 값이 정확하지 않습니다.")
-    }
+        var myIdx = self.cardIdx
         var computerIdx = computerIdx
+        
+        guard 0 < myIdx, myIdx <= winCases.count  else {
+            fatalError("입력된 값이 정확하지 않습니다.")
+        }
         
         /// 묵찌빠 게임일 경우  swap 필요
         if executedGame == .묵찌빠 {
@@ -35,8 +35,8 @@ struct Card {
             myIdx = computerIdx
             computerIdx = temp
         }
-    
-        if winCases[myIdx] == computerIdx {
+        
+        if winCases[myIdx - 1] == computerIdx {
             return false
         } else {
             return true

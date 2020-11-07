@@ -13,7 +13,6 @@ private var currentTurn = Turn.사용자
 
 func makeAvailableValue(of playerInput: String?) -> Int {
     guard let rawInput = playerInput, let inputNumberized = Int(rawInput)  else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
         return -1
     }
     
@@ -37,6 +36,7 @@ func playRockScissorPaper() {
         /// 입력값 받는 함수의 return값에 따른 상황 처리
         switch input {
         case -1:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         case 0:
             return
@@ -44,7 +44,6 @@ func playRockScissorPaper() {
             playerCard.cardIdx = input
             computerCard.cardIdx = Int.random(in: 1...3)
         }
-        
         /// 승패가 결정되는 경우 (묵찌빠 게임으로 이동)
         if playerCard.cardIdx != computerCard.cardIdx {
             if playerCard.didWin(against: computerCard.cardIdx, on: .가위바위보) {
@@ -73,6 +72,7 @@ func playMukChiPpa() {
         /// 입력값 받는 함수의 return값에 따른 상황 처리
         switch input {
         case -1:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         case 0:
             return
@@ -80,7 +80,6 @@ func playMukChiPpa() {
             playerCard.cardIdx = input
             computerCard.cardIdx = Int.random(in: 1...3)
         }
-        
         if playerCard.cardIdx == computerCard.cardIdx {
             /// 패가 같은 경우 currentTurn이 이기고 게임종료
             print("\(currentTurn)의 승리!")
