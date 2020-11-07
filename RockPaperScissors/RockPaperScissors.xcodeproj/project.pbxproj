@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
+		D96481DD2556A57D00074EF6 /* GameName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96481DC2556A57D00074EF6 /* GameName.swift */; };
 		D979E7D62552685600C97469 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D979E7D52552685600C97469 /* Card.swift */; };
 		D97C89652553E51B00DEF3DD /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C89642553E51B00DEF3DD /* Turn.swift */; };
 /* End PBXBuildFile section */
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D96481DC2556A57D00074EF6 /* GameName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameName.swift; sourceTree = "<group>"; };
 		D979E7D52552685600C97469 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D97C89642553E51B00DEF3DD /* Turn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,6 +66,7 @@
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				D97C89642553E51B00DEF3DD /* Turn.swift */,
 				D979E7D52552685600C97469 /* Card.swift */,
+				D96481DC2556A57D00074EF6 /* GameName.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D96481DD2556A57D00074EF6 /* GameName.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				D97C89652553E51B00DEF3DD /* Turn.swift in Sources */,
 				D979E7D62552685600C97469 /* Card.swift in Sources */,

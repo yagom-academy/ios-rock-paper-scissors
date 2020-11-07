@@ -11,8 +11,7 @@ struct Card {
     /// 카드패
     var cardIdx: Int
     /// 승패결정확인용 배열
-    let checkWinOrLose = [2,3,1]
-
+    private let winCases = [2,3,1]
     
     init() {
         self.cardIdx = 0
@@ -23,22 +22,23 @@ struct Card {
     ///
     /// - Returns: True or False (해당 카드 객체의 승 또는 패)
     func didWin(against computerIdx: Int, on executedGame: GameName) -> Bool {
-        var myIdx = self.cardIdx
+        var myIdx = self.cardIdx - 1
+    
+    guard 0 <= myIdx, myIdx < winCases.count  else {
+        fatalError("입력된 값이 정확하지 않습니다.")
+    }
         var computerIdx = computerIdx
         
+        /// 묵찌빠 게임일 경우  swap 필요
         if executedGame == .묵찌빠 {
             let temp = myIdx
             myIdx = computerIdx
             computerIdx = temp
         }
     
-        guard 0 <= myIdx - 1, myIdx-1 < checkWinOrLose.count  else{
-            fatalError("입력된 값이 정확하지 않습니다.")
-        }
-        
-        if checkWinOrLose[myIdx - 1] == computerIdx {
+        if winCases[myIdx] == computerIdx {
             return false
-        }else{
+        } else {
             return true
         }
     }
