@@ -112,6 +112,5 @@ func playMukChiPa() {
         }
     }
 }
-
 /// 가위바위보 실행
 playRockPaperScissors() 

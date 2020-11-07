@@ -7,9 +7,10 @@
     objects = {
 
 /* Begin PBXBuildFile section */
-        C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
-        D979E7D62552685600C97469 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D979E7D52552685600C97469 /* Card.swift */; };
-        D97C89652553E51B00DEF3DD /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C89642553E51B00DEF3DD /* Turn.swift */; };
+		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
+		D979E7D62552685600C97469 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D979E7D52552685600C97469 /* Card.swift */; };
+		D97C89652553E51B00DEF3DD /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C89642553E51B00DEF3DD /* Turn.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,10 +26,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-        C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
-        C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-        D979E7D52552685600C97469 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-        D97C89642553E51B00DEF3DD /* Turn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
+		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D979E7D52552685600C97469 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		D97C89642553E51B00DEF3DD /* Turn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,32 +43,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-        C7ABA0D4254EA63000B2367D = {
-            isa = PBXGroup;
-            children = (
-                C7ABA0DF254EA63000B2367D /* RockPaperScissors */,
-                C7ABA0DE254EA63000B2367D /* Products */,
-            );
-            sourceTree = "<group>";
-        };
-        C7ABA0DE254EA63000B2367D /* Products */ = {
-            isa = PBXGroup;
-            children = (
-                C7ABA0DD254EA63000B2367D /* RockPaperScissors */,
-            );
-            name = Products;
-            sourceTree = "<group>";
-        };
-        C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
-            isa = PBXGroup;
-            children = (
-                C7ABA0E0254EA63000B2367D /* main.swift */,
-                D97C89642553E51B00DEF3DD /* Turn.swift */,
-                D979E7D52552685600C97469 /* Card.swift */,
-            );
-            path = RockPaperScissors;
-            sourceTree = "<group>";
-        };
+		C7ABA0D4254EA63000B2367D = {
+			isa = PBXGroup;
+			children = (
+				C7ABA0DF254EA63000B2367D /* RockPaperScissors */,
+				C7ABA0DE254EA63000B2367D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C7ABA0DE254EA63000B2367D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C7ABA0DD254EA63000B2367D /* RockPaperScissors */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
+			isa = PBXGroup;
+			children = (
+				C7ABA0E0254EA63000B2367D /* main.swift */,
+				D97C89642553E51B00DEF3DD /* Turn.swift */,
+				D979E7D52552685600C97469 /* Card.swift */,
+			);
+			path = RockPaperScissors;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -121,16 +122,16 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-        C7ABA0D9254EA63000B2367D /* Sources */ = {
-            isa = PBXSourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
-                D97C89652553E51B00DEF3DD /* Turn.swift in Sources */,
-                D979E7D62552685600C97469 /* Card.swift in Sources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		C7ABA0D9254EA63000B2367D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				D97C89652553E51B00DEF3DD /* Turn.swift in Sources */,
+				D979E7D62552685600C97469 /* Card.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
