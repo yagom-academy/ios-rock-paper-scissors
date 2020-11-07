@@ -11,43 +11,37 @@ struct Card {
     /// 카드패
     var cardIdx: Int
     /// 승패결정확인용 배열
-    let loseCases = [2,3,1]
+    private let winCases = [2,3,1]
     
     init() {
         self.cardIdx = 0
     }
     
-    /// 두개의 카드 패를 넣으면 승부를 판정
+    /// - Parameter computerIdx: 컴퓨터 카드패
+    /// - Parameter executedGame: 실행된 게임의 종류 (가위바위보 / 묵찌빠)
     ///
-    /// 해당 함수로 가위바위보 실행시, 호출한 구조체Card 본인의 입장에서 card1Idx에 본인의 idx, card2idx에 상대방의 idx를 넣으면 이겼을 때 true를 리턴, 졌을 때 false를 리턴한다.
-    /// 해당 함수로 묵찌빠 실행시, 호출한 구조체Card 본인의 입장에서 card1idx에 상대방의 idx, card2idx에 본인의 idx를 넣으면 이겼을 때 true를 리턴, 졌을 때 false를 리턴한다.
-    /// 가위바위보, 묵찌빠의 승패상관관계를 고려하여 하나의 게임실행함수로 만들고자 했고, 게임이 어떤 것이냐에 따라 파라미터가 (나의 idx, 상대방의 idx) 혹은 (상대방의 idx, 나의 idx) 가 들어갈 수 있기에 파라미터명은 card1idx, card2idx로 만들었다.
-    /// 승패를 확인하기 위해서 loseCases 배열을 사용하고 배열의 index와 card1idx을 매칭시키고, 배열의 value와 card2idx를 매칭시켜 승패상관관계를 확인한다.
-    ///
-    /// - Parameter card1Idx : 사용자 또는 컴퓨터 카드패 (가위바위보시, idx1은 사용자/묵찌빠시, idx1은 컴퓨터)
-    /// - Parameter card2Idx : 사용자 또는 컴퓨터 카드패 (가위바위보시, idx2은 컴퓨터/묵찌빠시, idx2은 사용자)
-    ///
-    /// - Returns: True or False (사용자 승 또는 사용자 패)
-    func isWin(card1Idx: Int, card2Idx: Int) -> Bool{
-        if card1Idx - 1 >= 0 && card1Idx - 1 < 3 && loseCases[card1Idx - 1] == card2Idx{
+    /// - Returns: True or False (해당 카드 객체의 승 또는 패)
+    func didWin(against computerIdx: Int, on executedGame: GameName) -> Bool {
+        var myIdx = self.cardIdx - 1
+    
+    guard 0 <= myIdx, myIdx < winCases.count  else {
+        fatalError("입력된 값이 정확하지 않습니다.")
+    }
+        var computerIdx = computerIdx
+        
+        /// 묵찌빠 게임일 경우  swap 필요
+        if executedGame == .묵찌빠 {
+            let temp = myIdx
+            myIdx = computerIdx
+            computerIdx = temp
+        }
+    
+        if winCases[myIdx] == computerIdx {
             return false
         } else {
             return true
         }
     }
-    /*
-     해당 함수로 가위바위보 실행시, 호출한 구조체Card 본인의 입장에서 idx1에 본인의 idx, idx2에 상대방의 idx를 넣으면
-     이겼을 때 true를 리턴, 졌을 때 false를 리턴한다.
-     
-     해당 함수로 묵찌빠 실행시, 호출한 구조체Card 본인의 입장에서 idx1에 상대방의 idx, idx2에 본인의 idx를 넣으면
-     이겼을 때 true를 리턴, 졌을 때 false를 리턴한다.
-     
-     가위바위보,묵찌빠의 승패상관관계를 고려하여 하나의 게임실행함수로 만들고자 했고,
-     게임이 어떤 것이냐에 따라 파라미터가 (나의 idx, 상대방의 idx) 혹은 (상대방의 idx, 나의 idx) 가 들어갈 수 있기에
-     파라미터명은 idx1,idx2로 만들었다.
-     
-     승패를 확인하기 위해서 winOrLose 배열을 사용하고 배열의 index와 idx1을 매칭시키고, 배열의 value와 idx2를 매칭시켜 승패상관관계를 확인한다.
-     */
 }
 
 
