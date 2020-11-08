@@ -37,3 +37,15 @@ enum result {
     case draw
     case exit
 }
+
+func compare(users: String, computer: String) {
+    if users == computer {
+        matchResult = .draw
+    } else if (users == "묵" && computer == "찌"), (users == "찌" && computer == "빠"), (users == "빠" && computer == "묵") {
+        matchResult = .userWin
+    } else if (users == "묵" && computer == "빠"), (users == "찌" && computer == "물"), (users == "빠" && computer == "찌") {
+        matchResult = .computerWin
+    } else if users == "종료" {
+        matchResult = .exit
+    }
+}
