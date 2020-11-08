@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		569558EF25580E46008DDDDF /* RockScissorsPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569558EE25580E46008DDDDF /* RockScissorsPaper.swift */; };
+		569558F125580E9C008DDDDF /* ScissorsRockPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569558F025580E9C008DDDDF /* ScissorsRockPaper.swift */; };
+		56F785C6255878E00097E091 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F785C5255878E00097E091 /* Types.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +26,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		569558EE25580E46008DDDDF /* RockScissorsPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorsPaper.swift; sourceTree = "<group>"; };
+		569558F025580E9C008DDDDF /* ScissorsRockPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScissorsRockPaper.swift; sourceTree = "<group>"; };
+		56F785C5255878E00097E091 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				569558F025580E9C008DDDDF /* ScissorsRockPaper.swift */,
+				569558EE25580E46008DDDDF /* RockScissorsPaper.swift */,
+				56F785C5255878E00097E091 /* Types.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -119,7 +128,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				569558EF25580E46008DDDDF /* RockScissorsPaper.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				569558F125580E9C008DDDDF /* ScissorsRockPaper.swift in Sources */,
+				56F785C6255878E00097E091 /* Types.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
