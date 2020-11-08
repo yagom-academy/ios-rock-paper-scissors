@@ -45,3 +45,15 @@ enum Hand {
         }
     }
 }
+
+let scissorsRockPaper = ScissorsRockPaper()
+
+
+
+while true {
+    scissorsRockPaper.progress()
+    
+    if scissorsRockPaper.gameStatus == .endGame{
+        break
+    }
+}

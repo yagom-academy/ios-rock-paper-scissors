@@ -12,8 +12,10 @@ import Foundation
 /// 가위 바위 보 클래스
 class ScissorsRockPaper {
     var gameStatus: ScissorsRockPaperStatus = .initializeGame
+    var gameResult: GameResult?
     var userHand: Hand?
     var computerHand: Hand?
+    
     
     enum ScissorsRockPaperStatus: Int {
         case initializeGame = 0
@@ -22,12 +24,16 @@ class ScissorsRockPaper {
         case decideResult
         case endGame
         
-        func nextStatus() -> ScissorsRockPaperStatus {
+        mutating func goToNextStatus() {
             guard let nextStatus = ScissorsRockPaperStatus(rawValue: self.rawValue + 1) else {
-                return self
+                return
             }
-            
-            return nextStatus
+         
+            self = nextStatus
+        }
+        
+        mutating func goTo(status: ScissorsRockPaperStatus) {
+            self = status
         }
     }
     
@@ -35,17 +41,24 @@ class ScissorsRockPaper {
         switch gameStatus {
         case .initializeGame:
             printGame()
-            nextStatus()
+            gameStatus.goToNextStatus()
             
         case .inputUser:
             inputUser()
-            nextStatus()
+            gameStatus.goToNextStatus()
             
         case .inputComputer:
             inputComputer()
-            nextStatus()
+            gameStatus.goToNextStatus()
             
         case .decideResult:
+            decideResult()
+            printGame()
+            if let gameResult = self.gameResult, gameResult == .draw {
+                gameStatus.goTo(status: .initializeGame)
+            } else {
+                gameStatus.goToNextStatus()
+            }
             break
             
         case .endGame:
@@ -58,7 +71,20 @@ class ScissorsRockPaper {
     func printGame() {
         switch gameStatus {
         case .initializeGame:
-            print("가위(1), 바위(2), 보(3)! <종료 : 0 > :")
+            print("가위(1), 바위(2), 보(3)! <종료 : 0 > : ", terminator: "")
+        case .decideResult:
+            guard let gameResult = self.gameResult else {
+                break
+            }
+            
+            switch gameResult {
+            case .draw:
+                print("비겼습니다!")
+            case .win:
+                print("이겼습니다!")
+            case .lose:
+                print("졌습니다!")
+            }
         case .endGame:
             print("게임 종료")
         default:
@@ -66,13 +92,6 @@ class ScissorsRockPaper {
         }
     }
     
-    func nextStatus() {
-        guard let nextStatus = ScissorsRockPaperStatus(rawValue: gameStatus.rawValue + 1) else {
-            return
-        }
-        
-        gameStatus = nextStatus
-    }
     
     func inputUser() {
         while true {
@@ -81,9 +100,9 @@ class ScissorsRockPaper {
                 continue
             }
             
-            // 0입력시 게임 종료
+            // 0입력시 바로 게임 종료
             guard inputNumber != 0 else {
-                gameStatus = .endGame
+                gameStatus.goTo(status: .endGame)
                 return
             }
             
@@ -102,8 +121,20 @@ class ScissorsRockPaper {
             return
         }
         
+        guard userHand != computerHand else {
+            gameResult = .draw
+            return
+        }
         
+        switch userHand {
+        case .scissors:
+            gameResult = (computerHand == .paper) ? .win : .lose
+        case .rock:
+            gameResult = (computerHand == .scissors) ? .win : .lose
+        case .paper:
+            gameResult = (computerHand == .rock) ? .win : .lose
+        }
         
-        
+        print("나:\(userHand) vs \(computerHand):컴퓨터")
     }
 }
