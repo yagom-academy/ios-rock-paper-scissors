@@ -23,6 +23,8 @@ class ScissorsRockPaper {
         case inputComputer
         case decideResult
         case endGame
+        case exitGame
+        
         
         mutating func goToNextStatus() {
             guard let nextStatus = GameStatus(rawValue: self.rawValue + 1) else {
@@ -44,9 +46,10 @@ class ScissorsRockPaper {
             gameStatus.goToNextStatus()
             
         case .inputUser:
-            inputUser()
-            gameStatus.goToNextStatus()
-            
+            if inputUser() == true {
+                gameStatus.goToNextStatus()
+            }
+        
         case .inputComputer:
             inputComputer()
             gameStatus.goToNextStatus()
@@ -59,9 +62,11 @@ class ScissorsRockPaper {
             } else {
                 gameStatus.goToNextStatus()
             }
-            break
             
         case .endGame:
+            break
+            
+        case .exitGame:
             break
         }
     }
@@ -70,6 +75,7 @@ class ScissorsRockPaper {
         switch gameStatus {
         case .initializeGame:
             print("가위(1), 바위(2), 보(3)! <종료 : 0 > : ", terminator: "")
+            
         case .decideResult:
             guard let gameResult = self.gameResult else {
                 break
@@ -83,30 +89,34 @@ class ScissorsRockPaper {
             case .lose:
                 print("졌습니다!")
             }
-        case .endGame:
+        case .exitGame:
             print("게임 종료")
+            
         default:
             break
         }
     }
     
-    
-    func inputUser() {
-        while true {
-            guard let input = readLine(), let inputNumber = Int(input),inputNumber >= 0, inputNumber <= 3 else {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-                continue
-            }
-            
-            // 0입력시 바로 게임 종료
-            guard inputNumber != 0 else {
-                gameStatus.goTo(status: .endGame)
-                return
-            }
-            
-            userHand = Hand.scissorsRockPaper(number: inputNumber)
-            return
+    /// 유저 입력
+    /// return: 잘못된 입력이면 false
+    func inputUser() -> Bool {
+        
+        guard let input = readLine(), let inputNumber = Int(input),inputNumber >= 0, inputNumber <= 3 else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            gameStatus.goTo(status: .initializeGame)
+            return false
         }
+      
+        // 0입력시 바로 게임 종료
+        guard inputNumber != 0 else {
+            gameStatus.goTo(status: .exitGame)
+            printGame()
+            return true
+        }
+        
+        userHand = Hand.scissorsRockPaper(number: inputNumber)
+        return true
+        
         
     }
     
