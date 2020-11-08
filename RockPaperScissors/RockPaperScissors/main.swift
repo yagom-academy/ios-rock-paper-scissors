@@ -104,11 +104,11 @@ func mukzzipaUsersTurn() {
     computerChoice()
 }
 
+// 컴퓨터의 턴에는 잘못 입력해도 턴이 바뀌면 안된다.
 func mukzzipaComputersTurn() {
     print("[컴퓨터 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     guard let input = readLine() else {
         print("잘못된 입력값입니다. 다시 시도해주세요.")
-        mukzzipaUsersTurn()
         return
     }
     
@@ -123,7 +123,7 @@ func mukzzipaComputersTurn() {
         userPick = "보"
     default :
         print("잘못된 입력값입니다. 다시 시도해주세요.")
-        mukzzipaUsersTurn()
+        mukzzipaComputersTurn()
     }
     
     computerChoice()
