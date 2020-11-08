@@ -1,10 +1,4 @@
-//
-//  RockPaperScissors - main.swift
-//  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
-// 
+let result = rockScissorsPaper()
 
-import Foundation
-
-print("Hello, World!")
-
+var mukChiBa: MukChiBa = MukChiBa(userWinningState: result)
+while !mukChiBa.playGame() {}
