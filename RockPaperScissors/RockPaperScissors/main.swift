@@ -1,3 +1,5 @@
+// STEP 1. 가위바위보
+
 var userPick: String = ""
 var computerPick: String = ""
 var matchResult: result = .draw
@@ -74,4 +76,56 @@ func rockScissorsPaper() {
     }
 }
 
-rockScissorsPaper()
+
+// STEP 2. 묵찌빠
+
+func mukzzipaUsersTurn() {
+    print("[사용자 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    guard let input = readLine() else {
+        print("잘못된 입력값입니다. 다시 시도해주세요.")
+        mukzzipaComputersTurn()
+        return
+    }
+    
+    switch input {
+    case "0":
+        userPick = "종료"
+    case "1":
+        userPick = "가위"
+    case "2":
+        userPick = "바위"
+    case "3":
+        userPick = "보"
+    default :
+        print("잘못된 입력값입니다. 다시 시도해주세요.")
+        mukzzipaComputersTurn()
+    }
+    
+    computerChoice()
+}
+
+func mukzzipaComputersTurn() {
+    print("[컴퓨터 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    guard let input = readLine() else {
+        print("잘못된 입력값입니다. 다시 시도해주세요.")
+        mukzzipaUsersTurn()
+        return
+    }
+    
+    switch input {
+    case "0":
+        userPick = "종료"
+    case "1":
+        userPick = "가위"
+    case "2":
+        userPick = "바위"
+    case "3":
+        userPick = "보"
+    default :
+        print("잘못된 입력값입니다. 다시 시도해주세요.")
+        mukzzipaUsersTurn()
+    }
+    
+    computerChoice()
+}
+
