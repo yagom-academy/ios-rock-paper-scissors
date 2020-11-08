@@ -10,42 +10,55 @@ enum Game {
     case gawibawibo
     case mukzzibba
     
-    func consoleMessage() -> String {
+    func consoleMessage(turn: inout Player?) -> String? {
         switch self {
         case .gawibawibo:
             return "가위(1), 바위(2), 보(3)! <종료 : 0> :"
         case .mukzzibba:
-            return "[\(turn!) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
+            assert(turn != nil, "승패가 갈렸을 때만 묵찌빠 게임 가능!")
+            guard let winner = turn else { return nil }
+            return "[\(winner.description()) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
         }
     }
 }
 
 enum Player: String {
     case computer
-    case user
-}
-
-func whosTurn(user: Int, computer: Int) {
-    switch computer {
-    case 1:
-        turn = user == 2 ? .user : .computer
-    case 2:
-        turn = user == 3 ? .user : .computer
-    case 3:
-        turn = user == 1 ? .user : .computer
-    default:
-        return
+    case user = "사용자"
+    
+    func description() -> String {
+        switch self {
+        case .computer:
+            return "컴퓨터"
+        case .user:
+            return "사용자"
+        }
     }
 }
 
-func gawibawibo(user: String, computer: String) {
-    guard let userNum = Int(user), let computerNum = Int(computer) else { return }
+func whosTurn(user: Int, computer: Int) -> Player? {
+    switch computer {
+    case 1:
+        return user == 2 ? .user : .computer
+    case 2:
+        return user == 3 ? .user : .computer
+    case 3:
+        return user == 1 ? .user : .computer
+    default:
+        return nil
+    }
+}
+
+func gawibawibo(userPick: String, computerPick: String, turn: inout Player?) {
+    guard let userNum = Int(userPick), let computerNum = Int(computerPick) else {
+        print("1, 2, 3 중에 하나를 입력해주세요.")
+        return
+    }
     
     if userNum == computerNum {
         print("비겼습니다!")
-    }
-    else {
-        whosTurn(user: userNum, computer: computerNum)
+    } else {
+        turn = whosTurn(user: userNum, computer: computerNum)
     }
     
     guard let winner = turn else { return }
@@ -56,47 +69,60 @@ func gawibawibo(user: String, computer: String) {
     }
 }
 
-func mukzzibba(user: String, computer: String) {
-    guard let userNum = Int(user), let computerNum = Int(computer) else { return }
+func mukzzibba(userPick: String, computerPick: String, turn: inout Player?) {
+    guard let userNum = Int(userPick), let computerNum = Int(computerPick) else {
+        print("유효한 입력이 아닙니다. 다시 시도해주세요.")
+        return
+    }
     
     if userNum == computerNum {
         guard let winner = turn else { return }
         print("\(winner.rawValue)의 승리!")
         flag = false
     } else {
-        whosTurn(user: userNum, computer: computerNum)
+        turn = whosTurn(user: userNum, computer: computerNum)
     
         guard let winner = turn else { return }
         print("\(winner.rawValue)의 턴입니다")
     }
 }
 
-var flag = true
-var mode: Game = .gawibawibo
-var turn: Player?
+private var flag = true
 
-while(flag) {
-    guard let computerPick = ["1", "2", "3"].randomElement() else { break }
-    
-    print(mode.consoleMessage(), terminator: " ")
-    guard let userPick = readLine() else { break }
-    
-    switch userPick {
-    case "0":
-        flag = false
-    case "1", "2", "3":
-        if mode == .gawibawibo {
-            gawibawibo(user: userPick, computer: computerPick)
-            guard let _ = turn else { continue }
-            mode = .mukzzibba
-        } else if mode == .mukzzibba {
-            mukzzibba(user: userPick, computer: computerPick)
+func game() {
+    var mode: Game = .gawibawibo
+    var turn: Player?
+
+    while(flag) {
+        guard let computerPick = ["1", "2", "3"].randomElement() else { break }
+        
+        guard let message = mode.consoleMessage(turn: &turn) else { break }
+        print(message, terminator: " ")
+        
+        guard let userPick = readLine() else {
+            print("유효하지 않은 입력으로 게임이 종료됩니다.")
+            break
         }
-    default:
-        if mode == .gawibawibo {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-        } else if mode == .mukzzibba {
-            turn = .computer
+        
+        switch userPick {
+        case "0":
+            flag = false
+        case "1", "2", "3":
+            if mode == .gawibawibo {
+                gawibawibo(userPick: userPick, computerPick: computerPick, turn: &turn)
+                guard let _ = turn else { continue }
+                mode = .mukzzibba
+            } else if mode == .mukzzibba {
+                mukzzibba(userPick: userPick, computerPick: computerPick, turn: &turn)
+            }
+        default:
+            if mode == .gawibawibo {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+            } else if mode == .mukzzibba {
+                turn = .computer
+            }
         }
     }
 }
+
+game()
