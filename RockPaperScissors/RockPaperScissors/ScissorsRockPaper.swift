@@ -11,13 +11,13 @@ import Foundation
 
 /// 가위 바위 보 클래스
 class ScissorsRockPaper {
-    var gameStatus: ScissorsRockPaperStatus = .initializeGame
+    var gameStatus: GameStatus = .initializeGame
     var gameResult: GameResult?
     var userHand: Hand?
     var computerHand: Hand?
     
     
-    enum ScissorsRockPaperStatus: Int {
+    enum GameStatus: Int {
         case initializeGame = 0
         case inputUser
         case inputComputer
@@ -25,14 +25,14 @@ class ScissorsRockPaper {
         case endGame
         
         mutating func goToNextStatus() {
-            guard let nextStatus = ScissorsRockPaperStatus(rawValue: self.rawValue + 1) else {
+            guard let nextStatus = GameStatus(rawValue: self.rawValue + 1) else {
                 return
             }
          
             self = nextStatus
         }
         
-        mutating func goTo(status: ScissorsRockPaperStatus) {
+        mutating func goTo(status: GameStatus) {
             self = status
         }
     }
@@ -64,8 +64,6 @@ class ScissorsRockPaper {
         case .endGame:
             break
         }
-        
-        
     }
     
     func printGame() {
@@ -126,14 +124,7 @@ class ScissorsRockPaper {
             return
         }
         
-        switch userHand {
-        case .scissors:
-            gameResult = (computerHand == .paper) ? .win : .lose
-        case .rock:
-            gameResult = (computerHand == .scissors) ? .win : .lose
-        case .paper:
-            gameResult = (computerHand == .rock) ? .win : .lose
-        }
+        gameResult = userHand.decideScissorsRockPaperResult(otherHand: computerHand)
         
         print("나:\(userHand) vs \(computerHand):컴퓨터")
     }

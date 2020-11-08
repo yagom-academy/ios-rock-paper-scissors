@@ -44,6 +44,17 @@ enum Hand {
             return nil
         }
     }
+    
+    func decideScissorsRockPaperResult(otherHand: Hand) -> GameResult {
+        switch self {
+        case .scissors:
+            return (otherHand == .paper) ? .win : .lose
+        case .rock:
+            return (otherHand == .scissors) ? .win : .lose
+        case .paper:
+            return (otherHand == .rock) ? .win : .lose
+        }
+    }
 }
 
 let scissorsRockPaper = ScissorsRockPaper()
