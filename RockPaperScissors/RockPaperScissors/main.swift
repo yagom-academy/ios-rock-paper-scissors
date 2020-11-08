@@ -45,12 +45,12 @@ enum result {
     case exit
 }
 
-func compare(users: String, computer: String) {
-    if users == computer {
+func compare(users: String, computers: String) {
+    if users == computers {
         matchResult = .draw
-    } else if (users == "바위" && computer == "가위") || (users == "가위" && computer == "보") || (users == "보" && computer == "바위") {
+    } else if (users == "바위" && computers == "가위") || (users == "가위" && computers == "보") || (users == "보" && computers == "바위") {
         matchResult = .userWin
-    } else if (users == "바위" && computer == "보") || (users == "가위" && computer == "바위") || (users == "보" && computer == "가위") {
+    } else if (users == "바위" && computers == "보") || (users == "가위" && computers == "바위") || (users == "보" && computers == "가위") {
         matchResult = .computerWin
     } else if users == "종료" {
         matchResult = .exit
@@ -59,7 +59,7 @@ func compare(users: String, computer: String) {
 
 func rockScissorsPaper() {
     userInput()
-    compare(users: userPick, computer: computerPick)
+    compare(users: userPick, computers: computerPick)
     
     switch matchResult {
     case .exit:
