@@ -5,6 +5,13 @@ var computerPick: String = ""
 var matchResult: result = .draw
 // 초기화는 뭘로 해둬야 적절하지?
 
+enum result {
+    case userWin
+    case computerWin
+    case draw
+    case exit
+}
+
 func userInput() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     guard let input = readLine() else {
@@ -40,13 +47,6 @@ func computerChoice() {
     }
 }
 
-enum result {
-    case userWin
-    case computerWin
-    case draw
-    case exit
-}
-
 func compare(users: String, computers: String) {
     if users == computers {
         matchResult = .draw
@@ -77,13 +77,34 @@ func rockScissorsPaper() {
 }
 
 
+
 // STEP 2. 묵찌빠
 
-func inputUsersTurn() {
-    print("[사용자 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+enum turn {
+    case users
+    case computers
+}
+
+var whosTurn: turn = .users
+
+func mukzzipaInput() {
+    switch whosTurn {
+    case .users:
+        print("[사용자 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    case .computers:
+        print("[컴퓨터 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    }
+    
     guard let input = readLine() else {
-        print("잘못된 입력값입니다. 턴이 넘어갑니다.")
-        inputComputersTurn()
+        switch whosTurn {
+        case .users:
+            print("잘못된 입력값입니다. 턴이 넘어갑니다.")
+            whosTurn = .computers
+            mukzzipaInput()
+        case .computers:
+            print("잘못된 입력값입니다. 다시 시도해주세요.")
+            mukzzipaInput()
+        }
         return
     }
     
@@ -97,71 +118,41 @@ func inputUsersTurn() {
     case "3":
         userPick = "보"
     default :
-        print("잘못된 입력값입니다. 턴이 넘어갑니다.")
-        inputComputersTurn()
+        switch whosTurn {
+        case .users:
+            print("잘못된 입력값입니다. 턴이 넘어갑니다.")
+            whosTurn = .computers
+            mukzzipaInput()
+        case .computers:
+            print("잘못된 입력값입니다. 다시 시도해주세요.")
+            mukzzipaInput()
+        }
     }
     
     computerChoice()
 }
 
-// 컴퓨터의 턴에는 잘못 입력해도 턴이 바뀌면 안된다.
-func inputComputersTurn() {
-    print("[컴퓨터 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    guard let input = readLine() else {
-        print("잘못된 입력값입니다. 다시 시도해주세요.")
-        inputComputersTurn()
-        return
-    }
-    
-    switch input {
-    case "0":
-        userPick = "종료"
-    case "1":
-        userPick = "가위"
-    case "2":
-        userPick = "바위"
-    case "3":
-        userPick = "보"
-    default :
-        print("잘못된 입력값입니다. 다시 시도해주세요.")
-        inputComputersTurn()
-    }
-    
-    computerChoice()
-}
-
-func usersTurn() {
-    inputUsersTurn()
+func mukzzipa() {
+    mukzzipaInput()
     compare(users: userPick, computers: computerPick)
     
     switch matchResult {
     case .exit:
         break
     case .draw:
-        print("이겼습니다!")
+        if whosTurn == .users {
+            print("묵찌빠, 이겼습니다!")
+        } else if whosTurn == .computers {
+            print("묵찌빠, 졌습니다!")
+        }
     case .userWin:
-        usersTurn()
+        whosTurn = .users
+        mukzzipa()
     case .computerWin:
-        computersTurn()
+        whosTurn = .computers
+        mukzzipa()
     }
 }
-
-func computersTurn() {
-    inputComputersTurn()
-    compare(users: userPick, computers: computerPick)
-    
-    switch matchResult {
-    case .exit:
-        break
-    case .draw:
-        print("졌습니다!")
-    case .userWin:
-        usersTurn()
-    case .computerWin:
-        computersTurn()
-    }
-}
-
 
 func playMukzzipa() {
     userInput()
@@ -175,10 +166,12 @@ func playMukzzipa() {
         playMukzzipa()
     case .userWin:
         print("이겼습니다!")
-        usersTurn()
+        whosTurn = .users
+        mukzzipa()
     case .computerWin:
         print("졌습니다!")
-        computersTurn()
+        whosTurn = .computers
+        mukzzipa()
     }
 }
 
