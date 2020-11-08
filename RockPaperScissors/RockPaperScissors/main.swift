@@ -79,11 +79,11 @@ func rockScissorsPaper() {
 
 // STEP 2. 묵찌빠
 
-func mukzzipaUsersTurn() {
+func inputUsersTurn() {
     print("[사용자 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     guard let input = readLine() else {
-        print("잘못된 입력값입니다. 다시 시도해주세요.")
-        mukzzipaComputersTurn()
+        print("잘못된 입력값입니다. 턴이 넘어갑니다.")
+        inputComputersTurn()
         return
     }
     
@@ -97,18 +97,19 @@ func mukzzipaUsersTurn() {
     case "3":
         userPick = "보"
     default :
-        print("잘못된 입력값입니다. 다시 시도해주세요.")
-        mukzzipaComputersTurn()
+        print("잘못된 입력값입니다. 턴이 넘어갑니다.")
+        inputComputersTurn()
     }
     
     computerChoice()
 }
 
 // 컴퓨터의 턴에는 잘못 입력해도 턴이 바뀌면 안된다.
-func mukzzipaComputersTurn() {
+func inputComputersTurn() {
     print("[컴퓨터 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     guard let input = readLine() else {
         print("잘못된 입력값입니다. 다시 시도해주세요.")
+        inputComputersTurn()
         return
     }
     
@@ -123,9 +124,62 @@ func mukzzipaComputersTurn() {
         userPick = "보"
     default :
         print("잘못된 입력값입니다. 다시 시도해주세요.")
-        mukzzipaComputersTurn()
+        inputComputersTurn()
     }
     
     computerChoice()
 }
 
+func usersTurn() {
+    inputUsersTurn()
+    compare(users: userPick, computers: computerPick)
+    
+    switch matchResult {
+    case .exit:
+        break
+    case .draw:
+        print("이겼습니다!")
+    case .userWin:
+        usersTurn()
+    case .computerWin:
+        computersTurn()
+    }
+}
+
+func computersTurn() {
+    inputComputersTurn()
+    compare(users: userPick, computers: computerPick)
+    
+    switch matchResult {
+    case .exit:
+        break
+    case .draw:
+        print("졌습니다!")
+    case .userWin:
+        usersTurn()
+    case .computerWin:
+        computersTurn()
+    }
+}
+
+
+func playMukzzipa() {
+    userInput()
+    compare(users: userPick, computers: computerPick)
+    
+    switch matchResult {
+    case .exit:
+        break
+    case .draw:
+        print("비겼습니다!")
+        playMukzzipa()
+    case .userWin:
+        print("이겼습니다!")
+        usersTurn()
+    case .computerWin:
+        print("졌습니다!")
+        computersTurn()
+    }
+}
+
+playMukzzipa()
