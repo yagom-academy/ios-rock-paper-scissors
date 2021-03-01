@@ -15,10 +15,16 @@ class RockScissorsPaperGame {
     }
 }
 extension RockScissorsPaperGame {
+
+    // MARK: - Computer Number
+    
     func createComputerRandomNumber() -> Int {
         let computerRandomNumber = Int.random(in: 1...3)
         return computerRandomNumber
     }
+    
+    // MARK: - User input valid check
+    
     func isValidInput() -> Int {
         var inputNumbers: [Int] = []
         if let optionalInputNumber = readLine() {
@@ -44,6 +50,9 @@ extension RockScissorsPaperGame {
             return true
         }
     }
+    
+    // MARK: - Game judge
+    
     func judgeRockScissorsPaper(userNumber userStatus: Int, computerNumber computerStatus: Int) {
         switch userStatus {
         case 0:
@@ -88,8 +97,14 @@ extension RockScissorsPaperGame {
             return
         }
     }
+    
+    // MARK: - Error
+    
     func printError() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }
+
+// MARK: - RockScissorsPaperGame instance && Start point
+
 RockScissorsPaperGame().presentGameMemu()
