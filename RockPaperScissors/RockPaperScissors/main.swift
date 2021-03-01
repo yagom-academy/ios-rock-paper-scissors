@@ -15,6 +15,7 @@ protocol RockPaperScissorsable {
     func printUserChoiceGuide()
     func getUserChoice() throws -> Int
     func decideWinner(userChoice: Int, computerChoice: Int)
+    func startGame()
 }
 
 extension RockPaperScissors: RockPaperScissorsable {
@@ -42,9 +43,9 @@ extension RockPaperScissors: RockPaperScissorsable {
         if userChoice == computerChoice {
             print("비겼습니다!")
         } else if userChoice == winningCase {
-            print("아이고.. 지셨네..")
-        } else {
             print("이겼습니다!")
+        } else {
+            print("아이고.. 지셨네.. 다시 해봐요~")
         }
     }
 }
