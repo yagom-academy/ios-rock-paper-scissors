@@ -55,7 +55,7 @@ extension RockScissorsPaperGame {
     
     func judgeRockScissorsPaper(userNumber userState: Int, computerNumber computerState: Int) {
         let decisionStatus = userState - computerState
-        if decisionStatus == 0{
+        if decisionStatus == 0 {
             print("비겼습니다!")
             presentGameMemu()
         } else {
