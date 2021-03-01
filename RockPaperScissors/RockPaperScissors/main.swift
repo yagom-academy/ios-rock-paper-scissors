@@ -53,48 +53,17 @@ extension RockScissorsPaperGame {
     
     // MARK: - Game judge
     
-    func judgeRockScissorsPaper(userNumber userStatus: Int, computerNumber computerStatus: Int) {
-        switch userStatus {
-        case 0:
-            print("게임 종료")
-        case 1:
-            switch computerStatus {
-            case 1:
-                print("비겼습니다!")
-                presentGameMemu()
-            case 2:
-                print("졌습니다!")
-            case 3:
+    func judgeRockScissorsPaper(userNumber userState: Int, computerNumber computerState: Int) {
+        let decisionStatus = userState - computerState
+        if decisionStatus == 0{
+            print("비겼습니다!")
+            presentGameMemu()
+        } else {
+            if decisionStatus == 1 || decisionStatus == -2 {
                 print("이겼습니다!")
-            default:
-                return
-            }
-        case 2:
-            switch computerStatus {
-            case 1:
-                print("이겼습니다!")
-            case 2:
-                print("비겼습니다!")
-                presentGameMemu()
-            case 3:
+            } else if decisionStatus == -1 || decisionStatus == 2 {
                 print("졌습니다!")
-            default:
-                return
             }
-        case 3:
-            switch computerStatus {
-            case 1:
-                print("졌습니다!")
-            case 2:
-                print("이겼습니다!")
-            case 3:
-                print("비겼습니다!")
-                presentGameMemu()
-            default:
-                return
-            }
-        default:
-            return
         }
     }
     
