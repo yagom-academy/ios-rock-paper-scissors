@@ -7,15 +7,15 @@
 import Foundation
 
 class RockPaperScissors {
-    var comNumberValue = 0
-    var userNumberValue = 0
+    var computerCase = 0
+    var userCase = 0
     
-    func comNumberGenerator() {
-        let numberGeneration = Int.random(in: 1...3)
-        comNumberValue = numberGeneration
+    func randomCaseGenerator() {
+        let randomCase = Int.random(in: 1...3)
+        computerCase = randomCase
     }
     
-    func userInputNumber() -> Int {
+    func userInputCase() -> Int {
         while true {
             guard let userInputText = readLine() else {
                 continue
@@ -29,13 +29,10 @@ class RockPaperScissors {
                 print("게임 종료")
                 return 0
             case 1:
-                print("가위")
                 return 1
             case 2:
-                print("바위")
                 return 2
             case 3:
-                print("보")
                 return 3
             default:
                 print("잘못된 입력입니다. 다시 입력해주세요.")
@@ -44,35 +41,33 @@ class RockPaperScissors {
     }
     
     func checkWinLoseResult(user: Int, computer: Int) -> Int {
-            let whoWinResult: Int = user - computer
-            var returnGameResult: Int = 0
+            let whoWinCheck: Int = user - computer
+            var GameResult: Int = 0
             
-            if whoWinResult == 0 {
-                returnGameResult = 3
-            } else if whoWinResult == 1 || whoWinResult == -2 {
-                returnGameResult = 1
-            } else if whoWinResult == -1 || whoWinResult == 2 {
-                returnGameResult = 2
+            if whoWinCheck == 0 {
+                GameResult = 3
+            } else if whoWinCheck == 1 || whoWinCheck == -2 {
+                GameResult = 1
+            } else if whoWinCheck == -1 || whoWinCheck == 2 {
+                GameResult = 2
             }
             
-            return returnGameResult
+            return GameResult
         }
     
     func playGame() {
         var gameState: Bool = true
         var winLoseResult: Int = 0
         
-        
         while gameState {
             print("가위(1). 바위(2). 보(3)! <종료 : 0> : ", terminator: "")
             
-            comNumberGenerator()
-            
-            userNumberValue = userInputNumber()
+            randomCaseGenerator()
+            userCase = userInputCase()
             
             winLoseResult = checkWinLoseResult(
-                user: userNumberValue,
-                computer: comNumberValue)
+                user: userCase,
+                computer: computerCase)
             
             if winLoseResult == 1 {
                 print("이겼습니다!")
@@ -86,11 +81,8 @@ class RockPaperScissors {
                 print("비겼습니다!")
                 continue
             }
-            
         }
     }
-
-    
     
 }
 
