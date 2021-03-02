@@ -5,70 +5,115 @@
 //
 import Foundation
 
-var inputNumber: Int = 0
-var randomNumber: Int = 0
-var storageOfComputerAndUserNumber: Array<Int> = []
+///## 가위바위보에 대한 기능(속성)과 메서드(행동)을 'RockPaperScissors 타입'으로 묶었음.
+///----------
+///- Computer의 임의의 수와 User에게 입력받은 값을 배열로 묶어 표현함.
+///- 배열 내의 수를 연산하여 나올수 있는 경우의 수를 묶어 결과값을 산출하였음
+///   - 승리할 시, [3, ]
+class RockPaperScissors { // RPCs game
+    var inputNumber: Int = 0
+    var inputString: String = ""
+    var randomNumber: Int = 0
+    var gameCommand: String = "다시하기"
 
-print("가위(1), 바위(2), 보(3)! <종료: 0> : ")
-
-func makeRandomNumber() {
-    randomNumber = Int.random(in: 1...3)
-}
-makeRandomNumber()
-
-func inputPlayersNumber() {
-    let storage: String? = readLine()
-    guard let pocket: String = storage else { return }
-    guard let a = Int(pocket) else { return }
-    inputNumber = a
-}
-inputPlayersNumber()
-
-func makeArrayOrReturn() {
-    if inputNumber == 0 {
-        return
-    } else if inputNumber == 1 || inputNumber == 2 || inputNumber == 3 {
-        배열만들기()
-    } else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        // 최초상태로 복귀
-    }
-}
-makeArrayOrReturn()
-
-func 배열만들기() {
-    storageOfComputerAndUserNumber.append(randomNumber)
-    storageOfComputerAndUserNumber.append(inputNumber)
-    print(storageOfComputerAndUserNumber)
-    //[컴퓨터가 만든 수, 사용자 입력 수]를 배열로 만드는 함수
+    func makeRandomNumber() {
+        randomNumber = Int.random(in: 1...3)
     }
 
-func 배열에따라조건으로결과값나누기() {
-    if storageOfComputerAndUserNumber == [1,2] || storageOfComputerAndUserNumber == [2,3] || storageOfComputerAndUserNumber == [3,1] {
-        print("이겼습니다!")
-        return
-    } else if storageOfComputerAndUserNumber == [2,1] ||
-                storageOfComputerAndUserNumber == [3,2] || storageOfComputerAndUserNumber == [1,3] {
-        print("졌습니다!")
-        return
-    } else if randomNumber == inputNumber {
-        print("비겼습니다!")
-        // 최초상태로 복귀
+    func inputUserNumber() {
+        let temporaryStorage: String? = readLine()
+        guard let temporaryString: String = temporaryStorage else { return }
+        guard let temporaryInt = Int(temporaryString) else { return }
+        inputString = temporaryString
+        inputNumber = temporaryInt
     }
-//    승리하는 경우 -> 이겼습니다.
-//    패배하는 경우 -> 졌습니다.
-//    비기는 경우 -> 비겼습니다. -> 재시작
+ 
+    func makeArrayOrReturn() {
+        switch inputString {
+        case "0":
+            gameCommand = "그만하기"
+        case "1", "2", "3":
+            gameCommand = ""
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            inputNumber = 10
+            gameCommand = "다시하기"
+        }
+    }
+
+    func makeResult() {
+        switch (randomNumber - inputNumber) {
+        case -1, 2:
+            print("이겼습니다.")
+            gameCommand = "사용자승리"
+        case 1, -2:
+            print("졌습니다.")
+            gameCommand = "컴퓨터승리"
+        case 0:
+            print("비겼습니다.")
+            gameCommand = "다시하기"
+        default:
+            gameCommand = "다시하기"
+            return
+        }
+    }
+    
+    func start() {
+        while gameCommand == "다시하기" {
+            inputNumber = 0
+            randomNumber = 0 // initialize func
+            print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "") // printMenu func
+            makeRandomNumber()
+            inputUserNumber()
+            makeArrayOrReturn()
+            makeResult()
+        }
+    }
 }
-배열에따라조건으로결과값나누기()
+
+var rockPaperScissors = RockPaperScissors()
+rockPaperScissors.start()
 
 
-
-
-
-
-// 가위(1) -> 바위(2)
-// 바위(2)  -> 보(3)
-// 보(3) -> 가위(1)
-
-// 숫자로만 생각하지 않고 sting으로 표현할 수 있지 않을까?
-// 조합을 표현해서 -> Array, Dictionary, Set
+//CODA, Tak 초안
+/*
+    func makeArrayOrReturn() {
+        if inputString == "0" {
+            restartKeyNumber = 0
+        } else if inputString == "1" || inputString == "2" || inputString ="3" {
+            makeArray()
+            restartKeyNumber = 0
+        } else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            restartKeyNumber = 1
+        }
+    }
+*/
+        
+/*
+    func makeArray() {
+        storageOfComputerAndUserNumber.append(randomNumber)
+        storageOfComputerAndUserNumber.append(inputNumber)
+        }
+*/
+        
+/*
+    func makeResult() {
+        if storageOfComputerAndUserNumber == [1,2] || storageOfComputerAndUserNumber == [2,3] || storageOfComputerAndUserNumber == [3,1] {
+            print("이겼습니다!")
+            restartKeyNumber = 0
+            return
+        } else if storageOfComputerAndUserNumber == [2,1] ||
+                    storageOfComputerAndUserNumber == [3,2] || storageOfComputerAndUserNumber == [1,3] {
+            print("졌습니다!")
+            restartKeyNumber = 0
+            return
+        } else if randomNumber == inputNumber {
+            print("비겼습니다!")
+            restartKeyNumber = 1
+            return
+            // 최초상태로 복귀
+        }
+    }
+ */
+ // CODA, Tak 초안
