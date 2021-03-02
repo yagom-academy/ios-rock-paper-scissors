@@ -33,7 +33,36 @@ class RockPaperScissorsGame {
         }
     }
     
-    func getGameResult(_ usersHand: Hand, vs computersHand: Hand) -> GameResult { return .win }
+    func getGameResult(_ usersHand: Hand, vs computersHand: Hand) -> GameResult {
+        if usersHand == computersHand {
+            return .draw
+        } else if (usersHand == .rock && computersHand == .scissors)
+            || (usersHand == .scissors && computersHand == .paper)
+            || (usersHand == .paper && computersHand == .rock) {
+            return .win
+        } else {
+            return .lose
+        }
+    }
         
-    func getHandByUser() throws -> Hand { return .none }
+    func getHandByUser() throws -> Hand {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        
+        guard let userInput = readLine() else {
+            throw GameError.invalidInput
+        }
+        
+        switch userInput {
+        case "0":
+            return Hand.none
+        case "1":
+            return Hand.scissors
+        case "2":
+            return Hand.rock
+        case "3":
+            return Hand.paper
+        default:
+            throw GameError.invalidInput
+        }
+    }
 }
