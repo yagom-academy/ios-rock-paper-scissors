@@ -6,6 +6,10 @@
 
 import Foundation
 
+let scissor = 1
+let rock = 2
+let paper = 3
+
 func playRockPaperScissors() {
     let computerNumber = Int.random(in: 1...3)
     
@@ -13,15 +17,15 @@ func playRockPaperScissors() {
     
     if let inputUserNumber = readLine() {
         switch Int(inputUserNumber) {
-            case 0:
-                print("게임 종료")
-                return
-            case 1, 2, 3:
-                gameResult(userNumber: Int(inputUserNumber)!, computerNumber: computerNumber)
-            default:
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-                playRockPaperScissors()
-            }
+        case 0:
+            print("게임 종료")
+            return
+        case 1, 2, 3:
+            gameResult(userNumber: Int(inputUserNumber)!, computerNumber: computerNumber)
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            playRockPaperScissors()
+        }
     }
 }
 
@@ -31,15 +35,15 @@ func gameResult(userNumber: Int, computerNumber: Int) {
         playRockPaperScissors()
     } else {
         switch computerNumber {
-        case 1:
-            if(userNumber == 2) { print("이겼습니다!") }
-            else if(userNumber == 3) { print("졌습니다!") }
-        case 2:
-            if(userNumber == 3) { print("이겼습니다!") }
-            else if(userNumber == 1) { print("졌습니다!") }
+        case scissor:
+            if(userNumber == rock) { print("이겼습니다!") }
+            else if(userNumber == paper) { print("졌습니다!") }
+        case rock:
+            if(userNumber == paper) { print("이겼습니다!") }
+            else if(userNumber == scissor) { print("졌습니다!") }
         default:
-            if(userNumber == 1) { print("이겼습니다!") }
-            else if(userNumber == 2) { print("졌습니다!") }
+            if(userNumber == scissor) { print("이겼습니다!") }
+            else if(userNumber == rock) { print("졌습니다!") }
         }
     }
 }
