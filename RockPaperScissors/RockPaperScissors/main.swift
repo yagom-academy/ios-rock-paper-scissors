@@ -71,7 +71,7 @@ public class MukChiBaGame {
         return false
     }
     
-    private func checkGameResult() -> GameResult {
+    private func getGameResult() -> GameResult {
         if userAnswer == .scissors {
             if computerAnswer == .paper {
                 return .win
@@ -96,6 +96,18 @@ public class MukChiBaGame {
         return .draw
     }
     
+    private func process(gameResult: GameResult) {
+        switch gameResult {
+        case .draw:
+            printGameMessage(.draw)
+            startGame()
+        case .lose:
+            exitGame(withMessage: .lose)
+        case .win:
+            exitGame(withMessage: .win)
+        }
+    }
+    
     public func startGame() {
         computerAnswer = castedHand(from: generatedRandomAnswer())
         while true {
@@ -107,10 +119,9 @@ public class MukChiBaGame {
                 continue
             }
             userAnswer = castedHand(from: castedInteger(from: userInput))
-            
+            process(gameResult: getGameResult())
         }
     }
-    
 }
 
 MukChiBaGame().startGame()
