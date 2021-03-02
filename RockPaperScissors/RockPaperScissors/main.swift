@@ -7,83 +7,90 @@
 import Foundation
 
 class RockPaperScissors {
-    enum Result: String {
-        case win = "이겼습니다."
-        case draw = "비겼습니다."
-        case lose = "졌습니다."
+    
+    var keepRunning: Bool = true
+    var userInputValue: ScissorsRockPaper?
+    var computerInputValue: ScissorsRockPaper?
+    var result: Result?
+    
+    // 컴퓨터 입력 값 랜덤 생성
+    func computerRandomNumber() -> ScissorsRockPaper {
+        let randomNumber = Int.random(in: 1...3)
+        guard let computerResult: ScissorsRockPaper = ScissorsRockPaper(rawValue: randomNumber) else {
+            return .rock
+        }
+        
+        return computerResult
     }
     
-    enum ScissorsRockPaper: Int {
-        case scissors = 1
-        case rock = 2
-        case paper = 3
-        case exception
-    }
-    
-    var result: Result = .draw
-    
+    // 사용자 vs 컴퓨터 결과
     func userVsComputer(user: ScissorsRockPaper, computer: ScissorsRockPaper) {
+        // 이겼을 때
         result = .win
+        // 비겼을 때
         if user == computer {
             result = .draw
         }
-        
+        // 졌을 때
         switch user {
+        case .paper:
+            if computer == .scissors {
+                result = .lose
+            }
         case .scissors:
             if computer == .rock {
                 result = .lose
             }
         case .rock:
-            if computer == .scissors {
-                result = .win
-            }
-        case .paper:
             if computer == .paper {
-                result = .draw
+                result = .lose
             }
-        default:
-            errorMessage()
         }
+        
+        return
     }
     
-    func startGamte() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        
-        var user: ScissorsRockPaper = .exception
-        
-        guard let computer: ScissorsRockPaper = ScissorsRockPaper(rawValue: Int.random(in: 1...3)) else {
-            startGamte()
-            return
-        }
-        
-        guard let input = readLine() else {
-            startGamte()
-            return
-        }
-        
-        if input == "0" {
-            print("게임 종료")
-        }
-        
-        if let inputValue = Int(input) {
-            if inputValue < 4 && inputValue > 0 {
-                user = ScissorsRockPaper(rawValue: inputValue)!
+    func startGamte() -> Bool {
+        while true {
+            print("가위(1).바위(2).보(3)! <종료 : 0> : ", terminator: "")
+            computerInputValue = computerRandomNumber()
+            
+            guard let input = readLine() else {
+                errorMessageAndRestart()
+                continue
             }
-        } else {
-            startGamte()
-        }
+            
+            if input == "0" {
+                print("게임 종료")
+                keepRunning = false
+                return true
+            } else if input == "1" {
+                userInputValue = .scissors
+            } else if  input == "2" {
+                userInputValue = .rock
+            } else if input == "3" {
+                userInputValue = .paper
+            } else {
+                errorMessageAndRestart()
+                continue
+            }
 
-        if result == .draw {
-            startGamte()
+            userVsComputer(user: userInputValue!, computer: computerInputValue!)
+            print(result!.rawValue)
+            
+            if result == .draw {
+                startGamte()
+            }
+            
+            return false
+            
+            }
+        
         }
-        
-        userVsComputer(user: user, computer: computer)
-        
-    }
     
-    func errorMessage() {
+    // 사용자 입력 오류 출력 후 다시 시작
+    func errorMessageAndRestart() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        startGamte()
     }
     
 }
