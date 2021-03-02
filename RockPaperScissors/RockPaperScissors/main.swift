@@ -11,6 +11,15 @@ struct RockScissorsPaper {
 
     func playRockScissorsPaper(userChoice: Int) -> Void {
         let randomRockScissorsPaperChoice: Int = Int.random(in: 1...3)
+        let criterion: Int = (userChoice - randomRockScissorsPaperChoice) % 3
+        if criterion == 1 {
+            print("이겼습니다!")
+        } else if criterion == 2 {
+            print("졌습니다!")
+        } else {
+            print("비겼습니다!")
+            startGame()
+        }
     }
 
     func decideGameOption(convertedUserSelection: Int) -> Void {
