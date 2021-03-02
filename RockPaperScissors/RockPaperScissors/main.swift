@@ -7,7 +7,7 @@ class RockScissorsPaperGame {
     func startGame() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         let userInput = isValidInput()
-        let computerNumber = createComputerRandomNumber()
+        let computerNumber = createRandomNumber()
         judgeRockScissorsPaper(userNumber: userInput, computerNumber: computerNumber)
     }
 }
@@ -15,7 +15,7 @@ extension RockScissorsPaperGame {
 
     // MARK: - Computer Number
     
-    func createComputerRandomNumber() -> Int {
+    func createRandomNumber() -> Int {
         let computerRandomNumber = Int.random(in: 1...3)
         return computerRandomNumber
     }
