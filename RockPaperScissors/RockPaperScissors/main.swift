@@ -45,8 +45,8 @@ class RockPaperScissors { // RPCs game
 ///- 컴퓨터의 수에서 사용자입력값을 뺀 값에 따라 각각 case로 결과 산출
 ///  - ex) 컴퓨터의 수: 1(가위) - 사용자입력값: 2(바위) = -1로 사용자승리
 ///- 결과가 0일 때 "비겼습니다!" 문구 출력 후 다시하기 / 그 외 결과일 시 다시하기
-    func makeResult() {
-        switch (randomNumber - inputNumber) {
+    func makeResult(a: Int, b: Int) {
+        switch (a - b) {
         case -1, 2:
             print("이겼습니다.")
             gameCommand = "사용자승리"
@@ -72,13 +72,54 @@ class RockPaperScissors { // RPCs game
             makeRandomNumber()
             inputUserNumber()
             checkInputString()
-            makeResult()
+            makeResult(a: randomNumber, b: inputNumber)
         }
     }
 }
 
 var rockPaperScissors = RockPaperScissors()
 rockPaperScissors.start()
+print(rockPaperScissors.gameCommand)
+
+var turn: String = ""
+
+
+
+
+
+
+
+// 묵찌빠를 만들어봅시다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //CODA, Tak 초안
