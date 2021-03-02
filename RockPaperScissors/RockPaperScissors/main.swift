@@ -30,10 +30,13 @@ struct RockScissorsPaper {
         // 0이면 게임종료.
     }
 
-    func checkValidUserSelection(userSelection: String?) -> Bool {
-        //userSelection 옵셔널바인딩
-        //userSelection이 0...3 -> true 아니면 false
-        return true
+    func checkValidUserSelection(userSelection: String) -> Bool {
+        if let selection = Int(userSelection) {
+            if (0...3).contains(selection) {
+                return true
+            }
+        }
+        return false
     }
 
     //유저입력
