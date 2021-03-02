@@ -20,34 +20,38 @@ class RockScissorPaper {
         var userInput = 0
         outer: while true{
             initialize()
-            printMenu()
+            showMenu()
             do {
                 userInput = try getUserInput()
                 if userInput == 0 {
+                    print("게임 종료")
                     break outer
                 }
             } catch {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
+                continue outer
             }
+            handOfUser = userInput
             let winner = compareHands(handOfUser, with: handOfComputer)
-            printResult(winner)
+            showResult(winner)
         }
     }
 
     func compareHands(_ user: Int, with computer: Int) -> GameResult {
-        return GameResult.win
+        return GameResult.lose
     }
     
-    func printMenu() {
-        
+    func showMenu() {
+
     }
     
-    func getUserInput() throws ->Int {
+    func getUserInput() throws -> Int {
         return 0
     }
     
-    func printResult(_ input: GameResult) {
+    func showResult(_ input: GameResult) {
         
     }
 }
 
+RockScissorPaper().startGame()
