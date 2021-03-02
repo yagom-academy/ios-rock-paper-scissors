@@ -48,7 +48,6 @@ struct RockScissorsPaper {
     }
 
     func startGame() {
-        //입력받기 getUserSelection()
-        //
+        getUserSelection()
     }
 }
