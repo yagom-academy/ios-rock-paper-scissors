@@ -10,9 +10,10 @@ class RockPaperScissors {
     var computerCase = 0
     var userCase = 0
     
-    func randomCaseGenerator() {
+    func randomCaseGenerator() -> Int {
         let randomCase = Int.random(in: 1...3)
-        computerCase = randomCase
+        
+        return randomCase
     }
     
     func userInputCase() -> Int {
@@ -27,7 +28,7 @@ class RockPaperScissors {
             switch userInputNumber {
             case 0:
                 print("게임 종료")
-                return 0
+                
             case 1:
                 return 1
             case 2:
@@ -53,7 +54,23 @@ class RockPaperScissors {
             }
             
             return GameResult
+    }
+    
+    func printResultChangeGameState(gameResult: Int) -> Bool {
+        switch gameResult {
+        case 0:
+            return false
+        case 1:
+            print("이겼습니다!")
+            return false
+        case 2:
+            print("졌습니다!")
+            return false
+        default:
+            print("비겼습니다!")
+            return true
         }
+    }
     
     func playGame() {
         var gameState: Bool = true
@@ -62,29 +79,24 @@ class RockPaperScissors {
         while gameState {
             print("가위(1). 바위(2). 보(3)! <종료 : 0> : ", terminator: "")
             
-            randomCaseGenerator()
+            computerCase = randomCaseGenerator()
             userCase = userInputCase()
             
             winLoseResult = checkWinLoseResult(
                 user: userCase,
                 computer: computerCase)
             
-            if winLoseResult == 1 {
-                print("이겼습니다!")
-                gameState = false
-            } else if winLoseResult == 2 {
-                print("졌습니다!")
-                gameState = false
-            } else if winLoseResult == 0 {
-                gameState = false
-            } else {
-                print("비겼습니다!")
-                continue
+            gameState = printResultChangeGameState(gameResult: winLoseResult)
+            
             }
         }
-    }
-    
 }
+    
+    
+    
+
+    
+
 
 var testGame = RockPaperScissors()
 
