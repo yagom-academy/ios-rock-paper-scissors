@@ -2,5 +2,9 @@
 
 ### 묵찌빠 프로젝트 저장소
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+- Jay, Bobby
+
+- Flow Chart:
+
+  ![week2](https://user-images.githubusercontent.com/58765757/109619202-d504fd80-7b7b-11eb-88d5-6d5601874724.png)
 
