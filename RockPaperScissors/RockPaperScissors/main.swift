@@ -52,19 +52,19 @@ class RockPaperScissors {
     
     func checkWinLoseResult(user: Int, computer: Int) -> Int {
         let whoWinCheck: Int = user - computer
-        var GameResult: Int = 0
+        var gameResult: Int = 0
         
         if user == 0 {
-            GameResult = 0
+            gameResult = 0
         } else if whoWinCheck == 0 {
-            GameResult = 3
+            gameResult = 3
         } else if whoWinCheck == 1 || whoWinCheck == -2 {
-            GameResult = 1
+            gameResult = 1
         } else if whoWinCheck == -1 || whoWinCheck == 2 {
-            GameResult = 2
+            gameResult = 2
         }
 
-        return GameResult
+        return gameResult
     }
     
     func printResultChangeGameState(gameResult: Int) -> Bool {
@@ -98,6 +98,10 @@ class RockPaperScissors {
             playGameSwitch = printResultChangeGameState(gameResult: winLoseResult)
         }
     }
+
+    //
+    
+    
     
 }
 
