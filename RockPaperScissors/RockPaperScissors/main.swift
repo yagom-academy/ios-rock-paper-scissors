@@ -24,7 +24,6 @@ class RockScissorPaper {
             do {
                 userInput = try getUserInput()
                 if userInput == 0 {
-                    print("게임 종료")
                     break outer
                 }
             } catch {
