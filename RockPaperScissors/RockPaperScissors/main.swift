@@ -3,8 +3,11 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 //
+enum ErrorStatus:Error {
+    case inputError
+}
 class RockScissorsPaperGame {
-    let errorValue = -1
+    let initValue = -1
     func startGame() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         let userInput = userTyping()
@@ -30,30 +33,27 @@ extension RockScissorsPaperGame {
         return validedInputNumber
     }
     func isValidInput(userInput validInput: String?) -> Int {
-        var inputNumbers: [Int] = []
-        if let optionalInputNumber = validInput {
-            inputNumbers = optionalInputNumber.split(separator: " ").map { Int(String($0)) ?? errorValue }
-            if checkedInput(inputArrays: inputNumbers) == false {
-                printError()
-                startGame()
-            }
-        } else {
+        var valiedNumber = initValue
+        do {
+            valiedNumber = try checkedInput(inputOptionalString: validInput)
+        } catch {
             printError()
             startGame()
         }
-        return inputNumbers.first!
+        return valiedNumber
     }
-    func checkedInput(inputArrays validArrays: [Int]) -> Bool {
+    func checkedInput(inputOptionalString OptionalString: String?) throws -> Int {
         let validedNumbers = [0, 1, 2, 3]
-        if validArrays.count != 1 {
-            return false
-        } else if validArrays.contains(-1) {
-            return false
-        } else if validedNumbers.contains(validArrays.first!) == false {
-            return false
-        } else {
-            return true
+        guard let validString = OptionalString else {
+            throw ErrorStatus.inputError
         }
+        guard let validNumber = Int(validString) else {
+            throw ErrorStatus.inputError
+        }
+        guard validedNumbers.contains(validNumber) else {
+            throw ErrorStatus.inputError
+        }
+        return validNumber
     }
     
     // MARK: - Game judge
