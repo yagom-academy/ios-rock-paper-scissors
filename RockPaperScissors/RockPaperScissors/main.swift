@@ -52,7 +52,7 @@ class RockScissorPaper {
     }
     
     func showMenu() {
-
+        print("가위(1). 바위(2). 보(3)! <종료 : 0>", terminator: " : ")
     }
     
     func getUserInput() throws -> Int {
