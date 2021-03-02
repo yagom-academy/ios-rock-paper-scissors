@@ -44,13 +44,7 @@ extension RockScissorsPaperGame {
     }
     func checkedInput(inputOptionalString OptionalString: String?) throws -> Int {
         let validedNumbers = [0, 1, 2, 3]
-        guard let validString = OptionalString else {
-            throw ErrorStatus.inputError
-        }
-        guard let validNumber = Int(validString) else {
-            throw ErrorStatus.inputError
-        }
-        guard validedNumbers.contains(validNumber) else {
+        guard let validString = OptionalString, let validNumber = Int(validString), validedNumbers.contains(validNumber) else {
             throw ErrorStatus.inputError
         }
         return validNumber
@@ -62,6 +56,7 @@ extension RockScissorsPaperGame {
         let decisionStatus = userState - computerState
         let userWinStatus = [1, -2]
         let computerWinStatus = [-1, 2]
+        dump(userState)
         if userState == 0 {
             finishGame()
         } else if decisionStatus == 0 {
