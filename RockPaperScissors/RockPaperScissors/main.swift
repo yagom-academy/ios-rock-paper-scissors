@@ -38,3 +38,5 @@ class RockPaperScissors {
         }
     }
 }
+let startClass: RockPaperScissors = RockPaperScissors()
+startClass.startGame()
