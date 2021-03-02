@@ -1,8 +1,8 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
@@ -17,7 +17,7 @@ class RockPaperScissors {
     var computerCase = 0
     var userCase = 0
     
-    func randomCaseGenerator() -> Int {
+    func createRandomComputerCase() -> Int {
         let randomCase = Int.random(in: 1...3)
         
         return randomCase
@@ -84,20 +84,18 @@ class RockPaperScissors {
     }
     
     func playGame() {
-        var gameState: Bool = true
+        var playGameSwitch: Bool = true
         var winLoseResult: Int = 0
         
-        while gameState {
+        while playGameSwitch {
             print("가위(1). 바위(2). 보(3)! <종료 : 0> : ", terminator: "")
             
-            computerCase = randomCaseGenerator()
+            computerCase = createRandomComputerCase()
             userCase = userInputCase()
             
-            winLoseResult = checkWinLoseResult(
-                user: userCase,
-                computer: computerCase)
+            winLoseResult = checkWinLoseResult(user: userCase, computer: computerCase)
             
-            gameState = printResultChangeGameState(gameResult: winLoseResult)
+            playGameSwitch = printResultChangeGameState(gameResult: winLoseResult)
         }
     }
     
