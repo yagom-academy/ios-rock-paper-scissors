@@ -38,7 +38,17 @@ class RockScissorPaper {
     }
 
     func compareHands(_ user: Int, with computer: Int) -> GameResult {
-        return GameResult.lose
+        switch (user, computer) {
+        case (1, 1), (2, 2), (3, 3):
+            return .draw
+        case (1, 3), (2, 1), (3, 2):
+            return .win
+        case (1, 2), (2, 3), (3, 1):
+            return .lose
+        default:
+            print("알 수 없는 오류입니다.")
+            return GameResult.lose
+        }
     }
     
     func showMenu() {
