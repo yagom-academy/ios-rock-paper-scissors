@@ -6,5 +6,7 @@
 
 import Foundation
 
-print("Hello, World!")
+var userValue: Int = 0
+var computerValue: Int = 0
+    //전역변수
 
