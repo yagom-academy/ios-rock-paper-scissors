@@ -4,6 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 class RockScissorsPaperGame {
+    let errorValue = -1
     func startGame() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         let userInput = userTyping()
@@ -31,7 +32,7 @@ extension RockScissorsPaperGame {
     func isValidInput(userInput validInput: String?) -> Int {
         var inputNumbers: [Int] = []
         if let optionalInputNumber = validInput {
-            inputNumbers = optionalInputNumber.split(separator: " ").map { Int(String($0)) ?? -1 }
+            inputNumbers = optionalInputNumber.split(separator: " ").map { Int(String($0)) ?? errorValue }
             if checkedInput(inputArrays: inputNumbers) == false {
                 printError()
                 startGame()
