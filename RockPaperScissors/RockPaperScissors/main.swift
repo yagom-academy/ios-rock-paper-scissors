@@ -4,11 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 class RockScissorsPaperGame {
-    func presentGameMemu() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        startGame()
-    }
     func startGame() {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         let userInput = isValidInput()
         let computerNumber = createComputerRandomNumber()
         judgeRockScissorsPaper(userNumber: userInput, computerNumber: computerNumber)
@@ -31,11 +28,11 @@ extension RockScissorsPaperGame {
             inputNumbers = optionalInputNumber.split(separator: " ").map { Int(String($0)) ?? -1 }
             if checkedInput(inputArrays: inputNumbers) == false {
                 printError()
-                presentGameMemu()
+                startGame()
             }
         } else {
             printError()
-            presentGameMemu()
+            startGame()
         }
         return inputNumbers.first!
     }
@@ -60,7 +57,7 @@ extension RockScissorsPaperGame {
             finishGame()
         } else if decisionStatus == 0 {
             print("비겼습니다!")
-            presentGameMemu()
+            startGame()
         } else {
             if decisionStatus == 1 || decisionStatus == -2 {
                 print("이겼습니다!")
@@ -83,4 +80,4 @@ extension RockScissorsPaperGame {
 
 // MARK: - RockScissorsPaperGame instance && Start point
 
-RockScissorsPaperGame().presentGameMemu()
+RockScissorsPaperGame().startGame()
