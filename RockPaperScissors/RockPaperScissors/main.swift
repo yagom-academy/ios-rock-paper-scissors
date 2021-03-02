@@ -1,6 +1,8 @@
+import Foundation
 class RockScissorPaper {
-    var handOfComputer = Int.random(in: 1...3)
-    var handOfUser = Int.random(in: 1...3)
+    var handOfComputer: Hand = .rock
+    var handOfUser: Hand = .rock
+    
     enum GameResult: String {
         case win = "이겼습니다!"
         case lose = "졌습니다!"
@@ -10,21 +12,28 @@ class RockScissorPaper {
         case invalidInput
         case unknownError
     }
-
+    enum Hand: Int {
+        case rock = 1
+        case scissor = 2
+        case paper = 3
+        case exit = 0
+    }
+    
     func renewComputerHand() {
-        handOfUser = 0
-        handOfComputer = Int.random(in: 1...3)
+        if let randomHand = Hand(rawValue: Int.random(in: 1...3)) {
+            handOfComputer = randomHand
+        }
     }
     
     func startGame() {
-        var userInput = 0
+        var userInput: Hand
         outer: while true {
             renewComputerHand()
             showMenu()
             
             do {
                 userInput = try getUserInput()
-                if userInput == 0 {
+                if userInput == .exit {
                     break outer
                 }
             } catch {
@@ -39,7 +48,7 @@ class RockScissorPaper {
     }
     
     func returnResultOfGame() -> GameResult {
-        switch (handOfUser, handOfComputer) {
+        switch (handOfUser.rawValue, handOfComputer.rawValue) {
         case (1, 1), (2, 2), (3, 3):
             return .draw
         case (1, 3), (2, 1), (3, 2):
@@ -56,17 +65,14 @@ class RockScissorPaper {
         print("가위(1). 바위(2). 보(3)! <종료 : 0>", terminator: " : ")
     }
     
-    func getUserInput() throws -> Int {
-        guard let userStringInput = readLine(), let userInput = Int(userStringInput) else {
+    func getUserInput() throws -> Hand {
+        guard let userStringInput = readLine(),
+              let integerUserInput = Int(userStringInput),
+              let userInput = Hand(rawValue: integerUserInput)
+              else {
             throw GameError.invalidInput
         }
-        
-        switch userInput {
-        case 0, 1, 2, 3:
-            return userInput
-        default:
-            throw GameError.invalidInput
-        }
+        return userInput
     }
     
     func showResult(_ input: GameResult) {
