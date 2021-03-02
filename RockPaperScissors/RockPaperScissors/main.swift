@@ -6,7 +6,7 @@
 
 import Foundation
 
-struct MukChiBaGame {
+class MukChiBaGame {
     var computerAnswer: Int = 0
     var userAnswer: Int = 0
     enum GameResult {
@@ -26,8 +26,12 @@ struct MukChiBaGame {
         case lose = "졌습니다!"
     }
     
-    func generatedComputerAnswer() -> Int {
+    func generatedRandomAnswer() -> Int {
         return Int.random(in: 1...3)
+    }
+    
+    func setComputerAnswer() {
+        computerAnswer = generatedRandomAnswer()
     }
     
     func printGameMessage(_ message: GameMessage) {
@@ -38,8 +42,33 @@ struct MukChiBaGame {
             print(message.rawValue)
         }
     }
-
+    
+    func exitGame(with message: GameMessage) {
+        print(message.rawValue)
+        exit(0)
+    }
+    
+    func isValidUserAnswer(_ userInput: String?) -> Bool {
+        guard let _userInput = userInput else { return false }
+        guard let userAnswer = Int(_userInput) else { return false }
+        
+        switch userAnswer {
+        case 0:
+            exitGame(with: GameMessage.exit)
+        case 1...3:
+            return true
+        default: break
+        }
+        
+        return false
+    }
+    
     func startGame() {
+        setComputerAnswer()
+        while true {
+            printGameMessage(GameMessage.menu)
+            if !isValidUserAnswer(readLine()) { continue }
+        }
     }
 }
 
