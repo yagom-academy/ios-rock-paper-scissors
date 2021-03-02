@@ -37,6 +37,7 @@ struct RockScissorsPaper {
     //유저입력
     func getUserSelection() -> Void {
         //게임입력메세지 출력
+        print("가위(1), 바위(2), 보(3)! <종료:0>")
         let userSelection: String? = readLine()
         if checkValidUserSelection(userSelection: userSelection) {
             //convertedUserSelection: userSelection Int형으로 변환
