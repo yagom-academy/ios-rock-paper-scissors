@@ -8,8 +8,8 @@ import Foundation
 ///## 가위바위보에 대한 기능(속성)과 메서드(행동)을 'RockPaperScissors 타입'으로 묶었음.
 ///----------
 ///- Computer의 임의의 수와 User에게 입력받은 값을 배열로 묶어 표현함.
-///- 배열 내의 수를 연산하여 나올수 있는 경우의 수를 묶어 결과값을 산출하였음
-///   - 승리할 시, [3, ]
+///- 컴퓨터의 수에서 사용자의 수를 빼서 나올수 있는 경우의 수를 묶어 결과값을 산출하였음
+///   - 승리할 시 (-1,2) / 패배할 시 (-2,1) / 비겼을 시 (0)
 class RockPaperScissors { // RPCs game
     var inputNumber: Int = 0
     var inputString: String = ""
@@ -27,20 +27,24 @@ class RockPaperScissors { // RPCs game
         inputString = temporaryString
         inputNumber = temporaryInt
     }
- 
-    func makeArrayOrReturn() {
+    
+ ///- 사용자에게 입력받은 값이 "0"일 경우 그만하기, "1","2","3"일 경우 return, 그 외 입력값은 문구 출력 후 다시하기
+   func checkInputString() {
         switch inputString {
         case "0":
             gameCommand = "그만하기"
         case "1", "2", "3":
-            gameCommand = ""
+            return
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             inputNumber = 10
             gameCommand = "다시하기"
         }
     }
-
+    
+///- 컴퓨터의 수에서 사용자입력값을 뺀 값에 따라 각각 case로 결과 산출
+///  - ex) 컴퓨터의 수: 1(가위) - 사용자입력값: 2(바위) = -1로 사용자승리
+///- 결과가 0일 때 "비겼습니다!" 문구 출력 후 다시하기 / 그 외 결과일 시 다시하기
     func makeResult() {
         switch (randomNumber - inputNumber) {
         case -1, 2:
@@ -58,6 +62,8 @@ class RockPaperScissors { // RPCs game
         }
     }
     
+///- gameCommand  == "다시하기" 일 시 반복
+///- 게임을 진행하는 메서드
     func start() {
         while gameCommand == "다시하기" {
             inputNumber = 0
@@ -65,7 +71,7 @@ class RockPaperScissors { // RPCs game
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "") // printMenu func
             makeRandomNumber()
             inputUserNumber()
-            makeArrayOrReturn()
+            checkInputString()
             makeResult()
         }
     }
