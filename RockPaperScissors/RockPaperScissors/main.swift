@@ -35,6 +35,7 @@ extension RockScissorsPaperGame {
             }
         } else {
             printError()
+            presentGameMemu()
         }
         return inputNumbers.first!
     }
@@ -55,7 +56,9 @@ extension RockScissorsPaperGame {
     
     func judgeRockScissorsPaper(userNumber userState: Int, computerNumber computerState: Int) {
         let decisionStatus = userState - computerState
-        if decisionStatus == 0 {
+        if userState == 0 {
+            finishGame()
+        } else if decisionStatus == 0 {
             print("비겼습니다!")
             presentGameMemu()
         } else {
@@ -71,6 +74,10 @@ extension RockScissorsPaperGame {
     
     func printError() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+    func finishGame() {
+        print("게임 종료")
+        return
     }
 }
 
