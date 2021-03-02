@@ -60,15 +60,17 @@ extension RockScissorsPaperGame {
     
     func judgeRockScissorsPaper(userNumber userState: Int, computerNumber computerState: Int) {
         let decisionStatus = userState - computerState
+        let userWinStatus = [1, -2]
+        let computerWinStatus = [-1, 2]
         if userState == 0 {
             finishGame()
         } else if decisionStatus == 0 {
             print("비겼습니다!")
             startGame()
         } else {
-            if decisionStatus == 1 || decisionStatus == -2 {
+            if userWinStatus.contains(decisionStatus) {
                 print("이겼습니다!")
-            } else if decisionStatus == -1 || decisionStatus == 2 {
+            } else if computerWinStatus.contains(decisionStatus) {
                 print("졌습니다!")
             }
         }
