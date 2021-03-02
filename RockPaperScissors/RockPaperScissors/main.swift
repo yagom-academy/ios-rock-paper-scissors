@@ -3,14 +3,14 @@ enum GameError: Error {
     case unknownError
 }
 enum ResultOfRockPaperScissors {
-    case win
-    case lose
+    case userWin
+    case userLose
     case draw
 }
 enum ResultOfMukChiBa {
-    case win
-    case lose
-    case draw
+    case userTurn
+    case computerTurn
+    case somebodyWin
 }
 class RockPaperScissors {
     var handOfComputer = 0
@@ -34,25 +34,26 @@ class RockPaperScissors {
                 continue outer
             }
             handOfUser = userInput
-            let winner = compareHands(handOfUser, with: handOfComputer)
-            showResult(winner)
-            if winner == .draw{
+            let ResultOfRockPaperScissors = compareHandsOfRockPaperScissors(handOfUser, with: handOfComputer)
+            showResult(ResultOfRockPaperScissors)
+            if ResultOfRockPaperScissors == .draw{
                 continue outer
             }
-            MukChiBa().mukChiBaStart(winner)
+            MukChiBa(winner: ResultOfRockPaperScissors == .userWin ? "사용자" : "컴퓨터").mukChiBaStart()
+            break outer
         }
     }
-    func compareHands(_ user: Int, with computer: Int) -> ResultOfRockPaperScissors {
+    func compareHandsOfRockPaperScissors(_ user: Int, with computer: Int) -> ResultOfRockPaperScissors {
         switch (user, computer) {
         case (1, 1), (2, 2), (3, 3):
             return .draw
         case (1, 3), (2, 1), (3, 2):
-            return .win
+            return .userWin
         case (1, 2), (2, 3), (3, 1):
-            return .lose
+            return .userLose
         default:
             print("알 수 없는 오류입니다.")
-            return .lose
+            return .userLose
         }
     }
     func showMenu() {
@@ -76,9 +77,9 @@ class RockPaperScissors {
     }
     func showResult(_ input: ResultOfRockPaperScissors) {
         switch input {
-        case .win:
+        case .userWin:
             print("이겼습니다!")
-        case .lose:
+        case .userLose:
             print("졌습니다!")
         case .draw:
             print("비겼습니다!")
@@ -86,26 +87,48 @@ class RockPaperScissors {
     }
 }
 class MukChiBa : RockPaperScissors {
-    func renewHand(){
-        handOfComputer = Int.random(in: 1...3)
+    var currentTurn: String
+    
+    init(winner: String) {
+        currentTurn = winner
     }
-    func mukChiBaStart(_ winner: ResultOfRockPaperScissors) {
-        
+    
+    func mukChiBaStart() {
+        outer: while true {
+            print("[\(currentTurn)턴] 묵(1). 찌(2). 빠(3)! <종료 : 0>", terminator: " : ")
+            handOfComputer = Int.random(in: 1...3)
+            do {
+                handOfUser = try getUserInput()
+            } catch {
+                currentTurn = "컴퓨터"
+                continue outer
+            }
+            let resultOfMukChiBa = compareHandsOfMukChiBa(handOfUser, with: handOfComputer, turn: currentTurn)
+            switch resultOfMukChiBa {
+            case .somebodyWin:
+                print("\(currentTurn) 승리!")
+                break outer
+            case .userTurn:
+                currentTurn = "사용자"
+                print("\(currentTurn)의 턴입니다")
+            case .computerTurn:
+                currentTurn = "컴퓨터"
+                print("\(currentTurn)의 턴입니다")
+            }
+            
+        }
     }
-    func showMenu(_ winner: ResultOfRockPaperScissors){
-        
-    }
-    override func compareHands(_ user: Int, with computer: Int) -> ResultOfRockPaperScissors {
-        switch (user, computer) {
-        case (1, 1), (2, 2), (3, 3):
-            return .win
-        case (1, 3), (2, 1), (3, 2):
-            return .draw
-        case (1, 2), (2, 3), (3, 1):
-            return .draw
+    func compareHandsOfMukChiBa(_ user: Int, with computer: Int, turn: String) -> ResultOfMukChiBa {
+        switch (user, computer, turn) {
+        case (1, 1, _), (2, 2, _), (3, 3, _):
+            return .somebodyWin
+        case (1, 3, _), (2, 1, _), (3, 2, _):
+            return .computerTurn
+        case (1, 2, _), (2, 3, _), (3, 1, _):
+            return .userTurn
         default:
             print("알 수 없는 오류입니다.")
-            return .lose
+            return .somebodyWin
         }
     }
 }
