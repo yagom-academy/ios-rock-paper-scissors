@@ -66,8 +66,8 @@ class RockScissorPaper {
     }
     
     func getUserInput() throws -> Hand {
-        guard let userStringInput = readLine(),
-              let integerUserInput = Int(userStringInput),
+        guard let stringUserInput = readLine(),
+              let integerUserInput = Int(stringUserInput),
               let userInput = Hand(rawValue: integerUserInput)
               else {
             throw GameError.invalidInput
@@ -76,7 +76,8 @@ class RockScissorPaper {
     }
     
     func showResult(_ input: GameResult) {
-        print(input.rawValue)
+        let resultStatement = input.rawValue
+        print(resultStatement)
     }
 }
 
