@@ -7,8 +7,8 @@
 import Foundation
 
 class MukChiBaGame {
-    var computerAnswer: Int = 0
-    var userAnswer: Int = 0
+    var computerAnswer: Hand = .rock
+    var userAnswer: Hand = .rock
     enum GameResult {
         case draw, win, lose
     }
@@ -30,8 +30,8 @@ class MukChiBaGame {
         return Int.random(in: 1...3)
     }
     
-    func setComputerAnswer() {
-        computerAnswer = generatedRandomAnswer()
+    func castedHand(from number: Int) -> Hand {
+         return Hand(rawValue: number) ?? .rock
     }
     
     func printGameMessage(_ message: GameMessage) {
@@ -43,7 +43,7 @@ class MukChiBaGame {
         }
     }
     
-    func exitGame(with message: GameMessage) {
+    func exitGame(withMessage message: GameMessage) {
         print(message.rawValue)
         exit(0)
     }
@@ -56,13 +56,13 @@ class MukChiBaGame {
     }
     
     func isValidUserAnswer(_ userInput: String?) -> Bool {
-        let userAnswer = castedInteger(from: userInput)
+        let userAnswer: Int = castedInteger(from: userInput)
         
         if userAnswer == -1 { return false }
         
         switch userAnswer {
         case 0:
-            exitGame(with: GameMessage.exit)
+            exitGame(withMessage: .exit)
         case 1...3:
             return true
         default: break
@@ -71,16 +71,43 @@ class MukChiBaGame {
         return false
     }
     
+    func checkGameResult() -> GameResult {
+        if userAnswer == .scissors {
+            if computerAnswer == .paper {
+                return .win
+            } else if computerAnswer == .rock {
+                return .lose
+            }
+        } else if userAnswer == .rock {
+            if computerAnswer == .scissors {
+                return .win
+            } else if computerAnswer == .paper {
+                return .lose
+            }
+            
+        } else if userAnswer == .paper {
+            if computerAnswer == .rock {
+                return .win
+            } else if computerAnswer == .scissors {
+                return .lose
+            }
+        }
+        
+        return .draw
+    }
+    
     func startGame() {
-        setComputerAnswer()
+        computerAnswer = castedHand(from: generatedRandomAnswer())
         while true {
-            printGameMessage(GameMessage.menu)
+            printGameMessage(.menu)
             let userInput: String? = readLine()
             
             if !isValidUserAnswer(userInput) {
-                printGameMessage(GameMessage.error)
+                printGameMessage(.error)
                 continue
             }
+            userAnswer = castedHand(from: castedInteger(from: userInput))
+            
         }
     }
     
