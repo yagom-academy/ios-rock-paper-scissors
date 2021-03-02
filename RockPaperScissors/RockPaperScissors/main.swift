@@ -39,16 +39,24 @@ struct RockScissorsPaper {
         return false
     }
 
-    //유저입력
+    func convertUserSelection(userSelection: String) -> Int {
+        if let convertedUserSelection: Int = Int(userSelection) {
+            return convertedUserSelection
+        }
+        return -1
+    }
+    
     func getUserSelection() -> Void {
         //게임입력메세지 출력
-        let userSelection: String? = readLine()
-        if checkValidUserSelection(userSelection: userSelection) {
-            //convertedUserSelection: userSelection Int형으로 변환
-            decideGameOption(convertedUserSelection: 1)
-        }else {
-            //잘못된 입력 메세지 출력
-            //startGame()
+        // userSelection을 String으로 바꿔서 아래 if문에 대입
+        if let userSelection: String = readLine() {
+            if checkValidUserSelection(userSelection: userSelection) {
+                let convertedUserSelection: Int = convertUserSelection(userSelection: userSelection)
+                decideGameOption(convertedUserSelection: convertedUserSelection)
+            }else {
+                //잘못된 입력 메세지 출력
+                //startGame()
+            }
         }
     }
 
