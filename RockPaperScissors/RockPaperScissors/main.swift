@@ -2,10 +2,10 @@ enum GameError: Error {
     case invalidInput
     case unknownError
 }
-enum GameResult {
-    case win
-    case lose
-    case draw
+enum GameResult: String {
+    case win = "이겼습니다!"
+    case lose = "졌습니다!"
+    case draw = "비겼습니다!"
 }
 class RockScissorPaper {
     var handOfComputer = Int.random(in: 1...3)
@@ -66,14 +66,7 @@ class RockScissorPaper {
         }
     }
     func showResult(_ input: GameResult) {
-        switch input {
-        case .win:
-            print("이겼습니다!")
-        case .lose:
-            print("졌습니다!")
-        case .draw:
-            print("비겼습니다!")
-        }
+        print(input.rawValue)
     }
 }
 
