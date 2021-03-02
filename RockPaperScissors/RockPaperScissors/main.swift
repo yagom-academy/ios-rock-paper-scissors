@@ -37,6 +37,7 @@ class RockPaperScissors {
             switch userCase {
             case .exit:
                 print("게임 종료")
+                return 0
             case .rock:
                 return 1
             case .paper:
@@ -50,18 +51,20 @@ class RockPaperScissors {
     }
     
     func checkWinLoseResult(user: Int, computer: Int) -> Int {
-            let whoWinCheck: Int = user - computer
-            var GameResult: Int = 0
+        let whoWinCheck: Int = user - computer
+        var GameResult: Int = 0
         
-            if whoWinCheck == 0 {
-                GameResult = 3
-            } else if whoWinCheck == 1 || whoWinCheck == -2 {
-                GameResult = 1
-            } else if whoWinCheck == -1 || whoWinCheck == 2 {
-                GameResult = 2
-            }
-            
-            return GameResult
+        if user == 0 {
+            GameResult = 0
+        } else if whoWinCheck == 0 {
+            GameResult = 3
+        } else if whoWinCheck == 1 || whoWinCheck == -2 {
+            GameResult = 1
+        } else if whoWinCheck == -1 || whoWinCheck == 2 {
+            GameResult = 2
+        }
+
+        return GameResult
     }
     
     func printResultChangeGameState(gameResult: Int) -> Bool {
@@ -95,11 +98,11 @@ class RockPaperScissors {
                 computer: computerCase)
             
             gameState = printResultChangeGameState(gameResult: winLoseResult)
-            }
         }
+    }
     
 }
-    
+
 
 var testGame = RockPaperScissors()
 
