@@ -6,6 +6,13 @@
 
 import Foundation
 
+enum RockPaperScissorsCase: Int {
+    case exit = 0
+    case rock = 1
+    case paper = 2
+    case scissors = 3
+}
+
 class RockPaperScissors {
     var computerCase = 0
     var userCase = 0
@@ -25,15 +32,16 @@ class RockPaperScissors {
                 continue
             }
             
-            switch userInputNumber {
-            case 0:
+            let userCase = RockPaperScissorsCase(rawValue: userInputNumber)
+            
+            switch userCase {
+            case .exit:
                 print("게임 종료")
-                
-            case 1:
+            case .rock:
                 return 1
-            case 2:
+            case .paper:
                 return 2
-            case 3:
+            case .scissors:
                 return 3
             default:
                 print("잘못된 입력입니다. 다시 입력해주세요.")
@@ -44,7 +52,7 @@ class RockPaperScissors {
     func checkWinLoseResult(user: Int, computer: Int) -> Int {
             let whoWinCheck: Int = user - computer
             var GameResult: Int = 0
-            
+        
             if whoWinCheck == 0 {
                 GameResult = 3
             } else if whoWinCheck == 1 || whoWinCheck == -2 {
@@ -87,16 +95,11 @@ class RockPaperScissors {
                 computer: computerCase)
             
             gameState = printResultChangeGameState(gameResult: winLoseResult)
-            
             }
         }
+    
 }
     
-    
-    
-
-    
-
 
 var testGame = RockPaperScissors()
 
