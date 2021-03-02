@@ -10,14 +10,7 @@ import Foundation
 struct RockScissorsPaper {
 
     func playRockScissorsPaper(userChoice: Int) -> Void {
-        //랜덤변수 생성
-        //유저 승
-            //"이겼습니다"출력
-        //유저 패
-            //"졌습니다"출력
-        //무승부
-            //"비겼습니다"출력
-            //startGame()
+        let randomRockScissorsPaperChoice: Int = Int.random(in: 1...3)
     }
 
     func decideGameOption(convertedUserSelection: Int) -> Void {
