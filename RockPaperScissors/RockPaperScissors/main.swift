@@ -16,7 +16,37 @@ class RockPaperScissorsGame {
         case lose
     }
 
-    func gameStart() {}
+    func gameStart() {
+        repeat {
+            let computersHand = makeRandomHand()
+            var userHand: Hand = Hand.none
+            
+            do {
+                userHand = try getHandByUser()
+            } catch {
+                print("잘못된 입력입니다. 다시 입력해주세요")
+                continue
+            }
+            
+            if userHand == .none {
+                print("게임종료")
+                break
+            }
+
+            let gameResult = getGameResult(userHand, vs: computersHand)
+
+            switch gameResult {
+            case .win :
+                print("이겼습니다.")
+                return
+            case .lose :
+                print("졌습니다.")
+                return
+            default :
+                print("비겼습니다.")
+            }
+        } while true
+    }
     
     func makeRandomHand() -> Hand {
         let random = Int.random(in: 1...3)
@@ -66,3 +96,6 @@ class RockPaperScissorsGame {
         }
     }
 }
+
+let rockPaperScissors = RockPaperScissorsGame()
+rockPaperScissors.gameStart()
