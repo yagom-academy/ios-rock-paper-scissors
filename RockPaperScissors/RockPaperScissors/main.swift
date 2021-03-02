@@ -9,9 +9,9 @@ import Foundation
 
 struct RockScissorsPaper {
   
-    func playRockScissorsPaper(userChoice: Int) -> Void {
+    private func playRockScissorsPaper(userChoice: Int) -> Void {
         let randomRockScissorsPaperChoice: Int = Int.random(in: 1...3)
-        let criterion: Int = (userChoice - randomRockScissorsPaperChoice) % 3
+        let criterion: Int = (userChoice - randomRockScissorsPaperChoice + 3) % 3
         if criterion == 1 {
             print("이겼습니다!")
         } else if criterion == 2 {
@@ -22,13 +22,13 @@ struct RockScissorsPaper {
         }
     }
   
-    func decideGameOption(convertedUserSelection: Int) -> Void {
+    private func decideGameOption(convertedUserSelection: Int) -> Void {
         if [1, 2, 3].contains(convertedUserSelection) {
             playRockScissorsPaper(userChoice: convertedUserSelection)
         }
     }
     
-    func checkValidUserSelection(userSelection: String) -> Bool {
+    private func checkValidUserSelection(userSelection: String) -> Bool {
         if let selection = Int(userSelection) {
             if (0...3).contains(selection) {
                 return true
@@ -37,14 +37,14 @@ struct RockScissorsPaper {
         return false
     }
 
-    func convertUserSelection(userSelection: String) -> Int {
+    private func convertUserSelection(userSelection: String) -> Int {
         if let convertedUserSelection: Int = Int(userSelection) {
             return convertedUserSelection
         }
         return -1
     }
     
-    func getUserSelection() -> Void {
+    private func getUserSelection() -> Void {
         print("가위(1), 바위(2), 보(3)! <종료:0> : ", terminator: "")
         if let userSelection: String = readLine() {
             if checkValidUserSelection(userSelection: userSelection) {
@@ -61,3 +61,6 @@ struct RockScissorsPaper {
         getUserSelection()
     }
 }
+
+let newGame: RockScissorsPaper = RockScissorsPaper()
+newGame.startGame()
