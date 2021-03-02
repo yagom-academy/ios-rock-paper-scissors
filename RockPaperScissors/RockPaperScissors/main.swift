@@ -48,9 +48,17 @@ class MukChiBaGame {
         exit(0)
     }
     
+    func castedInteger(from input: String?) -> Int {
+        guard let _input: String = input else { return -1 }
+        guard let result: Int = Int(_input) else { return -1 }
+        
+        return result
+    }
+    
     func isValidUserAnswer(_ userInput: String?) -> Bool {
-        guard let _userInput = userInput else { return false }
-        guard let userAnswer = Int(_userInput) else { return false }
+        let userAnswer = castedInteger(from: userInput)
+        
+        if userAnswer == -1 { return false }
         
         switch userAnswer {
         case 0:
@@ -67,9 +75,15 @@ class MukChiBaGame {
         setComputerAnswer()
         while true {
             printGameMessage(GameMessage.menu)
-            if !isValidUserAnswer(readLine()) { continue }
+            let userInput: String? = readLine()
+            
+            if !isValidUserAnswer(userInput) {
+                printGameMessage(GameMessage.error)
+                continue
+            }
         }
     }
+    
 }
 
 MukChiBaGame().startGame()
