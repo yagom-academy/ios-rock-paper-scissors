@@ -2,12 +2,17 @@ enum GameError: Error {
     case invalidInput
     case unknownError
 }
-enum GameResult {
+enum ResultOfRockPaperScissors {
     case win
     case lose
     case draw
 }
-class RockScissorPaper {
+enum ResultOfMukChiBa {
+    case win
+    case lose
+    case draw
+}
+class RockPaperScissors {
     var handOfComputer = 0
     var handOfUser = 0
     func initialize() {
@@ -31,9 +36,13 @@ class RockScissorPaper {
             handOfUser = userInput
             let winner = compareHands(handOfUser, with: handOfComputer)
             showResult(winner)
+            if winner == .draw{
+                continue outer
+            }
+            MukChiBa().mukChiBaStart(winner)
         }
     }
-    func compareHands(_ user: Int, with computer: Int) -> GameResult {
+    func compareHands(_ user: Int, with computer: Int) -> ResultOfRockPaperScissors {
         switch (user, computer) {
         case (1, 1), (2, 2), (3, 3):
             return .draw
@@ -65,7 +74,7 @@ class RockScissorPaper {
             throw GameError.invalidInput
         }
     }
-    func showResult(_ input: GameResult) {
+    func showResult(_ input: ResultOfRockPaperScissors) {
         switch input {
         case .win:
             print("이겼습니다!")
@@ -76,5 +85,29 @@ class RockScissorPaper {
         }
     }
 }
+class MukChiBa : RockPaperScissors {
+    func renewHand(){
+        handOfComputer = Int.random(in: 1...3)
+    }
+    func mukChiBaStart(_ winner: ResultOfRockPaperScissors) {
+        
+    }
+    func showMenu(_ winner: ResultOfRockPaperScissors){
+        
+    }
+    override func compareHands(_ user: Int, with computer: Int) -> ResultOfRockPaperScissors {
+        switch (user, computer) {
+        case (1, 1), (2, 2), (3, 3):
+            return .win
+        case (1, 3), (2, 1), (3, 2):
+            return .draw
+        case (1, 2), (2, 3), (3, 1):
+            return .draw
+        default:
+            print("알 수 없는 오류입니다.")
+            return .lose
+        }
+    }
+}
 
-RockScissorPaper().startGame()
+RockPaperScissors().startGame()
