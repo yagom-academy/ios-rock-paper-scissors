@@ -56,7 +56,18 @@ class RockScissorPaper {
     }
     
     func getUserInput() throws -> Int {
-        return 0
+        guard let unsafeUserInput = readLine() else {
+            throw GameError.invalidInput
+        }
+        guard let integerUserInput = Int(unsafeUserInput) else {
+            throw GameError.invalidInput
+        }
+        switch integerUserInput {
+        case 0, 1, 2, 3:
+            return integerUserInput
+        default:
+            throw GameError.invalidInput
+        }
     }
     
     func showResult(_ input: GameResult) {
