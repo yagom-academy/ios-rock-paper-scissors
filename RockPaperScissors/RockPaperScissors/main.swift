@@ -25,6 +25,10 @@ struct MukChiBaGame {
         case win = "이겼습니다!"
         case lose = "졌습니다!"
     }
+    func generatedComputerAnswer() -> Int {
+        return Int.random(in: 1...3)
+    }
+
     func startGame() {
     }
 }
