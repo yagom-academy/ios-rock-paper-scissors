@@ -10,14 +10,14 @@ enum GameResult: String {
 class RockScissorPaper {
     var handOfComputer = Int.random(in: 1...3)
     var handOfUser = Int.random(in: 1...3)
-    func initialize() {
+    func renewComputerHand() {
         handOfUser = 0
         handOfComputer = Int.random(in: 1...3)
     }
     func startGame() {
         var userInput = 0
         outer: while true {
-            initialize()
+            renewComputerHand()
             showMenu()
             do {
                 userInput = try getUserInput()
