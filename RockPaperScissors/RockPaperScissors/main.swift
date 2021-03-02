@@ -71,7 +71,14 @@ class RockScissorPaper {
     }
     
     func showResult(_ input: GameResult) {
-        
+        switch input {
+        case .win:
+            print("이겼습니다!")
+        case .lose:
+            print("졌습니다!")
+        case .draw:
+            print("비겼습니다!")
+        }
     }
 }
 
