@@ -22,29 +22,27 @@ struct RockScissorsPaper {
     
     func decideGameOption(convertedUserSelection: Int) -> Void {
         if [1,2,3].contains(convertedUserSelection) {
-            //게임진행
             playRockScissorsPaper(userChoice: convertedUserSelection)
         }
-        // 0이면 게임종료.
     }
     
-    func checkValidUserSelection(userSelection: String?) -> Bool {
+    func checkValidUserSelection(userSelection: String) -> Bool {
         //userSelection 옵셔널바인딩
         //userSelection이 0...3 -> true 아니면 false
         return true
     }
     
+    
     //유저입력
     func getUserSelection() -> Void {
         //게임입력메세지 출력
-        print("가위(1), 바위(2), 보(3)! <종료:0>")
-        let userSelection: String? = readLine()
-        if checkValidUserSelection(userSelection: userSelection) {
-            //convertedUserSelection: userSelection Int형으로 변환
-            decideGameOption(convertedUserSelection: 1)
-        }else {
-            //잘못된 입력 메세지 출력
-            //startGame()
+        print("가위(1), 바위(2), 보(3)! <종료>")
+        if let userSelection: String = readLine() {
+            if checkValidUserSelection(userSelection: userSelection) {
+            }else {
+                print("잘못된 입력입니다. 다시 시도해주세요")
+                startGame()
+            }
         }
     }
     
