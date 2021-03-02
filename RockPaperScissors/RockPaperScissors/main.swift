@@ -6,7 +6,7 @@
 class RockScissorsPaperGame {
     func startGame() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        let userInput = isValidInput()
+        let userInput = userTyping()
         let computerNumber = createRandomNumber()
         judgeRockScissorsPaper(userNumber: userInput, computerNumber: computerNumber)
     }
@@ -23,10 +23,14 @@ extension RockScissorsPaperGame {
     }
     
     // MARK: - User input valid check
-    
-    func isValidInput() -> Int {
+    func userTyping() -> Int {
+        let optionalInput = readLine()
+        let validedInputNumber = isValidInput(userInput: optionalInput)
+        return validedInputNumber
+    }
+    func isValidInput(userInput validInput: String?) -> Int {
         var inputNumbers: [Int] = []
-        if let optionalInputNumber = readLine() {
+        if let optionalInputNumber = validInput {
             inputNumbers = optionalInputNumber.split(separator: " ").map { Int(String($0)) ?? -1 }
             if checkedInput(inputArrays: inputNumbers) == false {
                 printError()
