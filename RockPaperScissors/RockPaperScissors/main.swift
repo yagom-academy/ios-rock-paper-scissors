@@ -11,6 +11,8 @@ class RockScissorsPaperGame {
         judgeRockScissorsPaper(userNumber: userInput, computerNumber: computerNumber)
     }
 }
+
+/// 메인 동작과 서브 동작을 구분하기 위해서 extension으로 확장
 extension RockScissorsPaperGame {
 
     // MARK: - Computer Number
