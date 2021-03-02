@@ -8,8 +8,8 @@ enum GameResult {
     case draw
 }
 class RockScissorPaper {
-    var handOfComputer = 0
-    var handOfUser = 0
+    var handOfComputer = Int.random(in: 1...3)
+    var handOfUser = Int.random(in: 1...3)
     func initialize() {
         handOfUser = 0
         handOfComputer = Int.random(in: 1...3)
@@ -29,12 +29,12 @@ class RockScissorPaper {
                 continue outer
             }
             handOfUser = userInput
-            let winner = compareHands(handOfUser, with: handOfComputer)
+            let winner = returnResultOfGame()
             showResult(winner)
         }
     }
-    func compareHands(_ user: Int, with computer: Int) -> GameResult {
-        switch (user, computer) {
+    func returnResultOfGame() -> GameResult {
+        switch (handOfUser, handOfComputer) {
         case (1, 1), (2, 2), (3, 3):
             return .draw
         case (1, 3), (2, 1), (3, 2):
