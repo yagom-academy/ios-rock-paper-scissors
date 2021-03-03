@@ -3,37 +3,52 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 //
-enum ErrorStatus: Error {
-    case inputError
+enum GameRestart: Error {
+    case inputValue
     case beginAgain
 }
-enum Result: String {
+enum UserSideGameResult: String {
     case win = "이겼습니다!"
     case lose = "졌습니다!"
     case draw = "비겼습니다!"
 }
-enum RockScissorsPaper: Int {
-    case initStatus = -1
-    case end, rock, scissors, paper
+enum HandShape: Int {
+    case rock = 1, scissors = 2, paper = 3
+}
+enum GameStatus: Int {
+    case initHandValue = -1
+    case endGameValue = 0
+}
+enum UserResultSituation: Int {
+    case SelectWinRockScissors = 1
+    case SelectWinScissors = -2
+    case SelectLoseScissorsRock = -1
+    case SelectLosePaper = 2
+    case SelectDraw = 0
 }
 
-struct GameStatus {
-    let rock = RockScissorsPaper.rock.rawValue
-    let scissors = RockScissorsPaper.scissors.rawValue
-    let paper = RockScissorsPaper.paper.rawValue
-    let end = RockScissorsPaper.end.rawValue
-    let initValue = RockScissorsPaper.initStatus.rawValue
+struct Hand {
+    static let rock = HandShape.rock.rawValue
+    static let scissors = HandShape.scissors.rawValue
+    static let paper = HandShape.paper.rawValue
 }
 struct GameResult {
-    let win = Result.win.rawValue
-    let lose = Result.lose.rawValue
-    let draw = Result.draw.rawValue
+    static let win = UserSideGameResult.win.rawValue
+    static let lose = UserSideGameResult.lose.rawValue
+    static let draw = UserSideGameResult.draw.rawValue
+}
+struct GameConditions {
+    static let endGame = GameStatus.endGameValue.rawValue
+    static let initValue = GameStatus.initHandValue.rawValue
+    static let userSelectWinRockScissors = UserResultSituation.SelectWinRockScissors.rawValue
+    static let userSelectWinScissors = UserResultSituation.SelectWinScissors.rawValue
+    static let userSelectLoseScissorsRock = UserResultSituation.SelectLoseScissorsRock.rawValue
+    static let userSelectLosePaper = UserResultSituation.SelectLosePaper.rawValue
+    static let userSelectDraw = UserResultSituation.SelectDraw.rawValue
 }
 
 class RockScissorsPaperGame {
-    var gameStatus = GameStatus()
-    var gameResult = GameResult()
-    var userInput = RockScissorsPaper.initStatus.rawValue
+    var userInput = GameConditions.initValue
     func startGame() {
         for _ in 0...Int.max {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -47,7 +62,7 @@ class RockScissorsPaperGame {
             do {
                 try judgeRockScissorsPaper(userNumber: userInput, computerNumber: computerNumber)
             } catch {
-                print(gameResult.draw)
+                print(GameResult.draw)
                 continue
             }
             break
@@ -67,49 +82,50 @@ extension RockScissorsPaperGame {
     }
     
     // MARK: - User input valid check
+    
     func userTyping() throws -> Int {
-        var validedInputNumber = gameStatus.initValue
+        var validedInputNumber = GameConditions.initValue
         let optionalInput = readLine()
         do {
-            validedInputNumber = try isValidInput(userInput: optionalInput)
+            validedInputNumber = try isValidInput(needValidInput: optionalInput)
         } catch {
-            throw ErrorStatus.inputError
+            throw GameRestart.inputValue
         }
         return validedInputNumber
     }
-    func isValidInput(userInput validInput: String?) throws -> Int {
-        var valiedNumber = RockScissorsPaper.initStatus.rawValue
+    func isValidInput(needValidInput userInput: String?) throws -> Int {
+        var valiedNumber = GameConditions.initValue
         do {
-            valiedNumber = try checkedInput(inputOptionalString: validInput)
+            valiedNumber = try isCheckedInput(needCheckInput: userInput)
         } catch {
-            throw ErrorStatus.inputError
+            throw GameRestart.inputValue
         }
         return valiedNumber
     }
-    func checkedInput(inputOptionalString OptionalString: String?) throws -> Int {
-        let validedNumbers = [gameStatus.end, gameStatus.rock, gameStatus.scissors, gameStatus.paper]
-        guard let validString = OptionalString, let validNumber = Int(validString), validedNumbers.contains(validNumber) else {
-            throw ErrorStatus.inputError
+    func isCheckedInput(needCheckInput userInput: String?) throws -> Int {
+        let validNumbers = [GameConditions.endGame, Hand.rock, Hand.scissors, Hand.paper]
+        guard let validString = userInput, let validedNumber = Int(validString), validNumbers.contains(validedNumber) else {
+            throw GameRestart.inputValue
         }
-        return validNumber
+        return validedNumber
     }
     
     // MARK: - Game judge
     
     func judgeRockScissorsPaper(userNumber userState: Int, computerNumber computerState: Int) throws {
         let decisionStatus = userState - computerState
-        let userWinStatus = [1, -2]
-        let computerWinStatus = [-1, 2]
-        let userComputerDraw = 0
+        let userWinStatus = [GameConditions.userSelectWinRockScissors, GameConditions.userSelectWinScissors]
+        let computerWinStatus = [GameConditions.userSelectLoseScissorsRock, GameConditions.userSelectLosePaper]
+        let userComputerDraw = GameConditions.userSelectDraw
         if userState == userComputerDraw {
             finishGame()
         } else if decisionStatus == userComputerDraw {
-            throw ErrorStatus.beginAgain
+            throw GameRestart.beginAgain
         } else {
             if userWinStatus.contains(decisionStatus) {
-                print(gameResult.win)
+                print(GameResult.win)
             } else if computerWinStatus.contains(decisionStatus) {
-                print(gameResult.lose)
+                print(GameResult.lose)
             }
         }
     }
