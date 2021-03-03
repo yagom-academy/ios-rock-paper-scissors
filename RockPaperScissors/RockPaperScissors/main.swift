@@ -10,12 +10,26 @@ import Foundation
 ///- Computer의 임의의 수와 User에게 입력받은 값을 배열로 묶어 표현함.
 ///- 컴퓨터의 수에서 사용자의 수를 빼서 나올수 있는 경우의 수를 묶어 결과값을 산출하였음
 ///   - 승리할 시 (-1,2) / 패배할 시 (-2,1) / 비겼을 시 (0)
+enum Starting {
+    case start
+    case restart
+    case exit
+}
+
+enum ResultOfGame {
+    case userWin
+    case draw
+    case computerWin
+}
+
+
 class RockPaperScissors { // RPCs game
     var inputNumber: Int = 0
     var inputString: String = ""
     var randomNumber: Int = 0
-    var gameCommand: String = "다시하기"
-
+    var gameMenu: Starting = Starting.restart
+    var gameCommand: ResultOfGame = ResultOfGame.draw
+    
     func makeRandomNumber() {
         randomNumber = Int.random(in: 1...3)
     }
@@ -32,53 +46,60 @@ class RockPaperScissors { // RPCs game
    func checkInputString() {
         switch inputString {
         case "0":
-            gameCommand = "그만하기"
+            gameMenu = Starting.exit
         case "1", "2", "3":
-            return
+            gameMenu = Starting.start
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            inputNumber = 10
-            gameCommand = "다시하기"
+            gameMenu = Starting.restart
         }
     }
     
 ///- 컴퓨터의 수에서 사용자입력값을 뺀 값에 따라 각각 case로 결과 산출
 ///  - ex) 컴퓨터의 수: 1(가위) - 사용자입력값: 2(바위) = -1로 사용자승리
 ///- 결과가 0일 때 "비겼습니다!" 문구 출력 후 다시하기 / 그 외 결과일 시 다시하기
-    func makeResult(a: Int, b: Int) {
-        switch (a - b) {
-        case -1, 2:
-            print("이겼습니다.")
-            gameCommand = "사용자승리"
-        case 1, -2:
-            print("졌습니다.")
-            gameCommand = "컴퓨터승리"
-        case 0:
-            print("비겼습니다.")
-            gameCommand = "다시하기"
-        default:
-            gameCommand = "다시하기"
-            return
+    func makeResult(a: Int, b: Int, c: Starting) {
+        if c == Starting.start {
+            switch (a - b) {
+            case -1, 2:
+                print("이겼습니다.")
+                gameCommand = ResultOfGame.userWin
+            case 1, -2:
+                print("졌습니다.")
+                gameCommand = ResultOfGame.computerWin
+            case 0:
+                print("비겼습니다.")
+                gameCommand = ResultOfGame.draw
+            default:
+                return
+            }
         }
+    }
+    
+    func initializeNumbers() {
+        inputNumber = 0
+        randomNumber = 0
     }
     
 ///- gameCommand  == "다시하기" 일 시 반복
 ///- 게임을 진행하는 메서드
     func start() {
-        while gameCommand == "다시하기" {
-            inputNumber = 0
-            randomNumber = 0 // initialize func
+        while gameCommand == ResultOfGame.draw || gameMenu == Starting.restart {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "") // printMenu func
             makeRandomNumber()
             inputUserNumber()
             checkInputString()
-            makeResult(a: randomNumber, b: inputNumber)
+            makeResult(a: randomNumber, b: inputNumber, c: gameMenu)
+            initializeNumbers()
         }
     }
 }
 
 var rockPaperScissors = RockPaperScissors()
 rockPaperScissors.start()
+
+
+
 print(rockPaperScissors.gameCommand)
 
 var turn: String = ""
