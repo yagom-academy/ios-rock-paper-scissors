@@ -90,16 +90,11 @@ class RockPaperScissors {
     }
     
     func showResult(_ input: ResultOfRockPaperScissors) {
-        switch input {
-        case .userWin:
-            print("이겼습니다!")
-        case .userLose:
-            print("졌습니다!")
-        case .draw:
-            print("비겼습니다!")
-        }
+        let resultStatement = input.rawValue
+        print(resultStatement)
     }
 }
+
 class MukChiBa : RockPaperScissors {
     var currentTurn: String
     
