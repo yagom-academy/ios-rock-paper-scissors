@@ -28,10 +28,10 @@ class RockPaperScissors {
     }
     
     func renewComputerHand() {
-           if let randomHand = Hand(rawValue: Int.random(in: 1...3)) {
-               handOfComputer = randomHand
-           }
-       }
+        if let randomHand = Hand(rawValue: Int.random(in: 1...3)) {
+            handOfComputer = randomHand
+        }
+    }
     
     func startGame() {
         outer: while true {
@@ -39,7 +39,7 @@ class RockPaperScissors {
             showMenu()
             
             do {
-                if let safeHandOfUser = RockPaperScissors.Hand(rawValue: try getUserInput()) {
+                if let safeHandOfUser = RockPaperScissors.Hand(rawValue: try getUserInput().rawValue) {
                     handOfUser = safeHandOfUser
                 }
                 if handOfUser == .exit {
@@ -78,21 +78,14 @@ class RockPaperScissors {
         print("가위(1). 바위(2). 보(3)! <종료 : 0>", terminator: " : ")
     }
     
-    func getUserInput() throws -> Int {
-        guard let unsafeUserInput = readLine() else {
+    func getUserInput() throws -> Hand {
+        guard let stringUserInput = readLine(),
+              let integerUserInput = Int(stringUserInput),
+              let userInput = Hand(rawValue: integerUserInput)
+        else {
             throw GameError.invalidInput
         }
-        
-        guard let integerUserInput = Int(unsafeUserInput) else {
-            throw GameError.invalidInput
-        }
-        
-        switch integerUserInput {
-        case 0, 1, 2, 3:
-            return integerUserInput
-        default:
-            throw GameError.invalidInput
-        }
+        return userInput
     }
     
     func showResult(_ input: ResultOfRockPaperScissors) {
@@ -121,14 +114,16 @@ class MukChiBa : RockPaperScissors {
         outer: while true {
             showMenu()
             renewComputerHand()
+            
             do {
-                if let safeHandOfUser = MukChiBa.Hand(rawValue:try getUserInput()) {
+                if let safeHandOfUser = MukChiBa.Hand(rawValue:try getUserInput().rawValue) {
                     handOfUser = safeHandOfUser
                 }
             } catch {
                 currentTurn = "컴퓨터"
                 continue outer
             }
+            
             let resultOfMukChiBa = compareHandsOfMukChiBa()
             switch resultOfMukChiBa {
             case .somebodyWin:
