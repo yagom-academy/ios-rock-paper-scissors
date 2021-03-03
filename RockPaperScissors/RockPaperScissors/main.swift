@@ -8,10 +8,12 @@ class RockScissorPaper {
         case lose = "졌습니다!"
         case draw = "비겼습니다!"
     }
+    
     enum GameError: Error {
         case invalidInput
         case unknownError
     }
+    
     enum Hand: Int {
         case rock = 1
         case scissor = 2
