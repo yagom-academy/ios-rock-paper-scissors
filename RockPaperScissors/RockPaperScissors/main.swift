@@ -3,37 +3,35 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 //
-enum ErrorStatus: Error {
-    case inputError
+enum GameRestart: Error {
+    case inputValue
     case beginAgain
 }
-enum Result: String {
+enum UserSideGameResult: String {
     case win = "이겼습니다!"
     case lose = "졌습니다!"
     case draw = "비겼습니다!"
 }
-enum RockScissorsPaper: Int {
+enum HandShape: Int {
     case initStatus = -1
-    case end, rock, scissors, paper
+    case end = 0, rock = 1, scissors = 2, paper = 3
 }
 
-struct GameStatus {
-    let rock = RockScissorsPaper.rock.rawValue
-    let scissors = RockScissorsPaper.scissors.rawValue
-    let paper = RockScissorsPaper.paper.rawValue
-    let end = RockScissorsPaper.end.rawValue
-    let initValue = RockScissorsPaper.initStatus.rawValue
+struct Hand {
+    static let rock = HandShape.rock.rawValue
+    static let scissors = HandShape.scissors.rawValue
+    static let paper = HandShape.paper.rawValue
+    static let endGame = HandShape.end.rawValue
+    static let initValue = HandShape.initStatus.rawValue
 }
 struct GameResult {
-    let win = Result.win.rawValue
-    let lose = Result.lose.rawValue
-    let draw = Result.draw.rawValue
+    static let win = UserSideGameResult.win.rawValue
+    static let lose = UserSideGameResult.lose.rawValue
+    static let draw = UserSideGameResult.draw.rawValue
 }
 
 class RockScissorsPaperGame {
-    var gameStatus = GameStatus()
-    var gameResult = GameResult()
-    var userInput = RockScissorsPaper.initStatus.rawValue
+    var userInput = HandShape.initStatus.rawValue
     func startGame() {
         for _ in 0...Int.max {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -47,7 +45,7 @@ class RockScissorsPaperGame {
             do {
                 try judgeRockScissorsPaper(userNumber: userInput, computerNumber: computerNumber)
             } catch {
-                print(gameResult.draw)
+                print(GameResult.draw)
                 continue
             }
             break
@@ -68,28 +66,28 @@ extension RockScissorsPaperGame {
     
     // MARK: - User input valid check
     func userTyping() throws -> Int {
-        var validedInputNumber = gameStatus.initValue
+        var validedInputNumber = Hand.initValue
         let optionalInput = readLine()
         do {
             validedInputNumber = try isValidInput(userInput: optionalInput)
         } catch {
-            throw ErrorStatus.inputError
+            throw GameRestart.inputValue
         }
         return validedInputNumber
     }
     func isValidInput(userInput validInput: String?) throws -> Int {
-        var valiedNumber = RockScissorsPaper.initStatus.rawValue
+        var valiedNumber = HandShape.initStatus.rawValue
         do {
             valiedNumber = try checkedInput(inputOptionalString: validInput)
         } catch {
-            throw ErrorStatus.inputError
+            throw GameRestart.inputValue
         }
         return valiedNumber
     }
     func checkedInput(inputOptionalString OptionalString: String?) throws -> Int {
-        let validedNumbers = [gameStatus.end, gameStatus.rock, gameStatus.scissors, gameStatus.paper]
+        let validedNumbers = [Hand.endGame, Hand.rock, Hand.scissors, Hand.paper]
         guard let validString = OptionalString, let validNumber = Int(validString), validedNumbers.contains(validNumber) else {
-            throw ErrorStatus.inputError
+            throw GameRestart.inputValue
         }
         return validNumber
     }
@@ -104,12 +102,12 @@ extension RockScissorsPaperGame {
         if userState == userComputerDraw {
             finishGame()
         } else if decisionStatus == userComputerDraw {
-            throw ErrorStatus.beginAgain
+            throw GameRestart.beginAgain
         } else {
             if userWinStatus.contains(decisionStatus) {
-                print(gameResult.win)
+                print(GameResult.win)
             } else if computerWinStatus.contains(decisionStatus) {
-                print(gameResult.lose)
+                print(GameResult.lose)
             }
         }
     }
