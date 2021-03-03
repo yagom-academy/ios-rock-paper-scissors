@@ -21,7 +21,7 @@ enum ResultOfGame {
     case draw
     case computerWin
 }
-
+//commit template TEST
 
 class RockPaperScissors { // RPCs game
     var inputNumber: Int = 0
