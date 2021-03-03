@@ -8,9 +8,9 @@ class RockPaperScissors {
         case draw = "비겼습니다!"
     }
     
-    enum ResultOfMukChiBa {
-        case userTurn
-        case computerTurn
+    enum ResultOfMukChiBa: String {
+        case userTurn = "사용자"
+        case computerTurn = "컴퓨터"
         case somebodyWin
         case exitInput
     }
@@ -52,9 +52,10 @@ class RockPaperScissors {
             
             let ResultOfRockPaperScissors = compareHandsOfRockPaperScissors()
             showResult(ResultOfRockPaperScissors)
-            if ResultOfRockPaperScissors == .draw{
+            if ResultOfRockPaperScissors == .draw {
                 continue outer
             }
+            
             MukChiBa(winner: ResultOfRockPaperScissors == .userWin ? "사용자" : "컴퓨터").mukChiBaStart()
             break outer
         }
@@ -129,12 +130,10 @@ class MukChiBa : RockPaperScissors {
             case .somebodyWin:
                 print("\(currentTurn) 승리!")
                 break outer
-            case .userTurn:
-                currentTurn = "사용자"
-            case .computerTurn:
-                currentTurn = "컴퓨터"
             case .exitInput:
                 break outer
+            default:
+                currentTurn = resultOfMukChiBa.rawValue
             }
             print("\(currentTurn)의 턴입니다")
         }
