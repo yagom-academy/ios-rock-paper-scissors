@@ -1,37 +1,55 @@
-enum GameError: Error {
-    case invalidInput
-    case unknownError
-}
-enum ResultOfRockPaperScissors {
-    case userWin
-    case userLose
-    case draw
-}
-enum ResultOfMukChiBa {
-    case userTurn
-    case computerTurn
-    case somebodyWin
-    case exitInput
-}
 class RockPaperScissors {
-    var handOfComputer = 0
-    var handOfUser = 0
-    func renewComputerHand() {
-        handOfComputer = Int.random(in: 1...3)
+    var handOfComputer: Hand = .rock
+    var handOfUser: Hand = .rock
+    
+    enum ResultOfRockPaperScissors: String {
+        case userWin = "이겼습니다!"
+        case userLose = "졌습니다!"
+        case draw = "비겼습니다!"
     }
+    
+    enum ResultOfMukChiBa {
+        case userTurn
+        case computerTurn
+        case somebodyWin
+        case exitInput
+    }
+    
+    enum GameError: Error {
+        case invalidInput
+        case unknownError
+    }
+    
+    enum Hand: Int {
+        case rock = 1
+        case scissor = 2
+        case paper = 3
+        case exit = 0
+    }
+    
+    func renewComputerHand() {
+           if let randomHand = Hand(rawValue: Int.random(in: 1...3)) {
+               handOfComputer = randomHand
+           }
+       }
+    
     func startGame() {
         outer: while true {
             renewComputerHand()
             showMenu()
+            
             do {
-                handOfUser = try getUserInput()
-                if handOfUser == 0 {
+                if let safeHandOfUser = RockPaperScissors.Hand(rawValue: try getUserInput()) {
+                    handOfUser = safeHandOfUser
+                }
+                if handOfUser == .exit {
                     break outer
                 }
             } catch {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 continue outer
             }
+            
             let ResultOfRockPaperScissors = compareHandsOfRockPaperScissors()
             showResult(ResultOfRockPaperScissors)
             if ResultOfRockPaperScissors == .draw{
@@ -41,8 +59,9 @@ class RockPaperScissors {
             break outer
         }
     }
+    
     func compareHandsOfRockPaperScissors() -> ResultOfRockPaperScissors {
-        switch (handOfUser, handOfComputer) {
+        switch (handOfUser.rawValue, handOfComputer.rawValue) {
         case (1, 1), (2, 2), (3, 3):
             return .draw
         case (1, 3), (2, 1), (3, 2):
@@ -54,9 +73,11 @@ class RockPaperScissors {
             return .userLose
         }
     }
+    
     func showMenu() {
         print("가위(1). 바위(2). 보(3)! <종료 : 0>", terminator: " : ")
     }
+    
     func getUserInput() throws -> Int {
         guard let unsafeUserInput = readLine() else {
             throw GameError.invalidInput
@@ -73,6 +94,7 @@ class RockPaperScissors {
             throw GameError.invalidInput
         }
     }
+    
     func showResult(_ input: ResultOfRockPaperScissors) {
         switch input {
         case .userWin:
@@ -94,12 +116,15 @@ class MukChiBa : RockPaperScissors {
     override func showMenu() {
         print("[\(currentTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0>", terminator: " : ")
     }
+    
     func mukChiBaStart() {
         outer: while true {
             showMenu()
             renewComputerHand()
             do {
-                handOfUser = try getUserInput()
+                if let safeHandOfUser = MukChiBa.Hand(rawValue:try getUserInput()) {
+                    handOfUser = safeHandOfUser
+                }
             } catch {
                 currentTurn = "컴퓨터"
                 continue outer
@@ -119,8 +144,9 @@ class MukChiBa : RockPaperScissors {
             print("\(currentTurn)의 턴입니다")
         }
     }
+    
     func compareHandsOfMukChiBa() -> ResultOfMukChiBa {
-        switch (handOfUser, handOfComputer) {
+        switch (handOfUser.rawValue, handOfComputer.rawValue) {
         case (1, 1), (2, 2), (3, 3):
             return .somebodyWin
         case (1, 3), (2, 1), (3, 2):
