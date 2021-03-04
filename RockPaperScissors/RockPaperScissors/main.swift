@@ -67,7 +67,7 @@ class RockPaperScissorsGame {
     }
     /**
     ### 컴퓨터의 수에서 사용자 입력값을 뺀 값에 따라 각각의 case 분류
-    - ex) 컴퓨터의 수: 1(가위) - 사용자입력값: 2(바위) = -1로 사용자승리
+    - ex) 컴퓨터의 수: 1(가위) - 사용자입력값: 2(바위) = -1로 사용자승리.
     ------
     - case에 따라 win, lose, draw 값을 gameCommand에 저장.*/
     func sortResult(a: Int, b: Int, c: GameDecision) { // #1 이 부분을 물어보고 싶습니다!!!!
