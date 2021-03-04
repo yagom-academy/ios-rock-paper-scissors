@@ -6,7 +6,7 @@
 
 import Foundation
 
-class MukChiBaGame {
+struct MukChiBaGame {
     private var computerAnswer: Hand?
     private var userAnswer: Hand?
     private enum GameResult {
@@ -25,7 +25,7 @@ class MukChiBaGame {
         case win = "이겼습니다!"
         case lose = "졌습니다!"
     }
-    private enum GameError: Error {
+    private enum CastedHandError: Error {
         case invalidHand
     }
     
@@ -35,13 +35,13 @@ class MukChiBaGame {
     
     private func castedHand(from possibleText: String?) throws -> Hand {
         guard let text: String = possibleText else {
-            throw GameError.invalidHand
+            throw CastedHandError.invalidHand
         }
         guard let possibleHand: Int = Int(text) else {
-            throw GameError.invalidHand
+            throw CastedHandError.invalidHand
         }
         guard let hand = Hand(rawValue: possibleHand) else {
-            throw GameError.invalidHand
+            throw CastedHandError.invalidHand
         }
         
         return hand
@@ -49,7 +49,7 @@ class MukChiBaGame {
     
     private func castedHand(from possibleHand: Int) throws -> Hand {
         guard let hand = Hand(rawValue: possibleHand) else {
-            throw GameError.invalidHand
+            throw CastedHandError.invalidHand
         }
         
         return hand
@@ -64,7 +64,7 @@ class MukChiBaGame {
         }
     }
     
-    private func inputUserAnswer() {
+    private mutating func inputUserAnswer() {
         print(gameMessage: .menu)
         let userInput: String? = readLine()
         
@@ -73,7 +73,7 @@ class MukChiBaGame {
         }
         do {
             userAnswer = try castedHand(from: userInput)
-        } catch GameError.invalidHand {
+        } catch CastedHandError.invalidHand {
             print(gameMessage: .invalidHandError)
             inputUserAnswer()
         } catch {
@@ -110,11 +110,11 @@ class MukChiBaGame {
         return .draw
     }
     
-    private func gameResultHandling(_ gameResult: GameResult) {
+    private mutating func gameResultHandling(_ gameResult: GameResult) {
         switch gameResult {
         case .draw:
             print(gameMessage: .draw)
-            startGame()
+            start()
         case .lose:
             finishGame(withMessage: .lose)
         case .win:
@@ -122,11 +122,12 @@ class MukChiBaGame {
         }
     }
     
-    func startGame() {
+    mutating func start() {
         computerAnswer = try! castedHand(from: generatedRandomAnswer())
         inputUserAnswer()
         gameResultHandling(getGameResult())
     }
 }
 
-MukChiBaGame().startGame()
+var game = MukChiBaGame()
+game.start()
