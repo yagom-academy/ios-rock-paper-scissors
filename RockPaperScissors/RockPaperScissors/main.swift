@@ -93,7 +93,7 @@ class RockPaperScissorsGame: GetUserInput {
         computer.setRandomHandSign()
         player.setInputHandSign(userInput)
     }
-    private func comparePlayersHands() {
+    private func decideWinner() {
         let winningHandSignOfUser: Int = computer.handSign.rawValue % 3 + 1
         if player.handSign == computer.handSign {
             print("비겼습니다!")
@@ -112,7 +112,7 @@ class RockPaperScissorsGame: GetUserInput {
             }
             if checkInvaildInput(of: userInput) {
                 choicePlayerHands(userInput)
-                comparePlayersHands()
+                decideWinner()
             } else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
             }
