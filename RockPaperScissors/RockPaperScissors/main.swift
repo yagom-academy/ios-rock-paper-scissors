@@ -3,7 +3,7 @@ class RockPaperScissors {
     var handOfUser: Hand = .rock
     var rawUserInput: String? = ""
     
-    enum ResultsOfRockPaperScissors: String {
+    enum GameResult: String {
         case win = "이겼습니다!"
         case lose = "졌습니다!"
         case draw = "비겼습니다!"
@@ -56,7 +56,7 @@ class RockPaperScissors {
         }
     }
     
-    func rockPaperScissorsResult() -> ResultsOfRockPaperScissors {
+    func rockPaperScissorsResult() -> GameResult {
         switch (handOfUser.rawValue, handOfComputer.rawValue) {
         case (1, 1), (2, 2), (3, 3):
             return .draw
@@ -84,14 +84,14 @@ class RockPaperScissors {
         return userInput
     }
     
-    func showResult(_ input: ResultsOfRockPaperScissors) {
+    func showResult(_ input: GameResult) {
         let resultStatement = input.rawValue
         print(resultStatement)
     }
 }
 
 class MukChiBa : RockPaperScissors {
-    enum ResultsOfMukChiBa: CustomStringConvertible {
+    enum GameResult: CustomStringConvertible {
         case userTurn
         case computerTurn
         case somebodyWin
@@ -108,9 +108,9 @@ class MukChiBa : RockPaperScissors {
         }
     }
     
-    var currentTurn: ResultsOfMukChiBa
+    var currentTurn: GameResult
     
-    init(rockPaperScissorsResult: ResultsOfRockPaperScissors) {
+    init(rockPaperScissorsResult: RockPaperScissors.GameResult) {
         switch rockPaperScissorsResult {
         case .win:
             currentTurn = .userTurn
@@ -158,7 +158,7 @@ class MukChiBa : RockPaperScissors {
         }
     }
     
-    func mukChiBaResult() -> ResultsOfMukChiBa {
+    func mukChiBaResult() -> GameResult {
         switch (handOfUser.rawValue, handOfComputer.rawValue) {
         case (1, 1), (2, 2), (3, 3):
             return .somebodyWin
