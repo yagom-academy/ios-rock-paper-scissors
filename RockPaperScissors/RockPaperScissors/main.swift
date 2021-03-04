@@ -6,9 +6,9 @@
 
 import Foundation
 
-public class MukChiBaGame {
-    private var computerAnswer: Hand = .rock
-    private var userAnswer: Hand = .rock
+struct MukChiBaGame {
+    private var computerAnswer: Hand?
+    private var userAnswer: Hand?
     private enum GameResult {
         case draw, win, lose
     }
@@ -19,56 +19,71 @@ public class MukChiBaGame {
     }
     private enum GameMessage: String {
         case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-        case exit = "게임 종료"
-        case error = "잘못된 입력입니다. 다시 시도해주세요."
+        case finish = "게임 종료"
+        case invalidHandError = "잘못된 입력입니다. 다시 시도해주세요."
         case draw = "비겼습니다!"
         case win = "이겼습니다!"
         case lose = "졌습니다!"
+    }
+    private enum CastedHandError: Error {
+        case invalidHand
     }
     
     private func generatedRandomAnswer() -> Int {
         return Int.random(in: 1...3)
     }
     
-    private func castedHand(from number: Int) -> Hand {
-         return Hand(rawValue: number) ?? .rock
+    private func castedHand(from possibleText: String?) throws -> Hand {
+        guard let text: String = possibleText else {
+            throw CastedHandError.invalidHand
+        }
+        guard let possibleHand: Int = Int(text) else {
+            throw CastedHandError.invalidHand
+        }
+        guard let hand = Hand(rawValue: possibleHand) else {
+            throw CastedHandError.invalidHand
+        }
+        
+        return hand
     }
     
-    private func printGameMessage(_ message: GameMessage) {
-        switch message {
+    private func castedHand(from possibleHand: Int) throws -> Hand {
+        guard let hand = Hand(rawValue: possibleHand) else {
+            throw CastedHandError.invalidHand
+        }
+        
+        return hand
+    }
+    
+    private func print(gameMessage: GameMessage) {
+        switch gameMessage {
         case .menu:
-            print(message.rawValue, terminator: "")
+            Swift.print(gameMessage.rawValue, terminator: "")
         default:
-            print(message.rawValue)
+            Swift.print(gameMessage.rawValue)
         }
     }
     
-    private func exitGame(withMessage message: GameMessage) {
-        print(message.rawValue)
+    private mutating func inputUserAnswer() {
+        print(gameMessage: .menu)
+        let userInput: String? = readLine()
+        
+        if userInput == "0" {
+            finishGame(withMessage: .finish)
+        }
+        do {
+            userAnswer = try castedHand(from: userInput)
+        } catch CastedHandError.invalidHand {
+            print(gameMessage: .invalidHandError)
+            inputUserAnswer()
+        } catch {
+            fatalError()
+        }
+    }
+    
+    private func finishGame(withMessage message: GameMessage) {
+        print(gameMessage: message)
         exit(0)
-    }
-    
-    private func castedInteger(from input: String?) -> Int {
-        guard let _input: String = input else { return -1 }
-        guard let result: Int = Int(_input) else { return -1 }
-        
-        return result
-    }
-    
-    private func isValidUserAnswer(_ userInput: String?) -> Bool {
-        let userAnswer: Int = castedInteger(from: userInput)
-        
-        if userAnswer == -1 { return false }
-        
-        switch userAnswer {
-        case 0:
-            exitGame(withMessage: .exit)
-        case 1...3:
-            return true
-        default: break
-        }
-        
-        return false
     }
     
     private func getGameResult() -> GameResult {
@@ -84,7 +99,6 @@ public class MukChiBaGame {
             } else if computerAnswer == .paper {
                 return .lose
             }
-            
         } else if userAnswer == .paper {
             if computerAnswer == .rock {
                 return .win
@@ -96,32 +110,24 @@ public class MukChiBaGame {
         return .draw
     }
     
-    private func process(gameResult: GameResult) {
+    private mutating func gameResultHandling(_ gameResult: GameResult) {
         switch gameResult {
         case .draw:
-            printGameMessage(.draw)
-            startGame()
+            print(gameMessage: .draw)
+            start()
         case .lose:
-            exitGame(withMessage: .lose)
+            finishGame(withMessage: .lose)
         case .win:
-            exitGame(withMessage: .win)
+            finishGame(withMessage: .win)
         }
     }
     
-    public func startGame() {
-        computerAnswer = castedHand(from: generatedRandomAnswer())
-        while true {
-            printGameMessage(.menu)
-            let userInput: String? = readLine()
-            
-            if !isValidUserAnswer(userInput) {
-                printGameMessage(.error)
-                continue
-            }
-            userAnswer = castedHand(from: castedInteger(from: userInput))
-            process(gameResult: getGameResult())
-        }
+    mutating func start() {
+        computerAnswer = try! castedHand(from: generatedRandomAnswer())
+        inputUserAnswer()
+        gameResultHandling(getGameResult())
     }
 }
 
-MukChiBaGame().startGame()
+var game = MukChiBaGame()
+game.start()
