@@ -50,7 +50,7 @@ class RockPaperScissors {
         }
     }
     //MARK: - userValueString과 computerValueString을 비교하여 결과를 출력하는 함수
-    func compare() {
+    func compareStringValue() {
         switch userValueString {
         case "Rock":
             if computerValueString == "Scissors" {
@@ -90,7 +90,7 @@ class RockPaperScissors {
     func playGame() {
         inputComputerValue()
         inputUserValue()
-        compare()
+        compareStringValue()
     }
 }
 let startClass = RockPaperScissors()
