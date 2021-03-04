@@ -130,3 +130,30 @@ let rockPaperScissors = RockPaperScissorsGame() //인스턴스화
 rockPaperScissors.start() // 실행...!!!
 
 
+/*
+enum 묵찌빠결과 {
+    case 컴퓨터턴
+    case 사용자턴
+}
+
+class 묵찌빠 : RockPaperScissorsGame{
+    func 턴정하기() {
+        switch gameCommand {
+        case GameResult.win:
+            print("a") // 사용자턴
+        case GameResult.lose:
+            print("b") // 컴퓨터턴
+        default:
+            return
+        }
+    }
+    
+    func printTurn() {
+        print("[aaa턴] 묵(1), 찌(2), 빠(3)! <종료:0>: ", terminator: "")
+    }
+/* sortResult(a: Int, b: Int, c: gameDecision){
+     
+*/
+}
+    
+*/
