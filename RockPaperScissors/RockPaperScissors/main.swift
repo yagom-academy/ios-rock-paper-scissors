@@ -1,3 +1,7 @@
+
+
+
+
 class RockPaperScissorsGame {
     enum Hand {
         case scissors
@@ -9,7 +13,7 @@ class RockPaperScissorsGame {
     enum GameError: Error {
         case invalidInput
     }
-    
+
     enum GameResult: String {
         case win = "사용자"
         case draw
@@ -55,7 +59,7 @@ class RockPaperScissorsGame {
             }
         } while true
     }
-    
+
     func makeRandomHand() -> Hand {
         let random = Int.random(in: 1...3)
         
@@ -150,9 +154,7 @@ class RockPaperScissorsGame {
         }
     }
     
-    
-    
-    func getMukchibaGameResult(_ userHand: Hand, vs computersHand: Hand) -> GameResult {
+    func mukchiPaGameResult(_ userHand: Hand, vs computersHand: Hand) -> GameResult {
         
         if usersHand == computersHand {
             return .win
@@ -169,27 +171,3 @@ class RockPaperScissorsGame {
 let rockPaperScissors = RockPaperScissorsGame()
 rockPaperScissors.gameStart()
 
-
-//enum GameResult: String{
-//    case win = "사용자"
-//    case draw
-//    case lose = "컴퓨터"
-//}
-//
-//func gameStart() {
-//    case .win :
-//            묵찌빠게임시작(승리자 전달)
-//      return
-//     case .lose :
-//      묵찌빠게임시작(승리자 전달)
-//      return
-//}
-//
-//묵찌빠게임(승리자: string) {
-//        gameStart() 랑 비슷한 맥락
-//      묵찌빠판별()
-//      switch
-//}
-//
-//묵찌빠판별() {
-//}
