@@ -26,6 +26,8 @@ class RockPaperScissorsGame {
     }
 
     func gameStart() {
+        var isRepeat = false
+        
         repeat {
             guard let computersHand = Hand.allCases.randomElement() else {
                 continue
@@ -41,33 +43,24 @@ class RockPaperScissorsGame {
                 }
             } catch {
                 print("잘못된 입력입니다. 다시 입력해주세요")
+                isRepeat = true
                 continue
             }
 
-            let gameResult = getGameResult(userHand, vs: computersHand)
-
-            switch gameResult {
-            case .win :
-                print("이겼습니다.")
-                return
-            case .lose :
-                print("졌습니다.")
-                return
-            default :
-                print("비겼습니다.")
-            }
-        } while true
+            isRepeat = gameResult(userHand, vs: computersHand)
+        } while isRepeat
     }
     
-    func getGameResult(_ usersHand: Hand, vs computersHand: Hand) -> GameResult {
+    func gameResult(_ usersHand: Hand, vs computersHand: Hand) -> Bool {
         if usersHand == computersHand {
-            return .draw
-        } else if (usersHand == .rock && computersHand == .scissors)
-            || (usersHand == .scissors && computersHand == .paper)
-            || (usersHand == .paper && computersHand == .rock) {
-            return .win
+            print("비겼습니다.")
+            return true
+        } else if usersHand > computersHand {
+            print("이겼습니다.")
+            return false
         } else {
-            return .lose
+            print("졌습니다.")
+            return false
         }
     }
         
