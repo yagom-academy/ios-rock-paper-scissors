@@ -7,51 +7,32 @@ enum GameRestart: Error {
     case inputValue
     case beginAgain
 }
-enum UserSideGameResult: String {
-    case win = "이겼습니다!"
-    case lose = "졌습니다!"
-    case draw = "비겼습니다!"
-}
-enum HandShape: Int {
-    case rock = 1, scissors = 2, paper = 3
-}
-enum GameStatus: Int {
-    case initHandValue = -1
-    case endGameValue = 0
-}
-enum UserResultSituation: Int {
-    case SelectWinRockScissors = 1
-    case SelectWinScissors = -2
-    case SelectLoseScissorsRock = -1
-    case SelectLosePaper = 2
-    case SelectDraw = 0
-}
 
 struct Hand {
-    static let rock = HandShape.rock.rawValue
-    static let scissors = HandShape.scissors.rawValue
-    static let paper = HandShape.paper.rawValue
+    static let rock = 1
+    static let scissors = 2
+    static let paper = 3
 }
 struct GameResult {
-    static let win = UserSideGameResult.win.rawValue
-    static let lose = UserSideGameResult.lose.rawValue
-    static let draw = UserSideGameResult.draw.rawValue
+    static let win = "이겼습니다!"
+    static let lose = "졌습니다!"
+    static let draw = "비겼습니다!"
 }
 struct GameConditions {
-    static let endGame = GameStatus.endGameValue.rawValue
-    static let initValue = GameStatus.initHandValue.rawValue
-    static let userSelectWinRockScissors = UserResultSituation.SelectWinRockScissors.rawValue
-    static let userSelectWinScissors = UserResultSituation.SelectWinScissors.rawValue
-    static let userSelectLoseScissorsRock = UserResultSituation.SelectLoseScissorsRock.rawValue
-    static let userSelectLosePaper = UserResultSituation.SelectLosePaper.rawValue
-    static let userSelectDraw = UserResultSituation.SelectDraw.rawValue
+    static let endGame = 0
+    static let initValue = -1
+    static let userSelectWinRockScissors = 1
+    static let userSelectWinScissors = -2
+    static let userSelectLoseScissorsRock = -1
+    static let userSelectLosePaper = 2
+    static let userSelectDraw = 0
 }
 
 class RockScissorsPaperGame {
     var userInput = GameConditions.initValue
     func startGame() {
         for _ in 0...Int.max {
-            print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+            gameMenuPresent()
             let computerNumber = createRandomNumber()
             do {
                 userInput = try userTyping()
@@ -138,6 +119,11 @@ extension RockScissorsPaperGame {
     func finishGame() {
         print("게임 종료")
         return
+    }
+    
+    // MARK: - Present
+    func gameMenuPresent() {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
 }
 
