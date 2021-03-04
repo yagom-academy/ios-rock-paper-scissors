@@ -83,9 +83,6 @@ class RockPaperScissorsGame: GetUserInput {
         exit(0)
     }
     private func checkInvaildInput(of userInput: Int) -> Bool {
-        if userInput == 0 {
-            exitGame()
-        }
         if (userInput >= 1 && userInput <= 3) {
             return true
         } else {
@@ -110,6 +107,9 @@ class RockPaperScissorsGame: GetUserInput {
         repeat {
             printMenu()
             userInput = getUserInput()
+            if userInput == 0 {
+                exitGame()
+            }
             if checkInvaildInput(of: userInput) {
                 choicePlayerHands(userInput)
                 comparePlayersHands()
