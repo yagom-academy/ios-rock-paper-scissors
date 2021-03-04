@@ -6,7 +6,7 @@
 
 import Foundation
 
-enum RockPaperScissorsCase: String {
+enum Hand: String {
     case exit = "0"
     case rock = "1"
     case paper = "2"
@@ -25,12 +25,12 @@ class RockPaperScissors {
         while playGameSwitch != 0 {
             print("가위(1). 바위(2). 보(3)! <종료 : 0> : ", terminator: "")
             
-            computerCase = createRandomComputerCase()
-            userCase = userInputCase(mode: gameMode)
+            computerCase = choiceRandomComputerHand()
+            userCase = choiceUserHand(mode: gameMode)
             
             winLoseResult = checkWinLoseResult(user: userCase, computer: computerCase)
             
-            playGameSwitch = printResultChangeGameState(gameResult: winLoseResult)
+            playGameSwitch = printRockPaperScissorsResult(gameResult: winLoseResult)
             
             while playGameSwitch != 0 && playGameSwitch != 3 {
                 gameMode = "묵찌빠"
@@ -38,8 +38,8 @@ class RockPaperScissors {
                 let nowPlayTurn = whoNowTurn(gameResult: playGameSwitch)
                 print("[\(nowPlayTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료: 0> : ", terminator: "")
                 
-                computerCase = createRandomComputerCase()
-                userCase = userInputCase(mode: gameMode)
+                computerCase = choiceRandomComputerHand()
+                userCase = choiceUserHand(mode: gameMode)
                 
                 winLoseResult = checkWinLoseResult(user: userCase, computer: computerCase)
                 playGameSwitch = printMukjjibbaResult(
@@ -48,19 +48,17 @@ class RockPaperScissors {
         }
     }
     
-    func createRandomComputerCase() -> Int {
-        let randomCase = Int.random(in: 1...3)
-        print("개발용 컴퓨터 확인 \(randomCase)")
-        return randomCase
+    func choiceRandomComputerHand() -> Int {
+        return Int.random(in: 1...3)
     }
     
-    func userInputCase(mode: String) -> Int {
+    func choiceUserHand(mode: String) -> Int {
         while true {
             guard let userInputText = readLine() else {
                 continue
             }
             
-            let userCase = RockPaperScissorsCase(rawValue: userInputText)
+            let userCase = Hand(rawValue: userInputText)
             
             switch userCase {
             case .exit:
@@ -105,7 +103,7 @@ class RockPaperScissors {
         return gameResult
     }
     
-    func printResultChangeGameState(gameResult: Int) -> Int {
+    func printRockPaperScissorsResult(gameResult: Int) -> Int {
         switch gameResult {
         case 0:
             return 0
