@@ -51,7 +51,7 @@ extension GetUserInput {
 }
 
 class Player {
-    var handSign: RockPaperScissors = .none
+    private(set) var handSign: RockPaperScissors = .none
 
     func setRandomHandSign() {
         if let handSign = RockPaperScissors.allCase.randomElement() {
@@ -64,9 +64,9 @@ class Player {
 }
 
 class RockPaperScissorsGame: GetUserInput {
-    let player = Player()
-    let computer = Player()
-    var userInput = 0
+    private let player = Player()
+    private let computer = Player()
+    private var userInput = 0
 
     private func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료:0> : ", terminator:"")
@@ -115,9 +115,3 @@ class RockPaperScissorsGame: GetUserInput {
 
 let game = RockPaperScissorsGame()
 game.play()
-
-//let player = Player()
-//player.setRandomHandSign()
-//
-//print(player.handSign)
-//print(player.handSign.index())
