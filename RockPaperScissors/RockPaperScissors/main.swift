@@ -1,4 +1,3 @@
-import Foundation
 
 enum gameOption: String {
     case scissor = "Scissors"
@@ -93,8 +92,9 @@ class RockPaperScissors {
         compareStringValue()
     }
 }
-
 let startClass = RockPaperScissors()
 startClass.playGame()
+
+
 
 
