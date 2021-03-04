@@ -93,9 +93,8 @@ class RockPaperScissors {
         compareStringValue()
     }
 }
+
 let startClass = RockPaperScissors()
 startClass.playGame()
-
-
 
 
