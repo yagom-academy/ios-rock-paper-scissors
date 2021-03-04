@@ -68,5 +68,5 @@ struct RockScissorsPaper {
     }
 }
 
-let newGame = RockScissorsPaper()
-newGame.startGame()
+let rockScissorsPaperGame = RockScissorsPaper()
+rockScissorsPaperGame.startGame()
