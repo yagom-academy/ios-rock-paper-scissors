@@ -6,47 +6,82 @@
 
 import Foundation
 
-let scissor = 1
-let rock = 2
-let paper = 3
+enum RockPaperScissorsHand: Int {
+    case scissor = 1
+    case rock = 2
+    case paper = 3
+    case finish = 0
+}
 
-func playRockPaperScissors() {
-    let computerNumber = Int.random(in: 1...3)
+class RockPaperScissorsGame {
+    private var userHand: RockPaperScissorsHand?
+    private var computerHand: RockPaperScissorsHand?
     
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator:"")
+    private func getIntHands() {
+        while true {
+            computerHand = RockPaperScissorsHand(rawValue: Int.random(in: 1...3))
+            print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator:"")
+            if let inputUserNumber = readLine() {
+                if isValidUserNumber(inputUserNumber) {
+                    convertStringToInt(inputUserNumber)
+                    break
+                }
+            }
+        }
+    }
     
-    if let inputUserNumber = readLine() {
-        switch Int(inputUserNumber) {
-        case 0:
-            print("게임 종료")
-            return
-        case 1, 2, 3:
-            gameResult(userNumber: Int(inputUserNumber)!, computerNumber: computerNumber)
+    private func isValidUserNumber(_ userNumber: String) -> Bool {
+        switch userNumber {
+        case "0", "1", "2", "3":
+            return true
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            playRockPaperScissors()
+            return false
         }
     }
-}
-
-func gameResult(userNumber: Int, computerNumber: Int) {
-    if(userNumber == computerNumber) {
-        print("비겼습니다!")
-        playRockPaperScissors()
-    } else {
-        switch computerNumber {
-        case scissor:
-            if(userNumber == rock) { print("이겼습니다!") }
-            else if(userNumber == paper) { print("졌습니다!") }
-        case rock:
-            if(userNumber == paper) { print("이겼습니다!") }
-            else if(userNumber == scissor) { print("졌습니다!") }
+    
+    private func convertStringToInt(_ stringUserNumber: String) {
+        if let intUserNumber = Int(stringUserNumber) {
+            userHand = RockPaperScissorsHand(rawValue: intUserNumber)
+        }
+    }
+    
+    private func gameResult() {
+        if userHand == computerHand {
+            print("비겼습니다")
+            start()
+        } else if userHand == RockPaperScissorsHand.finish {
+            finishGame()
+        } else {
+            if let computerHand = computerHand {
+                judgeHand(hand: computerHand)
+            }
+        }
+    }
+    
+    private func judgeHand(hand: RockPaperScissorsHand) {
+        switch hand {
+        case .scissor:
+            if userHand == RockPaperScissorsHand.rock { print("이겼습니다!") }
+            else if userHand == RockPaperScissorsHand.paper { print("졌습니다!") }
+        case .rock:
+            if userHand == RockPaperScissorsHand.paper { print("이겼습니다!") }
+            else if userHand == RockPaperScissorsHand.scissor { print("졌습니다!") }
         default:
-            if(userNumber == scissor) { print("이겼습니다!") }
-            else if(userNumber == rock) { print("졌습니다!") }
+            if userHand == RockPaperScissorsHand.scissor { print("이겼습니다!") }
+            else if userHand == RockPaperScissorsHand.rock { print("졌습니다!") }
         }
+    }
+    
+    private func finishGame() {
+        print("게임종료")
+    }
+    
+    func start() {
+        getIntHands()
+        gameResult()
     }
 }
 
-playRockPaperScissors()
-
+let game = RockPaperScissorsGame()
+game.start()
