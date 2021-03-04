@@ -11,33 +11,47 @@ enum GameError: Int, Error {
     case typeCastingFailed = -2
 }
 
-enum RockPaperScissors: Int, RandomNumberGenerator {
-    case none = 0
-    case scissor = 1
-    case rock = 2
-    case paper = 3
+public extension CaseIterable where Self: Equatable {
 
+    func ordinal() -> Self.AllCases.Index {
+        return Self.allCases.firstIndex(of: self)!
+    }
+}
+
+enum RockPaperScissors: Int, CaseIterable {
+    case none = 0
+    case scissor
+    case rock
+    case paper
+    
+    static var allCases: [RockPaperScissors] =  [.scissor, .rock, .paper]
+    
+//    func getIndex(allCases: [RockPaperScissors], handSign: RockPaperScissors) -> Int {
+//        guard let index = allCases.firstIndex(of: handSign) else {
+//            return GameError.nilInput.rawValue
+//        }
+//        return index
+//    }
     func getInputHandSign(_ inputValue: Int) -> RockPaperScissors {
         guard let inputHandSign = RockPaperScissors(rawValue: inputValue) else {
             return .none
         }
         return inputHandSign
     }
-    
 }
 
-protocol RandomNumberGenerator {
-    func getRandomHandSign() -> RockPaperScissors
-}
-
-extension RandomNumberGenerator {
-    func getRandomHandSign() -> RockPaperScissors {
-        guard let randomHandSign = RockPaperScissors(rawValue: Int.random(in: 1...3)) else {
-            return .none
-        }
-        return randomHandSign
-    }
-}
+//protocol RandomNumberGenerator {
+//    func getRandomHandSign() -> RockPaperScissors
+//}
+//
+//extension RandomNumberGenerator {
+//    func getRandomHandSign() -> RockPaperScissors {
+//        guard let randomHandSign = RockPaperScissors(rawValue: Int.random(in: 1...3)) else {
+//            return .none
+//        }
+//        return randomHandSign
+//    }
+//}
 
 protocol GetUserInput {
     func getUserInput() -> Int
@@ -63,7 +77,9 @@ class Player {
     var handSign: RockPaperScissors = .none
 
     func setRandomHandSign() {
-        handSign = handSign.getRandomHandSign()
+        if let handSign = RockPaperScissors.allCases.randomElement() {
+            self.handSign = handSign
+        }
     }
     func setInputHandSign(_ userInput: Int) {
         handSign = handSign.getInputHandSign(userInput)
@@ -94,10 +110,11 @@ class RockPaperScissorsGame: GetUserInput {
         player.setInputHandSign(userInput)
     }
     private func decideWinner() {
-        let winningHandSignOfUser: Int = computer.handSign.rawValue % 3 + 1
+        let winningHandSignOfUser: Int = (computer.handSign.ordinal() + 1) % 3 + 1
+        print("com", computer.handSign, "player", player.handSign)
         if player.handSign == computer.handSign {
             print("비겼습니다!")
-        } else if player.handSign.rawValue == winningHandSignOfUser {
+        } else if (player.handSign.ordinal() + 1) == winningHandSignOfUser {
             print("이겼습니다!")
         } else {
             print("아이고.. 지셨네.. 다시 해봐요~")
