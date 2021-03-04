@@ -10,25 +10,25 @@ import Foundation
 ///- Computer의 임의의 수와 User에게 입력받은 값을 배열로 묶어 표현함.
 ///- 컴퓨터의 수에서 사용자의 수를 빼서 나올수 있는 경우의 수를 묶어 결과값을 산출하였음
 ///   - 승리할 시 (-1,2) / 패배할 시 (-2,1) / 비겼을 시 (0)
-enum Starting {
+enum GameDecision {
     case start
     case restart
     case exit
 }
 
-enum ResultOfGame {
-    case userWin
+enum GameResult {
+    case win
     case draw
-    case computerWin
+    case lose
 }
 //commit template TEST
 
-class RockPaperScissors { // RPCs game
+class RockPaperScissorsGame {
     var inputNumber: Int = 0
     var inputString: String = ""
     var randomNumber: Int = 0
-    var gameMenu: Starting = Starting.restart
-    var gameCommand: ResultOfGame = ResultOfGame.draw
+    var gameMenu: GameDecision = GameDecision.restart
+    var gameCommand: GameResult = GameResult.draw
     
     func makeRandomNumber() {
         randomNumber = Int.random(in: 1...3)
@@ -36,7 +36,7 @@ class RockPaperScissors { // RPCs game
 
     func inputUserNumber() {
         let temporaryStorage: String? = readLine()
-        guard let temporaryString: String = temporaryStorage else { return }
+        guard let temporaryString: String = temporaryStorage else { return } // "2" " 가"
         guard let temporaryInt = Int(temporaryString) else { return }
         inputString = temporaryString
         inputNumber = temporaryInt
@@ -46,33 +46,40 @@ class RockPaperScissors { // RPCs game
    func checkInputString() {
         switch inputString {
         case "0":
-            gameMenu = Starting.exit
+            gameMenu = GameDecision.exit
         case "1", "2", "3":
-            gameMenu = Starting.start
+            gameMenu = GameDecision.start
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            gameMenu = Starting.restart
+            gameMenu = GameDecision.restart
         }
     }
     
 ///- 컴퓨터의 수에서 사용자입력값을 뺀 값에 따라 각각 case로 결과 산출
 ///  - ex) 컴퓨터의 수: 1(가위) - 사용자입력값: 2(바위) = -1로 사용자승리
 ///- 결과가 0일 때 "비겼습니다!" 문구 출력 후 다시하기 / 그 외 결과일 시 다시하기
-    func makeResult(a: Int, b: Int, c: Starting) {
-        if c == Starting.start {
+    func makeResult(a: Int, b: Int, c: GameDecision) {
+        if c == GameDecision.start {
             switch (a - b) {
             case -1, 2:
-                print("이겼습니다.")
-                gameCommand = ResultOfGame.userWin
+                gameCommand = GameResult.win
             case 1, -2:
-                print("졌습니다.")
-                gameCommand = ResultOfGame.computerWin
+                gameCommand = GameResult.lose
             case 0:
-                print("비겼습니다.")
-                gameCommand = ResultOfGame.draw
+                gameCommand = GameResult.draw
             default:
                 return
             }
+        }
+    }
+    func printResult() {
+        switch gameCommand {
+        case GameResult.win:
+            print("이겼습니다.")
+        case GameResult.lose:
+            print("졌습니다.")
+        case GameResult.draw:
+            print("비겼습니다.")
         }
     }
     
@@ -84,21 +91,20 @@ class RockPaperScissors { // RPCs game
 ///- gameCommand  == "다시하기" 일 시 반복
 ///- 게임을 진행하는 메서드
     func start() {
-        while gameCommand == ResultOfGame.draw || gameMenu == Starting.restart {
+        while gameCommand == GameResult.draw || gameMenu == GameDecision.restart {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "") // printMenu func
             makeRandomNumber()
             inputUserNumber()
             checkInputString()
             makeResult(a: randomNumber, b: inputNumber, c: gameMenu)
+            printResult()
             initializeNumbers()
         }
     }
 }
 
-var rockPaperScissors = RockPaperScissors()
+var rockPaperScissors = RockPaperScissorsGame()
 rockPaperScissors.start()
-
-
 
 print(rockPaperScissors.gameCommand)
 
@@ -112,7 +118,15 @@ var turn: String = ""
 
 // 묵찌빠를 만들어봅시다.
 
-
+/*
+func 묵찌빠로직() {
+    if gameCommand == ResultOfGame.userWin {
+        makeResult(a: randomNumber, b: inputNumber, c: Starting.start)
+    } else if gameCommand == ResultOfGame.computerWin {
+        makeResult(a: inputNumber, b: randomNumber, c: Starting.start)
+    }
+}
+*/
 
 
 
