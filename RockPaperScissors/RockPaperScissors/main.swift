@@ -7,74 +7,70 @@
 
 import Foundation
 
+enum resultNumber: Int {
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+}
+
 class RockPaperScissorsGame {
+ 
+    var userInputNumber: resultNumber?
     
-    var userInputValue: ScissorsRockPaper?
-    var result: Result?
-    
-    // 사용자 vs 컴퓨터 결과
-    func gameResult(user: ScissorsRockPaper, computer: ScissorsRockPaper) {
-        // 이겼을 때
-        result = .win
-        // 비겼을 때
-        if user == computer {
-            result = .draw
+    // 게임 결과
+    func gameResult(user: resultNumber, computer: Int) {
+        if user.rawValue == computer {
+            print("비겼습니다!")
+            startGame()
         }
-        // 졌을 때
+        
         switch user {
-        case .paper:
-            if computer == .scissors {
-                result = .lose
-            }
         case .scissors:
-            if computer == .rock {
-                result = .lose
+            if computer == 3 {
+                print("이겼습니다!")
+            } else if computer == 2 {
+                print("졌습니다 ㅜㅜ")
             }
         case .rock:
-            if computer == .paper {
-                result = .lose
+            if computer == 1 {
+                print("이겼습니다!")
+            } else if computer == 3 {
+                print("졌습니다 ㅜㅜ")
             }
-            
+        case .paper:
+            if computer == 2 {
+                print("이겼습니다!")
+            } else if computer == 1 {
+                print("졌습니다 ㅜㅜ")
+            }
         }
-        return
         
     }
     
-    func gameStart() {
-        while true {
-            print("가위(1).바위(2).보(3)! <종료 : 0> : ", terminator: "")
-            let computerValue = Int.random(in: 1...3)
-            
-            guard let input = readLine() else {
-                restartAfterErrorMessage()
-                continue
-            }
-            
-            if input == "0" {
-                print("게임 종료")
-                return
-            } else if input == "1" {
-                userInputValue = .scissors
-            } else if  input == "2" {
-                userInputValue = .rock
-            } else if input == "3" {
-                userInputValue = .paper
-            } else {
-                restartAfterErrorMessage()
-                continue
-            }
-            gameResult(user: userInputValue!, computer: ScissorsRockPaper(rawValue: Int(computerValue))!)
-            print(result!.rawValue)
-            
+    func startGame() {
+        print("가위(1).바위(2).보(3)! <종료 : 0> : ", terminator: "")
+        let computerValue = Int.random(in: 1...3)
+        let input = readLine()
+        
+        if input == "0" {
+            print("게임 종료")
+            return
+        } else if input == "1" {
+            userInputNumber = .scissors
+        } else if input == "2" {
+            userInputNumber = .rock
+        } else if input == "3" {
+            userInputNumber = .paper
+        } else {
+            print("잘못된 입력입니다. 다시 시도해 주세요.")
+            startGame()
+            return
         }
         
-    }
-    // 사용자 입력 오류 전달 후 다시 시작
-    func restartAfterErrorMessage() {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        gameResult(user: userInputNumber!, computer: computerValue)
     }
     
 }
 
-let rockPaperSissors = RockPaperScissorsGame()
-rockPaperSissors.gameStart()
+let rockPaperSissorsGame = RockPaperScissorsGame()
+rockPaperSissorsGame.startGame()
