@@ -105,7 +105,6 @@ class RockPaperScissorsGame {
     }
     
     
-    
     func mukchibaGameStart(deliverWinner: String) {
         var winnerIsUser = true
         var winner = "사용자"
@@ -151,7 +150,10 @@ class RockPaperScissorsGame {
         }
     }
     
+    
+    
     func getMukchibaGameResult(_ userHand: Hand, vs computersHand: Hand) -> GameResult {
+        
         if usersHand == computersHand {
             return .win
         } else if (usersHand == .rock && computersHand == .scissors)
