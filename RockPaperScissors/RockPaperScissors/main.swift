@@ -138,9 +138,7 @@ class MukChiBa : RockPaperScissors {
             }
             
             do {
-                if let safeHandOfUser = MukChiBa.Hand(rawValue:try checkUserInput().rawValue) {
-                    handOfUser = safeHandOfUser
-                }
+                handOfUser = try checkUserInput()
             } catch {
                 currentTurn = .computerTurn
                 continue outer
