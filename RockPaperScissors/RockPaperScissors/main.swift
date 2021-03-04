@@ -4,8 +4,8 @@ class RockPaperScissors {
     var rawUserInput: String? = ""
     
     enum ResultsOfRockPaperScissors: String {
-        case userWin = "이겼습니다!"
-        case userLose = "졌습니다!"
+        case win = "이겼습니다!"
+        case lose = "졌습니다!"
         case draw = "비겼습니다!"
     }
     
@@ -20,16 +20,14 @@ class RockPaperScissors {
         case unknownError
     }
     
-    enum Hand: Int {
+    enum Hand: Int, CaseIterable {
         case rock = 1
         case scissor = 2
         case paper = 3
     }
     
     func renewComputerHand() {
-        if let randomHand = Hand(rawValue: Int.random(in: 1...3)) {
-            handOfComputer = randomHand
-        }
+        handOfComputer = Hand.allCases.map{$0}[Int.random(in: 0...2)]
     }
     
     func startGame() {
@@ -59,7 +57,7 @@ class RockPaperScissors {
                 continue outer
             }
             
-            MukChiBa(winner: resultOfRockPaperScissors == .userWin ? "사용자" : "컴퓨터").mukChiBaStart()
+            MukChiBa(winner: resultOfRockPaperScissors == .win ? "사용자" : "컴퓨터").mukChiBaStart()
             break outer
         }
     }
@@ -69,12 +67,12 @@ class RockPaperScissors {
         case (1, 1), (2, 2), (3, 3):
             return .draw
         case (1, 3), (2, 1), (3, 2):
-            return .userWin
+            return .win
         case (1, 2), (2, 3), (3, 1):
-            return .userLose
+            return .lose
         default:
             print("알 수 없는 오류입니다.")
-            return .userLose
+            return .lose
         }
     }
     
