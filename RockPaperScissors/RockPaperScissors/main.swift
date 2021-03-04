@@ -1,3 +1,9 @@
+//
+//  RockPaperScissors - main.swift
+//  Created by yagom.
+//  Copyright © yagom academy. All rights reserved.
+//
+
 class RockPaperScissorsGame {
     enum Hand: String, CaseIterable, Comparable {
         static func < (lhs: RockPaperScissorsGame.Hand, rhs: RockPaperScissorsGame.Hand) -> Bool {
@@ -17,12 +23,6 @@ class RockPaperScissorsGame {
     
     enum GameError: Error {
         case invalidInput
-    }
-    
-    enum GameResult {
-        case win
-        case draw
-        case lose
     }
 
     func gameStart() {
