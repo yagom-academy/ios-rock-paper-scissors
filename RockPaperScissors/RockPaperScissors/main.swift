@@ -37,9 +37,7 @@ class RockPaperScissors {
             }
             
             do {
-                if let safeHandOfUser = RockPaperScissors.Hand(rawValue: try checkUserInput().rawValue) {
-                    handOfUser = safeHandOfUser
-                }
+                    handOfUser = try checkUserInput()
             } catch {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 continue outer
