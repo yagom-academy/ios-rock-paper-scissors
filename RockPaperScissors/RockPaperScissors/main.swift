@@ -64,6 +64,23 @@ class MukChiBaGame {
         }
     }
     
+    private func inputUserAnswer() {
+        print(gameMessage: .menu)
+        let userInput: String? = readLine()
+        
+        if userInput == "0" {
+            finishGame(withMessage: .finish)
+        }
+        do {
+            userAnswer = try castedHand(from: userInput)
+        } catch GameError.invalidHand {
+            print(gameMessage: .invalidHandError)
+            inputUserAnswer()
+        } catch {
+            fatalError()
+        }
+    }
+    
     private func finishGame(withMessage message: GameMessage) {
         print(gameMessage: message)
         exit(0)
@@ -107,26 +124,8 @@ class MukChiBaGame {
     
     func startGame() {
         computerAnswer = try! castedHand(from: generatedRandomAnswer())
-        
-        while true {
-            print(gameMessage: .menu)
-            let userInput: String? = readLine()
-            
-            if userInput == "0" {
-                finishGame(withMessage: .finish)
-            }
-            do {
-                userAnswer = try castedHand(from: userInput)
-            } catch GameError.invalidHand {
-                print(gameMessage: .invalidHandError)
-                continue
-            } catch {
-                Swift.print("그 외 오류 발생 : ", error)
-                continue
-            }
-            
-            gameResultHandling(getGameResult())
-        }
+        inputUserAnswer()
+        gameResultHandling(getGameResult())
     }
 }
 
