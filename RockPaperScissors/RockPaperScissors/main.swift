@@ -25,7 +25,7 @@ class RockPaperScissorsGame {
         case invalidInput
     }
 
-    func gameStart() {
+    func startGame() {
         var isRepeat = false
         
         repeat {
@@ -84,4 +84,4 @@ class RockPaperScissorsGame {
 }
 
 let rockPaperScissors = RockPaperScissorsGame()
-rockPaperScissors.gameStart()
+rockPaperScissors.startGame()
