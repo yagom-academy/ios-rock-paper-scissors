@@ -22,6 +22,9 @@ struct GameResult {
 struct GameConditions {
     static let endGame = 0
     static let initValue = -1
+    static let userTurn = "User"
+    static let computerTurn = "Computer"
+    static let endGamePresent = "게임 종료"
 }
 struct WinLoseDrawOfUserAtRockScissorsPaper {
     static let userSelectWinRockScissors = 1
@@ -107,10 +110,10 @@ class RockScissorsPaperGame {
         } else {
             if userWinStatus.contains(decisionStatus) {
                 print(GameResult.win)
-                return "User"
+                return GameConditions.userTurn
             } else if computerWinStatus.contains(decisionStatus) {
                 print(GameResult.lose)
-                return "Computer"
+                return GameConditions.computerTurn
             }
         }
         throw GameRestart.unknown
@@ -122,7 +125,7 @@ class RockScissorsPaperGame {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
     func finishGame() -> String{
-        return "게임 종료"
+        return GameConditions.endGamePresent
     }
     
     // MARK: - RockScissorsPaper Print
@@ -150,7 +153,11 @@ class MukChiPaGame: RockScissorsPaperGame {
                 continue
             }
             do {
-                _ = try judgeGames(userNumber: userInput, computerNumber: computerNumber)
+                let judgeString = try judgeGames(userNumber: userInput, computerNumber: computerNumber)
+                guard judgeString != GameConditions.endGamePresent else {
+                    print(judgeString)
+                    break
+                }
                 print("\(mukChiPaTurn)의 승리!")
             } catch {
                 turnCheckPresent()
@@ -173,10 +180,10 @@ class MukChiPaGame: RockScissorsPaperGame {
             return GameResult.win
         } else {
             if userWinStatus.contains(decisionStatus) {
-                mukChiPaTurn = "User"
+                mukChiPaTurn = GameConditions.userTurn
                 throw GameRestart.beginAgain
             } else if computerWinStatus.contains(decisionStatus) {
-                mukChiPaTurn = "Computer"
+                mukChiPaTurn = GameConditions.computerTurn
                 throw GameRestart.beginAgain
             }
         }
@@ -188,9 +195,13 @@ class MukChiPaGame: RockScissorsPaperGame {
     override func gameMenuPresent() {
         print("[\(mukChiPaTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: " : ")
     }
+    override func finishGame() -> String {
+        return super.finishGame()
+    }
     func turnCheckPresent() {
         print("\(mukChiPaTurn)의 턴입니다")
     }
+    
 }
 
 // MARK: - RockScissorsPaperGame instance && Start point
