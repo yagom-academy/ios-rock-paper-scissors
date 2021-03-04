@@ -77,13 +77,12 @@ class RockPaperScissors {
                     print("잘못된 입력입니다. 다시 시도해주세요.")
                     return 4
                 }
-                
             }
         }
     }
     
     func checkWinLoseResult(user: Int, computer: Int) -> Int {
-        let whoWinCheck: Int = user - computer
+        let whoWinCheck: Int = (user - computer + 3) % 3
         var gameResult: Int = 0
         
         // 가위바위보 gameResult => 0. 종료, 1. 승리, 2. 패배, 3. 비김
@@ -92,9 +91,9 @@ class RockPaperScissors {
             gameResult = 0
         } else if user == 4 {
             gameResult = 1
-        } else if whoWinCheck == 1 || whoWinCheck == -2 {
+        } else if whoWinCheck == 1 {
             gameResult = 1
-        } else if whoWinCheck == -1 || whoWinCheck == 2 {
+        } else if whoWinCheck == 2 {
             gameResult = 2
         } else if whoWinCheck == 0 {
             gameResult = 3
