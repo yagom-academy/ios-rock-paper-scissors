@@ -17,6 +17,7 @@ enum GameResult {
     case win
     case draw
     case lose
+    case error
 }
 
 /** ## 가위바위보에 대한 기능(속성)과 메서드(행동)을 'RockPaperScissors 타입'으로 묶었음.
@@ -57,6 +58,7 @@ class RockPaperScissorsGame {
             switch inputNumber {
             case 0:
                 gameMenu = GameDecision.exit
+                gameCommand = GameResult.error
             case 1, 2, 3:
                 gameMenu = GameDecision.start
             default:
@@ -93,7 +95,11 @@ class RockPaperScissorsGame {
         case GameResult.lose:
             print("졌습니다.")
         case GameResult.draw:
+            if gameMenu == GameDecision.start {
             print("비겼습니다.")
+            }
+        default:
+            return
         }
     }
     
