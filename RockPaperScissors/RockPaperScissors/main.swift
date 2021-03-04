@@ -9,12 +9,6 @@ class RockPaperScissors {
         case draw = "비겼습니다!"
     }
     
-    enum ResultsOfMukChiBa: String {
-        case userTurn = "사용자"
-        case computerTurn = "컴퓨터"
-        case somebodyWin
-    }
-    
     enum GameError: Error {
         case invalidInput
         case unknownError
@@ -34,7 +28,7 @@ class RockPaperScissors {
         outer: while true {
             renewComputerHand()
             showMenu()
-
+            
             rawUserInput = readLine()
             if let rawUserInput = rawUserInput {
                 if rawUserInput == "0" {
@@ -51,18 +45,18 @@ class RockPaperScissors {
                 continue outer
             }
             
-            let resultOfRockPaperScissors = RockPaperScissorsResult()
+            let resultOfRockPaperScissors = rockPaperScissorsResult()
             showResult(resultOfRockPaperScissors)
             if resultOfRockPaperScissors == .draw {
                 continue outer
             }
             
-            MukChiBa(winner: resultOfRockPaperScissors == .win ? "사용자" : "컴퓨터").mukChiBaStart()
+            MukChiBa(rockPaperScissorsResult: resultOfRockPaperScissors).gameStart()
             break outer
         }
     }
     
-    func RockPaperScissorsResult() -> ResultsOfRockPaperScissors {
+    func rockPaperScissorsResult() -> ResultsOfRockPaperScissors {
         switch (handOfUser.rawValue, handOfComputer.rawValue) {
         case (1, 1), (2, 2), (3, 3):
             return .draw
@@ -97,17 +91,41 @@ class RockPaperScissors {
 }
 
 class MukChiBa : RockPaperScissors {
-    var currentTurn: String
+    enum ResultsOfMukChiBa: CustomStringConvertible {
+        case userTurn
+        case computerTurn
+        case somebodyWin
+        
+        var description: String {
+            switch self {
+            case .userTurn:
+                return "사용자"
+            case .computerTurn:
+                return "컴퓨터"
+            default:
+                return ""
+            }
+        }
+    }
     
-    init(winner: String) {
-        currentTurn = winner
+    var currentTurn: ResultsOfMukChiBa
+    
+    init(rockPaperScissorsResult: ResultsOfRockPaperScissors) {
+        switch rockPaperScissorsResult {
+        case .win:
+            currentTurn = .userTurn
+        case .lose:
+            currentTurn = .computerTurn
+        default:
+            currentTurn = .computerTurn
+        }
     }
     
     override func showMenu() {
         print("[\(currentTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0>", terminator: " : ")
     }
     
-    func mukChiBaStart() {
+    func gameStart() {
         outer: while true {
             showMenu()
             renewComputerHand()
@@ -124,7 +142,7 @@ class MukChiBa : RockPaperScissors {
                     handOfUser = safeHandOfUser
                 }
             } catch {
-                currentTurn = "컴퓨터"
+                currentTurn = .computerTurn
                 continue outer
             }
             
@@ -134,8 +152,8 @@ class MukChiBa : RockPaperScissors {
                 print("\(currentTurn) 승리!")
                 break outer
             default:
-                currentTurn = resultOfMukChiBa.rawValue
-                print("\(currentTurn)의 턴입니다")
+                currentTurn = resultOfMukChiBa
+                print("\(resultOfMukChiBa)의 턴입니다")
             }
         }
     }
