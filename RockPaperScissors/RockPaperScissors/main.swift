@@ -34,7 +34,6 @@ class RockPaperScissors {
             
             let userCase = RockPaperScissorsCase(rawValue: userInputNumber)
             
-            
             switch userCase {
             case .exit:
                 print("게임 종료")
@@ -111,28 +110,19 @@ class RockPaperScissors {
             while playGameSwitch != 0 && playGameSwitch != 3 {
                 gameMode = "묵찌빠"
                 
-                // 현재 턴 확인
                 let nowPlayTurn = whoNowTurn(gameResult: playGameSwitch)
-                // 묵찌빠 안내문 출력
                 print("[\(nowPlayTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료: 0> : ", terminator: "")
                 
-                // 컴퓨터 케이스 선택
                 computerCase = createRandomComputerCase()
-                // 유저 케이스 선택
                 userCase = userInputCase(mode: gameMode)
                 
-                // 묵찌빠 승패 판정
                 winLoseResult = checkWinLoseResult(user: userCase, computer: computerCase)
-                
-                // 묵찌빠 승패 출력
-                playGameSwitch = printMukjjibbaResult(gameResult: winLoseResult, nowTurn: nowPlayTurn)
+                playGameSwitch = printMukjjibbaResult(
+                    gameResult: winLoseResult, nowTurn: nowPlayTurn)
             }
         }
     }
 
-    // 묵찌빠 현재 턴 상황 출력 메서드 - Wody
-    // 묵찌빠의 현재 턴 조건 : 가위바위보 승자 및 묵찌빠 승자, 잘못 입력된 경우 컴퓨터에게 턴 이동
-    // 기존 가위바위보 체크 메소드는 user기준, return값 이겼을 때(1), 졌을 때(2), 비겼을 때(0)
     func whoNowTurn(gameResult: Int)  -> String {
         var nowTurn:String
         
@@ -145,7 +135,6 @@ class RockPaperScissors {
         return nowTurn
     }
     
-    // 묵찌빠 승패 출력 메소드
     func printMukjjibbaResult(gameResult: Int, nowTurn: String) -> Int {
         switch gameResult {
         case 2:
@@ -162,9 +151,5 @@ class RockPaperScissors {
     
 }
 
-
 var testGame = RockPaperScissors()
-
 testGame.playGame()
-
-
