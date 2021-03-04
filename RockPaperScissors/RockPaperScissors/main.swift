@@ -10,16 +10,22 @@ class RockPaperScissorsGame {
         case invalidInput
     }
     
-    enum GameResult {
-        case win
+    enum GameResult: String {
+        case win = "사용자"
         case draw
-        case lose
+        case lose = "컴퓨터"
+    }
+    
+    enum Winner {
+        case user
+        case computer
     }
 
     func gameStart() {
         repeat {
             let computersHand = makeRandomHand()
             var userHand: Hand = Hand.none
+            print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
             
             do {
                 userHand = try getHandByUser()
@@ -38,9 +44,11 @@ class RockPaperScissorsGame {
             switch gameResult {
             case .win :
                 print("이겼습니다.")
+                mukchibaGameStart(deliverWinner: GameResult.win.rawValue)
                 return
             case .lose :
                 print("졌습니다.")
+                mukchibaGameStart(deliverWinner: GameResult.lose.rawValue)
                 return
             default :
                 print("비겼습니다.")
@@ -76,7 +84,7 @@ class RockPaperScissorsGame {
     }
         
     func getHandByUser() throws -> Hand {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+//        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         guard let userInput = readLine() else {
             throw GameError.invalidInput
@@ -95,7 +103,91 @@ class RockPaperScissorsGame {
             throw GameError.invalidInput
         }
     }
+    
+    
+    
+    func mukchibaGameStart(deliverWinner: String) {
+        var winnerIsUser = true
+        var winner = "사용자"
+        
+        while true {
+            var computersHand = makeRandomHand()
+            var userHand: Hand = Hand.none
+            
+            if deliverWinner == "사용자" {
+                winnerIsUser = true
+                winner = "사용자"
+            } else if deliverWinner == "컴퓨터" {
+                winnerIsUser = false
+                winner = "컴퓨터"
+            }
+            
+            print("[\(winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+            
+            do {
+                userHand = try getHandByUser()
+            } catch {
+                print("잘못된 입력입니다. 다시 입력해주세요")
+                // 턴 바꾸기
+                continue
+            }
+            
+            if userHand == .none {
+                print("게임종료")
+                break
+            }
+            
+            // 묵찌빠판별()
+            let gameResult = getMukchibaGameResult(userHand, vs: computersHand)
+            
+            switch gameResult {
+            case .win:
+                print("사용자의 승리!")
+            case .draw:
+                print("컴퓨터의 승리! ")
+            default:
+                <#code#>
+            }
+        }
+    }
+    
+    func getMukchibaGameResult(_ userHand: Hand, vs computersHand: Hand) -> GameResult {
+        if usersHand == computersHand {
+            return .win
+        } else if (usersHand == .rock && computersHand == .scissors)
+        || (usersHand == .scissors && computersHand == .paper)
+        || (usersHand == .paper && computersHand == .rock) {
+            return .lose
+        } else {
+            return .lose
+        }
+    }
 }
 
 let rockPaperScissors = RockPaperScissorsGame()
 rockPaperScissors.gameStart()
+
+
+//enum GameResult: String{
+//    case win = "사용자"
+//    case draw
+//    case lose = "컴퓨터"
+//}
+//
+//func gameStart() {
+//    case .win :
+//            묵찌빠게임시작(승리자 전달)
+//      return
+//     case .lose :
+//      묵찌빠게임시작(승리자 전달)
+//      return
+//}
+//
+//묵찌빠게임(승리자: string) {
+//        gameStart() 랑 비슷한 맥락
+//      묵찌빠판별()
+//      switch
+//}
+//
+//묵찌빠판별() {
+//}
