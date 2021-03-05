@@ -24,8 +24,12 @@ enum RockPaperScissors: Int, CaseIterable {
     func index() -> Int {
         return self.rawValue
     }
-    func getInputHandSign(_ inputValue: Int) -> RockPaperScissors {
-        guard let inputHandSign = RockPaperScissors(rawValue: inputValue) else {
+    func getInputHandSign(_ inputValue: Int, _ mode: GameMode) -> RockPaperScissors {
+        var index: Int = inputValue
+        if mode == .mukChiPa && inputValue >= 1 && inputValue <= 2 {
+            index = inputValue % 2 + 1
+        }
+        guard let inputHandSign = RockPaperScissors(rawValue: index) else {
             return .none
         }
         return inputHandSign
@@ -40,8 +44,8 @@ class Player {
             self.handSign = handSign
         }
     }
-    func setInputHandSign(_ userInput: Int) {
-        handSign = handSign.getInputHandSign(userInput)
+    func setInputHandSign(_ userInput: Int, _ mode: GameMode) {
+        handSign = handSign.getInputHandSign(userInput, mode)
     }
 }
 
@@ -77,7 +81,7 @@ class RockPaperScissorsGame {
     }
     private func choicePlayerHands(_ userInput: Int) {
         computer.setRandomHandSign()
-        player.setInputHandSign(userInput)
+        player.setInputHandSign(userInput, mode)
     }
     private func decideOrder() {
         let winningHandSignOfUser: Int = computer.handSign.index() % 3 + 1
@@ -94,6 +98,7 @@ class RockPaperScissorsGame {
         }
     }
     private func decideWinner() {
+        print(player.handSign, computer.handSign)
         let winningHandSignOfUser: Int = computer.handSign.index() % 3 + 1
         if player.handSign == computer.handSign {
             if isUserTurn {
