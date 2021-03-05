@@ -52,7 +52,7 @@ class Player {
 class RockPaperScissorsGame {
     private let player = Player()
     private let computer = Player()
-    private var userInput = 0
+//    private var userInput = 0
     // private var phase, mode = 1 // 1번이면 가위바위보, 2번이면 묵찌바 --> enum
     // var isMyTurn: Bool = true
 
@@ -105,6 +105,7 @@ class RockPaperScissorsGame {
 //    func play묵찌빠
     
     func play() {
+        var userInput: Int = 0
         repeat {
             printMenu()
             do {
