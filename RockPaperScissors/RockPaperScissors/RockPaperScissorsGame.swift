@@ -63,11 +63,11 @@ public class RockPaperScissorsGame {
             return true
         } else if playersHand > computersHand {
             print("이겼습니다.")
-//            MukjjibbaGame(winner: .player).startGame()
+            MukjjibbaGame(winner: .player).startGame()
             return false
         } else {
             print("졌습니다.")
-//            MukjjibbaGame(winner: .computer).startGame()
+            MukjjibbaGame(winner: .computer).startGame()
             return false
         }
     }
