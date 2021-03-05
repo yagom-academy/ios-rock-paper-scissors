@@ -1,173 +1,167 @@
-
-
+//
+//  RockPaperScissors - main.swift
+//  Created by yagom.
+//  Copyright © yagom academy. All rights reserved.
+//
 
 
 class RockPaperScissorsGame {
-    enum Hand {
-        case scissors
-        case rock
-        case paper
-        case none
+    
+    enum Hand: String, CaseIterable, Comparable {
+        static func < (lhs: RockPaperScissorsGame.Hand, rhs: RockPaperScissorsGame.Hand) -> Bool {
+            if (lhs == .scissors && rhs == .rock)
+            || (lhs == .paper && rhs == .scissors)
+            || (lhs == .rock && rhs == .paper) {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+        case scissors = "1"
+        case rock = "2"
+        case paper = "3"
+    }
+    
+    enum winner: String {
+        case win = "사용자"
+        case lose = "컴퓨터"
+    }
+    
+    enum mukChiPaShape: String, CaseIterable {
+        case muk = "1"
+        case chi = "2"
+        case pa = "3"
     }
     
     enum GameError: Error {
         case invalidInput
     }
 
-    enum GameResult: String {
-        case win = "사용자"
-        case draw
-        case lose = "컴퓨터"
-    }
-    
-    enum Winner {
-        case user
-        case computer
-    }
-
-    func gameStart() {
+    func startGame() {
+        var isRepeat = false
+        
         repeat {
-            let computersHand = makeRandomHand()
-            var userHand: Hand = Hand.none
-            print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-            
-            do {
-                userHand = try getHandByUser()
-            } catch {
-                print("잘못된 입력입니다. 다시 입력해주세요")
+            guard let computersHand = Hand.allCases.randomElement() else {
                 continue
             }
             
-            if userHand == .none {
-                print("게임종료")
-                break
+            var userHand: Hand
+            do {
+                if let notNilUserHand = try getHandByUser() {
+                    userHand = notNilUserHand
+                } else {
+                    print("게임종료")
+                    break
+                }
+            } catch {
+                print("잘못된 입력입니다. 다시 입력해주세요")
+                isRepeat = true
+                continue
             }
-
-            let gameResult = getGameResult(userHand, vs: computersHand)
-
-            switch gameResult {
-            case .win :
-                print("이겼습니다.")
-                mukchibaGameStart(deliverWinner: GameResult.win.rawValue)
-                return
-            case .lose :
-                print("졌습니다.")
-                mukchibaGameStart(deliverWinner: GameResult.lose.rawValue)
-                return
-            default :
-                print("비겼습니다.")
-            }
-        } while true
-    }
-
-    func makeRandomHand() -> Hand {
-        let random = Int.random(in: 1...3)
-        
-        switch random {
-        case 1:
-            return Hand.scissors
-        case 2:
-            return Hand.rock
-        case 3:
-            return Hand.paper
-        default:
-            return Hand.none
-        }
+            
+            isRepeat = gameResult(userHand, vs: computersHand)
+        } while isRepeat
     }
     
-    func getGameResult(_ usersHand: Hand, vs computersHand: Hand) -> GameResult {
+    func gameResult(_ usersHand: Hand, vs computersHand: Hand) -> Bool {
         if usersHand == computersHand {
-            return .draw
-        } else if (usersHand == .rock && computersHand == .scissors)
-            || (usersHand == .scissors && computersHand == .paper)
-            || (usersHand == .paper && computersHand == .rock) {
-            return .win
+            print("비겼습니다.")
+            return true
+        } else if usersHand > computersHand {
+            print("이겼습니다.")
+            mukChiPaGameStart(deliverWinner: winner.win.rawValue)
+            return false
         } else {
-            return .lose
+            print("졌습니다.")
+            mukChiPaGameStart(deliverWinner: winner.lose.rawValue)
+            return false
         }
     }
         
-    func getHandByUser() throws -> Hand {
-//        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    func getHandByUser() throws -> Hand? {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         guard let userInput = readLine() else {
             throw GameError.invalidInput
         }
-        
-        switch userInput {
-        case "0":
-            return Hand.none
-        case "1":
-            return Hand.scissors
-        case "2":
-            return Hand.rock
-        case "3":
-            return Hand.paper
-        default:
+    
+        if userInput == "0" {
+            return nil
+        }
+    
+        guard let userHand = Hand(rawValue: userInput) else {
             throw GameError.invalidInput
         }
+
+        return userHand
     }
     
-    
-    func mukchibaGameStart(deliverWinner: String) {
-        var winnerIsUser = true
-        var winner = "사용자"
+    func mukChiPaGameStart(deliverWinner: String) {
+        var turn = deliverWinner
         
         while true {
-            var computersHand = makeRandomHand()
-            var userHand: Hand = Hand.none
+            print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
             
-            if deliverWinner == "사용자" {
-                winnerIsUser = true
-                winner = "사용자"
-            } else if deliverWinner == "컴퓨터" {
-                winnerIsUser = false
-                winner = "컴퓨터"
-            }
-            
-            print("[\(winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
-            
-            do {
-                userHand = try getHandByUser()
-            } catch {
-                print("잘못된 입력입니다. 다시 입력해주세요")
-                // 턴 바꾸기
+            guard let computersHand = mukChiPaShape.allCases.randomElement() else {
                 continue
             }
             
-            if userHand == .none {
-                print("게임종료")
-                break
+            var userHand: mukChiPaShape
+            do {
+                if let notNilUserHand = try getMukChiPaByUser() {
+                    userHand = notNilUserHand
+                } else {
+                    print("게임종료")
+                    break
+                }
+            } catch {
+                print("잘못된 입력입니다. 다시 입력해주세요")
+                continue
             }
             
-            // 묵찌빠판별()
-            let gameResult = getMukchibaGameResult(userHand, vs: computersHand)
+            print("사용자: \(userHand)")
+            print("컴퓨터: \(computersHand)")
             
-            switch gameResult {
-            case .win:
-                print("사용자의 승리!")
-            case .draw:
-                print("컴퓨터의 승리! ")
-            default:
-                <#code#>
+            if userHand == computersHand {
+                print("\(turn)의 승리!")
+                return
+            } else if userHand != computersHand {
+                if userHand == .muk && computersHand == .chi ||
+                    userHand == .chi && computersHand == .pa ||
+                    userHand == .pa && computersHand == .muk {
+                    turn = "사용자"
+                    print("\(turn)의 턴입니다")
+                    continue
+                } else if computersHand == .muk && userHand == .chi ||
+                        computersHand == .chi && userHand == .pa ||
+                        computersHand == .pa && userHand == .muk {
+                        turn = "컴퓨터"
+                        print("\(turn)의 턴입니다")
+                        continue
+                }
             }
         }
     }
     
-    func mukchiPaGameResult(_ userHand: Hand, vs computersHand: Hand) -> GameResult {
-        
-        if usersHand == computersHand {
-            return .win
-        } else if (usersHand == .rock && computersHand == .scissors)
-        || (usersHand == .scissors && computersHand == .paper)
-        || (usersHand == .paper && computersHand == .rock) {
-            return .lose
-        } else {
-            return .lose
+    func getMukChiPaByUser() throws -> mukChiPaShape? {
+       
+        guard let userInput = readLine() else {
+            throw GameError.invalidInput
         }
+        
+        if userInput == "0" {
+            return nil
+        }
+        
+        guard let userHand = mukChiPaShape(rawValue: userInput) else {
+            throw GameError.invalidInput
+        }
+        
+        return userHand
     }
 }
 
 let rockPaperScissors = RockPaperScissorsGame()
-rockPaperScissors.gameStart()
+rockPaperScissors.startGame()
 
