@@ -83,21 +83,34 @@ class RockPaperScissorsGame {
         computer.setRandomHandSign()
         player.setInputHandSign(userInput)
     }
-    private func decideOrder()  { // decideOrder로 변경 고려
+    private func decideOrder() {
         let winningHandSignOfUser: Int = computer.handSign.index() % 3 + 1
         if player.handSign == computer.handSign {
             print("비겼습니다!")
         } else if player.handSign.index() == winningHandSignOfUser {
-            print("이겼습니다!") // 묵찌빠 타입으로 이동, 사용자가 선
+            print("이겼습니다!")
             mode = GameMode.mukChiPa
             isUserTurn = true
         } else {
-            print("아이고.. 지셨네..") // 묵찌빠 타입으로 이동,
+            print("아이고.. 지셨네..")
             mode = GameMode.mukChiPa
             isUserTurn = false
         }
     }
-    
+    private func decideWinner() {
+        let winningHandSignOfUser: Int = computer.handSign.index() % 3 + 1
+        if player.handSign == computer.handSign {
+            if isUserTurn {
+                print("사용자의 승리!")
+            } else {
+                print("컴퓨터의 승리..")
+            }
+        } else if player.handSign.index() == winningHandSignOfUser {
+            isUserTurn = true
+        } else {
+            isUserTurn = false
+        }
+    }
 //    func play가위바위보
     func playRockScissorPaper() {
         var userInput: Int = 0
@@ -119,10 +132,17 @@ class RockPaperScissorsGame {
     func playMukChiPa() {
         var userInput: Int = 0
         printMenu()
+        do {
+            userInput = try getUserInput()
+            if userInput == 0 {
+                exitGame()
+            }
+        } catch {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        }
     }
     
     func play() {
-        
         repeat {
             if mode == GameMode.rockPaperScissors {
                 playRockScissorPaper()
