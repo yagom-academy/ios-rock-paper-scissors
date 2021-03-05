@@ -132,4 +132,4 @@ step1().gameStart()
 - 화 - step1 PR
 - 수 - step1 PR 리뷰 & step2 슈도코드 각자 설계
 - 목 - step1 refactor
-- 금 - 
+- 금 - step2 PR
