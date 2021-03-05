@@ -41,7 +41,7 @@ public class RockPaperScissorsGame {
             
             var playerHand: Hand
             do {
-                if let notNilplayerHand = try getHandByplayer() {
+                if let notNilplayerHand = try getHandByPlayer() {
                     playerHand = notNilplayerHand
                 } else {
                     print("게임종료")
@@ -72,7 +72,7 @@ public class RockPaperScissorsGame {
         }
     }
         
-    func getHandByplayer() throws -> Hand? {
+    func getHandByPlayer() throws -> Hand? {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         guard let playerInput = readLine() else {

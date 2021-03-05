@@ -13,21 +13,21 @@ class MukjjibbaGame: RockPaperScissorsGame {
     }
     
     override func gameResult(_ playersHand: Hand, vs computersHand: Hand) -> Bool {
-            if playersHand == computersHand {
-                print("\(winner)의 승리!")
-                return false
-            } else if playersHand > computersHand {
-                winner = "플레이어"
-                print("\(winner)의 턴입니다")
-                return true
-            } else {
-                winner = "컴퓨터"
-                print("\(winner)의 턴입니다")
-                return true
-            }
+        if playersHand == computersHand {
+            print("\(winner)의 승리!")
+            return false
+        } else if playersHand > computersHand {
+            winner = "플레이어"
+            print("\(winner)의 턴입니다")
+            return true
+        } else {
+            winner = "컴퓨터"
+            print("\(winner)의 턴입니다")
+            return true
         }
+    }
         
-    override func getHandByplayer() throws -> Hand? {
+    override func getHandByPlayer() throws -> Hand? {
         print("[\(winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
             
         guard var playerInput = readLine() else {
