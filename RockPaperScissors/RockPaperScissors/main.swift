@@ -6,14 +6,12 @@
 
 import Foundation
 
-// 열거형으로 승패 정의
-
 enum GameError: Error {
     case invalidInput
     case outOfRange
 }
 
- enum GameMode {
+enum GameMode {
     case rockPaperScissors, mukChiPa
 }
 
@@ -27,7 +25,6 @@ enum RockPaperScissors: Int, CaseIterable {
     func index() -> Int {
         return self.rawValue
     }
-    
     func getInputHandSign(_ inputValue: Int) -> RockPaperScissors {
         guard let inputHandSign = RockPaperScissors(rawValue: inputValue) else {
             return .none
@@ -38,7 +35,7 @@ enum RockPaperScissors: Int, CaseIterable {
 
 class Player {
     private(set) var handSign: RockPaperScissors = .none
-
+    
     func setRandomHandSign() {
         if let handSign = RockPaperScissors.allCase.randomElement() {
             self.handSign = handSign
@@ -52,7 +49,7 @@ class Player {
 class RockPaperScissorsGame {
     private let player = Player()
     private let computer = Player()
-    private var mode = GameMode.rockPaperScissors // 1번이면 가위바위보, 2번이면 묵찌바 --> enum
+    private var mode = GameMode.rockPaperScissors
     private var isUserTurn: Bool = true
     
     private func printMenu() {
@@ -114,19 +111,21 @@ class RockPaperScissorsGame {
             isUserTurn = false
         }
     }
-    func handleError() {
-        if mode == GameMode.rockPaperScissors {
+    private func handleError() {
+        switch mode {
+        case .rockPaperScissors:
             print("잘못된 입력입니다. 컴퓨터 턴입니다.")
             mode = GameMode.mukChiPa
             isUserTurn = false
-        } else {
+        case .mukChiPa:
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
     }
-    func decideWinnerByMode() {
-        if mode == GameMode.rockPaperScissors {
+    private func decideWinnerByMode() {
+        switch mode {
+        case .rockPaperScissors:
             decideOrder()
-        } else {
+        case .mukChiPa:
             decideWinner()
         }
     }
