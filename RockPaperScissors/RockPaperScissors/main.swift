@@ -8,9 +8,9 @@ import Foundation
 
 // 열거형으로 승패 정의
 
-enum GameError: Int, Error {
-    case nilInput = -1
-    case typeCastingFailed = -2
+enum GameError: Error {
+    case invalidInput
+    case outOfRange
 }
 
 //indirect enum GameMode {
@@ -70,19 +70,22 @@ class RockPaperScissorsGame {
             print("게임 종료")
             exit(0)
     }
-    func getUserInput() -> Int {
+    func getUserInput() throws -> Int {
         guard let userInput: String = readLine(), let resultInteger: Int = Int(userInput) else {
-            return GameError.nilInput.rawValue
+            throw GameError.invalidInput
+        }
+        if !(resultInteger >= 0 && resultInteger <= 3) {
+            throw GameError.outOfRange
         }
         return resultInteger
     }
-    private func checkInvaildInput(of userInput: Int) -> Bool {
-        if (userInput >= 1 && userInput <= 3) {
-            return true
-        } else {
-            return false
-        }
-    }
+//    private func checkOutOfRange(of userInput: Int) -> Bool {
+//        if (userInput >= 1 && userInput <= 3) {
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
     private func choicePlayerHands(_ userInput: Int) {
         computer.setRandomHandSign()
         player.setInputHandSign(userInput)
@@ -104,14 +107,14 @@ class RockPaperScissorsGame {
     func play() {
         repeat {
             printMenu()
-            userInput = getUserInput()
-            if userInput == 0 {
-                exitGame()
-            }
-            if checkInvaildInput(of: userInput) {
+            do {
+                userInput = try getUserInput()
+                if userInput == 0 {
+                    exitGame()
+                }
                 choicePlayerHands(userInput)
                 decideWinner()
-            } else {
+            } catch {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
             }
         } while true
