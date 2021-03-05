@@ -27,8 +27,9 @@ enum GameResult {
 class RockPaperScissorsGame {
     var inputNumber: Int = 0
     var randomNumber: Int = 0
-    var gameMenu: GameDecision = GameDecision.restart
+    var DecisionAboutGamePlay: GameDecision = GameDecision.restart
     var gameCommand: GameResult = GameResult.draw
+    var decisionNumber: Int = 0
     
     ///컴퓨터에서 가위바위보 중 무엇을 낼지를 결정하는 단계
     func setRandomNumber() {
@@ -51,32 +52,37 @@ class RockPaperScissorsGame {
         if isValidInputNumber() == true {
             switch inputNumber {
             case 0:
-                gameMenu = GameDecision.exit
+                DecisionAboutGamePlay = GameDecision.exit
             case 1, 2, 3:
-                gameMenu = GameDecision.start
+                DecisionAboutGamePlay = GameDecision.start
             default:
                 print("잘못된 입력입니다. 다시 시도해주세요.")
-                gameMenu = GameDecision.restart
+                DecisionAboutGamePlay = GameDecision.restart
             }
         } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            gameMenu = GameDecision.restart
+            DecisionAboutGamePlay = GameDecision.restart
         }
     }
     
-    func bbb() {                                        // 네이밍
-        if gameMenu == GameDecision.exit {
+    func linkExitAndError() {
+        if DecisionAboutGamePlay == GameDecision.exit {
             gameCommand = GameResult.error
         }
     }
 
+
+    func subtractNumbers(from: Int, by: Int) {
+        decisionNumber = from - by
+    }
+    
     /**
     ### 컴퓨터의 수에서 사용자 입력값을 뺀 값에 따라 각각의 case 분류
     - ex) 컴퓨터의 수: 1(가위) - 사용자입력값: 2(바위) = -1로 사용자승리.
     ------
     - case에 따라 win, lose, draw 값을 gameCommand에 저장.*/
-    func sortResult(a: Int, b: Int) {                   // sortResult, a, b 파라미터 네이밍
-            switch (a - b) {
+    func sortResult(by: Int) {
+            switch (by) {
             case -1, 2:
                 gameCommand = GameResult.win
             case 1, -2:
@@ -88,9 +94,9 @@ class RockPaperScissorsGame {
         }
     }
     
-    func aaa() {                                            // 메서드 네이밍
-        if gameMenu == GameDecision.start {
-            sortResult(a: randomNumber, b: inputNumber)
+    func checkAndSort() {
+        if DecisionAboutGamePlay == GameDecision.start {
+            sortResult(by: decisionNumber)
         }
     }
         
@@ -102,7 +108,7 @@ class RockPaperScissorsGame {
         case GameResult.lose:
             print("졌습니다.")
         case GameResult.draw:
-            if gameMenu == GameDecision.start {
+            if DecisionAboutGamePlay == GameDecision.start {
             print("비겼습니다.")
             }
         default:
@@ -121,12 +127,13 @@ class RockPaperScissorsGame {
     ///- 컴퓨터와 사용자가 서로 비겼거나, 게임 진행 여부가 restart일때 반복.
     ///- 처음에 while문 내부로 진입하기 위해. gameCommand의 값을 draw로, GameDecision의 값을 restart로 설정해두었음.
     func start() {
-        while gameCommand == GameResult.draw || gameMenu == GameDecision.restart {
+        while gameCommand == GameResult.draw || DecisionAboutGamePlay == GameDecision.restart {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
             setRandomNumber()
             decideGamePlaying()
-            bbb()
-            aaa()
+            linkExitAndError()
+            subtractNumbers(from: randomNumber, by: inputNumber)
+            checkAndSort()
             printResult()
             initializeNumbers()
         }
@@ -134,8 +141,8 @@ class RockPaperScissorsGame {
 }
 
 
-let rockPaperScissors = RockPaperScissorsGame() //인스턴스화
-rockPaperScissors.start() // 실행...!!!
+let rockPaperScissors = RockPaperScissorsGame()
+rockPaperScissors.start()
 
 
 /*
