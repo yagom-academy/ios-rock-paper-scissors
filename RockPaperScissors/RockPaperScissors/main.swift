@@ -20,13 +20,8 @@ func rockPaperScissorResult(userNumber:Int, computerNumber: Int) -> Int {
 }
 /// 배열의 첫번째 값은 패가 같은 경우에는 true, 패가 다른 경우에는 false
 /// 배열의 두번째 값은 사용자 턴인 경우엔 true, 컴퓨터 턴인 경우에는 false
-func step2_1(turnState: Int, userNumber: Int, computerNumber: Int) -> [Bool] {
+func rockScissorPaperResult(turnState: Int, userNumber: Int, computerNumber: Int) -> [Bool] {
     if userNumber == computerNumber {
-        if turnState == 1 {
-            print("사용자의 승리!")
-        } else {
-            print("컴퓨터의 승리!")
-        }
         return [true]
     } else {
         if turnState == 1 {
@@ -39,11 +34,12 @@ func step2_1(turnState: Int, userNumber: Int, computerNumber: Int) -> [Bool] {
 
 /// 반환값이 true인 경우 게임 종료
 /// 반환값이 false인 경우 반복
-func step2(state: Int) -> Bool {
+func rockScissorPaper(state: Int) {
     resetFlag = true
     var turn: String = ""
     var turnState: Int = state
     var isContinue: Bool = true
+    
     while isContinue {
         if turnState == 1 {
             turn = "사용자 턴"
@@ -72,12 +68,26 @@ func step2(state: Int) -> Bool {
             }
             continue
         }
-        let gameResult: [Bool] = step2_1(turnState: turnState, userNumber: userNumber, computerNumber: computerNumber)
-        /// 패가 같은 경우
+        let gameResult: [Bool] = rockScissorPaperResult(turnState: turnState, userNumber: userNumber, computerNumber: computerNumber)
+        /// 패가 같은 경우 gameResult[0] = true
+        /// 패가 같은 경우 gameResult[0] = false
         if gameResult[0] {
-            return true
+            if turnState == 1 {
+                print("사용자의 승리!")
+            } else {
+                print("컴퓨터의 승리!")
+            }
+            return
         } else {
-            
+            /// 사용자 턴에서 컴퓨터 턴으로 바뀌는 경우 gameResult[1] = true
+            /// 컴퓨터 턴에서 사용자 턴으로 바뀌는 경우 gameResult[1] = false
+            if gameResult[1] {
+                turnState = 0
+            } else {
+                turnState = 1
+            }
+            resetFlag = true
+            continue
         }
     }
 }
@@ -90,7 +100,6 @@ func startGame() {
             computerNumber = Int.random(in: 1...3)
             resetFlag = false
         }
-        print(computerNumber)
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         let userInput: Int? = Int(readLine()!)
         guard let userNumber = userInput else {
@@ -108,10 +117,12 @@ func startGame() {
         gameResult = rockPaperScissorResult(userNumber: userNumber, computerNumber: computerNumber)
         if gameResult == win {
             print("이겼습니다!")
-            
+            rockScissorPaper(state: win)
+            return
         } else if gameResult == lose {
             print("졌습니다!")
-            
+            rockScissorPaper(state: lose)
+            return
         } else {
             print("비겼습니다!")
             resetFlag = true
