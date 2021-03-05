@@ -7,8 +7,7 @@
 import Foundation
 
 enum GameError: Error {
-    case invalidInput
-    case outOfRange
+    case invalidInput, outOfRange
 }
 
 enum GameMode {
