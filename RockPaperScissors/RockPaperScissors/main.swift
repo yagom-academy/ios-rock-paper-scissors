@@ -114,33 +114,36 @@ class RockPaperScissorsGame {
             isUserTurn = false
         }
     }
-    func startGame() {
-        var userInput: Int = 0
-        printMenu()
-        do {
-            userInput = try getUserInput()
-            if userInput == 0 {
-                exitGame()
-            }
-            choicePlayerHands(userInput)
-            if mode == GameMode.rockPaperScissors {
-                decideOrder()
-            } else {
-                decideWinner()
-            }
-        } catch {
-            if mode == GameMode.rockPaperScissors {
-                print("잘못된 입력입니다. 컴퓨터 턴입니다.")
-                mode = GameMode.mukChiPa
-                isUserTurn = false
-            } else {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-            }
+    func handleError() {
+        if mode == GameMode.rockPaperScissors {
+            print("잘못된 입력입니다. 컴퓨터 턴입니다.")
+            mode = GameMode.mukChiPa
+            isUserTurn = false
+        } else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        }
+    }
+    func decideWinnerByMode() {
+        if mode == GameMode.rockPaperScissors {
+            decideOrder()
+        } else {
+            decideWinner()
         }
     }
     func play() {
         repeat {
-            startGame()
+            var userInput: Int = 0
+            printMenu()
+            do {
+                userInput = try getUserInput()
+                if userInput == 0 {
+                    exitGame()
+                }
+                choicePlayerHands(userInput)
+                decideWinnerByMode()
+            } catch {
+                handleError()
+            }
         } while true
     }
 }
