@@ -36,26 +36,6 @@ enum RockPaperScissors: Int, CaseIterable {
     }
 }
 
-protocol GetUserInput {
-    func getUserInput() -> Int
-    func castStringtoInt(inputString: String) -> Int
-}
-
-extension GetUserInput {
-    func getUserInput() -> Int {
-        guard let userInput: String = readLine() else {
-            return GameError.nilInput.rawValue
-        }
-        return castStringtoInt(inputString: userInput)
-    }
-    func castStringtoInt(inputString: String) -> Int {
-        guard let resultInteger: Int = Int(inputString) else {
-            return GameError.typeCastingFailed.rawValue
-        }
-        return resultInteger
-    }
-}
-
 class Player {
     private(set) var handSign: RockPaperScissors = .none
 
@@ -69,7 +49,7 @@ class Player {
     }
 }
 
-class RockPaperScissorsGame: GetUserInput {
+class RockPaperScissorsGame {
     private let player = Player()
     private let computer = Player()
     private var userInput = 0
@@ -78,7 +58,7 @@ class RockPaperScissorsGame: GetUserInput {
 
     private func printMenu() {
 //        if 게임 모드 == 게임모드 타입.가위바위보 {
-//        print("가위(1), 바위(2), 보(3)! <종료:0> : ", terminator:"")
+        print("가위(1), 바위(2), 보(3)! <종료:0> : ", terminator:"")
 //        } else {
 //        if isMyTurn == true {
 //            print("[사용자 턴]")
@@ -89,6 +69,18 @@ class RockPaperScissorsGame: GetUserInput {
     private func exitGame() {
             print("게임 종료")
             exit(0)
+    }
+    func getUserInput() -> Int {
+        guard let userInput: String = readLine() else {
+            return GameError.nilInput.rawValue
+        }
+        return castStringtoInt(inputString: userInput)
+    }
+    func castStringtoInt(inputString: String) -> Int {
+        guard let resultInteger: Int = Int(inputString) else {
+            return GameError.typeCastingFailed.rawValue
+        }
+        return resultInteger
     }
     private func checkInvaildInput(of userInput: Int) -> Bool {
         if (userInput >= 1 && userInput <= 3) {
