@@ -71,14 +71,8 @@ class RockPaperScissorsGame {
             exit(0)
     }
     func getUserInput() -> Int {
-        guard let userInput: String = readLine() else {
+        guard let userInput: String = readLine(), let resultInteger: Int = Int(userInput) else {
             return GameError.nilInput.rawValue
-        }
-        return castStringtoInt(inputString: userInput)
-    }
-    func castStringtoInt(inputString: String) -> Int {
-        guard let resultInteger: Int = Int(inputString) else {
-            return GameError.typeCastingFailed.rawValue
         }
         return resultInteger
     }
