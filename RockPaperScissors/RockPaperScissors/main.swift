@@ -1,7 +1,11 @@
+enum GameError: Error {
+    case invalidInput
+    case unknownError
+}
+
 class RockPaperScissors {
-    var handOfComputer: Hand = .rock
-    var handOfUser: Hand = .rock
-    var rawUserInput: String? = ""
+    private var handOfComputer: Hand = .rock
+    private var handOfUser: Hand = .rock
     
     enum GameResult: String {
         case win = "이겼습니다!"
@@ -9,19 +13,16 @@ class RockPaperScissors {
         case draw = "비겼습니다!"
     }
     
-    enum GameError: Error {
-        case invalidInput
-        case unknownError
-    }
-    
     enum Hand: Int, CaseIterable {
-        case rock = 1
-        case scissor = 2
+        case scissor = 1
+        case rock = 2
         case paper = 3
     }
     
     func renewComputerHand() {
-        handOfComputer = Hand.allCases.map{$0}[Int.random(in: 0...2)]
+        if let randomHand = Hand.allCases.randomElement() {
+            handOfComputer = randomHand
+        }
     }
     
     func startGame() {
@@ -29,15 +30,17 @@ class RockPaperScissors {
             renewComputerHand()
             showMenu()
             
-            rawUserInput = readLine()
-            if let rawUserInput = rawUserInput {
-                if rawUserInput == "0" {
-                    break outer
-                }
+            guard let stringUserInput = readLine() else {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                continue outer
+            }
+            
+            if stringUserInput == "0" {
+                break outer
             }
             
             do {
-                    handOfUser = try checkUserInput()
+                handOfUser = try checkedUserHand(stringUserInput)
             } catch {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 continue outer
@@ -49,21 +52,18 @@ class RockPaperScissors {
                 continue outer
             }
             
-            MukChiBa(rockPaperScissorsResult: resultOfRockPaperScissors).gameStart()
+            MukChiBa(rockPaperScissorsResult: resultOfRockPaperScissors).startGame()
             break outer
         }
     }
     
     func rockPaperScissorsResult() -> GameResult {
-        switch (handOfUser.rawValue, handOfComputer.rawValue) {
-        case (1, 1), (2, 2), (3, 3):
+        switch (handOfUser, handOfComputer) {
+        case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
             return .draw
-        case (1, 3), (2, 1), (3, 2):
+        case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
             return .win
-        case (1, 2), (2, 3), (3, 1):
-            return .lose
-        default:
-            print("알 수 없는 오류입니다.")
+        case (.scissor, .rock), (.rock, .paper), (.paper, .scissor):
             return .lose
         }
     }
@@ -72,9 +72,8 @@ class RockPaperScissors {
         print("가위(1). 바위(2). 보(3)! <종료 : 0>", terminator: " : ")
     }
     
-    func checkUserInput() throws -> Hand {
-        guard let stringUserInput = rawUserInput,
-              let integerUserInput = Int(stringUserInput),
+    func checkedUserHand(_ stringUserInput: String) throws -> Hand {
+        guard let integerUserInput = Int(stringUserInput),
               let userInput = Hand(rawValue: integerUserInput)
         else {
             throw GameError.invalidInput
@@ -88,7 +87,16 @@ class RockPaperScissors {
     }
 }
 
-class MukChiBa : RockPaperScissors {
+class MukChiBa {
+    private var handOfComputer: Hand = .rock
+    private var handOfUser: Hand = .rock
+    
+    enum Hand: Int, CaseIterable {
+        case rock = 1
+        case scissor = 2
+        case paper = 3
+    }
+    
     enum GameResult: CustomStringConvertible {
         case userTurn
         case computerTurn
@@ -119,52 +127,64 @@ class MukChiBa : RockPaperScissors {
         }
     }
     
-    override func showMenu() {
+    func showMenu() {
         print("[\(currentTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0>", terminator: " : ")
     }
     
-    func gameStart() {
+    func renewComputerHand() {
+        if let randomHand = Hand.allCases.randomElement() {
+            handOfComputer = randomHand
+        }
+    }
+    
+    func startGame() {
         outer: while true {
             showMenu()
             renewComputerHand()
             
-            rawUserInput = readLine()
-            if let rawUserInput = rawUserInput {
-                if rawUserInput == "0" {
-                    break outer
-                }
+            guard let stringUserInput = readLine() else {
+                currentTurn = .computerTurn
+                continue outer
+            }
+            
+            if stringUserInput == "0" {
+                break outer
             }
             
             do {
-                handOfUser = try checkUserInput()
+                handOfUser = try checkedUserHand(stringUserInput)
             } catch {
                 currentTurn = .computerTurn
                 continue outer
             }
             
-            let resultOfMukChiBa = mukChiBaResult()
-            switch resultOfMukChiBa {
-            case .somebodyWin:
+            if (isGameOver()) {
                 print("\(currentTurn) 승리!")
                 break outer
-            default:
-                currentTurn = resultOfMukChiBa
-                print("\(resultOfMukChiBa)의 턴입니다")
             }
+            print("\(currentTurn)의 턴입니다")
         }
     }
     
-    func mukChiBaResult() -> GameResult {
-        switch (handOfUser.rawValue, handOfComputer.rawValue) {
-        case (1, 1), (2, 2), (3, 3):
-            return .somebodyWin
-        case (1, 3), (2, 1), (3, 2):
-            return .computerTurn
-        case (1, 2), (2, 3), (3, 1):
-            return .userTurn
-        default:
-            print("알 수 없는 오류입니다.")
-            return .computerTurn
+    func checkedUserHand(_ stringUserInput: String) throws -> Hand {
+        guard let integerUserInput = Int(stringUserInput),
+              let userInput = Hand(rawValue: integerUserInput)
+        else {
+            throw GameError.invalidInput
+        }
+        return userInput
+    }
+    
+    func isGameOver() -> Bool {
+        switch (handOfUser, handOfComputer) {
+        case (.rock, .rock), (.scissor, .scissor), (.paper, .paper):
+            return true
+        case (.rock, .paper), (.scissor, .rock), (.paper, .scissor):
+            currentTurn = .computerTurn
+            return false
+        case (.rock, .scissor), (.scissor, .paper), (.paper, .rock):
+            currentTurn = .userTurn
+            return false
         }
     }
 }
