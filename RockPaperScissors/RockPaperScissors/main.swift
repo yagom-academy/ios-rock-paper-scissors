@@ -7,19 +7,19 @@
 import Foundation
 
 enum RockPaperScissorsHand: Int {
-    case exit = 0, scissors, rock, paper
+    case exit, scissors, rock, paper
 }
 
 enum MukChiPaHand: Int {
-    case exit = 0, muk, chi, pa
+    case exit, muk, chi, pa
 }
 
 enum GameResult: String {
-    case win = "이겼습니다!"
-    case lose = "졌습니다!"
+    case win = "사용자의 승리!"
+    case lose = "컴퓨터의 승리!"
     case draw = "비겼습니다!"
     case exit = "게임 종료"
-    case error = "다시 입력해주세요"
+    case error = "잘못된 입력입니다. 다시 입력해주세요."
 }
 
 enum TurnStatus: String {
@@ -44,7 +44,7 @@ class RockPaperScissors {
         return userNumber
     }
     
-    func checkRockPaperScissorsResult(userNumber: Int, computerNumber: Int) -> GameResult {
+    private func checkRockPaperScissorsResult(userNumber: Int, computerNumber: Int) -> GameResult {
         var result = GameResult.draw
         let userHand = RockPaperScissorsHand(rawValue: userNumber)
         let computerHand = RockPaperScissorsHand(rawValue: computerNumber)
@@ -68,7 +68,7 @@ class RockPaperScissors {
         return result
     }
     
-    func checkMukChiPaResult(userNumber: Int, computerNumber: Int) -> GameResult {
+    private func checkMukChiPaResult(userNumber: Int, computerNumber: Int) -> GameResult {
         var result = GameResult.draw
         let userHand = MukChiPaHand(rawValue: userNumber)
         let computerHand = MukChiPaHand(rawValue: computerNumber)
