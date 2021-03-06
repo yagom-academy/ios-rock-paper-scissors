@@ -6,3 +6,6 @@
 
 ### STEP 1: 가위, 바위, 보 게임 구현
 ![](./images/flowchart_step1.png)
+
+### STEP 2: 묵찌빠 게임 구현
+![](./images/flowchart_step2.png)
