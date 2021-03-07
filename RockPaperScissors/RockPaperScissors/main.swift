@@ -1,3 +1,4 @@
+
 enum GameError: Error {
     case invalidInput
     case unknownError
@@ -6,7 +7,7 @@ enum GameError: Error {
 class RockPaperScissors {
     private var handOfComputer: Hand = .rock
     private var handOfUser: Hand = .rock
-    
+
     enum GameResult: String {
         case win = "이겼습니다!"
         case lose = "졌습니다!"
@@ -46,13 +47,13 @@ class RockPaperScissors {
                 continue outer
             }
             
-            let resultOfRockPaperScissors = rockPaperScissorsResult()
-            showResult(resultOfRockPaperScissors)
-            if resultOfRockPaperScissors == .draw {
+            let result = rockPaperScissorsResult()
+            showResult(result)
+            if result == .draw {
                 continue outer
             }
             
-            MukChiBa(rockPaperScissorsResult: resultOfRockPaperScissors).startGame()
+            MukChiBa(didUserWin: result == .win ? true : false).startGame()
             break outer
         }
     }
@@ -116,15 +117,8 @@ class MukChiBa {
     
     var currentTurn: GameResult
     
-    init(rockPaperScissorsResult: RockPaperScissors.GameResult) {
-        switch rockPaperScissorsResult {
-        case .win:
-            currentTurn = .userTurn
-        case .lose:
-            currentTurn = .computerTurn
-        default:
-            currentTurn = .computerTurn
-        }
+    init(didUserWin: Bool) {
+        currentTurn = didUserWin ? .userTurn : .computerTurn
     }
     
     func showMenu() {
