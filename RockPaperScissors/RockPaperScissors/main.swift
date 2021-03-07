@@ -98,7 +98,7 @@ class RockPaperScissorsGame {
         }
     }
     private func decideWinner() {
-        print(player.handSign, computer.handSign)
+        print("사용자 :",player.handSign, "컴퓨터 :", computer.handSign)
         let winningHandSignOfUser: Int = computer.handSign.index() % 3 + 1
         if player.handSign == computer.handSign {
             if isUserTurn {
@@ -118,11 +118,10 @@ class RockPaperScissorsGame {
     private func handleError() {
         switch mode {
         case .rockPaperScissors:
-            print("잘못된 입력입니다. 컴퓨터 턴입니다.")
-            mode = GameMode.mukChiPa
-            isUserTurn = false
-        case .mukChiPa:
             print("잘못된 입력입니다. 다시 시도해주세요.")
+        case .mukChiPa:
+            print("잘못 입력 하였습니다. 컴퓨터 턴입니다.")
+            isUserTurn = false
         }
     }
     private func decideWinnerByMode() {
@@ -137,7 +136,7 @@ class RockPaperScissorsGame {
         repeat {
             printMenu()
             do {
-                let userInput = try getUserInput()
+                let userInput: Int = try getUserInput()
                 if userInput == 0 {
                     exitGame()
                 }
