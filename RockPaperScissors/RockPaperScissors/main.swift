@@ -135,10 +135,9 @@ class RockPaperScissorsGame {
     }
     func play() {
         repeat {
-            var userInput: Int = 0
             printMenu()
             do {
-                userInput = try getUserInput()
+                let userInput = try getUserInput()
                 if userInput == 0 {
                     exitGame()
                 }
