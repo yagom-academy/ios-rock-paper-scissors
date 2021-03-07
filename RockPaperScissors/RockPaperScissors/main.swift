@@ -17,16 +17,13 @@ class RockPaperScissors {
         case rock = 2
         case paper = 3
     }
-    init() {
-        startGame()
-    }
     
     private func handOfComputer() -> Hand {
         // enum Hand가 nil이 아닌게 확실한 경우에는 느낌표(!)를 써도 무방하다.
         return Hand.allCases.randomElement()!
     }
     
-    private func startGame() {
+    func startGame() {
         outer: while true {
             showMenu()
             
@@ -175,4 +172,5 @@ class MukChiBa {
         }
     }
 }
-let rockPaperScissors = RockPaperScissors()
+
+RockPaperScissors().startGame()
