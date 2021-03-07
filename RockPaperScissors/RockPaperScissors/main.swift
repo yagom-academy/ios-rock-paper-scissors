@@ -5,8 +5,6 @@ enum GameError: Error {
 }
 
 class RockPaperScissors {
-    private var handOfComputer: Hand = .rock
-    private var handOfUser: Hand = .rock
 
     enum GameResult: String {
         case win = "이겼습니다!"
@@ -20,15 +18,17 @@ class RockPaperScissors {
         case paper = 3
     }
     
-    func renewComputerHand() {
-        if let randomHand = Hand.allCases.randomElement() {
-            handOfComputer = randomHand
+    func renewComputerHand() -> Hand {
+        let randomHand = Hand.rock
+        if let randomHand = Hand.allCases.randomElement()  {
+            let handOfComputer = randomHand
+            return handOfComputer
         }
+        return randomHand
     }
     
     func startGame() {
         outer: while true {
-            renewComputerHand()
             showMenu()
             
             guard let stringUserInput = readLine() else {
@@ -41,25 +41,25 @@ class RockPaperScissors {
             }
             
             do {
-                handOfUser = try checkedUserHand(stringUserInput)
+                let userHand = try checkedUserHand(stringUserInput)
+                let computerHand = renewComputerHand()
+                let result = rockPaperScissorsResult(of: userHand, with: computerHand )
+                showResult(result)
+                if result == .draw {
+                    continue outer
+                }
+                MukChiBa(didUserWin: result == .win ? true : false).startGame()
+                break outer
+                
             } catch {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 continue outer
             }
-            
-            let result = rockPaperScissorsResult()
-            showResult(result)
-            if result == .draw {
-                continue outer
-            }
-            
-            MukChiBa(didUserWin: result == .win ? true : false).startGame()
-            break outer
         }
     }
     
-    func rockPaperScissorsResult() -> GameResult {
-        switch (handOfUser, handOfComputer) {
+    func rockPaperScissorsResult(of user: Hand, with computer: Hand) -> GameResult {
+        switch (user, computer) {
         case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
             return .draw
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
@@ -89,19 +89,10 @@ class RockPaperScissors {
 }
 
 class MukChiBa {
-    private var handOfComputer: Hand = .rock
-    private var handOfUser: Hand = .rock
     
-    enum Hand: Int, CaseIterable {
-        case rock = 1
-        case scissor = 2
-        case paper = 3
-    }
-    
-    enum GameResult: CustomStringConvertible {
+    enum GameTurn: CustomStringConvertible {
         case userTurn
         case computerTurn
-        case somebodyWin
         
         var description: String {
             switch self {
@@ -109,35 +100,42 @@ class MukChiBa {
                 return "사용자"
             case .computerTurn:
                 return "컴퓨터"
-            default:
-                return ""
             }
         }
     }
     
-    var currentTurn: GameResult
+    enum MukchibaHand: Int, CaseIterable {
+        case rock = 1
+        case scissor = 2
+        case paper = 3
+    }
+    
+    func renewComputerHand() -> MukchibaHand {
+        let randomHand = MukchibaHand.rock
+        if let randomHand = MukchibaHand.allCases.randomElement()  {
+            let handOfComputer = randomHand
+            return handOfComputer
+        }
+        return randomHand
+    }
+    
+    var currentPlayer: GameTurn
     
     init(didUserWin: Bool) {
-        currentTurn = didUserWin ? .userTurn : .computerTurn
+        currentPlayer = didUserWin ? .userTurn : .computerTurn
     }
     
     func showMenu() {
-        print("[\(currentTurn) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0>", terminator: " : ")
+        print("[\(currentPlayer) 턴] 묵(1). 찌(2). 빠(3)! <종료 : 0>", terminator: " : ")
     }
     
-    func renewComputerHand() {
-        if let randomHand = Hand.allCases.randomElement() {
-            handOfComputer = randomHand
-        }
-    }
     
     func startGame() {
         outer: while true {
             showMenu()
-            renewComputerHand()
             
             guard let stringUserInput = readLine() else {
-                currentTurn = .computerTurn
+                currentPlayer = .computerTurn
                 continue outer
             }
             
@@ -146,38 +144,39 @@ class MukChiBa {
             }
             
             do {
-                handOfUser = try checkedUserHand(stringUserInput)
+                let handOfUser = try checkedUserHand(stringUserInput)
+                let handOfComputer = renewComputerHand()
+                if isTurnEnd(compared: handOfUser, with: handOfComputer) {
+                    print("\(currentPlayer) 승리!")
+                    break outer
+                }
+                print("\(currentPlayer)의 턴입니다")
+                
             } catch {
-                currentTurn = .computerTurn
+                currentPlayer = .computerTurn
                 continue outer
             }
-            
-            if (isGameOver()) {
-                print("\(currentTurn) 승리!")
-                break outer
-            }
-            print("\(currentTurn)의 턴입니다")
         }
     }
     
-    func checkedUserHand(_ stringUserInput: String) throws -> Hand {
+    func checkedUserHand(_ stringUserInput: String) throws -> MukchibaHand {
         guard let integerUserInput = Int(stringUserInput),
-              let userInput = Hand(rawValue: integerUserInput)
+              let userInput = MukchibaHand(rawValue: integerUserInput)
         else {
             throw GameError.invalidInput
         }
         return userInput
     }
     
-    func isGameOver() -> Bool {
-        switch (handOfUser, handOfComputer) {
+    func isTurnEnd(compared user: MukchibaHand, with computer: MukchibaHand) -> Bool {
+        switch (user, computer) {
         case (.rock, .rock), (.scissor, .scissor), (.paper, .paper):
             return true
         case (.rock, .paper), (.scissor, .rock), (.paper, .scissor):
-            currentTurn = .computerTurn
+            currentPlayer = .computerTurn
             return false
         case (.rock, .scissor), (.scissor, .paper), (.paper, .rock):
-            currentTurn = .userTurn
+            currentPlayer = .userTurn
             return false
         }
     }
