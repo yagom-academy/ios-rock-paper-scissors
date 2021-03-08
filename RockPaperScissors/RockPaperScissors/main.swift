@@ -1,4 +1,3 @@
-
 enum GameError: Error {
     case invalidInput
     case unknownError
@@ -11,7 +10,7 @@ class RockPaperScissors {
         case lose = "졌습니다!"
         case draw = "비겼습니다!"
     }
-    
+  
     enum Hand: Int, CaseIterable {
         case scissor = 1
         case rock = 2
@@ -53,7 +52,7 @@ class RockPaperScissors {
             }
         }
     }
-    // class 내에서 result는 가위바위보의 result인게 확실하니까 굳이 앞에 부가설명을 적지 않아도 된다.
+  
     private func result(of user: Hand, with computer: Hand) -> GameResult {
         switch (user, computer) {
         case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
@@ -86,10 +85,8 @@ class RockPaperScissors {
         print(resultStatement)
     }
 }
-// enum -> 프로퍼티 -> init -> 메소드 순서대로 코드를 배치하였다.
+
 class MukChiBa {
-    
-    // 굳이 두 개의 프로토콜을 따로 채택할 필요 없이 이렇게 한 줄에 묶어서 채택하고 바로 rawValue값을 불러올 수 있다.
     enum GameTurn: String, CustomStringConvertible {
         case userTurn = "사용자"
         case computerTurn = "컴퓨터"
@@ -98,6 +95,7 @@ class MukChiBa {
             self.rawValue
         }
     }
+  
     enum Hand: Int, CaseIterable {
         case muk = 1
         case chi = 2
@@ -112,7 +110,6 @@ class MukChiBa {
     }
     
     private func handOfComputer() -> Hand {
-        // enum Hand가 nil이 아닌게 확실한 경우에는 느낌표(!)를 써도 무방하다.
         return Hand.allCases.randomElement()!
     }
     
