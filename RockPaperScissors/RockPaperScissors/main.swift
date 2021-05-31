@@ -6,5 +6,10 @@
 
 import Foundation
 
-print("Hello, World!")
-
+enum RockPaperScissors: Int {
+    case gameOver = 0
+    case scissors
+    case rock
+    case paper
+}
+print(RockPaperScissors.paper.rawValue)
