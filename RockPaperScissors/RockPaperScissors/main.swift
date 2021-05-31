@@ -7,11 +7,12 @@
 import Foundation
 
 enum RockPaperScissors: Int {
-    case gameOver = 0
-    case scissors
+    case scissors = 1
     case rock
     case paper
 }
+
+var isGameOver = false
 
 func requestUserInput() -> Int{
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -22,6 +23,27 @@ func requestUserInput() -> Int{
     return inputNumber
 }
 
-let userNumber = requestUserInput()
+func compareUserInputWithComputerInput(userNumber: Int, computerRandomNumber: Int) {
+    guard let user = RockPaperScissors.init(rawValue: userNumber), let computer = RockPaperScissors.init(rawValue: computerRandomNumber) else {
+        return
+    }
+    if user == computer {
+        print("비겼습니다!")
+        return
+    }
+    else if (user == .scissors && computer == .paper) || (user == .paper && computer == .rock) || (user == .rock && computer == .scissors)
+    {
+        print("이겼습니다!")
+        isGameOver = true
+        return
+    }
+    else {
+        print("졌습니다!")
+        isGameOver = true
+        return
+    }
+}
 
+
+let userNumber = requestUserInput()
 let computerRandomNumber = Int.random(in: 1...3)
