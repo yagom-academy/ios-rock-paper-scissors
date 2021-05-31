@@ -14,6 +14,7 @@ enum RockPaperScissors: Int {
 }
 
 func requestUserInput() -> Int{
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     guard let inputString = readLine(), let inputNumber = Int(inputString), 0 <= inputNumber && inputNumber <= 3 else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return requestUserInput()
@@ -22,3 +23,5 @@ func requestUserInput() -> Int{
 }
 
 let userNumber = requestUserInput()
+
+let computerRandomNumber = Int.random(in: 1...3)
