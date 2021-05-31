@@ -6,5 +6,6 @@
 
 import Foundation
 
-print("Hello, World!")
+print("시험용 커밋")
+
 
