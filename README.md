@@ -1,6 +1,6 @@
-## iOS 커리어 스타터 캠프
+## 묵찌빠 프로젝트 저장소
 
-### 묵찌빠 프로젝트 저장소
+### 플로우차트 Step1
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+![RPS_Step1](https://user-images.githubusercontent.com/52592748/120182638-9e598480-c249-11eb-8ee2-f1a4aa30c799.png)
 
