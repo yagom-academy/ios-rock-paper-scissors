@@ -9,7 +9,6 @@ import Foundation
 print("Hello, World!")
 
 class Dealer {
-    
     var userHand = 0
     var comHand = 1
     
@@ -37,11 +36,10 @@ class Dealer {
     }
     
     private func judge() {
-        
-        print("나의 패: ", terminator: "")
-        whatsYourHand(userHand)
-        print("컴퓨터의 패: ", terminator: "")
-        whatsYourHand(comHand)
+//        print("나의 패: ", terminator: "")
+//        whatsYourHand(userHand)
+//        print("컴퓨터의 패: ", terminator: "")
+//        whatsYourHand(comHand)
         
         switch comHand - userHand {
         case -1, 2:
@@ -55,18 +53,18 @@ class Dealer {
         return inputUserHand()
     }
     
-    private func whatsYourHand(_ n: Int) {
-        switch n {
-        case 1:
-            print("가위")
-        case 2:
-            print("바위")
-        case 3:
-            print("보")
-        default:
-            print("잘못된 입력")
-        }
-    }
+//    private func whatsYourHand(_ n: Int) {
+//        switch n {
+//        case 1:
+//            print("가위")
+//        case 2:
+//            print("바위")
+//        case 3:
+//            print("보")
+//        default:
+//            print("잘못된 입력")
+//        }
+//    }
 }
 
 
