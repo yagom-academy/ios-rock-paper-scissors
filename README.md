@@ -16,13 +16,13 @@
 
 ### 의사 코드
 
-![image-20210531194144465](/Users/dasollpark/Desktop/ios-rock-paper-scissors/image/image-20210531194144465.png)
+![image-20210531194144465](./image/image-20210531194144465.png)
 
-### ![image-20210531194200370](/Users/dasollpark/Desktop/ios-rock-paper-scissors/image/image-20210531194200370.png)
+![image-20210531194200370](./image/image-20210531194200370.png)
 
 
 
 ### 플로우 차트
 
-![image-20210531194225241](/Users/dasollpark/Desktop/ios-rock-paper-scissors/image/image-20210531194225241.png)
+![image-20210531194225241](./image/image-20210531194225241.png)
 
