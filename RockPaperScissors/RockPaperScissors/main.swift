@@ -10,7 +10,6 @@ enum RockPaperScissors: Int {
     case scissors = 1
     case rock = 2
     case paper = 3
-    case etc
 }
 
 enum GameResult: String {
@@ -18,9 +17,10 @@ enum GameResult: String {
     case lose = "졌습니다!"
     case draw = "비겼습니다!"
 }
+
 var gameResult: GameResult = .lose
-var userValue: RockPaperScissors = .etc
-var computerValue: RockPaperScissors = .etc
+var userValue: RockPaperScissors = .paper
+var computerValue: RockPaperScissors = .paper
 var isExit: Bool = false
 
 func printMenu() {
@@ -57,27 +57,16 @@ func printGameResult() {
     print(gameResult.rawValue)
 }
 
-func checkGameResult(user: RockPaperScissors, computer: RockPaperScissors) {
-   
-    if user == computer {
+func computeGameResult(user: RockPaperScissors, computer: RockPaperScissors) {
+    switch user.rawValue - computer.rawValue {
+    case -1, 2:
+        gameResult = .lose
+    case 0:
         gameResult = .draw
-    }
-    
-    switch user {
-    case .scissors:
-        if computer == .paper {
-            gameResult = .win
-        }
-    case .rock:
-        if computer == .scissors {
-            gameResult = .win
-        }
-    case .paper:
-        if computer == .rock {
-            gameResult = .win
-        }
-    case .etc:
-        printError()
+    case 1, -2:
+        gameResult = .win
+    default:
+        break
     }
 }
 
@@ -85,19 +74,12 @@ func printError() {
     print("잘못된 입력입니다. 다시 시도해주세요")
 }
 
-func resetGame() {
-    gameResult = .lose
-    userValue = .etc
-    computerValue = .etc
-}
-
 func startGame() {
     generateComputerValue()
     inputUserValue()
     if isExit == false {
-        checkGameResult(user: userValue, computer: computerValue)
+        computeGameResult(user: userValue, computer: computerValue)
         printGameResult()
-        resetGame()
         startGame()
     } else {
         return
