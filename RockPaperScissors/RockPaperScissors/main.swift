@@ -19,9 +19,7 @@ enum Winner {
 }
 
 struct Game {
-    var isPlaying = true
-    
-    func sanitize(number userInput: Int) -> Int {
+    func sanitizeNumber(from userInput: Int) -> Int {
         switch userInput {
         case 0...3:
             return userInput
@@ -37,12 +35,11 @@ struct Game {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return inputFromUser()
         }
-        return sanitize(number: number)
+        return sanitizeNumber(from: number)
     }
     
-    func whoIsWinner(user: RockScissorsPaper , computer: RockScissorsPaper) -> Winner {
-        let valueDifference = user.rawValue - computer.rawValue
-        
+    func whoIsWinner(userChoice: RockScissorsPaper , computerChoice: RockScissorsPaper) -> Winner {
+        let valueDifference = userChoice.rawValue - computerChoice.rawValue
         switch valueDifference {
         case -2, 1:
             return Winner.user
@@ -59,7 +56,7 @@ struct Game {
         else {
             return
         }
-        let result = whoIsWinner(user: userChoice, computer: computerChoice)
+        let result = whoIsWinner(userChoice: userChoice, computerChoice: computerChoice)
         switch result {
         case Winner.user:
             print("이겼습니다!")
@@ -70,6 +67,7 @@ struct Game {
         }
         start()
     }
+    
     func isGameEnd(userInput: Int) -> Bool {
         return userInput == 0
     }
@@ -82,9 +80,7 @@ struct Game {
         }
         playRound(userInput: userInput)
     }
-    
 }
 
 let game = Game()
-
 game.start()
