@@ -11,10 +11,10 @@ enum Hand : Int, CaseIterable {
     case paper = 3
 }
 
-enum Result {
-    case win
-    case draw
-    case lose
+enum Result: String {
+    case win = "이겼습니다!"
+    case draw = "비겼습니다!"
+    case lose = "졌습니다!"
 }
 
 struct RockScissorsPaper {
@@ -45,16 +45,28 @@ struct RockScissorsPaper {
     
     private func compare(userHand: Hand, computerHand: Hand) {
         let result = computerHand.rawValue - userHand.rawValue
-
+        
         switch result {
         case 0:
-            print("(Result.draw)")
+            print(Result.draw.rawValue)
         case 1, -2:
-            print("(Result.lose)")
+            print(Result.lose.rawValue)
         case -1, 2:
-            print("(Result.win)")
+            print(Result.win.rawValue)
         default:
             break
         }
     }
+    
+    mutating func startGame() {
+        guard let userHand = choiceUserHand() else {
+            return
+        }
+        
+        compare(userHand: userHand, computerHand: computerHands())
+    }
 }
+
+var rockScissorsPaper = RockScissorsPaper()
+rockScissorsPaper.startGame()
+
