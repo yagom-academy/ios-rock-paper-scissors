@@ -8,7 +8,21 @@ import Foundation
 
 enum RockPaperScissors: Int {
 	case Scissors = 1, Rock, Paper
+  
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 1:
+      self = .Scissors
+    case 2:
+      self = .Rock
+    case 3:
+      self = .Paper
+    default:
+      return nil
+    }
+  }
 }
+
 
 func printMenu() {
   print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
