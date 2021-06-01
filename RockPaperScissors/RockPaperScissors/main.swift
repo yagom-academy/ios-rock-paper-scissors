@@ -10,6 +10,12 @@ enum RockPaperScissors: Int {
     case scissors = 1
     case rock = 2
     case paper = 3
+    
+    static func generateRandomCase() -> RockPaperScissors {
+        let rockPaperScissors: [RockPaperScissors] = [.scissors, .rock, .paper]
+        let index = Int.random(in: 0...rockPaperScissors.count - 1)
+        return rockPaperScissors[index]
+    }
 }
 
 enum GameResult: String {
@@ -49,10 +55,11 @@ func returnUserSelectedNumber() -> Int {
 }
 
 func generateComputerRockPaperScissorsValue() -> RockPaperScissors {
-    if let unwrappedValue = RockPaperScissors(rawValue: Int.random(in: 1...3)) {
-        return unwrappedValue
-    }
-    return RockPaperScissors.rock
+//    if let unwrappedValue = RPS(rawValue: Int.random(in: 1...3)) {
+//        return unwrappedValue
+//    }
+//    return RPS.rock
+    return RockPaperScissors.generateRandomCase()
 }
 
 func playRockScissorsPaperWith(
