@@ -9,26 +9,30 @@ import Foundation
 var userScissorsRockPaper: Int = 0
 let youWin = "이겼습니다!", youLose = "졌습니다!", draw = "비겼습니다!", stopGame = "게임종료"
 
-let scissors = 1, rock = 2, paper = 3
-let scissorsRockPaper: Array<Int> = [scissors,rock,paper]
+let stop = 0, scissors = 1, rock = 2, paper = 3
+let scissorsRockPaper: Array<Int> = [stop,scissors,rock,paper]
 
-// 입력 후 바인딩
+
 func bindingUserInput() -> Int {
     while true {
         print("가위(1),바위(2),보(3)!<종료 : 0>", terminator: " : ")
         let userInput: String? = readLine()
         if let unWrappedUserInput: String = userInput, let userInputNum: Int = Int(unWrappedUserInput) {
-            if (userInputNum >= 1) && (userInputNum <= 3) {
-                return userInputNum
-            }
+            return userInputNum
         }
+        print("잘못된 입력입니다.")
     }
 }
 
-
+func userOutput(userInput : Int) -> Int {
+    if  0 <= userInput && userInput <= 3 {
+       return userInput
+    }
+    return -1
+}
 
 func makeComputerOutput() -> Int{
-    let output = scissorsRockPaper[Int.random(in: 0...2)]
+    let output = scissorsRockPaper[Int.random(in: 1...3)]
     return output
 }
 
@@ -43,38 +47,18 @@ func userVsComputer(user: Int, computer: Int) {
     }
 }
 
-func gameStart(){
-    let user = scissorsRockPaper[bindingUserInput()]
-    userVsComputer(user: user, computer: makeComputerOutput())
+func gameStart() {
+    while true {
+        let user = bindingUserInput()
+        if 1 <= user && user <= 3  {
+            userVsComputer(user: user, computer: makeComputerOutput())
+        } else if user == 0 {
+            print("게임종료")
+            return
+        } else {
+            print("잘못된 입력입니다.")
+        }
+    }
 }
+
 gameStart()
-
-
-
-
-
-
-
-
-//func bindingUserInput() -> Int {
-//    while true {
-//        print("가위(1),바위(2),보(3)!<종료 : 0>", terminator: " : ")
-//        let userInput: String? = readLine()
-//        switch userInput {
-//        case "0" :
-//            print("게임종료")
-//            break
-//        case "1" :
-//            return 1
-//        case "2" :
-//            return 2
-//        case "3" :
-//            return 3
-//        default :
-//            print("잘못된 입력입니다. 다시 시도해주세요.")
-//        }
-////        if let unWrappedUserInput: String = userInput, let userInputNum: Int = Int(unWrappedUserInput) {
-////            return userInputNum
-////        }
-//    }
-//}
