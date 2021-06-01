@@ -6,7 +6,7 @@
 
 import Foundation
 
-enum Text: String {
+enum Message: String {
     case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
     case gameOver = "게임 종료"
@@ -16,23 +16,23 @@ enum Text: String {
 }
 
 func playGame() {
-    print(Text.menu.rawValue, terminator: "")
+    print(Message.menu.rawValue, terminator: "")
     guard let input = readLine(), let inputNumber = Int(input), inputNumber >= 0 && inputNumber <= 3 else {
-        print(Text.wrongInput.rawValue)
+        print(Message.wrongInput.rawValue)
         return playGame()
     }
     
     let computerNumber = Int.random(in: 1...3)
     print(computerNumber)
     switch (inputNumber, computerNumber) {
-    case (0, _):
-        print(Text.gameOver.rawValue)
+    case (0,_):
+        print(Message.gameOver.rawValue)
     case (1,3), (3,2), (2,1):
-        print(Text.userWin.rawValue)
+        print(Message.userWin.rawValue)
     case (1,2), (2,3), (3,1):
-        print(Text.userLose.rawValue)
+        print(Message.userLose.rawValue)
     default:
-        print(Text.draw.rawValue)
+        print(Message.draw.rawValue)
         playGame()
     }
 }
