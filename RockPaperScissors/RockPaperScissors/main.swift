@@ -15,21 +15,32 @@ enum Message: String {
     case draw = "비겼습니다."
 }
 
+enum RockPaperScissors: Int {
+    case scissors = 1
+    case rock
+    case paper
+}
+
 func playGame() {
     print(Message.menu.rawValue, terminator: "")
-    guard let input = readLine(), let inputNumber = Int(input), inputNumber >= 0 && inputNumber <= 3 else {
+    guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
         print(Message.wrongInput.rawValue)
         return playGame()
     }
     
-    let computerNumber = Int.random(in: 1...3)
-    print(computerNumber)
-    switch (inputNumber, computerNumber) {
-    case (0,_):
+    guard let computerHand: RockPaperScissors = RockPaperScissors(rawValue: Int.random(in: 1...3)) else {
+        return
+    }
+    
+    guard let userHand: RockPaperScissors = RockPaperScissors(rawValue: inputNumber) else {
         print(Message.gameOver.rawValue)
-    case (1,3), (3,2), (2,1):
+        return
+    }
+    
+    switch (userHand, computerHand) {
+    case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
         print(Message.userWin.rawValue)
-    case (1,2), (2,3), (3,1):
+    case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
         print(Message.userLose.rawValue)
     default:
         print(Message.draw.rawValue)
