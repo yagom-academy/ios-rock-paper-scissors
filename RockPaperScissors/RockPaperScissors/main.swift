@@ -13,6 +13,12 @@ enum Hand : Int, CaseIterable {
     case end = 0
 }
 
+enum Result {
+    case win
+    case draw
+    case lose
+}
+
 func userHand() -> Hand {
     guard let userInput = readLine(), let num = Int(userInput) else {
         return userHand()
