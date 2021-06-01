@@ -24,7 +24,7 @@ func requestUserInput() -> Int{
 }
 
 func compareUserInputWithComputerInput(userNumber: Int, computerRandomNumber: Int) {
-    guard let user = RockPaperScissors.init(rawValue: userNumber), let computer = RockPaperScissors.init(rawValue: computerRandomNumber) else {
+    guard let user = RockPaperScissors(rawValue: userNumber), let computer = RockPaperScissors(rawValue: computerRandomNumber) else {
         return
     }
     if user == computer {
@@ -43,7 +43,16 @@ func compareUserInputWithComputerInput(userNumber: Int, computerRandomNumber: In
         return
     }
 }
+func gameStart() {
+    while isGameOver == false {
+        let userNumber = requestUserInput()
+        if userNumber == 0 {
+            print("게임 종료")
+            break
+        }
+        let computerRandomNumber = Int.random(in: 1...3)
+        compareUserInputWithComputerInput(userNumber: userNumber, computerRandomNumber: computerRandomNumber)
+    }
+}
 
-
-let userNumber = requestUserInput()
-let computerRandomNumber = Int.random(in: 1...3)
+gameStart()
