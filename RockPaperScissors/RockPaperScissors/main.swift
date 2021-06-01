@@ -18,7 +18,7 @@ enum Result {
     case lose
 }
 
-private func choiceUserHand() -> Hand? {
+func choiceUserHand() -> Hand? {
        let userInputArray: Array<Int> = [0, 1, 2, 3]
        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
        guard let userInput = readLine(), let convertedUserInput = Int(userInput) else {
@@ -32,8 +32,10 @@ private func choiceUserHand() -> Hand? {
        return Hand(rawValue: convertedUserInput)
 }
 
-func computerHand() -> Hand {
-    let hand = Hand.allCases.randomElement()!
-    
-    return hand
+func computerHands() -> Hand {
+       if let randomHand = Hand.allCases.randomElement() {
+           return randomHand
+       } else {
+           return computerHands()
+       }
 }
