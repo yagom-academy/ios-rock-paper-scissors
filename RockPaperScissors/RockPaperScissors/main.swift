@@ -6,6 +6,18 @@
 
 import Foundation
 
+enum RockScissorsPaper: Int {
+    case scissors = 1
+    case rock
+    case paper
+}
+
+enum Winner {
+    case user
+    case computer
+    case tie
+}
+
 struct Game {
     var isPlaying = true
     func inputFromUser() -> Int {
@@ -15,6 +27,36 @@ struct Game {
             return inputFromUser()
         }
         return number
+    }
+    
+    func whoIsWinner(user: RockScissorsPaper , computer: RockScissorsPaper) -> Winner {
+        let valueDifference = user.rawValue - computer.rawValue
+        
+        switch valueDifference {
+        case -2, 1:
+            return Winner.user
+        case 2, -1:
+            return Winner.computer
+        default:
+            return Winner.tie
+        }
+    }
+  
+    func playRound(userInput: Int) {
+        guard let userChoice = RockScissorsPaper(rawValue: userInput),
+              let computerChoice = RockScissorsPaper(rawValue: Int.random(in: 1...3))
+        else {
+            return
+        }
+        let result = whoIsWinner(user: userChoice, computer: computerChoice)
+        switch result {
+        case Winner.user:
+            print("이겼습니다!")
+        case Winner.computer:
+            print("졌습니다!")
+        default:
+            print("비겼습니다!")
+        }
     }
     
 }
