@@ -57,10 +57,16 @@ struct Game {
         default:
             print("비겼습니다!")
         }
+        start()
+    }
+    
+    func start() {
+        let userInput = inputFromUser()
+        playRound(userInput: userInput)
     }
     
 }
 
 let game = Game()
-print(game.inputFromUser())
 
+game.start()
