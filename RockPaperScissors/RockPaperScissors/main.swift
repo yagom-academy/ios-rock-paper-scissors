@@ -31,10 +31,22 @@ func makeRandomNumber() -> Int {
 func RockPaperScissorsGame() -> Int {
     let userNumber = userInputNumber()
     let computerNumber = makeRandomNumber()
+    
     if userNumber == 0 {
         return 0
     }
-
+    
+    // MARK: --- ver 2
+//    let RockScissorsPaperGameTable: Array<Array<Result>> = [[.draw, .lose, .win],
+//                                                            [.win, .draw, .lose],
+//                                                            [.lose, .win, .draw]]
+//    print(RockScissorsPaperGameTable[computerNumber-1][userNumber-1].rawValue)
+//
+//    가위(1), 바위(2), 보(3)
+//    1 2 3
+//    1 ->  d l w
+//    2 ->  w d l
+//    3 ->  l w d
     return 1
 }
 
