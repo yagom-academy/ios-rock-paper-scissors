@@ -36,6 +36,23 @@ func RockPaperScissorsGame() -> Int {
         return 0
     }
     
+    // 승패판별
+    // MARK: --- ver 1
+    switch computerNumber - userNumber {
+    case -1 , 2 :
+        print(Result.win.rawValue)
+    case -2 , 1 :
+        print(Result.lose.rawValue)
+    default :
+        print(Result.draw.rawValue)
+    }
+    
+    // 가위(1), 바위(2), 보(3)
+    //      lose      win       draw
+    // 1 -> -3 = -2 / -2 = -1 / -1 = 0
+    // 2 -> -1 = 1  / -3 = -1 / -2 = 0
+    // 3 -> -2 = 1  / -1 = 2  / -3 = 0
+    
     // MARK: --- ver 2
 //    let RockScissorsPaperGameTable: Array<Array<Result>> = [[.draw, .lose, .win],
 //                                                            [.win, .draw, .lose],
