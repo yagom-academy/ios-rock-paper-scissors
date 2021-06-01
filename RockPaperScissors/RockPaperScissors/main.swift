@@ -12,6 +12,28 @@ enum Result: String {
     case draw = "비겼습니다!"
 }
 
+func userInputNumber() -> Int {
+    while true {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        if let userInput = readLine(), let convertNumber = Int(userInput), (0...3).contains(convertNumber) {
+            return convertNumber
+        } else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            continue
+        }
+    }
+}
+
+func RockPaperScissorsGame() -> Int {
+    let userNumber = userInputNumber()
+
+    if userNumber == 0 {
+        return 0
+    }
+
+    return 1
+}
+
 // Main
 func console() {
     while true {
