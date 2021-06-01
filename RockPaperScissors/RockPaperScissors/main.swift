@@ -49,14 +49,8 @@ struct Game {
             return Winner.tie
         }
     }
-  
-    func playRound(userInput: Int) {
-        guard let userChoice = RockScissorsPaper(rawValue: userInput),
-              let computerChoice = RockScissorsPaper(rawValue: Int.random(in: 1...3))
-        else {
-            return
-        }
-        let result = whoIsWinner(userChoice: userChoice, computerChoice: computerChoice)
+    
+    func printGameResult(winner result: Winner) {
         switch result {
         case Winner.user:
             print("이겼습니다!")
@@ -65,6 +59,16 @@ struct Game {
         default:
             print("비겼습니다!")
         }
+    }
+    
+    func playRound(userInput: Int) {
+        guard let userChoice = RockScissorsPaper(rawValue: userInput),
+              let computerChoice = RockScissorsPaper(rawValue: Int.random(in: 1...3))
+        else {
+            return
+        }
+        let result = whoIsWinner(userChoice: userChoice, computerChoice: computerChoice)
+        printGameResult(winner: result)
         start()
     }
     
