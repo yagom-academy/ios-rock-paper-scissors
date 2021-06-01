@@ -32,3 +32,9 @@ func userHand() -> Hand {
         return userHand()
     }
 }
+
+func computerHand() -> Hand {
+    let hand = Hand.allCases.randomElement()!
+    
+    return hand
+}
