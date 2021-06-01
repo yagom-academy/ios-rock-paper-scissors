@@ -43,12 +43,13 @@ struct RockScissorsPaper {
         }
     }
     
-    private func compare(userHand: Hand, computerHand: Hand) {
+    private mutating func compare(userHand: Hand, computerHand: Hand) {
         let result = computerHand.rawValue - userHand.rawValue
         
         switch result {
         case 0:
             print(Result.draw.rawValue)
+            startGame()
         case 1, -2:
             print(Result.lose.rawValue)
         case -1, 2:
