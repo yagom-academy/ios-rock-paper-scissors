@@ -42,4 +42,19 @@ struct RockScissorsPaper {
             return computerHands()
         }
     }
+    
+    private func compare(userHand: Hand, computerHand: Hand) {
+        let result = computerHand.rawValue - userHand.rawValue
+
+        switch result {
+        case 0:
+            print("(Result.draw)")
+        case 1, -2:
+            print("(Result.lose)")
+        case -1, 2:
+            print("(Result.win)")
+        default:
+            break
+        }
+    }
 }
