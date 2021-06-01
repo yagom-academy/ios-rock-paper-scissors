@@ -6,5 +6,13 @@
 
 import Foundation
 
-print("Hello, World!")
+// Main
+func console() {
+    while true {
+        
+        if RockPaperScissorsGame() == 0 { break }
+        
+    }
+}
 
+console()
