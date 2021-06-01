@@ -9,7 +9,7 @@ import Foundation
 enum RockPaperScissors: Int {
 	case Scissors = 1, Rock, Paper
   
-  init?(rawValue: Int) {
+  init(rawValue: Int) {
     switch rawValue {
     case 1:
       self = .Scissors
@@ -17,8 +17,8 @@ enum RockPaperScissors: Int {
       self = .Rock
     case 3:
       self = .Paper
-    default:
-      return nil
+		default:
+			self = .Scissors
     }
   }
 }
@@ -72,5 +72,37 @@ func compareRockPaperScissors(user: RockPaperScissors, oppenent: RockPaperScisso
   }
   
   return "Win"
+}
+
+
+
+while true {
+	printMenu()
+	let randomNumber = Int.random(in: 1...3)
+	let computerHand = RockPaperScissors(rawValue: randomNumber)
+	var userDecision = receiveUserInput()
+	
+	if userDecision == 0 {
+		print("게임 종료")
+		break
+	}
+	
+	while userDecision < 1 || userDecision > 3 {
+		printWrongInput()
+		userDecision = receiveUserInput()
+	}
+	
+	let userHand = RockPaperScissors(rawValue: userDecision)
+
+	
+	switch compareRockPaperScissors(user: userHand, oppenent: computerHand) {
+	case "Tie":
+		printTieMessage()
+	case "Lose":
+		printLoseMessage()
+	case "Win":
+		printWinMessage()
+	default: break
+	}
 }
 
