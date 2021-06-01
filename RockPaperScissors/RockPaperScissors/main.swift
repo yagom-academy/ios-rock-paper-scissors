@@ -10,7 +10,6 @@ enum Hand : Int, CaseIterable {
     case scissors = 1
     case rock = 2
     case paper = 3
-    case end = 0
 }
 
 enum Result {
