@@ -70,10 +70,16 @@ struct Game {
         }
         start()
     }
+    func isGameEnd(userInput: Int) -> Bool {
+        return userInput == 0
+    }
     
     func start() {
         let userInput = inputFromUser()
-//        let validatedNumber = validate(number: userInput)
+        if isGameEnd(userInput: userInput) {
+            print("게임 종료")
+            return
+        }
         playRound(userInput: userInput)
     }
     
