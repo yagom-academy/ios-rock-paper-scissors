@@ -18,10 +18,10 @@ enum RockPaperScissors: Int {
     }
 }
 
-enum GameResult: String {
-    case win = "win"
-    case lose = "lose"
-    case tie = "tie"
+enum GameResult {
+    case win
+    case lose
+    case tie
     
     func showGameResultMessage() {
         switch self {
