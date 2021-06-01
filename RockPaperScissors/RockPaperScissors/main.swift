@@ -1,10 +1,17 @@
-//
-//  RockPaperScissors - main.swift
-//  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
-// 
+var userChoice: String = ""
+var computerChoice: Int = 0
 
-import Foundation
+func startGame() -> Void {
+    print(showStartMessage(), terminator: "")
+    recieveInput()
+}
 
-print("Hello, World!")
+func showStartMessage() -> String {
+    return "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+}
 
+func recieveInput() -> Void {
+    let input = readLine()
+}
+
+startGame()
