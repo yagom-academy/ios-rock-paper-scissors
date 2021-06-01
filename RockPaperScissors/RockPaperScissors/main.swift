@@ -19,24 +19,18 @@ enum Result {
     case lose
 }
 
-func userHand() -> Hand {
-    guard let userInput = readLine(), let num = Int(userInput) else {
-        return userHand()
-    }
-    
-    switch Hand(rawValue: num) {
-    case .scissors:
-        return .scissors
-    case .rock:
-        return .rock
-    case .paper:
-        return .paper
-    case .end:
-        return .end
-    default:
-        print("입력이 잘못되었습니다.")
-        return userHand()
-    }
+private func choiceUserHand() -> Hand? {
+       let userInputArray: Array<Int> = [0, 1, 2, 3]
+       print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+       guard let userInput = readLine(), let convertedUserInput = Int(userInput) else {
+           return choiceUserHand()
+       }
+
+       guard userInputArray.contains(convertedUserInput) else {
+           return choiceUserHand()
+       }
+
+       return Hand(rawValue: convertedUserInput)
 }
 
 func computerHand() -> Hand {
