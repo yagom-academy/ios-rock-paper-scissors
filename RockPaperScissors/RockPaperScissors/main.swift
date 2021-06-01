@@ -12,13 +12,27 @@ enum RockPaperScissors: Int {
     case paper = 3
     case etc
 }
+
+enum GameResult: String {
+    case win = "이겼습니다!"
+    case lose = "졌습니다!"
+    case draw = "비겼습니다!"
+}
+var gameResult: GameResult = .lose
 var userValue: RockPaperScissors = .etc
 var computerValue: RockPaperScissors = .etc
+
 typealias WhosWin = (computer: Bool, user: Bool, draw: Bool)
 var whosWin: WhosWin = (false, false, false)
 
 func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+}
+
+func generateComputerValue() {
+    if let value = RockPaperScissors(rawValue: Int.random(in: 1...3)){
+        computerValue = value
+    }
 }
 
 func inputUserNumber() {
@@ -37,3 +51,33 @@ func inputUserNumber() {
         }
     }
 }
+
+func checkGameResult(user: RockPaperScissors, computer: RockPaperScissors) {
+   
+    if user == computer {
+        gameResult = .draw
+    }
+    
+    switch user {
+    case .scissors:
+        if computer == .paper {
+            gameResult = .win
+        }
+    case .rock:
+        if computer == .scissors {
+            gameResult = .win
+        }
+    case .paper:
+        if computer == .rock {
+            gameResult = .win
+        }
+    case .etc:
+        printError()
+    }
+}
+
+func printError() {
+    print("잘못된 입력입니다. 다시 시도해주세요")
+}
+
+generateComputerValue()
