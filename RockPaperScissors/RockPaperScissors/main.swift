@@ -50,11 +50,22 @@ func returnUserSelectedNumber() -> Int {
 }
 
 func generateComputerRPSValue() -> RPS {
+    if let unwrappedValue = RPS(rawValue: Int.random(in: 1...3)) {
+        return unwrappedValue
+    }
     return RPS.rock
 }
 
-func playRockScissorsPaperWith(player1: RPS, player2: RPS) -> GameResult {
-    return GameResult.tie
+func playRockScissorsPaperWith(computerChoice: RPS, userChoice: RPS) -> GameResult {
+    let numberGap: Int = userChoice.rawValue - computerChoice.rawValue
+    switch numberGap {
+    case 1, -2:
+        return GameResult.win
+    case 2, -1:
+        return GameResult.lose
+    default:
+        return GameResult.tie
+    }
 }
 
 func showResultMessage(gameResult: GameResult) {
@@ -68,15 +79,17 @@ func showGameEndMessage() {
 func main() {
     let EXIT_NUMBER = 0
     while true {
-        let userInput: Int = returnUserSelectedNumber()
-        if userInput == EXIT_NUMBER {
+        let userInputNumber: Int = returnUserSelectedNumber()
+        if userInputNumber == EXIT_NUMBER {
             showGameEndMessage()
             break
         }
-        if let userRPS: RPS = RPS(rawValue: userInput) {
+        if let userRPS: RPS = RPS(rawValue: userInputNumber) {
             let computerRPS: RPS = generateComputerRPSValue()
-            let resultRPS: GameResult = playRockScissorsPaperWith(player1: computerRPS, player2: userRPS)
+            let resultRPS: GameResult = playRockScissorsPaperWith(computerChoice: computerRPS, userChoice: userRPS)
             showResultMessage(gameResult: resultRPS)
+        } else {
+            showWrongInputMessage()
         }
     }
 }
