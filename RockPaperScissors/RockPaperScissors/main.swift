@@ -6,5 +6,6 @@
 
 import Foundation
 
-print("Hello, World!")
-
+func generateComputerCard() -> Int {
+    Int.random(in: 1...3)
+}
