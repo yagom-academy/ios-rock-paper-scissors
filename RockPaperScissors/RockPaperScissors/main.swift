@@ -34,6 +34,7 @@ func generateComputerValue() {
 }
 
 func inputUserValue() {
+    printMenu()
     if let userNumber = readLine() {
         switch userNumber {
         case "1":
@@ -43,10 +44,11 @@ func inputUserValue() {
         case "3":
             userValue = .paper
         case "0":
+            print("게임 종료")
             isExit = true
-            return
         default:
-            printMenu()
+            printError()
+            inputUserValue()
         }
     }
 }
@@ -81,7 +83,6 @@ func checkGameResult(user: RockPaperScissors, computer: RockPaperScissors) {
 
 func printError() {
     print("잘못된 입력입니다. 다시 시도해주세요")
-    startGame()
 }
 
 func resetGame() {
@@ -91,15 +92,17 @@ func resetGame() {
 }
 
 func startGame() {
-    while isExit == false {
-        printMenu()
-        generateComputerValue()
-        inputUserValue()
-        print(userValue)
+    generateComputerValue()
+    inputUserValue()
+    if isExit == false {
         checkGameResult(user: userValue, computer: computerValue)
         printGameResult()
         resetGame()
+        startGame()
+    } else {
+        return
     }
+    
 }
 
 startGame()
