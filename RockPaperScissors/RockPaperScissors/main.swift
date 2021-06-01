@@ -61,4 +61,33 @@ func receiveUserInput() -> Int {
 	
 }
 
+func compareRockPaperScissors(user: RockPaperScissors, oppenent: RockPaperScissors) {
 
+	switch user {
+	case .Rock :
+		if oppenent == .Rock {
+			printTieMessage()
+		} else if oppenent == .Paper {
+			printLoseMessage()
+		} else {
+			printWinMessage()
+		}
+	case .Paper :
+		if oppenent == .Rock {
+			printWinMessage()
+		} else if oppenent == .Paper {
+			printTieMessage()
+		} else {
+			printLoseMessage()
+		}
+	case .Scissors:
+		if oppenent == .Rock {
+			printLoseMessage()
+		} else if oppenent == .Paper {
+			printWinMessage()
+		} else {
+			printTieMessage()
+		}
+	}
+	
+}
