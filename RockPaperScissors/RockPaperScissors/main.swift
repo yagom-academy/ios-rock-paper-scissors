@@ -8,8 +8,8 @@ import Foundation
 
 var userScissorsRockPaper: Int = 0
 
-let cissors = 1, rock = 2, paper = 3
-let cissorsRockPaper: Array<Int> = [cissors,rock,paper]
+let scissors = 1, rock = 2, paper = 3
+let scissorsRockPaper: Array<Int> = [scissors,rock,paper]
 
 // 입력 후 바인딩
 func bindingUserInput() -> Int {
@@ -20,4 +20,9 @@ func bindingUserInput() -> Int {
             return userInputNum
         }
     }
+}
+
+func makeComputerOutput() -> Int{
+    let output = scissorsRockPaper[Int.random(in: 0...2)]
+    return output
 }
