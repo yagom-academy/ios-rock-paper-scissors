@@ -20,13 +20,24 @@ enum Winner {
 
 struct Game {
     var isPlaying = true
-    func inputFromUser() -> Int {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        guard let input = readLine(), let number = Int(input), (0...3).contains(number) else {
+    
+    func sanitize(number userInput: Int) -> Int {
+        switch userInput {
+        case 0...3:
+            return userInput
+        default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return inputFromUser()
         }
-        return number
+    }
+    
+    func inputFromUser() -> Int {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        guard let input = readLine(), let number = Int(input) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return inputFromUser()
+        }
+        return sanitize(number: number)
     }
     
     func whoIsWinner(user: RockScissorsPaper , computer: RockScissorsPaper) -> Winner {
@@ -62,6 +73,7 @@ struct Game {
     
     func start() {
         let userInput = inputFromUser()
+//        let validatedNumber = validate(number: userInput)
         playRound(userInput: userInput)
     }
     
