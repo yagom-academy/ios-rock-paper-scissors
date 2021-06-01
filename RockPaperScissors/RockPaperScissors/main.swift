@@ -6,8 +6,7 @@
 
 import Foundation
 
-
-enum RPS: Int {
+enum RockPaperScissors: Int {
     case scissors = 1
     case rock = 2
     case paper = 3
@@ -18,7 +17,7 @@ enum GameResult: String {
     case lose = "lose"
     case tie = "tie"
     
-    func printMessage() {
+    func showGameResultMessage() {
         switch self {
         case .win:
             print("이겼습니다!")
@@ -49,14 +48,17 @@ func returnUserSelectedNumber() -> Int {
     return convertedUserInput
 }
 
-func generateComputerRPSValue() -> RPS {
-    if let unwrappedValue = RPS(rawValue: Int.random(in: 1...3)) {
+func generateComputerRockPaperScissorsValue() -> RockPaperScissors {
+    if let unwrappedValue = RockPaperScissors(rawValue: Int.random(in: 1...3)) {
         return unwrappedValue
     }
-    return RPS.rock
+    return RockPaperScissors.rock
 }
 
-func playRockScissorsPaperWith(computerChoice: RPS, userChoice: RPS) -> GameResult {
+func playRockScissorsPaperWith(
+    computerChoice: RockPaperScissors,
+    userChoice: RockPaperScissors
+) -> GameResult {
     let numberGap: Int = userChoice.rawValue - computerChoice.rawValue
     switch numberGap {
     case 1, -2:
@@ -69,14 +71,14 @@ func playRockScissorsPaperWith(computerChoice: RPS, userChoice: RPS) -> GameResu
 }
 
 func showResultMessage(gameResult: GameResult) {
-    gameResult.printMessage()
+    gameResult.showGameResultMessage()
 }
 
 func showGameEndMessage() {
     print("게임 종료")
 }
 
-func main() {
+func playGame() {
     let EXIT_NUMBER = 0
     while true {
         let userInputNumber: Int = returnUserSelectedNumber()
@@ -84,14 +86,17 @@ func main() {
             showGameEndMessage()
             break
         }
-        if let userRPS: RPS = RPS(rawValue: userInputNumber) {
-            let computerRPS: RPS = generateComputerRPSValue()
-            let resultRPS: GameResult = playRockScissorsPaperWith(computerChoice: computerRPS, userChoice: userRPS)
-            showResultMessage(gameResult: resultRPS)
+        if let userRockPaperScissors: RockPaperScissors = RockPaperScissors(rawValue: userInputNumber) {
+            let computerRockPaperScissors: RockPaperScissors = generateComputerRockPaperScissorsValue()
+            let rockPaperScissorsResult: GameResult = playRockScissorsPaperWith(
+                computerChoice: computerRockPaperScissors,
+                userChoice: userRockPaperScissors
+            )
+            showResultMessage(gameResult: rockPaperScissorsResult)
         } else {
             showWrongInputMessage()
         }
     }
 }
 
-main()
+playGame()
