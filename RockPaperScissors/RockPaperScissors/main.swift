@@ -12,3 +12,23 @@ enum Hand : Int, CaseIterable {
     case paper = 3
     case end = 0
 }
+
+func userHand() -> Hand {
+    guard let userInput = readLine(), let num = Int(userInput) else {
+        return userHand()
+    }
+    
+    switch Hand(rawValue: num) {
+    case .scissors:
+        return .scissors
+    case .rock:
+        return .rock
+    case .paper:
+        return .paper
+    case .end:
+        return .end
+    default:
+        print("입력이 잘못되었습니다.")
+        return userHand()
+    }
+}
