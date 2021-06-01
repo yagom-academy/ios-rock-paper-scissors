@@ -19,8 +19,23 @@ enum GameResult: String {
     case tie = "tie"
 }
 
-func showInfoMessage() -> Int {
-    return 1
+func showInfoMessage() {
+    print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
+}
+
+func showWrongInputMessage() {
+    print("잘못된 입력입니다. 다시 시도해주세요.")
+}
+
+func returnUserSelectedNumber() -> Int {
+    showInfoMessage()
+    guard let userInput = readLine(),
+          let convertedUserInput = Int(userInput),
+          (0...3).contains(convertedUserInput) else {
+        showWrongInputMessage()
+        return returnUserSelectedNumber()
+    }
+    return convertedUserInput
 }
 
 func generateComputerRPSValue() -> RPS {
@@ -42,7 +57,7 @@ func showGameEndMessage() {
 func main() {
     let EXIT_NUMBER = 0
     while true {
-        let userInput: Int = showInfoMessage()
+        let userInput: Int = returnUserSelectedNumber()
         if userInput == EXIT_NUMBER {
             showGameEndMessage()
             break
