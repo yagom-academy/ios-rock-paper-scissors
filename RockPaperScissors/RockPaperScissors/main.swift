@@ -29,3 +29,22 @@ func printLoseMessage() {
 func printTieMessage() {
   print("비겼습니다!")
 }
+
+func receiveUserInput() -> Int {
+	let userInput = readLine()
+	
+	guard let validInput = userInput else {
+		return -1
+	}
+
+	let convertedInput = Int(validInput)
+	
+	guard let validConvertedInput = convertedInput else {
+		return -1
+	}
+	
+	return validConvertedInput
+	
+}
+
+
