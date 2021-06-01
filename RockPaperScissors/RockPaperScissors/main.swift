@@ -8,9 +8,6 @@ import Foundation
 
 let rockPaperScissorsMessage = "가위(1), 바위(2), 보(3)! <종료 : 0>: "
 let wrongInputMessage = "잘못된 입력입니다. 다시 시도해주세요."
-let winMessage = "이겼습니다!"
-let drawMessage = "비겼습니다!"
-let defeatMessage = "졌습니다!"
 let noTerminator = ""
 
 func generateComputerCard() -> Int {
@@ -28,4 +25,10 @@ func judgeUserInput() -> Int {
         return judgeUserInput()
     }
     return userCard
+}
+
+enum GameResult: String {
+    case userWin = "이겼습니다!"
+    case computerWin = "졌습니다!"
+    case draw = "비겼습니다!"
 }
