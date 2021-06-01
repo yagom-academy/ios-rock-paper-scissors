@@ -1,58 +1,62 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by yoshikim, luyan.
 //  Copyright © yagom academy. All rights reserved.
 // 
 
 import Foundation
 
-enum RockPaperScissors: Int {
-    case scissors = 1
-    case rock
-    case paper
-}
+struct RockPaperScissorsGameConsole {
+    private var isGameOver: Bool?
+    private var computerRandomNumber: Int?
 
-var isGameOver = false
-
-func requestUserInput() -> Int{
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    guard let inputString = readLine(), let inputNumber = Int(inputString), 0 <= inputNumber && inputNumber <= 3 else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return requestUserInput()
+    private enum RockPaperScissors: Int {
+        case scissors = 1
+        case rock
+        case paper
     }
-    return inputNumber
-}
-
-func compareUserInputWithComputerInput(userNumber: Int, computerRandomNumber: Int) {
-    guard let user = RockPaperScissors(rawValue: userNumber), let computer = RockPaperScissors(rawValue: computerRandomNumber) else {
-        return
-    }
-    if user == computer {
-        print("비겼습니다!")
-        return
-    }
-    else if (user == .scissors && computer == .paper) || (user == .paper && computer == .rock) || (user == .rock && computer == .scissors)
-    {
-        print("이겼습니다!")
-        isGameOver = true
-        return
-    }
-    else {
-        print("졌습니다!")
-        isGameOver = true
-        return
-    }
-}
-func gameStart() {
-    while isGameOver == false {
-        let userNumber = requestUserInput()
-        if userNumber == 0 {
+    
+    func checkGameOver(inputNumber: Int) -> Bool {
+        if inputNumber == 0 {
             print("게임 종료")
-            break
+            return true
         }
-        let computerRandomNumber = Int.random(in: 1...3)
-        compareUserInputWithComputerInput(userNumber: userNumber, computerRandomNumber: computerRandomNumber)
+        return false
+    }
+    private func requestUserInput() -> Int {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        guard let inputString = readLine(), let inputNumber = Int(inputString), 0 <= inputNumber && inputNumber <= 3 else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return requestUserInput()
+        }
+        return inputNumber
+    }
+    private mutating func generateRandomNumber() {
+        computerRandomNumber = Int.random(in: 1...3)
+    }
+    private mutating func compareWithUserInput(userNumber: Int) {
+        guard let unwrappedNumber = computerRandomNumber else { return }
+        guard let userHand = RockPaperScissors(rawValue: userNumber), let computerHand = RockPaperScissors(rawValue: unwrappedNumber) else { return }
+        if userHand == computerHand {
+            print("비겼습니다!")
+        } else if (userHand == .scissors && computerHand == .paper) || (userHand == .paper && computerHand == .rock) || (userHand == .rock && computerHand == .scissors) {
+            print("이겼습니다!")
+            isGameOver = true
+        } else {
+            print("졌습니다!")
+            isGameOver = true
+        }
+    }
+    mutating func gameStart() {
+        isGameOver = false
+        while isGameOver == false {
+            let userNumber = requestUserInput()
+            isGameOver = checkGameOver(inputNumber: userNumber)
+            generateRandomNumber()
+            compareWithUserInput(userNumber: userNumber)
+        }
     }
 }
 
-gameStart()
+var stepOneGameConsole = RockPaperScissorsGameConsole()
+stepOneGameConsole.gameStart()
