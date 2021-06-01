@@ -7,6 +7,8 @@ func startGame() -> Void {
     if userChoice == "" {
         return
     }
+    judgeWinner()
+
 }
 
 func showStartMessage() -> String {
@@ -14,7 +16,7 @@ func showStartMessage() -> String {
 }
 
 func recieveInput() -> Void {
- 	let input = readLine()
+    let input = readLine()
     testValid(of: input)
 }
 
@@ -36,6 +38,37 @@ func testValid(of input: String?) {
 }
 
 func showErrorMessage() -> String {
-    return "잘못된 입력입니다. 다시 시도해주세요."}
-	}
+    return "잘못된 입력입니다. 다시 시도해주세요."
+}
+
+func judgeWinner() -> Void {
+    setComputerChoice()
+
+    if userChoice == String(computerChoice) {
+        print("비겼습니다!")
+        startGame()
+    } else {
+        pickWinner()
+        startGame()
+    }
+}
+
+func setComputerChoice() {
+    computerChoice = Int.random(in: 1...3)
+}
+
+func pickWinner() -> Void{
+    switch userChoice {
+    case "1" where (computerChoice == 3):
+        print("이겼습니다!")
+    case "2" where (computerChoice == 1):
+        print("이겼습니다!")
+    case "3" where (computerChoice == 2):
+        print("이겼습니다!")
+    default:
+        print("졌습니다!")
+    }
+
+}
+
 startGame()
