@@ -17,24 +17,15 @@ func bindingUserInput() -> Int {
     while true {
         print("가위(1),바위(2),보(3)!<종료 : 0>", terminator: " : ")
         let userInput: String? = readLine()
-        switch userInput {
-        case "0" :
-            print("게임종료")
-            break
-        case "1" :
-            return 1
-        case "2" :
-            return 2
-        case "3" :
-            return 3
-        default :
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+        if let unWrappedUserInput: String = userInput, let userInputNum: Int = Int(unWrappedUserInput) {
+            if (userInputNum >= 1) && (userInputNum <= 3) {
+                return userInputNum
+            }
         }
-//        if let unWrappedUserInput: String = userInput, let userInputNum: Int = Int(unWrappedUserInput) {
-//            return userInputNum
-//        }
     }
 }
+
+
 
 func makeComputerOutput() -> Int{
     let output = scissorsRockPaper[Int.random(in: 0...2)]
@@ -51,3 +42,39 @@ func userVsComputer(user: Int, computer: Int) {
         print(youWin)
     }
 }
+
+func gameStart(){
+    let user = scissorsRockPaper[bindingUserInput()]
+    userVsComputer(user: user, computer: makeComputerOutput())
+}
+gameStart()
+
+
+
+
+
+
+
+
+//func bindingUserInput() -> Int {
+//    while true {
+//        print("가위(1),바위(2),보(3)!<종료 : 0>", terminator: " : ")
+//        let userInput: String? = readLine()
+//        switch userInput {
+//        case "0" :
+//            print("게임종료")
+//            break
+//        case "1" :
+//            return 1
+//        case "2" :
+//            return 2
+//        case "3" :
+//            return 3
+//        default :
+//            print("잘못된 입력입니다. 다시 시도해주세요.")
+//        }
+////        if let unWrappedUserInput: String = userInput, let userInputNum: Int = Int(unWrappedUserInput) {
+////            return userInputNum
+////        }
+//    }
+//}
