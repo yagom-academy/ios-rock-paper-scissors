@@ -60,6 +60,7 @@ struct RockScissorsPaper {
     
     mutating func startGame() {
         guard let userHand = choiceUserHand() else {
+            print("게임 종료")
             return
         }
         
