@@ -24,9 +24,13 @@ func userInputNumber() -> Int {
     }
 }
 
+func makeRandomNumber() -> Int {
+    return Int.random(in:1...3)
+}
+
 func RockPaperScissorsGame() -> Int {
     let userNumber = userInputNumber()
-
+    let computerNumber = makeRandomNumber()
     if userNumber == 0 {
         return 0
     }
