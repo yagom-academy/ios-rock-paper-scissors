@@ -9,3 +9,7 @@ import Foundation
 func generateComputerCard() -> Int {
     Int.random(in: 1...3)
 }
+
+func receiveInputFromUser() -> String? {
+    readLine()
+}
