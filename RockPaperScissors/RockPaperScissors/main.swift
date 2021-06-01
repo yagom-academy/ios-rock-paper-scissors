@@ -17,6 +17,17 @@ enum GameResult: String {
     case win = "win"
     case lose = "lose"
     case tie = "tie"
+    
+    func printMessage() {
+        switch self {
+        case .win:
+            print("이겼습니다!")
+        case .lose:
+            print("졌습니다!")
+        case .tie:
+            print("비겼습니다!")
+        }
+    }
 }
 
 func showInfoMessage() {
@@ -43,15 +54,15 @@ func generateComputerRPSValue() -> RPS {
 }
 
 func playRockScissorsPaperWith(player1: RPS, player2: RPS) -> GameResult {
-    return GameResult.win
+    return GameResult.tie
 }
 
 func showResultMessage(gameResult: GameResult) {
-    
+    gameResult.printMessage()
 }
 
 func showGameEndMessage() {
-    
+    print("게임 종료")
 }
 
 func main() {
