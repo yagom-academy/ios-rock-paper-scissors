@@ -14,7 +14,7 @@ func showStartMessage() -> String {
 }
 
 func recieveInput() -> Void {
-    let input = readLine()
+ 	let input = readLine()
     testValid(of: input)
 }
 
@@ -36,7 +36,6 @@ func testValid(of input: String?) {
 }
 
 func showErrorMessage() -> String {
-    return "잘못된 입력입니다. 다시 시도해주세요."
-}
-
+    return "잘못된 입력입니다. 다시 시도해주세요."}
+	}
 startGame()
