@@ -6,6 +6,13 @@
 
 import Foundation
 
+let rockPaperScissorsMessage = "가위(1), 바위(2), 보(3)! <종료 : 0>: "
+let wrongInputMessage = "잘못된 입력입니다. 다시 시도해주세요."
+let winMessage = "이겼습니다!"
+let drawMessage = "비겼습니다!"
+let defeatMessage = "졌습니다!"
+let noTerminator = ""
+
 func generateComputerCard() -> Int {
     Int.random(in: 1...3)
 }
@@ -15,9 +22,9 @@ func receiveInputFromUser() -> String? {
 }
 
 func judgeUserInput() -> Int {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0>: ", terminator: "")
+    print(rockPaperScissorsMessage, terminator: noTerminator)
     guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), userCard > 3 && userCard < 0 else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        print(wrongInputMessage)
         return judgeUserInput()
     }
     return userCard
