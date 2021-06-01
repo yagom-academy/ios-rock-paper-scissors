@@ -6,6 +6,8 @@
 
 import Foundation
 
-print("시험용 커밋")
-print("step1 브랜치에서 커밋")
-print("step1 브랜치에서 커밋-타코캣")
+enum RockPaperScissors: Int {
+	case Scissors = 1, Rock, Paper
+}
+
+
