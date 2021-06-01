@@ -24,13 +24,6 @@ func bindingUserInput() -> Int {
     }
 }
 
-func userOutput(userInput : Int) -> Int {
-    if  0 <= userInput && userInput <= 3 {
-       return userInput
-    }
-    return -1
-}
-
 func makeComputerOutput() -> Int{
     let output = scissorsRockPaper[Int.random(in: 1...3)]
     return output
