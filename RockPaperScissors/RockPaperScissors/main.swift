@@ -6,5 +6,89 @@
 
 import Foundation
 
-print("Hello, World!")
+enum RockScissorsPaper: Int {
+    case scissors
+    case rock
+    case paper
+}
 
+enum Winner {
+    case user
+    case computer
+    case tie
+    
+    var resultMessage: String {
+        switch self {
+        case .user:
+            return "이겼습니다!"
+        case .computer:
+            return "졌습니다!"
+        case .tie:
+            return "비겼습니다!"
+        }
+    }
+}
+
+struct Game {
+    func isValid(number: Int) -> Bool {
+        let exitNumber = 0
+        return RockScissorsPaper(rawValue: number) != nil || number == exitNumber
+    }
+    
+    func inputFromUser() -> Int {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        guard let input = readLine(), let number = Int(input), isValid(number: number) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return inputFromUser()
+        }
+        return number
+    }
+    
+    func whoIsWinner(userChoice: RockScissorsPaper , computerChoice: RockScissorsPaper) -> Winner {
+        enum ValueDifference: Int {
+            case tie
+            case win
+            case lose
+        }
+        let valueDifference = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
+        switch valueDifference {
+        case ValueDifference.win.rawValue:
+            return Winner.user
+        case ValueDifference.lose.rawValue:
+            return Winner.computer
+        default:
+            return Winner.tie
+        }
+    }
+    
+    func printGameResult(winner result: Winner) {
+        print(result.resultMessage)
+    }
+    
+    func playRound(userInput: Int) {
+        guard let userChoice = RockScissorsPaper(rawValue: userInput),
+              let computerChoice = RockScissorsPaper(rawValue: Int.random(in: 1...3))
+        else {
+            return
+        }
+        let result = whoIsWinner(userChoice: userChoice, computerChoice: computerChoice)
+        printGameResult(winner: result)
+        start()
+    }
+    
+    func isGameEnd(userInput: Int) -> Bool {
+        return userInput == 0
+    }
+    
+    func start() {
+        let userInput = inputFromUser()
+        if isGameEnd(userInput: userInput) {
+            print("게임 종료")
+            return
+        }
+        playRound(userInput: userInput)
+    }
+}
+
+let game = Game()
+game.start()
