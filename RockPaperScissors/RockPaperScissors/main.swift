@@ -7,11 +7,9 @@
 import Foundation
 
 enum RockScissorsPaper: Int {
-    case scissors = 1
+    case scissors
     case rock
     case paper
-    
-    
 }
 
 enum Winner {
@@ -32,9 +30,14 @@ enum Winner {
 }
 
 struct Game {
+    func isValid(number: Int) -> Bool {
+        let exitNumber = 0
+        return RockScissorsPaper(rawValue: number) != nil || number == exitNumber
+    }
+    
     func inputFromUser() -> Int {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        guard let input = readLine(), let number = Int(input), (0...3).contains(number) else {
+        guard let input = readLine(), let number = Int(input), isValid(number: number) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return inputFromUser()
         }
