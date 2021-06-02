@@ -22,29 +22,35 @@ enum RockPaperScissors: Int {
 }
 
 func playGame() {
-    print(Message.menu.rawValue, terminator: "")
-    guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
-        print(Message.wrongInput.rawValue)
-        return playGame()
-    }
+    var isGameOn: Bool = true
     
-    guard let computerHand: RockPaperScissors = RockPaperScissors(rawValue: Int.random(in: 1...3)) else {
-        return
-    }
-    
-    guard let userHand: RockPaperScissors = RockPaperScissors(rawValue: inputNumber) else {
-        print(Message.gameOver.rawValue)
-        return
-    }
-    
-    switch (userHand, computerHand) {
-    case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
-        print(Message.userWin.rawValue)
-    case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        print(Message.userLose.rawValue)
-    default:
-        print(Message.draw.rawValue)
-        playGame()
+    while isGameOn {
+        print(Message.menu.rawValue, terminator: "")
+        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
+            print(Message.wrongInput.rawValue)
+            continue
+        }
+        
+        guard let computerHand: RockPaperScissors = RockPaperScissors(rawValue: Int.random(in: 1...3)) else {
+            return
+        }
+        
+        guard let userHand: RockPaperScissors = RockPaperScissors(rawValue: inputNumber) else {
+            print(Message.gameOver.rawValue)
+            return
+        }
+        
+        switch (userHand, computerHand) {
+        case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
+            print(Message.userWin.rawValue)
+            isGameOn = false
+        case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
+            print(Message.userLose.rawValue)
+            isGameOn = false
+        default:
+            print(Message.draw.rawValue)
+            continue
+        }
     }
 }
 
