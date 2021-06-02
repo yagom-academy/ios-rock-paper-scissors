@@ -61,4 +61,3 @@ func gameStart() {
     } while check
 }
 
-print(makeComputerOutput())
