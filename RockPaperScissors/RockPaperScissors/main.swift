@@ -6,8 +6,8 @@
 
 import Foundation
 
-enum RockPaperScissors: Int, CaseIterable {
-	case scissors = 1, rock, paper
+enum RockPaperScissors: CaseIterable {
+	case scissors, rock, paper
 	
 	func winsAgainst() -> RockPaperScissors {
 		switch self {
@@ -26,7 +26,7 @@ func receiveUserInput() -> Int {
 	guard let validInput = readLine() else {
 		return -1
 	}
-		
+	
 	guard let validConvertedInput = Int(validInput) else {
 		return -1
 	}
@@ -35,24 +35,39 @@ func receiveUserInput() -> Int {
 }
 
 while true {
+	
 	print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-
-	var userDecision = receiveUserInput()
+	
+	let userDecision = receiveUserInput()
 	
 	if userDecision == 0 {
 		print("게임 종료")
 		break
 	}
 	
-	while userDecision < 1 || userDecision > 3 {
+	var userHand: RockPaperScissors
+	
+	switch userDecision {
+	case 1:
+		userHand = .scissors
+	case 2:
+		userHand = .rock
+	case 3:
+		userHand = .paper
+	default:
 		print("잘못된 입력입니다. 다시 시도해주세요.")
-		userDecision = receiveUserInput()
+		continue
 	}
 	
 	let computerHand = RockPaperScissors.allCases.randomElement()
-
-	let userHand = RockPaperScissors(rawValue: userDecision)
 	
-	
+	switch computerHand {
+	case userHand:
+		print("비겼습니다!")
+	case userHand.winsAgainst():
+		print("이겼습니다!")
+	default:
+		print("졌습니다!")
+	}
 }
 
