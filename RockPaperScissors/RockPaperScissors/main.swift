@@ -1,9 +1,9 @@
 import Foundation
 
-var userNumber: Int = 0
+var userCard: Int = 0
 
 func startGame() {
-    userNumber = userInput()
+    userCard = userInput()
     whoWin()
 
 }
@@ -26,28 +26,28 @@ func end() {
 }
 
 func whoWin() {
-    switch userNumber {
+    switch userCard {
     case 0:
         end()
     case 1:
-        compareNumber(inputNumber: 1)
+        compareCard(inputCard: 1)
     case 2:
-        compareNumber(inputNumber: 2)
+        compareCard(inputCard: 2)
     case 3:
-        compareNumber(inputNumber: 3)
+        compareCard(inputCard: 3)
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return startGame()
     }
 }
 
-func generateComputerNumber() -> Int {
+func generateComputerCard() -> Int {
     return Int.random(in: 1...3)
 }
 
-func compareNumber(inputNumber: Int) {
-    let computerNumber = generateComputerNumber()
-    let judgingIndicator = inputNumber - computerNumber
+func compareCard(inputCard: Int) {
+    let computerCard = generateComputerCard()
+    let judgingIndicator = inputCard - computerCard
     
     if judgingIndicator == 0 {
         print("비겼습니다.")

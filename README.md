@@ -8,13 +8,16 @@ step2의 경우 step1 에 나온 결과에 따라 순서를 갖고 묵찌빠를 
 
 ## step1 함수설계
 
-* 전역변수: readLine()을 통해 받은 string을 Int로 캐스팅하여 받은 값
+* 전역변수
+userCard: readLine()을 통해 받은 string을 Int로 캐스팅하여 받은 값
+
+* 함수
 * startGame() : 전체적인 게임흐름을 구현한 함수
 * userInput() : 사용자의 입력값을 받는 함수(Int타입으로 옵셔널 바인딩)
 * end() : 게임을 종료하는 함수
-* whoWin() : 사용자의 입력값에 따라 종료, compareNumber(), 재귀함수 를 구분하여 소환하는 함수
-* generateComputerNumber() : 컴퓨터의 패를 결정할 랜덤한 숫자를 리턴하는 함수
-* compareNumber() : 사용자와 컴퓨터의 패를 비교하여 결과를 판정하는 함수
+* returnResult() : 사용자의 입력값에 따라 종료, compareNumber(), 재귀함수 를 구분하여 소환하는 함수
+* generateComputerCard() : 컴퓨터의 패를 결정할 랜덤한 숫자를 리턴하는 함수
+* compareCard() : 사용자와 컴퓨터의 패를 비교하여 결과를 판정하는 함수
 
 ## flow chart
 
