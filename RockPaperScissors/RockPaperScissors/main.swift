@@ -28,7 +28,7 @@ func makeRandomNumber() -> Int {
     return Int.random(in:1...3)
 }
 
-func RockPaperScissorsGame() -> Int {
+func rockPaperScissorsGame() -> Int {
     let userNumber = userInputNumber()
     let computerNumber = makeRandomNumber()
     
@@ -69,9 +69,7 @@ func RockPaperScissorsGame() -> Int {
 // Main
 func console() {
     while true {
-        
-        if RockPaperScissorsGame() == 0 { break }
-        
+        if rockPaperScissorsGame() == 0 { break }
     }
     print("게임 종료")
 }
