@@ -73,6 +73,7 @@ func console() {
         if RockPaperScissorsGame() == 0 { break }
         
     }
+    print("게임 종료")
 }
 
 console()
