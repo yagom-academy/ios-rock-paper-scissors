@@ -18,14 +18,11 @@ enum Result: String {
 }
 
 struct RockScissorsPaper {
-    private var computerResult: Hand?
-    private var userResult: Hand?
-    
     private func choiceUserHand() -> Hand? {
         let userInputArray: Array<Int> = [0, 1, 2, 3]
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
         
-        guard let userInput = Int(readLine() ?? "nil check"), userInputArray.contains(userInput) else {
+        guard let userInput = (readLine().flatMap{ Int($0) }), userInputArray.contains(userInput) else {
             print("잘못된 입력입니다. 다시 입력해주세요")
             return choiceUserHand()
         }
