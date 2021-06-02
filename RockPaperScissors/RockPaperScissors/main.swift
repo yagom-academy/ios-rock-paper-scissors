@@ -9,6 +9,7 @@ import Foundation
 class RPS {
     
     enum Hand : Int {
+        case error = 0
         case scissors = 1
         case rock = 2
         case paper = 3
@@ -22,7 +23,7 @@ class RPS {
     
     var usersHand = Hand.rock
     
-    func userInput() -> Int {
+    func userInput() -> Hand? {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         guard let input = Int(readLine() ?? "") , input >= 0 && input <= 3 else {
@@ -30,27 +31,21 @@ class RPS {
             return userInput()
         }
         
-        return input
-    }
-    
-    func convertInput(hand userHand: Int) -> Hand? {
-        switch userHand {
-        case 1, 2, 3:
-            return Hand(rawValue: userHand)
-        default:
-            return nil
-        }
+        return Hand(rawValue: input)
     }
     
     func matchOutcome(hand userHand: Hand?) -> GameState {
         guard let hand: Hand = userHand else {
             return GameState.errorGame
         }
+        if hand == Hand.error { return GameState.endGame }
         let computerHand = Hand(rawValue: Int.random(in: 1...3))
         if  (hand == Hand.scissors && computerHand == Hand.rock) ||
             (hand == Hand.rock && computerHand == Hand.paper) ||
             (hand == Hand.paper && computerHand == Hand.scissors) {
             print("졌습니다!")
+        } else if hand == computerHand {
+            print("비겼습니다!")
         } else {
             print("이겼습니다!")
         }
@@ -59,14 +54,16 @@ class RPS {
     }
     
     func startGame() {
-        var gameContinue = true
-        while gameContinue {
-            var userInput = userInput()
-            var userHand = convertInput(hand: userInput)
-            gameContinue = userHand == nil
+        let gameContinue = GameState.continueGame
+        var outcome = GameState.continueGame
+        
+        while gameContinue == outcome {
+            outcome = matchOutcome(hand: userInput())
         }
     }
     
     
     
 }
+
+RPS().startGame()
