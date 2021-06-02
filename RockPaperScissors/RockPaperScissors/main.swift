@@ -10,6 +10,8 @@ enum RockScissorsPaper: Int {
     case scissors = 1
     case rock
     case paper
+    
+    
 }
 
 enum Winner {
@@ -50,11 +52,16 @@ struct Game {
     }
     
     func whoIsWinner(userChoice: RockScissorsPaper , computerChoice: RockScissorsPaper) -> Winner {
-        let valueDifference = userChoice.rawValue - computerChoice.rawValue
+        enum ValueDifference: Int {
+            case tie
+            case win
+            case lose
+        }
+        let valueDifference = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
         switch valueDifference {
-        case -2, 1:
+        case ValueDifference.win.rawValue:
             return Winner.user
-        case 2, -1:
+        case ValueDifference.lose.rawValue:
             return Winner.computer
         default:
             return Winner.tie
