@@ -54,4 +54,4 @@ func gameStart() {
     }
 }
 
-gameStart()
+print(makeComputerOutput())
