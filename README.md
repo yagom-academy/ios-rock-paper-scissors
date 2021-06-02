@@ -6,4 +6,4 @@
 
 ## Step1 플로우 차트
 
-![image](https://user-images.githubusercontent.com/55867479/120259744-6eed5b00-c2cf-11eb-8b17-b4d0c2350edd.png)
+![image](https://user-images.githubusercontent.com/55867479/120447308-71ca7780-c3c5-11eb-8935-c4937f40693d.png)
