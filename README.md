@@ -4,5 +4,5 @@
 
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
-![image](https://user-images.githubusercontent.com/73944268/120223867-3f156780-c27d-11eb-9643-7d3e4fca7f55.jpeg)
+![image](https://user-images.githubusercontent.com/73944268/120435993-56596f80-c3b9-11eb-9995-511ce3c23c10.jpeg)
 
