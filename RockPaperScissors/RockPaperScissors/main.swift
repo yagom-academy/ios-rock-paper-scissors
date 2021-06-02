@@ -16,6 +16,17 @@ enum Winner {
     case user
     case computer
     case tie
+    
+    var resultMessage: String {
+        switch self {
+        case .user:
+            return "이겼습니다!"
+        case .computer:
+            return "졌습니다!"
+        case .tie:
+            return "비겼습니다!"
+        }
+    }
 }
 
 struct Game {
@@ -51,14 +62,7 @@ struct Game {
     }
     
     func printGameResult(winner result: Winner) {
-        switch result {
-        case Winner.user:
-            print("이겼습니다!")
-        case Winner.computer:
-            print("졌습니다!")
-        default:
-            print("비겼습니다!")
-        }
+        print(result.resultMessage)
     }
     
     func playRound(userInput: Int) {
