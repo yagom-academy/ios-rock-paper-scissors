@@ -13,10 +13,21 @@ struct RockScissorsPaper {
         case paper = 3
     }
     
-    private enum Result: String {
+    private enum Result: CustomStringConvertible {
         case win
         case draw
         case lose
+        
+        var description: String {
+            switch self {
+            case .win:
+                return "이겼습니다!"
+            case .draw:
+                return "비겼습니다!"
+            case .lose:
+                return "졌습니다!"
+            }
+        }
         
         static func compareHand(_ user: Hand, with computer: Hand) -> Result {
             switch (user, computer) {
@@ -34,13 +45,9 @@ struct RockScissorsPaper {
     
     private func choiceUserHand() -> Hand? {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-
-        guard let userInput = (readLine().flatMap{ Int($0) }) else {
-            print("잘못된 입력입니다. 다시 입력해주세요")
-            return choiceUserHand()
-        }
         let userInputArray: Array<Int> = [0, 1, 2, 3]
-        if !userInputArray.contains(userInput) {
+        guard let userInput = (readLine().flatMap{ Int($0) }), userInputArray.contains(userInput) else {
+            print("잘못된 입력입니다. 다시 입력해주세요")
             return choiceUserHand()
         }
 
@@ -57,14 +64,13 @@ struct RockScissorsPaper {
 
     private func compare(userHand: Hand, computerHand: Hand) {
         let result = Result.compareHand(userHand, with: computerHand)
-        print("사용자: \(userHand), 컴퓨터: \(computerHand), 결과: \(result)")
         switch result {
         case .draw:
-            print("비겼습니다")
+            print(Result.draw)
         case .win:
-            print("이겼습니다")
+            print(Result.win)
         case .lose:
-            print("졌습니다")
+            print(Result.lose)
         }
     }
 
