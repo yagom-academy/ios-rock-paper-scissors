@@ -23,11 +23,7 @@ enum RockPaperScissors: CaseIterable {
 
 func receiveUserInput() -> Int {
 	
-	guard let validInput = readLine() else {
-		return -1
-	}
-	
-	guard let validConvertedInput = Int(validInput) else {
+	guard let validInput = readLine(), let validConvertedInput = Int(validInput) else {
 		return -1
 	}
 	
