@@ -19,7 +19,6 @@ func userInput() -> Int {
     return intInput
 }
 
-
 func end() {
     print("게임 종료")
     
