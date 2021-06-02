@@ -6,67 +6,73 @@
 
 import Foundation
 
-enum RockPaperScissors: Int {
+enum RockPaperScissors: Int, CaseIterable {
     case scissors = 1
     case rock = 2
     case paper = 3
 }
 
-enum GameResult: String {
+enum GameState: String {
     case win = "이겼습니다!"
     case lose = "졌습니다!"
     case draw = "비겼습니다!"
 }
 
-var gameResult: GameResult = .lose
-var userValue: RockPaperScissors = .paper
-var computerValue: RockPaperScissors = .paper
-var isExit: Bool = false
-
 func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
-func generateComputerValue() {
-    if let value = RockPaperScissors(rawValue: Int.random(in: 1...3)) {
-        computerValue = value
+func generateComputerValue() -> RockPaperScissors {
+    guard let value = RockPaperScissors.allCases.randomElement() else {
+        return generateComputerValue()
     }
+    return value
 }
 
-func inputUserValue() {
+func inputUserValue() -> RockPaperScissors? {
     printMenu()
-    if let userNumber = readLine() {
-        switch userNumber {
-        case "1":
-            userValue = .scissors
-        case "2":
-            userValue = .rock
-        case "3":
-            userValue = .paper
-        case "0":
-            print("게임 종료")
-            isExit = true
-        default:
-            printError()
-            inputUserValue()
-        }
+    guard let userNumber = readLine(), let convertedNumber = Int(userNumber) else {
+        printError()
+        return inputUserValue()
     }
+    
+    if convertedNumber == 0 {
+        return nil
+    }
+    
+    guard let userValue = RockPaperScissors(rawValue: convertedNumber) else {
+        printError()
+        return inputUserValue()
+    }
+    return userValue
 }
 
-func printGameResult() {
+func printGameResult(gameResult: GameState) {
     print(gameResult.rawValue)
 }
 
-func computeGameResult(user: RockPaperScissors, computer: RockPaperScissors) {
-    switch user.rawValue - computer.rawValue {
-    case -1, 2:
-        gameResult = .lose
-    case 0:
-        gameResult = .draw
-    case 1, -2:
-        gameResult = .win
-    default:
-        break
+func compareValue(myValue: RockPaperScissors, otherValue: RockPaperScissors) -> GameState {
+    switch (myValue, otherValue) {
+    case (.rock, .rock):
+        return .draw
+    case (.rock, .paper):
+        return .lose
+    case (.rock, .scissors):
+        return .win
+        
+    case (.paper, .rock):
+        return .win
+    case (.paper, .paper):
+        return .draw
+    case (.paper, .scissors):
+        return .lose
+        
+    case (.scissors, .rock):
+        return .lose
+    case (.scissors, .paper):
+        return .win
+    case (.scissors, .scissors):
+        return .draw
     }
 }
 
@@ -75,16 +81,12 @@ func printError() {
 }
 
 func startGame() {
-    generateComputerValue()
-    inputUserValue()
-    if isExit == false {
-        computeGameResult(user: userValue, computer: computerValue)
-        printGameResult()
+    if let userValue = inputUserValue() {
+        printGameResult(gameResult: compareValue(myValue: userValue, otherValue: generateComputerValue()))
         startGame()
     } else {
         return
     }
-    
 }
 
 startGame()
