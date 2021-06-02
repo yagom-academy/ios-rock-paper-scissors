@@ -24,15 +24,13 @@ struct RockScissorsPaper {
     private func choiceUserHand() -> Hand? {
         let userInputArray: Array<Int> = [0, 1, 2, 3]
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-        guard let userInput = readLine(), let convertedUserInput = Int(userInput) else {
+        
+        guard let userInput = Int(readLine() ?? "nil check"), userInputArray.contains(userInput) else {
+            print("잘못된 입력입니다. 다시 입력해주세요")
             return choiceUserHand()
         }
         
-        guard userInputArray.contains(convertedUserInput) else {
-            return choiceUserHand()
-        }
-        
-        return Hand(rawValue: convertedUserInput)
+        return Hand(rawValue: userInput)
     }
     
     private func computerHands() -> Hand {
