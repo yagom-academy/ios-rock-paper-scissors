@@ -14,25 +14,32 @@ enum Result {
     static func decideResult(defense: Hand, offense: Hand) -> Result {
         switch (defense, offense) {
         case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        return .win
+            return .win
         case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
-        return .lose
-        case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
-        return .draw
+            return .lose
+        default:
+            return .draw
+        }
     }
     
     func resultMessage() -> String {
         switch self {
-            case .win
-                return "이겼습니다!"
-            case .lose
-                return "졌습니다!"
-            case .draw
-                return "비겼습니다!"
+        case .win:
+            return "이겼습니다!"
+        case .lose:
+            return "졌습니다!"
+        case .draw:
+            return "비겼습니다!"
         }
     }
 }
 
+enum Hand: Int {
+    case exit = 0
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+}
 
 func userInputNumber() -> Int {
     while true {
@@ -50,21 +57,22 @@ func makeRandomNumber() -> Int {
     return Int.random(in:1...3)
 }
 
-func rockPaperScissorsGame() -> Int {
-    let userNumber = userInputNumber()
-    let computerNumber = makeRandomNumber()
-    
-    if userNumber == 0 {
-        return 0
-    }
+func rockPaperScissorsGame() -> Bool {
+    guard let userHand = Hand(rawValue: userInputNumber()) else { return true }
+    guard let computerHand = Hand(rawValue: makeRandomNumber()) else { return true }
 
-    return 1
+    if userHand == .exit { return false }
+
+    let gameResult = Result.decideResult(defense: computerHand, offense: userHand)
+    print(gameResult.resultMessage())
+
+    return true
 }
 
 // Main
 func console() {
     while true {
-        if rockPaperScissorsGame() == 0 { break }
+        if !rockPaperScissorsGame() { break }
     }
     print("게임 종료")
 }
