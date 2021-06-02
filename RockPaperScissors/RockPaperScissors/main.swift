@@ -4,7 +4,7 @@ var userCard: Int = 0
 
 func startGame() {
     userCard = userInput()
-    whoWin()
+    returnResult()
 
 }
 
@@ -25,7 +25,7 @@ func end() {
     return
 }
 
-func whoWin() {
+func returnResult() {
     switch userCard {
     case 0:
         end()

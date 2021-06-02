@@ -21,6 +21,4 @@ userCard: readLine()을 통해 받은 string을 Int로 캐스팅하여 받은 �
 
 ## flow chart
 
-![image](https://user-images.githubusercontent.com/73944268/120435993-56596f80-c3b9-11eb-9995-511ce3c23c10.jpeg)
-
-
+![image](https://user-images.githubusercontent.com/52707151/120448792-dfc36e80-c3c6-11eb-9e71-951590cd5cdb.png)
