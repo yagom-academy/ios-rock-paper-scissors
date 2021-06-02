@@ -90,4 +90,6 @@ func startGame() {
     }
 }
 
+
 startGame()
+print("깃 테스트")
