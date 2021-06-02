@@ -18,7 +18,7 @@ enum GameState: String {
     case draw = "비겼습니다!"
 }
 
-func printMenu() {
+func printRockPaperScissorsMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
@@ -30,7 +30,7 @@ func generateComputerValue() -> RockPaperScissors {
 }
 
 func inputUserValue() -> RockPaperScissors? {
-    printMenu()
+    printRockPaperScissorsMenu()
     guard let userNumber = readLine(), let convertedNumber = Int(userNumber) else {
         printError()
         return inputUserValue()
@@ -83,13 +83,35 @@ func printError() {
 
 func startGame() {
     if let userValue = inputUserValue() {
-        printGameResult(gameResult: compareValue(myValue: userValue, otherValue: generateComputerValue()))
+        var thisGameResult = compareValue(myValue: userValue, otherValue: generateComputerValue())
+        printGameResult(gameResult: thisGameResult)
+        checkIsDraw(thisGameResult: thisGameResult)
         startGame()
     } else {
         return
     }
 }
 
+func checkIsDraw(thisGameResult: GameState) -> Bool {
+    if thisGameResult == .draw {
+        return true
+    } else {
+        return false
+    }
+}
 
-startGame()
-print("깃 테스트")
+func printWhosTurn(thisGameResult: GameState) {
+    if thisGameResult == .lose {
+        print("컴퓨터의 턴입니다")
+    } else if thisGameResult == .win {
+        print("사용자의 턴입니다")
+    }
+}
+
+func printMukjjipaMenu() {
+    print("묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+}
+
+func startGame2() {
+    startGame()
+}
