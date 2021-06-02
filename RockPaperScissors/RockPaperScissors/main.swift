@@ -21,14 +21,12 @@ class RPS {
         case errorGame = -1
     }
     
-    var usersHand = Hand.rock
-    
-    func userInput() -> Hand? {
+    func userHand() -> Hand? {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         guard let input = Int(readLine() ?? "") , input >= 0 && input <= 3 else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return userInput()
+            return userHand()
         }
         
         return Hand(rawValue: input)
@@ -38,8 +36,13 @@ class RPS {
         guard let hand: Hand = userHand else {
             return GameState.errorGame
         }
-        if hand == Hand.error { return GameState.endGame }
+        
+        if hand == Hand.error {
+            return GameState.endGame
+        }
+        
         let computerHand = Hand(rawValue: Int.random(in: 1...3))
+        
         if  (hand == Hand.scissors && computerHand == Hand.rock) ||
             (hand == Hand.rock && computerHand == Hand.paper) ||
             (hand == Hand.paper && computerHand == Hand.scissors) {
@@ -54,16 +57,15 @@ class RPS {
     }
     
     func startGame() {
-        let gameContinue = GameState.continueGame
-        var outcome = GameState.continueGame
+        var gameContinue = true
         
-        while gameContinue == outcome {
-            outcome = matchOutcome(hand: userInput())
+        while gameContinue {
+            
+            let outcome = matchOutcome(hand: userHand())
+            
+            gameContinue = outcome == GameState.continueGame
         }
     }
-    
-    
-    
 }
 
 RPS().startGame()
