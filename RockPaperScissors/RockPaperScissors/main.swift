@@ -37,6 +37,7 @@ func inputUserValue() -> RockPaperScissors? {
     }
     
     if convertedNumber == 0 {
+        print("게임 종료")
         return nil
     }
     
