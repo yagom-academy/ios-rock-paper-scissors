@@ -61,7 +61,7 @@ struct RockScissorsPaper {
 
     private func choiceUserHand() -> Hand? {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-        let userInputArray: Array<Int> = [0, 1, 2, 3]
+        let userInputArray: [Int] = [0, 1, 2, 3]
         guard let userInput = (readLine().flatMap{ Int($0) }), userInputArray.contains(userInput) else {
             print("잘못된 입력입니다. 다시 입력해주세요")
             return choiceUserHand()
@@ -77,7 +77,15 @@ struct RockScissorsPaper {
             return computerHand()
         }
     }
-
+    
+    private func turnChanged(_ turn: Turn) -> Turn{
+        if turn == .userTurn {
+            return .computerTurn
+        } else {
+            return .userTurn
+        }
+    }
+    
     private mutating func compare(userHand: Hand, computerHand: Hand) {
         let result = Result.compareHand(userHand, with: computerHand)
         switch result {
@@ -93,40 +101,31 @@ struct RockScissorsPaper {
         case .win:
             print(Result.win)
             if var turn = gameTurn {
-                switch turn {
-                case .userTurn:
-                    turn = .computerTurn
-                    
-                case .computerTurn:
-                    turn = .userTurn
-                }
-                print("[\(turn)턴]",terminator: "")
+                turn = turnChanged(turn)
                 gameTurn = turn
-                startGame()
+                secondGame(attack: turn)
             } else {
                 gameTurn = .userTurn
-                print("[\(Turn.userTurn)턴]",terminator: "")
-                startGame()
+                secondGame(attack: .userTurn)
             }
             
         case .lose:
             print(Result.lose)
             if var turn = gameTurn {
-                switch turn {
-                case .userTurn:
-                    turn = .computerTurn
-                case .computerTurn:
-                    turn = .userTurn
-                }
-                print("[\(turn)턴]",terminator: "")
+                turn = turnChanged(turn)
                 gameTurn = turn
-                startGame()
+                secondGame(attack: turn)
             } else {
                 gameTurn = .computerTurn
-                print("[\(Turn.computerTurn)턴]",terminator: "")
-                startGame()
+                secondGame(attack: .computerTurn)
             }
         }
+    }
+    
+    
+    private mutating func secondGame(attack turn: Turn) {
+        print("[\(turn)턴]",terminator: "")
+        startGame()
     }
 
     //묵찌빠 비교 함수 -> 해당 분기로 이동 1. 비기면 승리 출력하고 게임 종료, 2. 이기거나 질 경우 턴 넘기고 양쪽 손모양 생성 -> 묵찌빠 비교
