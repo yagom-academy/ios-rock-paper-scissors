@@ -12,7 +12,7 @@ class Game {
     }
     
     var gameWinner: Winner = .user
-
+    
     func startGame() -> Void {
         showStartMessage()
         recieveInput()
@@ -26,7 +26,7 @@ class Game {
         if let input = readLine() {
             testValid(of: input)
         } else {
-            showErrorMessage()
+            handleError()
             startGame()
         }
     }
@@ -44,11 +44,15 @@ class Game {
         case Choice.paper.rawValue:
             judgeWinner(userChoice: Choice.paper)
         default:
-            showErrorMessage()
+            handleError()
             startGame()
         }
     }
 
+    func handleError() -> Void {
+        showErrorMessage()
+    }
+    
     func showErrorMessage() -> Void {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
@@ -58,7 +62,7 @@ class Game {
             return
         }
         if userChoice == computerChoice {
-            print("비겼습니다!")
+            showDrawMessage()
             startGame()
         } else {
             gameWinner = pickWinner(userChoice: userChoice, computerChoice: computerChoice)
@@ -72,17 +76,29 @@ class Game {
     func pickWinner(userChoice: Choice, computerChoice: Choice) -> Winner {
         switch userChoice {
         case .scissors where (computerChoice == .paper):
-            print("이겼습니다!")
+            showUserWinMessage()
             return Winner.user
         case .rock where (computerChoice == .scissors):
-            print("이겼습니다!")
+            showUserWinMessage()
             return Winner.user
         case .paper where (computerChoice == .rock):
-            print("이겼습니다!")
+            showUserWinMessage()
             return Winner.user
         default:
-            print("졌습니다!")
+            showComputerWinMessage()
             return Winner.computer
         }
+    }
+    
+    func showUserWinMessage() -> Void {
+        print("이겼습니다!")
+    }
+    
+    func showComputerWinMessage() -> Void {
+        print("졌습니다!")
+    }
+    
+    func showDrawMessage() -> Void {
+        print("비겼습니다!")
     }
 }
