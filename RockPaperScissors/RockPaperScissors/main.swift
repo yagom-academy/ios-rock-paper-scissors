@@ -20,18 +20,18 @@ func receiveInputFromUser() -> String? {
     readLine()
 }
 
-func checkUserInput() -> Int? {
+func receiveAndCheckUserInput() -> Int? {
     guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), userCard <= 3 && userCard >= 0 else {
         return nil
     }
     return userCard
 }
 
-func receiveAndJudgeUserInput() -> Int {
+func receiveAndValidateUserInput() -> Int {
     print(GameMessages.rockPaperScissorsMessage, terminator: GameMessages.noTerminator)
-    guard let userCard = checkUserInput() else {
+    guard let userCard = receiveAndCheckUserInput() else {
         print(GameMessages.wrongInputMessage)
-        return receiveAndJudgeUserInput()
+        return receiveAndValidateUserInput()
     }
     return userCard
 }
@@ -42,7 +42,7 @@ func judgeGameResult(computerCard: Int, userCard: Int) -> GameResult {
 }
 
 func gameStart() {
-    let userHand = receiveAndJudgeUserInput()
+    let userHand = receiveAndValidateUserInput()
     if userHand == 0 {
         print(GameMessages.endMessage)
         return
