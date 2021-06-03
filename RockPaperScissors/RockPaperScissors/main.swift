@@ -1,4 +1,4 @@
-enum Hand: String {
+enum Choice: String {
     case exitGame = "0"
     case scissors = "1"
     case rock = "2"
@@ -28,11 +28,11 @@ func testValid(of input: String) -> Void {
         print("게임 종료")
         return
     case "1":
-        judgeWinner(userChoice: Hand.scissors)
+        judgeWinner(userChoice: Choice.scissors)
     case "2":
-        judgeWinner(userChoice: Hand.rock)
+        judgeWinner(userChoice: Choice.rock)
     case "3":
-        judgeWinner(userChoice: Hand.paper)
+        judgeWinner(userChoice: Choice.paper)
     default:
         showErrorMessage()
     }
@@ -43,7 +43,7 @@ func showErrorMessage() -> Void {
     showStartMessage()
 }
 
-func judgeWinner(userChoice: Hand) -> Void {
+func judgeWinner(userChoice: Choice) -> Void {
     let computerChoice = generateComputerChoice()
 
     if userChoice == computerChoice {
@@ -54,19 +54,19 @@ func judgeWinner(userChoice: Hand) -> Void {
     }
 }
 
-func generateComputerChoice() -> Hand {
+func generateComputerChoice() -> Choice {
     let randomNumber = Int.random(in: 1...3)
     
     if randomNumber == 1 {
-       return Hand.scissors
+       return Choice.scissors
     } else if randomNumber == 2 {
-       return Hand.rock
+       return Choice.rock
     } else {
-       return Hand.paper
+       return Choice.paper
     }
 }
 
-func pickWinner(userChoice: Hand, computerChoice: Hand) -> Void {
+func pickWinner(userChoice: Choice, computerChoice: Choice) -> Void {
     switch userChoice {
     case .scissors where (computerChoice == .paper):
         print("이겼습니다!")
