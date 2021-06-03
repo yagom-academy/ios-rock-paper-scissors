@@ -60,7 +60,7 @@ func gameStart() {
     }
 
     let gameResult = judgeGameResult(computerCard: computerHand, userCard: userHand)
-    printGameResult(of: gameResult.rawValue)
+    printGameResult(of: String(describing: gameResult))
     gameStart()
 }
 
@@ -87,10 +87,14 @@ enum GameMessages {
     static let endMessage = "게임 종료"
 }
 
-enum GameResult: String {
+enum GameResult: String, CustomStringConvertible {
     case userWin = "이겼습니다!"
     case computerWin = "졌습니다!"
     case draw = "비겼습니다!"
+    
+    var description: String {
+        self.rawValue
+    }
 }
 
 gameStart()
