@@ -51,7 +51,7 @@ func receiveAndValidateUserInput() -> Int {
     return userCard
 }
 
-func gameStart() {
+func startGame() {
     let userHand = receiveAndValidateUserInput()
     if userHand == GameSettingValues.exitCondition {
         printGameResult(of: GameMessages.endMessage)
@@ -63,7 +63,7 @@ func gameStart() {
     
     let gameResult = gameReferee.judgeGameResult(computerCard: computerHand, userCard: userHand)
     printGameResult(of: String(describing: gameResult))
-    gameStart()
+    startGame()
 }
 
 enum RockPaperScissors: Int, CaseIterable {
@@ -100,4 +100,4 @@ enum GameResult: String, CustomStringConvertible {
 }
 
 let gameReferee = Referee()
-gameStart()
+startGame()
