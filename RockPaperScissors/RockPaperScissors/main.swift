@@ -43,6 +43,8 @@ func receiveUserInput() -> Int {
 	return validConvertedInput
 }
 
+var winner: Player = .user
+
 while true {
 	
 	print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -75,8 +77,10 @@ while true {
 		print("비겼습니다!")
 	case userHand.winsAgainst():
 		print("이겼습니다!")
+		break
 	default:
 		print("졌습니다!")
+		winner = .computer
+		break
 	}
 }
-
