@@ -38,3 +38,7 @@
 - 마름모꼴 - 판단
 
 <img width="979" alt="스크린샷 2021-05-31 오후 11 52 38" src="https://user-images.githubusercontent.com/70311145/120275357-23957580-c2ec-11eb-8ed2-824ae16bd854.png">
+
+## 묵찌빠 게임 Flow Chart
+
+<img width="777" alt="스크린샷 2021-06-01 오후 4 44 09" src="https://user-images.githubusercontent.com/70311145/120634166-e543b600-c4a5-11eb-8873-1a44673ea867.png">
