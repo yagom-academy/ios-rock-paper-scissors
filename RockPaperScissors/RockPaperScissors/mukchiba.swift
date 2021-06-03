@@ -24,17 +24,9 @@ class Mukchiba: Game {
     
     override func handleError() -> Void {
         showErrorMessage()
-        toggleTurn()
+        currentWinner = .computer
     }
-    
-    func toggleTurn() -> Void {
-        if currentWinner == .user {
-            currentWinner = .computer
-        } else {
-            currentWinner = .user
-        }
-    }
-    
+
     override func showUserWinMessage() -> Void {
         print("사용자의 턴입니다")
     }
