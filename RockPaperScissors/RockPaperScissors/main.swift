@@ -28,7 +28,7 @@ func receiveInputFromUser() -> String? {
 }
 
 func receiveAndCheckUserInput() -> Int? {
-    guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), RockPaperScissors.isExist(userCard) && userCard == GameSettingValues.exitCondition else {
+    guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), RockPaperScissors.isExist(userCard) || userCard == GameSettingValues.exitCondition else {
         return nil
     }
     return userCard
