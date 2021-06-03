@@ -21,6 +21,19 @@ enum RockPaperScissors: CaseIterable {
 	}
 }
 
+enum Player {
+	case user
+	case computer
+	
+	var name: String {
+		if .user == self {
+			return "사용자"
+		} else {
+			return "컴퓨터"
+		}
+	}
+}
+
 func receiveUserInput() -> Int {
 	
 	guard let validInput = readLine(), let validConvertedInput = Int(validInput) else {
