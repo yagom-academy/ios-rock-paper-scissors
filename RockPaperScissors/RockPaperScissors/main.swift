@@ -6,10 +6,6 @@
 
 import Foundation
 
-let rockPaperScissorsMessage = "가위(1), 바위(2), 보(3)! <종료 : 0>: "
-let wrongInputMessage = "잘못된 입력입니다. 다시 시도해주세요."
-let noTerminator = ""
-let endMessage = "게임 종료"
 let gameResultTable: Array<Array<GameResult>> = [
     [.draw, .computerWin, .userWin],
     [.userWin, .draw, .computerWin],
@@ -25,9 +21,9 @@ func receiveInputFromUser() -> String? {
 }
 
 func receiveAndJudgeUserInput() -> Int {
-    print(rockPaperScissorsMessage, terminator: noTerminator)
+    print(GameMessages.rockPaperScissorsMessage, terminator: GameMessages.noTerminator)
     guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), userCard <= 3 && userCard >= 0 else {
-        print(wrongInputMessage)
+        print(GameMessages.wrongInputMessage)
         return receiveAndJudgeUserInput()
     }
     return userCard
@@ -41,7 +37,7 @@ func judgeGameResult(computerCard: Int, userCard: Int) -> GameResult {
 func gameStart() {
     let userHand = receiveAndJudgeUserInput()
     if userHand == 0 {
-        print(endMessage)
+        print(GameMessages.endMessage)
         return
     }
     let computerHand = generateComputerCard()
@@ -49,6 +45,13 @@ func gameStart() {
     let gameResult = judgeGameResult(computerCard: computerHand, userCard: userHand)
     print(gameResult.rawValue)
     gameStart()
+}
+
+enum GameMessages {
+    static let rockPaperScissorsMessage = "가위(1), 바위(2), 보(3)! <종료 : 0>: "
+    static let wrongInputMessage = "잘못된 입력입니다. 다시 시도해주세요."
+    static let noTerminator = ""
+    static let endMessage = "게임 종료"
 }
 
 enum GameResult: String {
