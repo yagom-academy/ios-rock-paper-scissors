@@ -4,19 +4,11 @@ class Mukchiba: Game {
         self.currentWinner = currentWinner
     }
     
-    override func showUserWinMessage() {
-        print("사용자의 턴입니다")
-    }
-    
-    override func showComputerWinMessage() {
-        print("컴퓨터의 턴입니다")
-    }
-    
-    override func showStartMessage() {
+    override func showStartMessage() -> Void {
         print("[\(currentWinner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
     
-    override func judgeWinner(userChoice: Game.Choice) {
+    override func judgeWinner(userChoice: Game.Choice) -> Void {
         guard let computerChoice = generateComputerChoice() else {
             return
         }
@@ -25,12 +17,29 @@ class Mukchiba: Game {
             return
         } else {
             gameWinner = pickWinner(userChoice: userChoice, computerChoice: computerChoice)
+            currentWinner = gameWinner
             startGame()
         }
     }
     
-    override func handleError() {
+    override func handleError() -> Void {
         showErrorMessage()
-        
+        toggleTurn()
+    }
+    
+    func toggleTurn() -> Void {
+        if currentWinner == .user {
+            currentWinner = .computer
+        } else {
+            currentWinner = .user
+        }
+    }
+    
+    override func showUserWinMessage() -> Void {
+        print("사용자의 턴입니다")
+    }
+    
+    override func showComputerWinMessage() -> Void {
+        print("컴퓨터의 턴입니다")
     }
 }
