@@ -6,15 +6,38 @@
 
 import Foundation
 
-enum RockPaperScissors: Int {
+enum RockPaperScissors: Int, CaseIterable {
     case scissors = 1
-    case rock = 2
-    case paper = 3
+    case rock
+    case paper
     
-    static func generateRandomCase() -> RockPaperScissors {
-        let rockPaperScissors: [RockPaperScissors] = [.scissors, .rock, .paper]
-        let index = Int.random(in: 0...rockPaperScissors.count - 1)
-        return rockPaperScissors[index]
+    static func generateRandomHand() -> RockPaperScissors {
+        return RockPaperScissors.allCases.randomElement() ?? .rock
+    }
+    
+    var menuNumber: Int {
+        switch self {
+        case .scissors:
+            return 1
+        case .rock:
+            return 2
+        case .paper:
+            return 3
+        }
+    }
+    
+    func playRockScissorsPaper(against opponent: RockPaperScissors) -> GameResult {
+        let numberGap = self.menuNumber - opponent.menuNumber
+        let winNumberGaps = [1, -2]
+        let tieNumberGaps = [0]
+        
+        if winNumberGaps.contains(numberGap) {
+            return .win
+        }
+        if tieNumberGaps.contains(numberGap) {
+            return .tie
+        }
+        return .lose
     }
 }
 
@@ -35,7 +58,7 @@ enum GameResult {
     }
 }
 
-func showInfoMessage() {
+func showMenu() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
@@ -43,63 +66,36 @@ func showWrongInputMessage() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func returnUserSelectedNumber() -> Int {
-    showInfoMessage()
-    guard let userInput = readLine(),
-          let convertedUserInput = Int(userInput),
-          (0...3).contains(convertedUserInput) else {
-        showWrongInputMessage()
-        return returnUserSelectedNumber()
-    }
-    return convertedUserInput
-}
-
-func generateComputerRockPaperScissorsValue() -> RockPaperScissors {
-//    if let unwrappedValue = RPS(rawValue: Int.random(in: 1...3)) {
-//        return unwrappedValue
-//    }
-//    return RPS.rock
-    return RockPaperScissors.generateRandomCase()
-}
-
-func playRockScissorsPaperWith(
-    computerChoice: RockPaperScissors,
-    userChoice: RockPaperScissors
-) -> GameResult {
-    let numberGap: Int = userChoice.rawValue - computerChoice.rawValue
-    switch numberGap {
-    case 1, -2:
-        return GameResult.win
-    case 2, -1:
-        return GameResult.lose
-    default:
-        return GameResult.tie
-    }
-}
-
-func showResultMessage(gameResult: GameResult) {
-    gameResult.showGameResultMessage()
-}
-
 func showGameEndMessage() {
     print("게임 종료")
 }
 
+func receiveUserInputNumber() -> Int {
+    showMenu()
+    let minMenuNumber = 0
+    let maxMenuNumber = 3
+    guard let userInput = readLine(),
+          let convertedUserInput = Int(userInput),
+          (minMenuNumber...maxMenuNumber).contains(convertedUserInput) else {
+        showWrongInputMessage()
+        return receiveUserInputNumber()
+    }
+    return convertedUserInput
+}
+
 func playGame() {
-    let EXIT_NUMBER = 0
+    let exitNumber = 0
     while true {
-        let userInputNumber: Int = returnUserSelectedNumber()
-        if userInputNumber == EXIT_NUMBER {
+        let userInputNumber: Int = receiveUserInputNumber()
+        if userInputNumber == exitNumber {
             showGameEndMessage()
             break
         }
-        if let userRockPaperScissors: RockPaperScissors = RockPaperScissors(rawValue: userInputNumber) {
-            let computerRockPaperScissors: RockPaperScissors = generateComputerRockPaperScissorsValue()
-            let rockPaperScissorsResult: GameResult = playRockScissorsPaperWith(
-                computerChoice: computerRockPaperScissors,
-                userChoice: userRockPaperScissors
-            )
-            showResultMessage(gameResult: rockPaperScissorsResult)
+        if let userHand = RockPaperScissors(rawValue: userInputNumber) {
+            let computerHand = RockPaperScissors.generateRandomHand()
+            let gameResult: GameResult = userHand.playRockScissorsPaper(against: computerHand)
+
+            gameResult.showGameResultMessage()
         } else {
             showWrongInputMessage()
         }
