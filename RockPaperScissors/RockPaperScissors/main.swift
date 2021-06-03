@@ -27,10 +27,18 @@ func receiveAndCheckUserInput() -> Int? {
     return userCard
 }
 
+func printGameMessage(of message: String, end: String = "\n") {
+    print(message, terminator: end)
+}
+
+func printGameResult(of result: String) {
+    print(result)
+}
+
 func receiveAndValidateUserInput() -> Int {
-    print(GameMessages.rockPaperScissorsMessage, terminator: GameMessages.noTerminator)
+    printGameMessage(of: GameMessages.rockPaperScissorsMessage, end: GameMessages.noTerminator)
     guard let userCard = receiveAndCheckUserInput() else {
-        print(GameMessages.wrongInputMessage)
+        printGameMessage(of: GameMessages.wrongInputMessage)
         return receiveAndValidateUserInput()
     }
     return userCard
@@ -44,7 +52,7 @@ func judgeGameResult(computerCard: Int, userCard: Int) -> GameResult {
 func gameStart() {
     let userHand = receiveAndValidateUserInput()
     if userHand == 0 {
-        print(GameMessages.endMessage)
+        printGameResult(of: GameMessages.endMessage)
         return
     }
     guard let computerHand = generateComputerCard() else {
@@ -52,7 +60,7 @@ func gameStart() {
     }
 
     let gameResult = judgeGameResult(computerCard: computerHand, userCard: userHand)
-    print(gameResult.rawValue)
+    printGameResult(of: gameResult.rawValue)
     gameStart()
 }
 
