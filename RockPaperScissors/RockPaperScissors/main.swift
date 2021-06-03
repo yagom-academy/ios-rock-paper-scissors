@@ -21,7 +21,7 @@ func receiveInputFromUser() -> String? {
 }
 
 func receiveAndCheckUserInput() -> Int? {
-    guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), RockPaperScissors.isExist(userCard) && userCard == 0 else {
+    guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), RockPaperScissors.isExist(userCard) && userCard == GameSettingValues.exitCondition else {
         return nil
     }
     return userCard
@@ -45,13 +45,13 @@ func receiveAndValidateUserInput() -> Int {
 }
 
 func judgeGameResult(computerCard: Int, userCard: Int) -> GameResult {
-    let offset = 1
+    let offset = GameSettingValues.correctingOffset
     return gameResultTable[userCard - offset][computerCard - offset]
 }
 
 func gameStart() {
     let userHand = receiveAndValidateUserInput()
-    if userHand == 0 {
+    if userHand == GameSettingValues.exitCondition {
         printGameResult(of: GameMessages.endMessage)
         return
     }
@@ -75,8 +75,13 @@ enum RockPaperScissors: Int, CaseIterable {
     }
 }
 
+enum GameSettingValues {
+    static let exitCondition = 0
+    static let correctingOffset = RockPaperScissors.scissors.extractValue()
+}
+
 enum GameMessages {
-    static let rockPaperScissorsMessage = "가위(\(RockPaperScissors.scissors.extractValue())), 바위(\(RockPaperScissors.rock.extractValue())), 보(\(RockPaperScissors.paper.extractValue()))! <종료 : 0>: "
+    static let rockPaperScissorsMessage = "가위(\(RockPaperScissors.scissors.extractValue())), 바위(\(RockPaperScissors.rock.extractValue())), 보(\(RockPaperScissors.paper.extractValue()))! <종료 : \(GameSettingValues.exitCondition)>: "
     static let wrongInputMessage = "잘못된 입력입니다. 다시 시도해주세요."
     static let noTerminator = ""
     static let endMessage = "게임 종료"
