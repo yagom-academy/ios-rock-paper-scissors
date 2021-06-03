@@ -18,31 +18,41 @@ enum GameState: String {
     case draw = "비겼습니다!"
 }
 
-enum Player {
-    case computer
-    case user
+enum Player: String {
+    case computer = "컴퓨터"
+    case user = "사용자"
+}
+
+enum Mode {
+    case RockPaperScissors
+    case Mukjjipa
 }
 
 func printRockPaperScissorsMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
-func printMukjjipaMenu() {
-    print("묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+func printMukjjipaMenu(winner: Player) {
+    print("[\(winner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
 }
 
 func generateComputerValue() -> RockPaperScissors {
     guard let value = RockPaperScissors.allCases.randomElement() else {
         return generateComputerValue()
     }
-    print("컴퓨터가 이번에 낸거 \(value)")
     return value
 }
 
-func inputUserValue() -> RockPaperScissors? {
+func inputUserValue(mode: Mode, winner: Player) -> RockPaperScissors? {
     guard let userNumber = readLine(), let convertedNumber = Int(userNumber) else {
         printError()
-        return inputUserValue()
+        switch mode {
+        case .RockPaperScissors:
+            startStageOne()
+        case .Mukjjipa:
+            startStageTwo(thisTurnPlayer: winner)
+        }
+        return inputUserValue(mode: mode, winner: winner)
     }
     
     if convertedNumber == 0 {
@@ -52,13 +62,13 @@ func inputUserValue() -> RockPaperScissors? {
     
     guard let userValue = RockPaperScissors(rawValue: convertedNumber) else {
         printError()
-        return inputUserValue()
+        return inputUserValue(mode: mode, winner: winner)
     }
     return userValue
 }
 
 func printWinner(winner: Player) {
-    print("\(winner) 가 승리하엿습니다.", terminator: "")
+    print("\(winner.rawValue)의 승리!")
 }
 
 func printGameResult(gameResult: GameState) {
@@ -102,13 +112,8 @@ func checkIsDraw(thisGameResult: GameState) -> Bool {
     }
 }
 
-func printWhosTurn(wohsTurn: Player) {
-    if wohsTurn == .computer {
-        print("컴퓨터의 턴입니다 ", terminator: "")
-    } else if wohsTurn == .user {
-        print("사용자의 턴입니다 ", terminator: "")
-    }
-    printMukjjipaMenu()
+func printWhosTurn(whosTurn: Player) {
+    print("\(whosTurn.rawValue)의 턴입니다")
 }
 
 func compareWhosTurn(thisGameState: GameState) -> Player {
@@ -121,10 +126,9 @@ func compareWhosTurn(thisGameState: GameState) -> Player {
 
 func startStageOne() {
     printRockPaperScissorsMenu()
-    guard let userValue = inputUserValue() else {
+    guard let userValue = inputUserValue(mode: .RockPaperScissors, winner: .user) else {
         return
     }
-    print("유저가 이번에 낸거: \(userValue)")
     let thisGameResult = compareValue(myValue: userValue, otherValue: generateComputerValue())
     if checkIsDraw(thisGameResult: thisGameResult) {
         printGameResult(gameResult: thisGameResult)
@@ -136,18 +140,16 @@ func startStageOne() {
 }
 
 func startStageTwo(thisTurnPlayer: Player) {
-    printWhosTurn(wohsTurn: thisTurnPlayer)
-    guard let userValue = inputUserValue() else {
+    printMukjjipaMenu(winner: thisTurnPlayer)
+    guard let userValue = inputUserValue(mode: .Mukjjipa, winner: thisTurnPlayer) else {
         return
     }
-    print("유저가 이번에 낸거: \(userValue)")
     let thisGameResult = compareValue(myValue: userValue, otherValue: generateComputerValue())
     if checkIsDraw(thisGameResult: thisGameResult){
-        print("묵찌빠에서 비겼다.")
         printWinner(winner: thisTurnPlayer)
-        return
+        startStageOne()
     } else {
-        print(compareWhosTurn(thisGameState: thisGameResult))
+        printWhosTurn(whosTurn: compareWhosTurn(thisGameState: thisGameResult))
         startStageTwo(thisTurnPlayer: compareWhosTurn(thisGameState: thisGameResult))
     }
 }
