@@ -1,5 +1,4 @@
-enum Choice: String {
-    case exitGame = "0"
+enum Choice: String, CaseIterable {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
@@ -19,6 +18,7 @@ func recieveInput() -> Void {
         testValid(of: input)
     } else {
         showErrorMessage()
+        showStartMessage()
     }
 }
 
@@ -27,25 +27,26 @@ func testValid(of input: String) -> Void {
     case "0":
         print("게임 종료")
         return
-    case "1":
+    case Choice.scissors.rawValue:
         judgeWinner(userChoice: Choice.scissors)
-    case "2":
+    case Choice.rock.rawValue:
         judgeWinner(userChoice: Choice.rock)
-    case "3":
+    case Choice.paper.rawValue:
         judgeWinner(userChoice: Choice.paper)
     default:
         showErrorMessage()
+        showStartMessage()
     }
 }
 
 func showErrorMessage() -> Void {
     print("잘못된 입력입니다. 다시 시도해주세요.")
-    showStartMessage()
 }
 
 func judgeWinner(userChoice: Choice) -> Void {
-    let computerChoice = generateComputerChoice()
-
+    guard let computerChoice = generateComputerChoice() else {
+        return
+    }
     if userChoice == computerChoice {
         print("비겼습니다!")
         showStartMessage()
@@ -54,16 +55,8 @@ func judgeWinner(userChoice: Choice) -> Void {
     }
 }
 
-func generateComputerChoice() -> Choice {
-    let randomNumber = Int.random(in: 1...3)
-    
-    if randomNumber == 1 {
-       return Choice.scissors
-    } else if randomNumber == 2 {
-       return Choice.rock
-    } else {
-       return Choice.paper
-    }
+func generateComputerChoice() -> Choice? {
+    return Choice.allCases.randomElement()
 }
 
 func pickWinner(userChoice: Choice, computerChoice: Choice) -> Void {
