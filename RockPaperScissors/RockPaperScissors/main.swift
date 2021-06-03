@@ -12,8 +12,8 @@ let gameResultTable: Array<Array<GameResult>> = [
     [.computerWin, .userWin, .draw]
 ]
 
-func generateComputerCard() -> Int {
-    Int.random(in: 1...3)
+func generateComputerCard() -> Int? {
+    RockPaperScissors.allCases.randomElement()?.extractValue()
 }
 
 func receiveInputFromUser() -> String? {
@@ -21,7 +21,7 @@ func receiveInputFromUser() -> String? {
 }
 
 func receiveAndCheckUserInput() -> Int? {
-    guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), userCard <= 3 && userCard >= 0 else {
+    guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), RockPaperScissors.isExist(userCard) && userCard == 0 else {
         return nil
     }
     return userCard
@@ -47,15 +47,28 @@ func gameStart() {
         print(GameMessages.endMessage)
         return
     }
-    let computerHand = generateComputerCard()
+    guard let computerHand = generateComputerCard() else {
+        return
+    }
 
     let gameResult = judgeGameResult(computerCard: computerHand, userCard: userHand)
     print(gameResult.rawValue)
     gameStart()
 }
 
+enum RockPaperScissors: Int, CaseIterable {
+    case scissors = 1, rock, paper
+    
+    func extractValue() -> Int {
+        self.rawValue
+    }
+    static func isExist(_ value: Int) -> Bool {
+        RockPaperScissors(rawValue: value) != nil
+    }
+}
+
 enum GameMessages {
-    static let rockPaperScissorsMessage = "가위(1), 바위(2), 보(3)! <종료 : 0>: "
+    static let rockPaperScissorsMessage = "가위(\(RockPaperScissors.scissors.extractValue())), 바위(\(RockPaperScissors.rock.extractValue())), 보(\(RockPaperScissors.paper.extractValue()))! <종료 : 0>: "
     static let wrongInputMessage = "잘못된 입력입니다. 다시 시도해주세요."
     static let noTerminator = ""
     static let endMessage = "게임 종료"
