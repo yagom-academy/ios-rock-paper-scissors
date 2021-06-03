@@ -6,55 +6,98 @@
 
 import Foundation
 
-let rockPaperScissorsMessage = "가위(1), 바위(2), 보(3)! <종료 : 0>: "
-let wrongInputMessage = "잘못된 입력입니다. 다시 시도해주세요."
-let noTerminator = ""
-let endMessage = "게임 종료"
-let gameResultTable: Array<Array<GameResult>> = [
-    [.draw, .computerWin, .userWin],
-    [.userWin, .draw, .computerWin],
-    [.computerWin, .userWin, .draw]
-]
+struct Referee {
+    let gameResultTable: Array<Array<GameResult>> = [
+        [.draw, .computerWin, .userWin],
+        [.userWin, .draw, .computerWin],
+        [.computerWin, .userWin, .draw]
+    ]
+    
+    func judgeGameResult(computerCard: Int, userCard: Int) -> GameResult {
+        let offset = GameSettingValues.correctingOffset
+        return gameResultTable[userCard - offset][computerCard - offset]
+    }
+}
 
-func generateComputerCard() -> Int {
-    Int.random(in: 1...3)
+func generateComputerCard() -> Int? {
+    RockPaperScissors.allCases.randomElement()?.extractValue()
 }
 
 func receiveInputFromUser() -> String? {
     readLine()
 }
 
-func receiveAndJudgeUserInput() -> Int {
-    print(rockPaperScissorsMessage, terminator: noTerminator)
-    guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), userCard <= 3 && userCard >= 0 else {
-        print(wrongInputMessage)
-        return receiveAndJudgeUserInput()
+func receiveAndCheckUserInput() -> Int? {
+    guard let userInput = receiveInputFromUser(), let userCard = Int(userInput), RockPaperScissors.isExist(userCard) || userCard == GameSettingValues.exitCondition else {
+        return nil
     }
     return userCard
 }
 
-func judgeGameResult(computerCard: Int, userCard: Int) -> GameResult {
-    let offset = 1
-    return gameResultTable[userCard - offset][computerCard - offset]
+func printGameMessage(of message: String, end: String = "\n") {
+    print(message, terminator: end)
 }
 
-func gameStart() {
-    let userHand = receiveAndJudgeUserInput()
-    if userHand == 0 {
-        print(endMessage)
+func printGameResult(of result: String) {
+    print(result)
+}
+
+func receiveAndValidateUserInput() -> Int {
+    printGameMessage(of: GameMessages.rockPaperScissorsMessage, end: GameMessages.noTerminator)
+    guard let userCard = receiveAndCheckUserInput() else {
+        printGameMessage(of: GameMessages.wrongInputMessage)
+        return receiveAndValidateUserInput()
+    }
+    return userCard
+}
+
+func startGame() {
+    let userHand = receiveAndValidateUserInput()
+    if userHand == GameSettingValues.exitCondition {
+        printGameMessage(of: GameMessages.endMessage)
         return
     }
-    let computerHand = generateComputerCard()
-
-    let gameResult = judgeGameResult(computerCard: computerHand, userCard: userHand)
-    print(gameResult.rawValue)
-    gameStart()
+    guard let computerHand = generateComputerCard() else {
+        return
+    }
+    
+    let gameResult = gameReferee.judgeGameResult(computerCard: computerHand, userCard: userHand)
+    printGameResult(of: String(describing: gameResult))
+    startGame()
 }
 
-enum GameResult: String {
+enum RockPaperScissors: Int, CaseIterable {
+    case scissors = 1, rock, paper
+    
+    func extractValue() -> Int {
+        self.rawValue
+    }
+    static func isExist(_ value: Int) -> Bool {
+        RockPaperScissors(rawValue: value) != nil
+    }
+}
+
+enum GameSettingValues {
+    static let exitCondition = 0
+    static let correctingOffset = RockPaperScissors.scissors.extractValue()
+}
+
+enum GameMessages {
+    static let rockPaperScissorsMessage = "가위(\(RockPaperScissors.scissors.extractValue())), 바위(\(RockPaperScissors.rock.extractValue())), 보(\(RockPaperScissors.paper.extractValue()))! <종료 : \(GameSettingValues.exitCondition)>: "
+    static let wrongInputMessage = "잘못된 입력입니다. 다시 시도해주세요."
+    static let noTerminator = ""
+    static let endMessage = "게임 종료"
+}
+
+enum GameResult: String, CustomStringConvertible {
     case userWin = "이겼습니다!"
     case computerWin = "졌습니다!"
     case draw = "비겼습니다!"
+    
+    var description: String {
+        self.rawValue
+    }
 }
 
-gameStart()
+let gameReferee = Referee()
+startGame()
