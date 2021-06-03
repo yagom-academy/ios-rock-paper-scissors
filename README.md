@@ -23,3 +23,8 @@ userCard: readLine()을 통해 받은 string을 Int로 캐스팅하여 받은 �
 * returnResult() : 사용자의 입력값에 따라 종료, compareNumber(), 재귀함수 를 구분하여 소환하는 함수
 * generateComputerCard() : 컴퓨터의 패를 결정할 랜덤한 숫자를 리턴하는 함수
 * compareCard() : 사용자와 컴퓨터의 패를 비교하여 결과를 판정하는 함수
+
+## flow chart
+
+![image](https://user-images.githubusercontent.com/52707151/120448792-dfc36e80-c3c6-11eb-9e71-951590cd5cdb.png)
+

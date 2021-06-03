@@ -1,11 +1,8 @@
 import Foundation
 
-var userCard: Int = 0
-
 func startGame() {
-    userCard = userInput()
-    whoWin()
-
+    let userCard = userInput()
+    processSeparator(userCard: userCard)
 }
 
 func userInput() -> Int {
@@ -19,23 +16,14 @@ func userInput() -> Int {
     return intInput
 }
 
-
-func end() {
-    print("게임 종료")
+func processSeparator(userCard: Int) {
+    let exitNumber = 0
     
-    return
-}
-
-func whoWin() {
     switch userCard {
-    case 0:
-        end()
-    case 1:
-        compareCard(inputCard: 1)
-    case 2:
-        compareCard(inputCard: 2)
-    case 3:
-        compareCard(inputCard: 3)
+    case exitNumber:
+        print("게임종료")
+    case 1, 2, 3:
+        judgeResult(inputCard: userCard)
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return startGame()
@@ -46,9 +34,9 @@ func generateComputerCard() -> Int {
     return Int.random(in: 1...3)
 }
 
-func compareCard(inputCard: Int) {
-    let computerCard = generateComputerCard()
-    let judgingIndicator = inputCard - computerCard
+func judgeResult(inputCard: Int) {
+    let randomComputerCard = generateComputerCard()
+    let judgingIndicator = inputCard - randomComputerCard
     
     if judgingIndicator == 0 {
         print("비겼습니다.")
