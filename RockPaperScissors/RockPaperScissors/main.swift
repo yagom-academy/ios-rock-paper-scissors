@@ -6,11 +6,11 @@ enum Choice: String, CaseIterable {
 
 func startGame() -> Void {
     showStartMessage()
+    recieveInput()
 }
 
 func showStartMessage() -> Void {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    recieveInput()
 }
 
 func recieveInput() -> Void {
