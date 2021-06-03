@@ -7,14 +7,19 @@
 import Foundation
 
 struct RockPaperScissorsGameConsole {
-    private var isGameOver: Bool?
-    private var computerRandomNumber: Int?
+    private var isGameOver: Bool = false
 
     private enum RockPaperScissors: Int {
         case scissors = 1
         case rock
         case paper
     }
+    private enum ResultGame: String {
+            case win = "이겼습니다!"
+            case lose = "졌습니다!"
+            case draw = "비겼습니다!"
+            case inputError
+        }
     
     func checkGameOver(inputNumber: Int) -> Bool {
         if inputNumber == 0 {
@@ -31,12 +36,12 @@ struct RockPaperScissorsGameConsole {
         }
         return inputNumber
     }
-    private mutating func generateRandomNumber() {
-        computerRandomNumber = Int.random(in: 1...3)
+    private mutating func generateRandomNumber() -> Int{
+        return Int.random(in: 1...3)
     }
     private mutating func compareWithUserInput(userNumber: Int) {
-        guard let unwrappedNumber = computerRandomNumber else { return }
-        guard let userHand = RockPaperScissors(rawValue: userNumber), let computerHand = RockPaperScissors(rawValue: unwrappedNumber) else { return }
+        let computerNumber = generateRandomNumber()
+        guard let userHand = RockPaperScissors(rawValue: userNumber), let computerHand = RockPaperScissors(rawValue: computerNumber) else { return }
         if userHand == computerHand {
             print("비겼습니다!")
         } else if (userHand == .scissors && computerHand == .paper) || (userHand == .paper && computerHand == .rock) || (userHand == .rock && computerHand == .scissors) {
@@ -52,7 +57,7 @@ struct RockPaperScissorsGameConsole {
         while isGameOver == false {
             let userNumber = requestUserInput()
             isGameOver = checkGameOver(inputNumber: userNumber)
-            generateRandomNumber()
+            
             compareWithUserInput(userNumber: userNumber)
         }
     }
