@@ -10,6 +10,8 @@ typealias Player = (displayName: String, isComputer: Bool)
 
 var isGameEnd = false
 let exitNumber = 0
+let minMenuNumber = 0
+let maxMenuNumber = 3
 
 enum MukJJiPPa: Int, CaseIterable {
     case muk = 1
@@ -120,8 +122,7 @@ func showGameEndMessage() {
 
 func receiveUserInputNumber() -> Int {
     showRockPaperScissorsMenu()
-    let minMenuNumber = 0
-    let maxMenuNumber = 3
+
     guard let userInput = readLine(),
           let convertedUserInput = Int(userInput),
           (minMenuNumber...maxMenuNumber).contains(convertedUserInput) else {
@@ -134,8 +135,6 @@ func receiveUserInputNumber() -> Int {
 func playMukJJiPPaGame(turnUser: Player, opponent: Player) {
     showMukJJiPPaMenu(displayName: turnUser.displayName)
     
-    let minMenuNumber = 0
-    let maxMenuNumber = 3
     guard let userInput = readLine(),
           let convertedUserInput = Int(userInput),
           (minMenuNumber...maxMenuNumber).contains(convertedUserInput) else {
@@ -161,10 +160,9 @@ func playMukJJiPPaGame(turnUser: Player, opponent: Player) {
     }
     
     let computerHand = MukJJiPPa.generateRandomHand()
-    
     let (turnUserHand, opponentHand) = turnUser.isComputer == true ? (computerHand, userHand) : (userHand, computerHand)
-    
     let gameResult: GameResult = turnUserHand.playMukJJiPPa(against: opponentHand)
+    
     switch gameResult {
     case .tie:
         print("\(turnUser.displayName)의 승리!")
