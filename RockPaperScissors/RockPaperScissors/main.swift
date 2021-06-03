@@ -15,7 +15,7 @@ struct RockPaperScissorsGameConsole {
         case paper
     }
     
-    private enum ResultGame: String {
+    private enum GameResult: String {
         case win = "이겼습니다!"
         case lose = "졌습니다!"
         case draw = "비겼습니다!"
@@ -51,25 +51,30 @@ struct RockPaperScissorsGameConsole {
         return Int.random(in: 1...3)
     }
     
-    private mutating func compareWithUserInput(userNumber: Int) -> ResultGame {
+    private mutating func compareWithUserInput(userNumber: Int) -> GameResult {
         let computerNumber = generateRandomNumber()
-        guard let userHand = RockPaperScissors(rawValue: userNumber), let computerHand = RockPaperScissors(rawValue: computerNumber) else { return ResultGame.inputError }
+        guard let userHand = RockPaperScissors(rawValue: userNumber), let computerHand = RockPaperScissors(rawValue: computerNumber) else { return GameResult.inputError }
         if userHand == computerHand {
-            return ResultGame.draw
+            return GameResult.draw
         } else if isUserWin(userHand, computerHand) {
             isGameOver = true
-            return ResultGame.win
+            return GameResult.win
         } else {
             isGameOver = true
-            return ResultGame.lose
+            return GameResult.lose
         }
     }
+    
+    private mutating func printGameResult(gameResult: GameResult) {
+            print(gameResult.rawValue)
+        }
     
     mutating func gameStart() {
         while isGameOver == false {
             let userNumber = requestUserInput()
             isGameOver = checkGameOver(inputNumber: userNumber)
             let gameResult = compareWithUserInput(userNumber: userNumber)
+            printGameResult(gameResult: gameResult)
         }
     }
 }
