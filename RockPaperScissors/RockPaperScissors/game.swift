@@ -4,6 +4,14 @@ class Game {
         case rock = "2"
         case paper = "3"
     }
+    
+    enum Winner: String {
+        case user = "사용자"
+        case computer = "컴퓨터"
+        case exit
+    }
+    
+    var gameWinner: Winner = .user
 
     func startGame() -> Void {
         showStartMessage()
@@ -27,6 +35,7 @@ class Game {
         switch input {
         case "0":
             print("게임 종료")
+            gameWinner = .exit
             return
         case Choice.scissors.rawValue:
             judgeWinner(userChoice: Choice.scissors)
@@ -52,7 +61,7 @@ class Game {
             print("비겼습니다!")
             startGame()
         } else {
-            pickWinner(userChoice: userChoice, computerChoice: computerChoice)
+            gameWinner = pickWinner(userChoice: userChoice, computerChoice: computerChoice)
         }
     }
 
@@ -60,17 +69,20 @@ class Game {
         return Choice.allCases.randomElement()
     }
 
-    func pickWinner(userChoice: Choice, computerChoice: Choice) -> Void {
+    func pickWinner(userChoice: Choice, computerChoice: Choice) -> Winner {
         switch userChoice {
         case .scissors where (computerChoice == .paper):
             print("이겼습니다!")
+            return Winner.user
         case .rock where (computerChoice == .scissors):
             print("이겼습니다!")
+            return Winner.user
         case .paper where (computerChoice == .rock):
             print("이겼습니다!")
+            return Winner.user
         default:
             print("졌습니다!")
+            return Winner.computer
         }
-        startGame()
     }
 }
