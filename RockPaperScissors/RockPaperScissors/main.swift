@@ -1,8 +1,8 @@
 import Foundation
 
 func startGame() {
-    let userCard = userInput()
-    processSeparator(userCard: userCard)
+    let intTypeUserCard = userInput()
+    processSeparator(intTypeUserCard: intTypeUserCard)
 }
 
 func userInput() -> Int {
@@ -16,14 +16,14 @@ func userInput() -> Int {
     return intInput
 }
 
-func processSeparator(userCard: Int) {
+func processSeparator(intTypeUserCard: Int) {
     let exitNumber = 0
     
-    switch userCard {
+    switch intTypeUserCard {
     case exitNumber:
         print("게임종료")
     case 1, 2, 3:
-        judgeResult(inputCard: userCard)
+        judgeResult(inputCard: intTypeUserCard)
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return startGame()
