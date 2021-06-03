@@ -1,6 +1,10 @@
-## iOS 커리어 스타터 캠프
+## iOS 커리어 스타터 캠프 
 
-### 묵찌빠 프로젝트 저장소
+## ✂가위바위보 Step-1 ✂
+![스크린샷 2021-06-01 오후 5 38 50](https://user-images.githubusercontent.com/79059747/120294417-1fc01e00-c301-11eb-9d11-ab411302e719.png)
+![스크린샷 2021-06-01 오후 5 38 43](https://user-images.githubusercontent.com/79059747/120294338-0dde7b00-c301-11eb-9641-32c45d80d32a.png)
+![스크린샷 2021-06-03 오전 9 36 47](https://user-images.githubusercontent.com/79059747/120568701-5441f000-c44f-11eb-94ab-6eaf9834ce0a.png)
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+
+
 
