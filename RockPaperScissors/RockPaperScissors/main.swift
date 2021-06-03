@@ -112,8 +112,8 @@ func checkIsDraw(thisGameResult: GameState) -> Bool {
     }
 }
 
-func printWhosTurn(whosTurn: Player) {
-    print("\(whosTurn.rawValue)의 턴입니다")
+func printWhosTurn(winner: Player) {
+    print("\(winner.rawValue)의 턴입니다")
 }
 
 func compareWhosTurn(thisGameState: GameState) -> Player {
@@ -149,7 +149,7 @@ func startStageTwo(thisTurnPlayer: Player) {
         printWinner(winner: thisTurnPlayer)
         startStageOne()
     } else {
-        printWhosTurn(whosTurn: compareWhosTurn(thisGameState: thisGameResult))
+        printWhosTurn(winner: compareWhosTurn(thisGameState: thisGameResult))
         startStageTwo(thisTurnPlayer: compareWhosTurn(thisGameState: thisGameResult))
     }
 }
