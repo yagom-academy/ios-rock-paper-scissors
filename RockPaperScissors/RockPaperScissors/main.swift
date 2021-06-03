@@ -73,7 +73,7 @@ struct Game {
         if turn == .none {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         } else {
-            print("[\(turn.turnString) 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+            print("[\(turn.turnString) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         }
     }
 
@@ -113,7 +113,6 @@ struct Game {
         default:
             let winner = turn.convertToWinner()
             turn = .none
-        //비긴 경우 현재의 턴이 위너가 된다.
             return winner
         }
     }
