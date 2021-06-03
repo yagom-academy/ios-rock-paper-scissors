@@ -6,11 +6,18 @@
 
 import Foundation
 
-let gameResultTable: Array<Array<GameResult>> = [
-    [.draw, .computerWin, .userWin],
-    [.userWin, .draw, .computerWin],
-    [.computerWin, .userWin, .draw]
-]
+struct Referee {
+    let gameResultTable: Array<Array<GameResult>> = [
+        [.draw, .computerWin, .userWin],
+        [.userWin, .draw, .computerWin],
+        [.computerWin, .userWin, .draw]
+    ]
+    
+    func judgeGameResult(computerCard: Int, userCard: Int) -> GameResult {
+        let offset = GameSettingValues.correctingOffset
+        return gameResultTable[userCard - offset][computerCard - offset]
+    }
+}
 
 func generateComputerCard() -> Int? {
     RockPaperScissors.allCases.randomElement()?.extractValue()
@@ -44,11 +51,6 @@ func receiveAndValidateUserInput() -> Int {
     return userCard
 }
 
-func judgeGameResult(computerCard: Int, userCard: Int) -> GameResult {
-    let offset = GameSettingValues.correctingOffset
-    return gameResultTable[userCard - offset][computerCard - offset]
-}
-
 func gameStart() {
     let userHand = receiveAndValidateUserInput()
     if userHand == GameSettingValues.exitCondition {
@@ -58,8 +60,8 @@ func gameStart() {
     guard let computerHand = generateComputerCard() else {
         return
     }
-
-    let gameResult = judgeGameResult(computerCard: computerHand, userCard: userHand)
+    
+    let gameResult = gameReferee.judgeGameResult(computerCard: computerHand, userCard: userHand)
     printGameResult(of: String(describing: gameResult))
     gameStart()
 }
@@ -97,4 +99,5 @@ enum GameResult: String, CustomStringConvertible {
     }
 }
 
+let gameReferee = Referee()
 gameStart()
