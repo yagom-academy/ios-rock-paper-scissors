@@ -46,12 +46,7 @@ func generateComputerValue() -> RockPaperScissors {
 func inputUserValue(mode: Mode, winner: Player) -> RockPaperScissors? {
     guard let userNumber = readLine(), let convertedNumber = Int(userNumber) else {
         printError()
-        switch mode {
-        case .RockPaperScissors:
-            startStageOne()
-        case .Mukjjipa:
-            startStageTwo(thisTurnPlayer: winner)
-        }
+        selectMenu(mode: mode, winner: winner)
         return inputUserValue(mode: mode, winner: winner)
     }
     
@@ -62,9 +57,19 @@ func inputUserValue(mode: Mode, winner: Player) -> RockPaperScissors? {
     
     guard let userValue = RockPaperScissors(rawValue: convertedNumber) else {
         printError()
+        selectMenu(mode: mode, winner: winner)
         return inputUserValue(mode: mode, winner: winner)
     }
     return userValue
+}
+
+func selectMenu(mode: Mode, winner: Player) {
+    switch mode {
+    case .RockPaperScissors:
+        startStageOne()
+    case .Mukjjipa:
+        startStageTwo(thisTurnPlayer: winner)
+    }
 }
 
 func printWinner(winner: Player) {
