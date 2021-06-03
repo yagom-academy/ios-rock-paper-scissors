@@ -51,3 +51,4 @@ func judgeResult(inputCard: Int) {
 }
 
 startGame()
+
