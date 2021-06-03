@@ -10,6 +10,8 @@ enum Result:CustomStringConvertible {
     case win
     case lose
     case draw
+    case error
+    case exit
 
     static func decideResult(defense: Hand, offense: Hand) -> Result {
         switch (defense, offense) {
@@ -30,6 +32,8 @@ enum Result:CustomStringConvertible {
             return "졌습니다!"
         case .draw:
             return "비겼습니다!"
+        default:
+            return "잘못된 입력입니다. 다시 시도해주세요."
         }
     }
 }
@@ -65,22 +69,22 @@ func makeRandomNumber() -> Int {
     return Int.random(in:1...3)
 }
 
-func rockPaperScissorsGame() -> Bool {
-    guard let userHand = Hand(rawValue: userInputNumber()) else { return true }
-    guard let computerHand = Hand(rawValue: makeRandomNumber()) else { return true }
+func rockPaperScissorsGame() -> Result {
+    guard let userHand = Hand(rawValue: userInputNumber()) else { return .error }
+    guard let computerHand = Hand(rawValue: makeRandomNumber()) else { return .error }
 
-    if userHand == .exit { return false }
+    if userHand == .exit { return .exit }
 
     let gameResult = Result.decideResult(defense: computerHand, offense: userHand)
     print(gameResult.description)
 
-    return true
+    return gameResult
 }
 
 // Main
 func console() {
     while true {
-        if !rockPaperScissorsGame() { break }
+        if rockPaperScissorsGame() == .exit { break }
     }
     print("게임 종료")
 }
