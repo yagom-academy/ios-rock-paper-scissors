@@ -25,10 +25,10 @@ func unWrappedUserInput(_ userInput: String?) -> Int {
     return -1
 }
 
-func checkUserInput(_ bindingUserInput: Int) -> Bool{
-    if 1 <= bindingUserInput && bindingUserInput <= 3 {
-        judgeGame(user: bindingUserInput, computer: makeRandomComputerOutput())
-    } else if bindingUserInput == 0 {
+func checkUserInput(_ checkUserInput: Int) -> Bool{
+    if 1 <= checkUserInput && checkUserInput <= 3 {
+        judgeGame(user: checkUserInput, computer: makeRandomComputerOutput())
+    } else if checkUserInput == 0 {
         print("게임종료")
         return false
     } else {
@@ -50,21 +50,25 @@ func makeRandomComputerOutput() -> Int {
     return scissorsRockPaper[Int.random(in: 1...3)]
 }
  
-//func judgeGame(user: Int, computer: Int) {
-//    switch (user, computer) {
-//    case (scissors, scissors), (rock, rock), (paper, paper):
-//        print(draw) // 여기서 함수로 보내야할것같은뎅
-//    case (scissors, rock), (rock, paper), (paper, scissors):
-//        print(youLose)
-//    default :
-//        print(youWin)
-//    }
-//}
+func judgeGame(user: Int, computer: Int) {
+    switch (user, computer) {
+    case (scissors, scissors), (rock, rock), (paper, paper):
+        print(draw)
+    case (scissors, rock), (rock, paper), (paper, scissors):
+        attacker = computerTurn
+    case (scissors, paper), (rock, scissors), (paper, rock):
+        attacker = userTurn
+    case (muk, muk), (chi, chi), (pa, pa):
+        print("\(attacker)의 승리!")
+    default :
+        attacker = userTurn
+    }
+}
 
 gameStart()
 
 // ------------------------------------------
-var attaker: String = ""
+var attacker: String = ""
 let userTurn = "사용자", computerTurn = "컴퓨터"
 
 func convertMukChiPa(_ someInt: Int) -> Int {
@@ -80,34 +84,22 @@ func convertMukChiPa(_ someInt: Int) -> Int {
     return convertMukChiPa
 }
 
-func changeAttaker(_ someTurn: String) -> String {
-    var changeAttaker = someTurn
-    if someTurn == userTurn {
-        changeAttaker = userTurn
-    } else {
-        changeAttaker = computerTurn
-    }
-    return changeAttaker
-}
-
-// 위에 보존해둔것 있음.
-func judgeGame(user: Int, computer: Int) {
-    switch (user, computer) {
-    case (scissors, scissors), (rock, rock), (paper, paper):
-        print(draw)
-    case (scissors, rock), (rock, paper), (paper, scissors):
-        print(youLose) // 여기서 다른 함수로 보내야 할듯
-    default :
-        print(youWin) // 여기서 다른 함수로 보내야 할듯
-    }
-}
-
 func mukChiPaOutput() -> String? {
-    print("묵(1),찌(2),빠(3)!<종료 : 0>", terminator: " : ")
+    print("[\(attacker) 턴] 묵(1),찌(2),빠(3)!<종료 : 0>", terminator: " : ")
     let userInput: String? = readLine()
     return userInput
 } //unWrappedUserInput 재사용가능?
 
 func makeRandomMukChiPa() -> Int {
     return mukChiPa[Int.random(in: 1...3)]
+}
+
+func judgeMukChiPa(user: Int, computer: Int) {
+    if user == computer {
+        return print("\(attacker)승리!")
+    }
+}
+
+func startMukChiPa() {
+    
 }
