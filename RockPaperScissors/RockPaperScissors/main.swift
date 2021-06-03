@@ -55,15 +55,28 @@ struct RockScissorsPaper {
                 return "컴퓨터"
             }
         }
+        
+        static func convertTurn(_ turn: Turn) -> Turn {
+            if turn == .userTurn {
+                return .computerTurn
+            }
+            else {
+                return .userTurn
+            }
+        }
     }
     
     private var gameTurn: Turn?
 
-    private func choiceUserHand() -> Hand? {
+    private mutating func choiceUserHand() -> Hand? {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
         let userInputArray: [Int] = [0, 1, 2, 3]
         guard let userInput = (readLine().flatMap{ Int($0) }), userInputArray.contains(userInput) else {
             print("잘못된 입력입니다. 다시 입력해주세요")
+            if let turn = gameTurn {
+                gameTurn = Turn.convertTurn(turn)
+                secondGame(attack: turn)
+            }
             return choiceUserHand()
         }
 
@@ -75,14 +88,6 @@ struct RockScissorsPaper {
             return randomHand
         } else {
             return computerHand()
-        }
-    }
-    
-    private func turnChanged(_ turn: Turn) -> Turn{
-        if turn == .userTurn {
-            return .computerTurn
-        } else {
-            return .userTurn
         }
     }
     
@@ -101,7 +106,7 @@ struct RockScissorsPaper {
         case .win:
             print(Result.win)
             if var turn = gameTurn {
-                turn = turnChanged(turn)
+                turn = Turn.convertTurn(turn)
                 gameTurn = turn
                 secondGame(attack: turn)
             } else {
@@ -112,7 +117,7 @@ struct RockScissorsPaper {
         case .lose:
             print(Result.lose)
             if var turn = gameTurn {
-                turn = turnChanged(turn)
+                turn = Turn.convertTurn(turn)
                 gameTurn = turn
                 secondGame(attack: turn)
             } else {
