@@ -1,6 +1,6 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by Jiss, Soll.
 //  Copyright © yagom academy. All rights reserved.
 // 
 
@@ -46,14 +46,12 @@ func isGameEnd(userNumber: Int) -> Bool {
     return false
 }
 
-
-func receiveUserNumber(gameMode: gameMode) -> Int {
-
+func receiveUserNumber(gameMode: gameMode, winnerName: String = "사용자") -> Int {
     while true {
         if gameMode.rawValue == 1 {
             print(Message.rockPaperScissorsMenu, terminator: "")
         } else {
-            print(Message.mukChiBaMenu, terminator: "")
+            print("[\(winnerName) 턴]", Message.mukChiBaMenu, terminator: "")
         }
         guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
             print(Message.wrongInput)
@@ -62,6 +60,11 @@ func receiveUserNumber(gameMode: gameMode) -> Int {
         return inputNumber
     }
 }
+
+func makeComputerNumber() -> Int {
+    return Int.random(in: RockPaperScissors.scissors.rawValue...RockPaperScissors.paper.rawValue)
+}
+
 func playRockPaperScissors() {
     let userNumber = receiveUserNumber(gameMode: .rockPaperScissors)
     if isGameEnd(userNumber: userNumber) {
@@ -69,7 +72,6 @@ func playRockPaperScissors() {
         return
     }
     let computerNumber = makeComputerNumber()
-    
     
     switch (RockPaperScissors(rawValue: userNumber), RockPaperScissors(rawValue: computerNumber)) {
     case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
@@ -82,54 +84,57 @@ func playRockPaperScissors() {
         return
     default:
         print(Message.draw)
+        playRockPaperScissors()
     }
 }
 
 
 func playMukChiBa(isUserWin: Bool) {
-    
     var isUserTurn = isUserWin
+    let userNumber = receiveUserNumber(gameMode: .mukChiBa, winnerName: isUserTurn ? "사용자" : "컴퓨터") // 유저가 잘못 입력했을 때, 턴이 컴퓨터로 안돌아감
     
-//    while true {
-//        var winnerName = isUserTurn ? "사용자" : "컴퓨터"
-//        print("[\(winnerName) 턴]", Message.mukChiBaMenu, terminator: "")
-        
-//        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
-//            print(Message.wrongInput)
-//            isUserTurn = false
-//            continue
-//        }
-//
-//        guard let computerHand: MukChiBa = MukChiBa(rawValue: makeComputerNumber()) else {
-//            return
-//        }
-//
-//        guard let userHand: MukChiBa = MukChiBa(rawValue: inputNumber) else {
-//            print(Message.gameOver)
-//            return
-//        }
-        
-//        switch (userHand, computerHand) {
-//        case (.muk, .chi), (.chi, .ba), (.ba, .muk):
-//            isUserTurn = true
-//            winnerName = "사용자"
-//            print("\(winnerName)", Message.mukChiBaTurn)
-//
-//        case (.muk, .ba), (.chi, .muk), (.ba, .chi):
-//            isUserTurn = false
-//            winnerName = "컴퓨터"
-//            print("\(winnerName)", Message.mukChiBaTurn)
-//
-//        default:
-//            print("\(winnerName)", Message.mukChiBaWinner)
-//            playGame()
-//            return
-//        }
+    if isGameEnd(userNumber: userNumber) {
+        print(Message.gameOver)
+        return
     }
-
-
-func makeComputerNumber() -> Int {
-    return Int.random(in: RockPaperScissors.scissors.rawValue...RockPaperScissors.paper.rawValue)
+    let computerNumber = makeComputerNumber()
+    var winnerName = isUserTurn ? "사용자" : "컴퓨터"
+    //    print("[\(winnerName) 턴]", Message.mukChiBaMenu, terminator: "")
+    //    while true {
+    //        var winnerName = isUserTurn ? "사용자" : "컴퓨터"
+    //        print("[\(winnerName) 턴]", Message.mukChiBaMenu, terminator: "")
+    
+    //        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
+    //            print(Message.wrongInput)
+    //            isUserTurn = false
+    //            continue
+    //        }
+    //
+    //        guard let computerHand: MukChiBa = MukChiBa(rawValue: makeComputerNumber()) else {
+    //            return
+    //        }
+    //
+    //        guard let userHand: MukChiBa = MukChiBa(rawValue: inputNumber) else {
+    //            print(Message.gameOver)
+    //            return
+    //        }
+    
+    switch (MukChiBa(rawValue: userNumber), MukChiBa(rawValue: computerNumber)) {
+    case (.muk, .chi), (.chi, .ba), (.ba, .muk):
+        //        isUserTurn = true
+        winnerName = "사용자"
+        print("\(winnerName)", Message.mukChiBaTurn)
+        playMukChiBa(isUserWin: true)
+    case (.muk, .ba), (.chi, .muk), (.ba, .chi):
+        //        isUserTurn = false
+        winnerName = "컴퓨터"
+        print("\(winnerName)", Message.mukChiBaTurn)
+        playMukChiBa(isUserWin: false)
+    default:
+        print("\(winnerName)", Message.mukChiBaWinner)
+        playRockPaperScissors()
+        return
+    }
 }
 
 playRockPaperScissors()
