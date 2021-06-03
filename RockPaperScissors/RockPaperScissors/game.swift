@@ -34,9 +34,7 @@ class Game {
     func testValid(of input: String) -> Void {
         switch input {
         case "0":
-            print("게임 종료")
-            gameWinner = .exit
-            return
+            handleExit()
         case Choice.scissors.rawValue:
             judgeWinner(userChoice: Choice.scissors)
         case Choice.rock.rawValue:
@@ -51,6 +49,11 @@ class Game {
 
     func handleError() -> Void {
         showErrorMessage()
+    }
+    
+    func handleExit() -> Void {
+        print("게임 종료")
+        gameWinner = .exit
     }
     
     func showErrorMessage() -> Void {
@@ -102,3 +105,4 @@ class Game {
         print("비겼습니다!")
     }
 }
+

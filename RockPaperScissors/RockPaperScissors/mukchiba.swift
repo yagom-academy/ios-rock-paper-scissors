@@ -3,6 +3,7 @@ class Mukchiba: Game {
     init(currentWinner: Winner) {
         self.currentWinner = currentWinner
     }
+    var isNotFinished: Bool = true
     
     override func showStartMessage() -> Void {
         print("[\(currentWinner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
@@ -26,6 +27,10 @@ class Mukchiba: Game {
         showErrorMessage()
         currentWinner = .computer
     }
+    
+    override func handleExit() {
+        isNotFinished = false
+    }
 
     override func showUserWinMessage() -> Void {
         print("사용자의 턴입니다")
@@ -35,3 +40,4 @@ class Mukchiba: Game {
         print("컴퓨터의 턴입니다")
     }
 }
+
