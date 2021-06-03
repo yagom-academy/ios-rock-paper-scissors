@@ -6,66 +6,63 @@
 
 import Foundation
 
-class RPS {
-    
-    enum Hand : Int {
-        case error = 0
+class RockPaperScissors {
+    enum Hand: Int {
+        case stopGame = 0
         case scissors = 1
         case rock = 2
         case paper = 3
     }
     
-    enum GameState: Int {
-        case continueGame = 1
-        case endGame = 0
-        case errorGame = -1
+    enum GameState {
+        case continueGame
+        case endGame
     }
     
-    func userHand() -> Hand? {
+    func settingUsersHand() -> Hand {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        
-        guard let input = Int(readLine() ?? "") , input >= 0 && input <= 3 else {
+        guard let input = readLine(),
+              let value = Int(input),
+              let usersHand = Hand(rawValue: value) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return userHand()
+            return settingUsersHand()
         }
-        
-        return Hand(rawValue: input)
+        return usersHand
     }
     
-    func matchOutcome(hand userHand: Hand?) -> GameState {
-        guard let hand: Hand = userHand else {
-            return GameState.errorGame
-        }
-        
-        if hand == Hand.error {
+    func matchOutcome(of userHand: Hand) -> GameState {
+        guard userHand != Hand.stopGame else {
             return GameState.endGame
         }
-        
-        let computerHand = Hand(rawValue: Int.random(in: 1...3))
-        
-        if  (hand == Hand.scissors && computerHand == Hand.rock) ||
-            (hand == Hand.rock && computerHand == Hand.paper) ||
-            (hand == Hand.paper && computerHand == Hand.scissors) {
+        var computerHand: Hand
+        switch Int.random(in: 1...3) {
+        case 1:
+            computerHand = .rock
+        case 2:
+            computerHand = .paper
+        default:
+            computerHand = .scissors
+        }
+        if  (userHand == .scissors && computerHand == .rock) ||
+            (userHand == .rock && computerHand == .paper) ||
+            (userHand == .paper && computerHand == .scissors) {
             print("졌습니다!")
-        } else if hand == computerHand {
+        } else if userHand == computerHand {
             print("비겼습니다!")
         } else {
             print("이겼습니다!")
         }
-        
         return GameState.continueGame
     }
     
     func startGame() {
         var gameContinue = true
-        
         while gameContinue {
-            
-            let outcome = matchOutcome(hand: userHand())
-            
+            let myHand = settingUsersHand()
+            let outcome = matchOutcome(of: myHand)
             gameContinue = outcome == GameState.continueGame
         }
     }
 }
 
-RPS().startGame()
+RockPaperScissors().startGame()
