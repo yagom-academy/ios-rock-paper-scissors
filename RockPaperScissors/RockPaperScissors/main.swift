@@ -6,6 +6,8 @@
 
 import Foundation
 
+typealias Player = (displayName: String, isComputer: Bool)
+
 var isGameEnd = false
 let exitNumber = 0
 
@@ -100,8 +102,8 @@ func showRockPaperScissorsMenu() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
-func showMukJJiPPaMenu(turnUser: String) {
-    print("[\(turnUser)의 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
+func showMukJJiPPaMenu(displayName: String) {
+    print("[\(displayName)의 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
 }
 
 func showWrongInputMessage() {
@@ -129,8 +131,8 @@ func receiveUserInputNumber() -> Int {
     return convertedUserInput
 }
 
-func playMukJJiPPaGame(turnUser: String, opponent: String) {
-    showMukJJiPPaMenu(turnUser: turnUser)
+func playMukJJiPPaGame(turnUser: Player, opponent: Player) {
+    showMukJJiPPaMenu(displayName: turnUser.displayName)
     
     let minMenuNumber = 0
     let maxMenuNumber = 3
@@ -138,7 +140,7 @@ func playMukJJiPPaGame(turnUser: String, opponent: String) {
           let convertedUserInput = Int(userInput),
           (minMenuNumber...maxMenuNumber).contains(convertedUserInput) else {
         showWrongInputMessage()
-        if turnUser == "컴퓨터" {
+        if turnUser.isComputer == true {
             playMukJJiPPaGame(turnUser: turnUser, opponent: opponent)
         } else {
             playMukJJiPPaGame(turnUser: opponent, opponent: turnUser)
@@ -160,17 +162,17 @@ func playMukJJiPPaGame(turnUser: String, opponent: String) {
     
     let computerHand = MukJJiPPa.generateRandomHand()
     
-    let (turnUserHand, opponentHand) = turnUser == "사용자" ? (userHand, computerHand) : (computerHand, userHand)
+    let (turnUserHand, opponentHand) = turnUser.isComputer == true ? (computerHand, userHand) : (userHand, computerHand)
     
     let gameResult: GameResult = turnUserHand.playMukJJiPPa(against: opponentHand)
     switch gameResult {
     case .tie:
-        print("\(turnUser)의 승리!")
+        print("\(turnUser.displayName)의 승리!")
     case .lose:
-        print("\(opponent)의 턴 입니다.")
+        print("\(opponent.displayName)의 턴 입니다.")
         playMukJJiPPaGame(turnUser: opponent, opponent: turnUser)
     case .win:
-        print("\(turnUser)의 턴 입니다.")
+        print("\(turnUser.displayName)의 턴 입니다.")
         playMukJJiPPaGame(turnUser: turnUser, opponent: opponent)
     }
 }
@@ -189,9 +191,9 @@ func rockPaperScissorsGame() {
             gameResult.showGameResultMessage()
             
             if gameResult == .win {
-                playMukJJiPPaGame(turnUser: "사용자", opponent: "컴퓨터")
+                playMukJJiPPaGame(turnUser: (displayName: "사용자", isComputer: false) , opponent: (displayName: "컴퓨터", isComputer: true))
             } else if gameResult == .lose {
-                playMukJJiPPaGame(turnUser: "컴퓨터", opponent: "사용자")
+                playMukJJiPPaGame(turnUser: (displayName: "컴퓨터", isComputer: true), opponent: (displayName: "사용자", isComputer: false))
             }
             
             if(isGameEnd == true) {
