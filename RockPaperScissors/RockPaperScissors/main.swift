@@ -54,7 +54,7 @@ func receiveAndValidateUserInput() -> Int {
 func startGame() {
     let userHand = receiveAndValidateUserInput()
     if userHand == GameSettingValues.exitCondition {
-        printGameResult(of: GameMessages.endMessage)
+        printGameMessage(of: GameMessages.endMessage)
         return
     }
     guard let computerHand = generateComputerCard() else {
