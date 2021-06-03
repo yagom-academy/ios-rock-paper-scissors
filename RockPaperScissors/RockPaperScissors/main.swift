@@ -24,6 +24,7 @@ enum RockPaperScissors: CaseIterable {
 enum Player {
 	case user
 	case computer
+	case unknown
 	
 	var name: String {
 		if .user == self {
@@ -43,9 +44,9 @@ func receiveUserInput() -> Int {
 	return validConvertedInput
 }
 
-var winner: Player = .user
+var currentPlayer: Player = .unknown
 
-while true {
+while currentPlayer == .unknown {
 	
 	print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 	
@@ -77,10 +78,50 @@ while true {
 		print("비겼습니다!")
 	case userHand.winsAgainst():
 		print("이겼습니다!")
-		break
+		currentPlayer = .user
 	default:
 		print("졌습니다!")
-		winner = .computer
+		currentPlayer = .computer
+	}
+}
+
+var mookZziPpaWinner: Player = .unknown
+
+while mookZziPpaWinner == .unknown {
+	print("[\(currentPlayer.name) 턴] 묵(1), 찌(2), 빠(3)!<종료 : 0> : ", terminator: "")
+	let userDecision = receiveUserInput()
+	
+	if userDecision == 0 {
+		print("게임 종료")
 		break
+	}
+	
+	var userHand: RockPaperScissors
+
+	switch userDecision {
+	case 1:
+		userHand = .rock
+	case 2:
+		userHand = .scissors
+	case 3:
+		userHand = .paper
+	default:
+		print("잘못된 입력입니다. 다시 시도해주세요.")
+		currentPlayer = .computer
+		continue
+	}
+	
+	let computerHand = RockPaperScissors.allCases.randomElement()
+
+	switch computerHand {
+	case userHand:
+		print("\(currentPlayer.name)의 승리!")
+		mookZziPpaWinner = .computer
+	case userHand.winsAgainst():
+		currentPlayer = .user
+		print("\(currentPlayer.name)의 턴입니다")
+	default:
+		currentPlayer = .computer
+		print("\(currentPlayer.name)의 턴입니다")
 	}
 }
