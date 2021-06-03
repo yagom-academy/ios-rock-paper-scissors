@@ -29,21 +29,48 @@ enum Winner {
     }
 }
 
+enum Turn {
+    case none
+    case user
+    case computer
+    
+    var turnString: String {
+        switch self {
+        case .user:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        default:
+            return ""
+        }
+    }
+}
+
 struct Game {
+    var turn = Turn.none
+    
     func isValid(number: Int) -> Bool {
         let exitNumber = 0
         return RockScissorsPaper(rawValue: number) != nil || number == exitNumber
     }
-    
+
+    func printInputMessage() {
+        if turn == .none {
+            print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        } else {
+            print("[\(turn.turnString) ] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        }
+    }
+
     func inputFromUser() -> Int {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        printInputMessage()
         guard let input = readLine(), let number = Int(input), isValid(number: number) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return inputFromUser()
         }
         return number
     }
-    
+
     func whoIsWinner(userChoice: RockScissorsPaper , computerChoice: RockScissorsPaper) -> Winner {
         enum ValueDifference: Int {
             case tie
