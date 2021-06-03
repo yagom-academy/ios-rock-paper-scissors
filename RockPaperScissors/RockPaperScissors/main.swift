@@ -81,6 +81,13 @@ func rockPaperScissorsGame() -> Result {
     return gameResult
 }
 
+func mookJjeeBbaGame() {
+    var rockPaperScissorsResult: Result = .error
+    var currentTurn: Turn = .computerAttack
+
+    rockPaperScissorsResult = rockPaperScissorsGame()
+}
+
 // Main
 func console() {
     while true {
