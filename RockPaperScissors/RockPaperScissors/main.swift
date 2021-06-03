@@ -40,7 +40,9 @@ struct RockPaperScissorsGameConsole {
     
     private func requestUserInput() -> Int {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        guard let inputString = readLine(), let inputNumber = Int(inputString), 0 <= inputNumber && inputNumber <= 3 else {
+        guard let inputString = readLine(),
+              let inputNumber = Int(inputString),
+              0 <= inputNumber && inputNumber <= 3 else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return requestUserInput()
         }
@@ -53,7 +55,8 @@ struct RockPaperScissorsGameConsole {
     
     private mutating func compareWithUserInput(userNumber: Int) -> GameResult {
         let computerNumber = generateRandomNumber()
-        guard let userHand = RockPaperScissors(rawValue: userNumber), let computerHand = RockPaperScissors(rawValue: computerNumber) else { return GameResult.inputError }
+        guard let userHand = RockPaperScissors(rawValue: userNumber),
+              let computerHand = RockPaperScissors(rawValue: computerNumber) else { return GameResult.inputError }
         if userHand == computerHand {
             return GameResult.draw
         } else if isUserWin(userHand, computerHand) {
@@ -65,9 +68,15 @@ struct RockPaperScissorsGameConsole {
         }
     }
     
-    private mutating func printGameResult(gameResult: GameResult) {
+    private func printGameResult(gameResult: GameResult) {
+        switch gameResult {
+        case .win, .lose, .draw:
             print(gameResult.rawValue)
+            break
+        case .inputError:
+            break
         }
+    }
     
     mutating func gameStart() {
         while isGameOver == false {
