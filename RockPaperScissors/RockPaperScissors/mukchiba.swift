@@ -28,7 +28,7 @@ class Mukchiba: Game {
         currentWinner = .computer
     }
     
-    override func handleExit() {
+    override func handleExit() -> Void {
         isNotFinished = false
     }
 
