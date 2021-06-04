@@ -14,16 +14,15 @@ enum GameState: String{
 }
 
 class MukChiBba {
-
     enum Hand: Int {
         case stopGame = 0
         case muk = 1
         case chi = 2
         case bba = 3
     }
-
+    
     var whosTurn: GameState
-
+    
     init(prevWinner: GameState) {
         whosTurn = prevWinner
     }
@@ -38,12 +37,11 @@ class MukChiBba {
             whosTurn = .computerTurn
             return setUserHand()
         }
-
+        
         return usersHand
     }
 
     func validateMatchBetween(userHand user: Hand, computerHand computer: Hand) -> GameState {
-
         var outcome: GameState
         
         if user == computer {
@@ -90,15 +88,13 @@ class MukChiBba {
         var outcome = GameState.drawGame
         
         while gameContinue {
-            
             let usersHand = setUserHand()
             outcome = matchOutcome(of: usersHand)
             
             if outcome == .drawGame {
                 gameContinue = false
                 print("\(whosTurn.rawValue)의 승리입니다")
-            }
-            else {
+            } else {
                 whosTurn = outcome
                 gameContinue = outcome != .endGame
             }
@@ -106,12 +102,9 @@ class MukChiBba {
         
         return outcome
     }
-
-
 }
 
 class RockPaperScissors {
-    
     enum Hand: Int {
         case stopGame = 0
         case scissors = 1
@@ -132,9 +125,7 @@ class RockPaperScissors {
         return usersHand
     }
     
-    
     func validateMatchBetween(userHand user: Hand, computerHand computer: Hand) -> GameState {
-        
         var outcome: GameState
         
         if (user == .scissors && computer == .rock) ||
@@ -192,6 +183,5 @@ var gameContinue = true
 while gameContinue {
     let winner = RockPaperScissors().startGame()
     let outcome = MukChiBba(prevWinner: winner).startGame()
-    
     gameContinue = outcome != GameState.endGame
 }
