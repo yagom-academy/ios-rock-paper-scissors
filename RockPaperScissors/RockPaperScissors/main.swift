@@ -72,8 +72,12 @@ enum Turn: CustomStringConvertible {
     case userAttack
     case computerAttack
     
-    func changeTurn() {}
-    var description: String { return ""}
+    func changeTurn() -> Turn {
+        return ( self == .userAttack ? .computerAttack : .userAttack )
+    }
+    var description: String {
+        return ( self == .userAttack ? "사용자" : "컴퓨터" )
+    }
 }
 
 let rockPaperScissorsMessage = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
