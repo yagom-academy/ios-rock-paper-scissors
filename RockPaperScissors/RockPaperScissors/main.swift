@@ -34,7 +34,7 @@ enum MukChiBa: Int {
     case ba
 }
 
-enum gameMode: Int {
+enum GameMode: Int {
     case rockPaperScissors = 1
     case mukChiBa
 }
@@ -46,7 +46,7 @@ func isGameEnd(userNumber: Int) -> Bool {
     return false
 }
 
-func printGameMenu(gameMode: gameMode, winnerName: String = "사용자") {
+func printGameMenu(gameMode: GameMode, winnerName: String = "사용자") {
     switch gameMode {
     case .rockPaperScissors:
         print(Message.rockPaperScissorsMenu, terminator: "")
@@ -55,7 +55,7 @@ func printGameMenu(gameMode: gameMode, winnerName: String = "사용자") {
     }
 }
 
-func receiveUserNumber(gameMode: gameMode) -> Int? {
+func receiveUserNumber(gameMode: GameMode) -> Int? {
     switch gameMode {
     case .rockPaperScissors:
         guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
