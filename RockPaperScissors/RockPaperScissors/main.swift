@@ -115,7 +115,7 @@ class RockScissorsPaper {
                 print(Message.end)
                 return nil
             }
-            
+
             firstResult = try! compare(userHand: userHand, computerHand: generateComputerHand())
             print(firstResult)
         } while firstResult == Result.draw
