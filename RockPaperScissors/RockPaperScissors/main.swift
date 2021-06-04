@@ -56,6 +56,16 @@ enum Hand: Int {
     case rock
     case paper
     case inputError
+    
+    func swichingRockAndScissors() -> Hand {
+        if self == .rock {
+            return .scissors
+        } else if self == .scissors {
+            return .rock
+        } else {
+            return self
+        }
+    }
 }
 
 enum Turn: CustomStringConvertible {
