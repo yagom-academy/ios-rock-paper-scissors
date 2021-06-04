@@ -23,6 +23,9 @@ fileprivate enum GameError: Error, CustomStringConvertible {
 }
 
 class RockScissorsPaper {
+    fileprivate lazy var userInputArray: [Int] = [0, 1, 2, 3]
+    fileprivate lazy var gameTurn = Turn.userTurn
+    
     fileprivate enum Hand : Int, CaseIterable {
         case scissors = 1
         case rock = 2
@@ -82,12 +85,12 @@ class RockScissorsPaper {
     }
     
     fileprivate func choiceUserHand() -> Hand? {
-           print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-           guard let userInput = (readLine().flatMap{ Int($0) }), userInputArray.contains(userInput) else {
-               print(Message.invaild)
-               return choiceUserHand()
-           }
-           
-           return Hand(rawValue: userInput)
-       }
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+        guard let userInput = (readLine().flatMap{ Int($0) }), userInputArray.contains(userInput) else {
+            print(Message.invaild)
+            return choiceUserHand()
+        }
+        
+        return Hand(rawValue: userInput)
+    }
 }
