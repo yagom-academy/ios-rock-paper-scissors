@@ -46,26 +46,59 @@ func isGameEnd(userNumber: Int) -> Bool {
     return false
 }
 
-func receiveUserNumber(gameMode: gameMode, winnerName: String = "사용자") -> Int {
-    while true {
-        if gameMode.rawValue == 1 {
-            print(Message.rockPaperScissorsMenu, terminator: "")
-        } else {
-            print("[\(winnerName) 턴]", Message.mukChiBaMenu, terminator: "")
-        }
-        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
-            print(Message.wrongInput)
-            continue
-        }
-        return inputNumber
+func printGameMenu(gameMode: gameMode, winnerName: String = "사용자") {
+    switch gameMode {
+    case .rockPaperScissors:
+        print(Message.rockPaperScissorsMenu, terminator: "")
+    case .mukChiBa:
+        print("[\(winnerName)턴]", Message.mukChiBaMenu, terminator: "")
     }
 }
+
+func receiveUserNumber(gameMode: gameMode) -> Int {
+    while true {
+        switch gameMode {
+        case .rockPaperScissors:
+            guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
+                print(Message.wrongInput)
+                continue
+            }
+        case .mukChiBa:
+            guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
+                playMukChiBa(isUserWin: false)
+                break
+            }
+        }
+        return 0
+    }
+    
+    
+    
+    //    while true {
+    //        if gameMode.rawValue == 1 {
+    //            print(Message.rockPaperScissorsMenu, terminator: "")
+    //        } else {
+    //            print("[\(winnerName) 턴]", Message.mukChiBaMenu, terminator: "")
+    //        }
+    //
+    //        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
+    //            print(Message.wrongInput)
+    //            if gameMode.rawValue == 2 {
+    //                playMukChiBa(isUserWin: false)
+    //            }
+    //            continue
+    //        }
+    //        return inputNumber
+    //    }
+}
+
 
 func makeComputerNumber() -> Int {
     return Int.random(in: RockPaperScissors.scissors.rawValue...RockPaperScissors.paper.rawValue)
 }
 
 func playRockPaperScissors() {
+    printGameMenu(gameMode: .rockPaperScissors)
     let userNumber = receiveUserNumber(gameMode: .rockPaperScissors)
     if isGameEnd(userNumber: userNumber) {
         print(Message.gameOver)
@@ -91,7 +124,8 @@ func playRockPaperScissors() {
 
 func playMukChiBa(isUserWin: Bool) {
     var isUserTurn = isUserWin
-    let userNumber = receiveUserNumber(gameMode: .mukChiBa, winnerName: isUserTurn ? "사용자" : "컴퓨터") // 유저가 잘못 입력했을 때, 턴이 컴퓨터로 안돌아감
+    printGameMenu(gameMode: .mukChiBa, winnerName: isUserTurn ? "사용자" : "컴퓨터")
+    let userNumber = receiveUserNumber(gameMode: .mukChiBa) // 유저가 잘못 입력했을 때, 턴이 컴퓨터로 안돌아감
     
     if isGameEnd(userNumber: userNumber) {
         print(Message.gameOver)
@@ -138,4 +172,5 @@ func playMukChiBa(isUserWin: Bool) {
 }
 
 playRockPaperScissors()
+
 
