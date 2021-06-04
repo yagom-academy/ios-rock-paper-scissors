@@ -103,8 +103,23 @@ class RockScissorsPaper {
     }
     
     fileprivate func compare(userHand: Hand, computerHand: Hand) -> Result {
-            let result = Result.compareHand(userHand, with: computerHand)
-            return result
-        }
+        let result = Result.compareHand(userHand, with: computerHand)
+        return result
+    }
+    
+    fileprivate func startGame() -> Turn? {
+        var firstResult: Result
+        
+        repeat {
+            guard let userHand = choiceUserHand() else {
+                print(Message.end)
+                return nil
+            }
+            firstResult = try! compare(userHand: userHand, computerHand: generateComputerHand())
+            print(firstResult)
+        } while firstResult == Result.draw
+        
+        return (firstResult == .win) ? Turn.userTurn : .computerTurn
+    }
 }
 
