@@ -123,3 +123,7 @@ class RockScissorsPaper {
     }
 }
 
+final class Mukjjippa: RockScissorsPaper {
+    
+}
+
