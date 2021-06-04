@@ -170,3 +170,20 @@ final class Mukjjippa: RockScissorsPaper {
     }
 }
 
+var rockScissorsPaper = RockScissorsPaper()
+var mujjippa = Mukjjippa()
+
+
+while true {
+    guard let rockPaperScissorsResult = rockScissorsPaper.startGame() else {
+        break
+    }
+    
+    rockScissorsPaper.gameTurn = rockPaperScissorsResult
+    
+    if !mujjippa.startGame() {
+        print(Message.end)
+        break
+    }
+}
+
