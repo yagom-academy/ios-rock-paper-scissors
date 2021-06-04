@@ -12,6 +12,13 @@ enum RockPaperScissors: Int, CaseIterable {
     case paper = 3
 }
 
+enum InputUserError: Error {
+    case inputNothing
+    case notIntValue
+    case outOfRange
+    case exit
+}
+
 enum GameState: String {
     case win = "이겼습니다!"
     case lose = "졌습니다!"
@@ -28,6 +35,8 @@ enum Mode {
     case Mukjjipa
 }
 
+let Exit: Int = 0
+
 func printRockPaperScissorsMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
@@ -43,22 +52,21 @@ func generateComputerValue() -> RockPaperScissors {
     return value
 }
 
-func inputUserValue(mode: Mode, winner: Player) -> RockPaperScissors? {
-    guard let userNumber = readLine(), let convertedNumber = Int(userNumber) else {
-        printError()
-        selectMenu(mode: mode, winner: winner)
-        return inputUserValue(mode: mode, winner: winner)
+func inputUserValue(mode: Mode, winner: Player) throws -> RockPaperScissors? {
+    guard let userNumber = readLine() else {
+        throw InputUserError.inputNothing
+    }
+    
+    guard let convertedNumber = Int(userNumber) else {
+        throw InputUserError.notIntValue
     }
     
     if convertedNumber == 0 {
-        print("게임 종료")
-        return nil
+        throw InputUserError.exit
     }
     
     guard let userValue = RockPaperScissors(rawValue: convertedNumber) else {
-        printError()
-        selectMenu(mode: mode, winner: winner)
-        return inputUserValue(mode: mode, winner: winner)
+        throw InputUserError.outOfRange
     }
     return userValue
 }
@@ -66,9 +74,9 @@ func inputUserValue(mode: Mode, winner: Player) -> RockPaperScissors? {
 func selectMenu(mode: Mode, winner: Player) {
     switch mode {
     case .RockPaperScissors:
-        startStageOne()
+        printRockPaperScissorsMenu()
     case .Mukjjipa:
-        startStageTwo(thisTurnPlayer: winner)
+        printMukjjipaMenu(winner: winner)
     }
 }
 
@@ -129,34 +137,78 @@ func compareWhosTurn(thisGameState: GameState) -> Player {
     }
 }
 
-func startStageOne() {
+func startRockPaperScissors() {
     printRockPaperScissorsMenu()
-    guard let userValue = inputUserValue(mode: .RockPaperScissors, winner: .user) else {
+    var inputValue: RockPaperScissors? = nil
+    repeat {
+        do {
+            inputValue = try inputUserValue(mode: .RockPaperScissors, winner: .user)
+        } catch InputUserError.inputNothing {
+            printError()
+            selectMenu(mode: .RockPaperScissors, winner: .user)
+        } catch InputUserError.notIntValue {
+            printError()
+            selectMenu(mode: .RockPaperScissors, winner: .user)
+        } catch InputUserError.outOfRange {
+            printError()
+            selectMenu(mode: .RockPaperScissors, winner: .user)
+        } catch InputUserError.exit {
+            print("게임 종료")
+            return
+        } catch {
+            printError()
+        }
+    } while inputValue == nil
+    
+    guard let userValue = inputValue else {
         return
     }
+        
     let thisGameResult = compareValue(myValue: userValue, otherValue: generateComputerValue())
-    if checkIsDraw(thisGameResult: thisGameResult) {
+    if thisGameResult == .draw {
         printGameResult(gameResult: thisGameResult)
-        startStageOne()
+        startRockPaperScissors()
     } else {
         printGameResult(gameResult: thisGameResult)
-        startStageTwo(thisTurnPlayer: compareWhosTurn(thisGameState: thisGameResult))
+        startMukjjaipa(thisTurnPlayer: compareWhosTurn(thisGameState: thisGameResult))
     }
 }
 
-func startStageTwo(thisTurnPlayer: Player) {
+func startMukjjaipa(thisTurnPlayer: Player) {
     printMukjjipaMenu(winner: thisTurnPlayer)
-    guard let userValue = inputUserValue(mode: .Mukjjipa, winner: thisTurnPlayer) else {
+    var inputValue: RockPaperScissors? = nil
+    repeat {
+        do {
+            inputValue = try inputUserValue(mode: .Mukjjipa, winner: thisTurnPlayer)
+        } catch InputUserError.inputNothing {
+            printError()
+            selectMenu(mode: .Mukjjipa, winner: thisTurnPlayer)
+        } catch InputUserError.notIntValue {
+            printError()
+            selectMenu(mode: .Mukjjipa, winner: thisTurnPlayer)
+        } catch InputUserError.outOfRange {
+            printError()
+            selectMenu(mode: .Mukjjipa, winner: thisTurnPlayer)
+        } catch InputUserError.exit {
+            print("게임 종료")
+            return
+        } catch {
+            printError()
+        }
+    } while inputValue == nil
+    
+    guard let userValue = inputValue else {
         return
     }
+    
     let thisGameResult = compareValue(myValue: userValue, otherValue: generateComputerValue())
-    if checkIsDraw(thisGameResult: thisGameResult){
+    if thisGameResult == .draw {
         printWinner(winner: thisTurnPlayer)
-        startStageOne()
+        startRockPaperScissors()
     } else {
         printWhosTurn(winner: compareWhosTurn(thisGameState: thisGameResult))
-        startStageTwo(thisTurnPlayer: compareWhosTurn(thisGameState: thisGameResult))
+        startMukjjaipa(thisTurnPlayer: compareWhosTurn(thisGameState: thisGameResult))
     }
 }
 
-startStageOne()
+startRockPaperScissors()
