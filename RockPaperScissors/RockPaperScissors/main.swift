@@ -110,12 +110,25 @@ func doRockPaperScissors() -> Result {
     return gameResult
 }
 
-func doMookJjeeBba(_ currentTurn: Turn) -> Bool {
+func doMookJjeeBba(_ currentTurn: inout Turn) -> Bool {
     guard var userHand = Hand(rawValue: userInputNumber("[\(currentTurn.description) 턴]" + mookJjeeBbaMessage)) else { return true }
     userHand = userHand.swichingRockAndScissors()
     guard let computerHand = Hand(rawValue: makeRandomNumber()) else { return true }
     
-    if userHand == .inputExit { return false }
+    if userHand == .inputExit {
+        return false
+    } else if userHand == .inputError {
+        currentTurn = .computerAttack
+        return true
+    }
+    
+    var mookJjeeBbaResult: Result = .error
+    switch currentTurn {
+    case .userAttack:
+        mookJjeeBbaResult = Result.decideMJBResult(defense: computerHand, offense: userHand)
+    case .computerAttack:
+        mookJjeeBbaResult = Result.decideMJBResult(defense: userHand, offense: computerHand)
+    }
     
     return true
 }
@@ -136,7 +149,7 @@ func mookJjeeBbaGame() -> Bool {
     }
     
     while true {
-        if !doMookJjeeBba(currentTurn) { return false }
+        if !doMookJjeeBba(&currentTurn) { return false }
     }
     
     return true
