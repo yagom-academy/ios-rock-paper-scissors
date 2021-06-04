@@ -93,4 +93,13 @@ class RockScissorsPaper {
         
         return Hand(rawValue: userInput)
     }
+    
+    fileprivate func generateComputerHand() throws -> Hand {
+        guard let randomHand = Hand.allCases.randomElement() else {
+            throw GameError.emptyCollection
+        }
+        
+        return randomHand
+    }
 }
+
