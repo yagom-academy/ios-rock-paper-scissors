@@ -98,6 +98,15 @@ func makeRandomNumber() -> Int {
     return Int.random(in:1...3)
 }
 
+func getResultDependsOnTurns(_ currentTurn: Turn, user userHand: Hand, computer computerHand: Hand) -> Result {
+    switch currentTurn {
+    case .userAttack:
+        return Result.decideMJBResult(defense: computerHand, offense: userHand)
+    case .computerAttack:
+        return Result.decideMJBResult(defense: userHand, offense: computerHand)
+    }
+}
+
 func doRockPaperScissors() -> Result {
     guard let userHand = Hand(rawValue: userInputNumber(rockPaperScissorsMessage)) else { return .error }
     guard let computerHand = Hand(rawValue: makeRandomNumber()) else { return .error }
@@ -107,6 +116,8 @@ func doRockPaperScissors() -> Result {
     } else if userHand == .inputError {
         return .error
     }
+    // 동작 확인 용 프린트
+//    print("사용자 \(userHand) / 컴퓨터 \(computerHand)")
 
     let gameResult = Result.decideRPSResult(defense: computerHand, offense: userHand)
     print(gameResult.description)
@@ -126,14 +137,22 @@ func doMookJjeeBba(_ currentTurn: inout Turn) -> Bool {
         return true
     }
     
-    var mookJjeeBbaResult: Result = .error
-    switch currentTurn {
-    case .userAttack:
-        mookJjeeBbaResult = Result.decideMJBResult(defense: computerHand, offense: userHand)
-    case .computerAttack:
-        mookJjeeBbaResult = Result.decideMJBResult(defense: userHand, offense: computerHand)
-    }
+    // 동작 확인 용 프린트
+//    print("사용자 \(userHand) / 컴퓨터 \(computerHand) / 턴 \(currentTurn)")
     
+    let mookJjeeBbaResult: Result = getResultDependsOnTurns(currentTurn, user: userHand, computer: computerHand)
+    switch mookJjeeBbaResult {
+    case .win:
+        print("\(currentTurn.description)의 승리!")
+        return false
+    case .lose:
+        currentTurn = currentTurn.changeTurn()
+    case .error:
+        currentTurn = .computerAttack
+    default:
+        break
+    }
+    print("\(currentTurn.description)의 턴입니다!")
     return true
 }
 
@@ -155,8 +174,6 @@ func mookJjeeBbaGame() -> Bool {
     while true {
         if !doMookJjeeBba(&currentTurn) { return false }
     }
-    
-    return true
 }
 
 // Main
