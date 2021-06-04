@@ -101,5 +101,10 @@ class RockScissorsPaper {
         
         return randomHand
     }
+    
+    fileprivate func compare(userHand: Hand, computerHand: Hand) -> Result {
+            let result = Result.compareHand(userHand, with: computerHand)
+            return result
+        }
 }
 
