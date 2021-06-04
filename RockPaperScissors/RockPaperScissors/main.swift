@@ -21,3 +21,6 @@ fileprivate enum GameError: Error, CustomStringConvertible {
         }
     }
 }
+
+class RockScissorsPaper {
+}
