@@ -13,26 +13,6 @@ enum GameState: String{
     case endGame
 }
 
-protocol HandReader {
-    func setUserHand() -> Any
-}
-
-extension HandReader {
-    
-    func setUserHand<T: RawRepresentable> (message: String, gameType: T.Type) where T.RawValue == Int -> T {
-        
-        guard let input = readLine(),
-              let value = Int(input),
-              let usersHand = T(rawValue: value) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            whosTurn = .computerTurn
-            return setUserHand()
-        }
-        
-        return T()
-    }
-}
-
 class MukChiBba {
     enum Hand: Int {
         case stopGame = 0
