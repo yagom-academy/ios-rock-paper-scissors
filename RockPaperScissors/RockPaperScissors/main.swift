@@ -10,8 +10,7 @@ typealias Player = (displayName: String, isComputer: Bool)
 
 var isGameEnd = false
 let exitNumber = 0
-let minMenuNumber = 0
-let maxMenuNumber = 3
+let validMenuNumbers = [0, 1, 2, 3]
 
 enum MukJJiPPa: Int, CaseIterable {
     case muk = 1
@@ -23,14 +22,7 @@ enum MukJJiPPa: Int, CaseIterable {
     }
     
     var menuNumber: Int {
-        switch self {
-        case .muk:
-            return 1
-        case .jji:
-            return 2
-        case .ppa:
-            return 3
-        }
+        return self.rawValue
     }
     
     func playMukJJiPPa(against opponent: MukJJiPPa) -> GameResult {
@@ -58,14 +50,7 @@ enum RockPaperScissors: Int, CaseIterable {
     }
     
     var menuNumber: Int {
-        switch self {
-        case .scissors:
-            return 1
-        case .rock:
-            return 2
-        case .paper:
-            return 3
-        }
+        return self.rawValue
     }
     
     func playRockScissorsPaper(against opponent: RockPaperScissors) -> GameResult {
@@ -108,6 +93,14 @@ func showMukJJiPPaMenu(displayName: String) {
     print("[\(displayName)의 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
 }
 
+func showMukJJiPPaTurn(of displayName: String) {
+    print("\(displayName)의 턴 입니다.")
+}
+
+func showMukJJiPPaVictoryMessage(of displayName: String) {
+    print("\(displayName)의 승리!")
+}
+
 func showWrongInputMessage() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
@@ -125,7 +118,7 @@ func receiveUserInputNumber() -> Int {
 
     guard let userInput = readLine(),
           let convertedUserInput = Int(userInput),
-          (minMenuNumber...maxMenuNumber).contains(convertedUserInput) else {
+          validMenuNumbers.contains(convertedUserInput) else {
         showWrongInputMessage()
         return receiveUserInputNumber()
     }
@@ -137,7 +130,7 @@ func playMukJJiPPaGame(turnUser: Player, opponent: Player) {
     
     guard let userInput = readLine(),
           let convertedUserInput = Int(userInput),
-          (minMenuNumber...maxMenuNumber).contains(convertedUserInput) else {
+          validMenuNumbers.contains(convertedUserInput) else {
         showWrongInputMessage()
         if turnUser.isComputer == true {
             playMukJJiPPaGame(turnUser: turnUser, opponent: opponent)
@@ -165,26 +158,26 @@ func playMukJJiPPaGame(turnUser: Player, opponent: Player) {
     
     switch gameResult {
     case .tie:
-        print("\(turnUser.displayName)의 승리!")
+        showMukJJiPPaVictoryMessage(of: turnUser.displayName)
     case .lose:
-        print("\(opponent.displayName)의 턴 입니다.")
+        showMukJJiPPaTurn(of: opponent.displayName)
         playMukJJiPPaGame(turnUser: opponent, opponent: turnUser)
     case .win:
-        print("\(turnUser.displayName)의 턴 입니다.")
+        showMukJJiPPaTurn(of: turnUser.displayName)
         playMukJJiPPaGame(turnUser: turnUser, opponent: opponent)
     }
 }
 
 func rockPaperScissorsGame() {
     while true {
-        let userInputNumber: Int = receiveUserInputNumber()
+        let userInputNumber = receiveUserInputNumber()
         if userInputNumber == exitNumber {
             showGameEndMessage()
             return
         }
         if let userHand = RockPaperScissors(rawValue: userInputNumber) {
             let computerHand = RockPaperScissors.generateRandomHand()
-            let gameResult: GameResult = userHand.playRockScissorsPaper(against: computerHand)
+            let gameResult = userHand.playRockScissorsPaper(against: computerHand)
 
             gameResult.showGameResultMessage()
             
