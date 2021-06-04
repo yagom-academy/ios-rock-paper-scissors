@@ -6,72 +6,108 @@
 
 import Foundation
 
-enum GameState {
-    case userWin
-    case computerWin
+enum GameState: String{
+    case userTurn = "사용자"
+    case computerTurn = "컴퓨터"
     case drawGame
     case endGame
 }
 
-
 class MukChiBba {
-    
+
     enum Hand: Int {
         case stopGame = 0
         case muk = 1
         case chi = 2
         case bba = 3
     }
-    
+
     var whosTurn: GameState
-    
+
     init(prevWinner: GameState) {
         whosTurn = prevWinner
     }
-    
+
     func setUserHand() -> Hand {
-        print("[\(whosTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: "")
-        
+        print("[\(whosTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: "")
+
         guard let input = readLine(),
               let value = Int(input),
               let usersHand = Hand(rawValue: value) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
+            whosTurn = .computerTurn
             return setUserHand()
         }
-        
+
         return usersHand
     }
-    
+
     func validateMatchBetween(userHand user: Hand, computerHand computer: Hand) -> GameState {
-        
+
         var outcome: GameState
         
         if user == computer {
-            outcome = whosTurn
-        } else if whosTurn == .computerWin {
-            outcome = .userWin
+            outcome = .drawGame
+        } else if (user == .muk && computer == .chi) ||
+                    (user == .chi && computer == .bba) ||
+                    (user == .bba && computer == .muk) {
+            outcome = .userTurn
+            print("\(outcome.rawValue)의 턴입니다")
         } else {
-            outcome = .computerWin
+            outcome = .computerTurn
+            print("\(outcome.rawValue)의 턴입니다")
         }
+        
         return outcome
     }
-    
+
     func matchOutcome(of userHand: Hand) -> GameState {
+        guard userHand != .stopGame else {
+            return .endGame
+        }
         
+        var computerHand: Hand
+        
+        switch Int.random(in: 1...3) {
+        case 1:
+            computerHand = .muk
+        case 2:
+            computerHand = .chi
+        default:
+            computerHand = .bba
+        }
+        
+        return validateMatchBetween(userHand: userHand, computerHand: computerHand)
     }
-    
-    
-    func gameStart() {
+
+
+    func startGame() -> GameState {
         guard whosTurn != .endGame else {
-            return
+            return .endGame
         }
+        
         var gameContinue = true
+        var outcome = GameState.drawGame
+        
         while gameContinue {
-            gameContinue = true
+            
+            let usersHand = setUserHand()
+            outcome = matchOutcome(of: usersHand)
+            
+            if outcome == .drawGame {
+                gameContinue = false
+                print("\(whosTurn.rawValue)의 승리입니다")
+            }
+            else {
+                whosTurn = outcome
+                gameContinue = outcome != .endGame
+            }
         }
+        
+        return outcome
     }
-    
-    
+
+
 }
 
 class RockPaperScissors {
@@ -105,13 +141,13 @@ class RockPaperScissors {
             (user == .rock && computer == .paper) ||
             (user == .paper && computer == .scissors) {
             print("졌습니다!")
-            outcome = .computerWin
+            outcome = .computerTurn
         } else if user == computer {
             print("비겼습니다!")
             outcome = .drawGame
         } else {
             print("이겼습니다!")
-            outcome = .userWin
+            outcome = .userTurn
         }
         
         return outcome
@@ -136,16 +172,26 @@ class RockPaperScissors {
         return validateMatchBetween(userHand: userHand, computerHand: computerHand)
     }
     
-    func startGame() {
+    func startGame() -> GameState {
         var gameContinue = true
+        var outcome = GameState.drawGame
         
         while gameContinue {
-            
-            let myHand = setUsersHand()
-            let outcome = matchOutcome(of: myHand)
-            gameContinue = outcome == .continueGame
+            let myHand = setUserHand()
+            outcome = matchOutcome(of: myHand)
+            gameContinue = outcome == .drawGame
         }
+        
+        return outcome
     }
 }
 
-RockPaperScissors().startGame()
+
+var gameContinue = true
+
+while gameContinue {
+    let winner = RockPaperScissors().startGame()
+    let outcome = MukChiBba(prevWinner: winner).startGame()
+    
+    gameContinue = outcome != GameState.endGame
+}
