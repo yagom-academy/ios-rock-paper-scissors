@@ -26,14 +26,19 @@ struct Game {
     }
     
     var turn = Turn.notDecided
+    let wrongInputInMukjjibba = -1
     
     func isValid(number: Int) -> Bool {
         let exitNumber = 0
         return RockPaperScissors(rawValue: number) != nil || number == exitNumber
     }
-
+    
+    func isPlayingRockPaperScissor() -> Bool {
+        return turn == .notDecided
+    }
+    
     func printInputMessage() {
-        if turn == .notDecided {
+        if isPlayingRockPaperScissor() {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         } else {
             print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
@@ -44,8 +49,9 @@ struct Game {
         printInputMessage()
         guard let input = readLine(), let number = Int(input), isValid(number: number) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return inputFromUser()
+            return isPlayingRockPaperScissor() ? inputFromUser() : wrongInputInMukjjibba
         }
+        
         return number
     }
     
@@ -83,9 +89,22 @@ struct Game {
         return resultMessage
     }
     
-    mutating func play(userChoice: RockPaperScissors, computerChoice: RockPaperScissors) {
+    func isRockPaperScissorsOrRightInput(userInput: Int) -> Bool {
+        return isPlayingRockPaperScissor() || userInput != wrongInputInMukjjibba
+    }
+    
+    mutating func play(userInput: Int) {
+        guard  isRockPaperScissorsOrRightInput(userInput: userInput) else {
+            turn = .computer
+            return
+        }
+        guard let userChoice = RockPaperScissors(rawValue: userInput),
+              let computerChoice = RockPaperScissors(rawValue: Int.random(in: 1...3))
+        else {
+            return
+        }
         let resultMessage: String
-        if turn == .notDecided {
+        if isPlayingRockPaperScissor() {
             resultMessage = playRockPaperScissors(userChoice: userChoice, computerChoice: computerChoice)
         } else {
             resultMessage = playMukjjibba(userChoice: userChoice, computerChoice: computerChoice)
@@ -103,12 +122,7 @@ struct Game {
             print("게임 종료")
             return
         }
-        guard let userChoice = RockPaperScissors(rawValue: userInput),
-              let computerChoice = RockPaperScissors(rawValue: Int.random(in: 1...3))
-        else {
-            return
-        }
-        play(userChoice: userChoice, computerChoice: computerChoice)
+        play(userInput: userInput)
         start()
     }
 }
