@@ -112,23 +112,21 @@ func judgeRockScissorsPaperResult(userNumber: Int) {
     }
 }
 
-startGame()
-
 func judgeMookJjiBbaResult(userNumber: Int) {
     let randomComputernumber = generateComputernumber()
     let judgingIndicator = userNumber - randomComputernumber
 
     if judgingIndicator == -1 || judgingIndicator == 2 {
-        print("[사용자 턴] ", terminator:" ")
         print("사용자 턴입니다.")
+        print("[사용자 턴] ", terminator:" ")
         userTurn = true
         computerTurn = false
         
         return startGame()
 
     } else if judgingIndicator == 1 || judgingIndicator == -2 {
-        print("[컴퓨터 턴] ", terminator:" ")
         print("컴퓨터 턴입니다.")
+        print("[컴퓨터 턴] ", terminator:" ")
         userTurn = false
         computerTurn = true
         
@@ -149,3 +147,5 @@ func judgeMookJjiBbaResult(userNumber: Int) {
         return startGame()
     }
 }
+
+startGame()
