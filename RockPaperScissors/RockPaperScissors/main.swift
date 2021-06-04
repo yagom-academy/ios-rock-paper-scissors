@@ -124,6 +124,26 @@ class RockScissorsPaper {
 }
 
 final class Mukjjippa: RockScissorsPaper {
-    
+    fileprivate override func choiceUserHand() -> Hand? {
+            print("[\(gameTurn)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+            let userInputArray: [Int] = [0, 1, 2, 3]
+            
+            guard let userInput = (readLine().flatMap{ Int($0) }), userInputArray.contains(userInput) else {
+                print(Message.invaild)
+                gameTurn = Turn.convert(gameTurn)
+                return choiceUserHand()
+            }
+            
+            switch userInput {
+            case 1:
+                return Hand.rock
+            case 2:
+                return Hand.scissors
+            case 3:
+                return Hand.paper
+            default:
+                return Hand(rawValue: 0)
+            }
+        }
 }
 
