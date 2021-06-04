@@ -19,22 +19,26 @@ class RockPaperScissors {
         case endGame
     }
     
-    func settingUsersHand() -> Hand {
+    func setUsersHand() -> Hand {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        
         guard let input = readLine(),
               let value = Int(input),
               let usersHand = Hand(rawValue: value) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return settingUsersHand()
+            return setUsersHand()
         }
+        
         return usersHand
     }
     
     func matchOutcome(of userHand: Hand) -> GameState {
-        guard userHand != Hand.stopGame else {
-            return GameState.endGame
+        guard userHand != .stopGame else {
+            return .endGame
         }
+        
         var computerHand: Hand
+        
         switch Int.random(in: 1...3) {
         case 1:
             computerHand = .rock
@@ -43,7 +47,8 @@ class RockPaperScissors {
         default:
             computerHand = .scissors
         }
-        if  (userHand == .scissors && computerHand == .rock) ||
+        
+        if (userHand == .scissors && computerHand == .rock) ||
             (userHand == .rock && computerHand == .paper) ||
             (userHand == .paper && computerHand == .scissors) {
             print("졌습니다!")
@@ -52,15 +57,18 @@ class RockPaperScissors {
         } else {
             print("이겼습니다!")
         }
-        return GameState.continueGame
+        
+        return .continueGame
     }
     
     func startGame() {
         var gameContinue = true
+        
         while gameContinue {
-            let myHand = settingUsersHand()
+            let myHand = setUsersHand()
             let outcome = matchOutcome(of: myHand)
-            gameContinue = outcome == GameState.continueGame
+            
+            gameContinue = outcome == .continueGame
         }
     }
 }
