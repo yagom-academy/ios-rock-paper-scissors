@@ -157,8 +157,6 @@ func playMookJjeeBba(_ currentTurn: inout Turn) -> Bool {
 }
 
 func mookJjeeBbaGame() -> Bool {
-    var currentTurn: Turn = .computerAttack
-
     let rockPaperScissorsResult = playRockPaperScissors()
     
     switch rockPaperScissorsResult {
@@ -167,11 +165,10 @@ func mookJjeeBbaGame() -> Bool {
     case .exit:
         return false
     default:
-        currentTurn = ( rockPaperScissorsResult == .win ? .userAttack : .computerAttack )
-    }
-    
-    while true {
-        if !playMookJjeeBba(&currentTurn) { return false }
+        var currentTurn: Turn = ( rockPaperScissorsResult == .win ? .userAttack : .computerAttack )
+        while true {
+            if !playMookJjeeBba(&currentTurn) { return false }
+        }
     }
 }
 
