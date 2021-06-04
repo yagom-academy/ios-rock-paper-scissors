@@ -16,7 +16,7 @@ enum InputUserError: Error {
     case inputNothing
     case notIntValue
     case outOfRange
-    case exit
+    case selectExit
 }
 
 enum GameState: String {
@@ -34,8 +34,6 @@ enum Mode {
     case RockPaperScissors
     case Mukjjipa
 }
-
-let Exit: Int = 0
 
 func printRockPaperScissorsMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -62,7 +60,7 @@ func inputUserValue(mode: Mode, winner: Player) throws -> RockPaperScissors? {
     }
     
     if convertedNumber == 0 {
-        throw InputUserError.exit
+        throw InputUserError.selectExit
     }
     
     guard let userValue = RockPaperScissors(rawValue: convertedNumber) else {
@@ -152,7 +150,7 @@ func startRockPaperScissors() {
         } catch InputUserError.outOfRange {
             printError()
             selectMenu(mode: .RockPaperScissors, winner: .user)
-        } catch InputUserError.exit {
+        } catch InputUserError.selectExit {
             print("게임 종료")
             return
         } catch {
@@ -189,7 +187,7 @@ func startMukjjaipa(thisTurnPlayer: Player) {
         } catch InputUserError.outOfRange {
             printError()
             selectMenu(mode: .Mukjjipa, winner: thisTurnPlayer)
-        } catch InputUserError.exit {
+        } catch InputUserError.selectExit {
             print("게임 종료")
             return
         } catch {
