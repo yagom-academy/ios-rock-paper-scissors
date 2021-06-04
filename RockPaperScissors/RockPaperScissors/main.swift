@@ -55,41 +55,23 @@ func printGameMenu(gameMode: gameMode, winnerName: String = "사용자") {
     }
 }
 
-func receiveUserNumber(gameMode: gameMode) -> Int {
-    while true {
-        switch gameMode {
-        case .rockPaperScissors:
-            guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
-                print(Message.wrongInput)
-                continue
-            }
-        case .mukChiBa:
-            guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
-                playMukChiBa(isUserWin: false)
-                break
-            }
+func receiveUserNumber(gameMode: gameMode) -> Int? {
+    switch gameMode {
+    case .rockPaperScissors:
+        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
+            print(Message.wrongInput)
+            playRockPaperScissors()
+            return nil
         }
-        return 0
+        return inputNumber
+    case .mukChiBa:
+        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
+            print(Message.wrongInput)
+            playMukChiBa(isUserWin: false)
+            return nil
+        }
+        return inputNumber
     }
-    
-    
-    
-    //    while true {
-    //        if gameMode.rawValue == 1 {
-    //            print(Message.rockPaperScissorsMenu, terminator: "")
-    //        } else {
-    //            print("[\(winnerName) 턴]", Message.mukChiBaMenu, terminator: "")
-    //        }
-    //
-    //        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
-    //            print(Message.wrongInput)
-    //            if gameMode.rawValue == 2 {
-    //                playMukChiBa(isUserWin: false)
-    //            }
-    //            continue
-    //        }
-    //        return inputNumber
-    //    }
 }
 
 
@@ -99,7 +81,9 @@ func makeComputerNumber() -> Int {
 
 func playRockPaperScissors() {
     printGameMenu(gameMode: .rockPaperScissors)
-    let userNumber = receiveUserNumber(gameMode: .rockPaperScissors)
+    guard let userNumber = receiveUserNumber(gameMode: .rockPaperScissors) else {
+        return
+    }
     if isGameEnd(userNumber: userNumber) {
         print(Message.gameOver)
         return
@@ -123,44 +107,23 @@ func playRockPaperScissors() {
 
 
 func playMukChiBa(isUserWin: Bool) {
-    var isUserTurn = isUserWin
-    printGameMenu(gameMode: .mukChiBa, winnerName: isUserTurn ? "사용자" : "컴퓨터")
-    let userNumber = receiveUserNumber(gameMode: .mukChiBa) // 유저가 잘못 입력했을 때, 턴이 컴퓨터로 안돌아감
-    
+    printGameMenu(gameMode: .mukChiBa, winnerName: isUserWin ? "사용자" : "컴퓨터")
+    guard let userNumber = receiveUserNumber(gameMode: .mukChiBa) else {
+        return
+    }
     if isGameEnd(userNumber: userNumber) {
         print(Message.gameOver)
         return
     }
     let computerNumber = makeComputerNumber()
-    var winnerName = isUserTurn ? "사용자" : "컴퓨터"
-    //    print("[\(winnerName) 턴]", Message.mukChiBaMenu, terminator: "")
-    //    while true {
-    //        var winnerName = isUserTurn ? "사용자" : "컴퓨터"
-    //        print("[\(winnerName) 턴]", Message.mukChiBaMenu, terminator: "")
-    
-    //        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
-    //            print(Message.wrongInput)
-    //            isUserTurn = false
-    //            continue
-    //        }
-    //
-    //        guard let computerHand: MukChiBa = MukChiBa(rawValue: makeComputerNumber()) else {
-    //            return
-    //        }
-    //
-    //        guard let userHand: MukChiBa = MukChiBa(rawValue: inputNumber) else {
-    //            print(Message.gameOver)
-    //            return
-    //        }
+    var winnerName = isUserWin ? "사용자" : "컴퓨터"
     
     switch (MukChiBa(rawValue: userNumber), MukChiBa(rawValue: computerNumber)) {
     case (.muk, .chi), (.chi, .ba), (.ba, .muk):
-        //        isUserTurn = true
         winnerName = "사용자"
         print("\(winnerName)", Message.mukChiBaTurn)
         playMukChiBa(isUserWin: true)
     case (.muk, .ba), (.chi, .muk), (.ba, .chi):
-        //        isUserTurn = false
         winnerName = "컴퓨터"
         print("\(winnerName)", Message.mukChiBaTurn)
         playMukChiBa(isUserWin: false)
