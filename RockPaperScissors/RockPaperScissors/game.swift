@@ -18,10 +18,6 @@ class Game {
         recieveInput()
     }
 
-    func showStartMessage() -> Void {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    }
-
     func recieveInput() -> Void {
         if let input = readLine() {
             testValid(of: input)
@@ -45,19 +41,6 @@ class Game {
             handleError()
             startGame()
         }
-    }
-
-    func handleError() -> Void {
-        showErrorMessage()
-    }
-    
-    func handleExit() -> Void {
-        print("게임 종료")
-        gameWinner = .exit
-    }
-    
-    func showErrorMessage() -> Void {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 
     func judgeWinner(userChoice: Choice) -> Void {
@@ -93,6 +76,14 @@ class Game {
         }
     }
     
+    func showErrorMessage() -> Void {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+    
+    func showStartMessage() -> Void {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    }
+    
     func showUserWinMessage() -> Void {
         print("이겼습니다!")
     }
@@ -103,6 +94,15 @@ class Game {
     
     func showDrawMessage() -> Void {
         print("비겼습니다!")
+    }
+        
+    func handleError() -> Void {
+        showErrorMessage()
+    }
+    
+    func handleExit() -> Void {
+        print("게임 종료")
+        gameWinner = .exit
     }
 }
 
