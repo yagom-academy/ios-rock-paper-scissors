@@ -6,19 +6,19 @@
 
 import Foundation
 
-enum RockPaperScissors: Int {
-    case scissors = 1
-    case rock
-    case paper
-}
-
-enum Turn: String {
-    case notDecided = ""
-    case user = "사용자"
-    case computer = "컴퓨터"
-}
-
 struct Game {
+    enum RockPaperScissors: Int {
+        case scissors = 1
+        case rock
+        case paper
+    }
+
+    enum Turn: String {
+        case notDecided = ""
+        case user = "사용자"
+        case computer = "컴퓨터"
+    }
+    
     enum ValueDifference: Int {
         case tie
         case win
@@ -33,12 +33,12 @@ struct Game {
         return RockPaperScissors(rawValue: number) != nil || number == exitNumber
     }
     
-    func isPlayingRockPaperScissor() -> Bool {
+    func isPlayingRockPaperScissors() -> Bool {
         return turn == .notDecided
     }
     
     func printInputMessage() {
-        if isPlayingRockPaperScissor() {
+        if isPlayingRockPaperScissors() {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         } else {
             print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
@@ -49,9 +49,8 @@ struct Game {
         printInputMessage()
         guard let input = readLine(), let number = Int(input), isValid(number: number) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return isPlayingRockPaperScissor() ? inputFromUser() : wrongInputInMukjjibba
+            return isPlayingRockPaperScissors() ? inputFromUser() : wrongInputInMukjjibba
         }
-        
         return number
     }
     
@@ -78,10 +77,10 @@ struct Game {
         switch valueDifference {
         case ValueDifference.win.rawValue:
             turn = .user
-            resultMessage = "\(turn.rawValue)의 턴입니다!"
+            resultMessage = "\(turn.rawValue)의 턴입니다"
         case ValueDifference.lose.rawValue:
             turn = .computer
-            resultMessage = "\(turn.rawValue)의 턴입니다!"
+            resultMessage = "\(turn.rawValue)의 턴입니다"
         default:
             resultMessage = "\(turn.rawValue)의 승리!"
             turn = .notDecided
@@ -90,21 +89,36 @@ struct Game {
     }
     
     func isRockPaperScissorsOrRightInput(userInput: Int) -> Bool {
-        return isPlayingRockPaperScissor() || userInput != wrongInputInMukjjibba
+        return isPlayingRockPaperScissors() || userInput != wrongInputInMukjjibba
+    }
+    
+    func convertUserIntputIfMukjjibba(userInput: Int) -> Int {
+        if isPlayingRockPaperScissors() {
+            return userInput
+        }
+        switch userInput {
+        case 1:
+            return 2
+        case 2:
+            return 1
+        default:
+            return userInput
+        }
     }
     
     mutating func play(userInput: Int) {
-        guard  isRockPaperScissorsOrRightInput(userInput: userInput) else {
+        guard isRockPaperScissorsOrRightInput(userInput: userInput) else {
             turn = .computer
             return
         }
-        guard let userChoice = RockPaperScissors(rawValue: userInput),
+        let userInputNumber = convertUserIntputIfMukjjibba(userInput: userInput)
+        guard let userChoice = RockPaperScissors(rawValue: userInputNumber),
               let computerChoice = RockPaperScissors(rawValue: Int.random(in: 1...3))
         else {
             return
         }
         let resultMessage: String
-        if isPlayingRockPaperScissor() {
+        if isPlayingRockPaperScissors() {
             resultMessage = playRockPaperScissors(userChoice: userChoice, computerChoice: computerChoice)
         } else {
             resultMessage = playMukjjibba(userChoice: userChoice, computerChoice: computerChoice)
@@ -126,7 +140,6 @@ struct Game {
         start()
     }
 }
-
 var game = Game()
 game.start()
 
