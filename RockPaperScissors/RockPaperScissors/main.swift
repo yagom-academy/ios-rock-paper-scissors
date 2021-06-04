@@ -125,25 +125,48 @@ class RockScissorsPaper {
 
 final class Mukjjippa: RockScissorsPaper {
     fileprivate override func choiceUserHand() -> Hand? {
-            print("[\(gameTurn)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
-            let userInputArray: [Int] = [0, 1, 2, 3]
-            
-            guard let userInput = (readLine().flatMap{ Int($0) }), userInputArray.contains(userInput) else {
-                print(Message.invaild)
-                gameTurn = Turn.convert(gameTurn)
-                return choiceUserHand()
-            }
-            
-            switch userInput {
-            case 1:
-                return Hand.rock
-            case 2:
-                return Hand.scissors
-            case 3:
-                return Hand.paper
-            default:
-                return Hand(rawValue: 0)
-            }
+        print("[\(gameTurn)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+        let userInputArray: [Int] = [0, 1, 2, 3]
+        
+        guard let userInput = (readLine().flatMap{ Int($0) }), userInputArray.contains(userInput) else {
+            print(Message.invaild)
+            gameTurn = Turn.convert(gameTurn)
+            return choiceUserHand()
         }
+        
+        switch userInput {
+        case 1:
+            return Hand.rock
+        case 2:
+            return Hand.scissors
+        case 3:
+            return Hand.paper
+        default:
+            return Hand(rawValue: 0)
+        }
+    }
+    
+    func startGame() -> Bool {
+        guard let userHand = choiceUserHand() else {
+            return false
+        }
+        
+        guard let result = try? compare(userHand: userHand, computerHand: generateComputerHand()) else {
+            return false
+        }
+        
+        switch result {
+        case .draw:
+            print("\(gameTurn) 승리!")
+            return true
+        case .lose:
+            gameTurn = Turn.convert(gameTurn)
+            print("\(gameTurn)의 턴입니다.")
+            return startGame()
+        case .win:
+            print("\(gameTurn)의 턴입니다.")
+            return startGame()
+        }
+    }
 }
 
