@@ -90,7 +90,9 @@ while currentPlayer == .unknown {
 var mookZziPpaWinner: Player = .unknown
 
 while mookZziPpaWinner == .unknown && currentPlayer != .noOne  {
+	
 	print("[\(currentPlayer.name) 턴] 묵(1), 찌(2), 빠(3)!<종료 : 0> : ", terminator: "")
+	
 	let userDecision = receiveUserInput()
 	
 	if userDecision == 0 {
@@ -118,11 +120,7 @@ while mookZziPpaWinner == .unknown && currentPlayer != .noOne  {
 	switch computerHand {
 	case userHand:
 		print("\(currentPlayer.name)의 승리!")
-		if currentPlayer == .user {
-			mookZziPpaWinner = .user
-		} else if currentPlayer == .computer {
-			mookZziPpaWinner = .computer
-		}
+		mookZziPpaWinner = currentPlayer
 	case userHand.winsAgainst():
 		currentPlayer = .user
 		print("\(currentPlayer.name)의 턴입니다")
