@@ -93,7 +93,7 @@ class RockScissorsPaper {
         
         return Hand(rawValue: userInput)
     }
-    
+
     fileprivate func generateComputerHand() throws -> Hand {
         guard let randomHand = Hand.allCases.randomElement() else {
             throw GameError.emptyCollection
@@ -115,6 +115,7 @@ class RockScissorsPaper {
                 print(Message.end)
                 return nil
             }
+            
             firstResult = try! compare(userHand: userHand, computerHand: generateComputerHand())
             print(firstResult)
         } while firstResult == Result.draw
@@ -145,7 +146,7 @@ final class Mukjjippa: RockScissorsPaper {
             return Hand(rawValue: 0)
         }
     }
-    
+
     func startGame() -> Bool {
         guard let userHand = choiceUserHand() else {
             return false
@@ -172,7 +173,6 @@ final class Mukjjippa: RockScissorsPaper {
 
 var rockScissorsPaper = RockScissorsPaper()
 var mujjippa = Mukjjippa()
-
 
 while true {
     guard let rockPaperScissorsResult = rockScissorsPaper.startGame() else {
