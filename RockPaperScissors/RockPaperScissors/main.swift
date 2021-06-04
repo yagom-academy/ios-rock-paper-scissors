@@ -56,24 +56,22 @@ func printGameMenu(gameMode: GameMode, winnerName: String = "사용자") {
 }
 
 func receiveUserNumber(gameMode: GameMode) -> Int? {
-    switch gameMode {
-    case .rockPaperScissors:
-        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
+    guard let input = readLine(),
+          let inputNumber = Int(input),
+          (0...3).contains(inputNumber) else {
+        switch gameMode {
+        case .rockPaperScissors:
             print(Message.wrongInput)
             playRockPaperScissors()
             return nil
-        }
-        return inputNumber
-    case .mukChiBa:
-        guard let input = readLine(), let inputNumber = Int(input), (0...3).contains(inputNumber) else {
+        case .mukChiBa:
             print(Message.wrongInput)
             playMukChiBa(isUserWin: false)
             return nil
         }
-        return inputNumber
     }
+    return inputNumber
 }
-
 
 func makeComputerNumber() -> Int {
     return Int.random(in: RockPaperScissors.scissors.rawValue...RockPaperScissors.paper.rawValue)
@@ -104,7 +102,6 @@ func playRockPaperScissors() {
         playRockPaperScissors()
     }
 }
-
 
 func playMukChiBa(isUserWin: Bool) {
     printGameMenu(gameMode: .mukChiBa, winnerName: isUserWin ? "사용자" : "컴퓨터")
