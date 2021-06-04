@@ -177,7 +177,6 @@ class RockPaperScissors {
     }
 }
 
-
 var gameContinue = true
 
 while gameContinue {
