@@ -25,6 +25,7 @@ enum Player {
 	case user
 	case computer
 	case unknown
+	case noOne
 	
 	var name: String {
 		if .user == self {
@@ -54,6 +55,7 @@ while currentPlayer == .unknown {
 	
 	if userDecision == 0 {
 		print("게임 종료")
+		currentPlayer = .noOne
 		break
 	}
 	
@@ -87,7 +89,7 @@ while currentPlayer == .unknown {
 
 var mookZziPpaWinner: Player = .unknown
 
-while mookZziPpaWinner == .unknown {
+while mookZziPpaWinner == .unknown && currentPlayer != .noOne  {
 	print("[\(currentPlayer.name) 턴] 묵(1), 찌(2), 빠(3)!<종료 : 0> : ", terminator: "")
 	let userDecision = receiveUserInput()
 	
@@ -116,7 +118,11 @@ while mookZziPpaWinner == .unknown {
 	switch computerHand {
 	case userHand:
 		print("\(currentPlayer.name)의 승리!")
-		mookZziPpaWinner = .computer
+		if currentPlayer == .user {
+			mookZziPpaWinner = .user
+		} else if currentPlayer == .computer {
+			mookZziPpaWinner = .computer
+		}
 	case userHand.winsAgainst():
 		currentPlayer = .user
 		print("\(currentPlayer.name)의 턴입니다")
