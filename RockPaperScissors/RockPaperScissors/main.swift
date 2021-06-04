@@ -10,9 +10,9 @@ enum Message: String, CustomStringConvertible {
     case rockPaperScissorsMenu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
     case gameOver = "게임 종료"
-    case userWin = "이겼습니다!"
-    case userLose = "졌습니다."
-    case draw = "비겼습니다."
+    case rockPaperScissorsUserWin = "이겼습니다!"
+    case rockPaperScissorsUserLose = "졌습니다."
+    case rockPaperScissorsDraw = "비겼습니다."
     case mukChiBaMenu = "묵(1), 찌(2), 빠(3)! <종료 : 0> : "
     case mukChiBaTurn = "의 턴입니다"
     case mukChiBaWinner = "의 승리!"
@@ -92,15 +92,15 @@ func playRockPaperScissors() {
     
     switch (RockPaperScissors(rawValue: userNumber), RockPaperScissors(rawValue: computerNumber)) {
     case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
-        print(Message.userWin)
+        print(Message.rockPaperScissorsUserWin)
         playMukChiBa(isUserWin: true)
         return
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        print(Message.userLose)
+        print(Message.rockPaperScissorsUserLose)
         playMukChiBa(isUserWin: false)
         return
     default:
-        print(Message.draw)
+        print(Message.rockPaperScissorsDraw)
         playRockPaperScissors()
     }
 }
