@@ -21,6 +21,65 @@ enum RockPaperScissors: CaseIterable {
 	}
 }
 
+enum Player {
+	case user
+	case computer
+	case unknown
+	case noOne
+	
+	var name: String {
+		if .user == self {
+			return "사용자"
+		} else {
+			return "컴퓨터"
+		}
+	}
+	
+	func playMookZziPpa() {
+		if self == .unknown {
+			return
+		}
+			
+		print("[\(self.name) 턴] 묵(1), 찌(2), 빠(3)!<종료 : 0> : ", terminator: "")
+		
+		let userDecision = receiveUserInput()
+		
+		if userDecision == 0 {
+			print("게임 종료")
+			return
+		}
+		
+		var userHand: RockPaperScissors = .rock
+
+		switch userDecision {
+		case 1:
+			userHand = .rock
+		case 2:
+			userHand = .scissors
+		case 3:
+			userHand = .paper
+		default:
+			print("잘못된 입력입니다. 다시 시도해주세요.")
+			playMookZziPpa()
+			return
+		}
+		
+		let computerHand = RockPaperScissors.allCases.randomElement()
+
+		switch computerHand {
+		case userHand:
+			print("\(self.name)의 승리!")
+			playRockScissorsPaper().playMookZziPpa()
+		case userHand.winsAgainst():
+			print("\(Player.user.name)의 턴입니다")
+			Player.user.playMookZziPpa()
+		default:
+			print("\(Player.computer.name)의 턴입니다")
+			Player.computer.playMookZziPpa()
+		}
+	}
+}
+
 func receiveUserInput() -> Int {
 	
 	guard let validInput = readLine(), let validConvertedInput = Int(validInput) else {
@@ -30,7 +89,7 @@ func receiveUserInput() -> Int {
 	return validConvertedInput
 }
 
-while true {
+func playRockScissorsPaper() -> Player {
 	
 	print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 	
@@ -38,10 +97,10 @@ while true {
 	
 	if userDecision == 0 {
 		print("게임 종료")
-		break
+		return .unknown
 	}
 	
-	var userHand: RockPaperScissors
+	var userHand: RockPaperScissors = .rock
 	
 	switch userDecision {
 	case 1:
@@ -52,7 +111,7 @@ while true {
 		userHand = .paper
 	default:
 		print("잘못된 입력입니다. 다시 시도해주세요.")
-		continue
+		return playRockScissorsPaper()
 	}
 	
 	let computerHand = RockPaperScissors.allCases.randomElement()
@@ -60,10 +119,14 @@ while true {
 	switch computerHand {
 	case userHand:
 		print("비겼습니다!")
+		return playRockScissorsPaper()
 	case userHand.winsAgainst():
 		print("이겼습니다!")
+		return .user
 	default:
 		print("졌습니다!")
+		return .computer
 	}
 }
 
+playRockScissorsPaper().playMookZziPpa()
