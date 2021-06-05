@@ -96,7 +96,6 @@ struct Game {
         if isPlayingRockPaperScissors() {
             return userInput
         }
-
         let rockPaperScissorsConstant = (scissors: 1, rock: 2, paper: 3)
         let mukjjibbaConstant = (muk: 1, jji: 2, bba: 3)
         switch userInput {
