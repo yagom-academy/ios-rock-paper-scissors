@@ -10,4 +10,4 @@
 
 ## Step2 플로우 차트
 
-![image](https://user-images.githubusercontent.com/55867479/120573431-87d54800-c458-11eb-992c-c046cfaf83c9.png)
+![Group 5](https://user-images.githubusercontent.com/55867479/120876416-8ee08f80-c5eb-11eb-8127-67641a12c982.png)
