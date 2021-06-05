@@ -9,8 +9,8 @@ import Foundation
 struct Game {
     enum RockPaperScissors: Int {
         case scissors = 1
-        case rock
-        case paper
+        case rock = 2
+        case paper = 3
     }
 
     enum Turn: String {
@@ -20,9 +20,9 @@ struct Game {
     }
     
     enum ValueDifference: Int {
-        case tie
-        case win
-        case lose
+        case tie = 0
+        case win = 1
+        case lose = 2
     }
     
     var turn = Turn.notDecided
