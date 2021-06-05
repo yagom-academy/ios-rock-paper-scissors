@@ -34,6 +34,58 @@ enum Player {
 			return "컴퓨터"
 		}
 	}
+	
+	var next: Player {
+		if .user == self {
+			return .computer
+		} else {
+			return .user
+		}
+	}
+	
+	func playMookZziPpa() {
+		if self == .unknown {
+			return
+		}
+			
+		print("[\(self.name) 턴] 묵(1), 찌(2), 빠(3)!<종료 : 0> : ", terminator: "")
+		
+		let userDecision = receiveUserInput()
+		
+		if userDecision == 0 {
+			print("게임 종료")
+			return
+		}
+		
+		var userHand: RockPaperScissors = .rock
+
+		switch userDecision {
+		case 1:
+			userHand = .rock
+		case 2:
+			userHand = .scissors
+		case 3:
+			userHand = .paper
+		default:
+			print("잘못된 입력입니다. 다시 시도해주세요.")
+			playMookZziPpa()
+			return
+		}
+		
+		let computerHand = RockPaperScissors.allCases.randomElement()
+
+		switch computerHand {
+		case userHand:
+			print("\(self.name)의 승리!")
+			playRockScissorsPaper().playMookZziPpa()
+		case userHand.winsAgainst():
+			print("\(self.name)의 턴입니다")
+			self.playMookZziPpa()
+		default:
+			print("\(self.next.name)의 턴입니다")
+			self.next.playMookZziPpa()
+		}
+	}
 }
 
 func receiveUserInput() -> Int {
@@ -45,9 +97,7 @@ func receiveUserInput() -> Int {
 	return validConvertedInput
 }
 
-var currentPlayer: Player = .unknown
-
-while currentPlayer == .unknown {
+func playRockScissorsPaper() -> Player {
 	
 	print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 	
@@ -55,11 +105,10 @@ while currentPlayer == .unknown {
 	
 	if userDecision == 0 {
 		print("게임 종료")
-		currentPlayer = .noOne
-		break
+		return .unknown
 	}
 	
-	var userHand: RockPaperScissors
+	var userHand: RockPaperScissors = .rock
 	
 	switch userDecision {
 	case 1:
@@ -70,7 +119,7 @@ while currentPlayer == .unknown {
 		userHand = .paper
 	default:
 		print("잘못된 입력입니다. 다시 시도해주세요.")
-		continue
+		return playRockScissorsPaper()
 	}
 	
 	let computerHand = RockPaperScissors.allCases.randomElement()
@@ -78,54 +127,14 @@ while currentPlayer == .unknown {
 	switch computerHand {
 	case userHand:
 		print("비겼습니다!")
+		return playRockScissorsPaper()
 	case userHand.winsAgainst():
 		print("이겼습니다!")
-		currentPlayer = .user
+		return .user
 	default:
 		print("졌습니다!")
-		currentPlayer = .computer
+		return .computer
 	}
 }
 
-var mookZziPpaWinner: Player = .unknown
-
-while mookZziPpaWinner == .unknown && currentPlayer != .noOne  {
-	
-	print("[\(currentPlayer.name) 턴] 묵(1), 찌(2), 빠(3)!<종료 : 0> : ", terminator: "")
-	
-	let userDecision = receiveUserInput()
-	
-	if userDecision == 0 {
-		print("게임 종료")
-		break
-	}
-	
-	var userHand: RockPaperScissors
-
-	switch userDecision {
-	case 1:
-		userHand = .rock
-	case 2:
-		userHand = .scissors
-	case 3:
-		userHand = .paper
-	default:
-		print("잘못된 입력입니다. 다시 시도해주세요.")
-		currentPlayer = .computer
-		continue
-	}
-	
-	let computerHand = RockPaperScissors.allCases.randomElement()
-
-	switch computerHand {
-	case userHand:
-		print("\(currentPlayer.name)의 승리!")
-		mookZziPpaWinner = currentPlayer
-	case userHand.winsAgainst():
-		currentPlayer = .user
-		print("\(currentPlayer.name)의 턴입니다")
-	default:
-		currentPlayer = .computer
-		print("\(currentPlayer.name)의 턴입니다")
-	}
-}
+playRockScissorsPaper().playMookZziPpa()
