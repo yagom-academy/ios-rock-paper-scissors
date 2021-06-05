@@ -2,4 +2,6 @@
 
 =====================================
 ## 플로우 차트
-![flowChart](./image/FlowChart_Step1.jpg)
+![flowChart](./image/FlowChart_Step2.png)
+
+
