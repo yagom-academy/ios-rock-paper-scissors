@@ -14,7 +14,7 @@ struct Game {
     }
 
     enum Turn: String {
-        case notDecided = ""
+        case notDecided
         case user = "사용자"
         case computer = "컴퓨터"
     }
