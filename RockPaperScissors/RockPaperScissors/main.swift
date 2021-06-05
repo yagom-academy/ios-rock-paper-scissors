@@ -35,14 +35,6 @@ enum Player {
 		}
 	}
 	
-	var next: Player {
-		if .user == self {
-			return .computer
-		} else {
-			return .user
-		}
-	}
-	
 	func playMookZziPpa() {
 		if self == .unknown {
 			return
@@ -79,11 +71,11 @@ enum Player {
 			print("\(self.name)의 승리!")
 			playRockScissorsPaper().playMookZziPpa()
 		case userHand.winsAgainst():
-			print("\(self.name)의 턴입니다")
-			self.playMookZziPpa()
+			print("\(Player.user.name)의 턴입니다")
+			Player.user.playMookZziPpa()
 		default:
-			print("\(self.next.name)의 턴입니다")
-			self.next.playMookZziPpa()
+			print("\(Player.computer.name)의 턴입니다")
+			Player.computer.playMookZziPpa()
 		}
 	}
 }
