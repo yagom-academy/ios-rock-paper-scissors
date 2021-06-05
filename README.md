@@ -1,6 +1,6 @@
-## iOS 커리어 스타터 캠프
+# 묵찌빠 프로젝트 저장소
 
-### 묵찌빠 프로젝트 저장소
+## Flow Chart
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+![ios-rock-paper-scissors](https://user-images.githubusercontent.com/39452092/120315332-35d8d900-c317-11eb-894f-1db5dbc4ca44.png)
 
