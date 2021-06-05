@@ -25,11 +25,11 @@ struct Game {
         case lose = 2
     }
     
-    var turn = Turn.notDecided
-    let wrongInputInMukjjibba = -1
+    var turn: Turn = Turn.notDecided
+    let wrongInputInMukjjibba: Int = -1
     
     func isValid(number: Int) -> Bool {
-        let exitNumber = 0
+        let exitNumber: Int = 0
         return RockPaperScissors(rawValue: number) != nil || number == exitNumber
     }
     
@@ -55,7 +55,7 @@ struct Game {
     }
     
     mutating func playRockPaperScissors(userChoice: RockPaperScissors ,computerChoice: RockPaperScissors) -> String {
-        let valueDifference = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
+        let valueDifference: Int = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
         var resultMessage: String
         switch valueDifference {
         case ValueDifference.win.rawValue:
@@ -72,7 +72,7 @@ struct Game {
     }
     
     mutating func playMukjjibba(userChoice: RockPaperScissors, computerChoice: RockPaperScissors) -> String {
-        let valueDifference = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
+        let valueDifference: Int = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
         var resultMessage: String
         switch valueDifference {
         case ValueDifference.win.rawValue:
@@ -111,7 +111,7 @@ struct Game {
             turn = .computer
             return
         }
-        let userInputNumber = convertUserIntputIfMukjjibba(userInput: userInput)
+        let userInputNumber: Int = convertUserIntputIfMukjjibba(userInput: userInput)
         guard let userChoice = RockPaperScissors(rawValue: userInputNumber),
               let computerChoice = RockPaperScissors(rawValue: Int.random(in: 1...3))
         else {
@@ -131,7 +131,7 @@ struct Game {
     }
     
     mutating func start() {
-        let userInput = inputFromUser()
+        let userInput: Int = inputFromUser()
         if isGameEnd(userInput: userInput) {
             print("게임 종료")
             return
@@ -140,6 +140,6 @@ struct Game {
         start()
     }
 }
-var game = Game()
+var game: Game = Game()
 game.start()
 
