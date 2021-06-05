@@ -7,3 +7,7 @@
 ## Step1 플로우 차트
 
 ![image](https://user-images.githubusercontent.com/55867479/120447308-71ca7780-c3c5-11eb-8935-c4937f40693d.png)
+
+## Step2 플로우 차트
+
+![Group 5](https://user-images.githubusercontent.com/55867479/120876416-8ee08f80-c5eb-11eb-8127-67641a12c982.png)

@@ -6,89 +6,142 @@
 
 import Foundation
 
-enum RockScissorsPaper: Int {
-    case scissors
-    case rock
-    case paper
-}
+struct Game {
+    enum RockPaperScissors: Int, CaseIterable {
+        case scissors = 1
+        case rock = 2
+        case paper = 3
+    }
 
-enum Winner {
-    case user
-    case computer
-    case tie
+    enum Turn: String {
+        case notDecided
+        case user = "사용자"
+        case computer = "컴퓨터"
+    }
     
-    var resultMessage: String {
-        switch self {
-        case .user:
-            return "이겼습니다!"
-        case .computer:
-            return "졌습니다!"
-        case .tie:
-            return "비겼습니다!"
+    enum ValueDifference: Int {
+        case tie = 0
+        case win = 1
+        case lose = 2
+    }
+    
+    var turn: Turn = Turn.notDecided
+    let wrongInputInMukjjibba: Int = -1
+    
+    func isValid(number: Int) -> Bool {
+        let exitNumber: Int = 0
+        return RockPaperScissors(rawValue: number) != nil || number == exitNumber
+    }
+    
+    func isPlayingRockPaperScissors() -> Bool {
+        return turn == .notDecided
+    }
+    
+    func printInputMessage() {
+        if isPlayingRockPaperScissors() {
+            print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        } else {
+            print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         }
     }
-}
 
-struct Game {
-    func isValid(number: Int) -> Bool {
-        let exitNumber = 0
-        return RockScissorsPaper(rawValue: number) != nil || number == exitNumber
-    }
-    
     func inputFromUser() -> Int {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        printInputMessage()
         guard let input = readLine(), let number = Int(input), isValid(number: number) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return inputFromUser()
+            return isPlayingRockPaperScissors() ? inputFromUser() : wrongInputInMukjjibba
         }
         return number
     }
     
-    func whoIsWinner(userChoice: RockScissorsPaper , computerChoice: RockScissorsPaper) -> Winner {
-        enum ValueDifference: Int {
-            case tie
-            case win
-            case lose
-        }
-        let valueDifference = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
+    mutating func playRockPaperScissors(user userChoice: RockPaperScissors, computer computerChoice: RockPaperScissors) -> String {
+        let valueDifference: Int = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
+        var resultMessage: String
         switch valueDifference {
         case ValueDifference.win.rawValue:
-            return Winner.user
+            turn = .user
+            resultMessage = "이겼습니다!"
         case ValueDifference.lose.rawValue:
-            return Winner.computer
+            turn = .computer
+            resultMessage = "졌습니다!"
         default:
-            return Winner.tie
+            turn = .notDecided
+            resultMessage = "비겼습니다!"
+        }
+        return resultMessage
+    }
+    
+    mutating func playMukjjibba(user userChoice: RockPaperScissors, computer computerChoice: RockPaperScissors) -> String {
+        let valueDifference: Int = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
+        var resultMessage: String
+        switch valueDifference {
+        case ValueDifference.win.rawValue:
+            turn = .user
+            resultMessage = "\(turn.rawValue)의 턴입니다"
+        case ValueDifference.lose.rawValue:
+            turn = .computer
+            resultMessage = "\(turn.rawValue)의 턴입니다"
+        default:
+            resultMessage = "\(turn.rawValue)의 승리!"
+            turn = .notDecided
+        }
+        return resultMessage
+    }
+    
+    func isRockPaperScissorsOrRightInput(userInput: Int) -> Bool {
+        return isPlayingRockPaperScissors() || userInput != wrongInputInMukjjibba
+    }
+    
+    func convertUserIntputIfMukjjibba(userInput: Int) -> Int {
+        if isPlayingRockPaperScissors() {
+            return userInput
+        }
+        let rockPaperScissorsConstant = (scissors: 1, rock: 2, paper: 3)
+        let mukjjibbaConstant = (muk: 1, jji: 2, bba: 3)
+        switch userInput {
+        case rockPaperScissorsConstant.scissors:
+            return mukjjibbaConstant.muk
+        case rockPaperScissorsConstant.rock:
+            return mukjjibbaConstant.jji
+        default:
+            return userInput
         }
     }
     
-    func printGameResult(winner result: Winner) {
-        print(result.resultMessage)
-    }
-    
-    func playRound(userInput: Int) {
-        guard let userChoice = RockScissorsPaper(rawValue: userInput),
-              let computerChoice = RockScissorsPaper(rawValue: Int.random(in: 1...3))
+    mutating func play(userInput: Int) {
+        guard isRockPaperScissorsOrRightInput(userInput: userInput) else {
+            turn = .computer
+            return
+        }
+        let userInputNumber: Int = convertUserIntputIfMukjjibba(userInput: userInput)
+        guard let userChoice = RockPaperScissors(rawValue: userInputNumber),
+              let computerChoice = RockPaperScissors.allCases.randomElement()
         else {
             return
         }
-        let result = whoIsWinner(userChoice: userChoice, computerChoice: computerChoice)
-        printGameResult(winner: result)
-        start()
+        let resultMessage: String
+        if isPlayingRockPaperScissors() {
+            resultMessage = playRockPaperScissors(user: userChoice, computer: computerChoice)
+        } else {
+            resultMessage = playMukjjibba(user: userChoice, computer: computerChoice)
+        }
+        print(resultMessage)
     }
-    
+
     func isGameEnd(userInput: Int) -> Bool {
         return userInput == 0
     }
     
-    func start() {
-        let userInput = inputFromUser()
+    mutating func start() {
+        let userInput: Int = inputFromUser()
         if isGameEnd(userInput: userInput) {
             print("게임 종료")
             return
         }
-        playRound(userInput: userInput)
+        play(userInput: userInput)
+        start()
     }
 }
-
-let game = Game()
+var game: Game = Game()
 game.start()
+
