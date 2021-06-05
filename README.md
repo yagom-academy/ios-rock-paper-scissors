@@ -7,7 +7,7 @@
 승, 패, 무의 결과를 출력 한 후 다시 가위바위보 메뉴를 출력합니다.
 메뉴화면에서 0 입력시 프로그램을 종료합니다.
 
-<img src=>
+<img src=https://github.com/yagom-academy/ios-rock-paper-scissors/blob/bf473ff06d64d4941b535892e4b616ca51873d4e/Step2FinalFlowChart.png>
 
 ## Step 2
 ### 묵찌빠 게임
