@@ -54,7 +54,7 @@ struct Game {
         return number
     }
     
-    mutating func playRockPaperScissors(userChoice: RockPaperScissors ,computerChoice: RockPaperScissors) -> String {
+    mutating func playRockPaperScissors(userChoice: RockPaperScissors, computerChoice: RockPaperScissors) -> String {
         let valueDifference: Int = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
         var resultMessage: String
         switch valueDifference {
