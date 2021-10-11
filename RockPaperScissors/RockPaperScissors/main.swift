@@ -18,12 +18,32 @@ struct RockPaperScissorsGame {
         var computerNumber = ""
         repeat {
             computerNumber = String(Int.random(in: 1...3))
+            print(computerNumber)
             playerNumber = getUserInput()
         } while isDraw(computerNumber, playerNumber) || isWrong(playerNumber: playerNumber)
+        // 승패판정해서 출력
+        if isVictory(computerNumber, playerNumber) {
+            print("이겼습니다!")
+        } else {
+            print("졌습니다!")
+        }
+        print("게임종료")
+    }
+    
+    func isVictory(_ computerNumber: String, _ playerNumber: String?) -> Bool {
+        let winningCaseA = playerNumber == "1" && computerNumber == "3"
+        let winningCaseB = playerNumber == "2" && computerNumber == "1"
+        let winningCaseC = playerNumber == "3" && computerNumber == "2"
+        
+        return winningCaseA || winningCaseB || winningCaseC
     }
     
     private func isDraw(_ computerNumber: String, _ playerNumber: String?) -> Bool {
-        return computerNumber == playerNumber
+        if computerNumber == playerNumber {
+            print("비겼습니다!")
+            return true
+        }
+        return false
     }
     
     private func isWrong(playerNumber: String?) -> Bool {
