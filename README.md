@@ -2,6 +2,10 @@
 
 ### 묵찌빠 프로젝트 저장소
 
+### 플로우 차트
+![Untitled (2)](https://user-images.githubusercontent.com/60725934/136827712-49e73d92-c1e5-4ec8-a299-8f2953c1c9dd.png)
+
+
 ## 프로젝트 소개
 * 플레이어 1명이 참여하여 컴퓨터와 가위바위보 게임 및 묵찌빠 게임을 진행합니다.
 * 게임 규칙  
@@ -28,5 +32,4 @@
 - compareNumbers : playerNumber와 computerNumber를 비교하여 승패결과 출력하는 함수입니다.
 
 ### 출력 결과  
-![STEP_1_](https://user-images.githubusercontent.com/50446512/136161655-0434c906-da6c-4465-a9d4-cba4c9042eae.png)
-
+![Untitled (1)](https://user-images.githubusercontent.com/60725934/136827736-0730d5bb-9222-47ef-abfe-af1327033889.png)
