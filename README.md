@@ -21,3 +21,7 @@
 + 주장을 얘기할 때는 명확한 근거를 제시한다.
 + 커밋 단위는 함수 단위로 한다.
 + 커밋 로그 형식은 Karma 스타일을 기반으로 작성한다.
+
+### 순서도
+![STEP_1 drawio](https://user-images.githubusercontent.com/50446512/136763107-f6e4ef56-cc3e-4ef6-baee-9f7bfbf220ec.png)
+
