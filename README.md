@@ -5,5 +5,5 @@
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
 ### Flow chart
-![](https://i.imgur.com/7o5bcn4.jpg)
-![](https://i.imgur.com/aw2VxwO.jpg)
+![가위바위보 시작](https://i.imgur.com/obWd5I7.jpg)
+![승패판정 메소드](https://i.imgur.com/aw2VxwO.jpg)
