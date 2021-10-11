@@ -60,3 +60,8 @@ func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
 func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
 }
+
+func getUserInput() -> String {
+    guard let userInput = readLine() else { return "" }
+    return userInput.replacingOccurrences(of: " ", with: "")
+}
