@@ -23,3 +23,14 @@ func receiveUsersHand() -> Int? {
         
     return Int(usersHand)
 }
+
+func verify(usersHand: Int?) -> Int {
+    if let usersHand = usersHand, usersHand >= 0, usersHand <= 3 {
+        return usersHand
+    } else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        printGameNotice()
+        let newUsersHand = receiveUsersHand()
+        return verify(usersHand: newUsersHand)
+    }
+}
