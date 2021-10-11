@@ -40,4 +40,8 @@ func runRockPaperScissors() {
     let computersHand = determineComputersHand()
     let userInput =  receiveUserInput()
     let usersHand = verify(userInput: userInput)
+    if usersHand == 0 {
+        print("게임 종료")
+        return
+    }
 }
