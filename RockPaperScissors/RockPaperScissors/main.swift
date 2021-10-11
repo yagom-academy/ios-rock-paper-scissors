@@ -15,3 +15,11 @@ func determineComputersHand() -> Int {
     
     return computersHand
 }
+
+func receiveUsersHand() -> Int? {
+    guard let usersHand = readLine() else {
+        return nil
+    }
+        
+    return Int(usersHand)
+}
