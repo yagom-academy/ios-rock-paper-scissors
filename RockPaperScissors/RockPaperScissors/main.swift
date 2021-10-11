@@ -4,7 +4,12 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-enum ExpectedUserInput: String {
+var computerHand: ExpectedUserInput {
+    var hands = [ExpectedUserInput.scissors, ExpectedUserInput.rock, ExpectedUserInput.paper].shuffled()
+    return hands.removeFirst()
+}
+
+enum ExpectedUserInput: String, CaseIterable {
     case exit = "0"
     case scissors = "1"
     case rock = "2"
