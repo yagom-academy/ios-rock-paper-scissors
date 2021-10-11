@@ -21,3 +21,10 @@ func generateComputerSign() -> Sign? {
     let computerSign = Sign(rawValue: indexOfSign)
     return computerSign
 }
+
+func receivePlayerInput() -> String {
+    guard let playerInput: String = readLine(), playerInput != "0" else {
+        return "0"
+    }
+    return playerInput
+}
