@@ -4,7 +4,9 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
-print("Hello, World!")
+enum HandShape: Int {
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+}
 
