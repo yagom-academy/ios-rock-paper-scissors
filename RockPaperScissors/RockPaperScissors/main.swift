@@ -81,14 +81,19 @@ func determineWinner(computersHand: Int, usersHand: Int) -> Player? {
 
 func print(winner: Player?){
     if winner == Player.computer {
-        print("졌습니다!")
+        print("""
+            졌습니다!
+            게임 종료
+            """)
     } else if winner == Player.user {
-        print("이겼습니다!")
+        print("""
+            이겼습니다!
+            게임 종료
+            """)
     } else {
         print("비겼습니다!")
+        runRockPaperScissors()
     }
-    
-    print("게임 종료")
 }
 
 runRockPaperScissors()
