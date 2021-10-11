@@ -29,3 +29,20 @@ enum Sign: Int {
         return randomSign
     }
 }
+
+enum GameResult {
+    case userWin
+    case computerWin
+    case draw
+    
+    var message: String {
+        switch self {
+        case .userWin:
+            return "이겼습니다!"
+        case .computerWin:
+            return "졌습니다!"
+        case .draw:
+            return "비겼습니다!"
+        }
+    }
+}
