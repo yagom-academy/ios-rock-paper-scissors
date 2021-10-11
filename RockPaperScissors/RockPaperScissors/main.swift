@@ -8,36 +8,41 @@ import Foundation
 
 var inputedChoice = ""
 
+/*
+ makerRandomNumber()
+ enum -> 가위바위보
+ 가위바위보 판정
+ 판정 출력
+ 게임종료 출력
+ 
+ */
+
+// 조건 1..3 합치기
 func playRockPaperScissors(){
-    checkInvalid()
-    
-    switch inputedChoice {
-    case "0": return
-    case "1":
-        break
-    case "2":
-        break
-    case "3":
-        break
-    default:
-        break
+    // computer value
+    receiveVaildInput()
+    if inputedChoice == "0" {
+        return
     }
 }
 
-func checkInvalid() {
+func receiveVaildInput() {
     var isInvalid: Bool = true
     
-    while isInvalid{
+    while isInvalid {
         printRockPaperScissors()
-        isInvalid = receiveInput()
+        isInvalid = isValidInput()
     }
 }
 
-func receiveInput() -> Bool {
+func receiveInput() {
     if let a = readLine() {
         inputedChoice = a
     }
-    
+}
+
+func isValidInput() -> Bool {
+    receiveInput()
     switch inputedChoice {
     case "0", "1", "2", "3":
         return false
