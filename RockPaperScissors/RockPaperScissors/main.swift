@@ -34,3 +34,10 @@ func verify(usersHand: Int?) -> Int {
         return verify(usersHand: newUsersHand)
     }
 }
+
+func runRockPaperScissors() {
+    printGameNotice()
+    let computersHand = determineComputersHand()
+    let userInput =  receiveUsersHand()
+    let usersHand = verify(usersHand: userInput)
+}
