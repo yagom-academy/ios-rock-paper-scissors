@@ -16,14 +16,16 @@
 
 ### 고려사항
 1. 주요 변수
-		- playerNumber : 사용자가 입력한 것을 담을 값을 전역변수로 선언하였습니다. 
-    - computerNumber : 컴퓨터가 생성한 난수를 담을 값을 startGame()함수 내에서 지역상수로 선언하였습니다.
-1. 주요 함수
-		- startReceiveInput : 사용자 입력값을 받아서 검증하는 함수입니다.
-		- varifyInputValue : 입력값을 정수형으로 바꾼 것이 1,2,3인지 확인하는 함수입니다.
-		- startGame : 컴퓨터의 랜덤 숫자를 생성하며 게임을 전반적으로 관리하는 함수입니다.
-		- changeOneToFour : 가위(1)와 보(3)가 만났을 때 가위(1)에 3을 더해서 4로 만들어서 정상적인 결과를 출력하도록 하는 함수입니다.
-		- compareNumbers : playerNumber와 computerNumber를 비교하여 승패결과 출력하는 함수입니다.
+
+- playerNumber : 사용자가 입력한 것을 담을 값을 전역변수로 선언하였습니다. 
+- computerNumber : 컴퓨터가 생성한 난수를 담을 값을 startGame()함수 내에서 지역상수로 선언하였습니다.
+2. 주요 함수
+
+- startReceiveInput : 사용자 입력값을 받아서 검증하는 함수입니다.
+- varifyInputValue : 입력값을 정수형으로 바꾼 것이 1,2,3인지 확인하는 함수입니다.
+- startGame : 컴퓨터의 랜덤 숫자를 생성하며 게임을 전반적으로 관리하는 함수입니다.
+- changeOneToFour : 가위(1)와 보(3)가 만났을 때 가위(1)에 3을 더해서 4로 만들어서 정상적인 결과를 출력하도록 하는 함수입니다.
+- compareNumbers : playerNumber와 computerNumber를 비교하여 승패결과 출력하는 함수입니다.
 
 ### 출력 결과  
 ![STEP_1_](https://user-images.githubusercontent.com/50446512/136161655-0434c906-da6c-4465-a9d4-cba4c9042eae.png)
