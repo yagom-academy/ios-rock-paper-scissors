@@ -16,28 +16,28 @@ func determineComputersHand() -> Int {
     return computersHand
 }
 
-func receiveUsersHand() -> Int? {
-    guard let usersHand = readLine() else {
+func receiveUserInput() -> Int? {
+    guard let userInput = readLine() else {
         return nil
     }
         
-    return Int(usersHand)
+    return Int(userInput)
 }
 
-func verify(usersHand: Int?) -> Int {
-    if let usersHand = usersHand, usersHand >= 0, usersHand <= 3 {
+func verify(userInput: Int?) -> Int {
+    if let usersHand = userInput, usersHand >= 0, usersHand <= 3 {
         return usersHand
     } else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         printGameNotice()
-        let newUsersHand = receiveUsersHand()
-        return verify(usersHand: newUsersHand)
+        let newUserInput = receiveUserInput()
+        return verify(userInput: newUserInput)
     }
 }
 
 func runRockPaperScissors() {
     printGameNotice()
     let computersHand = determineComputersHand()
-    let userInput =  receiveUsersHand()
-    let usersHand = verify(usersHand: userInput)
+    let userInput =  receiveUserInput()
+    let usersHand = verify(userInput: userInput)
 }
