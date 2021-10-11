@@ -1,4 +1,3 @@
-//var playerInput: String = ""
 var playerNumber: Int = 0
 
 func startReceiveInput() {
@@ -9,7 +8,6 @@ func startReceiveInput() {
         return
     }
     varifyInputValue(input: input)
-    //playerInput = input
 }
 
 func varifyInputValue(input: String) {
@@ -18,25 +16,12 @@ func varifyInputValue(input: String) {
         startReceiveInput()
         return
     }
-    
     playerNumber = inputNumber
-    
-}
-
-func startProgram() {
-    startReceiveInput()
-    //varifyInputValue(input: playerInput)
-//    if isProgramOver == false {
-//        startGame()
-//    } else {
-//        return
-//    }
     startGame()
 }
 
 func startGame() {
     var computerNumber: Int = Int.random(in: 1...3)
-    print(computerNumber)
     changeOneToFour(computerNumber: &computerNumber)
     compareNumbers(with: computerNumber)
 }
@@ -52,8 +37,8 @@ func changeOneToFour(computerNumber: inout Int) {
 func compareNumbers(with computerNumber: Int) {
     if playerNumber == computerNumber {
         print("비겼습니다!")
-//        startReceiveInput()
-        startGame()
+        startReceiveInput()
+        return
     } else if playerNumber > computerNumber {
         print("이겼습니다!")
     } else {
@@ -61,9 +46,4 @@ func compareNumbers(with computerNumber: Int) {
     }
 }
 
-
-
-
-
-
-startProgram()
+startReceiveInput()
