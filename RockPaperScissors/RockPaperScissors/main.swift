@@ -20,14 +20,14 @@ func generateRandomHand() -> GameHand {
 }
 
 func startRockPaperSiccorsGame() {
-    recieveUserInput()
+    receiveUserManualInput()
 }
 
 func printRockPaperSiccorsManual() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ")
 }
 
-func recieveUserInput() {
+func receiveUserManualInput() {
     printRockPaperSiccorsManual()
     let userInput = readLine()?.replacingOccurrences(of: " ", with: "")
     
