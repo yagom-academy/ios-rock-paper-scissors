@@ -15,6 +15,7 @@ func startReceiveInput() {
 func varifyInputValue(input: String) {
     guard let inputNumber = Int(input), inputNumber > 0, inputNumber < 4 else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
+        startReceiveInput()
         return
     }
     
@@ -25,12 +26,44 @@ func varifyInputValue(input: String) {
 func startProgram() {
     startReceiveInput()
     //varifyInputValue(input: playerInput)
+//    if isProgramOver == false {
+//        startGame()
+//    } else {
+//        return
+//    }
     startGame()
-    
 }
 
 func startGame() {
-    let computerNumber: Int = Int.random(in: 1...3)
+    var computerNumber: Int = Int.random(in: 1...3)
+    print(computerNumber)
+    changeOneToFour(computerNumber: &computerNumber)
+    compareNumbers(with: computerNumber)
 }
+
+func changeOneToFour(computerNumber: inout Int) {
+    if playerNumber == 1, computerNumber == 3 {
+        playerNumber += 3
+    } else if playerNumber == 3, computerNumber == 1 {
+        computerNumber += 3
+    }
+}
+
+func compareNumbers(with computerNumber: Int) {
+    if playerNumber == computerNumber {
+        print("비겼습니다!")
+//        startReceiveInput()
+        startGame()
+    } else if playerNumber > computerNumber {
+        print("이겼습니다!")
+    } else {
+        print("졌습니다!")
+    }
+}
+
+
+
+
+
 
 startProgram()
