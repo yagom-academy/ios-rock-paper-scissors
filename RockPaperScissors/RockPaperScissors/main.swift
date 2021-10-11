@@ -6,6 +6,23 @@
 
 import Foundation
 
+enum Player {
+    case computer
+    case user
+}
+
+func runRockPaperScissors() {
+    printGameNotice()
+    let computersHand = determineComputersHand()
+    let userInput =  receiveUserInput()
+    let usersHand = verify(userInput: userInput)
+    if usersHand == 0 {
+        print("게임 종료")
+        return
+    }
+    let winner: Player? = determineWinner(computersHand: computersHand, usersHand: usersHand)
+}
+
 func printGameNotice() {
     print("가위(1), 바위(2), 보(3)!<종료 : 0>", terminator: " : ")
 }
@@ -35,13 +52,28 @@ func verify(userInput: Int?) -> Int {
     }
 }
 
-func runRockPaperScissors() {
-    printGameNotice()
-    let computersHand = determineComputersHand()
-    let userInput =  receiveUserInput()
-    let usersHand = verify(userInput: userInput)
-    if usersHand == 0 {
-        print("게임 종료")
-        return
+func determineWinner(computersHand: Int, usersHand: Int) -> Player? {
+    if computersHand == usersHand {
+        return nil
+    }
+    
+    switch (computersHand, usersHand) {
+    case (1, 2):
+        return Player.user
+    case (1, 3):
+        return Player.computer
+    case (2, 1):
+        return Player.computer
+    case (2, 3):
+        return Player.user
+    case (3, 1):
+        return Player.user
+    case (3, 2):
+        return Player.computer
+    default:
+        return nil
     }
 }
+
+
+
