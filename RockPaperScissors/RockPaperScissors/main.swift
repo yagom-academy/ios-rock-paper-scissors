@@ -46,3 +46,13 @@ enum GameResult {
         }
     }
 }
+
+func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
+    if userSign == computerSign.counter {
+        return .userWin
+    } else if userSign == computerSign {
+        return .draw
+    } else {
+        return .computerWin
+    }
+}
