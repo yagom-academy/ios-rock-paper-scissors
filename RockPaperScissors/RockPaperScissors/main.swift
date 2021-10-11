@@ -6,7 +6,18 @@
 
 import Foundation
 
-//STEP 1. 가위바위보 게임
+//STEP 1. 가위바위보 게임 [차분히 천천히하세요]
+
+enum GameHand: CaseIterable {
+    case rock
+    case paper
+    case siccors
+}
+
+func generateRandomHand() -> GameHand {
+    let randomIndex = Int.random(in: 0..<GameHand.allCases.count)
+    return GameHand.allCases[randomIndex]
+}
 
 func startRockPaperSiccorsGame() {
     recieveUserInput()
@@ -32,4 +43,4 @@ func recieveUserInput() {
     }
 }
 
-startRockPaperSiccorsGame()
+print(generateRandomHand())
