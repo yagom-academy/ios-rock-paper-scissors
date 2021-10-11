@@ -16,11 +16,15 @@ func runRockPaperScissors() {
     let computersHand = determineComputersHand()
     let userInput =  receiveUserInput()
     let usersHand = verify(userInput: userInput)
+    
     if usersHand == 0 {
         print("게임 종료")
         return
     }
+    
     let winner: Player? = determineWinner(computersHand: computersHand, usersHand: usersHand)
+    
+    print(winner: winner)
 }
 
 func printGameNotice() {
@@ -75,5 +79,17 @@ func determineWinner(computersHand: Int, usersHand: Int) -> Player? {
     }
 }
 
+func print(winner: Player?){
+    if winner == Player.computer {
+        print("졌습니다!")
+    } else if winner == Player.user {
+        print("이겼습니다!")
+    } else {
+        print("비겼습니다!")
+    }
+    
+    print("게임 종료")
+}
 
+runRockPaperScissors()
 
