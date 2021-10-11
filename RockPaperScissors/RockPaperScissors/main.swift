@@ -6,5 +6,10 @@
 
 import Foundation
 
-print("Hello, World!")
+//STEP 1. 가위바위보 게임
 
+func startRockPaperSiccorsGame() {
+    
+}
+
+startRockPaperSiccorsGame()
