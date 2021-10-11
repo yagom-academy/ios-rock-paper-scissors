@@ -15,8 +15,6 @@ func readUserInput() -> ExpectedUserInput? {
     let input = readLine()
     
     switch input {
-    case nil:
-        return nil
     case ExpectedUserInput.exit.rawValue:
         return .exit
     case ExpectedUserInput.scissors.rawValue:
@@ -29,5 +27,4 @@ func readUserInput() -> ExpectedUserInput? {
         return nil
     }
 }
-
 
