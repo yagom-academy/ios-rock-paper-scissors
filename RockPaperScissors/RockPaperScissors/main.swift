@@ -8,9 +8,32 @@ import Foundation
 
 
 func playRockPaperScissors(){
+    var a = true
+    let input: String?
+    while a {
+        printRockPaperScissors()
+        input = receiveInput()
+        a = func()
+    }
+}
 
+// 입력을 받아서
+// 123 -> 할당
+// 0 -> 전체 프로그램 종료
+// 그 외 -> 입력받는 함수 재실행
+
+//func 1230 () {
+//
+//}
+//
+//func 123 / 0 {
+//
+//}
+
+func receiveInput() -> String? {
+    guard let input = readLine() else { return nil }
     
-    
+    return input
 }
 
 func printRockPaperScissors(){
