@@ -12,9 +12,18 @@ var computerHand: ExpectedHand {
 enum GameError: Error {
     case exit
     case invalidInput
+    case draw
 }
 
-enum ExpectedHand: String, CaseIterable {
+enum ExpectedHand: String, CaseIterable, Comparable {
+    static func < (lhs: ExpectedHand, rhs: ExpectedHand) -> Bool {
+        if lhs == .paper, rhs == .scissors {
+            return true
+        }
+        
+        return lhs.rawValue < rhs.rawValue
+    }
+    
     case scissors = "1"
     case rock = "2"
     case paper = "3"
@@ -35,4 +44,12 @@ func readUserInput() throws -> ExpectedHand {
     default:
         throw GameError.invalidInput
     }
+}
+
+func isWin(_ input: ExpectedHand) throws -> Bool {
+    guard computerHand != input else {
+        throw GameError.draw
+    }
+    
+    return computerHand < input
 }
