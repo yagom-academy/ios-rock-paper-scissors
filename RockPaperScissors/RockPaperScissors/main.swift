@@ -66,6 +66,38 @@ enum GameResult {
     }
 }
 
+enum Validity {
+    case invalid
+    case valid(userInput: Int)
+}
+
+func getUserInput() -> Int? {
+    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "") else { return nil }
+    return Int(userInput)
+}
+
+func isWithinRange(input: Int) -> Bool {
+    return (0...Sign.count).contains(input)
+}
+
+func isValid(userInput: Int?) -> Validity {
+    guard let userInput = userInput else {
+        return .invalid
+    }
+    guard isWithinRange(input: userInput) else {
+        return .invalid
+    }
+    
+    return .valid(userInput: userInput)
+}
+
+func generatePlayersSign(userInput: Int) -> (userSign: Sign, computerSign: Sign) {
+    let userSign = Sign(userInput: userInput)
+    let computerSign = SignFactory.generateRandomElement()
+    
+    return (userSign, computerSign)
+}
+
 func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
     if userSign == computerSign.counter {
         return .userWin
@@ -84,31 +116,6 @@ func printInputError() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func getUserInput() -> Int? {
-    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "") else { return nil }
-    return Int(userInput)
-}
-
-func isWithinRange(input: Int) -> Bool {
-    return (0...Sign.count).contains(input)
-}
-
-enum Validity {
-    case invalid
-    case valid(userInput: Int)
-}
-
-func isValid(userInput: Int?) -> Validity {
-    guard let userInput = userInput else {
-        return .invalid
-    }
-    guard isWithinRange(input: userInput) else {
-        return .invalid
-    }
-    
-    return .valid(userInput: userInput)
-}
-
 func printGameResult(gameResult: GameResult?) {
     switch gameResult {
     case .userWin:
@@ -120,13 +127,6 @@ func printGameResult(gameResult: GameResult?) {
     default:
         fatalError("\(#function)에 전달된 인자의 값이 nil입니다")
     }
-}
-
-func generatePlayersSign(userInput: Int) -> (userSign: Sign, computerSign: Sign) {
-    let userSign = Sign(userInput: userInput)
-    let computerSign = SignFactory.generateRandomElement()
-    
-    return (userSign, computerSign)
 }
 
 func printGameOver() {
