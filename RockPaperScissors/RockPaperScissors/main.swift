@@ -123,28 +123,22 @@ func printGameOver() {
 }
 
 func playGame() {
-    var gameResult: GameResult? = nil
-
-    outerLoop: repeat {
-        printMenu()
-        let userInput = getUserInput()
-        let validationResult = isValid(userInput: userInput)
-
-        switch validationResult {
-        case .invalid:
-            printInputError()
-            continue
-        case .valid(0):
-            break outerLoop
-        case .valid(let userInput):
-            let (userSign, computerSign) = generatePlayersSign(userInput: userInput)
-            gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
-            printGameResult(gameResult: gameResult)
-            continue
-        }
-    } while gameResult == .draw || gameResult == nil
-
-    printGameOver()
+    printMenu()
+    let userInput = getUserInput()
+    let validationResult = isValid(userInput: userInput)
+    
+    switch validationResult {
+    case .invalid:
+        printInputError()
+        playGame()
+    case .valid(0):
+        printGameOver()
+    case .valid(let userInput):
+        let (userSign, computerSign) = generatePlayersSign(userInput: userInput)
+        let gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
+        printGameResult(gameResult: gameResult)
+        (gameResult == .draw) ? playGame() : printGameOver()
+    }
 }
 
 playGame()
