@@ -76,3 +76,7 @@ func getUserInput() -> Int? {
     guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "") else { return nil }
     return Int(userInput)
 }
+
+func isWithinRange(input: Int) -> Bool {
+    return (0...Sign.count).contains(input)
+}
