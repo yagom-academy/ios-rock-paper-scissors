@@ -122,10 +122,11 @@ func printGameResult(gameResult: GameResult?) {
     }
 }
 
-func returnGameResult(userInput: Int) -> GameResult {
+func generatePlayersSign(userInput: Int) -> (userSign: Sign, computerSign: Sign) {
     let userSign = Sign(userInput: userInput)
     let computerSign = SignFactory.generateRandomElement()
-    return checkWinner(userSign: userSign, computerSign: computerSign)
+    
+    return (userSign, computerSign)
 }
 
 func playGame() {
@@ -142,7 +143,8 @@ func playGame() {
         case .valid(0):
             return
         case .valid(let userInput):
-            gameResult = returnGameResult(userInput: userInput)
+            let (userSign, computerSign) = generatePlayersSign(userInput: userInput)
+            gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
             printGameResult(gameResult: gameResult)
             continue
         }
