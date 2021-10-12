@@ -4,7 +4,13 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
-print("Hello, World!")
+func printGameStart() {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ")
+    guard let userInput = readLine(), let userInputNumber = Int(userInput) else {
+        return
+    }
+    if userInputNumber == 0 {
+        return
+    }
+}
 
