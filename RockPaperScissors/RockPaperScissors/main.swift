@@ -28,7 +28,7 @@ func runRockPaperScissors() {
 }
 
 func printGameNotice() {
-    print("가위(1), 바위(2), 보(3)!<종료 : 0>", terminator: " : ")
+    print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
 }
 
 func determineComputersHand() -> Int {
@@ -46,7 +46,9 @@ func receiveUserInput() -> Int? {
 }
 
 func verify(userInput: Int?) -> Int {
-    if let usersHand = userInput, usersHand >= 0, usersHand <= 3 {
+    if let usersHand = userInput,
+       usersHand >= 0,
+       usersHand <= 3 {
         return usersHand
     } else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -97,4 +99,5 @@ func print(winner: Player?){
 }
 
 runRockPaperScissors()
+
 
