@@ -12,12 +12,7 @@ struct RockPaperScissorsGame {
     let rock = "2"
     let paper = "3"
     
-    func validate(playerNumber: String) -> Bool {
-        let validInputs = [quit, scissor, rock, paper]
-        return validInputs.contains(playerNumber)
-    }
-    
-    func main() {
+    func startGame() {
         var playerNumber: String? = nil
         var computerNumber = ""
         repeat {
@@ -38,10 +33,17 @@ struct RockPaperScissorsGame {
         print("게임종료")
     }
     
-    func isPlayerWin(_ playerNumber: String?, _ opponentNumber: String) -> Bool {
-        return (playerNumber == scissor && opponentNumber == paper)
-            || (playerNumber == rock && opponentNumber == scissor)
-            || (playerNumber == paper && opponentNumber == rock)
+    private func getUserInput(_ input: String? = readLine()) -> String? {
+        if let userInput = input, validate(playerNumber: userInput) {
+            return userInput
+        }
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return nil
+    }
+    
+    private func validate(playerNumber: String) -> Bool {
+        let validInputs = [quit, scissor, rock, paper]
+        return validInputs.contains(playerNumber)
     }
     
     private func isDraw(_ computerNumber: String, _ playerNumber: String?) -> Bool {
@@ -56,15 +58,13 @@ struct RockPaperScissorsGame {
         return playerNumber == nil
     }
     
-    private func getUserInput(_ input: String? = readLine()) -> String? {
-        if let userInput = input, validate(playerNumber: userInput) {
-            return userInput
-        }
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return nil
+    private func isPlayerWin(_ playerNumber: String?, _ opponentNumber: String) -> Bool {
+        return (playerNumber == scissor && opponentNumber == paper)
+            || (playerNumber == rock && opponentNumber == scissor)
+            || (playerNumber == paper && opponentNumber == rock)
     }
 }
 
 let rockPaperScissors = RockPaperScissorsGame()
 
-rockPaperScissors.main()
+rockPaperScissors.startGame()
