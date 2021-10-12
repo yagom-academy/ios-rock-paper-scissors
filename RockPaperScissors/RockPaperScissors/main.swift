@@ -77,3 +77,14 @@ func generatePlayerSign(input: Int) {
     }
     playerSign = player
 }
+
+func compareWhenScissors() {
+    switch playerSign {
+    case .paper:
+        print("computer")
+    case .rock:
+        print("player")
+    case .scissors:
+        print("draw")
+    }
+}
