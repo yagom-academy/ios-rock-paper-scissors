@@ -1,12 +1,12 @@
 # 묵찌빠 게임
 
-## Step 1
+## STEP 1 순서도
 
 ![묵찌빠 게임 순서도](ios-rock-paper-scissors.drawio.png)
 
-### 코드 설명
+## 코드 설명
 
-#### ExpectedHand 열거형
+### ExpectedHand 열거형
 
 가위바위보 게임에서 나올 수 있는 손의 모양은 3가지입니다.
 > 가위(1), 바위(2), 보(3)
@@ -29,5 +29,27 @@ enum ExpectedHand: String, CaseIterable, Comparable {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
+}
+```
+
+#### 주의
+
+`String` 타입끼리 비교하기 때문에, 비교할 값이 **1자리**여야 합니다.  
+`case.rawValue`가 **2자리** 이상의 문자열 이라면, 아래 코드를 사용하십시오.
+```swift
+import Foundation
+let compare = "11".compare("2", options: [.numeric])
+print(compare == .orderedAscending)
+```
+
+### `Array.removeFirst()` 사용한 이유
+
+`Array.randomElement()` 함수는 반환 타입이 옵셔널 입니다.  
+옵셔널을 피하기 위해 `Array.removeFirst()` 함수를 사용했습니다.
+
+```swift
+var computerHand: ExpectedHand {
+    var hands = ExpectedHand.allCases.shuffled()
+    return hands.removeFirst()
 }
 ```
