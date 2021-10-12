@@ -28,9 +28,17 @@ func playGame(inputNumber: Int) {
     print("컴퓨터 번호 \(computerNumber) , 내 번호 \(inputNumber)")
     if matchedWinNumber[inputNumber] == computerNumber {
         print("이겼습니다!")
-    } else {
+    } else if inputNumber != computerNumber {
         print("졌습니다!")
     }
+}
+
+func isDraw(inputNumber: Int) -> Bool {
+    if inputNumber == computerNumber {
+        print("비겼습니다!")
+        return false
+    }
+    return true
 }
 
 func checkInputNumber(inputNumber: Int) throws {
@@ -42,23 +50,23 @@ func checkInputNumber(inputNumber: Int) throws {
 }
 
 func startGame() -> Bool {
+    var isReturn: Bool = true
     do {
         let userInputNumber =  try inputUserData()
         try checkInputNumber(inputNumber: userInputNumber)
-        
-        return true
+        isReturn = isDraw(inputNumber: userInputNumber)
     } catch GameError.wrongInput {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        return false
+        isReturn = false
     } catch {
         print(error)
-        return false
+        isReturn = false
     }
+    return isReturn
 }
 
 func game() {
     generateRandomNumber()
-    while startGame() == false {
-    }
+    while startGame() == false {}
 }
 game()
