@@ -64,10 +64,10 @@ func checkUserInput(input: String) {
     }
 }
 
-func compare(to usersScissorsRockPaper: ScissorsRockPaper, with computerScissorsRockPaper: ScissorsRockPaper) {
-    if usersScissorsRockPaper == computerScissorsRockPaper {
+func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) {
+    if usersPick == computerRandomPick {
         print("비겼습니다!")
-    } else if usersScissorsRockPaper == computerScissorsRockPaper.next() {
+    } else if usersPick == computerRandomPick.next() {
         print("이겼습니다!")
         exitGame()
     } else {
