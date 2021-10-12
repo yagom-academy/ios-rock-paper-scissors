@@ -6,6 +6,22 @@
 
 import Foundation
 
+func runGame() {
+    printGameMenu()
+    
+    let userInput = readLine()
+    
+    switch userInput {
+    case "0":
+        printEndMessage()
+    case "1", "2", "3":
+        compareNumbers(computerNumber: generateRandomNumber(), userInputnumber: receiveUserInput(input: userInput))
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        runGame()
+    }
+}
+
 func printGameMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
@@ -20,11 +36,11 @@ func generateRandomNumber() -> Int {
     return randomNumber
 }
 
-func receiveUserInput() -> Int {
+func receiveUserInput(input: String?) -> Int {
     var stringTypeUserInput = ""
     var intTypeUserInput = 0
 
-    if let userInput = readLine() {
+    if let userInput = input {
         stringTypeUserInput = userInput
     }
     
@@ -40,16 +56,21 @@ func compareNumbers(computerNumber: Int, userInputnumber: Int) {
     
     if subtractionValue == 0 {
         print("비겼습니다!")
+        runGame()
     }
     
     switch subtractionValue {
     case 1, -2:
         print("이겼습니다!")
         printEndMessage()
+        return
     case -1, 2:
         print("졌습니다!")
         printEndMessage()
+        return
     default:
         break
     }
 }
+
+runGame()
