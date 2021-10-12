@@ -3,24 +3,36 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 //
+enum GameError: Error {
+    case wrongInput
+}
+
 var computerNumber: Int = 0
 
-func printGameStart() {
+func inputUserData() throws -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ")
     guard let userInput = readLine(), let userInputNumber = Int(userInput) else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return
+        throw GameError.wrongInput
     }
-    if userInputNumber == 0 {
-        return
-    }
+    return userInputNumber
 }
 
 func generateRandomNumber() {
     var computerNumbers: [Int] = [1,2,3]
     computerNumbers.shuffle()
-    
     computerNumber = computerNumbers[0]
 }
+
+func startGame() {
+    do {
+        let userInputNumber =  try inputUserData()
+    } catch GameError.wrongInput {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    } catch {
+        print(error)
+    }
+}
+
+
 
 generateRandomNumber()
