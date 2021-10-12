@@ -109,10 +109,30 @@ func isValid(userInput: Int?) -> Validity {
     return .valid(userInput: userInput)
 }
 
+func printGameResult(gameResult: GameResult?) {
+    switch gameResult {
+    case .userWin:
+        print("이겼습니다!")
+    case .computerWin:
+        print("졌습니다!")
+    case .draw:
+        print("비겼습니다")
+    default:
+        fatalError("\(#function)에 전달된 인자의 값이 nil입니다")
+    }
+}
+
+func returnGameResult(userInput: Int) -> GameResult {
+    let userSign = Sign(userSign: userInput)
+    let computerSign = SignFactory.generateRandomElement()
+    return checkWinner(userSign: userSign, computerSign: computerSign)
+}
+
 func playGame() {
     var gameResult: GameResult? = nil
     
     repeat {
+        printMenu()
         let userInput = getUserInput()
         let validationResult = isValid(userInput: userInput)
         
@@ -120,9 +140,13 @@ func playGame() {
         case .invalid:
             continue
         case .valid(0):
-            continue
+            return
         case .valid(let userInput):
-            break
+            gameResult = returnGameResult(userInput: userInput)
+            printGameResult(gameResult: gameResult)
+            continue
         }
-    } while gameResult != .draw
+    } while gameResult == .draw || gameResult == nil
 }
+
+playGame()
