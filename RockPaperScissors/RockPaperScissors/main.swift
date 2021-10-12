@@ -5,21 +5,20 @@
 //
 
 var computerHand: ExpectedHand {
-    var hands = [ExpectedHand.scissors, ExpectedHand.rock, ExpectedHand.paper].shuffled()
+    var hands = ExpectedHand.allCases.shuffled()
     return hands.removeFirst()
 }
 
 enum GameError: Error {
     case invalidInput
+    case retry
+    case exit
 }
 
 enum GameResult: Error {
     case win
     case draw
     case lose
-    case retry
-    case exit
-    
 }
 
 enum ExpectedHand: String, CaseIterable, Comparable {
@@ -41,7 +40,7 @@ func readUserInput() throws -> ExpectedHand {
     
     switch input {
     case "0":
-        throw GameResult.exit
+        throw GameError.exit
     case ExpectedHand.scissors.rawValue:
         return .scissors
     case ExpectedHand.rock.rawValue:
@@ -63,17 +62,17 @@ func isWin(_ input: ExpectedHand) -> GameResult {
     return isWin ? .win : .lose
 }
 
-func playGame() -> GameResult {
+func playGame() throws -> GameResult {
     let userHand: ExpectedHand
     
     do {
         userHand = try readUserInput()
     } catch GameError.invalidInput {
-        return .retry
-    } catch GameResult.exit {
-        return .exit
+        throw GameError.retry
+    } catch GameError.exit {
+        throw GameError.exit
     } catch {
-        return .retry
+        throw GameError.retry
     }
     
     return isWin(userHand)
