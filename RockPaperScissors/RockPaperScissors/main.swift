@@ -7,9 +7,13 @@
 import Foundation
 
 struct RockPaperScissorsGame {
+    let quit = "0"
+    let scissor = "1"
+    let rock = "2"
+    let paper = "3"
     
     func validate(playerNumber: String) -> Bool {
-        let validInputs = ["0", "1", "2", "3"]
+        let validInputs = [quit, scissor, rock, paper]
         return validInputs.contains(playerNumber)
     }
     
@@ -23,7 +27,7 @@ struct RockPaperScissorsGame {
             playerNumber = getUserInput()
         } while isDraw(computerNumber, playerNumber) || isWrong(playerNumber: playerNumber)
         
-        guard playerNumber != "0" else {
+        guard playerNumber != quit else {
             print("게임 종료")
             return
         }
@@ -36,9 +40,9 @@ struct RockPaperScissorsGame {
     }
     
     func isVictory(_ computerNumber: String, _ playerNumber: String?) -> Bool {
-        let winningCaseA = playerNumber == "1" && computerNumber == "3"
-        let winningCaseB = playerNumber == "2" && computerNumber == "1"
-        let winningCaseC = playerNumber == "3" && computerNumber == "2"
+        let winningCaseA = playerNumber == scissor && computerNumber == paper
+        let winningCaseB = playerNumber == rock && computerNumber == scissor
+        let winningCaseC = playerNumber == paper && computerNumber == rock
         
         return winningCaseA || winningCaseB || winningCaseC
     }
