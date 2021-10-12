@@ -83,33 +83,33 @@ func generatePlayerSign(input: Int) {
 func compareWhenScissors() {
     switch playerSign {
     case .paper:
-        print("computer")
+        print("졌습니다!")
     case .rock:
-        print("player")
+        print("이겼습니다!")
     case .scissors:
-        print("draw")
+        print("비겼습니다!")
     }
 }
 
 func compareWhenRock() {
     switch playerSign {
     case .paper:
-        print("player")
+        print("이겼습니다!")
     case .rock:
-        print("draw")
+        print("비겼습니다!")
     case .scissors:
-        print("computer")
+        print("졌습니다!")
     }
 }
 
 func compareWhenPaper() {
     switch playerSign {
     case .paper:
-        print("draw")
+        print("비겼습니다!")
     case .rock:
-        print("computer")
+        print("졌습니다!")
     case .scissors:
-        print("player")
+        print("이겼습니다!")
     }
 }
 
