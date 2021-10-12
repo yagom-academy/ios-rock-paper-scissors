@@ -14,8 +14,7 @@ enum Player {
 func runRockPaperScissors() {
     printGameNotice()
     let computersHand = determineComputersHand()
-    let userInput =  receiveUserInput()
-    let usersHand = verify(userInput: userInput)
+    let usersHand =  receiveAndVerifyUsersHand()
     
     if usersHand == 0 {
         print("게임 종료")
@@ -37,25 +36,17 @@ func determineComputersHand() -> Int {
     return computersHand
 }
 
-func receiveUserInput() -> Int? {
-    guard let userInput = readLine() else {
-        return nil
-    }
-        
-    return Int(userInput)
-}
-
-func verify(userInput: Int?) -> Int {
-    if let usersHand = userInput,
-       usersHand >= 0,
-       usersHand <= 3 {
-        return usersHand
-    } else {
+func receiveAndVerifyUsersHand() -> Int {
+    guard let stringUserInput = readLine(),
+          let integerUserInput = Int(stringUserInput),
+          integerUserInput >= 0,
+          integerUserInput <= 3 else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         printGameNotice()
-        let newUserInput = receiveUserInput()
-        return verify(userInput: newUserInput)
+        return receiveAndVerifyUsersHand()
     }
+    
+    return integerUserInput
 }
 
 func determineWinner(computersHand: Int, usersHand: Int) -> Player? {
