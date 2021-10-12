@@ -63,6 +63,10 @@ func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
 }
 
+func printInputError() {
+    print("잘못된 입력입니다. 다시 시도해주세요.")
+}
+
 func getUserInput() -> Int? {
     guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "") else { return nil }
     return Int(userInput)
