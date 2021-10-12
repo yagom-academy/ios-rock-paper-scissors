@@ -14,13 +14,13 @@ enum Player {
 func runRockPaperScissors() {
     printGameNotice()
     
-    let computersHand = determineComputersHand()
-    var usersHand : Int? = receiveAndVerifyUsersHand()
+    let computersHand = determinedComputersHand()
+    var usersHand : Int? = receivedAndVerifiedUsersHand()
     
     while usersHand == nil {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         printGameNotice()
-        usersHand = receiveAndVerifyUsersHand()
+        usersHand = receivedAndVerifiedUsersHand()
     }
     
     guard let usersHand = usersHand else {
@@ -31,7 +31,7 @@ func runRockPaperScissors() {
         print("게임 종료")
         return
     } else {
-        let winner: Player? = determineWinner(computersHand: computersHand, usersHand: usersHand)
+        let winner: Player? = determinedWinnerBetween(computersHand, and: usersHand)
         print(winner: winner)
     }
 }
@@ -40,13 +40,13 @@ func printGameNotice() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
 }
 
-func determineComputersHand() -> Int {
+func determinedComputersHand() -> Int {
     let computersHand = Int.random(in: 1...3)
     
     return computersHand
 }
 
-func receiveAndVerifyUsersHand() -> Int? {
+func receivedAndVerifiedUsersHand() -> Int? {
     guard let stringUserInput = readLine(),
           let integerUserInput = Int(stringUserInput),
           integerUserInput >= 0,
@@ -57,7 +57,7 @@ func receiveAndVerifyUsersHand() -> Int? {
     return integerUserInput
 }
 
-func determineWinner(computersHand: Int, usersHand: Int) -> Player? {
+func determinedWinnerBetween(_ computersHand: Int, and usersHand: Int) -> Player? {
     if computersHand == usersHand {
         return nil
     }
@@ -80,7 +80,7 @@ func determineWinner(computersHand: Int, usersHand: Int) -> Player? {
     }
 }
 
-func print(winner: Player?){
+func print(winner: Player?) {
     if winner == Player.computer {
         print("""
             졌습니다!
