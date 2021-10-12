@@ -99,3 +99,14 @@ func compareWhenRock() {
         print("computer")
     }
 }
+
+func compareWhenPaper() {
+    switch playerSign {
+    case .paper:
+        print("draw")
+    case .rock:
+        print("computer")
+    case .scissors:
+        print("player")
+    }
+}
