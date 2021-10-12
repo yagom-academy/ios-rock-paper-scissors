@@ -19,9 +19,14 @@ struct RockPaperScissorsGame {
         repeat {
             computerNumber = String(Int.random(in: 1...3))
             print(computerNumber)
+            print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
             playerNumber = getUserInput()
         } while isDraw(computerNumber, playerNumber) || isWrong(playerNumber: playerNumber)
-        // 승패판정해서 출력
+        
+        guard playerNumber != "0" else {
+            print("게임 종료")
+            return
+        }
         if isVictory(computerNumber, playerNumber) {
             print("이겼습니다!")
         } else {
@@ -51,7 +56,6 @@ struct RockPaperScissorsGame {
     }
     
     private func getUserInput() -> String? {
-        print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
         if let userInput = readLine(), validate(playerNumber: userInput) {
             return userInput
         }
