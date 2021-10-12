@@ -49,12 +49,14 @@ func isDraw(inputNumber: Int) -> Bool {
 
 func isRestartGame(inputNumber: Int) -> Bool {
     var isRestart: Bool = false
+    let exit = 0
+    let run = 1...3
     
     switch inputNumber {
-    case 0 :
+    case exit :
         print("게임 종료")
         isRestart = false
-    case 1...3 : isDraw(inputNumber: inputNumber) ? isRestart = true : playGame(inputNumber: inputNumber)
+    case run : isDraw(inputNumber: inputNumber) ? isRestart = true : playGame(inputNumber: inputNumber)
     default :
         print("잘못된 입력입니다. 다시 시도해주세요.")
         isRestart = true
