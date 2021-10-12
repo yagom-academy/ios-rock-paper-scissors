@@ -1,4 +1,21 @@
-var playerNumber: Int = 0
+enum Card: Int, CaseIterable {
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+    
+    func checkPlayerWinCase() -> Card {
+        switch self {
+        case .scissors:
+            return Card.paper
+        case .paper:
+            return Card.rock
+        case .rock:
+            return Card.scissors
+        }
+    }
+}
+
+var playerCard: Card = Card.scissors
 
 func startReceiveInput() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -7,6 +24,7 @@ func startReceiveInput() {
         print("게임 종료")
         return
     }
+    
     varifyInputValue(input: input)
 }
 
@@ -16,30 +34,41 @@ func varifyInputValue(input: String) {
         startReceiveInput()
         return
     }
-    playerNumber = inputNumber
+    
+    playerCard = changeNumberToCard(number: inputNumber)
     startGame()
 }
 
-func startGame() {
-    var computerNumber: Int = Int.random(in: 1...3)
-    changeOneToFour(computerNumber: &computerNumber)
-    compareNumbers(with: computerNumber)
-}
-
-func changeOneToFour(computerNumber: inout Int) {
-    if playerNumber == 1, computerNumber == 3 {
-        playerNumber += 3
-    } else if playerNumber == 3, computerNumber == 1 {
-        computerNumber += 3
+func changeNumberToCard(number: Int) -> Card {
+    switch number {
+    case 1:
+        return Card.scissors
+    case 2:
+        return Card.rock
+    default:
+        return Card.paper
     }
 }
 
-func compareNumbers(with computerNumber: Int) {
-    if playerNumber == computerNumber {
+func startGame() {
+    var computerCard: Card = Card.scissors
+    
+    if let randomChoice = Card.allCases.randomElement() {
+        computerCard = randomChoice
+        print(computerCard)
+    }
+    
+    compareCards(with: computerCard)
+}
+
+func compareCards(with computerCard: Card) {
+    let playerWinCaseCard = playerCard.checkPlayerWinCase()
+    
+    if playerCard == computerCard {
         print("비겼습니다!")
         startReceiveInput()
         return
-    } else if playerNumber > computerNumber {
+    } else if playerWinCaseCard == computerCard {
         print("이겼습니다!")
     } else {
         print("졌습니다!")
