@@ -12,9 +12,8 @@ enum Sign: Int {
     case paper = 3
 }
 
-enum GameError: Error {
+enum InputError: Error {
     case invalidInput
-    case isZero
 }
 
 func printStartMessage() {
@@ -30,4 +29,11 @@ func generateComputerSign() -> Sign? {
 func receivePlayerInput() -> String {
     let playerInput = readLine() ?? ""
     return playerInput
+}
+
+func convertToInt(from input: String) throws -> Int {
+    guard let convertedInput = Int(input), convertedInput <= 3 && convertedInput >= 0 else {
+        throw InputError.invalidInput
+    }
+    return convertedInput
 }
