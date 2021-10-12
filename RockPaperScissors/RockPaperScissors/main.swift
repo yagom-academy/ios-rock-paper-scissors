@@ -18,3 +18,14 @@ func receiveUserInput() {
         return
     }
 }
+
+func checkUserInput(input: String) {
+    switch input {
+    case "0":
+        print("게임 종료")
+    case "1","2","3":
+        return
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+}
