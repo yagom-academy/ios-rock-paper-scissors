@@ -38,7 +38,7 @@ func runRockPaperScissors() {
         print("게임 종료")
         return
     } else {
-        let winner: Player? = determinedWinnerBetween(computersHand, and: usersHand)
+        let winner: Player? = winnerDeterminedBetween(computersHand, and: usersHand)
         printOrRestart(winner: winner)
     }
 }
@@ -84,7 +84,7 @@ func receivedAndVerifiedUsersHand() -> Hand? {
     }
 }
 
-func determinedWinnerBetween(_ computersHand: Hand, and usersHand: Hand) -> Player? {
+func winnerDeterminedBetween(_ computersHand: Hand, and usersHand: Hand) -> Player? {
     if computersHand == usersHand {
         return nil
     }
