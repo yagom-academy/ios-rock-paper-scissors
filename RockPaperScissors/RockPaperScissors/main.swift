@@ -110,3 +110,14 @@ func compareWhenPaper() {
         print("player")
     }
 }
+
+func judgeWinner() {
+    switch computerSign {
+    case .paper:
+        compareWhenPaper()
+    case .scissors:
+        compareWhenScissors()
+    case .rock:
+        compareWhenRock()
+    }
+}
