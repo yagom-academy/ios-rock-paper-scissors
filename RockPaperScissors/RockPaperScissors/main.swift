@@ -6,7 +6,8 @@
 
 import Foundation
 
-enum Sign: Int {
+enum Sign: Int, CaseIterable
+{
     case scissors = 1
     case rock = 2
     case paper = 3
@@ -22,8 +23,9 @@ enum Sign: Int {
         }
     }
     
+    // generateRandomElement란 이름은 어떨까?
     static func generateRandom() -> Self {
-        guard let randomSign = Self(rawValue: Int.random(in: 1...3)) else {
+        guard let randomSign = self.allCases.randomElement() else {
             fatalError("\(#function) 함수에서 랜덤값을 생성하는 데에 오류가 발생했습니다")
         }
         return randomSign
@@ -62,6 +64,6 @@ func printMenu() {
 }
 
 func getUserInput() -> Int? {
-    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "")  else { return nil }
+    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "") else { return nil }
     return Int(userInput)
 }
