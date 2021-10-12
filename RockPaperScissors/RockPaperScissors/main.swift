@@ -22,9 +22,53 @@ func inputingUserNumber(range: ClosedRange<Int> = possibleInputRange) -> Int {
         fatalError("잘못된 입력입니다. 다시 시도해주세요.")
     }
     
+    guard firstItem != 0 else {
+        fatalError("게임 종료")
+    }
+    
     guard convertedInput.count == 1 && range ~= firstItem else {
         fatalError("잘못된 입력입니다. 다시 시도해주세요.")
     }
     
     return firstItem
+}
+
+func pullComputersRandomChoice(range: ClosedRange<Int> = possibleInputRange) -> Int {
+    return Int.random(in: range)
+}
+
+enum GameJudgement {
+    case win
+    case loose
+    case draw
+    case unknown
+    
+    mutating func convert(result: Int) {
+        switch result {
+        case -2, 1: self = .win
+        case 2, -1: self = .loose
+        case 0: self = .draw
+        default: self = .unknown
+        }
+    }
+}
+
+func compareChoice(of user: Int, with computer: Int) -> GameJudgement {
+    let evaluatedResult = user - computer
+    var gameJudgement: GameJudgement = .unknown
+    
+    gameJudgement.convert(result: evaluatedResult)
+    
+    switch gameJudgement {
+    case .win:
+        print("이겼습니다!")
+    case .loose:
+        print("졌습니다!")
+    case .draw:
+        print("비겼습니다!")
+    case .unknown:
+        fatalError("알 수 없는 오류가 발생하였습니다.")
+    }
+    
+    return gameJudgement
 }
