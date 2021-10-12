@@ -4,6 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+// MARK: - Enums
 enum Message: String {
     case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     case invalidInput = "잘못된 입력입니다. 다시 시도해주세요."
@@ -32,6 +33,7 @@ enum ExpectedHand: String, CaseIterable, Comparable {
     case paper = "3"
 }
 
+// MARK: - Functions
 func readUserInput() throws -> ExpectedHand {
     let input = readLine()
     
@@ -86,5 +88,5 @@ func runProgram() {
     }
 }
 
-
+// MARK: - Program start
 runProgram()
