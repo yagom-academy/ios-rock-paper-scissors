@@ -104,12 +104,8 @@ func convertUserInput(to input: String) throws -> ScissorsRockPaper {
         throw ScissorsRockPaperError.notConverted
     }
     
-    do {
-        let usersPick: ScissorsRockPaper = try match(to: number)
-        return usersPick
-    } catch ScissorsRockPaperError.notConverted {
-        throw ScissorsRockPaperError.notConverted
-    }
+    let usersPick: ScissorsRockPaper = try match(to: number)
+    return usersPick
 }
 
 func match(to number: Int) throws -> ScissorsRockPaper {
