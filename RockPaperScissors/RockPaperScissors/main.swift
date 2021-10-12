@@ -57,7 +57,7 @@ func judgeGameResult(_ input: ExpectedHand) {
         return hands.removeFirst()
     }
     
-    if computerHand != input {
+    if computerHand == input {
         print(Message.draw.rawValue)
         runProgram()
         return
