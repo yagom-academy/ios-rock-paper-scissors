@@ -18,26 +18,27 @@ enum Script: String {
     case unknownError = "알 수 없는 오류가 발생하였습니다."
 }
 
-func inputingUserNumber(range: ClosedRange<Int> = possibleInputRange) -> Int {
+enum RockPaperScissorsError: Error {
+    case dismissedError
+    case unknownError
+}
+
+func inputingUserNumber(range: ClosedRange<Int> = possibleInputRange) throws -> Int {
     guard let input = readLine(), input != "" else {
-        fatalError("잘못된 입력입니다. 다시 시도해주세요.")
+        throw RockPaperScissorsError.dismissedError
     }
     
     let convertedInput = input.compactMap { Int(String($0)) }
     guard convertedInput.count == input.count else {
-        fatalError("잘못된 입력입니다. 다시 시도해주세요.")
+        throw RockPaperScissorsError.dismissedError
     }
     
     guard let firstItem = convertedInput.first else {
-        fatalError("잘못된 입력입니다. 다시 시도해주세요.")
-    }
-    
-    guard firstItem != 0 else {
-        fatalError("게임 종료")
+        throw RockPaperScissorsError.dismissedError
     }
     
     guard convertedInput.count == 1 && range ~= firstItem else {
-        fatalError("잘못된 입력입니다. 다시 시도해주세요.")
+        throw RockPaperScissorsError.dismissedError
     }
     
     return firstItem
@@ -72,16 +73,37 @@ func compareChoice(of user: Int, with computer: Int) -> GameJudgement {
     return gameJudgement
 }
 
-func startGame() {
+func manageGame() {
+    do {
+        try startGame()
+    } catch RockPaperScissorsError.dismissedError {
+        print(Script.dismissedError.rawValue)
+        manageGame()
+    } catch RockPaperScissorsError.unknownError {
+        print(Script.unknownError.rawValue)
+        manageGame()
+    } catch {
+        print(error)
+    }
+    
+    print(Script.gameEnd.rawValue)
+}
+
+func startGame() throws {
     var isGameRunning = true
     
     while isGameRunning {
         print(Script.menu.rawValue, terminator: "")
         
-        let userPair = inputingUserNumber()
+        let userPair = try inputingUserNumber()
+        if userPair == 0 {
+            isGameRunning = false
+            break
+        }
+        
         let computerPair = pullComputersRandomChoice()
         let gameResult = compareChoice(of: userPair, with: computerPair)
-                
+        
         switch gameResult {
         case .win:
             print(Script.win.rawValue)
@@ -92,11 +114,9 @@ func startGame() {
         case .draw:
             print(Script.draw.rawValue)
         case .unknown:
-            fatalError("알 수 없는 오류가 발생하였습니다.")
+            throw RockPaperScissorsError.unknownError
         }
     }
-    
-    print(Script.gameEnd.rawValue)
 }
 
-startGame()
+manageGame()
