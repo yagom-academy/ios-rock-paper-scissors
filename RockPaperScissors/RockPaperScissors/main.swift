@@ -15,12 +15,6 @@ enum GameError: Error {
     case exit
 }
 
-enum GameResult: Error {
-    case win
-    case draw
-    case lose
-}
-
 enum ExpectedHand: String, CaseIterable, Comparable {
     static func < (lhs: ExpectedHand, rhs: ExpectedHand) -> Bool {
         if lhs == .paper, rhs == .scissors {
@@ -52,28 +46,43 @@ func readUserInput() throws -> ExpectedHand {
     }
 }
 
-func isWin(_ input: ExpectedHand) -> GameResult {
-    guard computerHand != input else {
-        return GameResult.draw
+func judgeGameResult(_ input: ExpectedHand) {
+    if computerHand != input {
+        print("비겼습니다!")
+        runProgram()
+        
+        return
+    } else if computerHand < input {
+        print("이겼습니다!")
+        exitProgram()
+    } else {
+        print("졌습니다!")
+        exitProgram()
     }
     
-    let isWin: Bool = computerHand < input
-    
-    return isWin ? .win : .lose
+    return
 }
 
-func playGame() throws -> GameResult {
+func exitProgram() {
+    print("게임 종료")
+}
+
+func runProgram() {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     let userHand: ExpectedHand
     
     do {
         userHand = try readUserInput()
+        judgeGameResult(userHand)
     } catch GameError.invalidInput {
-        throw GameError.retry
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        runProgram()
     } catch GameError.exit {
-        throw GameError.exit
+        exitProgram()
     } catch {
-        throw GameError.retry
+        print("Unexpected error: \(error).")
     }
-    
-    return isWin(userHand)
 }
+
+
+runProgram()
