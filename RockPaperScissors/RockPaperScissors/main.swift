@@ -19,12 +19,12 @@ enum Message: String, CustomStringConvertible {
 }
 
 struct RockPaperScissorsGame {
-    let quit = "0"
-    let scissor = "1"
-    let rock = "2"
-    let paper = "3"
+    private let quit = "0"
+    private let scissor = "1"
+    private let rock = "2"
+    private let paper = "3"
     
-    var randomNumber: String {
+    private var randomNumber: String {
         get {
             return String(Int.random(in: 1...3))
         }
