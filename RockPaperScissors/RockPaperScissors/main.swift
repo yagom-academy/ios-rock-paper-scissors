@@ -80,3 +80,8 @@ func getUserInput() -> Int? {
 func isWithinRange(input: Int) -> Bool {
     return (0...Sign.count).contains(input)
 }
+
+enum Validity {
+    case invalid
+    case valid(userInput: Int)
+}
