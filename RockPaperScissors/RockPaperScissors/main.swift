@@ -6,6 +6,8 @@
 
 import Foundation
 
+let validSelection: Set<Int> = [0, 1, 2, 3]
+
 enum Sign: Int {
     case rock = 1
     case scissors = 2
@@ -49,4 +51,16 @@ func getValidInput(input: String) -> Int {
         print(error)
     }
     return inputNumber
+}
+
+func inputFromPlayer() -> Int {
+    var isValidInput: Bool = false
+    var playerInput: Int
+    repeat {
+        printStartMessage()
+        let input = receivePlayerInput()
+        playerInput = getValidInput(input: input)
+        isValidInput = validSelection.contains(playerInput)
+    } while !isValidInput
+    return playerInput
 }
