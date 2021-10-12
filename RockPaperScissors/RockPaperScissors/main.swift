@@ -20,7 +20,6 @@ enum ExpectedHand: String, CaseIterable, Comparable {
         if lhs == .paper, rhs == .scissors {
             return true
         }
-        
         return lhs.rawValue < rhs.rawValue
     }
     
@@ -50,7 +49,6 @@ func judgeGameResult(_ input: ExpectedHand) {
     if computerHand != input {
         print("비겼습니다!")
         runProgram()
-        
         return
     } else if computerHand < input {
         print("이겼습니다!")
@@ -59,7 +57,6 @@ func judgeGameResult(_ input: ExpectedHand) {
         print("졌습니다!")
         exitProgram()
     }
-    
     return
 }
 
