@@ -23,10 +23,19 @@ func generateRandomNumber() {
     computerNumber = computerNumbers[0]
 }
 
+func playGame(inputNumber: Int) {
+    let matchedWinNumber: [Int:Int] = [1: 3, 2: 1, 3: 2]
+    if matchedWinNumber[inputNumber] == computerNumber {
+        print("이겼습니다!")
+    } else {
+        print("졌습니다!")
+    }
+}
+
 func checkInputNumber(inputNumber: Int) throws {
     switch inputNumber {
     case 0 : print("게임 종료")
-    case 1...3 : print("게임 실행")
+    case 1...3 : playGame(inputNumber: inputNumber)
     default : throw GameError.wrongInput
     }
 }
