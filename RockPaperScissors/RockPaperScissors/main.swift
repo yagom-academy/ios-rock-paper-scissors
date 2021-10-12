@@ -11,11 +11,18 @@ enum Player {
     case user
 }
 
+enum Hand: Int {
+    case 찌 = 1
+    case 묵 = 2
+    case 빠 = 3
+    case 그만 = 0
+}
+
 func runRockPaperScissors() {
     printGameNotice()
     
-    let computersHand = determinedComputersHand()
-    var usersHand : Int? = receivedAndVerifiedUsersHand()
+    let computersHand: Hand = determinedComputersHand()
+    var usersHand: Hand? = receivedAndVerifiedUsersHand()
     
     while usersHand == nil {
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -23,16 +30,16 @@ func runRockPaperScissors() {
         usersHand = receivedAndVerifiedUsersHand()
     }
     
-    guard let usersHand = usersHand else {
+    guard let usersHand: Hand = usersHand else {
         return
     }
     
-    if usersHand == 0 {
+    if usersHand == .그만 {
         print("게임 종료")
         return
     } else {
         let winner: Player? = determinedWinnerBetween(computersHand, and: usersHand)
-        print(winner: winner)
+        printOrRestart(winner: winner)
     }
 }
 
@@ -40,13 +47,22 @@ func printGameNotice() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
 }
 
-func determinedComputersHand() -> Int {
-    let computersHand = Int.random(in: 1...3)
+func determinedComputersHand() -> Hand {
+    let randomNumber: Int = Int.random(in: 1...3)
     
-    return computersHand
+    switch randomNumber {
+    case 1:
+        return .찌
+    case 2:
+        return .묵
+    case 3:
+        return .빠
+    default:
+        return .그만
+    }
 }
 
-func receivedAndVerifiedUsersHand() -> Int? {
+func receivedAndVerifiedUsersHand() -> Hand? {
     guard let stringUserInput = readLine(),
           let integerUserInput = Int(stringUserInput),
           integerUserInput >= 0,
@@ -54,33 +70,44 @@ func receivedAndVerifiedUsersHand() -> Int? {
         return nil
     }
     
-    return integerUserInput
+    switch integerUserInput {
+    case 1:
+        return .찌
+    case 2:
+        return .묵
+    case 3:
+        return .빠
+    case 0:
+        return .그만
+    default:
+        return .그만
+    }
 }
 
-func determinedWinnerBetween(_ computersHand: Int, and usersHand: Int) -> Player? {
+func determinedWinnerBetween(_ computersHand: Hand, and usersHand: Hand) -> Player? {
     if computersHand == usersHand {
         return nil
     }
     
     switch (computersHand, usersHand) {
-    case (1, 2):
-        return Player.user
-    case (1, 3):
+    case (.묵, .찌):
         return Player.computer
-    case (2, 1):
-        return Player.computer
-    case (2, 3):
+    case (.묵, .빠):
         return Player.user
-    case (3, 1):
+    case (.찌, .묵):
         return Player.user
-    case (3, 2):
+    case (.찌, .빠):
         return Player.computer
+    case (.빠, .묵):
+        return Player.computer
+    case (.빠, .찌):
+        return Player.user
     default:
         return nil
     }
 }
 
-func print(winner: Player?) {
+func printOrRestart(winner: Player?) {
     if winner == Player.computer {
         print("""
             졌습니다!
