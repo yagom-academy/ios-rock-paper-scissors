@@ -9,6 +9,15 @@ var computerHand: ExpectedHand {
     return hands.removeFirst()
 }
 
+enum Message: String {
+    case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    case invalidInput = "잘못된 입력입니다. 다시 시도해주세요."
+    case draw = "비겼습니다!"
+    case win = "이겼습니다!"
+    case lose = "졌습니다!"
+    case exit = "게임 종료"
+}
+
 enum GameError: Error {
     case invalidInput
     case retry
@@ -47,35 +56,31 @@ func readUserInput() throws -> ExpectedHand {
 
 func judgeGameResult(_ input: ExpectedHand) {
     if computerHand != input {
-        print("비겼습니다!")
+        print(Message.draw.rawValue)
         runProgram()
         return
     } else if computerHand < input {
-        print("이겼습니다!")
-        exitProgram()
+        print(Message.win.rawValue)
+        print(Message.exit.rawValue)
     } else {
-        print("졌습니다!")
-        exitProgram()
+        print(Message.lose.rawValue)
+        print(Message.exit.rawValue)
     }
     return
 }
 
-func exitProgram() {
-    print("게임 종료")
-}
-
 func runProgram() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    print(Message.menu.rawValue, terminator: "")
     let userHand: ExpectedHand
     
     do {
         userHand = try readUserInput()
         judgeGameResult(userHand)
     } catch GameError.invalidInput {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        print(Message.invalidInput.rawValue)
         runProgram()
     } catch GameError.exit {
-        exitProgram()
+        print(Message.exit.rawValue)
     } catch {
         print("Unexpected error: \(error).")
     }
