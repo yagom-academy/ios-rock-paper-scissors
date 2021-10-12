@@ -11,8 +11,8 @@ enum Sign: CaseIterable {
     case rock
     case paper
     
-    init(userSign: Int) {
-        switch userSign {
+    init(userInput: Int) {
+        switch userInput {
         case 1:
             self = .scissors
         case 2:
@@ -77,7 +77,7 @@ func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
 }
 
 func printMenu() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
 func printInputError() {
@@ -123,7 +123,7 @@ func printGameResult(gameResult: GameResult?) {
 }
 
 func returnGameResult(userInput: Int) -> GameResult {
-    let userSign = Sign(userSign: userInput)
+    let userSign = Sign(userInput: userInput)
     let computerSign = SignFactory.generateRandomElement()
     return checkWinner(userSign: userSign, computerSign: computerSign)
 }
