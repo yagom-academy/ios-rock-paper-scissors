@@ -8,6 +8,16 @@ import Foundation
 
 let possibleInputRange = 1...3
 
+enum Script: String {
+    case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    case win = "이겼습니다!"
+    case loose = "졌습니다!"
+    case draw = "비겼습니다!"
+    case gameEnd = "게임종료"
+    case dismissedError = "잘못된 입력입니다. 다시 시도해주세요."
+    case unknownError = "알 수 없는 오류가 발생하였습니다."
+}
+
 func inputingUserNumber(range: ClosedRange<Int> = possibleInputRange) -> Int {
     guard let input = readLine(), input != "" else {
         fatalError("잘못된 입력입니다. 다시 시도해주세요.")
@@ -66,7 +76,7 @@ func startGame() {
     var isGameRunning = true
     
     while isGameRunning {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        print(Script.menu.rawValue, terminator: "")
         
         let userPair = inputingUserNumber()
         let computerPair = pullComputersRandomChoice()
@@ -74,19 +84,19 @@ func startGame() {
                 
         switch gameResult {
         case .win:
-            print("이겼습니다!")
+            print(Script.win.rawValue)
             isGameRunning = false
         case .loose:
-            print("졌습니다!")
+            print(Script.loose.rawValue)
             isGameRunning = false
         case .draw:
-            print("비겼습니다!")
+            print(Script.draw.rawValue)
         case .unknown:
             fatalError("알 수 없는 오류가 발생하였습니다.")
         }
     }
     
-    print("게임 종료")
+    print(Script.gameEnd.rawValue)
 }
 
 startGame()
