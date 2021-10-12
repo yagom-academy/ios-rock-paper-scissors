@@ -3,6 +3,12 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 //
+enum RockPaperScissors: Int {
+    case scissor = 1
+    case rock = 2
+    case paper = 3
+}
+
 var computerNumber: Int = 0
 
 func inputUserData() -> Int {
@@ -14,15 +20,17 @@ func inputUserData() -> Int {
 }
 
 func generateRandomNumber() {
-    var computerNumbers: [Int] = [1,2,3]
+    var computerNumbers: [RockPaperScissors] = [.scissor,.rock,.paper]
     let randomIndex = 0
     
     computerNumbers.shuffle()
-    computerNumber = computerNumbers[randomIndex]
+    computerNumber = computerNumbers[randomIndex].rawValue
 }
 
 func playGame(inputNumber: Int) {
-    let matchedWinNumber: [Int:Int] = [1: 3, 2: 1, 3: 2]
+    let matchedWinNumber: [Int:Int] = [RockPaperScissors.scissor.rawValue: RockPaperScissors.paper.rawValue,
+                                       RockPaperScissors.rock.rawValue: RockPaperScissors.scissor.rawValue,
+                                       RockPaperScissors.paper.rawValue: RockPaperScissors.rock.rawValue]
     
     if matchedWinNumber[inputNumber] == computerNumber {
         print("이겼습니다!")
@@ -48,6 +56,7 @@ func isRestartGame(inputNumber: Int) -> Bool {
         isRestart = false
     case 1...3 : isDraw(inputNumber: inputNumber) ? isRestart = true : playGame(inputNumber: inputNumber)
     default :
+        print("잘못된 입력입니다. 다시 시도해주세요.")
         isRestart = true
     }
     return isRestart
