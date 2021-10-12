@@ -15,13 +15,13 @@ enum HandGameMessage: String {
     case computerTurn = "[컴퓨터 턴]"
 }
 
-enum GameHand: CaseIterable {
+enum HandGameHand: CaseIterable {
     case rock
     case paper
     case siccors
 }
 
-enum GameResult: String {
+enum HandGameResult: String {
     case user  = "이겼습니다!"
     case computer = "졌습니다!"
     case tie = "비겼습니다!"
@@ -31,11 +31,11 @@ func startRockPaperSiccorsGame() {
     let wrappedUserInput = receiveUserManualInput()
     switch wrappedUserInput.errorMessage {
     case .wrongInput:
-        printErrorMessage(of: .wrongInput)
+        printMessage(of: .wrongInput)
         startRockPaperSiccorsGame()
         return
     case .endGame:
-        printErrorMessage(of: .endGame)
+        printMessage(of: .endGame)
         return
     default:
         break
@@ -43,50 +43,47 @@ func startRockPaperSiccorsGame() {
     guard let userHand = wrappedUserInput.userHand else {
         return
     }
-    letCheckResultGame(by: userHand)
-    
-    // 1,2,3 중에 선택된 값을 판별해주는 기능 구현
-}
-
-func letCheckResultGame(by userHand: GameHand) -> GameResult {
-    var resultGame: GameResult = .user
     let computerHand = generateRandomHand()
-    print(computerHand)
-    if userHand == computerHand {
-        printMessageAboutResultGame(of: .tie)
+    let gameResult = checkGameResult(by: userHand, computerHand: computerHand)
+    printMessage(of: gameResult)
+    if gameResult == .tie {
         startRockPaperSiccorsGame()
-    } else if userHand == .paper, computerHand == .rock {
-        printMessageAboutResultGame(of: .user)
-        return resultGame
-    } else if userHand == .rock, computerHand == .siccors {
-        printMessageAboutResultGame(of: .user)
-        return resultGame
-    } else if userHand == .siccors, computerHand == .paper {
-        printMessageAboutResultGame(of: .user)
-        return resultGame
-    } else {
-        printMessageAboutResultGame(of: .computer)
-        resultGame = .computer
     }
-    return resultGame
 }
-// 결과 출력 함수? 구현
+    
+func checkGameResult(by userHand: HandGameHand, computerHand: HandGameHand) -> HandGameResult {
+    var gameResult: HandGameResult = .user
+    
+    if userHand == computerHand {
+        gameResult = .tie
+        return gameResult
+    } else if userHand == .paper, computerHand == .rock {
+        return gameResult
+    } else if userHand == .rock, computerHand == .siccors {
+        return gameResult
+    } else if userHand == .siccors, computerHand == .paper {
+        return gameResult
+    } else {
+        gameResult = .computer
+        return gameResult
+    }
+}
 
-func generateRandomHand() -> GameHand {
-    let randomIndex = Int.random(in: 0..<GameHand.allCases.count)
-    return GameHand.allCases[randomIndex]
+func generateRandomHand() -> HandGameHand {
+    let randomIndex = Int.random(in: 0..<HandGameHand.allCases.count)
+    return HandGameHand.allCases[randomIndex]
 }
-func printMessageAboutResultGame(of gameResult: GameResult) {
+func printMessage(of gameResult: HandGameResult) {
     print(gameResult.rawValue)
 }
 
-func printErrorMessage(of message: HandGameMessage) {
-    print(message.rawValue)
+func printMessage(of errorMessage: HandGameMessage) {
+    print(errorMessage.rawValue)
 }
 
-func receiveUserManualInput() -> (userHand: GameHand?, errorMessage: HandGameMessage?) {
+func receiveUserManualInput() -> (userHand: HandGameHand?, errorMessage: HandGameMessage?) {
     var statusMessage: HandGameMessage?
-    var userHandResult: GameHand?
+    var userHandResult: HandGameHand?
     print(HandGameMessage.rockPaperSiccorsManual.rawValue, terminator: "")
     let userInput = readLine()?.replacingOccurrences(of: " ", with: "")
     
