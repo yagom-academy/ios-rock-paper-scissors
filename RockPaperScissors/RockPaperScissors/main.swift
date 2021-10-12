@@ -13,17 +13,27 @@ enum Player {
 
 func runRockPaperScissors() {
     printGameNotice()
+    
     let computersHand = determineComputersHand()
-    let usersHand =  receiveAndVerifyUsersHand()
+    var usersHand : Int? = receiveAndVerifyUsersHand()
+    
+    while usersHand == nil {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        printGameNotice()
+        usersHand = receiveAndVerifyUsersHand()
+    }
+    
+    guard let usersHand = usersHand else {
+        return
+    }
     
     if usersHand == 0 {
         print("게임 종료")
         return
+    } else {
+        let winner: Player? = determineWinner(computersHand: computersHand, usersHand: usersHand)
+        print(winner: winner)
     }
-    
-    let winner: Player? = determineWinner(computersHand: computersHand, usersHand: usersHand)
-    
-    print(winner: winner)
 }
 
 func printGameNotice() {
@@ -36,14 +46,12 @@ func determineComputersHand() -> Int {
     return computersHand
 }
 
-func receiveAndVerifyUsersHand() -> Int {
+func receiveAndVerifyUsersHand() -> Int? {
     guard let stringUserInput = readLine(),
           let integerUserInput = Int(stringUserInput),
           integerUserInput >= 0,
           integerUserInput <= 3 else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        printGameNotice()
-        return receiveAndVerifyUsersHand()
+        return nil
     }
     
     return integerUserInput
