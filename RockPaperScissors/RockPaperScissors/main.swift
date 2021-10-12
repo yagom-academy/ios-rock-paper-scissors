@@ -14,7 +14,6 @@ enum HandGameMessage: String {
     case rockPaperSiccorsManual = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     case endGame = "게임 종료"
     case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
-    case initialValue = "기본값 설정 필요"
 }
 
 enum GameHand: CaseIterable {
@@ -29,10 +28,32 @@ func generateRandomHand() -> GameHand {
 }
 
 func startRockPaperSiccorsGame() {
-    receiveUserManualInput()
+    let wrappedUserInput = receiveUserManualInput()
+    
+    switch wrappedUserInput.errorMessage {
+    case .wrongInput:
+        printErrorMessage(of: .wrongInput)
+        startRockPaperSiccorsGame()
+        return
+    case .endGame:
+        printErrorMessage(of: .endGame)
+        return
+    default:
+        break
+    }
+    
+    guard let userHand = wrappedUserInput.userHand else {
+        return
+    }
+    // 1,2,3 중에 선택된 값을 판별해주는 기능 구현
+    // 결과 출력 함수? 구현
 }
 
-func receiveUserManualInput() -> (GameHand?, HandGameMessage?) {
+func printErrorMessage(of message: HandGameMessage) {
+    print(message.rawValue)
+}
+
+func receiveUserManualInput() -> (userHand: GameHand?, errorMessage: HandGameMessage?) {
     var statusMessage: HandGameMessage?
     var userHandResult: GameHand?
     print(HandGameMessage.rockPaperSiccorsManual.rawValue, terminator: "")
