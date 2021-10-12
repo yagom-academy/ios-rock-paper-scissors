@@ -14,3 +14,16 @@ func generateRandomNumber() -> Int {
     let randomNumber = Int.random(in: 1...3)
     return randomNumber
 }
+
+func receiveUserInput() -> Int {
+    var a = 0
+    
+    if let userInput = readLine() {
+        if let integer = Int(userInput) {
+            a = integer
+        }
+    }
+    
+    return a
+}
+
