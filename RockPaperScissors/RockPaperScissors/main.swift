@@ -53,17 +53,6 @@ enum GameResult {
     case userWin
     case computerWin
     case draw
-    
-    var message: String {
-        switch self {
-        case .userWin:
-            return "이겼습니다!"
-        case .computerWin:
-            return "졌습니다!"
-        case .draw:
-            return "비겼습니다!"
-        }
-    }
 }
 
 enum Validity {
@@ -135,12 +124,12 @@ func printGameOver() {
 
 func playGame() {
     var gameResult: GameResult? = nil
-    
+
     outerLoop: repeat {
         printMenu()
         let userInput = getUserInput()
         let validationResult = isValid(userInput: userInput)
-        
+
         switch validationResult {
         case .invalid:
             printInputError()
@@ -154,8 +143,10 @@ func playGame() {
             continue
         }
     } while gameResult == .draw || gameResult == nil
-    
+
     printGameOver()
 }
 
 playGame()
+
+
