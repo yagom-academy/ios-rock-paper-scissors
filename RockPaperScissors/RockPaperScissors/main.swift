@@ -134,9 +134,16 @@ func playGameOnce(input: Int) {
     judgeWinner()
 }
 
+func exitGameWithWinner() {
+    if computerSign != playerSign {
+        shouldContinue = false
+    }
+}
+
 func playGame() {
     repeat {
         let playerInput = inputFromPlayer()
         playGameOnce(input: playerInput)
+        exitGameWithWinner()
     } while shouldContinue
 }
