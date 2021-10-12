@@ -49,14 +49,30 @@ func receiveUserInput() -> String {
     return input
 }
 
+func createRandomNumber(_ range: ClosedRange<Int> = 1...3) -> Int {
+    return Int.random(in: range)
+}
+
 func checkUserInput(input: String) {
     switch input {
     case "0":
-        GameOver()
+        exitGame()
     case "1","2","3":
         return
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+}
+
+func compare(to usersScissorsRockPaper: ScissorsRockPaper, with computerScissorsRockPaper: ScissorsRockPaper) {
+    if usersScissorsRockPaper == computerScissorsRockPaper {
+        print("비겼습니다!")
+    } else if usersScissorsRockPaper == computerScissorsRockPaper.next() {
+        print("이겼습니다!")
+        exitGame()
+    } else {
+        print("졌습니다!")
+        exitGame()
     }
 }
 
@@ -73,7 +89,7 @@ func printGameOver() {
     print("게임 종료")
 }
 
-func GameOver() {
+func exitGame() {
     printGameOver()
     isGameOver = true
 }
