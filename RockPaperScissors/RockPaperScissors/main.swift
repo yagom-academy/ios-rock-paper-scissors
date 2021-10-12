@@ -25,11 +25,31 @@ func startGame() {
     
     if userInput == "0" {
     } else if (inputRange.map{String($0)}).contains(userInput) {
-        compareEachHand(userHand: userInput)
+        compareEachHand(userNumber: userInput)
     } else {
         print(Message.inputError.rawValue)
         startGame()
     }
     print(Message.gameEnd.rawValue)
-
 }
+
+func compareEachHand(userNumber: String) {
+    let computerNumber = pickComputerNumber()
+    let (userHand, computerHand) = convertToHand(from: userNumber, from: computerNumber)
+    
+    switch userHand {
+    case userHand where userHand == computerHand:
+        print(Message.draw.rawValue)
+        startGame()
+    case "scissors" where computerHand == "rock":
+        print(Message.userLose.rawValue)
+    case "rock" where computerHand == "paper":
+        print(Message.userLose.rawValue)
+    case "paper" where computerHand == "scissors":
+        print(Message.userLose.rawValue)
+    default:
+        print(Message.userWin.rawValue)
+    }
+}
+
+startGame()
