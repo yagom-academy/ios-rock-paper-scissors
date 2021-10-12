@@ -6,10 +6,10 @@
 
 import Foundation
 
-enum Hand: Int {
-    case scissors = 1
-    case rock = 2
-    case paper = 3
+enum Hand: String {
+    case scissors = "1"
+    case rock = "2"
+    case paper = "3"
 }
 
 enum GameResult: String {
@@ -21,16 +21,16 @@ enum GameResult: String {
 func playRockPaperScissors(){
     guard let userInput = receiveVaildInput() else { return }
     
-    if userInput == 0 { return }
+    if userInput == "0" { return }
     
     guard let userHand = Hand(rawValue: userInput) else { return }
     
     guard let computerHand = Hand(rawValue: makeRandomNumber()) else { return }
     
-    judgeRockPaperScissors(userHand: userHand, computerHand: computerHand)
+    judgeRockPaperScissors(userHand, computerHand)
 }
 
-func receiveVaildInput() -> Int? {
+func receiveVaildInput() -> String? {
     var isInvalid: Bool = true
     var input: String = ""
     
@@ -40,9 +40,7 @@ func receiveVaildInput() -> Int? {
         isInvalid = isInvalidInput(shouldCheckedInput: input)
     }
     
-    guard let validNumber = Int(input) else { return nil }
-    
-    return validNumber
+    return input
 }
 
 func receiveInput() -> String {
@@ -69,11 +67,11 @@ func printRockPaperScissors(){
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
-func makeRandomNumber() -> Int {
-    return Int.random(in: 1...3)
+func makeRandomNumber() -> String{
+    return String(Int.random(in: 1...3))
 }
 
-func judgeRockPaperScissors(userHand: Hand, computerHand: Hand) {
+func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) {
     var gameResult: GameResult
     
     switch (userHand, computerHand) {
