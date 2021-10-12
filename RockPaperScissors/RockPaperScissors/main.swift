@@ -4,11 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-var computerHand: ExpectedHand {
-    var hands = ExpectedHand.allCases.shuffled()
-    return hands.removeFirst()
-}
-
 enum Message: String {
     case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     case invalidInput = "잘못된 입력입니다. 다시 시도해주세요."
@@ -55,6 +50,11 @@ func readUserInput() throws -> ExpectedHand {
 }
 
 func judgeGameResult(_ input: ExpectedHand) {
+    var computerHand: ExpectedHand {
+        var hands = ExpectedHand.allCases.shuffled()
+        return hands.removeFirst()
+    }
+    
     if computerHand != input {
         print(Message.draw.rawValue)
         runProgram()
