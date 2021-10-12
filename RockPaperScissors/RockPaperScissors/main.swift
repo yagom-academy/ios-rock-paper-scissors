@@ -6,10 +6,15 @@
 
 import Foundation
 
-enum Sign: String {
-    case rock = "1"
-    case scissors = "2"
-    case paper = "3"
+enum Sign: Int {
+    case rock = 1
+    case scissors = 2
+    case paper = 3
+}
+
+enum GameError: Error {
+    case invalidInput
+    case isZero
 }
 
 func printStartMessage() {
@@ -17,14 +22,12 @@ func printStartMessage() {
 }
 
 func generateComputerSign() -> Sign? {
-    let indexOfSign: String = String(Int.random(in: 1...3))
+    let indexOfSign: Int = Int.random(in: 1...3)
     let computerSign = Sign(rawValue: indexOfSign)
     return computerSign
 }
 
 func receivePlayerInput() -> String {
-    guard let playerInput: String = readLine(), playerInput != "0" else {
-        return "0"
-    }
+    let playerInput = readLine() ?? ""
     return playerInput
 }
