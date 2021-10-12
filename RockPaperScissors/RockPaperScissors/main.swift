@@ -37,3 +37,16 @@ func convertToInt(from input: String) throws -> Int {
     }
     return convertedInput
 }
+
+func getValidInput(input: String) -> Int {
+    var inputNumber = 4
+    do {
+        let validInput = try convertToInt(from: input)
+        inputNumber = validInput
+    } catch InputError.invalidInput {
+        print("잘못된 입력입니다.다시 시도해주세요.")
+    } catch {
+        print(error)
+    }
+    return inputNumber
+}
