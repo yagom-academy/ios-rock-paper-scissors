@@ -6,10 +6,6 @@
 
 import Foundation
 
-var shouldContinue: Bool = true
-
-let validSelection: Set<Int> = [0, 1, 2, 3]
-
 enum Sign: Int {
     case rock = 1
     case scissors = 2
@@ -22,17 +18,13 @@ enum InputError: Error {
 
 var computerSign: Sign = .paper
 var playerSign: Sign = .paper
+let validSelection: Set<Int> = [0, 1, 2, 3]
+var shouldContinue: Bool = true
+
+// MARK: - 사용자 입력
 
 func printStartMessage() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
-}
-
-func generateComputerSign() {
-    let indexOfSign: Int = Int.random(in: 1...3)
-    guard let computer = Sign(rawValue: indexOfSign) else {
-        return
-    }
-    computerSign = computer
 }
 
 func receivePlayerInput() -> String {
@@ -72,6 +64,16 @@ func inputFromPlayer() -> Int {
     return playerInput
 }
 
+// MARK: - 컴퓨터, 사용자 패 생성
+
+func generateComputerSign() {
+    let indexOfSign: Int = Int.random(in: 1...3)
+    guard let computer = Sign(rawValue: indexOfSign) else {
+        return
+    }
+    computerSign = computer
+}
+
 func generatePlayerSign(input: Int) {
     let indexOfSign: Int = input
     guard let player = Sign(rawValue: indexOfSign) else {
@@ -79,6 +81,8 @@ func generatePlayerSign(input: Int) {
     }
     playerSign = player
 }
+
+// MARK: - 게임 승패 판단
 
 func compareWhenScissors() {
     switch playerSign {
