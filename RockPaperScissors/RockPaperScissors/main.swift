@@ -6,6 +6,18 @@
 
 import Foundation
 
+enum Message: String, CustomStringConvertible {
+    var description: String {
+        return rawValue
+    }
+    case start = "가위(1), 바위(2), 보(3)! <종료: 0> : "
+    case gameWin = "이겼습니다!"
+    case gameLose = "졌습니다!"
+    case gameDraw = "비겼습니다!"
+    case gameEnd = "게임 종료"
+    case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
+}
+
 struct RockPaperScissorsGame {
     let quit = "0"
     let scissor = "1"
@@ -23,27 +35,27 @@ struct RockPaperScissorsGame {
         var computerNumber = ""
         repeat {
             computerNumber = self.randomNumber
-            print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
+            print(Message.start, terminator: "")
             playerNumber = getUserInput()
         } while isDraw(computerNumber, playerNumber) || isWrong(playerNumber: playerNumber)
         
         guard playerNumber != quit else {
-            print("게임 종료")
+            print(Message.gameEnd)
             return
         }
         if isPlayerWin(playerNumber, computerNumber) {
-            print("이겼습니다!")
+            print(Message.gameWin)
         } else {
-            print("졌습니다!")
+            print(Message.gameLose)
         }
-        print("게임종료")
+        print(Message.gameEnd)
     }
     
     private func getUserInput(_ input: String? = readLine()) -> String? {
         if let userInput = input, validate(playerNumber: userInput) {
             return userInput
         }
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        print(Message.wrongInput)
         return nil
     }
     
@@ -54,7 +66,7 @@ struct RockPaperScissorsGame {
     
     private func isDraw(_ computerNumber: String, _ playerNumber: String?) -> Bool {
         if computerNumber == playerNumber {
-            print("비겼습니다!")
+            print(Message.gameDraw)
             return true
         }
         return false
