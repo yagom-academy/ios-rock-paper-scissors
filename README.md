@@ -6,4 +6,4 @@
 
 ### Flow chart
 ![가위바위보 시작](https://i.imgur.com/Cpub0Dp.jpg)
-![승패판정 메소드](https://i.imgur.com/aw2VxwO.jpg)
+![승패판정 메소드](https://i.imgur.com/XIC3Gle.jpg)
