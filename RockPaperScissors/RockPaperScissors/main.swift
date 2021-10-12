@@ -35,38 +35,37 @@ func playGame(inputNumber: Int) {
 
 func isDraw(inputNumber: Int) -> Bool {
     if inputNumber == computerNumber {
-        print("비겼습니다!")
-        return false
+        return true
     }
-    return true
+    return false
 }
 
 func checkInputNumber(inputNumber: Int) throws {
     switch inputNumber {
     case 0 : print("게임 종료")
-    case 1...3 : playGame(inputNumber: inputNumber)
+    case 1...3 : isDraw(inputNumber: inputNumber) ? print("비겼습니다!") : playGame(inputNumber: inputNumber)
     default : throw GameError.wrongInput
     }
 }
 
-func startGame() -> Bool {
-    var isReturn: Bool = true
+func startGame() {
+    var isReturn: Bool = false
+    generateRandomNumber()
     do {
         let userInputNumber =  try inputUserData()
         try checkInputNumber(inputNumber: userInputNumber)
-        isReturn = isDraw(inputNumber: userInputNumber)
+        
     } catch GameError.wrongInput {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        isReturn = false
+        isReturn = true
     } catch {
         print(error)
-        isReturn = false
+        isReturn = true
     }
-    return isReturn
+    
+    if isReturn {
+        startGame()
+    }
 }
 
-func game() {
-    generateRandomNumber()
-    while startGame() == false {}
-}
-game()
+startGame()
