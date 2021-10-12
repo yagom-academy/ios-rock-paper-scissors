@@ -112,7 +112,7 @@ func printGameResult(gameResult: GameResult?) {
     case .computerWin:
         print("졌습니다!")
     case .draw:
-        print("비겼습니다")
+        print("비겼습니다!")
     default:
         fatalError("\(#function)에 전달된 인자의 값이 nil입니다")
     }
