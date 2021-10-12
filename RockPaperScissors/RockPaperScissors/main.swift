@@ -33,7 +33,14 @@ var isGameOver = false
 func startGame() {
     while isGameOver == false {
         printMenu()
-        checkUserInput(input: receiveUserInput())
+        
+        do {
+            try checkUserInput(input: receiveUserInput())
+        } catch ScissorsRockPaperError.wrongInput {
+            printWrongInput()
+        } catch {
+            print(error)
+        }
     }
 }
 
@@ -41,9 +48,9 @@ func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
-func receiveUserInput() -> String {
+func receiveUserInput() throws -> String {
     guard let input = readLine() else {
-        return ""
+        throw ScissorsRockPaperError.wrongInput
     }
     
     return input
@@ -63,21 +70,20 @@ func playScissorsRockPaper(input: String) {
         compare(to: usersPick, with: computerPick)
         
     } catch ScissorsRockPaperError.notConverted {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        printWrongInput()
     } catch {
         print(error)
     }
 }
 
-func checkUserInput(input: String) {
+func checkUserInput(input: String) throws {
     switch input {
     case "0":
         exitGame()
     case "1","2","3":
         playScissorsRockPaper(input: input)
-        return
     default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        throw ScissorsRockPaperError.wrongInput
     }
 }
 
@@ -112,6 +118,10 @@ func match(to number: Int) throws -> ScissorsRockPaper {
           }
     
     return convertedScissorsRockPaper
+}
+
+func printWrongInput() {
+    print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
 func printGameOver() {
