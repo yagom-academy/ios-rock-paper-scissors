@@ -24,13 +24,15 @@ func startGame() {
     userInput = String(userInput)
     
     if userInput == "0" {
+        print(Message.gameEnd.rawValue)
     } else if (inputRange.map{String($0)}).contains(userInput) {
         compareEachHand(userNumber: userInput)
+        print(Message.gameEnd.rawValue)
     } else {
         print(Message.inputError.rawValue)
         startGame()
     }
-    print(Message.gameEnd.rawValue)
+
 }
 
 func compareEachHand(userNumber: String) {
@@ -50,6 +52,22 @@ func compareEachHand(userNumber: String) {
     default:
         print(Message.userWin.rawValue)
     }
+}
+
+func pickComputerNumber() -> String {
+    let allowedNumberRange = 1...3
+    let computerNumber = String(Int.random(in: allowedNumberRange))
+    return computerNumber
+}
+
+func convertToHand(from userNumber: String, from computerNumber: String) -> (String, String) {
+    let numbers = [userNumber, computerNumber]
+    var convertedHands: [String] = []
+
+    numbers.forEach {
+        convertedHands.append($0 == "1" ? "scissors" : $0 == "2" ? "rock" : $0 == "3" ? "paper" : "Error" )
+    }
+    return (convertedHands[0], convertedHands[1])
 }
 
 startGame()
