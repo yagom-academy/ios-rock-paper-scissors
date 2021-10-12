@@ -53,11 +53,28 @@ func createRandomNumber(_ range: ClosedRange<Int> = 1...3) -> Int {
     return Int.random(in: range)
 }
 
+func playScissorsRockPaper(input: String) {
+    do {
+        let usersPick = try convertUserInput(to: input)
+        
+        let computerRandomNumber = createRandomNumber()
+        let computerPick:ScissorsRockPaper = try match(to: computerRandomNumber)
+        
+        compare(to: usersPick, with: computerPick)
+        
+    } catch ScissorsRockPaperError.notConverted {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    } catch {
+        print(error)
+    }
+}
+
 func checkUserInput(input: String) {
     switch input {
     case "0":
         exitGame()
     case "1","2","3":
+        playScissorsRockPaper(input: input)
         return
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
