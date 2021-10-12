@@ -6,6 +6,8 @@
 
 import Foundation
 
+var shouldContinue: Bool = true
+
 let validSelection: Set<Int> = [0, 1, 2, 3]
 
 enum Sign: Int {
@@ -120,4 +122,21 @@ func judgeWinner() {
     case .rock:
         compareWhenRock()
     }
+}
+
+func playGameOnce(input: Int) {
+    guard input != 0 else {
+        shouldContinue = false
+        return
+    }
+    generateComputerSign()
+    generatePlayerSign(input: input)
+    judgeWinner()
+}
+
+func playGame() {
+    repeat {
+        let playerInput = inputFromPlayer()
+        playGameOnce(input: playerInput)
+    } while shouldContinue
 }
