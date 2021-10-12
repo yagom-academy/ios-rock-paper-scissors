@@ -23,9 +23,14 @@ enum Sign: Int, CaseIterable
         }
     }
     
-    // generateRandomElement란 이름은 어떨까?
-    static func generateRandom() -> Self {
-        guard let randomSign = self.allCases.randomElement() else {
+    static var count: Int {
+        return Self.allCases.count
+    }
+}
+
+enum SignFactory {
+    static func generateRandomElement() -> Sign {
+        guard let randomSign = Sign.allCases.randomElement() else {
             fatalError("\(#function) 함수에서 랜덤값을 생성하는 데에 오류가 발생했습니다")
         }
         return randomSign
