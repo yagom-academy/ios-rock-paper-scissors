@@ -129,19 +129,24 @@ func generatePlayersSign(userInput: Int) -> (userSign: Sign, computerSign: Sign)
     return (userSign, computerSign)
 }
 
+func printGameOver() {
+    print("게임 종료")
+}
+
 func playGame() {
     var gameResult: GameResult? = nil
     
-    repeat {
+    outerLoop: repeat {
         printMenu()
         let userInput = getUserInput()
         let validationResult = isValid(userInput: userInput)
         
         switch validationResult {
         case .invalid:
+            printInputError()
             continue
         case .valid(0):
-            return
+            break outerLoop
         case .valid(let userInput):
             let (userSign, computerSign) = generatePlayersSign(userInput: userInput)
             gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
@@ -149,6 +154,8 @@ func playGame() {
             continue
         }
     } while gameResult == .draw || gameResult == nil
+    
+    printGameOver()
 }
 
 playGame()
