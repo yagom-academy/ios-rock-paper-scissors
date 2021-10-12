@@ -18,14 +18,19 @@ enum InputError: Error {
     case invalidInput
 }
 
+var computerSign: Sign = .paper
+var playerSign: Sign = .paper
+
 func printStartMessage() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
-func generateComputerSign() -> Sign? {
+func generateComputerSign() {
     let indexOfSign: Int = Int.random(in: 1...3)
-    let computerSign = Sign(rawValue: indexOfSign)
-    return computerSign
+    guard let computer = Sign(rawValue: indexOfSign) else {
+        return
+    }
+    computerSign = computer
 }
 
 func receivePlayerInput() -> String {
@@ -63,4 +68,12 @@ func inputFromPlayer() -> Int {
         isValidInput = validSelection.contains(playerInput)
     } while !isValidInput
     return playerInput
+}
+
+func generatePlayerSign(input: Int) {
+    let indexOfSign: Int = input
+    guard let player = Sign(rawValue: indexOfSign) else {
+        return
+    }
+    playerSign = player
 }
