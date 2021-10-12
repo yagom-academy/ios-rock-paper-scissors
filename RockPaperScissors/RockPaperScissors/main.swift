@@ -12,11 +12,17 @@ struct RockPaperScissorsGame {
     let rock = "2"
     let paper = "3"
     
+    var randomNumber: String {
+        get {
+            return String(Int.random(in: 1...3))
+        }
+    }
+    
     func startGame() {
         var playerNumber: String? = nil
         var computerNumber = ""
         repeat {
-            computerNumber = String(Int.random(in: 1...3))
+            computerNumber = self.randomNumber
             print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
             playerNumber = getUserInput()
         } while isDraw(computerNumber, playerNumber) || isWrong(playerNumber: playerNumber)
