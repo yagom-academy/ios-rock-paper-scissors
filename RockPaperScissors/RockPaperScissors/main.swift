@@ -6,6 +6,23 @@
 
 import Foundation
 
+enum scissorsRockPaper: Int {
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+    
+    func next() -> scissorsRockPaper {
+        switch self {
+        case .scissors:
+            return .rock
+        case .rock:
+            return .paper
+        case .paper:
+            return .scissors
+        }
+    }
+}
+
 var isGameOver = false
 
 func startGame() {
