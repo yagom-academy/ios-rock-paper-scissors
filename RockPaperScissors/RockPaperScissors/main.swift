@@ -6,11 +6,23 @@
 
 import Foundation
 
-enum Sign: Int, CaseIterable
-{
-    case scissors = 1
-    case rock = 2
-    case paper = 3
+enum Sign: CaseIterable {
+    case scissors
+    case rock
+    case paper
+    
+    init(userSign: Int) {
+        switch userSign {
+        case 1:
+            self = .scissors
+        case 2:
+            self = .rock
+        case 3:
+            self = .paper
+        default:
+            fatalError("\(Self.self)의 \(#function)에서 초기화에 실패했습니다")
+        }
+    }
     
     var counter: Self {
         switch self {
