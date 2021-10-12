@@ -3,7 +3,8 @@
 ### 묵찌빠 프로젝트 저장소
 
 #### 참고링크
-[그라운드룰](https://github.com/FIIIIN/ios-rock-paper-scissors.wiki.git)
+* [그라운드룰](https://github.com/FIIIIN/ios-rock-paper-scissors.wiki.git)
+* [Step-1 Flow Chart](https://github.com/FIIIIN/ios-rock-paper-scissors.wiki.git)
 <hr/>
 
 #### Step 1 구현 세부단계 설정
