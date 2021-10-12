@@ -76,6 +76,19 @@ func compare(to usersScissorsRockPaper: ScissorsRockPaper, with computerScissors
     }
 }
 
+func convertUserInput(to input: String) throws -> ScissorsRockPaper {
+    guard let number = Int(input) else {
+        throw ScissorsRockPaperError.notConverted
+    }
+    
+    do {
+        let usersPick: ScissorsRockPaper = try match(to: number)
+        return usersPick
+    } catch ScissorsRockPaperError.notConverted {
+        throw ScissorsRockPaperError.notConverted
+    }
+}
+
 func match(to number: Int) throws -> ScissorsRockPaper {
     guard let convertedScissorsRockPaper = ScissorsRockPaper(rawValue: number) else {
               throw ScissorsRockPaperError.notConverted
