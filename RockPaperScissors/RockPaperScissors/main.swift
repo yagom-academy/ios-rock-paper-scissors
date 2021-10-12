@@ -19,47 +19,40 @@ enum GameResult: String {
 }
 
 func playRockPaperScissors(){
-    let userInput = receiveVaildInput()
+    guard let userInput = receiveVaildInput() else { return }
     
     if userInput == 0 { return }
     
-    guard let userHand: Hand = Hand(rawValue: userInput) else { return }
+    guard let userHand = Hand(rawValue: userInput) else { return }
     
     guard let computerHand = Hand(rawValue: makeRandomNumber()) else { return }
     
-    judgeRockPaperScissors(userNumber: userHand.rawValue, computerNumber: computerHand.rawValue)
+    judgeRockPaperScissors(userHand: userHand, computerHand: computerHand)
 }
 
-func receiveVaildInput() -> Int {
+func receiveVaildInput() -> Int? {
     var isInvalid: Bool = true
-    var validInput: String = ""
+    var input: String = ""
     
     while isInvalid {
         printRockPaperScissors()
-        validInput = receiveInput()
-        isInvalid = isValidInput(validInput: validInput)
+        input = receiveInput()
+        isInvalid = isInvalidInput(shouldCheckedInput: input)
     }
     
-    var checkedInput: Int = 0
+    guard let validNumber = Int(input) else { return nil }
     
-    if let a = Int(validInput) {
-        checkedInput = a
-    }
-    
-    return checkedInput
+    return validNumber
 }
 
 func receiveInput() -> String {
-    if let input = readLine() {
-        return input
-    } else {
-        return ""
-    }
+    guard let input = readLine() else { return "" }
+    
+    return input
 }
 
-func isValidInput(validInput: String) -> Bool {
-    
-    switch validInput {
+func isInvalidInput(shouldCheckedInput: String) -> Bool {
+    switch shouldCheckedInput {
     case "0", "1", "2", "3":
         return false
     default:
@@ -80,16 +73,13 @@ func makeRandomNumber() -> Int {
     return Int.random(in: 1...3)
 }
 
-func judgeRockPaperScissors(userNumber: Int, computerNumber: Int) {
+func judgeRockPaperScissors(userHand: Hand, computerHand: Hand) {
     var gameResult: GameResult
     
-    // MARK: 테스트용
-    print(computerNumber)
-    
-    switch (userNumber, computerNumber) {
-    case (1, 3), (2, 1), (3, 2):
+    switch (userHand, computerHand) {
+    case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
         gameResult = .win
-    case (1, 1), (2, 2), (3, 3):
+    case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
         gameResult = .draw
     default:
         gameResult = .lose
@@ -97,11 +87,7 @@ func judgeRockPaperScissors(userNumber: Int, computerNumber: Int) {
     
     print(gameResult.rawValue)
     
-    if gameResult == .draw {
-        playRockPaperScissors()
-    } else {
-        print("게임 종료")
-    }
+    gameResult == .draw ? playRockPaperScissors() : print("게임 종료")
 }
 
 playRockPaperScissors()
