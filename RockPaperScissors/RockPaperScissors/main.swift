@@ -85,3 +85,14 @@ enum Validity {
     case invalid
     case valid(userInput: Int)
 }
+
+func isValid(userInput: Int?) -> Validity {
+    guard let userInput = userInput else {
+        return .invalid
+    }
+    guard isWithinRange(input: userInput) else {
+        return .invalid
+    }
+    
+    return .valid(userInput: userInput)
+}
