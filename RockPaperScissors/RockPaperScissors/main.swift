@@ -19,13 +19,19 @@ enum GameResult: String {
 }
 
 func playRockPaperScissors(){
-    guard let userInput = receiveVaildInput() else { return }
+    guard let userInput = receiveVaildInput() else {
+        return
+    }
     
     if userInput == "0" { return }
     
-    guard let userHand = Hand(rawValue: userInput) else { return }
+    guard let userHand = Hand(rawValue: userInput) else {
+        return
+    }
     
-    guard let computerHand = Hand(rawValue: makeRandomNumber()) else { return }
+    guard let computerHand = Hand(rawValue: makeRandomNumber()) else {
+        return
+    }
     
     judgeRockPaperScissors(userHand, computerHand)
 }
@@ -44,7 +50,9 @@ func receiveVaildInput() -> String? {
 }
 
 func receiveInput() -> String {
-    guard let input = readLine() else { return "" }
+    guard let input = readLine() else {
+        return ""
+    }
     
     return input
 }
