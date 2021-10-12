@@ -31,7 +31,7 @@ struct RockPaperScissorsGame {
             print("게임 종료")
             return
         }
-        if isVictory(computerNumber, playerNumber) {
+        if isPlayerWin(playerNumber, computerNumber) {
             print("이겼습니다!")
         } else {
             print("졌습니다!")
@@ -39,12 +39,10 @@ struct RockPaperScissorsGame {
         print("게임종료")
     }
     
-    func isVictory(_ computerNumber: String, _ playerNumber: String?) -> Bool {
-        let winningCaseA = playerNumber == scissor && computerNumber == paper
-        let winningCaseB = playerNumber == rock && computerNumber == scissor
-        let winningCaseC = playerNumber == paper && computerNumber == rock
-        
-        return winningCaseA || winningCaseB || winningCaseC
+    func isPlayerWin(_ playerNumber: String?, _ opponentNumber: String) -> Bool {
+        return (playerNumber == scissor && opponentNumber == paper)
+            || (playerNumber == rock && opponentNumber == scissor)
+            || (playerNumber == paper && opponentNumber == rock)
     }
     
     private func isDraw(_ computerNumber: String, _ playerNumber: String?) -> Bool {
