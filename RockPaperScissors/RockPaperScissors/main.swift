@@ -108,3 +108,21 @@ func isValid(userInput: Int?) -> Validity {
     
     return .valid(userInput: userInput)
 }
+
+func playGame() {
+    var gameResult: GameResult? = nil
+    
+    repeat {
+        let userInput = getUserInput()
+        let validationResult = isValid(userInput: userInput)
+        
+        switch validationResult {
+        case .invalid:
+            continue
+        case .valid(0):
+            continue
+        case .valid(let userInput):
+            break
+        }
+    } while gameResult != .draw
+}
