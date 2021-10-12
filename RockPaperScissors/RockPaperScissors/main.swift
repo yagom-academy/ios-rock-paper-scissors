@@ -59,16 +59,34 @@ func compareChoice(of user: Int, with computer: Int) -> GameJudgement {
     
     gameJudgement.convert(result: evaluatedResult)
     
-    switch gameJudgement {
-    case .win:
-        print("이겼습니다!")
-    case .loose:
-        print("졌습니다!")
-    case .draw:
-        print("비겼습니다!")
-    case .unknown:
-        fatalError("알 수 없는 오류가 발생하였습니다.")
-    }
-    
     return gameJudgement
 }
+
+func startGame() {
+    var isGameRunning = true
+    
+    while isGameRunning {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        
+        let userPair = inputingUserNumber()
+        let computerPair = pullComputersRandomChoice()
+        let gameResult = compareChoice(of: userPair, with: computerPair)
+                
+        switch gameResult {
+        case .win:
+            print("이겼습니다!")
+            isGameRunning = false
+        case .loose:
+            print("졌습니다!")
+            isGameRunning = false
+        case .draw:
+            print("비겼습니다!")
+        case .unknown:
+            fatalError("알 수 없는 오류가 발생하였습니다.")
+        }
+    }
+    
+    print("게임 종료")
+}
+
+startGame()
