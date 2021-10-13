@@ -119,6 +119,14 @@ func printGameResult() {
     }
 }
 
+func setShouldContinue() {
+    if gameWinner == .none {
+        shouldContinue = true
+    } else {
+        shouldContinue = false
+    }
+}
+
 func playGameOnce(input: Int) {
     guard input != 0 else {
         shouldContinue = false
@@ -129,16 +137,10 @@ func playGameOnce(input: Int) {
     judgeWinner()
 }
 
-func exitGameWithWinner() {
-    if computerSign != playerSign {
-        shouldContinue = false
-    }
-}
-
 func playGame() {
     repeat {
         let playerInput = inputFromPlayer()
         playGameOnce(input: playerInput)
-        exitGameWithWinner()
+        setShouldContinue()
     } while shouldContinue
 }
