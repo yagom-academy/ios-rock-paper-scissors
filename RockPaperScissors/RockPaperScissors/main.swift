@@ -40,13 +40,12 @@ func readUserInput() throws -> ExpectedHand {
     switch input {
     case "0":
         throw GameError.exit
-    case ExpectedHand.scissors.rawValue:
-        return .scissors
-    case ExpectedHand.rock.rawValue:
-        return .rock
-    case ExpectedHand.paper.rawValue:
-        return .paper
-    default:
+    case .some(let input):
+        if let userHand: ExpectedHand = ExpectedHand(rawValue: input) {
+            return userHand
+        }
+        throw GameError.invalidInput
+    case .none:
         throw GameError.invalidInput
     }
 }
