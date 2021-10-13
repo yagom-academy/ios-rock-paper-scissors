@@ -12,6 +12,12 @@ enum RockScissorsPaper: String {
     case paper = "3"
 }
 
+enum MukChiPa: String {
+    case Muk = "1"
+    case Chi = "2"
+    case Pa = "3"
+}
+
 enum GameType {
     case rockPaperScissors
     case mukChiPa
