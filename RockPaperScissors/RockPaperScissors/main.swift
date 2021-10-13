@@ -16,7 +16,6 @@ enum Message: String {
 
 enum GameError: Error {
     case invalidInput
-    case retry
     case exit
 }
 
