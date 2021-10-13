@@ -102,7 +102,7 @@ func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsR
     }
 }
 
-func convertUserInput(to input: String) throws -> ScissorsRockPaper {
+func convertUserInput(into input: String) throws -> ScissorsRockPaper {
     guard let number = Int(input) else {
         throw ScissorsRockPaperError.notConverted
     }
