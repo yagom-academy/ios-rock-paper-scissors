@@ -5,11 +5,14 @@
 //
 
 // MARK: - Enums
-enum Message: CustomStringConvertible {
+enum Message {
+    static let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    static let exit: String = "게임 종료"
+}
+
+enum GameResult: CustomStringConvertible {
     var description: String {
         switch self {
-        case .menu:
-            return "가위(1), 바위(2), 보(3)! <종료 : 0> : "
         case .draw:
             return "비겼습니다!"
         case .win:
@@ -19,7 +22,6 @@ enum Message: CustomStringConvertible {
         }
     }
     
-    case menu
     case draw
     case win
     case lose
@@ -30,13 +32,10 @@ enum GameError: Error, CustomStringConvertible {
         switch self {
         case .invalidInput:
             return "잘못된 입력입니다. 다시 시도해주세요."
-        case .exit:
-            return "게임 종료"
         }
     }
     
     case invalidInput
-    case exit
 }
 
 enum ExpectedHand: String, CaseIterable, Comparable {
@@ -53,12 +52,12 @@ enum ExpectedHand: String, CaseIterable, Comparable {
 }
 
 // MARK: - Functions
-func readUserInput() throws -> ExpectedHand {
+func readUserInput() throws -> ExpectedHand? {
     let input = readLine()
     
     switch input {
     case "0":
-        throw GameError.exit
+        return nil
     case .some(let input):
         if let userHand: ExpectedHand = ExpectedHand(rawValue: input) {
             return userHand
@@ -79,33 +78,33 @@ func judgeGameResult(_ input: ExpectedHand) {
     }
     
     if computerHand == input {
-        print(Message.draw)
+        print(GameResult.draw)
         runProgram()
         return
     } else if computerHand < input {
-        print(Message.win)
-        print(GameError.exit)
+        print(GameResult.win)
+        print(Message.exit)
     } else {
-        print(Message.lose)
-        print(GameError.exit)
+        print(GameResult.lose)
+        print(Message.exit)
     }
     return
 }
 
 func runProgram() {
     print(Message.menu, terminator: "")
-    let userHand: ExpectedHand
     
     do {
-        userHand = try readUserInput()
+        guard let userHand = try readUserInput() else {
+            print(Message.exit)
+            return
+        }
         judgeGameResult(userHand)
     } catch GameError.invalidInput {
         print(GameError.invalidInput)
         runProgram()
-    } catch GameError.exit {
-        print(GameError.exit)
     } catch {
-        print("Unexpected error: \(error).")
+        fatalError()
     }
 }
 
