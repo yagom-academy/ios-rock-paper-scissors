@@ -16,12 +16,19 @@ enum Option {
     static let list = ["0", "1", "2", "3"]
 }
 
+enum Winner {
+    case computer
+    case player
+    case none
+}
+
 enum InputError: Error {
     case invalidInput
 }
 
 var computerSign: RockScissorsPaperSign = .paper
 var playerSign: RockScissorsPaperSign = .paper
+var gameWinner: Winner = .none
 var shouldContinue: Bool = true
 
 // MARK: - 사용자 입력
