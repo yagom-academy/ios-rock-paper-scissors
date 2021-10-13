@@ -68,7 +68,7 @@ func playScissorsRockPaper(input: String) throws {
         let usersPick = try convertUserInput(to: input)
         
         let computerRandomNumber = createRandomNumber()
-        let computerPick:ScissorsRockPaper = try match(to: computerRandomNumber)
+        let computerPick: ScissorsRockPaper = try match(to: computerRandomNumber)
         
         compare(to: usersPick, with: computerPick)
         
