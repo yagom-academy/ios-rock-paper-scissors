@@ -1,54 +1,59 @@
-enum Card: Int, CaseIterable {
-    case scissors = 1
-    case rock = 2
-    case paper = 3
+enum Card: CaseIterable {
+    case scissors
+    case rock
+    case paper
     
     func checkPlayerWinCase() -> Card {
         switch self {
         case .scissors:
-            return Card.paper
+            return .paper
         case .paper:
-            return Card.rock
+            return .rock
         case .rock:
+            return .scissors
+        }
+    }
+    
+    static func changeNumberToCard(number: Int) -> Card? {
+        switch number {
+        case 1:
             return Card.scissors
+        case 2:
+            return Card.rock
+        case 3:
+            return Card.paper
+        default:
+            return nil
         }
     }
 }
 
+
+/// 에러를 방지하기 위해 특정 값으로 초기화
 var playerCard: Card = Card.scissors
 
-func startReceiveInput() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    
-    guard let input: String = readLine(), input != "0" else {
+func receiveValidPlayerInput() {
+    let programTerminator = "0"
+    print("가위(1), 바위(2), 보(3)! <종료 : \(programTerminator)> : ", terminator: "")
+    guard let playerInputString: String = readLine(), playerInputString != programTerminator else {
         print("게임 종료")
         return
     }
-    
-    varifyInputValue(input: input)
+    verifyValue(of: playerInputString)
 }
 
-func varifyInputValue(input: String) {
-    guard let inputNumber = Int(input), inputNumber > 0, inputNumber < 4 else {
+func verifyValue(of playerInputString: String) {
+    guard let playerInputNumber = Int(playerInputString), let cardFromInputNumber = Card.changeNumberToCard(number: playerInputNumber) else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        startReceiveInput()
+        receiveValidPlayerInput()
         return
     }
     
-    playerCard = changeNumberToCard(number: inputNumber)
+    playerCard = cardFromInputNumber
     startGame()
 }
 
-func changeNumberToCard(number: Int) -> Card {
-    switch number {
-    case 1:
-        return Card.scissors
-    case 2:
-        return Card.rock
-    default:
-        return Card.paper
-    }
-}
+
 
 func startGame() {
     var computerCard: Card = Card.scissors
@@ -66,7 +71,7 @@ func compareCards(with computerCard: Card) {
     
     if playerCard == computerCard {
         print("비겼습니다!")
-        startReceiveInput()
+        receiveValidPlayerInput()
         return
     } else if playerWinCaseCard == computerCard {
         print("이겼습니다!")
@@ -75,4 +80,4 @@ func compareCards(with computerCard: Card) {
     }
 }
 
-startReceiveInput()
+receiveValidPlayerInput()
