@@ -38,7 +38,21 @@ enum GameResult: CustomStringConvertible {
     case draw
 }
 
-
+func playGame() {
+    var rockPaperScissorsResult: (gameResult: GameResult, isExit: Bool) = (.draw, false)
+    
+    while rockPaperScissorsResult.gameResult == .draw
+            , rockPaperScissorsResult.isExit == false {
+        rockPaperScissorsResult = playRockPaperScissors()
+        
+        print(rockPaperScissorsResult.gameResult.description)
+    }
+    
+    if rockPaperScissorsResult.isExit == true {
+        return
+    }
+    
+}
 
 func playRockPaperScissors() -> (GameResult, Bool)  {
     var isExit = false
@@ -107,7 +121,6 @@ func makeRandomNumber() -> String{
 }
 
 func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) -> GameResult {
-    
     var gameResult: GameResult
     
     switch (userHand, computerHand) {
@@ -122,4 +135,4 @@ func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) -> GameResul
     return gameResult
 }
 
-playRockPaperScissors()
+playGame()
