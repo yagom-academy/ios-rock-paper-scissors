@@ -6,18 +6,18 @@
 
 import Foundation
 
-enum Sign: Int {
-    case rock = 1
-    case scissors = 2
-    case paper = 3
+enum RockScissorsPaperSign: CaseIterable {
+    case rock
+    case scissors
+    case paper
 }
 
 enum InputError: Error {
     case invalidInput
 }
 
-var computerSign: Sign = .paper
-var playerSign: Sign = .paper
+var computerSign: RockScissorsPaperSign = .paper
+var playerSign: RockScissorsPaperSign = .paper
 let validSelection: Set<Int> = [0, 1, 2, 3]
 var shouldContinue: Bool = true
 
@@ -68,7 +68,7 @@ func inputFromPlayer() -> Int {
 
 func generateComputerSign() {
     let indexOfSign: Int = Int.random(in: 1...3)
-    guard let computer = Sign(rawValue: indexOfSign) else {
+    guard let computer = RockScissorsPaperSign(rawValue: indexOfSign) else {
         return
     }
     computerSign = computer
@@ -76,7 +76,7 @@ func generateComputerSign() {
 
 func generatePlayerSign(input: Int) {
     let indexOfSign: Int = input
-    guard let player = Sign(rawValue: indexOfSign) else {
+    guard let player = RockScissorsPaperSign(rawValue: indexOfSign) else {
         return
     }
     playerSign = player
