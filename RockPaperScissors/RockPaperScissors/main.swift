@@ -15,6 +15,7 @@ enum MatchResult {
     case computerWins
     case userWins
     case draw
+    case stop
 }
 
 enum Hand {
@@ -55,7 +56,17 @@ enum Hand {
     }
 }
 
-func runRockPaperScissors() {
+func runGame() {
+    var matchResult: MatchResult
+    
+    repeat {
+        matchResult = doRockPaperScissors()
+    } while matchResult == .draw
+    
+    print("게임 종료")
+}
+
+func doRockPaperScissors() -> MatchResult {
     printGameNotice()
     
     let computersHand: Hand = generateRandomHand()
@@ -68,12 +79,12 @@ func runRockPaperScissors() {
     }
     
     guard usersHand != .stop else {
-        print("게임 종료")
-        return
+        return MatchResult.stop
     }
     
     let matchResult = decideWinner(between: computersHand, and: usersHand)
     printMatchResult(of: matchResult)
+    return matchResult
 }
 
 func printGameNotice() {
@@ -133,18 +144,16 @@ func printMatchResult(of matchResult: MatchResult) {
     case .computerWins:
         print("""
             졌습니다!
-            게임 종료
             """)
     case .userWins:
         print("""
             이겼습니다!
-            게임 종료
             """)
     case .draw:
         print("비겼습니다!")
+    case .stop:
+        break
     }
 }
 
-runRockPaperScissors()
-
-
+runGame()
