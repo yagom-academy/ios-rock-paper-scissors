@@ -15,7 +15,7 @@ func runGame() {
     case "0":
         printEndMessage()
     case "1", "2", "3":
-        compareNumbers(computerNumber: generateRandomNumber(), userInputnumber: receiveUserInput(input: userInput))
+        compareRockScissorsPaperWith(computerValue: generateRandomNumber(), userInputValue: bindUserInput(input: userInput))
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         runGame()
@@ -45,7 +45,7 @@ func generateRandomNumber() -> Int {
     return rockScissorsPaper[0]
 }
 
-func receiveUserInput(input: String?) -> Int {
+func bindUserInput(input: String?) -> Int {
     var stringTypeUserInput = ""
     var intTypeUserInput = 0
 
@@ -60,8 +60,8 @@ func receiveUserInput(input: String?) -> Int {
     return intTypeUserInput
 }
 
-func compareNumbers(computerNumber: Int, userInputnumber: Int) {
-    let subtractionValue = userInputnumber - computerNumber
+func compareRockScissorsPaperWith(computerValue: Int, userInputValue: Int) {
+    let subtractionValue = userInputValue - computerValue
     
     if subtractionValue == 0 {
         print("비겼습니다!")
