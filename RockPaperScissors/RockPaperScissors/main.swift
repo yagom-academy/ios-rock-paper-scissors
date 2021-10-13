@@ -127,20 +127,22 @@ func setShouldContinue() {
     }
 }
 
-func playGameOnce(input: Int) {
-    guard input != 0 else {
-        shouldContinue = false
-        return
+func playGameOnce(input: String) {
+    setComputerSign()
+    setPlayerSign(input: input)
+    if shouldContinue {
+        judgeWinner()
+        printGameResult()
+        setShouldContinue()
     }
-    generateComputerSign()
-    generatePlayerSign(input: input)
-    judgeWinner()
 }
 
 func playGame() {
     repeat {
         let playerInput = inputFromPlayer()
         playGameOnce(input: playerInput)
-        setShouldContinue()
     } while shouldContinue
+    print("게임 종료")
 }
+
+playGame()
