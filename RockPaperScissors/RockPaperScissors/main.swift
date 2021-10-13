@@ -54,7 +54,9 @@ func startScissorsRockPaperGame() {
             let computerRandomNumber = createRandomNumber()
             let computerPick: ScissorsRockPaper = try match(to: computerRandomNumber)
             
-            compare(to: usersPick, with: computerPick)
+            let scissorsRockPaperGameResult: ScissorsRockPaperGameResult = compare(to: usersPick, with: computerPick)
+            
+            printGameResult(to: scissorsRockPaperGameResult)
             
         } catch ScissorsRockPaperError.wrongInput {
             printWrongInput()
@@ -64,6 +66,10 @@ func startScissorsRockPaperGame() {
             print(error)
         }
     }
+}
+
+func printGameResult(to result: ScissorsRockPaperGameResult) {
+    print(result.rawValue)
 }
 
 func isExitGame(input: Int) -> Bool {
