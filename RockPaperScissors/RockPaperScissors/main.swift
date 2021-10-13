@@ -31,9 +31,18 @@ func printEndMessage() {
 }
 
 func generateRandomNumber() -> Int {
-    let randomNumber = Int.random(in: 1...3)
+    let scissors = 1
+    let rock = 2
+    let paper = 3
     
-    return randomNumber
+    var rockScissorsPaper = [Int]()
+    rockScissorsPaper.append(scissors)
+    rockScissorsPaper.append(rock)
+    rockScissorsPaper.append(paper)
+    
+    rockScissorsPaper.shuffle()
+    
+    return rockScissorsPaper[0]
 }
 
 func receiveUserInput(input: String?) -> Int {
