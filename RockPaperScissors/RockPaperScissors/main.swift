@@ -10,12 +10,19 @@ enum Message: String, CustomStringConvertible {
     case exit = "게임 종료"
 }
 
+enum Choice: Int{
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+    case exit = 0
+}
+
 enum ErrorMessage: Error {
     case wrongInput
     case systemError
 }
 
-struct RockPaperScissors {
+struct RockPaperScissorsGame {
     private var generatedChoiceOfComputer: Int {
         return Int.random(in: 1...3)
     }
@@ -52,11 +59,11 @@ struct RockPaperScissors {
             throw ErrorMessage.wrongInput
         }
         
-        guard userChoice == 1 || userChoice == 2 || userChoice == 3 || userChoice == 0 else {
+        guard userChoice == Choice.scissors.rawValue || userChoice == Choice.rock.rawValue || userChoice == Choice.paper.rawValue || userChoice == Choice.exit.rawValue else {
             throw ErrorMessage.wrongInput
         }
         
-        guard userChoice == 0 else {
+        guard userChoice == Choice.exit.rawValue else {
             decideGameResult(from: userChoice)
             return
         }
@@ -79,5 +86,5 @@ struct RockPaperScissors {
     }
 }
 
-let rockPaperScissors = RockPaperScissors()
+let rockPaperScissors = RockPaperScissorsGame()
 rockPaperScissors.startGame()
