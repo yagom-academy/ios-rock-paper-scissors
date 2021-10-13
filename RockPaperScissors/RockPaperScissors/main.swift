@@ -102,7 +102,7 @@ func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) {
         gameResult = .lose
     }
     
-    print(gameResult.rawValue)
+    print(gameResult.description)
     
     gameResult == .draw ? playRockPaperScissors() : print("게임 종료")
 }
