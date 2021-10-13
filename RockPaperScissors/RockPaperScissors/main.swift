@@ -69,11 +69,7 @@ func startScissorsRockPaperGame() {
 }
 
 func isDrawScissorsRockPaperGame(to result: ScissorsRockPaperGameResult) -> Bool {
-    if result == .draw {
-        return true
-    } else {
-        return false
-    }
+    return result == .draw 
 }
 
 func printGameResult(to result: ScissorsRockPaperGameResult) {
