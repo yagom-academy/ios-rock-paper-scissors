@@ -25,10 +25,30 @@ enum RockPaperScissor: CaseIterable {
     case paper
 }
 
+struct GameJudgment {
+    func isDraw(_ playerHand: RockPaperScissor?, _ opponentHand: RockPaperScissor) -> Bool {
+        if opponentHand == playerHand {
+            print(Message.gameDraw)
+            return true
+        }
+        return false
+    }
+    
+    func isPlayerWin(_ playerHand: RockPaperScissor?, _ opponentHand: RockPaperScissor) -> Bool {
+        switch (playerHand, opponentHand) {
+        case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 struct RockPaperScissorsGame {
     private var randomHand: RockPaperScissor {
         return RockPaperScissor.allCases[Int.random(in: 1...3)]
     }
+    let gameJudgment = GameJudgment()
     
     func startGame() {
         var playerHand: RockPaperScissor?
@@ -37,13 +57,13 @@ struct RockPaperScissorsGame {
             computerHand = self.randomHand
             print(Message.start, terminator: "")
             playerHand = recieveUserInput()
-        } while isDraw(playerHand, computerHand) || isWrongInput(playerHand: playerHand)
+        } while gameJudgment.isDraw(playerHand, computerHand) || isWrongInput(playerHand: playerHand)
         
         guard playerHand != .quit else {
             print(Message.gameEnd)
             return
         }
-        if isPlayerWin(playerHand, computerHand) {
+        if gameJudgment.isPlayerWin(playerHand, computerHand) {
             print(Message.gameWin)
         } else {
             print(Message.gameLose)
@@ -68,23 +88,6 @@ struct RockPaperScissorsGame {
     }
     
     private func isWrongInput(playerHand: RockPaperScissor?) -> Bool { playerHand == nil }
-    
-    private func isDraw(_ playerHand: RockPaperScissor?, _ opponentHand: RockPaperScissor) -> Bool {
-        if opponentHand == playerHand {
-            print(Message.gameDraw)
-            return true
-        }
-        return false
-    }
-    
-    private func isPlayerWin(_ playerHand: RockPaperScissor?, _ opponentHand: RockPaperScissor) -> Bool {
-        switch (playerHand, opponentHand) {
-        case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
-            return true
-        default:
-            return false
-        }
-    }
 }
 
 let rockPaperScissors = RockPaperScissorsGame()
