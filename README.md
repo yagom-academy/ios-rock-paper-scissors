@@ -1,8 +1,8 @@
 # 묵찌빠 게임
 
-## STEP 1 순서도
+## STEP 2 순서도
 
-![묵찌빠 게임 순서도](ios-rock-paper-scissors.drawio.png)
+![묵찌빠 게임 순서도](ios-rock-paper-scissors-step2.drawio.png)
 
 ## 코드 설명
 
