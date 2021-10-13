@@ -11,6 +11,12 @@ enum Player {
     case user
 }
 
+enum MatchResult {
+    case computerWins
+    case userWins
+    case draw
+}
+
 enum Hand {
     case scissor
     case rock
@@ -63,10 +69,9 @@ func runRockPaperScissors() {
     
     if usersHand == .stop {
         print("게임 종료")
-        return
     } else {
-        let winner: Player? = decideWinner(between: computersHand, and: usersHand)
-        printOrRestart(winner: winner)
+        let matchResult = decideWinner(between: computersHand, and: usersHand)
+        printWinner(of: matchResult)
     }
 }
 
@@ -107,28 +112,28 @@ func verify(userInput: String) -> Bool {
     }
 }
 
-func decideWinner(between computersHand: Hand, and usersHand: Hand) -> Player? {
+func decideWinner(between computersHand: Hand, and usersHand: Hand) -> MatchResult {
     if computersHand == usersHand {
-        return nil
+        return MatchResult.draw
     }
     
     switch (computersHand, usersHand) {
     case (.rock, .scissor), (.scissor, .paper), (.paper, .rock):
-        return Player.computer
+        return MatchResult.computerWins
     case (.rock, .paper), (.scissor, .rock), (.paper, .scissor):
-        return Player.user
+        return MatchResult.userWins
     default:
-        return nil
+        return MatchResult.draw
     }
 }
 
-func printOrRestart(winner: Player?) {
-    if winner == Player.computer {
+func printWinner(of matchResult: MatchResult) {
+    if matchResult == MatchResult.computerWins{
         print("""
             졌습니다!
             게임 종료
             """)
-    } else if winner == Player.user {
+    } else if matchResult == MatchResult.userWins {
         print("""
             이겼습니다!
             게임 종료
