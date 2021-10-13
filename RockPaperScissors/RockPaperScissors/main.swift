@@ -32,6 +32,10 @@ enum ScissorsRockPaperGameResult: String {
     case win = "이겼습니다!"
     case lose = "졌습니다!"
     case draw = "비겼습니다!"
+    
+    func show() {
+        print(self.rawValue)
+    }
 }
 
 func startScissorsRockPaperGame() {
@@ -51,8 +55,8 @@ func startScissorsRockPaperGame() {
         let computerPick: ScissorsRockPaper = try convert(into: computerRandomNumber)
         
         let gameResult: ScissorsRockPaperGameResult = compare(to: usersPick, with: computerPick)
-        printGameResult(to: gameResult)
-        
+        gameResult.show()
+                
         if isDrawScissorsRockPaperGame(to: gameResult) == true {
             startScissorsRockPaperGame()
         } else {
@@ -72,13 +76,8 @@ func isDrawScissorsRockPaperGame(to result: ScissorsRockPaperGameResult) -> Bool
     return result == .draw 
 }
 
-func printGameResult(to result: ScissorsRockPaperGameResult) {
-    print(result.rawValue)
-}
-
 func isExitGame(input: Int) -> Bool {
-    return input == 0 
-    
+    return input == 0
 }
 
 func printMenu() {
