@@ -84,6 +84,21 @@ func playMukChiPa() -> (GameResult, Bool) {
     return(.draw, false)
 }
 
+func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> GameResult {
+    var gameResult: GameResult
+    
+    switch (userHand, computerHand) {
+    case (.Chi, .Pa), (.Muk, .Chi), (.Pa, .Muk):
+        gameResult = .win
+    case (.Chi, .Chi), (.Muk, .Muk), (.Pa, .Pa):
+        gameResult = .draw
+    default:
+        gameResult = .lose
+    }
+    
+    return gameResult
+}
+
 func playRockPaperScissors() -> (GameResult, Bool)  {
     var isExit = false
     guard let userInput = receiveVaildInput() else {
