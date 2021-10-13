@@ -16,7 +16,7 @@ enum ScissorsRockPaper: Int {
     case rock = 2
     case paper = 3
     
-    func next() -> ScissorsRockPaper {
+    func moveNextCase() -> ScissorsRockPaper {
         switch self {
         case .scissors:
             return .rock
