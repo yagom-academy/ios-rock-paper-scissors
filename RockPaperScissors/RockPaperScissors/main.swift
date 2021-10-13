@@ -153,28 +153,33 @@ func runMukChiBa(_ whoseTurn: WhoseTurn) throws {
     case .computerTurn:
         print(Message.menuComputerTurn, terminator: "")
     }
-    guard let mukChiBaInput = try readMukChiBa() else {
-        print(Message.exit)
-        return
-    }
-    
-    let gameResult = judgeGameResult(mukChiBaInput)
-    
-    switch gameResult {
-    case .draw where whoseTurn == .userTurn:
-        print("사용자의 승리!")
-        print(Message.exit)
-    case .draw where whoseTurn == .computerTurn:
-        print("컴퓨터의 승리!")
-        print(Message.exit)
-    case .win:
-        print(WhoseTurn.userTurn)
-        try runMukChiBa(.userTurn)
-    case .lose:
-        print(WhoseTurn.computerTurn)
+    do {
+        guard let mukChiBaInput = try readMukChiBa() else {
+            print(Message.exit)
+            return
+        }
+        
+        let gameResult = judgeGameResult(mukChiBaInput)
+        
+        switch gameResult {
+        case .draw where whoseTurn == .userTurn:
+            print("사용자의 승리!")
+            print(Message.exit)
+        case .draw where whoseTurn == .computerTurn:
+            print("컴퓨터의 승리!")
+            print(Message.exit)
+        case .win:
+            print(WhoseTurn.userTurn)
+            try runMukChiBa(.userTurn)
+        case .lose:
+            print(WhoseTurn.computerTurn)
+            try runMukChiBa(.computerTurn)
+        case .draw:
+            fatalError()
+        }
+    } catch GameError.invalidInput {
+        print(GameError.invalidInput)
         try runMukChiBa(.computerTurn)
-    case .draw:
-        fatalError()
     }
 }
 
