@@ -6,7 +6,10 @@
 
 import Foundation
 
-let possibleInputRange = 1...3
+let possibleInputRange = 0...3
+let rockPaperScissorsRange = 1...3
+
+var isGameRunning = true
 
 enum Script: String {
     case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
@@ -20,7 +23,6 @@ enum Script: String {
 
 enum RockPaperScissorsError: Error {
     case dismissedError
-    case unknownError
 }
 
 func inputingUserNumber(range: ClosedRange<Int> = possibleInputRange) throws -> Int {
@@ -44,7 +46,7 @@ func inputingUserNumber(range: ClosedRange<Int> = possibleInputRange) throws -> 
     return firstItem
 }
 
-func pullComputersRandomChoice(range: ClosedRange<Int> = possibleInputRange) -> Int {
+func pullComputersRandomChoice(range: ClosedRange<Int> = rockPaperScissorsRange) -> Int {
     return Int.random(in: range)
 }
 
@@ -74,25 +76,21 @@ func compareChoice(of user: Int, with computer: Int) -> GameJudgement {
 }
 
 func manageGame() {
-    do {
-        try startGame()
-    } catch RockPaperScissorsError.dismissedError {
-        print(Script.dismissedError.rawValue)
-        manageGame()
-    } catch RockPaperScissorsError.unknownError {
-        print(Script.unknownError.rawValue)
-        manageGame()
-    } catch {
-        print(error)
+    while isGameRunning == true {
+        do {
+            try startGame()
+        } catch RockPaperScissorsError.dismissedError {
+            print(Script.dismissedError.rawValue)
+        } catch {
+            print(Script.unknownError.rawValue)
+        }
     }
     
     print(Script.gameEnd.rawValue)
 }
 
 func startGame() throws {
-    var isGameRunning = true
-    
-    while isGameRunning {
+        while isGameRunning {
         print(Script.menu.rawValue, terminator: "")
         
         let userPair = try inputingUserNumber()
@@ -114,7 +112,7 @@ func startGame() throws {
         case .draw:
             print(Script.draw.rawValue)
         case .unknown:
-            throw RockPaperScissorsError.unknownError
+            print(Script.unknownError.rawValue)
         }
     }
 }
