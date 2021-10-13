@@ -35,7 +35,7 @@ struct RockPaperScissors {
         }
         
         do {
-            try checkValidInput(userChoice: inputUserChoice)
+            try checkValidInput(from: inputUserChoice)
         } catch errormessage.wrongInput {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             selectUserChoice()
@@ -44,7 +44,7 @@ struct RockPaperScissors {
         }
     }
     
-    private func checkValidInput(userChoice: String) throws {
+    private func checkValidInput(from userChoice: String) throws {
         guard let userChoice = Int(userChoice) else {
             throw errormessage.wrongInput
         }
@@ -54,14 +54,15 @@ struct RockPaperScissors {
         }
         
         guard userChoice == 0 else {
-            compareChoices(userChoice: userChoice)
+            decideGameResult(from: userChoice)
             return
         }
         print(Message.exit)
     }
     
-    private func compareChoices(userChoice: Int) {
+    private func decideGameResult(from userChoice: Int) {
         let choiceOfComputer = generatedChoiceOfComputer
+        
         if choiceOfComputer == userChoice {
             print(Message.draw)
             selectUserChoice()
