@@ -18,8 +18,8 @@ enum Hand {
     case 그만
     case none
     
-    init(userInput: String) {
-        switch userInput {
+    init(_ number: String) {
+        switch number {
         case "0":
             self = .그만
         case "1":
@@ -27,6 +27,21 @@ enum Hand {
         case "2":
             self = .묵
         case "3":
+            self = .빠
+        default:
+            self = .none
+        }
+    }
+    
+    init(_ number: Int) {
+        switch number {
+        case 0:
+            self = .그만
+        case 1:
+            self = .찌
+        case 2:
+            self = .묵
+        case 3:
             self = .빠
         default:
             self = .none
@@ -62,16 +77,7 @@ func printGameNotice() {
 func generateRandomHand() -> Hand {
     let randomNumber: Int = Int.random(in: 1...3)
     
-    switch randomNumber {
-    case 1:
-        return .찌
-    case 2:
-        return .묵
-    case 3:
-        return .빠
-    default:
-        return .그만
-    }
+    return Hand(randomNumber)
 }
 
 func receiveUsersHand() -> (Hand, Bool) {
@@ -80,7 +86,7 @@ func receiveUsersHand() -> (Hand, Bool) {
     }
     
     let validationResult = verify(userInput: userInput)
-    let usersHand = Hand(userInput: userInput)
+    let usersHand = Hand(userInput)
     
     return (usersHand, validationResult)
 }
