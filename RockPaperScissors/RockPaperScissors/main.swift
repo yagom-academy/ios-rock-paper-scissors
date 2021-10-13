@@ -49,13 +49,13 @@ func startScissorsRockPaperGame() {
                 break
             }
             
-            let usersPick: ScissorsRockPaper = try match(to: userInput)
+            let usersPick: ScissorsRockPaper = try convert (into: userInput)
             
             let computerRandomNumber = createRandomNumber()
-            let computerPick: ScissorsRockPaper = try match(to: computerRandomNumber)
+            let computerPick: ScissorsRockPaper = try convert (into: computerRandomNumber)
             
             let scissorsRockPaperGameResult: ScissorsRockPaperGameResult = compare(to: usersPick, with: computerPick)
-            
+
             printGameResult(to: scissorsRockPaperGameResult)
             
         } catch ScissorsRockPaperError.wrongInput {
@@ -115,7 +115,7 @@ func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsR
     }
 }
 
-func match(to number: Int) throws -> ScissorsRockPaper {
+func convert(into number: Int) throws -> ScissorsRockPaper {
     guard let convertedScissorsRockPaper = ScissorsRockPaper(rawValue: number) else {
         throw ScissorsRockPaperError.notConverted
     }
