@@ -60,13 +60,27 @@ enum Validity {
     case valid(userInput: Int)
 }
 
+enum Menu: Int {
+    case zero
+    case one
+    case two
+    case three
+}
+
 func getUserInput() -> Int? {
-    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "") else { return nil }
+    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "") else {
+        return nil
+    }
     return Int(userInput)
 }
 
 func isWithinRange(input: Int) -> Bool {
-    return (0...Sign.count).contains(input)
+    switch input {
+    case Menu.zero.rawValue, Menu.one.rawValue, Menu.two.rawValue, Menu.three.rawValue:
+        return true
+    default:
+        return false
+    }
 }
 
 func isValid(userInput: Int?) -> Validity {
@@ -105,7 +119,7 @@ func printInputError() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func printGameResult(gameResult: GameResult?) {
+func printGameResult(gameResult: GameResult) {
     switch gameResult {
     case .userWin:
         print("이겼습니다!")
@@ -113,8 +127,6 @@ func printGameResult(gameResult: GameResult?) {
         print("졌습니다!")
     case .draw:
         print("비겼습니다!")
-    default:
-        fatalError("\(#function)에 전달된 인자의 값이 nil입니다")
     }
 }
 
