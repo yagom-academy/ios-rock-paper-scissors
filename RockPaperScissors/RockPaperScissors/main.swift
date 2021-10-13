@@ -3,7 +3,7 @@ enum Card: CaseIterable {
     case rock
     case paper
     
-    func checkPlayerWinCase() -> Card {
+    func checkCardForPlayerToWin() -> Card {
         switch self {
         case .scissors:
             return .paper
@@ -17,19 +17,27 @@ enum Card: CaseIterable {
     static func changeNumberToCard(number: Int) -> Card? {
         switch number {
         case 1:
-            return Card.scissors
+            return .scissors
         case 2:
-            return Card.rock
+            return .rock
         case 3:
-            return Card.paper
+            return .paper
         default:
             return nil
         }
     }
 }
 
+enum GameResult: String {
+    case win = "이겼습니다!"
+    case lose = "졌습니다!"
+    case draw = "비겼습니다!"
+}
+
 /// 에러를 방지하기 위해 특정 값으로 초기화
 var playerCard: Card = Card.scissors
+/// 에러를 방지하기 위해 특정 값으로 초기화
+var gameResult: GameResult = GameResult.lose
 
 func receiveValidPlayerInput() {
     let programTerminator = "0"
@@ -56,13 +64,14 @@ func assignPlayerCard(with playerInputString: String) {
 }
 
 func startGame() {
+    
     guard let computerCard: Card = createRandomCard() else {
         print("오류 - 컴퓨터 패 생성 실패")
         return
     }
-
     print(computerCard)
-    compareCards(with: computerCard)
+    comparePlayerCard(with: computerCard)
+    printGameResult(of: gameResult)
 }
 
 func createRandomCard() -> Card? {
@@ -72,17 +81,23 @@ func createRandomCard() -> Card? {
     return nil
 }
 
-func compareCards(with computerCard: Card) {
-    let playerWinCaseCard = playerCard.checkPlayerWinCase()
-    
-    if playerCard == computerCard {
-        print("비겼습니다!")
+func printGameResult(of gameResult: GameResult) {
+    if gameResult == .draw {
+        print(gameResult.rawValue)
         receiveValidPlayerInput()
         return
-    } else if playerWinCaseCard == computerCard {
-        print("이겼습니다!")
+    }
+    print(gameResult.rawValue)
+}
+
+func comparePlayerCard(with computerCard: Card){
+    let cardForPlayerToWin = playerCard.checkCardForPlayerToWin()
+    if playerCard == computerCard {
+        gameResult = .draw
+    } else if cardForPlayerToWin == computerCard {
+        gameResult = .win
     } else {
-        print("졌습니다!")
+        gameResult = .lose
     }
 }
 
