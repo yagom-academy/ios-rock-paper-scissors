@@ -93,47 +93,18 @@ func setPlayerSign(input: String) {
 
 // MARK: - 게임 승패 판단
 
-func compareWhenScissors() {
-    switch playerSign {
-    case .paper:
-        print("졌습니다!")
-    case .rock:
-        print("이겼습니다!")
-    case .scissors:
-        print("비겼습니다!")
-    }
-}
-
-func compareWhenRock() {
-    switch playerSign {
-    case .paper:
-        print("이겼습니다!")
-    case .rock:
-        print("비겼습니다!")
-    case .scissors:
-        print("졌습니다!")
-    }
-}
-
-func compareWhenPaper() {
-    switch playerSign {
-    case .paper:
-        print("비겼습니다!")
-    case .rock:
-        print("졌습니다!")
-    case .scissors:
-        print("이겼습니다!")
-    }
-}
-
 func judgeWinner() {
-    switch computerSign {
-    case .paper:
-        compareWhenPaper()
-    case .scissors:
-        compareWhenScissors()
-    case .rock:
-        compareWhenRock()
+    switch playerSign {
+    case .rock where computerSign == .scissors:
+        gameWinner = .player
+    case .scissors where computerSign == .paper:
+        gameWinner = .player
+    case .paper where computerSign == .rock:
+        gameWinner = .player
+    case computerSign:
+        gameWinner = .none
+    default:
+        gameWinner = .computer
     }
 }
 
