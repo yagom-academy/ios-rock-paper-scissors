@@ -8,6 +8,8 @@
 enum Message {
     static let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     static let exit: String = "게임 종료"
+    static let menuUserTurn: String = "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let menuComputerTurn: String = "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
 }
 
 enum GameResult: CustomStringConvertible {
