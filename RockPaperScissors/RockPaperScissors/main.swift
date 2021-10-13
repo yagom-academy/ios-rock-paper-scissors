@@ -67,12 +67,13 @@ func runRockPaperScissors() {
         (usersHand, validationResult) = receiveUsersHand()
     }
     
-    if usersHand == .stop {
+    guard usersHand != .stop else {
         print("게임 종료")
-    } else {
-        let matchResult = decideWinner(between: computersHand, and: usersHand)
-        printWinner(of: matchResult)
+        return
     }
+    
+    let matchResult = decideWinner(between: computersHand, and: usersHand)
+    printMatchResult(of: matchResult)
 }
 
 func printGameNotice() {
@@ -127,20 +128,20 @@ func decideWinner(between computersHand: Hand, and usersHand: Hand) -> MatchResu
     }
 }
 
-func printWinner(of matchResult: MatchResult) {
-    if matchResult == MatchResult.computerWins{
+func printMatchResult(of matchResult: MatchResult) {
+    switch matchResult {
+    case .computerWins:
         print("""
             졌습니다!
             게임 종료
             """)
-    } else if matchResult == MatchResult.userWins {
+    case .userWins:
         print("""
             이겼습니다!
             게임 종료
             """)
-    } else {
+    case .draw:
         print("비겼습니다!")
-        runRockPaperScissors()
     }
 }
 
