@@ -12,10 +12,20 @@ enum Hand: String {
     case paper = "3"
 }
 
-enum GameResult: String {
-    case win = "이겼습니다!"
-    case lose = "졌습니다!"
-    case draw = "비겼습니다!"
+enum GameResult: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .win:
+            return "이겼습니다."
+        case .lose:
+            return "졌습니다."
+        case .draw:
+            return "비겼습니다."
+        }
+    }
+    case win
+    case lose
+    case draw
 }
 
 func playRockPaperScissors(){
@@ -80,6 +90,7 @@ func makeRandomNumber() -> String{
 }
 
 func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) {
+    
     var gameResult: GameResult
     
     switch (userHand, computerHand) {
