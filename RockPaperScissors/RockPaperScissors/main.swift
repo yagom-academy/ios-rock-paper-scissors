@@ -35,8 +35,11 @@ func startGame() {
         printMenu()
         
         do {
-            try checkUserInput(input: receiveUserInput())
+            let userInput = try receiveUserInput()
+            try checkUserInput(input: userInput)
         } catch ScissorsRockPaperError.wrongInput {
+            printWrongInput()
+        } catch ScissorsRockPaperError.notConverted {
             printWrongInput()
         } catch {
             print(error)
@@ -90,7 +93,7 @@ func checkUserInput(input: String) throws {
 func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) {
     if usersPick == computerRandomPick {
         print("비겼습니다!")
-    } else if usersPick == computerRandomPick.next() {
+    } else if usersPick == computerRandomPick.moveNextCase() {
         print("이겼습니다!")
         exitGame()
     } else {
