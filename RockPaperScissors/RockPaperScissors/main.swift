@@ -20,7 +20,7 @@ enum GameError: Error {
 }
 
 enum ExpectedHand: String, CaseIterable, Comparable {
-    static func < (lhs: ExpectedHand, rhs: ExpectedHand) -> Bool {
+    static func < (lhs: Self, rhs: Self) -> Bool {
         if lhs == .paper, rhs == .scissors {
             return true
         }
