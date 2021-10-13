@@ -37,7 +37,7 @@ enum Hand {
 func runRockPaperScissors() {
     printGameNotice()
     
-    let computersHand: Hand = determinedComputersHand()
+    let computersHand: Hand = generateRandomHand()
     var (usersHand, validationResult) = receiveUsersHand()
     
     while validationResult == false {
@@ -50,7 +50,7 @@ func runRockPaperScissors() {
         print("게임 종료")
         return
     } else {
-        let winner: Player? = winnerDeterminedBetween(computersHand, and: usersHand)
+        let winner: Player? = decideWinner(between: computersHand, and: usersHand)
         printOrRestart(winner: winner)
     }
 }
@@ -59,7 +59,7 @@ func printGameNotice() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
 }
 
-func determinedComputersHand() -> Hand {
+func generateRandomHand() -> Hand {
     let randomNumber: Int = Int.random(in: 1...3)
     
     switch randomNumber {
@@ -101,7 +101,7 @@ func verify(userInput: String) -> Bool {
     }
 }
 
-func winnerDeterminedBetween(_ computersHand: Hand, and usersHand: Hand) -> Player? {
+func decideWinner(between computersHand: Hand, and usersHand: Hand) -> Player? {
     if computersHand == usersHand {
         return nil
     }
