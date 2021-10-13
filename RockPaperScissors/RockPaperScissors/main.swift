@@ -16,7 +16,7 @@ enum Script: String {
     case win = "이겼습니다!"
     case loose = "졌습니다!"
     case draw = "비겼습니다!"
-    case gameEnd = "게임종료"
+    case gameEnd = "게임 종료"
     case dismissedError = "잘못된 입력입니다. 다시 시도해주세요."
     case unknownError = "알 수 없는 오류가 발생하였습니다."
 }
@@ -25,60 +25,64 @@ enum RockPaperScissorsError: Error {
     case dismissedError
 }
 
-func inputingUserNumber(range: ClosedRange<Int> = possibleInputRange) throws -> Int {
+func receiveUserNumber(in range: ClosedRange<Int> = possibleInputRange) throws -> Int {
     guard let input = readLine(), input != "" else {
         throw RockPaperScissorsError.dismissedError
     }
     
-    let convertedInput = input.compactMap { Int(String($0)) }
-    guard convertedInput.count == input.count else {
+    let filteredInput = input.compactMap { Int(String($0)) }
+    guard filteredInput.count == input.count else {
         throw RockPaperScissorsError.dismissedError
     }
     
-    guard let firstItem = convertedInput.first else {
+    guard let userNumber = filteredInput.first else {
         throw RockPaperScissorsError.dismissedError
     }
     
-    guard convertedInput.count == 1 && range ~= firstItem else {
+    guard filteredInput.count == 1 && range ~= userNumber else {
         throw RockPaperScissorsError.dismissedError
     }
     
-    return firstItem
+    return userNumber
 }
 
-func pullComputersRandomChoice(range: ClosedRange<Int> = rockPaperScissorsRange) -> Int {
+func pullComputersHandPose(in range: ClosedRange<Int> = rockPaperScissorsRange) -> Int {
     return Int.random(in: range)
 }
 
-enum GameJudgement {
+enum RockPaperScissorsJudgement {
     case win
     case loose
     case draw
     case unknown
     
-    mutating func convert(result: Int) {
-        switch result {
-        case -2, 1: self = .win
-        case 2, -1: self = .loose
-        case 0: self = .draw
-        default: self = .unknown
+    mutating func matchResult(with number: Int) {
+        switch number {
+        case -2, 1:
+            self = .win
+        case 2, -1:
+            self = .loose
+        case 0:
+            self = .draw
+        default:
+            self = .unknown
         }
     }
 }
 
-func compareChoice(of user: Int, with computer: Int) -> GameJudgement {
-    let evaluatedResult = user - computer
-    var gameJudgement: GameJudgement = .unknown
+func checkUserGameResult(_ user: Int, with computer: Int) -> RockPaperScissorsJudgement {
+    let comparison = user - computer
     
-    gameJudgement.convert(result: evaluatedResult)
+    var gameResult: RockPaperScissorsJudgement = .unknown
+    gameResult.matchResult(with: comparison)
     
-    return gameJudgement
+    return gameResult
 }
 
-func manageGame() {
+func manageRockPaperScissorsGame() {
     while isGameRunning == true {
         do {
-            try startGame()
+            try startRockPaperScissorsGame()
         } catch RockPaperScissorsError.dismissedError {
             print(Script.dismissedError.rawValue)
         } catch {
@@ -89,18 +93,18 @@ func manageGame() {
     print(Script.gameEnd.rawValue)
 }
 
-func startGame() throws {
+func startRockPaperScissorsGame() throws {
         while isGameRunning {
         print(Script.menu.rawValue, terminator: "")
         
-        let userPair = try inputingUserNumber()
-        if userPair == 0 {
+        let userHandPose = try receiveUserNumber()
+        if userHandPose == 0 {
             isGameRunning = false
             break
         }
         
-        let computerPair = pullComputersRandomChoice()
-        let gameResult = compareChoice(of: userPair, with: computerPair)
+        let computerHandPose = pullComputersHandPose()
+        let gameResult = checkUserGameResult(userHandPose, with: computerHandPose)
         
         switch gameResult {
         case .win:
@@ -117,4 +121,4 @@ func startGame() throws {
     }
 }
 
-manageGame()
+manageRockPaperScissorsGame()
