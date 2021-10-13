@@ -24,6 +24,10 @@ enum PlayerOption: CaseIterable {
     case scissor
     case rock
     case paper
+    
+    static var randomHand: PlayerOption {
+        return PlayerOption.allCases[Int.random(in: 1...3)]
+    }
 }
 
 struct GameJudgment {
@@ -54,17 +58,14 @@ struct GameJudgment {
 }
 
 struct RockPaperScissorsGame {
-    let gameJudgment = GameJudgment()
-    var randomHand: PlayerOption {
-        return PlayerOption.allCases[Int.random(in: 1...3)]
-    }
+    private let gameJudgment = GameJudgment()
     
     func startGame() {
         var playerHand: PlayerOption?
         var computerHand: PlayerOption
         
         repeat {
-            computerHand = randomHand
+            computerHand = PlayerOption.randomHand
             print(Message.start, terminator: "")
             playerHand = recieveUserInput()
         } while gameJudgment.isDraw(playerHand, computerHand) || isWrongInput(playerHand: playerHand)
