@@ -37,16 +37,11 @@ func printStartMessage() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
-func receivePlayerInput() -> String {
-    let playerInput = readLine() ?? ""
-    return playerInput
-}
-
-func convertToInt(from input: String) throws -> Int {
-    guard let convertedInput = Int(input), convertedInput <= 3 && convertedInput >= 0 else {
+func receivePlayerInput() throws -> String {
+    guard let playerInput = readLine(), Option.list.contains(playerInput) else {
         throw InputError.invalidInput
     }
-    return convertedInput
+    return playerInput
 }
 
 func getValidInput(input: String) -> Int {
