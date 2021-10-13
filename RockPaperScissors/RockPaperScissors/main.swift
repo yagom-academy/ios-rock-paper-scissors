@@ -11,27 +11,39 @@ enum Player {
     case user
 }
 
-enum Hand: Int {
-    case 찌 = 1
-    case 묵 = 2
-    case 빠 = 3
-    case 그만 = 0
+enum Hand {
+    case 찌
+    case 묵
+    case 빠
+    case 그만
+    case none
+    
+    init(userInput: String) {
+        switch userInput {
+        case "0":
+            self = .그만
+        case "1":
+            self = .찌
+        case "2":
+            self = .묵
+        case "3":
+            self = .빠
+        default:
+            self = .none
+        }
+    }
 }
 
 func runRockPaperScissors() {
     printGameNotice()
     
     let computersHand: Hand = determinedComputersHand()
-    var usersHand: Hand? = receivedAndVerifiedUsersHand()
+    var (usersHand, validationResult) = receiveUsersHand()
     
-    while usersHand == nil {
+    while validationResult == false {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         printGameNotice()
-        usersHand = receivedAndVerifiedUsersHand()
-    }
-    
-    guard let usersHand: Hand = usersHand else {
-        return
+        (usersHand, validationResult) = receiveUsersHand()
     }
     
     if usersHand == .그만 {
@@ -62,25 +74,30 @@ func determinedComputersHand() -> Hand {
     }
 }
 
-func receivedAndVerifiedUsersHand() -> Hand? {
-    guard let stringUserInput = readLine(),
-          let integerUserInput = Int(stringUserInput),
-          integerUserInput >= 0,
-          integerUserInput <= 3 else {
-        return nil
+func receiveUsersHand() -> (Hand, Bool) {
+    guard let userInput = readLine() else {
+        return (.none, false)
     }
     
-    switch integerUserInput {
-    case 1:
-        return .찌
-    case 2:
-        return .묵
-    case 3:
-        return .빠
-    case 0:
-        return .그만
-    default:
-        return .그만
+    let validationResult = verify(userInput: userInput)
+    let usersHand = Hand(userInput: userInput)
+    
+    return (usersHand, validationResult)
+}
+
+func convertToInteger(from userInput: String) -> Int? {
+    return Int(userInput)
+}
+
+func verify(userInput: String) -> Bool {
+    guard let integerUserInput = convertToInteger(from: userInput) else {
+        return false
+    }
+    
+    if integerUserInput >= 0 && integerUserInput <= 3 {
+        return true
+    } else {
+        return false
     }
 }
 
