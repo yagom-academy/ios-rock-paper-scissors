@@ -7,18 +7,19 @@
 import Foundation
 
 enum Message: String, CustomStringConvertible {
-    var description: String {
-        return rawValue
-    }
     case start = "가위(1), 바위(2), 보(3)! <종료: 0> : "
     case gameWin = "이겼습니다!"
     case gameLose = "졌습니다!"
     case gameDraw = "비겼습니다!"
     case gameEnd = "게임 종료"
     case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
+    
+    var description: String {
+        return rawValue
+    }
 }
 
-enum RockPaperScissor: CaseIterable {
+enum PlayerOption: CaseIterable {
     case quit
     case scissor
     case rock
@@ -26,15 +27,15 @@ enum RockPaperScissor: CaseIterable {
 }
 
 struct GameJudgment {
-    func isDraw(_ playerHand: RockPaperScissor?, _ opponentHand: RockPaperScissor) -> Bool {
-        if opponentHand == playerHand {
+    func isDraw(_ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
+        if playerHand == opponentHand {
             print(Message.gameDraw)
             return true
         }
         return false
     }
     
-    func isPlayerWin(_ playerHand: RockPaperScissor?, _ opponentHand: RockPaperScissor) -> Bool {
+    func isPlayerWin(_ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
         switch (playerHand, opponentHand) {
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
             return true
@@ -42,19 +43,28 @@ struct GameJudgment {
             return false
         }
     }
+    
+    func printGameResult(from playerHand: PlayerOption?, and opponentHand: PlayerOption) {
+        if isPlayerWin(playerHand, opponentHand) {
+            print(Message.gameWin)
+        } else {
+            print(Message.gameLose)
+        }
+    }
 }
 
 struct RockPaperScissorsGame {
-    private var randomHand: RockPaperScissor {
-        return RockPaperScissor.allCases[Int.random(in: 1...3)]
-    }
     let gameJudgment = GameJudgment()
+    var randomHand: PlayerOption {
+        return PlayerOption.allCases[Int.random(in: 1...3)]
+    }
     
     func startGame() {
-        var playerHand: RockPaperScissor?
-        var computerHand: RockPaperScissor
+        var playerHand: PlayerOption?
+        var computerHand: PlayerOption
+        
         repeat {
-            computerHand = self.randomHand
+            computerHand = randomHand
             print(Message.start, terminator: "")
             playerHand = recieveUserInput()
         } while gameJudgment.isDraw(playerHand, computerHand) || isWrongInput(playerHand: playerHand)
@@ -63,15 +73,12 @@ struct RockPaperScissorsGame {
             print(Message.gameEnd)
             return
         }
-        if gameJudgment.isPlayerWin(playerHand, computerHand) {
-            print(Message.gameWin)
-        } else {
-            print(Message.gameLose)
-        }
+        
+        gameJudgment.printGameResult(from: playerHand, and: computerHand)
         print(Message.gameEnd)
     }
     
-    private func recieveUserInput(_ userInput: String? = readLine()) -> RockPaperScissor? {
+    private func recieveUserInput(_ userInput: String? = readLine()) -> PlayerOption? {
         switch userInput {
         case "0":
             return .quit
@@ -87,9 +94,8 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func isWrongInput(playerHand: RockPaperScissor?) -> Bool { playerHand == nil }
+    private func isWrongInput(playerHand: PlayerOption?) -> Bool { playerHand == nil }
 }
 
 let rockPaperScissors = RockPaperScissorsGame()
-
 rockPaperScissors.startGame()
