@@ -43,6 +43,12 @@ func startScissorsRockPaperGame() {
                 break
             }
             
+            let usersPick: ScissorsRockPaper = try match(to: userInput)
+            
+            let computerRandomNumber = createRandomNumber()
+            let computerPick: ScissorsRockPaper = try match(to: computerRandomNumber)
+            
+            compare(to: usersPick, with: computerPick)
             
         } catch ScissorsRockPaperError.wrongInput {
             printWrongInput()
@@ -76,22 +82,6 @@ func receiveUserInput() throws -> Int {
 
 func createRandomNumber(_ range: ClosedRange<Int> = 1...3) -> Int {
     return Int.random(in: range)
-}
-
-func playScissorsRockPaper(input: Int) throws {
-    do {
-        let usersPick = try match(to: input)
-        
-        let computerRandomNumber = createRandomNumber()
-        let computerPick: ScissorsRockPaper = try match(to: computerRandomNumber)
-        
-        compare(to: usersPick, with: computerPick)
-        
-    } catch ScissorsRockPaperError.notConverted {
-        printWrongInput()
-    } catch {
-        print(error)
-    }
 }
 
 func checkUserInput(input: Int) throws {
