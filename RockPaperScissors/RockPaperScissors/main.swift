@@ -47,26 +47,25 @@ func startScissorsRockPaperGame() {
             return
         }
         
-        let usersPick: ScissorsRockPaper = try convert (into: userInput)
+        let usersPick: ScissorsRockPaper = try convert(into: userInput)
         
         let computerRandomNumber = createRandomNumber()
-        let computerPick: ScissorsRockPaper = try convert (into: computerRandomNumber)
+        let computerPick: ScissorsRockPaper = try convert(into: computerRandomNumber)
         
         let gameResult: ScissorsRockPaperGameResult = compare(to: usersPick, with: computerPick)
         printGameResult(to: gameResult)
         
         if isDrawScissorsRockPaperGame(to: gameResult) == true {
             startScissorsRockPaperGame()
+        } else {
+            printGameOver()
         }
         
-        printGameOver()
-        
-    } catch ScissorsRockPaperError.wrongInput {
+    } catch ScissorsRockPaperError.wrongInput,
+            ScissorsRockPaperError.menuIsNotExist,
+            ScissorsRockPaperError.notConverted {
         printErrorMessage()
-    } catch ScissorsRockPaperError.menuIsNotExist {
-        printErrorMessage()
-    } catch ScissorsRockPaperError.notConverted {
-        printErrorMessage()
+        startScissorsRockPaperGame()
     } catch {
         print(error)
     }
