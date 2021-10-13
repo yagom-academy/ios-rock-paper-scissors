@@ -10,12 +10,30 @@ enum Player {
     case computer
     case user
 }
+enum GameNotice: String {
+    case getInput = "가위(1), 바위(2), 보(3)! <종료 : 0>"
+    case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
+    case theEnd = "게임 종료"
+    
+    func printNotice() {
+        switch self {
+        case .getInput:
+            print(self.rawValue, terminator: " : ")
+        default:
+            print(self.rawValue)
+        }
+    }
+}
 
-enum MatchResult {
-    case computerWins
-    case userWins
-    case draw
+enum MatchResult: String {
+    case computerWins = "졌습니다."
+    case userWins = "이겼습니다."
+    case draw = "비겼습니다."
     case stop
+    
+    func printResult() {
+        print(self.rawValue)
+    }
 }
 
 enum Hand {
@@ -63,18 +81,18 @@ func runGame() {
         matchResult = doRockPaperScissors()
     } while matchResult == .draw
     
-    print("게임 종료")
+    GameNotice.theEnd.printNotice()
 }
 
 func doRockPaperScissors() -> MatchResult {
-    printGameNotice()
+    GameNotice.getInput.printNotice()
     
     let computersHand: Hand = generateRandomHand()
     var (usersHand, validationResult) = receiveUsersHand()
     
     while validationResult == false {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        printGameNotice()
+        GameNotice.wrongInput.printNotice()
+        GameNotice.getInput.printNotice()
         (usersHand, validationResult) = receiveUsersHand()
     }
     
@@ -83,12 +101,8 @@ func doRockPaperScissors() -> MatchResult {
     }
     
     let matchResult = decideWinner(between: computersHand, and: usersHand)
-    printMatchResult(of: matchResult)
+    matchResult.printResult()
     return matchResult
-}
-
-func printGameNotice() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
 }
 
 func generateRandomHand() -> Hand {
@@ -132,23 +146,6 @@ func decideWinner(between computersHand: Hand, and usersHand: Hand) -> MatchResu
         return MatchResult.userWins
     default:
         return MatchResult.draw
-    }
-}
-
-func printMatchResult(of matchResult: MatchResult) {
-    switch matchResult {
-    case .computerWins:
-        print("""
-            졌습니다!
-            """)
-    case .userWins:
-        print("""
-            이겼습니다!
-            """)
-    case .draw:
-        print("비겼습니다!")
-    case .stop:
-        break
     }
 }
 
