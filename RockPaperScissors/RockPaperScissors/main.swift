@@ -13,9 +13,9 @@ enum RockScissorsPaper: String {
 }
 
 enum MukChiPa: String {
-    case Muk = "1"
-    case Chi = "2"
-    case Pa = "3"
+    case muk = "1"
+    case chi = "2"
+    case pa = "3"
 }
 
 enum GameType {
@@ -88,9 +88,9 @@ func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> GameResult
     var gameResult: GameResult
     
     switch (userHand, computerHand) {
-    case (.Chi, .Pa), (.Muk, .Chi), (.Pa, .Muk):
+    case (.chi, .pa), (.muk, .chi), (.pa, .muk):
         gameResult = .win
-    case (.Chi, .Chi), (.Muk, .Muk), (.Pa, .Pa):
+    case (.chi, .chi), (.muk, .muk), (.pa, .pa):
         gameResult = .draw
     default:
         gameResult = .lose
