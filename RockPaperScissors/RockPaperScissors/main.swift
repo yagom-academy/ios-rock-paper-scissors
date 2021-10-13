@@ -16,7 +16,7 @@ enum ScissorsRockPaper: Int {
     case rock = 2
     case paper = 3
     
-    func moveNextCase() -> ScissorsRockPaper {
+    func winCase() -> ScissorsRockPaper {
         switch self {
         case .scissors:
             return .rock
@@ -99,7 +99,7 @@ func createRandomNumber(_ range: ClosedRange<Int> = 1...3) -> Int {
 func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) -> ScissorsRockPaperGameResult {
     if usersPick == computerRandomPick {
         return .draw
-    } else if usersPick == computerRandomPick.moveNextCase() {
+    } else if usersPick == computerRandomPick.winCase() {
         return .win
     } else {
         return .lose
