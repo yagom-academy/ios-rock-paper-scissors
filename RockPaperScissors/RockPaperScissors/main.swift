@@ -73,11 +73,8 @@ func inputFromPlayer() -> String {
 
 // MARK: - 컴퓨터, 사용자 패 생성
 
-func generateComputerSign() {
-    let indexOfSign: Int = Int.random(in: 1...3)
-    guard let computer = RockScissorsPaperSign(rawValue: indexOfSign) else {
-        return
-    }
+func setComputerSign() {
+    let computer = RockScissorsPaperSign.allCases.randomElement()!
     computerSign = computer
 }
 
