@@ -99,7 +99,7 @@ func makeRandomNumber() -> String{
     return String(Int.random(in: 1...3))
 }
 
-func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) {
+func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) -> GameResult {
     
     var gameResult: GameResult
     
@@ -112,9 +112,7 @@ func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) {
         gameResult = .lose
     }
     
-    print(gameResult.description)
-    
-    gameResult == .draw ? playRockPaperScissors() : print("게임 종료")
+    return gameResult
 }
 
 playRockPaperScissors()
