@@ -7,16 +7,14 @@
 // MARK: - Enums
 enum Message: String {
     case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-    case invalidInput = "잘못된 입력입니다. 다시 시도해주세요."
     case draw = "비겼습니다!"
     case win = "이겼습니다!"
     case lose = "졌습니다!"
-    case exit = "게임 종료"
 }
 
-enum GameError: Error {
-    case invalidInput
-    case exit
+enum GameError: String, Error {
+    case invalidInput = "잘못된 입력입니다. 다시 시도해주세요."
+    case exit = "게임 종료"
 }
 
 enum ExpectedHand: String, CaseIterable, Comparable {
@@ -61,10 +59,10 @@ func judgeGameResult(_ input: ExpectedHand) {
         return
     } else if computerHand < input {
         print(Message.win.rawValue)
-        print(Message.exit.rawValue)
+        print(GameError.exit.rawValue)
     } else {
         print(Message.lose.rawValue)
-        print(Message.exit.rawValue)
+        print(GameError.exit.rawValue)
     }
     return
 }
@@ -77,10 +75,10 @@ func runProgram() {
         userHand = try readUserInput()
         judgeGameResult(userHand)
     } catch GameError.invalidInput {
-        print(Message.invalidInput.rawValue)
+        print(GameError.invalidInput.rawValue)
         runProgram()
     } catch GameError.exit {
-        print(Message.exit.rawValue)
+        print(GameError.exit.rawValue)
     } catch {
         print("Unexpected error: \(error).")
     }
