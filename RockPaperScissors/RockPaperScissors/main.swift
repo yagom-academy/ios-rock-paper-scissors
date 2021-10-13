@@ -113,17 +113,9 @@ func decideWinner(between computersHand: Hand, and usersHand: Hand) -> Player? {
     }
     
     switch (computersHand, usersHand) {
-    case (.rock, .scissor):
+    case (.rock, .scissor), (.scissor, .paper), (.paper, .rock):
         return Player.computer
-    case (.rock, .paper):
-        return Player.user
-    case (.scissor, .rock):
-        return Player.user
-    case (.scissor, .paper):
-        return Player.computer
-    case (.paper, .rock):
-        return Player.computer
-    case (.paper, .scissor):
+    case (.rock, .paper), (.scissor, .rock), (.paper, .scissor):
         return Player.user
     default:
         return nil
