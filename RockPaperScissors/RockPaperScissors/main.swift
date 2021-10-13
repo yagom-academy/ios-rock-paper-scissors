@@ -98,11 +98,11 @@ func createRandomNumber(_ range: ClosedRange<Int> = 1...3) -> Int {
 
 func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) -> ScissorsRockPaperGameResult {
     if usersPick == computerRandomPick {
-        return ScissorsRockPaperGameResult.draw
+        return .draw
     } else if usersPick == computerRandomPick.moveNextCase() {
-        return ScissorsRockPaperGameResult.win
+        return .win
     } else {
-        return ScissorsRockPaperGameResult.lose
+        return .lose
     }
 }
 
