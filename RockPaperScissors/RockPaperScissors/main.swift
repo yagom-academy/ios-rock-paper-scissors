@@ -11,7 +11,7 @@ enum ScissorsRockPaperError: Error {
     case notConverted
 }
 
-enum ScissorsRockPaper: Int {
+enum ScissorsRockPaper: Int, CaseIterable {
     case scissors = 1
     case rock = 2
     case paper = 3
@@ -25,6 +25,10 @@ enum ScissorsRockPaper: Int {
         case .paper:
             return .scissors
         }
+    }
+    
+    static func createRandomCase() -> ScissorsRockPaper? {
+        return ScissorsRockPaper.allCases.randomElement()
     }
 }
 
@@ -51,8 +55,10 @@ func startScissorsRockPaperGame() {
         
         let usersPick: ScissorsRockPaper = try convert(into: userInput)
         
-        let computerRandomNumber = createRandomNumber()
-        let computerPick: ScissorsRockPaper = try convert(into: computerRandomNumber)
+        guard let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase() else {
+            startScissorsRockPaperGame()
+            return
+        }
         
         let gameResult: ScissorsRockPaperGameResult = compare(to: usersPick, with: computerPick)
         gameResult.show()
@@ -90,10 +96,6 @@ func receiveUserInput() throws -> Int {
     }
     
     return convertedInteger
-}
-
-func createRandomNumber(_ range: ClosedRange<Int> = 1...3) -> Int {
-    return Int.random(in: range)
 }
 
 func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) -> ScissorsRockPaperGameResult {
