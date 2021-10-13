@@ -84,6 +84,21 @@ func readUserInput() throws -> ExpectedHand? {
     }
 }
 
+func readMukChiBa() throws -> ExpectedHand? {
+    guard let input = try readUserInput() else {
+        return nil
+    }
+    
+    switch input {
+    case .scissors:
+        return .rock
+    case .rock:
+        return .scissors
+    case .paper:
+        return .paper
+    }
+}
+
 func generateComputerHand() -> ExpectedHand? {
     return ExpectedHand.allCases.randomElement()
 }
