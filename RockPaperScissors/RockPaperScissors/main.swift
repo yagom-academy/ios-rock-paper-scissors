@@ -69,10 +69,13 @@ func readUserInput() throws -> ExpectedHand {
     }
 }
 
+func generateComputerHand() -> ExpectedHand? {
+    return ExpectedHand.allCases.randomElement()
+}
+
 func judgeGameResult(_ input: ExpectedHand) {
-    var computerHand: ExpectedHand {
-        var hands = ExpectedHand.allCases.shuffled()
-        return hands.removeFirst()
+    guard let computerHand: ExpectedHand = generateComputerHand() else {
+        fatalError()
     }
     
     if computerHand == input {
