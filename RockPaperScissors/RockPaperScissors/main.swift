@@ -84,6 +84,10 @@ func playMukChiPa() -> (GameResult, Bool) {
     return(gameResult, isExit)
 }
 
+func printTurnOwner(turnOwner: PlayerType) {
+    print("[\(turnOwner) 턴]")
+}
+
 func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> GameResult {
     var gameResult: GameResult
     
