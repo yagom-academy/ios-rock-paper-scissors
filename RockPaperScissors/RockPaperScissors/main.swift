@@ -35,38 +35,48 @@ enum ScissorsRockPaperGameResult: String {
     case draw = "비겼습니다!"
 }
 
-var isGameOver = false
-
 func startScissorsRockPaperGame() {
-    while isGameOver == false {
-        printMenu()
+    printMenu()
+    
+    do {
+        let userInput = try receiveUserInput()
+        try checkUserInput(input: userInput)
         
-        do {
-            let userInput = try receiveUserInput()
-            try checkUserInput(input: userInput)
-            
-            if isExitGame(input: userInput) {
-                exitGame()
-                break
-            }
-            
-            let usersPick: ScissorsRockPaper = try convert (into: userInput)
-            
-            let computerRandomNumber = createRandomNumber()
-            let computerPick: ScissorsRockPaper = try convert (into: computerRandomNumber)
-            
-            let scissorsRockPaperGameResult: ScissorsRockPaperGameResult = compare(to: usersPick, with: computerPick)
-            printGameResult(to: scissorsRockPaperGameResult)
-            
-        } catch ScissorsRockPaperError.wrongInput {
-            printWrongInput()
-        } catch ScissorsRockPaperError.menuIsNotExist {
-            printWrongInput()
-        } catch ScissorsRockPaperError.notConverted {
-            printWrongInput()
-        } catch {
-            print(error)
+        if isExitGame(input: userInput) == true {
+            printGameOver()
+            return
         }
+        
+        let usersPick: ScissorsRockPaper = try convert (into: userInput)
+        
+        let computerRandomNumber = createRandomNumber()
+        let computerPick: ScissorsRockPaper = try convert (into: computerRandomNumber)
+        
+        let gameResult: ScissorsRockPaperGameResult = compare(to: usersPick, with: computerPick)
+        printGameResult(to: gameResult)
+        
+        if isDrawScissorsRockPaperGame(to: gameResult) == true {
+            startScissorsRockPaperGame()
+        }
+        
+        printGameOver()
+        
+    } catch ScissorsRockPaperError.wrongInput {
+        printErrorMessage()
+    } catch ScissorsRockPaperError.menuIsNotExist {
+        printErrorMessage()
+    } catch ScissorsRockPaperError.notConverted {
+        printErrorMessage()
+    } catch {
+        print(error)
+    }
+}
+
+func isDrawScissorsRockPaperGame(to result: ScissorsRockPaperGameResult) -> Bool {
+    if result == .draw {
+        return true
+    } else {
+        return false
     }
 }
 
@@ -125,17 +135,12 @@ func convert(into number: Int) throws -> ScissorsRockPaper {
     return convertedScissorsRockPaper
 }
 
-func printWrongInput() {
+func printErrorMessage() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
 func printGameOver() {
     print("게임 종료")
-}
-
-func exitGame() {
-    printGameOver()
-    isGameOver = true
 }
 
 startScissorsRockPaperGame()
