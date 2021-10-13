@@ -78,12 +78,17 @@ func setComputerSign() {
     computerSign = computer
 }
 
-func generatePlayerSign(input: Int) {
-    let indexOfSign: Int = input
-    guard let player = RockScissorsPaperSign(rawValue: indexOfSign) else {
-        return
+func setPlayerSign(input: String) {
+    switch input {
+    case "1":
+        playerSign = .rock
+    case "2":
+        playerSign = .scissors
+    case "3":
+        playerSign = .paper
+    default:
+        shouldContinue = false
     }
-    playerSign = player
 }
 
 // MARK: - 게임 승패 판단
