@@ -13,8 +13,6 @@ enum RockPaperScissors: Int {
     }
 }
 
-var computerNumber: Int = 0
-
 func inputUserData() -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
     guard let userInput = readLine(), let userInputNumber = Int(userInput) else {
@@ -23,12 +21,14 @@ func inputUserData() -> Int {
     return userInputNumber
 }
 
-func generateRandomNumber() {
-    var computerNumbers: [RockPaperScissors] = [.scissor,.rock,.paper]
+func generateRandomNumber() -> Int {
+    var handsOfComputer: [RockPaperScissors] = [.scissor,.rock,.paper]
     let randomIndex = 0
     
-    computerNumbers.shuffle()
-    computerNumber = computerNumbers[randomIndex].assignedValue
+    handsOfComputer.shuffle()
+    var handOfComputer = handsOfComputer[randomIndex].assignedValue
+    
+    return handOfComputer
 }
 
 func playGame(inputNumber: Int) {
@@ -76,7 +76,7 @@ func startGame() {
     var isRestart: Bool = false
     let userInputNumber =  inputUserData()
 
-    generateRandomNumber()
+    let handOfComputer = generateRandomNumber()
     isRestart = isRestartGame(inputNumber: userInputNumber)
     
     if isRestart {
