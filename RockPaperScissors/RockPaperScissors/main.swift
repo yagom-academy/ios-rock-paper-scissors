@@ -73,15 +73,15 @@ func playMukChiPa() -> (GameResult, Bool) {
     guard let computerHand = MukChiPa(rawValue: makeRandomNumber()) else {
         return (.win, isExit)
     }
-    
+
     if userInput == "0" {
         isExit = true
         return (.win, isExit)
     }
 
-//    gameResult = judgeRockPaperScissors(userHand, computerHand)
+    gameResult = judgeMukChiPa(userHand, computerHand)
     
-    return(.draw, false)
+    return(gameResult, isExit)
 }
 
 func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> GameResult {
