@@ -12,22 +12,22 @@ enum Player {
 }
 
 enum Hand {
-    case 찌
-    case 묵
-    case 빠
-    case 그만
+    case scissor
+    case rock
+    case paper
+    case stop
     case none
     
     init(_ number: String) {
         switch number {
         case "0":
-            self = .그만
+            self = .stop
         case "1":
-            self = .찌
+            self = .scissor
         case "2":
-            self = .묵
+            self = .rock
         case "3":
-            self = .빠
+            self = .paper
         default:
             self = .none
         }
@@ -36,13 +36,13 @@ enum Hand {
     init(_ number: Int) {
         switch number {
         case 0:
-            self = .그만
+            self = .stop
         case 1:
-            self = .찌
+            self = .scissor
         case 2:
-            self = .묵
+            self = .rock
         case 3:
-            self = .빠
+            self = .paper
         default:
             self = .none
         }
@@ -61,7 +61,7 @@ func runRockPaperScissors() {
         (usersHand, validationResult) = receiveUsersHand()
     }
     
-    if usersHand == .그만 {
+    if usersHand == .stop {
         print("게임 종료")
         return
     } else {
@@ -113,17 +113,17 @@ func decideWinner(between computersHand: Hand, and usersHand: Hand) -> Player? {
     }
     
     switch (computersHand, usersHand) {
-    case (.묵, .찌):
+    case (.rock, .scissor):
         return Player.computer
-    case (.묵, .빠):
+    case (.rock, .paper):
         return Player.user
-    case (.찌, .묵):
+    case (.scissor, .rock):
         return Player.user
-    case (.찌, .빠):
+    case (.scissor, .paper):
         return Player.computer
-    case (.빠, .묵):
+    case (.paper, .rock):
         return Player.computer
-    case (.빠, .찌):
+    case (.paper, .scissor):
         return Player.user
     default:
         return nil
