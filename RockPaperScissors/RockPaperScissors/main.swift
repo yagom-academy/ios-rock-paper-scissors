@@ -33,9 +33,9 @@ enum WhoseTurn: CustomStringConvertible {
     var description: String {
         switch self {
         case .userTurn:
-            return "사용자의 턴"
+            return "사용자의 턴입니다"
         case .computerTurn:
-            return "컴퓨터의 턴"
+            return "컴퓨터의 턴입니다"
         }
     }
     
