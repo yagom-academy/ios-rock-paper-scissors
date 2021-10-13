@@ -30,7 +30,7 @@ enum ScissorsRockPaper: Int {
 
 var isGameOver = false
 
-func startGame() {
+func startScissorsRockPaperGame() {
     while isGameOver == false {
         printMenu()
         
@@ -65,7 +65,7 @@ func createRandomNumber(_ range: ClosedRange<Int> = 1...3) -> Int {
 
 func playScissorsRockPaper(input: String) throws {
     do {
-        let usersPick = try convertUserInput(to: input)
+        let usersPick = try convertUserInput(into: input)
         
         let computerRandomNumber = createRandomNumber()
         let computerPick: ScissorsRockPaper = try match(to: computerRandomNumber)
@@ -132,4 +132,4 @@ func exitGame() {
     isGameOver = true
 }
 
-startGame()
+startScissorsRockPaperGame()
