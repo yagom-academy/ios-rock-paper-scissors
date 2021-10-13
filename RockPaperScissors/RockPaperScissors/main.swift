@@ -117,11 +117,7 @@ func verify(userInput: String) -> Bool {
         return false
     }
     
-    if integerUserInput >= 0 && integerUserInput <= 3 {
-        return true
-    } else {
-        return false
-    }
+    return (0...3).contains(integerUserInput)
 }
 
 func decideWinner(between computersHand: Hand, and usersHand: Hand) -> MatchResult {
