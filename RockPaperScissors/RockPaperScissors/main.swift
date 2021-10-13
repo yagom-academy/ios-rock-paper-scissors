@@ -108,6 +108,17 @@ func judgeWinner() {
     }
 }
 
+func printGameResult() {
+    switch gameWinner {
+    case .computer:
+        print("졌습니다!")
+    case .player:
+        print("이겼습니다!")
+    case .none:
+        print("비겼습니다!")
+    }
+}
+
 func playGameOnce(input: Int) {
     guard input != 0 else {
         shouldContinue = false
