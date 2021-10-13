@@ -17,6 +17,11 @@ enum GameType {
     case mukChiPa
 }
 
+enum PlayerType {
+    case user
+    case computer
+}
+
 enum GameResult: CustomStringConvertible {
     var description: String {
         switch self {
