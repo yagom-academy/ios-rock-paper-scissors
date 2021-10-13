@@ -8,7 +8,6 @@ import Foundation
 
 enum ScissorsRockPaperError: Error {
     case wrongInput
-    case menuIsNotExist
     case notConverted
 }
 
@@ -40,7 +39,6 @@ func startScissorsRockPaperGame() {
     
     do {
         let userInput = try receiveUserInput()
-        try checkUserInput(input: userInput)
         
         if isExitGame(input: userInput) == true {
             printGameOver()
@@ -62,7 +60,6 @@ func startScissorsRockPaperGame() {
         }
         
     } catch ScissorsRockPaperError.wrongInput,
-            ScissorsRockPaperError.menuIsNotExist,
             ScissorsRockPaperError.notConverted {
         printErrorMessage()
         startScissorsRockPaperGame()
@@ -105,15 +102,6 @@ func receiveUserInput() throws -> Int {
 
 func createRandomNumber(_ range: ClosedRange<Int> = 1...3) -> Int {
     return Int.random(in: range)
-}
-
-func checkUserInput(input: Int) throws {
-    switch input {
-    case 0...3:
-        return
-    default:
-        throw ScissorsRockPaperError.menuIsNotExist
-    }
 }
 
 func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) -> ScissorsRockPaperGameResult {
