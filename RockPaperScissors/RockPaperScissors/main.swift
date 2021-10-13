@@ -77,11 +77,8 @@ func printGameResult(to result: ScissorsRockPaperGameResult) {
 }
 
 func isExitGame(input: Int) -> Bool {
-    if input == 0 {
-        return true
-    } else {
-        return false
-    }
+    return input == 0 
+    
 }
 
 func printMenu() {
