@@ -6,7 +6,7 @@
 
 import Foundation
 
-enum Hand: String {
+enum RockScissorsPaper: String {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
@@ -61,10 +61,10 @@ func playMukChiPa() -> (GameResult, Bool) {
     guard let userInput = receiveVaildInput() else {
         return (.win, isExit)
     }
-    guard let userHand = Hand(rawValue: userInput) else {
+    guard let userHand = RockScissorsPaper(rawValue: userInput) else {
         return (.win, isExit)
     }
-    guard let computerHand = Hand(rawValue: makeRandomNumber()) else {
+    guard let computerHand = RockScissorsPaper(rawValue: makeRandomNumber()) else {
         return (.win, isExit)
     }
     
@@ -83,10 +83,10 @@ func playRockPaperScissors() -> (GameResult, Bool)  {
     guard let userInput = receiveVaildInput() else {
         return (.win, isExit)
     }
-    guard let userHand = Hand(rawValue: userInput) else {
+    guard let userHand = RockScissorsPaper(rawValue: userInput) else {
         return (.win, isExit)
     }
-    guard let computerHand = Hand(rawValue: makeRandomNumber()) else {
+    guard let computerHand = RockScissorsPaper(rawValue: makeRandomNumber()) else {
         return (.win, isExit)
     }
     var gameResult: GameResult
@@ -144,7 +144,7 @@ func makeRandomNumber() -> String{
     return String(Int.random(in: 1...3))
 }
 
-func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) -> GameResult {
+func judgeRockPaperScissors(_ userHand: RockScissorsPaper, _ computerHand: RockScissorsPaper) -> GameResult {
     var gameResult: GameResult
     
     switch (userHand, computerHand) {
