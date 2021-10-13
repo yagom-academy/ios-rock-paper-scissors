@@ -51,21 +51,21 @@ func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
-func receiveUserInput() throws -> String {
-    guard let input = readLine() else {
+func receiveUserInput() throws -> Int {
+    guard let input = readLine(), let convertedInteger = Int(input) else {
         throw ScissorsRockPaperError.wrongInput
     }
     
-    return input
+    return convertedInteger
 }
 
 func createRandomNumber(_ range: ClosedRange<Int> = 1...3) -> Int {
     return Int.random(in: range)
 }
 
-func playScissorsRockPaper(input: String) throws {
+func playScissorsRockPaper(input: Int) throws {
     do {
-        let usersPick = try convertUserInput(into: input)
+        let usersPick = try match(to: input)
         
         let computerRandomNumber = createRandomNumber()
         let computerPick: ScissorsRockPaper = try match(to: computerRandomNumber)
@@ -79,11 +79,10 @@ func playScissorsRockPaper(input: String) throws {
     }
 }
 
-func checkUserInput(input: String) throws {
+func checkUserInput(input: Int) throws {
     switch input {
-    case "0":
+    case 0...3:
         exitGame()
-    case "1","2","3":
         try playScissorsRockPaper(input: input)
     default:
         throw ScissorsRockPaperError.wrongInput
@@ -100,15 +99,6 @@ func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsR
         print("졌습니다!")
         exitGame()
     }
-}
-
-func convertUserInput(into input: String) throws -> ScissorsRockPaper {
-    guard let number = Int(input) else {
-        throw ScissorsRockPaperError.notConverted
-    }
-    
-    let usersPick: ScissorsRockPaper = try match(to: number)
-    return usersPick
 }
 
 func match(to number: Int) throws -> ScissorsRockPaper {
