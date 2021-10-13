@@ -54,6 +54,30 @@ func playGame() {
     
 }
 
+func playMukChiPa() -> (GameResult, Bool) {
+    var gameResult: GameResult
+    var isExit = false
+    
+    guard let userInput = receiveVaildInput() else {
+        return (.win, isExit)
+    }
+    guard let userHand = Hand(rawValue: userInput) else {
+        return (.win, isExit)
+    }
+    guard let computerHand = Hand(rawValue: makeRandomNumber()) else {
+        return (.win, isExit)
+    }
+    
+    if userInput == "0" {
+        isExit = true
+        return (.win, isExit)
+    }
+
+    gameResult = judgeRockPaperScissors(userHand, computerHand)
+    
+    return(.draw, false)
+}
+
 func playRockPaperScissors() -> (GameResult, Bool)  {
     var isExit = false
     guard let userInput = receiveVaildInput() else {
