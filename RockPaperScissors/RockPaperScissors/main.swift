@@ -12,6 +12,11 @@ enum Hand: String {
     case paper = "3"
 }
 
+enum GameType {
+    case rockPaperScissors
+    case mukChiPa
+}
+
 enum GameResult: CustomStringConvertible {
     var description: String {
         switch self {
