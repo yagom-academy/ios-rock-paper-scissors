@@ -113,8 +113,8 @@ func convertUserInput(into input: String) throws -> ScissorsRockPaper {
 
 func match(to number: Int) throws -> ScissorsRockPaper {
     guard let convertedScissorsRockPaper = ScissorsRockPaper(rawValue: number) else {
-              throw ScissorsRockPaperError.notConverted
-          }
+        throw ScissorsRockPaperError.notConverted
+    }
     
     return convertedScissorsRockPaper
 }
