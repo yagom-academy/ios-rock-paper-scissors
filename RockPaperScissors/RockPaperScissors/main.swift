@@ -44,17 +44,16 @@ func receivePlayerInput() throws -> String {
     return playerInput
 }
 
-func getValidInput(input: String) -> Int {
-    var inputNumber = 4
+func validatedInput() -> String? {
     do {
-        let validInput = try convertToInt(from: input)
-        inputNumber = validInput
+        let playerInput = try receivePlayerInput()
+        return playerInput
     } catch InputError.invalidInput {
         print("잘못된 입력입니다.다시 시도해주세요.")
     } catch {
         print(error)
     }
-    return inputNumber
+    return nil
 }
 
 func inputFromPlayer() -> Int {
