@@ -16,6 +16,7 @@ enum HandGameMessage: String {
 enum HandGameExceptionMessage: String {
     case endGame = "게임 종료"
     case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
+    case unknownError = "정의되지 않은 오류입니다."
 }
 
 enum HandGameHand: CaseIterable {
@@ -27,39 +28,46 @@ enum HandGameHand: CaseIterable {
 enum HandGameResult: String {
     case user  = "이겼습니다!"
     case computer = "졌습니다!"
-    case tie = "비겼습니다!"
+    case draw = "비겼습니다!"
 }
 
 func startRockPaperSiccorsGame() {
-    let wrappedUserInput = receiveUserManualInput()
-    switch wrappedUserInput.errorMessage {
-    case .wrongInput:
-        printMessage(of: HandGameExceptionMessage.wrongInput)
-        startRockPaperSiccorsGame()
-        return
-    case .endGame:
-        printMessage(of: HandGameExceptionMessage.endGame)
-        return
-    default:
-        break
-    }
-    guard let userHand = wrappedUserInput.userHand else {
+    guard let userHand = handleInputException(for: receiveUserManualInput()) else {
         return
     }
-    
     let computerHand = generateRandomHand()
     let gameResult = checkGameResult(by: userHand, computerHand: computerHand)
     printMessage(of: gameResult)
-    if gameResult == .tie {
+    if gameResult == .draw {
         startRockPaperSiccorsGame()
     }
 }
-    
+
+func handleInputException(for userInput: (userHand: HandGameHand?,
+                                          exceptionMessage: HandGameExceptionMessage?)) -> HandGameHand? {
+    switch userInput.exceptionMessage {
+    case .wrongInput:
+        printMessage(of: HandGameExceptionMessage.wrongInput)
+        startRockPaperSiccorsGame()
+        return nil
+    case .endGame:
+        printMessage(of: HandGameExceptionMessage.endGame)
+        return nil
+    default:
+        break
+    }
+    guard let userHand = userInput.userHand else {
+        printMessage(of: HandGameExceptionMessage.unknownError)
+        return nil
+    }
+    return userHand
+}
+
 func checkGameResult(by userHand: HandGameHand, computerHand: HandGameHand) -> HandGameResult {
     var gameResult: HandGameResult = .user
     
     if userHand == computerHand {
-        gameResult = .tie
+        gameResult = .draw
         return gameResult
     } else if userHand == .paper, computerHand == .rock {
         return gameResult
@@ -82,7 +90,7 @@ func printMessage<T: RawRepresentable>(of message: T) {
     print(message.rawValue)
 }
 
-func receiveUserManualInput() -> (userHand: HandGameHand?, errorMessage: HandGameExceptionMessage?) {
+func receiveUserManualInput() -> (userHand: HandGameHand?, exceptionMessage: HandGameExceptionMessage?) {
     var statusMessage: HandGameExceptionMessage?
     var userHandResult: HandGameHand?
     print(HandGameMessage.rockPaperSiccorsManual.rawValue, terminator: "")
