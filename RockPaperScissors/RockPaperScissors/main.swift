@@ -29,6 +29,20 @@ enum GameResult: CustomStringConvertible {
     case lose
 }
 
+enum otherGameResult: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .userWin:
+            return "사용자의 턴"
+        case .computerWin:
+            return "컴퓨터의 턴"
+        }
+    }
+    
+    case userWin
+    case computerWin
+}
+
 enum GameError: Error, CustomStringConvertible {
     var description: String {
         switch self {
