@@ -56,14 +56,17 @@ func validatedInput() -> String? {
     return nil
 }
 
-func inputFromPlayer() -> Int {
+func inputFromPlayer() -> String {
     var isValidInput: Bool = false
-    var playerInput: Int
+    var playerInput = String()
     repeat {
         printStartMessage()
-        let input = receivePlayerInput()
-        playerInput = getValidInput(input: input)
-        isValidInput = validSelection.contains(playerInput)
+        if let input = validatedInput() {
+            playerInput = input
+            isValidInput = true
+        } else {
+            isValidInput = false
+        }
     } while !isValidInput
     return playerInput
 }
