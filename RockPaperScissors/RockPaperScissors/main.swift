@@ -72,23 +72,18 @@ func generateComputerHand() -> ExpectedHand? {
     return ExpectedHand.allCases.randomElement()
 }
 
-func judgeGameResult(_ input: ExpectedHand) {
+func judgeGameResult(_ input: ExpectedHand) -> GameResult {
     guard let computerHand: ExpectedHand = generateComputerHand() else {
         fatalError()
     }
     
     if computerHand == input {
-        print(GameResult.draw)
-        runProgram()
-        return
+        return .draw
     } else if computerHand < input {
-        print(GameResult.win)
-        print(Message.exit)
+        return .win
     } else {
-        print(GameResult.lose)
-        print(Message.exit)
+        return .lose
     }
-    return
 }
 
 func runProgram() {
@@ -99,7 +94,16 @@ func runProgram() {
             print(Message.exit)
             return
         }
-        judgeGameResult(userHand)
+        
+        let gameResult: GameResult = judgeGameResult(userHand)
+        
+        switch gameResult {
+        case .draw:
+            print(gameResult)
+            runProgram()
+        case .win, .lose:
+            print(gameResult)
+        }
     } catch GameError.invalidInput {
         print(GameError.invalidInput)
         runProgram()
