@@ -7,6 +7,10 @@ enum RockPaperScissors: Int {
     case scissor = 1
     case rock = 2
     case paper = 3
+    
+    var assignedValue : Int {
+        return self.rawValue
+    }
 }
 
 var computerNumber: Int = 0
@@ -24,15 +28,15 @@ func generateRandomNumber() {
     let randomIndex = 0
     
     computerNumbers.shuffle()
-    computerNumber = computerNumbers[randomIndex].rawValue
+    computerNumber = computerNumbers[randomIndex].assignedValue
 }
 
 func playGame(inputNumber: Int) {
-    let matchedWinNumber: [Int:Int] = [RockPaperScissors.scissor.rawValue: RockPaperScissors.paper.rawValue,
-                                       RockPaperScissors.rock.rawValue: RockPaperScissors.scissor.rawValue,
-                                       RockPaperScissors.paper.rawValue: RockPaperScissors.rock.rawValue]
+    let matchedWinNumber: [RockPaperScissors: RockPaperScissors] = [.scissor: .paper,
+                                                                    .rock: .scissor,
+                                                                    .paper: .rock]
     
-    if matchedWinNumber[inputNumber] == computerNumber {
+    if matchedWinNumber[inputNumber]?.assignedValue == computerNumber {
         print("이겼습니다!")
     } else if inputNumber != computerNumber {
         print("졌습니다!")
