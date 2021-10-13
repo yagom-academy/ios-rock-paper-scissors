@@ -119,8 +119,8 @@ func judgeGameResult(_ input: ExpectedHand) -> GameResult {
 
 func runProgram() {
     print(Message.menu, terminator: "")
-    
     do {
+        let whoseTurn: WhoseTurn
         guard let userHand = try readUserInput() else {
             print(Message.exit)
             return
@@ -132,9 +132,51 @@ func runProgram() {
         case .draw:
             print(gameResult)
             runProgram()
-        case .win, .lose:
+        case .win:
+            whoseTurn = .userTurn
+            print(gameResult)
+        case .lose:
+            whoseTurn = .computerTurn
             print(gameResult)
         }
+        
+    } catch GameError.invalidInput {
+        print(GameError.invalidInput)
+        runProgram()
+    } catch {
+        fatalError()
+    }
+}
+
+func runMukChiBa(_ whoseTurn: WhoseTurn) {
+    switch whoseTurn {
+    case .userTurn:
+        print(Message.menuUserTurn, terminator: "")
+    case .computerTurn:
+        print(Message.menuComputerTurn, terminator: "")
+    }
+    
+    do {
+        guard let mukChiBaInput = try readMukChiBa() else {
+            print(Message.exit)
+            return
+        }
+        
+        let gameResult = judgeGameResult(mukChiBaInput)
+        
+        switch gameResult {
+        case .draw where whoseTurn == .userTurn:
+            print("사용자의 승리!")
+        case .draw where whoseTurn == .computerTurn:
+            print("컴퓨터의 승리!")
+        case .win:
+            runMukChiBa(.userTurn)
+        case .lose:
+            runMukChiBa(.computerTurn)
+        case .draw:
+            fatalError()
+        }
+        
     } catch GameError.invalidInput {
         print(GameError.invalidInput)
         runProgram()
