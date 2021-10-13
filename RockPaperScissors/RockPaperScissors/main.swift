@@ -5,16 +5,38 @@
 //
 
 // MARK: - Enums
-enum Message: String {
-    case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-    case draw = "비겼습니다!"
-    case win = "이겼습니다!"
-    case lose = "졌습니다!"
+enum Message: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .menu:
+            return "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+        case .draw:
+            return "비겼습니다!"
+        case .win:
+            return "이겼습니다!"
+        case .lose:
+            return "졌습니다!"
+        }
+    }
+    
+    case menu
+    case draw
+    case win
+    case lose
 }
 
-enum GameError: String, Error {
-    case invalidInput = "잘못된 입력입니다. 다시 시도해주세요."
-    case exit = "게임 종료"
+enum GameError: Error, CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .invalidInput:
+            return "잘못된 입력입니다. 다시 시도해주세요."
+        case .exit:
+            return "게임 종료"
+        }
+    }
+    
+    case invalidInput
+    case exit
 }
 
 enum ExpectedHand: String, CaseIterable, Comparable {
@@ -54,31 +76,31 @@ func judgeGameResult(_ input: ExpectedHand) {
     }
     
     if computerHand == input {
-        print(Message.draw.rawValue)
+        print(Message.draw)
         runProgram()
         return
     } else if computerHand < input {
-        print(Message.win.rawValue)
-        print(GameError.exit.rawValue)
+        print(Message.win)
+        print(GameError.exit)
     } else {
-        print(Message.lose.rawValue)
-        print(GameError.exit.rawValue)
+        print(Message.lose)
+        print(GameError.exit)
     }
     return
 }
 
 func runProgram() {
-    print(Message.menu.rawValue, terminator: "")
+    print(Message.menu, terminator: "")
     let userHand: ExpectedHand
     
     do {
         userHand = try readUserInput()
         judgeGameResult(userHand)
     } catch GameError.invalidInput {
-        print(GameError.invalidInput.rawValue)
+        print(GameError.invalidInput)
         runProgram()
     } catch GameError.exit {
-        print(GameError.exit.rawValue)
+        print(GameError.exit)
     } catch {
         print("Unexpected error: \(error).")
     }
