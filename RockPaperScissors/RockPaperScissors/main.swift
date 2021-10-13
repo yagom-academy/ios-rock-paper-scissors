@@ -29,18 +29,18 @@ enum GameResult: CustomStringConvertible {
     case lose
 }
 
-enum otherGameResult: CustomStringConvertible {
+enum WhoseTurn: CustomStringConvertible {
     var description: String {
         switch self {
-        case .userWin:
+        case .userTurn:
             return "사용자의 턴"
-        case .computerWin:
+        case .computerTurn:
             return "컴퓨터의 턴"
         }
     }
     
-    case userWin
-    case computerWin
+    case userTurn
+    case computerTurn
 }
 
 enum GameError: Error, CustomStringConvertible {
