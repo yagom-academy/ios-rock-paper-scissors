@@ -37,7 +37,7 @@ struct RockPaperScissorsGame {
             computerHand = self.randomHand
             print(Message.start, terminator: "")
             playerHand = recieveUserInput()
-        } while isDraw(computerHand, playerHand) || isWrong(playerHand: playerHand)
+        } while isDraw(playerHand, computerHand) || isWrongInput(playerHand: playerHand)
         
         guard playerHand != .quit else {
             print(Message.gameEnd)
@@ -67,16 +67,14 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func isDraw(_ computerHand: RockPaperScissor, _ playerHand: RockPaperScissor?) -> Bool {
-        if computerHand == playerHand {
+    private func isWrongInput(playerHand: RockPaperScissor?) -> Bool { playerHand == nil }
+    
+    private func isDraw(_ playerHand: RockPaperScissor?, _ opponentHand: RockPaperScissor) -> Bool {
+        if opponentHand == playerHand {
             print(Message.gameDraw)
             return true
         }
         return false
-    }
-    
-    private func isWrong(playerHand: RockPaperScissor?) -> Bool {
-        return playerHand == nil
     }
     
     private func isPlayerWin(_ playerHand: RockPaperScissor?, _ opponentHand: RockPaperScissor) -> Bool {
