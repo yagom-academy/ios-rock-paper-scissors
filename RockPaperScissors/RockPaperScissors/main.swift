@@ -4,15 +4,13 @@ enum Message: String, CustomStringConvertible {
     var description: String {
         return rawValue
     }
-    
     case win = "이겼습니다!"
     case draw = "비겼습니다!"
     case lose = "졌습니다!"
     case exit = "게임 종료"
-    case systemError = "[SystemError: nil]"
 }
 
-enum errormessage: Error {
+enum ErrorMessage: Error {
     case wrongInput
     case systemError
 }
@@ -26,19 +24,24 @@ struct RockPaperScissors {
         selectUserChoice()
     }
     
+    private func receiveInput() throws -> String {
+        guard let input = readLine() else {
+            throw ErrorMessage.systemError
+        }
+        return input
+    }
+    
     private func selectUserChoice() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
         
-        guard let inputUserChoice = readLine() else {
-            print("\n"+Message.systemError.rawValue)
-            return
-        }
-        
         do {
+            let inputUserChoice = try receiveInput()
             try checkValidInput(from: inputUserChoice)
-        } catch errormessage.wrongInput {
+        } catch ErrorMessage.wrongInput {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             selectUserChoice()
+        } catch ErrorMessage.systemError {
+            print("[SystemError: nil]")
         } catch {
             print(error)
         }
@@ -46,11 +49,11 @@ struct RockPaperScissors {
     
     private func checkValidInput(from userChoice: String) throws {
         guard let userChoice = Int(userChoice) else {
-            throw errormessage.wrongInput
+            throw ErrorMessage.wrongInput
         }
         
         guard userChoice == 1 || userChoice == 2 || userChoice == 3 || userChoice == 0 else {
-            throw errormessage.wrongInput
+            throw ErrorMessage.wrongInput
         }
         
         guard userChoice == 0 else {
