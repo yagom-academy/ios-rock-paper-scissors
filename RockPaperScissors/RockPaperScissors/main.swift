@@ -37,6 +37,13 @@ func startScissorsRockPaperGame() {
         do {
             let userInput = try receiveUserInput()
             try checkUserInput(input: userInput)
+            
+            if isExitGame(input: userInput) {
+                exitGame()
+                break
+            }
+            
+            
         } catch ScissorsRockPaperError.wrongInput {
             printWrongInput()
         } catch ScissorsRockPaperError.notConverted {
@@ -44,6 +51,14 @@ func startScissorsRockPaperGame() {
         } catch {
             print(error)
         }
+    }
+}
+
+func isExitGame(input: Int) -> Bool {
+    if input == 0 {
+        return true
+    } else {
+        return false
     }
 }
 
@@ -82,8 +97,7 @@ func playScissorsRockPaper(input: Int) throws {
 func checkUserInput(input: Int) throws {
     switch input {
     case 0...3:
-        exitGame()
-        try playScissorsRockPaper(input: input)
+        return
     default:
         throw ScissorsRockPaperError.wrongInput
     }
