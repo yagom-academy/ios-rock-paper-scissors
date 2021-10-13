@@ -67,10 +67,10 @@ func playMukChiPa() -> (GameResult, Bool) {
     guard let userInput = receiveVaildInput() else {
         return (.win, isExit)
     }
-    guard let userHand = RockScissorsPaper(rawValue: userInput) else {
+    guard let userHand = MukChiPa(rawValue: userInput) else {
         return (.win, isExit)
     }
-    guard let computerHand = RockScissorsPaper(rawValue: makeRandomNumber()) else {
+    guard let computerHand = MukChiPa(rawValue: makeRandomNumber()) else {
         return (.win, isExit)
     }
     
@@ -79,7 +79,7 @@ func playMukChiPa() -> (GameResult, Bool) {
         return (.win, isExit)
     }
 
-    gameResult = judgeRockPaperScissors(userHand, computerHand)
+//    gameResult = judgeRockPaperScissors(userHand, computerHand)
     
     return(.draw, false)
 }
