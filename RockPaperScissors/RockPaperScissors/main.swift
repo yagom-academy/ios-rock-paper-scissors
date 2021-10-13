@@ -99,15 +99,13 @@ func checkUserInput(input: Int) throws {
     }
 }
 
-func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) {
+func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) -> ScissorsRockPaperGameResult {
     if usersPick == computerRandomPick {
-        print("비겼습니다!")
+        return ScissorsRockPaperGameResult.draw
     } else if usersPick == computerRandomPick.moveNextCase() {
-        print("이겼습니다!")
-        exitGame()
+        return ScissorsRockPaperGameResult.win
     } else {
-        print("졌습니다!")
-        exitGame()
+        return ScissorsRockPaperGameResult.lose
     }
 }
 
