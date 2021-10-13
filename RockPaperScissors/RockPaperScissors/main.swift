@@ -23,9 +23,9 @@ enum GameType {
     case mukChiPa
 }
 
-enum PlayerType {
-    case user
-    case computer
+enum PlayerType: String {
+    case user = "사용자"
+    case computer = "컴퓨터"
 }
 
 enum GameResult: CustomStringConvertible {
