@@ -12,13 +12,16 @@ enum RockScissorsPaperSign: CaseIterable {
     case paper
 }
 
+enum Option {
+    static let list = ["0", "1", "2", "3"]
+}
+
 enum InputError: Error {
     case invalidInput
 }
 
 var computerSign: RockScissorsPaperSign = .paper
 var playerSign: RockScissorsPaperSign = .paper
-let validSelection: Set<Int> = [0, 1, 2, 3]
 var shouldContinue: Bool = true
 
 // MARK: - 사용자 입력
