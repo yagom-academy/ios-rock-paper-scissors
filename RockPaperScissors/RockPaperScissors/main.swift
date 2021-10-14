@@ -13,6 +13,7 @@ enum Message: String, CustomStringConvertible {
     case gameDraw = "비겼습니다!"
     case gameEnd = "게임 종료"
     case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
+    case startRockScissorsPaper = "묵(1), 찌(2), 빠(3)! <종료 : 0> : "
     
     var description: String {
         return rawValue
@@ -31,7 +32,7 @@ enum PlayerOption: CaseIterable {
 }
 
 struct GameJudgment {
-    func isDraw(_ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
+    func isRestartable(_ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
         if playerHand == opponentHand {
             print(Message.gameDraw)
             return true
@@ -70,7 +71,7 @@ struct ScissorsRockPaperGame {
             computerHand = PlayerOption.randomHand
             print(Message.start, terminator: "")
             playerHand = recieveUserInput()
-        } while gameJudgment.isDraw(playerHand, computerHand) || isWrongInput(playerHand: playerHand)
+        } while gameJudgment.isRestartable(playerHand, computerHand) || isWrongInput(playerHand: playerHand)
         
         guard playerHand != .quit else {
             print(Message.gameEnd)
@@ -99,6 +100,7 @@ struct ScissorsRockPaperGame {
 }
 
 struct RockScissorsPaper {
+    let gameJudgment = GameJudgment()
     var userTurn: Bool? = ScissorsRockPaperGame().isPlayersTurn()
     var firstTurn: String {
         if userTurn == true {
@@ -109,4 +111,37 @@ struct RockScissorsPaper {
             return ""
         }
     }
+    
+    mutating func startGame() {
+        print("[\(firstTurn)의 턴] \(Message.startRockScissorsPaper)", terminator: "")
+        let computerHand: PlayerOption = PlayerOption.randomHand
+        guard let playerHand = recieveUserInput() else {
+            startGame()
+            return
+        }
+        guard playerHand != .quit else {
+            print(Message.gameEnd)
+            return
+        }
+    }
+    
+    private func isWrongInput(playerHand: PlayerOption?) -> Bool { playerHand == nil }
+    
+    func recieveUserInput(_ userInput: String? = readLine()) -> PlayerOption? {
+        switch userInput {
+        case "0":
+            return .quit
+        case "1":
+            return .rock
+        case "2":
+            return .scissor
+        case "3":
+            return .paper
+        default:
+            print(Message.wrongInput)
+            return nil
+        }
+    }
 }
+var rockPaperScissors = RockScissorsPaper()
+rockPaperScissors.startGame()
