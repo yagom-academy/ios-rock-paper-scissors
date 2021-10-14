@@ -59,7 +59,7 @@ struct GameJudgment {
     }
 }
 
-struct RockPaperScissorsGame {
+struct ScissorsRockPaperGame {
     private let gameJudgment = GameJudgment()
 
     func isPlayersTurn() -> Bool? {
