@@ -36,7 +36,7 @@ enum MatchResult: String {
     }
 }
 
-enum Hand {
+enum PlayerOption {
     case scissor
     case rock
     case paper
@@ -87,13 +87,13 @@ func runGame() {
 func doRockPaperScissors() -> MatchResult {
     GameNotice.getInput.printNotice()
     
-    let computersHand: Hand = generateRandomHand()
-    var (usersHand, validationResult) = receiveUsersHand()
+    let computersHand: PlayerOption = generateRandomHand()
+    var (usersHand, isValidInput) = receiveUsersInput()
     
-    while validationResult == false {
+    while isValidInput == false {
         GameNotice.wrongInput.printNotice()
         GameNotice.getInput.printNotice()
-        (usersHand, validationResult) = receiveUsersHand()
+        (usersHand, isValidInput) = receiveUsersInput()
     }
     
     guard usersHand != .stop else {
@@ -105,21 +105,21 @@ func doRockPaperScissors() -> MatchResult {
     return matchResult
 }
 
-func generateRandomHand() -> Hand {
+func generateRandomHand() -> PlayerOption {
     let randomNumber: Int = Int.random(in: 1...3)
     
-    return Hand(randomNumber)
+    return PlayerOption(randomNumber)
 }
 
-func receiveUsersHand() -> (Hand, Bool) {
+func receiveUsersInput() -> (PlayerOption, Bool) {
     guard let userInput = readLine() else {
         return (.none, false)
     }
     
-    let validationResult = verify(userInput: userInput)
-    let usersHand = Hand(userInput)
+    let isValidInput = verify(userInput: userInput)
+    let usersHand = PlayerOption(userInput)
     
-    return (usersHand, validationResult)
+    return (usersHand, isValidInput)
 }
 
 func convertToInteger(from userInput: String) -> Int? {
@@ -134,7 +134,7 @@ func verify(userInput: String) -> Bool {
     return (0...3).contains(integerUserInput)
 }
 
-func decideWinner(between computersHand: Hand, and usersHand: Hand) -> MatchResult {
+func decideWinner(between computersHand: PlayerOption, and usersHand: PlayerOption) -> MatchResult {
     if computersHand == usersHand {
         return MatchResult.draw
     }
