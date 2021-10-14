@@ -10,19 +10,24 @@ enum Message {
     static let exit: String = "게임 종료"
     static let menuUserTurn: String = "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
     static let menuComputerTurn: String = "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let draw: String = "비겼습니다!"
+    static let win: String = "이겼습니다!"
+    static let lose: String = "졌습니다!"
     static let userWin: String = "사용자의 승리!"
     static let computerWin: String = "컴퓨터의 승리!"
+    static let userTurn: String = "사용자의 턴입니다"
+    static let computerTurn: String = "컴퓨터의 턴입니다"
 }
 
 enum GameResult: CustomStringConvertible {
     var description: String {
         switch self {
         case .draw:
-            return "비겼습니다!"
+            return Message.draw
         case .win:
-            return "이겼습니다!"
+            return Message.win
         case .lose:
-            return "졌습니다!"
+            return Message.lose
         }
     }
     
@@ -35,9 +40,9 @@ enum WhoseTurn: CustomStringConvertible {
     var description: String {
         switch self {
         case .userTurn:
-            return "사용자의 턴입니다"
+            return Message.userTurn
         case .computerTurn:
-            return "컴퓨터의 턴입니다"
+            return Message.computerTurn
         }
     }
     
