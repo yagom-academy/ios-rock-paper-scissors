@@ -75,11 +75,36 @@ enum PlayerOption {
     }
 }
 
-func runGame() {
-    var aggressor = decideTurn()
+enum GameError: String, Error {
+    case turnDecisionFail = "턴 결정에 실패하였습니다."
 }
 
-func decideTurn() -> Player {
+func runGame() {
+    do {
+        var matchResult = decideMatchResult()
+
+        guard matchResult == .computerWins || matchResult == .userWins else { return }
+
+        var aggressor = try decideTurn(matchResult: matchResult)
+    } catch GameError.turnDecisionFail {
+        print(GameError.turnDecisionFail.rawValue)
+    } catch {
+        print("알 수 없는 오류입니다.")
+    }
+}
+
+func decideTurn(matchResult: MatchResult) throws -> Player {
+    switch matchResult {
+    case .computerWins:
+        return .computer
+    case .userWins:
+        return .user
+    default:
+        throw GameError.turnDecisionFail
+    }
+}
+
+func decideMatchResult() -> MatchResult {
     var matchResult: MatchResult
     
     repeat {
@@ -88,14 +113,7 @@ func decideTurn() -> Player {
     
     GameNotice.theEnd.printNotice()
     
-    switch matchResult {
-    case .computerWins:
-        return .computer
-    case .userWins:
-        return .user
-    default:
-        return .user
-    }
+    return matchResult
 }
 
 func doRockPaperScissors() -> MatchResult {
