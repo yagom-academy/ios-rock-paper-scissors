@@ -31,40 +31,42 @@ func generateRandomNumber() -> Int {
     return handOfComputer
 }
 
-func playGame(inputNumber: Int) {
+func playGame(handOfUser: Int, handOfComputer: Int) {
     let pointToWin: [RockPaperScissors: RockPaperScissors] = [.scissor: .paper,
                                                                 .rock: .scissor,
                                                                 .paper: .rock]
     
-    guard let definedValue = RockPaperScissors(rawValue: inputNumber) ,
+    guard let definedValue = RockPaperScissors(rawValue: handOfUser) ,
           let matchedWin = pointToWin[definedValue]?.assignedValue else {
         return
     }
-    if matchedWin == computerNumber {
+    if matchedWin == handOfComputer {
         print("이겼습니다!")
     } else {
         print("졌습니다!")
     }
 }
 
-func isDraw(inputNumber: Int) -> Bool {
-    if inputNumber == computerNumber {
+func isDraw(handOfUser: Int, handOfComputer: Int) -> Bool {
+    if handOfUser == handOfComputer {
         print("비겼습니다!")
         return true
     }
     return false
 }
 
-func isRestartGame(inputNumber: Int) -> Bool {
+func isRestartGame(handOfUser: Int, handOfComputer: Int) -> Bool {
     var isRestart: Bool = false
     let exit = 0
     let run = 1...3
     
-    switch inputNumber {
+    switch handOfUser {
     case exit :
         print("게임 종료")
         isRestart = false
-    case run : isDraw(inputNumber: inputNumber) ? isRestart = true : playGame(inputNumber: inputNumber)
+    case run : isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) ?
+            isRestart = true :
+            playGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
     default :
         print("잘못된 입력입니다. 다시 시도해주세요.")
         isRestart = true
@@ -74,10 +76,10 @@ func isRestartGame(inputNumber: Int) -> Bool {
 
 func startGame() {
     var isRestart: Bool = false
-    let userInputNumber =  inputUserData()
+    let handOfUser = inputUserData()
 
     let handOfComputer = generateRandomNumber()
-    isRestart = isRestartGame(inputNumber: userInputNumber)
+    isRestart = isRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
     
     if isRestart {
         startGame()
