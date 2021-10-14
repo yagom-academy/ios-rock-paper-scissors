@@ -21,7 +21,7 @@ enum Message: String, CustomStringConvertible {
 }
 
 enum GameMode {
-    case ScissorsRockPaperGame
+    case ScissorsRockPaper
     case RockScissorsPaper
 }
 
@@ -36,11 +36,11 @@ enum PlayerOption: CaseIterable {
     }
 }
 
-struct GameJudgment {
+struct GameManager {
     func isRestartable(mode: GameMode, _ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
         let isHandSame = playerHand == opponentHand
         switch (mode, isHandSame) {
-        case (.ScissorsRockPaperGame, true):
+        case (.ScissorsRockPaper, true):
             print(Message.gameDraw)
             return true
         case (.RockScissorsPaper, false):
@@ -73,7 +73,7 @@ struct GameJudgment {
 }
 
 struct ScissorsRockPaperGame {
-    private let gameJudgment = GameJudgment()
+    private let gameManager = GameManager()
     
     func isPlayersTurn() -> Bool? {
         var playerHand: PlayerOption?
@@ -83,13 +83,13 @@ struct ScissorsRockPaperGame {
             computerHand = PlayerOption.randomHand
             print(Message.start, terminator: "")
             playerHand = recieveUserInput()
-        } while gameJudgment.isRestartable(mode: .ScissorsRockPaperGame,playerHand, computerHand) || gameJudgment.isWrongInput(playerHand: playerHand)
+        } while gameManager.isRestartable(mode: .ScissorsRockPaper,playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
         
         guard playerHand != .quit else {
             print(Message.gameEnd)
             return nil
         }
-        return gameJudgment.printGameResult(from: playerHand, and: computerHand)
+        return gameManager.printGameResult(from: playerHand, and: computerHand)
     }
     
     private func recieveUserInput(_ userInput: String? = readLine()) -> PlayerOption? {
@@ -107,11 +107,10 @@ struct ScissorsRockPaperGame {
             return nil
         }
     }
-
 }
 
 struct RockScissorsPaper {
-    let gameJudgment = GameJudgment()
+    let gameManager = GameManager()
     var userTurn: Bool? = ScissorsRockPaperGame().isPlayersTurn()
     var firstTurn: String {
         if userTurn == true {
@@ -135,7 +134,7 @@ struct RockScissorsPaper {
             playerHand = recieveUserInput()
             if playerHand == .quit { break }
             isContinued = true
-        } while gameJudgment.isRestartable(mode: .RockScissorsPaper, playerHand, computerHand) || gameJudgment.isWrongInput(playerHand: playerHand)
+        } while gameManager.isRestartable(mode: .RockScissorsPaper, playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
         guard playerHand != .quit else {
             print(Message.gameEnd)
             return
@@ -148,7 +147,7 @@ struct RockScissorsPaper {
         if playerHand == nil {
             userTurn = false
         } else if isContinued {
-            userTurn = gameJudgment.isPlayerWin(playerHand, computerHand)
+            userTurn = gameManager.isPlayerWin(playerHand, computerHand)
             print("\(firstTurn)의 턴입니다.")
         }
     }
