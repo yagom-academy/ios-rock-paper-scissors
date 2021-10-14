@@ -9,6 +9,7 @@ import Foundation
 enum Player {
     case computer
     case user
+    case none
 }
 
 enum GameNotice {
@@ -101,12 +102,10 @@ func runProgram() {
 
 func runGame() {
     do {
-        let matchResult = decideMatchResult()
+        let (winnerOfScissorsRockPaper, gameExitFlag) = decideResultOfScissorsRockPaper()
 
-        guard matchResult == .computerWins || matchResult == .userWins else { return }
+        guard gameExitFlag == false else { return }
 
-        let aggressor = try decideTurn(matchResult: matchResult)
-        
     } catch GameError.turnDecisionFail {
         GameNotice.printError(error: .turnDecisionFail)
     } catch {
@@ -114,25 +113,28 @@ func runGame() {
     }
 }
 
-func decideTurn(matchResult: MatchResult) throws -> Player {
+func decideWinner(from matchResult: MatchResult) -> Player {
     switch matchResult {
     case .computerWins:
         return .computer
     case .userWins:
         return .user
     default:
-        throw GameError.turnDecisionFail
+        return .none
     }
 }
 
-func decideMatchResult() -> MatchResult {
+func decideResultOfScissorsRockPaper() -> (Player, Bool) {
     var matchResult: MatchResult
     
     repeat {
         matchResult = doScissorsRockPaper()
     } while matchResult == .draw
     
-    return matchResult
+    let winner = decideWinner(from: matchResult)
+    let gameExitFlag = (matchResult == .stop) ? true : false
+    
+    return (winner, gameExitFlag)
 }
 
 func doScissorsRockPaper() -> MatchResult {
