@@ -48,19 +48,21 @@ struct GameJudgment {
         }
     }
     
-    func printGameResult(from playerHand: PlayerOption?, and opponentHand: PlayerOption) {
+    func printGameResult(from playerHand: PlayerOption?, and opponentHand: PlayerOption) -> Bool {
         if isPlayerWin(playerHand, opponentHand) {
             print(Message.gameWin)
+            return true
         } else {
             print(Message.gameLose)
+            return false
         }
     }
 }
 
 struct RockPaperScissorsGame {
     private let gameJudgment = GameJudgment()
-    
-    func startGame() {
+
+    func isPlayersTurn() -> Bool? {
         var playerHand: PlayerOption?
         var computerHand: PlayerOption
         
@@ -72,11 +74,9 @@ struct RockPaperScissorsGame {
         
         guard playerHand != .quit else {
             print(Message.gameEnd)
-            return
+            return nil
         }
-        
-        gameJudgment.printGameResult(from: playerHand, and: computerHand)
-        print(Message.gameEnd)
+        return gameJudgment.printGameResult(from: playerHand, and: computerHand)
     }
     
     private func recieveUserInput(_ userInput: String? = readLine()) -> PlayerOption? {
@@ -97,6 +97,3 @@ struct RockPaperScissorsGame {
     
     private func isWrongInput(playerHand: PlayerOption?) -> Bool { playerHand == nil }
 }
-
-let rockPaperScissors = RockPaperScissorsGame()
-rockPaperScissors.startGame()
