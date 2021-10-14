@@ -37,11 +37,14 @@ enum GameResult: CustomStringConvertible {
             return "졌습니다."
         case .draw:
             return "비겼습니다."
+        case .exit:
+            return "게임종료"
         }
     }
     case win
     case lose
     case draw
+    case exit
 }
 
 func playGame() {
@@ -67,8 +70,8 @@ func playGame() {
         mukChiPaResult = playMukChiPa()
         turnOwner = judgeTurnOwner(gameResult: mukChiPaResult.gameResult, turnOwner: turnOwner)
         printGameResult(gameResult: mukChiPaResult.gameResult, turnOwner: turnOwner)
-       
     }
+    
     if mukChiPaResult.isExit == true {
         return
     }
