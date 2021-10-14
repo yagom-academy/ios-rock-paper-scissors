@@ -6,6 +6,8 @@
 
 import Foundation
 
+var turn = "사용자 턴"
+
 enum RockScissorsPaper: Int {
     case scissors = 1
     case rock = 2
@@ -25,11 +27,12 @@ enum GameMessage: String {
 }
 
 enum GameMenu: String {
-    case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    case first = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    case second = "묵(1), 찌(2), 빠(3)! <종료 : 0> : "
 }
 
 func runGame() {
-    print(GameMenu.menu.rawValue, terminator: "")
+    print(GameMenu.first.rawValue, terminator: "")
     
     let userInput = readLine()
    
@@ -93,6 +96,16 @@ func compareRockScissorsPaper(_ computerValue: Int, to userInputValue: Int) {
     default:
         break
     }
+}
+
+func switchTurn() -> String {
+    if turn == "사용자 턴" {
+        turn = "컴퓨터 턴"
+    } else if turn == "컴퓨터 턴" {
+        turn = "사용자 턴"
+    }
+    
+    return turn
 }
 
 runGame()
