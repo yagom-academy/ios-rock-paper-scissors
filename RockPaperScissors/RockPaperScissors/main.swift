@@ -18,59 +18,88 @@ enum ResultMessage: String {
     case gameEnd = "게임 종료"
 }
 
-func startGame() {
-    let allowedInputRange = 0...3
-    let shutDown = "0"
-
-    print(MenuMessage.startGame.rawValue, terminator: "")
-
-    guard var userInput = readLine() else { return }
-    userInput = String(userInput)
-    
-    if userInput == shutDown {
-        print(ResultMessage.gameEnd.rawValue)
-    } else if (allowedInputRange.map{String($0)}).contains(userInput) {
-        compareEachHand(userNumber: userInput)
-        print(ResultMessage.gameEnd.rawValue)
-    } else {
-        print(MenuMessage.inputError.rawValue)
-        startGame()
-    }
+enum Hand : Int {
+    case scissors
+    case rock
+    case paper
+    case none
 }
 
-func compareEachHand(userNumber: String) {
-    let computerNumber = pickComputerNumber()
-    let (userHand, computerHand) = convertToHand(from: userNumber, from: computerNumber)
-    
-    switch userHand {
-    case userHand where userHand == computerHand:
-        print(ResultMessage.draw.rawValue)
-        startGame()
-    case "scissors" where computerHand == "rock":
-        print(ResultMessage.userLose.rawValue)
-    case "rock" where computerHand == "paper":
-        print(ResultMessage.userLose.rawValue)
-    case "paper" where computerHand == "scissors":
-        print(ResultMessage.userLose.rawValue)
+enum GameResult : String {
+    case userWin
+    case userLose
+    case draw
+}
+
+func convertNumberToHandName(oneNumber: String?) -> Hand {
+    switch oneNumber {
+    case "1":
+        return .scissors
+    case "2":
+        return .rock
+    case "3":
+        return .paper
     default:
-        print(ResultMessage.userWin.rawValue)
+        return .none
     }
 }
 
-func pickComputerNumber() -> String {
+func receiveInput() -> String? {
+    let allowedInputRange = 0...3
+    let userInput = readLine()
+    let inputRangeVerification: Bool = (allowedInputRange.map{ String($0) }).contains(userInput)
+    
+    guard inputRangeVerification else { return "" }
+    return userInput
+}
+
+func runProgram() {
+    let shutDown = "0"
+    let notAllowedInput = ""
+    var gameResult: GameResult
+    
+    while true {
+        print(MenuMessage.startGame.rawValue, terminator: "")
+        let userInput = receiveInput()
+        if userInput == notAllowedInput {
+            print(MenuMessage.inputError.rawValue)
+            continue
+        } else if userInput == shutDown {
+            print(ResultMessage.gameEnd.rawValue)
+            break
+        }
+        gameResult = startFirstGame(userNumber: userInput)
+        if gameResult == .draw {
+            continue
+        } else {
+            print(ResultMessage.gameEnd.rawValue)
+            break
+        }
+    }
+}
+
+func startFirstGame(userNumber: String?) -> GameResult {
     let allowedNumberRange = 1...3
     let computerNumber = String(Int.random(in: allowedNumberRange))
-    return computerNumber
+    
+    let userHand = convertNumberToHandName(oneNumber: userNumber)
+    let computerHand = convertNumberToHandName(oneNumber: computerNumber)
+    let gameResult = fightFirstGame(userHand: userHand, computerHand: computerHand)
+    return gameResult
 }
 
-func convertToHand(from userNumber: String, from computerNumber: String) -> (UserHand: String, ComputerHand: String) {
-    let numbers = [userNumber, computerNumber]
-    var convertedHands: [String] = []
-
-    numbers.forEach {
-        convertedHands.append($0 == "1" ? "scissors" : $0 == "2" ? "rock" : $0 == "3" ? "paper" : "Error" )
+func fightFirstGame(userHand: Hand, computerHand: Hand) -> GameResult {
+    switch (userHand, computerHand) {
+    case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
+        print(ResultMessage.userWin.rawValue)
+        return .userWin
+    case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
+        print(ResultMessage.userLose.rawValue)
+        return .userLose
+    default:
+        print(ResultMessage.draw.rawValue)
+        return .draw
     }
-    return (convertedHands[0], convertedHands[1])
 }
 
-startGame()
+runProgram()
