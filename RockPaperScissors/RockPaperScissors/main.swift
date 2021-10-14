@@ -117,7 +117,7 @@ func playMukChiPa() -> GameResult {
 }
 
 func printTurnOwner(turnOwner: PlayerType) {
-    print("[\(turnOwner.rawValue) 턴]", terminator: "")
+    print("[\(turnOwner.rawValue) 턴] ", terminator: "")
 }
 
 func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> GameResult {
