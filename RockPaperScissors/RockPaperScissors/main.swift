@@ -68,7 +68,7 @@ enum GameResult {
     case draw
 }
 
-enum Game {
+enum Game: Equatable {
     case rockPaperScissors
     case mukJjiPpa(prevResult: GameResult)
 }
@@ -112,8 +112,15 @@ func isValid(userInput: Int?) -> Validity {
     return .valid(userInput: userInput)
 }
 
-func generatePlayersSign(userInput: Int) -> (userSign: Sign, computerSign: Sign) {
-    let userSign = Sign(rockPaperScissorsUserInput: userInput)
+func generatePlayersSign(userInput: Int, gameType: Game) -> (userSign: Sign, computerSign: Sign) {
+    let userSign: Sign
+
+    if gameType == .rockPaperScissors {
+        userSign = Sign(rockPaperScissorsUserInput: userInput)
+    } else {
+        userSign = Sign(mukJjiPpaUserInput: userInput)
+    }
+    
     let computerSign = SignFactory.generateRandomElement()
     
     return (userSign, computerSign)
@@ -178,7 +185,7 @@ func playRockPaperScissorsGame() -> GameResult? {
         printGameOver()
         return nil
     case .valid(let userInput):
-        let (userSign, computerSign) = generatePlayersSign(userInput: userInput)
+        let (userSign, computerSign) = generatePlayersSign(userInput: userInput, gameType: .rockPaperScissors)
         gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
         printGameResult(gameResult: gameResult)
         gameResult = (gameResult == .draw) ? playRockPaperScissorsGame() : (gameResult)
