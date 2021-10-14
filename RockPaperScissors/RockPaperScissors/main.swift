@@ -42,8 +42,12 @@ enum ScissorsRockPaperGameResult: String {
     }
 }
 
+func startMukChiBaGame() {
+    printMukChiBaMenu()
+}
+
 func startScissorsRockPaperGame() {
-    printMenu()
+    printScissorsRockPaperMenu()
     
     do {
         let userInput = try receiveUserInput()
@@ -86,8 +90,12 @@ func isExitGame(input: Int) -> Bool {
     return input == 0
 }
 
-func printMenu() {
+func printScissorsRockPaperMenu() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
+}
+
+func printMukChiBaMenu() {
+    print("바위(1), 가위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
 func receiveUserInput() throws -> Int {
