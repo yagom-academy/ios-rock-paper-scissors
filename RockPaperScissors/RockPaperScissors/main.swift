@@ -126,12 +126,12 @@ func playRockPaperScissors() -> (GameResult, Bool)  {
     return (gameResult, isExit)
 }
 
-func receiveVaildInput() -> String? {
+func receiveVaildInput(gameType: GameType) -> String? {
     var isInvalid: Bool = true
     var input: String = ""
     
     while isInvalid {
-        printRockScissorsPaperMenu()
+        printHandchoiceMenu(gameType: gameType)
         input = receiveInput()
         isInvalid = isInvalidInput(shouldCheckedInput: input)
     }
@@ -161,8 +161,12 @@ func printErrorMessage() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func printRockScissorsPaperMenu(){
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+func printHandChoiceMenu(gameType: GameType){
+    if gameType == .rockPaperScissors {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    } else {
+        print("묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    }
 }
 
 func makeRandomNumber() -> String{
