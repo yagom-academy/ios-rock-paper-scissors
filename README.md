@@ -50,15 +50,13 @@ print(compare == .orderedAscending)
 
 해당 함수의 목적은 묵찌빠 게임에서 사용자에게 입력받는 손모양 번호를 교차시켜 주기 위함입니다.
 
-> 가위(1), 바위(2), 보(3)
+> 가위(1), 바위(2), 보(3)  
 > 묵(1), 찌(2), 빠(3)
 
-가위바위보 게임을 묵찌빠 게임까지 확장할 때, 저희가 집중한 포인트는
-찌(2)는 가위(1)로, 묵(1)은 바위(2)로 입력을 받아야만
-STEP 1 에서 만들어두었던 열거형 `ExpectedHand` 를 재사용할 수 있다는 점이었습니다.
+가위바위보 게임을 묵찌빠 게임까지 확장할 때, 저희가 집중한 포인트는 찌(2)는 가위(1)로, 묵(1)은 바위(2)로 입력을 받아야만 STEP 1 에서 만들어두었던 열거형 `ExpectedHand` 를 재사용할 수 있다는 점이었습니다.
 
-먼저, 사용자의 입력을 받는 것은 STEP 1 에서 만들어둔 `readUserInput()` 함수를 재사용했습니다.
-옵셔널 값은 `guard let` 을 통해 잡아주고, `switch`문 을 활용해서, 묵과 찌를 교차시켰습니다.
+먼저, 사용자의 입력을 받는 것은 STEP 1 에서 만들어둔 `readUserInput()` 함수를 재사용했습니다.  
+옵셔널 값은 `guard let` 을 통해 잡아주고, `switch`문 을 활용해서, 묵과 찌를 교차시켰습니다.  
 빠(3)는 기존 그대로 보(3)로 동일하게 받았습니다.
 
 함수의 네이밍은 `readUserInput()` 하고 맥락을 맞추기 위해 `read` 로 시작했고, 묵찌빠 게임의 영문 표현인 `Muk-Chi-Ba` 를 붙여서 만들었습니다.
@@ -101,4 +99,13 @@ switch gameResult {
 출력문을 저장하기 위한 열거형을 만들었습니다.
 
 타입 프로퍼티를 쓴 이유는 메모리를 덜 쓰기 위함입니다. 인스턴스를 매번 만들면 메모리를 더 쓰게 될 것 입니다.
-
+```swift
+enum Message {
+    static let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    static let exit: String = "게임 종료"
+    static let menuUserTurn: String = "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let menuComputerTurn: String = "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let userWin: String = "사용자의 승리!"
+    static let computerWin: String = "컴퓨터의 승리!"
+}
+```
