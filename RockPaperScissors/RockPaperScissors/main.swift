@@ -6,7 +6,7 @@
 
 import Foundation
 
-var turn = "사용자 턴"
+var turn = ""
 
 enum RockScissorsPaper: Int {
     case scissors = 1
@@ -31,7 +31,7 @@ enum GameMenu: String {
     case second = "묵(1), 찌(2), 빠(3)! <종료 : 0> : "
 }
 
-func runGame() {
+func runFirstGame() {
     print(GameMenu.first.rawValue, terminator: "")
     
     let userInput = readLine()
@@ -44,7 +44,7 @@ func runGame() {
             try compareRockScissorsPaper(generateRandomNumber(), to: convertUserInputType(input: userInput))
         default:
             print(GameMessage.error.rawValue)
-            runGame()
+            runFirstGame()
         }
     } catch {
         print(GameMessage.error.rawValue)
@@ -81,18 +81,18 @@ func compareRockScissorsPaper(_ computerValue: Int, to userInputValue: Int) {
     
     if subtractionValue == 0 {
         print(GameMessage.draw.rawValue)
-        runGame()
+        runFirstGame()
     }
     
     switch subtractionValue {
     case 1, -2:
         print(GameMessage.win.rawValue)
-        print(GameMessage.end.rawValue)
-        return
+        turn = "사용자 턴"
+        runSecondGame()
     case -1, 2:
         print(GameMessage.lose.rawValue)
-        print(GameMessage.end.rawValue)
-        return
+        turn = "컴퓨터 턴"
+        runSecondGame()
     default:
         break
     }
@@ -104,8 +104,23 @@ func switchTurn() -> String {
     } else if turn == "컴퓨터 턴" {
         turn = "사용자 턴"
     }
-    
+
     return turn
 }
 
-runGame()
+func runSecondGame() {
+    print("[\(turn)]", GameMenu.second.rawValue, terminator: "")
+    
+    let userInput = readLine()
+    
+    switch userInput {
+    case "0":
+        print(GameMessage.end.rawValue)
+    case "1", "2", "3":
+        print("게임진행")
+    default:
+        print(GameMessage.error.rawValue)
+    }
+}
+
+runFirstGame()
