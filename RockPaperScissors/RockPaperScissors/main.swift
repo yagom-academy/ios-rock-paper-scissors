@@ -101,40 +101,22 @@ func runProgram() {
 }
 
 func runGame() {
-    do {
-        let (winnerOfScissorsRockPaper, gameExitFlag) = decideResultOfScissorsRockPaper()
-
-        guard gameExitFlag == false else { return }
-
-    } catch GameError.turnDecisionFail {
-        GameNotice.printError(error: .turnDecisionFail)
-    } catch {
-        print("알 수 없는 오류입니다.")
-    }
+    let (firstTurn, userWannaExit) = decideFirstTurn()
+    
+    guard userWannaExit == false else { return }
 }
 
-func decideWinner(from matchResult: MatchResult) -> Player {
-    switch matchResult {
-    case .computerWins:
-        return .computer
-    case .userWins:
-        return .user
-    default:
-        return .none
-    }
-}
-
-func decideResultOfScissorsRockPaper() -> (Player, Bool) {
+func decideFirstTurn() -> (Player, Bool) {
     var matchResult: MatchResult
     
     repeat {
         matchResult = doScissorsRockPaper()
     } while matchResult == .draw
     
-    let winner = decideWinner(from: matchResult)
-    let gameExitFlag = (matchResult == .stop) ? true : false
+    let firstTurn = decideWinnerInScissorsRockPaper(from: matchResult)
+    let userWannaExit = (matchResult == .stop) ? true : false
     
-    return (winner, gameExitFlag)
+    return (firstTurn, userWannaExit)
 }
 
 func doScissorsRockPaper() -> MatchResult {
@@ -153,9 +135,20 @@ func doScissorsRockPaper() -> MatchResult {
         return MatchResult.stop
     }
     
-    let matchResult = decideWinner(between: computersHand, and: usersHand)
+    let matchResult = doMatchInScissorsRockPaper(between: computersHand, and: usersHand)
     matchResult.printResult()
     return matchResult
+}
+
+func decideWinnerInScissorsRockPaper(from matchResult: MatchResult) -> Player {
+    switch matchResult {
+    case .computerWins:
+        return .computer
+    case .userWins:
+        return .user
+    default:
+        return .none
+    }
 }
 
 func generateRandomHand() -> PlayerOption {
@@ -187,7 +180,7 @@ func verify(userInput: String) -> Bool {
     return (0...3).contains(integerUserInput)
 }
 
-func decideWinner(between computersHand: PlayerOption, and usersHand: PlayerOption) -> MatchResult {
+func doMatchInScissorsRockPaper(between computersHand: PlayerOption, and usersHand: PlayerOption) -> MatchResult {
     if computersHand == usersHand {
         return MatchResult.draw
     }
@@ -201,5 +194,6 @@ func decideWinner(between computersHand: PlayerOption, and usersHand: PlayerOpti
         return MatchResult.draw
     }
 }
+
 
 runProgram()
