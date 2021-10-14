@@ -127,7 +127,7 @@ func setShouldContinue() {
     }
 }
 
-func playGameOnce(input: String) {
+func playTurnGameOnce(input: String) {
     setComputerSign()
     setPlayerSign(input: input)
     if shouldContinue {
@@ -137,12 +137,11 @@ func playGameOnce(input: String) {
     }
 }
 
-func playGame() {
+func playTurnGame() {
     repeat {
         let playerInput = inputTurnGameSign()
-        playGameOnce(input: playerInput)
+        playTurnGameOnce(input: playerInput)
     } while shouldContinue
-    print("게임 종료")
 }
 
 func inputMainGameSign() -> String {
@@ -162,4 +161,3 @@ func inputMainGameSign() -> String {
 }
 
 
-playGame()
