@@ -21,8 +21,8 @@ enum Message: String, CustomStringConvertible {
 }
 
 enum GameMode {
-    case ScissorsRockPaper
-    case RockScissorsPaper
+    case scissorsRockPaper
+    case rockScissorsPaper
 }
 
 enum PlayerOption: CaseIterable {
@@ -40,10 +40,10 @@ struct GameManager {
     func isRestartable(mode: GameMode, _ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
         let isHandSame = playerHand == opponentHand
         switch (mode, isHandSame) {
-        case (.ScissorsRockPaper, true):
+        case (.scissorsRockPaper, true):
             print(Message.gameDraw)
             return true
-        case (.RockScissorsPaper, false):
+        case (.rockScissorsPaper, false):
             return true
         default:
             return false
@@ -83,7 +83,7 @@ struct ScissorsRockPaperGame {
             computerHand = PlayerOption.randomHand
             print(Message.start, terminator: "")
             playerHand = recieveUserInput()
-        } while gameManager.isRestartable(mode: .ScissorsRockPaper,playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
+        } while gameManager.isRestartable(mode: .scissorsRockPaper,playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
         
         guard playerHand != .quit else {
             print(Message.gameEnd)
@@ -134,7 +134,7 @@ struct RockScissorsPaper {
             playerHand = recieveUserInput()
             if playerHand == .quit { break }
             isContinued = true
-        } while gameManager.isRestartable(mode: .RockScissorsPaper, playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
+        } while gameManager.isRestartable(mode: .rockScissorsPaper, playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
         guard playerHand != .quit else {
             print(Message.gameEnd)
             return
