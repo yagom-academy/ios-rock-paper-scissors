@@ -13,7 +13,7 @@ enum RockPaperScissors: Int {
     }
 }
 
-func inputUserData() -> Int {
+func getUserInput() -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
     guard let userInput = readLine(), let userInputNumber = Int(userInput) else {
         return -1
@@ -76,7 +76,7 @@ func isRestartGame(handOfUser: Int, handOfComputer: Int) -> Bool {
 
 func startGame() {
     var isRestart: Bool = false
-    let handOfUser = inputUserData()
+    let handOfUser = getUserInput()
 
     let handOfComputer = generateRandomNumber()
     isRestart = isRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
