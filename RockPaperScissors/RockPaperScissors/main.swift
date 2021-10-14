@@ -111,16 +111,16 @@ struct ScissorsRockPaperGame {
 
 struct RockScissorsPaper {
     let gameManager = GameManager()
-    var userTurn: Bool? = ScissorsRockPaperGame().isPlayersTurn()
+    var isPlayerTurn: Bool? = ScissorsRockPaperGame().isPlayersTurn()
     var firstTurn: String {
-        if userTurn == true {
+        if isPlayerTurn == true {
             return "사용자"
         }
         return "컴퓨터"
     }
     
     mutating func startGame() {
-        guard userTurn != nil else {
+        guard isPlayerTurn != nil else {
             return
         }
         
@@ -139,15 +139,15 @@ struct RockScissorsPaper {
             print(Message.gameEnd)
             return
         }
-        printGameResult(when: userTurn)
+        printGameResult(when: isPlayerTurn)
     }
     
     mutating func changeTurn(when isContinued: Bool, _ playerHand: PlayerOption?, _ computerHand: PlayerOption) {
         guard isContinued else { return }
         if playerHand == nil {
-            userTurn = false
+            isPlayerTurn = false
         } else if isContinued {
-            userTurn = gameManager.isPlayerWin(playerHand, computerHand)
+            isPlayerTurn = gameManager.isPlayerWin(playerHand, computerHand)
             print("\(firstTurn)의 턴입니다.")
         }
     }
