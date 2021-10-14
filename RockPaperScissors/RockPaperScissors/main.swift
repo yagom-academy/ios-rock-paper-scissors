@@ -169,7 +169,7 @@ func receiveVaildInput(gameType: GameType) -> String? {
     while isInvalid {
         printHandChoiceMenu(gameType: gameType)
         input = receiveInput()
-        isInvalid = isInvalidInput(shouldCheckedInput: input)
+        isInvalid = checkValidInput(of: input)
     }
     
     return input
@@ -183,8 +183,8 @@ func receiveInput() -> String {
     return input
 }
 
-func isInvalidInput(shouldCheckedInput: String) -> Bool {
-    switch shouldCheckedInput {
+func checkValidInput(of input: String) -> Bool {
+    switch input {
     case "0", "1", "2", "3":
         return false
     default:
