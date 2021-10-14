@@ -190,7 +190,7 @@ struct MukChiPaGame {
         print("\(turn)의 승리!")
     }
     
-    private func printGameTurn(gamePlayer: Player) {
+    private mutating func printGameTurn(gamePlayer: Player) {
         var printPlayer: Player
         switch gamePlayer {
         case .user:
@@ -199,6 +199,7 @@ struct MukChiPaGame {
             printPlayer = .computer
         }
         print("\(printPlayer)의 턴입니다")
+        turn = printPlayer
     }
 }
 
