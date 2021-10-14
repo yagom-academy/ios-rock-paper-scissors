@@ -1,4 +1,4 @@
-enum Message: CustomStringConvertible {
+enum Result: CustomStringConvertible {
     var description: String {
         switch self {
         case .win : return "이겼습니다!"
@@ -70,22 +70,37 @@ struct RockPaperScissorsGame {
             decideGameResult(from: userChoice)
             return
         }
-        print(Message.exit)
+        printGameResult(gameResult: .exit)
     }
     
     private func decideGameResult(from userChoice: Int) {
         let choiceOfComputer = generatedChoiceOfComputer
         
         if choiceOfComputer == userChoice {
-            print(Message.draw)
+            printGameResult(gameResult: .draw)
             selectUserChoice()
         } else if userChoice == choiceOfComputer + 1 || userChoice == choiceOfComputer - 2 {
-            print(Message.win)
-            print(Message.exit)
+            printGameResult(gameResult: .win)
+            printGameResult(gameResult: .exit)
         } else {
-            print(Message.lose)
-            print(Message.exit)
+            printGameResult(gameResult: .lose)
+            printGameResult(gameResult: .exit)
         }
+    }
+    
+    private func printGameResult(gameResult: Result) {
+        var printResult: Result
+        switch gameResult {
+        case .win:
+            printResult = .win
+        case .lose:
+            printResult = .lose
+        case .draw:
+            printResult = .draw
+        case .exit:
+            printResult = .exit
+        }
+        print(printResult.description)
     }
 }
 
