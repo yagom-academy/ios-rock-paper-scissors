@@ -76,6 +76,10 @@ enum PlayerOption {
 }
 
 func runGame() {
+    var aggressor = decideTurn()
+}
+
+func decideTurn() -> Player {
     var matchResult: MatchResult
     
     repeat {
@@ -83,6 +87,15 @@ func runGame() {
     } while matchResult == .draw
     
     GameNotice.theEnd.printNotice()
+    
+    switch matchResult {
+    case .computerWins:
+        return .computer
+    case .userWins:
+        return .user
+    default:
+        return .user
+    }
 }
 
 func doRockPaperScissors() -> MatchResult {
