@@ -64,7 +64,7 @@ func playMukChiPa() -> (GameResult, Bool) {
     var gameResult: GameResult
     var isExit = false
     
-    guard let userInput = receiveVaildInput() else {
+    guard let userInput = receiveVaildInput(gameType: .mukChiPa) else {
         return (.win, isExit)
     }
     guard let userHand = MukChiPa(rawValue: userInput) else {
@@ -105,7 +105,7 @@ func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> GameResult
 
 func playRockPaperScissors() -> (GameResult, Bool)  {
     var isExit = false
-    guard let userInput = receiveVaildInput() else {
+    guard let userInput = receiveVaildInput(gameType: .rockPaperScissors) else {
         return (.win, isExit)
     }
     guard let userHand = RockScissorsPaper(rawValue: userInput) else {
@@ -131,7 +131,7 @@ func receiveVaildInput(gameType: GameType) -> String? {
     var input: String = ""
     
     while isInvalid {
-        printHandchoiceMenu(gameType: gameType)
+        printHandChoiceMenu(gameType: gameType)
         input = receiveInput()
         isInvalid = isInvalidInput(shouldCheckedInput: input)
     }
