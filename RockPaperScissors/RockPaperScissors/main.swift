@@ -56,7 +56,7 @@ func validatedInput() -> String? {
     return nil
 }
 
-func inputFromPlayer() -> String {
+func inputTurnGameSign() -> String {
     var isValidInput: Bool = false
     var playerInput = String()
     repeat {
@@ -139,10 +139,27 @@ func playGameOnce(input: String) {
 
 func playGame() {
     repeat {
-        let playerInput = inputFromPlayer()
+        let playerInput = inputTurnGameSign()
         playGameOnce(input: playerInput)
     } while shouldContinue
     print("게임 종료")
 }
+
+func inputMainGameSign() -> String {
+    var isValidInput: Bool = false
+    var playerInput = String()
+    repeat {
+        printStartMessage()
+        if let input = validatedInput() {
+            playerInput = input
+            isValidInput = true
+        } else {
+            gameTurn = .computer
+            isValidInput = false
+        }
+    } while !isValidInput
+    return playerInput
+}
+
 
 playGame()
