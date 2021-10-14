@@ -10,6 +10,8 @@ enum Message {
     static let exit: String = "게임 종료"
     static let menuUserTurn: String = "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
     static let menuComputerTurn: String = "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let userWin: String = "사용자의 승리!"
+    static let computerWin: String = "컴퓨터의 승리!"
 }
 
 enum GameResult: CustomStringConvertible {
@@ -119,6 +121,7 @@ func judgeGameResult(_ input: ExpectedHand) -> GameResult {
 
 func runProgram() {
     print(Message.menu, terminator: "")
+    
     do {
         guard let userHand = try readUserInput() else {
             print(Message.exit)
@@ -153,6 +156,7 @@ func runMukChiBa(_ whoseTurn: WhoseTurn) throws {
     case .computerTurn:
         print(Message.menuComputerTurn, terminator: "")
     }
+    
     do {
         guard let mukChiBaInput = try readMukChiBa() else {
             print(Message.exit)
@@ -163,10 +167,10 @@ func runMukChiBa(_ whoseTurn: WhoseTurn) throws {
         
         switch gameResult {
         case .draw where whoseTurn == .userTurn:
-            print("사용자의 승리!")
+            print(Message.userWin)
             print(Message.exit)
         case .draw where whoseTurn == .computerTurn:
-            print("컴퓨터의 승리!")
+            print(Message.computerWin)
             print(Message.exit)
         case .win:
             print(WhoseTurn.userTurn)
