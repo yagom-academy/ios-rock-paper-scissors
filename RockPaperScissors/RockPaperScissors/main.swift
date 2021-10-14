@@ -130,6 +130,12 @@ struct MukChiPaGame {
     
     private var turn: Player = Player.user
     
+    private func receiveInput() throws -> String {
+           guard let input = readLine() else {
+               throw ErrorMessage.systemError
+           }
+           return input
+       }
 }
 
 
