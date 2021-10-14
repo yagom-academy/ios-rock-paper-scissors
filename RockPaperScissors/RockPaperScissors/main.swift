@@ -86,16 +86,17 @@ struct RockPaperScissorsGame {
     
     private func decideGameResult(from userChoice: Int) {
         let choiceOfComputer = generatedChoiceOfComputer
+        var mukChiPaGame = MukChiPaGame()
         
         if choiceOfComputer == userChoice {
             printGameResult(gameResult: .draw)
             selectUserChoice()
         } else if userChoice == choiceOfComputer + 1 || userChoice == choiceOfComputer - 2 {
             printGameResult(gameResult: .win)
-            printGameResult(gameResult: .exit)
+            mukChiPaGame.startMukChiPa(winner: Player.user)
         } else {
             printGameResult(gameResult: .lose)
-            printGameResult(gameResult: .exit)
+            mukChiPaGame.startMukChiPa(winner: Player.computer)
         }
     }
     
@@ -136,6 +137,24 @@ struct MukChiPaGame {
            }
            return input
        }
+    
+    mutating func startMukChiPa(winner: Player) {
+            turn = winner
+            print("[\(turn)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
+            
+            do {
+                let inputUserChoice = try receiveInput()
+                try checkValidInput(from: inputUserChoice)
+            } catch ErrorMessage.wrongInput {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                turn = Player.computer
+                startMukChiPa(winner: turn)
+            } catch ErrorMessage.systemError {
+                print("[SystemError: nil]")
+            } catch {
+                print(error)
+            }
+        }
     
     private mutating func checkValidInput(from userChoice: String) throws {
         guard let userChoice = Int(userChoice) else {
