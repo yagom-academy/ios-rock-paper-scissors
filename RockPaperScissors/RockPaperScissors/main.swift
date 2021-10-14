@@ -81,9 +81,9 @@ func setComputerSign() {
 func setPlayerSign(input: String) {
     switch input {
     case "1":
-        playerSign = .rock
-    case "2":
         playerSign = .scissors
+    case "2":
+        playerSign = .rock
     case "3":
         playerSign = .paper
     default:
