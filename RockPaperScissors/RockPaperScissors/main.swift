@@ -48,7 +48,7 @@ func startScissorsRockPaperGame() {
     do {
         let userInput = try receiveUserInput()
         
-        if isExitGame(input: userInput) == true {
+        guard isExitGame(input: userInput) == false else {
             printGameOver()
             return
         }
