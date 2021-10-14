@@ -172,11 +172,36 @@ struct MukChiPaGame {
         print(Result.exit)
     }
     
-    func decideGameResult(from userChoice: Int) {
-        
+    private mutating func decideGameResult(from userChoice: Int) {
+        let choiceOfComputer = generatedChoiceOfComputer
+
+        if choiceOfComputer == userChoice {
+            printVictoryMessage(winner: turn)
+        } else if userChoice == choiceOfComputer - 1 || userChoice == choiceOfComputer + 2 {
+            printGameTurn(gamePlayer: Player.user)
+            startMukChiPa(winner: turn)
+        } else {
+            printGameTurn(gamePlayer: Player.computer)
+            startMukChiPa(winner: turn)
+        }
     }
     
+    private func printVictoryMessage(winner turn: Player) {
+        print("\(turn)의 승리!")
+    }
+    
+    private func printGameTurn(gamePlayer: Player) {
+        var printPlayer: Player
+        switch gamePlayer {
+        case .user:
+            printPlayer = .user
+        case .computer:
+            printPlayer = .computer
+        }
+        print("\(printPlayer)의 턴입니다")
+    }
 }
 
 
 let rockPaperScissors = RockPaperScissorsGame()
+rockPaperScissors.startRockPaperScissors()
