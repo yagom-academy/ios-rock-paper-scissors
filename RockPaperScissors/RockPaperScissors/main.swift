@@ -11,12 +11,25 @@ enum Sign: CaseIterable {
     case rock
     case paper
     
-    init(userInput: Int) {
-        switch userInput {
+    init(rockPaperScissorsUserInput: Int) {
+        switch rockPaperScissorsUserInput {
         case 1:
             self = .scissors
         case 2:
             self = .rock
+        case 3:
+            self = .paper
+        default:
+            fatalError("\(Self.self)의 \(#function)에서 초기화에 실패했습니다")
+        }
+    }
+    
+    init(mukJjiPpaUserInput: Int) {
+        switch mukJjiPpaUserInput {
+        case 1:
+            self = .rock
+        case 2:
+            self = .scissors
         case 3:
             self = .paper
         default:
@@ -95,7 +108,7 @@ func isValid(userInput: Int?) -> Validity {
 }
 
 func generatePlayersSign(userInput: Int) -> (userSign: Sign, computerSign: Sign) {
-    let userSign = Sign(userInput: userInput)
+    let userSign = Sign(rockPaperScissorsUserInput: userInput)
     let computerSign = SignFactory.generateRandomElement()
     
     return (userSign, computerSign)
