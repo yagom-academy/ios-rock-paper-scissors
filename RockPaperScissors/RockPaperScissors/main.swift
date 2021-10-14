@@ -136,6 +136,27 @@ struct MukChiPaGame {
            }
            return input
        }
+    
+    private mutating func checkValidInput(from userChoice: String) throws {
+        guard let userChoice = Int(userChoice) else {
+            throw ErrorMessage.wrongInput
+        }
+        
+        guard userChoice == MukChiPaChoice.muk.rawValue || userChoice == MukChiPaChoice.chi.rawValue || userChoice == MukChiPaChoice.pa.rawValue || userChoice == MukChiPaChoice.exit.rawValue else {
+            throw ErrorMessage.wrongInput
+        }
+        
+        guard userChoice == MukChiPaChoice.exit.rawValue else {
+            decideGameResult(from: userChoice)
+            return
+        }
+        print(Result.exit)
+    }
+    
+    func decideGameResult(from userChoice: Int) {
+        
+    }
+    
 }
 
 
