@@ -10,22 +10,24 @@ enum RockPaperScissors: Int, CaseIterable {
 }
 
 enum GameError: Error {
-    case InvalidValueError
+    case invalidValueError
+    case emptyValueError
 }
 
 func getUserInput() throws -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
     guard let userInput = readLine(), let userInputNumber = Int(userInput) else {
-        throw GameError.InvalidValueError
+        throw GameError.invalidValueError
     }
     return userInputNumber
 }
 
-func generateRandomNumber() -> Int {
-    var handsOfComputer: [Int] = RockPaperScissors.allCases.map({ $0.rawValue })
+func generateRandomNumber() throws -> Int {
+    let handsOfComputer: [Int] = RockPaperScissors.allCases.map({ $0.rawValue })
     
-    handsOfComputer.shuffle()
-    let handOfComputer: Int = handsOfComputer.removeFirst()
+    guard let handOfComputer = handsOfComputer.randomElement() else {
+        throw GameError.emptyValueError
+    }
     
     return handOfComputer
 }
@@ -77,10 +79,12 @@ func startGame() {
     var isRestart: Bool = false
     do {
         let handOfUser = try getUserInput()
-        let handOfComputer = generateRandomNumber()
+        let handOfComputer = try generateRandomNumber()
         isRestart = isRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
-    } catch GameError.InvalidValueError {
+    } catch GameError.invalidValueError {
         print("잘못된 입력입니다. 다시 시도해주세요.")
+    } catch GameError.emptyValueError {
+        print("값이 비었습니다.")
     } catch {
         print(error)
     }
