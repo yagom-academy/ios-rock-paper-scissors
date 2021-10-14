@@ -46,18 +46,44 @@ enum GameResult: CustomStringConvertible {
 
 func playGame() {
     var rockPaperScissorsResult: (gameResult: GameResult, isExit: Bool) = (.draw, false)
-    
+    var turnOwner: PlayerType = .user
     while rockPaperScissorsResult.gameResult == .draw
             , rockPaperScissorsResult.isExit == false {
         rockPaperScissorsResult = playRockPaperScissors()
         
         print(rockPaperScissorsResult.gameResult.description)
     }
-    
     if rockPaperScissorsResult.isExit == true {
         return
     }
+    if rockPaperScissorsResult.gameResult == .lose {
+        turnOwner = .computer
+    }
     
+    var mukChiPaResult: (gameResult: GameResult, isExit: Bool ) = (.win, false)
+    while mukChiPaResult.gameResult != .draw
+          , mukChiPaResult.isExit == false {
+        printTurnOwner(turnOwner: turnOwner)
+        mukChiPaResult = playMukChiPa()
+        if mukChiPaResult.gameResult == .lose {
+            if turnOwner == .user {
+                turnOwner = .computer
+            } else {
+                turnOwner = .user
+            }
+        }
+        switch mukChiPaResult.gameResult {
+        case .draw:
+            break
+        default:
+            print("\(turnOwner)의 턴입니다.")
+        }
+       
+    }
+    if mukChiPaResult.isExit == true {
+        return
+    }
+    print("\(turnOwner)의 승리!")
 }
 
 func playMukChiPa() -> (GameResult, Bool) {
