@@ -74,16 +74,14 @@ func playGame() {
         print(mukChiPaResult.description)
         return
     }
-    print("\(turnOwner)의 승리!\n게임종료")
-    
-    
+    print("\(turnOwner.rawValue)의 승리!\n게임종료")
 }
 
 func printGameResult(gameResult: GameResult, turnOwner: PlayerType) {
     if gameResult == .draw || gameResult == .exit {
         return
     }
-    print("\(turnOwner)의 턴입니다.")
+    print("\(turnOwner.rawValue)의 턴입니다.")
 }
 
 func judgeTurnOwner(gameResult: GameResult, turnOwner: PlayerType) -> PlayerType {
@@ -119,7 +117,7 @@ func playMukChiPa() -> GameResult {
 }
 
 func printTurnOwner(turnOwner: PlayerType) {
-    print("[\(turnOwner) 턴]", terminator: "")
+    print("[\(turnOwner.rawValue) 턴]", terminator: "")
 }
 
 func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> GameResult {
