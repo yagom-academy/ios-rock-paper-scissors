@@ -129,13 +129,17 @@ func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
     }
 }
 
+func checkTurn(prevResult: GameResult) -> String {
+    return (prevResult == .userWin) ? "사용자" : "컴퓨터"
+}
+
 func printGameMenu(gameType: Game) {
     switch gameType {
     case .rockPaperScissors:
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     case .mukJjiPpa(let prevResult):
-        let prevWinner = (prevResult == .userWin) ? "사용자" : "컴퓨터"
-        print("[\(prevWinner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        let player = checkTurn(prevResult: prevResult)
+        print("[\(player) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
 }
 
