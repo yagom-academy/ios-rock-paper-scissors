@@ -42,6 +42,17 @@ enum ScissorsRockPaperGameResult: String {
     }
 }
 
+enum Player: String {
+    case user = "사용자"
+    case computer = "컴퓨터"
+}
+
+extension Player: CustomStringConvertible {
+    var description: String {
+        return self.rawValue
+    }
+}
+
 func startMukChiBaGame() {
     printMukChiBaMenu()
 }
