@@ -133,6 +133,7 @@ func runMukJjiBba(_ input: String) {
             try compareMukJjiBba(generateRandomNumber(), to: convertUserInputType(input: userInput))
         default:
             print(GameMessage.error.rawValue)
+            runMukJjiBba(switchTurn())
         }
     } catch {
         print(GameMessage.error.rawValue)
