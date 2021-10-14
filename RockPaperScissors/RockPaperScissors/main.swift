@@ -1,16 +1,19 @@
-import Foundation
-
-enum Message: String, CustomStringConvertible {
+enum Message: CustomStringConvertible {
     var description: String {
-        return rawValue
+        switch self {
+        case .win : return "이겼습니다!"
+        case .draw : return "비겼습니다!"
+        case .lose : return "졌습니다!"
+        case .exit : return "게임 종료"
+        }
     }
-    case win = "이겼습니다!"
-    case draw = "비겼습니다!"
-    case lose = "졌습니다!"
-    case exit = "게임 종료"
+    case win
+    case draw
+    case lose
+    case exit
 }
 
-enum Choice: Int{
+enum Choice: Int {
     case scissors = 1
     case rock = 2
     case paper = 3
@@ -85,6 +88,7 @@ struct RockPaperScissorsGame {
         }
     }
 }
+
 
 let rockPaperScissors = RockPaperScissorsGame()
 rockPaperScissors.startGame()
