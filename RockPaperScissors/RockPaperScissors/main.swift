@@ -9,8 +9,6 @@ import Foundation
 
 enum HandGameMessage: String {
     case rockPaperSiccorsManual = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-    case userTurn = "[사용자 턴]"
-    case computerTurn = "[컴퓨터 턴]"
 }
 
 enum HandGameExceptionMessage: String {
@@ -29,12 +27,31 @@ enum HandGameResult: String {
     case user = "이겼습니다!\n"
     case computer = "졌습니다!\n"
     case draw = "비겼습니다!\n"
+    
+    var turnMessage: TurnMessage {
+        switch self {
+        case .user:
+            return TurnMessage.user
+        case .computer:
+            return TurnMessage.computer
+        case .draw:
+            return TurnMessage.nobody
+        }
+    }
+}
+
+enum TurnMessage: String {
+    case user = "[사용자 턴]"
+    case computer = "[컴퓨터 턴]"
+    case nobody = "[누구의 턴도 아닙니다.]"
 }
 
 func startMukjipaGame() {
-    guard let rockPaperSiccorsGamewinner = startRockPaperSiccorsGame() else {
+    guard let rockPaperSiccorsGameWinner = startRockPaperSiccorsGame() else {
+        printMessage(of: HandGameExceptionMessage.unknownError)
         return
     }
+    printMessage(of: rockPaperSiccorsGameWinner.turnMessage)
 }
 
 func startRockPaperSiccorsGame() -> HandGameResult? {
@@ -99,7 +116,6 @@ func handleInputException(for userInput: (userHand: HandGameHand?, exceptionMess
 
 func generateRandomHand() -> HandGameHand {
     let randomIndex = Int.random(in: 0..<HandGameHand.allCases.count)
-    print("컴퓨터 : ", HandGameHand.allCases[randomIndex])
     return HandGameHand.allCases[randomIndex]
 }
 
