@@ -110,9 +110,9 @@ struct ScissorsRockPaperGame {
 }
 
 struct RockScissorsPaper {
-    let gameManager = GameManager()
-    var isPlayerTurn: Bool? = ScissorsRockPaperGame().isPlayersTurn()
-    var currentTurnHolder: String {
+    private let gameManager = GameManager()
+    private var isPlayerTurn: Bool? = ScissorsRockPaperGame().isPlayersTurn()
+    private var currentTurnHolder: String {
         if isPlayerTurn == true {
             return "사용자"
         }
@@ -142,7 +142,7 @@ struct RockScissorsPaper {
         printGameResult(when: isPlayerTurn)
     }
     
-    mutating func changeTurn(when isContinued: Bool, _ playerHand: PlayerOption?, _ computerHand: PlayerOption) {
+    mutating private func changeTurn(when isContinued: Bool, _ playerHand: PlayerOption?, _ computerHand: PlayerOption) {
         guard isContinued else { return }
         if playerHand == nil {
             isPlayerTurn = false
