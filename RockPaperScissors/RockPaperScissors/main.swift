@@ -11,19 +11,33 @@ enum Player {
     case user
 }
 
-enum GameNotice: String {
-    case getInput = "가위(1), 바위(2), 보(3)! <종료 : 0>"
-    case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
-    case theEnd = "게임 종료"
+enum GameNotice {
+    static func printScissorsRockPaper() {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+    }
     
-    func printNotice() {
-        switch self {
-        case .getInput:
-            print(self.rawValue, terminator: " : ")
+    static func printTheEnd() {
+        print("게임 종료")
+    }
+    
+    static func printRockScissorsPaper(turn: Player) {
+        switch turn {
+        case .computer:
+            print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
         default:
-            print(self.rawValue)
+            print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
         }
     }
+    
+    static func printError(error: GameError) {
+        switch error {
+        case .wrongInput:
+            print("잘못된 입력입니다. 다시 입력해주세요.")
+        case .turnDecisionFail:
+            print("턴 결정에 실패하였습니다.")
+        }
+    }
+    
 }
 
 enum MatchResult: String {
@@ -75,19 +89,26 @@ enum PlayerOption {
     }
 }
 
-enum GameError: String, Error {
-    case turnDecisionFail = "턴 결정에 실패하였습니다."
+enum GameError: Error {
+    case wrongInput
+    case turnDecisionFail
+}
+
+func runProgram() {
+    runGame()
+    GameNotice.printTheEnd()
 }
 
 func runGame() {
     do {
-        var matchResult = decideMatchResult()
+        let matchResult = decideMatchResult()
 
         guard matchResult == .computerWins || matchResult == .userWins else { return }
 
-        var aggressor = try decideTurn(matchResult: matchResult)
+        let aggressor = try decideTurn(matchResult: matchResult)
+        
     } catch GameError.turnDecisionFail {
-        print(GameError.turnDecisionFail.rawValue)
+        GameNotice.printError(error: .turnDecisionFail)
     } catch {
         print("알 수 없는 오류입니다.")
     }
@@ -108,23 +129,21 @@ func decideMatchResult() -> MatchResult {
     var matchResult: MatchResult
     
     repeat {
-        matchResult = doRockPaperScissors()
+        matchResult = doScissorsRockPaper()
     } while matchResult == .draw
-    
-    GameNotice.theEnd.printNotice()
     
     return matchResult
 }
 
-func doRockPaperScissors() -> MatchResult {
-    GameNotice.getInput.printNotice()
+func doScissorsRockPaper() -> MatchResult {
+    GameNotice.printScissorsRockPaper()
     
     let computersHand: PlayerOption = generateRandomHand()
     var (usersHand, isValidInput) = receiveUsersInput()
     
     while isValidInput == false {
-        GameNotice.wrongInput.printNotice()
-        GameNotice.getInput.printNotice()
+        GameNotice.printError(error: .wrongInput)
+        GameNotice.printScissorsRockPaper()
         (usersHand, isValidInput) = receiveUsersInput()
     }
     
@@ -181,4 +200,4 @@ func decideWinner(between computersHand: PlayerOption, and usersHand: PlayerOpti
     }
 }
 
-runGame()
+runProgram()
