@@ -1,9 +1,9 @@
-enum Card: CaseIterable {
+enum Hand: CaseIterable {
     case scissors
     case rock
     case paper
     
-    func checkCardForPlayerToWin() -> Card {
+    func checkHandForPlayerToWin() -> Hand {
         switch self {
         case .scissors:
             return .paper
@@ -14,7 +14,7 @@ enum Card: CaseIterable {
         }
     }
     
-    static func changeNumberToCard(number: Int) -> Card? {
+    static func changeNumberToHand(number: Int) -> Hand? {
         switch number {
         case 1:
             return .scissors
@@ -26,6 +26,13 @@ enum Card: CaseIterable {
             return nil
         }
     }
+    
+    static func createRandomHand() -> Hand? {
+        if let randomChoice = Hand.allCases.randomElement() {
+            return randomChoice
+        }
+        return nil
+    }
 }
 
 enum GameResult: String {
@@ -35,7 +42,7 @@ enum GameResult: String {
 }
 
 /// 에러를 방지하기 위해 특정 값으로 초기화
-var playerCard: Card? = nil
+var playerHand: Hand? = nil
 /// 에러를 방지하기 위해 특정 값으로 초기화
 var gameResult: GameResult = GameResult.lose
 
@@ -44,9 +51,9 @@ var inputString: String = ""
 func startProgram() {
     receiveValidPlayerInput()
     if inputString.isEmpty == false {
-        assignPlayerCardIfValidated(with: inputString)
+        assignPlayerHandIfValidated(with: inputString)
     }
-    if playerCard != nil {
+    if playerHand != nil {
         startGame()
     }
 }
@@ -65,9 +72,9 @@ func receiveValidPlayerInput() {
     inputString = playerInputString
 }
 
-func assignPlayerCardIfValidated(with playerInputString: String) {
+func assignPlayerHandIfValidated(with playerInputString: String) {
     guard let playerInputNumber = Int(playerInputString),
-          let cardFromInputNumber = Card.changeNumberToCard(number: playerInputNumber) else {
+          let handFromInputNumber: Hand = .changeNumberToHand(number: playerInputNumber) else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         /// 잘못된 입력 처리 시 전역변수 초기화
         inputString = ""
@@ -75,25 +82,18 @@ func assignPlayerCardIfValidated(with playerInputString: String) {
         return
     }
     
-    playerCard = cardFromInputNumber
+    playerHand = handFromInputNumber
 }
 
 func startGame() {
-    guard let computerCard: Card = createRandomCard() else {
+    guard let computerHand: Hand = .createRandomHand() else {
         print("오류 - 컴퓨터 패 생성 실패")
         return
     }
-    print(computerCard)
+    print(computerHand)
     
-    comparePlayerCard(with: computerCard)
+    comparePlayerHand(with: computerHand)
     printGameResult(of: gameResult)
-}
-
-func createRandomCard() -> Card? {
-    if let randomChoice = Card.allCases.randomElement() {
-        return randomChoice
-    }
-    return nil
 }
 
 func printGameResult(of gameResult: GameResult) {
@@ -106,19 +106,19 @@ func printGameResult(of gameResult: GameResult) {
     print(gameResult.rawValue)
 }
 
-func comparePlayerCard(with computerCard: Card){
-    guard let cardForPlayerToWin = playerCard?.checkCardForPlayerToWin() else {
-        print("에러 - playerCard에 패가 할당되지 않음")
+func comparePlayerHand(with computerHand: Hand){
+    guard let handForPlayerToWin = playerHand?.checkHandForPlayerToWin() else {
+        print("에러 - playerHand에 패가 할당되지 않음")
         return
     }
     
-    if playerCard == computerCard {
+    if playerHand == computerHand {
         gameResult = .draw
-    } else if cardForPlayerToWin == computerCard {
+    } else if handForPlayerToWin == computerHand {
         gameResult = .win
     } else {
         gameResult = .lose
     }
-    /// 잘못된 입력값을 한 번 이상 입력한 경우, 승패 출력 후 다시 startGame 함수가 실행되지 않도록 전역변수를 초기화
-    playerCard = nil
+    /// 잘못된 입력값을 한 번 이상 처리할 경우, 승패 출력 후 다시 startGame 함수가 실행되지 않도록 전역변수를 초기화
+    playerHand = nil
 }
