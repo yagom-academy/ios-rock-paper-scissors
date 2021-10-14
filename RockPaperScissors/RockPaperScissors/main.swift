@@ -97,3 +97,16 @@ struct ScissorsRockPaperGame {
     
     private func isWrongInput(playerHand: PlayerOption?) -> Bool { playerHand == nil }
 }
+
+struct RockScissorsPaper {
+    var userTurn: Bool? = ScissorsRockPaperGame().isPlayersTurn()
+    var firstTurn: String {
+        if userTurn == true {
+            return "사용자"
+        } else if userTurn == false {
+            return "컴퓨터"
+        } else {
+            return ""
+        }
+    }
+}
