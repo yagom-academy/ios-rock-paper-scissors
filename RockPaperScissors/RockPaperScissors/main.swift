@@ -108,7 +108,7 @@ struct ScissorsRockPaperGame {
     }
 }
 
-struct RockScissorsPaper {
+struct RockScissorsPaperGame {
     private let gameManager = GameManager()
     private var isPlayerTurn: Bool? = ScissorsRockPaperGame().isPlayersTurn()
     private var currentTurnHolder: String {
@@ -126,6 +126,7 @@ struct RockScissorsPaper {
         var playerHand: PlayerOption?
         var computerHand: PlayerOption
         var isContinued = false
+        
         repeat {
             computerHand = PlayerOption.randomHand
             changeTurn(when: isContinued, playerHand, computerHand)
@@ -134,10 +135,12 @@ struct RockScissorsPaper {
             if playerHand == .quit { break }
             isContinued = true
         } while gameManager.isRestartable(mode: .rockScissorsPaper, playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
+        
         guard playerHand != .quit else {
             print(Message.gameEnd)
             return
         }
+        
         printGameResult(when: isPlayerTurn)
     }
     
@@ -176,5 +179,5 @@ struct RockScissorsPaper {
     }
 }
 
-var rockPaperScissors = RockScissorsPaper()
+var rockPaperScissors = RockScissorsPaperGame()
 rockPaperScissors.startGame()
