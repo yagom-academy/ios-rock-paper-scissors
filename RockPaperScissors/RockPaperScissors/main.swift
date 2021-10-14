@@ -63,15 +63,20 @@ func playGame() {
     }
     
     var mukChiPaResult: GameResult = .win
+    
     while mukChiPaResult == .win || mukChiPaResult == .lose {
         printTurnOwner(turnOwner: turnOwner)
+        
         mukChiPaResult = playMukChiPa()
+        
         turnOwner = judgeTurnOwner(gameResult: mukChiPaResult, turnOwner: turnOwner)
+        
         printGameResult(gameResult: mukChiPaResult, turnOwner: turnOwner)
     }
     
     if mukChiPaResult == .exit {
         print(mukChiPaResult.description)
+        
         return
     }
     print("\(turnOwner.rawValue)의 승리!\n게임종료")
@@ -79,6 +84,7 @@ func playGame() {
 
 func printGameResult(gameResult: GameResult, turnOwner: PlayerType) {
     if gameResult == .draw || gameResult == .exit {
+        
         return
     }
     print("\(turnOwner.rawValue)의 턴입니다.")
@@ -110,7 +116,7 @@ func playMukChiPa() -> GameResult {
     guard let computerHand = MukChiPa(rawValue: makeRandomNumber()) else {
         return .win
     }
-    
+
     gameResult = judgeMukChiPa(userHand, computerHand)
     
     return gameResult
