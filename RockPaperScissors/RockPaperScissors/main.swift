@@ -108,7 +108,7 @@ func judgeWinner() {
     }
 }
 
-func printGameResult() {
+func printTurnGameResult() {
     switch gameTurn {
     case .computer:
         print("졌습니다!")
@@ -132,7 +132,7 @@ func playGameOnce(input: String) {
     setPlayerSign(input: input)
     if shouldContinue {
         judgeWinner()
-        printGameResult()
+        printTurnGameResult()
         setShouldContinue()
     }
 }
