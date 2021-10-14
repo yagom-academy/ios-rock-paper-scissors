@@ -12,6 +12,7 @@ enum RockPaperScissors: Int, CaseIterable {
 enum GameError: Error {
     case invalidValueError
     case emptyValueError
+    case wrongChooseError
 }
 
 func getUserInput() throws -> Int {
@@ -32,14 +33,14 @@ func generateRandomNumber() throws -> Int {
     return handOfComputer
 }
 
-func playGame(handOfUser: Int, handOfComputer: Int) {
+func determineGameResult(handOfUser: Int, handOfComputer: Int) throws {
     let pointToWin: [RockPaperScissors: RockPaperScissors] = [.scissor: .paper,
                                                                 .rock: .scissor,
                                                                 .paper: .rock]
     
-    guard let definedValue = RockPaperScissors(rawValue: handOfUser) ,
+    guard let definedValue = RockPaperScissors(rawValue: handOfUser),
           let matchedWin = pointToWin[definedValue]?.rawValue else {
-        return
+        throw GameError.emptyValueError
     }
     if matchedWin == handOfComputer {
         print("이겼습니다!")
@@ -56,23 +57,30 @@ func isDraw(handOfUser: Int, handOfComputer: Int) -> Bool {
     return false
 }
 
-func isRestartGame(handOfUser: Int, handOfComputer: Int) -> Bool {
-    var isRestart: Bool = false
-    let exit = 0
-    let run = 1...3
+func chooseGamePlaying(handOfUser: Int, handOfComputer: Int) throws {
+    let gameOver = 0
+    let gameRunning = 1...3
     
     switch handOfUser {
-    case exit :
+    case gameOver :
         print("게임 종료")
-        isRestart = false
-    case run : isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) ?
-            isRestart = true :
-            playGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
-    default :
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        isRestart = true
+    case gameRunning :
+        try determineGameResult(handOfUser: handOfUser, handOfComputer: handOfComputer)
+    default:
+        throw GameError.wrongChooseError
     }
-    return isRestart
+}
+
+func isRestartGame(handOfUser: Int, handOfComputer: Int) throws -> Bool {
+    
+    if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
+        return true
+    } else if (0...3).contains(handOfUser) {
+        try chooseGamePlaying(handOfUser: handOfUser, handOfComputer: handOfComputer)
+        return false
+    } else {
+        throw GameError.invalidValueError
+    }
 }
 
 func startGame() {
@@ -80,7 +88,8 @@ func startGame() {
     do {
         let handOfUser = try getUserInput()
         let handOfComputer = try generateRandomNumber()
-        isRestart = isRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
+        
+        isRestart = try isRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
     } catch GameError.invalidValueError {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     } catch GameError.emptyValueError {
