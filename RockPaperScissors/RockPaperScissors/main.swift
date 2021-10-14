@@ -20,6 +20,17 @@ enum Choice: Int {
     case exit = 0
 }
 
+enum Player: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .computer : return "컴퓨터"
+        case .user : return "사용자"
+      }
+    }
+    case computer
+    case user
+}
+
 enum ErrorMessage: Error {
     case wrongInput
     case systemError
@@ -105,5 +116,21 @@ struct RockPaperScissorsGame {
 }
 
 
+struct MukChiPaGame {
+    private enum MukChiPaChoice: Int {
+        case muk = 1
+        case chi = 2
+        case pa = 3
+        case exit = 0
+    }
+    
+    private var generatedChoiceOfComputer: Int {
+        return Int.random(in: 1...3)
+    }
+    
+    private var turn: Player = Player.user
+    
+}
+
+
 let rockPaperScissors = RockPaperScissorsGame()
-rockPaperScissors.startGame()
