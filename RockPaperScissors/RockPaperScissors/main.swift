@@ -112,7 +112,7 @@ struct ScissorsRockPaperGame {
 struct RockScissorsPaper {
     let gameManager = GameManager()
     var isPlayerTurn: Bool? = ScissorsRockPaperGame().isPlayersTurn()
-    var firstTurn: String {
+    var currentTurnHolder: String {
         if isPlayerTurn == true {
             return "사용자"
         }
@@ -130,7 +130,7 @@ struct RockScissorsPaper {
         repeat {
             computerHand = PlayerOption.randomHand
             changeTurn(when: isContinued, playerHand, computerHand)
-            print("[\(firstTurn)의 턴] \(Message.startRockScissorsPaper)", terminator: "")
+            print("[\(currentTurnHolder)의 턴] \(Message.startRockScissorsPaper)", terminator: "")
             playerHand = recieveUserInput()
             if playerHand == .quit { break }
             isContinued = true
@@ -148,7 +148,7 @@ struct RockScissorsPaper {
             isPlayerTurn = false
         } else if isContinued {
             isPlayerTurn = gameManager.isPlayerWin(playerHand, computerHand)
-            print("\(firstTurn)의 턴입니다.")
+            print("\(currentTurnHolder)의 턴입니다.")
         }
     }
 
