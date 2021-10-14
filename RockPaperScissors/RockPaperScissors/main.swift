@@ -62,7 +62,7 @@ struct GameJudgment {
 
 struct ScissorsRockPaperGame {
     private let gameJudgment = GameJudgment()
-
+    
     func isPlayersTurn() -> Bool? {
         var playerHand: PlayerOption?
         var computerHand: PlayerOption
@@ -111,7 +111,7 @@ struct RockScissorsPaper {
             return ""
         }
     }
-    
+
     mutating func startGame() {
         print("[\(firstTurn)의 턴] \(Message.startRockScissorsPaper)", terminator: "")
         let computerHand: PlayerOption = PlayerOption.randomHand
@@ -123,8 +123,22 @@ struct RockScissorsPaper {
             print(Message.gameEnd)
             return
         }
+        guard gameJudgment.isRestartable(playerHand, computerHand) else {
+            userTurn = gameJudgment.isPlayerWin(playerHand, computerHand)
+            print("\(firstTurn)의 턴입니다.")
+            startGame()
+            return
+        }
+        printGameResult(when: userTurn)
     }
     
+    private func printGameResult(when userTurn: Bool?) {
+        if userTurn == true {
+            print("사용자의 승리!")
+        } else {
+            print("컴퓨터의 승리!")
+        }
+    }
     private func isWrongInput(playerHand: PlayerOption?) -> Bool { playerHand == nil }
     
     func recieveUserInput(_ userInput: String? = readLine()) -> PlayerOption? {
