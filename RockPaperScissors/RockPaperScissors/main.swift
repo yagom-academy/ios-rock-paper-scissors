@@ -61,29 +61,36 @@ func playGame() {
     }
     
     var mukChiPaResult: (gameResult: GameResult, isExit: Bool ) = (.win, false)
-    while mukChiPaResult.gameResult != .draw
+    while mukChiPaResult.gameResult == .win || mukChiPaResult.gameResult == .lose
           , mukChiPaResult.isExit == false {
         printTurnOwner(turnOwner: turnOwner)
         mukChiPaResult = playMukChiPa()
-        if mukChiPaResult.gameResult == .lose {
-            if turnOwner == .user {
-                turnOwner = .computer
-            } else {
-                turnOwner = .user
-            }
-        }
-        switch mukChiPaResult.gameResult {
-        case .draw:
-            break
-        default:
-            print("\(turnOwner)의 턴입니다.")
-        }
+        turnOwner = judgeTurnOwner(gameResult: mukChiPaResult.gameResult, turnOwner: turnOwner)
+        printGameResult(gameResult: mukChiPaResult.gameResult, turnOwner: turnOwner)
        
     }
     if mukChiPaResult.isExit == true {
         return
     }
     print("\(turnOwner)의 승리!")
+}
+
+func printGameResult(gameResult: GameResult, turnOwner: PlayerType) {
+    if gameResult == .draw {
+        return
+    }
+    print("\(turnOwner)의 턴입니다.")
+}
+
+func judgeTurnOwner(gameResult: GameResult, turnOwner: PlayerType) -> PlayerType {
+    switch (gameResult, turnOwner) {
+    case (.win, .computer) :
+        return .user
+    case (.lose, .user) :
+        return .computer
+    default:
+        return turnOwner
+    }
 }
 
 func playMukChiPa() -> (GameResult, Bool) {
@@ -93,18 +100,18 @@ func playMukChiPa() -> (GameResult, Bool) {
     guard let userInput = receiveVaildInput(gameType: .mukChiPa) else {
         return (.win, isExit)
     }
+    if userInput == "0" {
+        isExit = true
+        return (.draw, isExit)
+    }
+
     guard let userHand = MukChiPa(rawValue: userInput) else {
         return (.win, isExit)
     }
     guard let computerHand = MukChiPa(rawValue: makeRandomNumber()) else {
         return (.win, isExit)
     }
-
-    if userInput == "0" {
-        isExit = true
-        return (.win, isExit)
-    }
-
+    
     gameResult = judgeMukChiPa(userHand, computerHand)
     
     return(gameResult, isExit)
@@ -134,6 +141,10 @@ func playRockPaperScissors() -> (GameResult, Bool)  {
     guard let userInput = receiveVaildInput(gameType: .rockPaperScissors) else {
         return (.win, isExit)
     }
+    if userInput == "0" {
+        isExit = true
+        return (.win, isExit)
+    }
     guard let userHand = RockScissorsPaper(rawValue: userInput) else {
         return (.win, isExit)
     }
@@ -142,10 +153,7 @@ func playRockPaperScissors() -> (GameResult, Bool)  {
     }
     var gameResult: GameResult
     
-    if userInput == "0" {
-        isExit = true
-        return (.win, isExit)
-    }
+
 
     gameResult = judgeRockPaperScissors(userHand, computerHand)
     
