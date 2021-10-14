@@ -71,9 +71,12 @@ func playGame() {
     }
     
     if mukChiPaResult == .exit {
+        print(mukChiPaResult.description)
         return
     }
-    print("\(turnOwner)의 승리!")
+    print("\(turnOwner)의 승리!\n게임종료")
+    
+    
 }
 
 func printGameResult(gameResult: GameResult, turnOwner: PlayerType) {
