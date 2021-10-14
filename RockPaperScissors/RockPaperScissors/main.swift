@@ -33,7 +33,7 @@ var shouldContinue: Bool = true
 
 // MARK: - 사용자 입력
 
-func printStartMessage() {
+func printTurnGameMessage() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
@@ -60,7 +60,7 @@ func inputTurnGameSign() -> String {
     var isValidInput: Bool = false
     var playerInput = String()
     repeat {
-        printStartMessage()
+        printTurnGameMessage()
         if let input = validatedInput() {
             playerInput = input
             isValidInput = true
@@ -144,11 +144,17 @@ func playTurnGame() {
     } while shouldContinue
 }
 
+// MARK: - Step2
+
+func printMainGameMessage() {
+    print("[\(gameTurn) 턴] 묵(1), 찌(2), 빠(3)!<종료: 0> : ", terminator: "")
+}
+
 func inputMainGameSign() -> String {
     var isValidInput: Bool = false
     var playerInput = String()
     repeat {
-        printStartMessage()
+        printMainGameMessage()
         if let input = validatedInput() {
             playerInput = input
             isValidInput = true
