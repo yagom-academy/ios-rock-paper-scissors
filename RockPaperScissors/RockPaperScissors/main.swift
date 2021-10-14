@@ -119,7 +119,7 @@ func printInputError() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func printGameResult(gameResult: GameResult) {
+func printGameResult(gameResult: GameResult?) {
     switch gameResult {
     case .userWin:
         print("이겼습니다!")
@@ -127,6 +127,8 @@ func printGameResult(gameResult: GameResult) {
         print("졌습니다!")
     case .draw:
         print("비겼습니다!")
+    default:
+        print("컴퓨터가 판단할 수 없습니다")
     }
 }
 
@@ -134,25 +136,26 @@ func printGameOver() {
     print("게임 종료")
 }
 
-func playGame() {
+func playRockPaperScissorsGame() -> GameResult? {
     printMenu()
     let userInput = getUserInput()
     let validationResult = isValid(userInput: userInput)
+    var gameResult: GameResult?
     
     switch validationResult {
     case .invalid:
         printInputError()
-        playGame()
+        gameResult = playRockPaperScissorsGame()
     case .valid(0):
         printGameOver()
+        return nil
     case .valid(let userInput):
         let (userSign, computerSign) = generatePlayersSign(userInput: userInput)
-        let gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
+        gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
         printGameResult(gameResult: gameResult)
-        (gameResult == .draw) ? playGame() : printGameOver()
+        gameResult = (gameResult == .draw) ? playRockPaperScissorsGame() : (gameResult)
     }
+    return gameResult
 }
-
-playGame()
 
 
