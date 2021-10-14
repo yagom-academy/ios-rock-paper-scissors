@@ -35,9 +35,23 @@ enum GameResult: String {
 }
 
 /// 에러를 방지하기 위해 특정 값으로 초기화
-var playerCard: Card = Card.scissors
+var playerCard: Card? = nil
 /// 에러를 방지하기 위해 특정 값으로 초기화
 var gameResult: GameResult = GameResult.lose
+
+var inputString: String = ""
+
+func startProgram() {
+    receiveValidPlayerInput()
+    if inputString.isEmpty == false {
+        assignPlayerCardIfValidated(with: inputString)
+    }
+    if playerCard != nil {
+        startGame()
+    }
+}
+
+startProgram()
 
 func receiveValidPlayerInput() {
     let programTerminator = "0"
@@ -48,28 +62,29 @@ func receiveValidPlayerInput() {
         return
     }
     
-    assignPlayerCard(with: playerInputString)
+    inputString = playerInputString
 }
 
-func assignPlayerCard(with playerInputString: String) {
+func assignPlayerCardIfValidated(with playerInputString: String) {
     guard let playerInputNumber = Int(playerInputString),
           let cardFromInputNumber = Card.changeNumberToCard(number: playerInputNumber) else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        receiveValidPlayerInput()
+        /// 잘못된 입력 처리 시 전역변수 초기화
+        inputString = ""
+        startProgram()
         return
     }
     
     playerCard = cardFromInputNumber
-    startGame()
 }
 
 func startGame() {
-    
     guard let computerCard: Card = createRandomCard() else {
         print("오류 - 컴퓨터 패 생성 실패")
         return
     }
     print(computerCard)
+    
     comparePlayerCard(with: computerCard)
     printGameResult(of: gameResult)
 }
@@ -84,14 +99,19 @@ func createRandomCard() -> Card? {
 func printGameResult(of gameResult: GameResult) {
     if gameResult == .draw {
         print(gameResult.rawValue)
-        receiveValidPlayerInput()
+        startProgram()
         return
     }
+    
     print(gameResult.rawValue)
 }
 
 func comparePlayerCard(with computerCard: Card){
-    let cardForPlayerToWin = playerCard.checkCardForPlayerToWin()
+    guard let cardForPlayerToWin = playerCard?.checkCardForPlayerToWin() else {
+        print("에러 - playerCard에 패가 할당되지 않음")
+        return
+    }
+    
     if playerCard == computerCard {
         gameResult = .draw
     } else if cardForPlayerToWin == computerCard {
@@ -99,6 +119,6 @@ func comparePlayerCard(with computerCard: Card){
     } else {
         gameResult = .lose
     }
+    /// 잘못된 입력값을 한 번 이상 입력한 경우, 승패 출력 후 다시 startGame 함수가 실행되지 않도록 전역변수를 초기화
+    playerCard = nil
 }
-
-receiveValidPlayerInput()
