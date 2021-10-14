@@ -14,6 +14,12 @@ enum RockScissorsPaper: Int {
     case paper = 3
 }
 
+enum MukJjiBba: Int {
+    case muk = 1
+    case jji = 2
+    case bba = 3
+}
+
 enum Errorcase: Error {
     case invalidInput
 }
@@ -31,7 +37,7 @@ enum GameMenu: String {
     case second = "묵(1), 찌(2), 빠(3)! <종료 : 0> : "
 }
 
-func runFirstGame() {
+func runRockScissorsPaper() {
     print(GameMenu.first.rawValue, terminator: "")
     
     let userInput = readLine()
@@ -44,7 +50,7 @@ func runFirstGame() {
             try compareRockScissorsPaper(generateRandomNumber(), to: convertUserInputType(input: userInput))
         default:
             print(GameMessage.error.rawValue)
-            runFirstGame()
+            runRockScissorsPaper()
         }
     } catch {
         print(GameMessage.error.rawValue)
@@ -57,7 +63,7 @@ func generateRandomNumber() -> Int {
     rockScissorsPaper.append(RockScissorsPaper.rock.rawValue)
     rockScissorsPaper.append(RockScissorsPaper.paper.rawValue)
     
-    rockScissorsPaper.shuffle()
+//    rockScissorsPaper.shuffle()
     
     return rockScissorsPaper[0]
 }
@@ -81,46 +87,80 @@ func compareRockScissorsPaper(_ computerValue: Int, to userInputValue: Int) {
     
     if subtractionValue == 0 {
         print(GameMessage.draw.rawValue)
-        runFirstGame()
+        runRockScissorsPaper()
     }
     
     switch subtractionValue {
     case 1, -2:
         print(GameMessage.win.rawValue)
-        turn = "사용자 턴"
-        runSecondGame()
+        turn = "사용자"
+        runMukJjiBba(turn)
     case -1, 2:
         print(GameMessage.lose.rawValue)
-        turn = "컴퓨터 턴"
-        runSecondGame()
+        turn = "컴퓨터"
+        runMukJjiBba(turn)
     default:
         break
     }
 }
 
 func switchTurn() -> String {
-    if turn == "사용자 턴" {
-        turn = "컴퓨터 턴"
-    } else if turn == "컴퓨터 턴" {
-        turn = "사용자 턴"
+    if turn == "사용자" {
+        turn = "컴퓨터"
+    } else if turn == "컴퓨터" {
+        turn = "사용자"
     }
 
     return turn
 }
 
-func runSecondGame() {
-    print("[\(turn)]", GameMenu.second.rawValue, terminator: "")
+func runMukJjiBba(_ input: String) {
+    print("[\(turn) 턴]", GameMenu.second.rawValue, terminator: "")
     
     let userInput = readLine()
     
-    switch userInput {
-    case "0":
-        print(GameMessage.end.rawValue)
-    case "1", "2", "3":
-        print("게임진행")
-    default:
+    do {
+        switch userInput {
+        case "0":
+            print(GameMessage.end.rawValue)
+        case "1", "2", "3":
+            try compareMukJjiBba(generateRandomNumber(), to: convertUserInputType(input: userInput))
+        default:
+            print(GameMessage.error.rawValue)
+        }
+    } catch {
         print(GameMessage.error.rawValue)
+    }
+    
+}
+
+func compareMukJjiBba(_ computerValue: Int, to userInputValue: Int) {
+    guard let computerData = MukJjiBba(rawValue: computerValue) else {
+        return
+    }
+    
+    guard let userData = MukJjiBba(rawValue: userInputValue) else {
+        return
+    }
+    
+    switch (computerData, userData) {
+    case (.muk, .jji), (.jji, .bba), (.bba, .muk):
+        let input = switchTurn()
+        
+        print("\(input)의 턴입니다.")
+        
+        runMukJjiBba(input)
+    case (.muk, .bba), (.jji, .muk), (.bba, .jji):
+        let input = turn
+        
+        print("\(input)의 턴입니다.")
+        
+        runMukJjiBba(input)
+    case (.muk, .muk), (.jji, .jji), (.bba, .bba):
+        print("\(turn)의 승리!")
+        print(GameMessage.end.rawValue)
+        return
     }
 }
 
-runFirstGame()
+runRockScissorsPaper()
