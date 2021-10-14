@@ -3,6 +3,8 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 //
+import Foundation
+
 enum RockPaperScissors: Int, CaseIterable {
     case scissor = 1
     case rock = 2
@@ -17,19 +19,19 @@ enum GameError: Error {
 
 func getUserInput() throws -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
-    guard let userInput = readLine(), let userInputNumber = Int(userInput) else {
+    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: ""),
+          let userInputNumber = Int(userInput) else {
         throw GameError.invalidValueError
     }
     return userInputNumber
 }
 
-func generateRandomNumber() throws -> Int {
+func showComputerHand() throws -> Int {
     let handsOfComputer: [Int] = RockPaperScissors.allCases.map({ $0.rawValue })
     
     guard let handOfComputer = handsOfComputer.randomElement() else {
         throw GameError.emptyValueError
     }
-    
     return handOfComputer
 }
 
@@ -72,7 +74,6 @@ func chooseGamePlaying(handOfUser: Int, handOfComputer: Int) throws {
 }
 
 func isRestartGame(handOfUser: Int, handOfComputer: Int) throws -> Bool {
-    
     if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
         return true
     } else if (0...3).contains(handOfUser) {
@@ -84,21 +85,23 @@ func isRestartGame(handOfUser: Int, handOfComputer: Int) throws -> Bool {
 }
 
 func startGame() {
-    var isRestart: Bool = false
+    var needToRestart: Bool = false
+    
     do {
         let handOfUser = try getUserInput()
-        let handOfComputer = try generateRandomNumber()
+        let handOfComputer = try showComputerHand()
         
-        isRestart = try isRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
+        needToRestart = try isRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
     } catch GameError.invalidValueError {
         print("잘못된 입력입니다. 다시 시도해주세요.")
+        needToRestart = true
     } catch GameError.emptyValueError {
         print("값이 비었습니다.")
     } catch {
         print(error)
     }
     
-    if isRestart {
+    if needToRestart {
         startGame()
     }
 }
