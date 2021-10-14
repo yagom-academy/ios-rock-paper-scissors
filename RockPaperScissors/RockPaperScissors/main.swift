@@ -31,17 +31,23 @@ enum HandGameResult: String {
     case draw = "비겼습니다!\n"
 }
 
-func startRockPaperSiccorsGame() {
-    guard let userHand = handleInputException(for: receiveUserManualInput()) else {
+func startMukjipaGame() {
+    guard let rockPaperSiccorsGamewinner = startRockPaperSiccorsGame() else {
         return
+    }
+}
+
+func startRockPaperSiccorsGame() -> HandGameResult? {
+    guard let userHand = receiveUserHand() else {
+        return nil
     }
     let computerHand = generateRandomHand()
     let gameResult = checkGameResult(by: userHand, computerHand: computerHand)
     printMessage(of: gameResult)
     if gameResult == .draw {
-        startRockPaperSiccorsGame()
-    }else {
-        //묵찌빠 게임 시작 함수
+        return startRockPaperSiccorsGame()
+    } else {
+        return gameResult
     }
 }
 
@@ -66,13 +72,18 @@ func receiveUserManualInput() -> (userHand: HandGameHand?, exceptionMessage: Han
     return (userHandResult, statusMessage)
 }
 
-func handleInputException(for userInput: (userHand: HandGameHand?,
-                                          exceptionMessage: HandGameExceptionMessage?)) -> HandGameHand? {
+func receiveUserHand() -> HandGameHand? {
+    guard let userInput = handleInputException(for: receiveUserManualInput()) else {
+        return nil
+    }
+    return userInput
+}
+
+func handleInputException(for userInput: (userHand: HandGameHand?, exceptionMessage: HandGameExceptionMessage?)) -> HandGameHand? {
     switch userInput.exceptionMessage {
     case .wrongInput:
         printMessage(of: HandGameExceptionMessage.wrongInput)
-        startRockPaperSiccorsGame()
-        return nil
+        return receiveUserHand()
     case .endGame:
         printMessage(of: HandGameExceptionMessage.endGame)
         return nil
@@ -81,22 +92,23 @@ func handleInputException(for userInput: (userHand: HandGameHand?,
     }
     guard let userHand = userInput.userHand else {
         printMessage(of: HandGameExceptionMessage.unknownError)
-        return nil
+        return receiveUserHand()
     }
     return userHand
 }
 
 func generateRandomHand() -> HandGameHand {
     let randomIndex = Int.random(in: 0..<HandGameHand.allCases.count)
+    print("컴퓨터 : ", HandGameHand.allCases[randomIndex])
     return HandGameHand.allCases[randomIndex]
 }
 
 func checkGameResult(by userHand: HandGameHand, computerHand: HandGameHand) -> HandGameResult {
     if userHand == computerHand {
         return .draw
-    } else if userHand == .paper, computerHand == .rock ||
-                userHand == .rock, computerHand == .siccors ||
-                userHand == .siccors, computerHand == .paper {
+    } else if (userHand == .paper && computerHand == .rock) ||
+                (userHand == .rock && computerHand == .siccors) ||
+                (userHand == .siccors && computerHand == .paper) {
         return .user
     } else {
         return .computer
@@ -107,4 +119,4 @@ func printMessage<T: RawRepresentable>(of message: T) {
     print(message.rawValue, terminator: "")
 }
 
-startRockPaperSiccorsGame()
+startMukjipaGame()
