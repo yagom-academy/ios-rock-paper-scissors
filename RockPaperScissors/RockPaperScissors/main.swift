@@ -20,6 +20,11 @@ enum Message: String, CustomStringConvertible {
     }
 }
 
+enum GameMode {
+    case ScissorsRockPaperGame
+    case RockScissorsPaper
+}
+
 enum PlayerOption: CaseIterable {
     case quit
     case scissor
@@ -32,12 +37,17 @@ enum PlayerOption: CaseIterable {
 }
 
 struct GameJudgment {
-    func isRestartable(_ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
-        if playerHand == opponentHand {
+    func isRestartable(mode: GameMode, _ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
+        let isHandSame = playerHand == opponentHand
+        switch (mode, isHandSame) {
+        case (.ScissorsRockPaperGame, true):
             print(Message.gameDraw)
             return true
+        case (.RockScissorsPaper, false):
+            return true
+        default:
+            return false
         }
-        return false
     }
     
     func isPlayerWin(_ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
@@ -58,6 +68,8 @@ struct GameJudgment {
             return false
         }
     }
+    
+    func isWrongInput(playerHand: PlayerOption?) -> Bool { playerHand == nil }
 }
 
 struct ScissorsRockPaperGame {
@@ -71,7 +83,7 @@ struct ScissorsRockPaperGame {
             computerHand = PlayerOption.randomHand
             print(Message.start, terminator: "")
             playerHand = recieveUserInput()
-        } while gameJudgment.isRestartable(playerHand, computerHand) || isWrongInput(playerHand: playerHand)
+        } while gameJudgment.isRestartable(mode: .ScissorsRockPaperGame,playerHand, computerHand) || gameJudgment.isWrongInput(playerHand: playerHand)
         
         guard playerHand != .quit else {
             print(Message.gameEnd)
@@ -95,8 +107,7 @@ struct ScissorsRockPaperGame {
             return nil
         }
     }
-    
-    private func isWrongInput(playerHand: PlayerOption?) -> Bool { playerHand == nil }
+
 }
 
 struct RockScissorsPaper {
@@ -113,25 +124,35 @@ struct RockScissorsPaper {
         guard userTurn != nil else {
             return
         }
-        print("[\(firstTurn)의 턴] \(Message.startRockScissorsPaper)", terminator: "")
-        let computerHand: PlayerOption = PlayerOption.randomHand
-        guard let playerHand = recieveUserInput() else {
-            startGame()
-            return
-        }
+        
+        var playerHand: PlayerOption?
+        var computerHand: PlayerOption
+        var isContinued = false
+        repeat {
+            computerHand = PlayerOption.randomHand
+            changeTurn(when: isContinued, playerHand, computerHand)
+            print("[\(firstTurn)의 턴] \(Message.startRockScissorsPaper)", terminator: "")
+            playerHand = recieveUserInput()
+            if playerHand == .quit { break }
+            isContinued = true
+        } while gameJudgment.isRestartable(mode: .RockScissorsPaper, playerHand, computerHand) || gameJudgment.isWrongInput(playerHand: playerHand)
         guard playerHand != .quit else {
             print(Message.gameEnd)
-            return
-        }
-        guard gameJudgment.isRestartable(playerHand, computerHand) else {
-            userTurn = gameJudgment.isPlayerWin(playerHand, computerHand)
-            print("\(firstTurn)의 턴입니다.")
-            startGame()
             return
         }
         printGameResult(when: userTurn)
     }
     
+    mutating func changeTurn(when isContinued: Bool, _ playerHand: PlayerOption?, _ computerHand: PlayerOption) {
+        guard isContinued else { return }
+        if playerHand == nil {
+            userTurn = false
+        } else if isContinued {
+            userTurn = gameJudgment.isPlayerWin(playerHand, computerHand)
+            print("\(firstTurn)의 턴입니다.")
+        }
+    }
+
     private func recieveUserInput(_ userInput: String? = readLine()) -> PlayerOption? {
         switch userInput {
         case "0":
@@ -156,5 +177,6 @@ struct RockScissorsPaper {
         }
     }
 }
+
 var rockPaperScissors = RockScissorsPaper()
 rockPaperScissors.startGame()
