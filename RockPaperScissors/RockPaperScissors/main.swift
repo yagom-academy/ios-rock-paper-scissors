@@ -13,13 +13,6 @@ enum Result: CustomStringConvertible {
     case exit
 }
 
-enum Choice: Int {
-    case scissors = 1
-    case rock = 2
-    case paper = 3
-    case exit = 0
-}
-
 enum Player: CustomStringConvertible {
     var description: String {
         switch self {
@@ -37,11 +30,18 @@ enum ErrorMessage: Error {
 }
 
 struct RockPaperScissorsGame {
+    private enum Choice: Int {
+        case scissors = 1
+        case rock = 2
+        case paper = 3
+        case exit = 0
+    }
+    
     private var generatedChoiceOfComputer: Int {
         return Int.random(in: 1...3)
     }
     
-    func startGame() {
+    func startRockPaperScissors() {
         selectUserChoice()
     }
     
