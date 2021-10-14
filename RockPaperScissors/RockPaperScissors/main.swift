@@ -3,15 +3,12 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 //
-enum RockPaperScissors: Int {
+enum RockPaperScissors: Int, CaseIterable {
     case scissor = 1
     case rock = 2
     case paper = 3
-    
-    var assignedValue : Int {
-        return self.rawValue
-    }
 }
+
 enum GameError: Error {
     case InvalidValueError
 }
@@ -25,11 +22,10 @@ func getUserInput() throws -> Int {
 }
 
 func generateRandomNumber() -> Int {
-    var handsOfComputer: [RockPaperScissors] = [.scissor,.rock,.paper]
-    let randomIndex = 0
+    var handsOfComputer: [Int] = RockPaperScissors.allCases.map({ $0.rawValue })
     
     handsOfComputer.shuffle()
-    var handOfComputer = handsOfComputer[randomIndex].assignedValue
+    let handOfComputer: Int = handsOfComputer.removeFirst()
     
     return handOfComputer
 }
@@ -40,7 +36,7 @@ func playGame(handOfUser: Int, handOfComputer: Int) {
                                                                 .paper: .rock]
     
     guard let definedValue = RockPaperScissors(rawValue: handOfUser) ,
-          let matchedWin = pointToWin[definedValue]?.assignedValue else {
+          let matchedWin = pointToWin[definedValue]?.rawValue else {
         return
     }
     if matchedWin == handOfComputer {
