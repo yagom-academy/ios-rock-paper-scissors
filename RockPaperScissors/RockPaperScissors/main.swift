@@ -6,17 +6,17 @@
 
 // MARK: - Enums
 enum Message {
-    static let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-    static let exit: String = "게임 종료"
-    static let menuUserTurn: String = "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
-    static let menuComputerTurn: String = "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
-    static let draw: String = "비겼습니다!"
-    static let win: String = "이겼습니다!"
-    static let lose: String = "졌습니다!"
-    static let userWin: String = "사용자의 승리!"
-    static let computerWin: String = "컴퓨터의 승리!"
-    static let userTurn: String = "사용자의 턴입니다"
-    static let computerTurn: String = "컴퓨터의 턴입니다"
+    static let menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    static let exit = "게임 종료"
+    static let menuUserTurn = "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let menuComputerTurn = "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let draw = "비겼습니다!"
+    static let userWin = "이겼습니다!"
+    static let computerWin = "졌습니다!"
+    static let userFinalWin = "사용자의 승리!"
+    static let computerFinalWin = "컴퓨터의 승리!"
+    static let userTurn = "사용자의 턴입니다"
+    static let computerTurn = "컴퓨터의 턴입니다"
 }
 
 enum GameResult: CustomStringConvertible {
@@ -24,16 +24,16 @@ enum GameResult: CustomStringConvertible {
         switch self {
         case .draw:
             return Message.draw
-        case .win:
-            return Message.win
-        case .lose:
-            return Message.lose
+        case .userWin:
+            return Message.userWin
+        case .computerWin:
+            return Message.computerWin
         }
     }
     
     case draw
-    case win
-    case lose
+    case userWin
+    case computerWin
 }
 
 enum WhoseTurn: CustomStringConvertible {
@@ -118,9 +118,9 @@ func judgeGameResult(_ input: ExpectedHand) -> GameResult {
     if computerHand == input {
         return .draw
     } else if computerHand < input {
-        return .win
+        return .userWin
     } else {
-        return .lose
+        return .computerWin
     }
 }
 
@@ -139,10 +139,10 @@ func runProgram() {
         case .draw:
             print(gameResult)
             runProgram()
-        case .win:
+        case .userWin:
             print(gameResult)
             try runMukChiBa(.userTurn)
-        case .lose:
+        case .computerWin:
             print(gameResult)
             try runMukChiBa(.computerTurn)
         }
@@ -172,15 +172,15 @@ func runMukChiBa(_ whoseTurn: WhoseTurn) throws {
         
         switch gameResult {
         case .draw where whoseTurn == .userTurn:
-            print(Message.userWin)
+            print(Message.userFinalWin)
             print(Message.exit)
         case .draw where whoseTurn == .computerTurn:
-            print(Message.computerWin)
+            print(Message.computerFinalWin)
             print(Message.exit)
-        case .win:
+        case .userWin:
             print(WhoseTurn.userTurn)
             try runMukChiBa(.userTurn)
-        case .lose:
+        case .computerWin:
             print(WhoseTurn.computerTurn)
             try runMukChiBa(.computerTurn)
         case .draw:
