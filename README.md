@@ -10,7 +10,7 @@
 
 ## 플로우 차트
 
-![](https://github.com/ICS-Asan/ios-rock-paper-scissors/blob/step1/FlowChart.png)
+![](https://github.com/ICS-Asan/ios-rock-paper-scissors/blob/step2/FlowChart.png)
 - step1
   - 게임 문구 출력
   - 컴퓨터의 패 할당
