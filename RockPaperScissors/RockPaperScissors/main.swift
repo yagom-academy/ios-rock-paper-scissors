@@ -68,6 +68,11 @@ enum GameResult {
     case draw
 }
 
+enum Game {
+    case rockPaperScissors
+    case mukJjiPpa(prevResult: GameResult)
+}
+
 enum Validity {
     case invalid
     case valid(userInput: Int)
@@ -124,8 +129,14 @@ func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
     }
 }
 
-func printMenu() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+func printGameMenu(gameType: Game) {
+    switch gameType {
+    case .rockPaperScissors:
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    case .mukJjiPpa(let prevResult):
+        let prevWinner = (prevResult == .userWin) ? "사용자" : "컴퓨터"
+        print("[\(prevWinner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    }
 }
 
 func printInputError() {
@@ -150,7 +161,7 @@ func printGameOver() {
 }
 
 func playRockPaperScissorsGame() -> GameResult? {
-    printMenu()
+    printGameMenu(gameType: .rockPaperScissors)
     let userInput = getUserInput()
     let validationResult = isValid(userInput: userInput)
     var gameResult: GameResult?
@@ -170,5 +181,3 @@ func playRockPaperScissorsGame() -> GameResult? {
     }
     return gameResult
 }
-
-
