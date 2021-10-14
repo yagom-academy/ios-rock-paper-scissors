@@ -62,23 +62,22 @@ func playGame() {
         turnOwner = .computer
     }
     
-    var mukChiPaResult: (gameResult: GameResult, isExit: Bool ) = (.win, false)
-    while mukChiPaResult.gameResult == .win || mukChiPaResult.gameResult == .lose
-          , mukChiPaResult.isExit == false {
+    var mukChiPaResult: GameResult = .win
+    while mukChiPaResult == .win || mukChiPaResult == .lose {
         printTurnOwner(turnOwner: turnOwner)
         mukChiPaResult = playMukChiPa()
-        turnOwner = judgeTurnOwner(gameResult: mukChiPaResult.gameResult, turnOwner: turnOwner)
-        printGameResult(gameResult: mukChiPaResult.gameResult, turnOwner: turnOwner)
+        turnOwner = judgeTurnOwner(gameResult: mukChiPaResult, turnOwner: turnOwner)
+        printGameResult(gameResult: mukChiPaResult, turnOwner: turnOwner)
     }
     
-    if mukChiPaResult.isExit == true {
+    if mukChiPaResult == .exit {
         return
     }
     print("\(turnOwner)의 승리!")
 }
 
 func printGameResult(gameResult: GameResult, turnOwner: PlayerType) {
-    if gameResult == .draw {
+    if gameResult == .draw || gameResult == .exit {
         return
     }
     print("\(turnOwner)의 턴입니다.")
@@ -95,28 +94,25 @@ func judgeTurnOwner(gameResult: GameResult, turnOwner: PlayerType) -> PlayerType
     }
 }
 
-func playMukChiPa() -> (GameResult, Bool) {
+func playMukChiPa() -> GameResult {
     var gameResult: GameResult
-    var isExit = false
     
     guard let userInput = receiveVaildInput(gameType: .mukChiPa) else {
-        return (.win, isExit)
+        return .win
     }
     if userInput == "0" {
-        isExit = true
-        return (.draw, isExit)
+        return .exit
     }
-
     guard let userHand = MukChiPa(rawValue: userInput) else {
-        return (.win, isExit)
+        return .win
     }
     guard let computerHand = MukChiPa(rawValue: makeRandomNumber()) else {
-        return (.win, isExit)
+        return .win
     }
     
     gameResult = judgeMukChiPa(userHand, computerHand)
     
-    return(gameResult, isExit)
+    return gameResult
 }
 
 func printTurnOwner(turnOwner: PlayerType) {
