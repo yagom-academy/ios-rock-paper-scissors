@@ -6,76 +6,89 @@
 
 import Foundation
 
+enum RockScissorsPaper: Int {
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+}
+
+enum Errorcase: Error {
+    case invalidInput
+}
+
+enum GameMessage: String {
+    case error = "잘못된 입력입니다. 다시 시도해주세요."
+    case win = "이겼습니다!"
+    case lose = "졌습니다!"
+    case draw = "비겼습니다!"
+    case end = "게임종료"
+}
+
+enum GameMenu: String {
+    case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+}
+
 func runGame() {
-    printGameMenu()
+    print(GameMenu.menu.rawValue, terminator: "")
     
     let userInput = readLine()
-    
-    switch userInput {
-    case "0":
-        printEndMessage()
-    case "1", "2", "3":
-        compareRockScissorsPaper(generateRandomNumber(), to: convertUserInputType(input: userInput))
-    default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        runGame()
+   
+    do {
+        switch userInput {
+        case "0":
+            print(GameMessage.end.rawValue)
+        case "1", "2", "3":
+            try compareRockScissorsPaper(generateRandomNumber(), to: convertUserInputType(input: userInput))
+        default:
+            print(GameMessage.error.rawValue)
+            runGame()
+        }
+    } catch {
+        print(GameMessage.error.rawValue)
     }
 }
 
-func printGameMenu() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-}
-
-func printEndMessage() {
-    print("게임종료")
-}
-
 func generateRandomNumber() -> Int {
-    let scissors = 1
-    let rock = 2
-    let paper = 3
-    
     var rockScissorsPaper = [Int]()
-    rockScissorsPaper.append(scissors)
-    rockScissorsPaper.append(rock)
-    rockScissorsPaper.append(paper)
+    rockScissorsPaper.append(RockScissorsPaper.scissors.rawValue)
+    rockScissorsPaper.append(RockScissorsPaper.rock.rawValue)
+    rockScissorsPaper.append(RockScissorsPaper.paper.rawValue)
     
     rockScissorsPaper.shuffle()
     
     return rockScissorsPaper[0]
 }
 
-func convertUserInputType(input: String?) -> Int {
+func convertUserInputType(input: String?) throws -> Int {
     var stringTypeUserInput = ""
-    var intTypeUserInput = 0
 
     if let userInput = input {
         stringTypeUserInput = userInput
     }
     
-    if let integer = Int(stringTypeUserInput) {
-        intTypeUserInput = integer
+    guard let integer = Int(stringTypeUserInput) else {
+        throw Errorcase.invalidInput
     }
 
-    return intTypeUserInput
+    return integer
 }
 
 func compareRockScissorsPaper(_ computerValue: Int, to userInputValue: Int) {
     let subtractionValue = userInputValue - computerValue
     
     if subtractionValue == 0 {
-        print("비겼습니다!")
+        print(GameMessage.draw.rawValue)
         runGame()
     }
     
     switch subtractionValue {
     case 1, -2:
-        print("이겼습니다!")
-        printEndMessage()
+        print(GameMessage.win.rawValue)
+        print(GameMessage.end.rawValue)
         return
     case -1, 2:
-        print("졌습니다!")
-        printEndMessage()
+        print(GameMessage.lose.rawValue)
+        print(GameMessage.end.rawValue)
         return
     default:
         break
