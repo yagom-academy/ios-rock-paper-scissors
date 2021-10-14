@@ -9,6 +9,7 @@ import Foundation
 
 enum HandGameMessage: String {
     case rockPaperSiccorsManual = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    case mukjipaManual = "묵(1), 찌(2), 빠(3)! <종료 : 0> : "
 }
 
 enum HandGameExceptionMessage: String {
@@ -46,16 +47,23 @@ enum TurnMessage: String {
     case nobody = "[누구의 턴도 아닙니다.]"
 }
 
+enum GameMode {
+    case rockPaperSiccors
+    case mukjipa
+}
+
 func startMukjipaGame() {
     guard let rockPaperSiccorsGameWinner = startRockPaperSiccorsGame() else {
-        printMessage(of: HandGameExceptionMessage.unknownError)
         return
     }
     printMessage(of: rockPaperSiccorsGameWinner.turnMessage)
+    guard let userHand = receiveUserHand(of: .mukjipa) else {
+        return
+    }
 }
 
 func startRockPaperSiccorsGame() -> HandGameResult? {
-    guard let userHand = receiveUserHand() else {
+    guard let userHand = receiveUserHand(of: .rockPaperSiccors) else {
         return nil
     }
     let computerHand = generateRandomHand()
@@ -68,20 +76,21 @@ func startRockPaperSiccorsGame() -> HandGameResult? {
     }
 }
 
-func receiveUserManualInput() -> (userHand: HandGameHand?, exceptionMessage: HandGameExceptionMessage?) {
+func receiveUserManualInput(of gameMode: GameMode) -> (userHand: HandGameHand?, exceptionMessage: HandGameExceptionMessage?) {
     var statusMessage: HandGameExceptionMessage?
     var userHandResult: HandGameHand?
-    printMessage(of: HandGameMessage.rockPaperSiccorsManual)
+    printMessage(of: gameMode == .rockPaperSiccors ?
+                    HandGameMessage.rockPaperSiccorsManual : HandGameMessage.mukjipaManual)
     let userInput = readLine()?.replacingOccurrences(of: " ", with: "")
-    
-    switch userInput {
-    case "1":
+
+    switch (userInput,gameMode) {
+    case ("1", .rockPaperSiccors), ("2", .mukjipa):
         userHandResult = .siccors
-    case "2":
+    case ("2", .rockPaperSiccors), ("1", .mukjipa):
         userHandResult = .rock
-    case "3":
+    case ("3", .rockPaperSiccors), ("3", .mukjipa):
         userHandResult = .paper
-    case "0":
+    case ("0", .rockPaperSiccors), ("0", .mukjipa):
         statusMessage = .endGame
     default:
         statusMessage = .wrongInput
@@ -89,18 +98,18 @@ func receiveUserManualInput() -> (userHand: HandGameHand?, exceptionMessage: Han
     return (userHandResult, statusMessage)
 }
 
-func receiveUserHand() -> HandGameHand? {
-    guard let userInput = handleInputException(for: receiveUserManualInput()) else {
+func receiveUserHand(of gameMode: GameMode) -> HandGameHand? {
+    guard let userHand = handleInputException(for: receiveUserManualInput(of: gameMode), of: gameMode) else {
         return nil
     }
-    return userInput
+    return userHand
 }
 
-func handleInputException(for userInput: (userHand: HandGameHand?, exceptionMessage: HandGameExceptionMessage?)) -> HandGameHand? {
+func handleInputException(for userInput: (userHand: HandGameHand?, exceptionMessage: HandGameExceptionMessage?), of gameMode: GameMode) -> HandGameHand? {
     switch userInput.exceptionMessage {
     case .wrongInput:
         printMessage(of: HandGameExceptionMessage.wrongInput)
-        return receiveUserHand()
+        return receiveUserHand(of: gameMode)
     case .endGame:
         printMessage(of: HandGameExceptionMessage.endGame)
         return nil
@@ -109,7 +118,7 @@ func handleInputException(for userInput: (userHand: HandGameHand?, exceptionMess
     }
     guard let userHand = userInput.userHand else {
         printMessage(of: HandGameExceptionMessage.unknownError)
-        return receiveUserHand()
+        return receiveUserHand(of: gameMode)
     }
     return userHand
 }
