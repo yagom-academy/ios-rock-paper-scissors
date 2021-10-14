@@ -28,7 +28,7 @@ enum InputError: Error {
 
 var computerSign: RockScissorsPaperSign = .paper
 var playerSign: RockScissorsPaperSign = .paper
-var gameWinner: Winner = .none
+var gameTurn: Winner = .none
 var shouldContinue: Bool = true
 
 // MARK: - 사용자 입력
@@ -96,20 +96,20 @@ func setPlayerSign(input: String) {
 func judgeWinner() {
     switch playerSign {
     case .rock where computerSign == .scissors:
-        gameWinner = .player
+        gameTurn = .player
     case .scissors where computerSign == .paper:
-        gameWinner = .player
+        gameTurn = .player
     case .paper where computerSign == .rock:
-        gameWinner = .player
+        gameTurn = .player
     case computerSign:
-        gameWinner = .none
+        gameTurn = .none
     default:
-        gameWinner = .computer
+        gameTurn = .computer
     }
 }
 
 func printGameResult() {
-    switch gameWinner {
+    switch gameTurn {
     case .computer:
         print("졌습니다!")
     case .player:
@@ -120,7 +120,7 @@ func printGameResult() {
 }
 
 func setShouldContinue() {
-    if gameWinner == .none {
+    if gameTurn == .none {
         shouldContinue = true
     } else {
         shouldContinue = false
