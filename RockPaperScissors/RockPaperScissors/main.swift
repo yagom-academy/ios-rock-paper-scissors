@@ -10,6 +10,7 @@ enum Player {
     case computer
     case user
 }
+
 enum GameNotice: String {
     case getInput = "가위(1), 바위(2), 보(3)! <종료 : 0>"
     case wrongInput = "잘못된 입력입니다. 다시 시도해주세요."
