@@ -105,13 +105,10 @@ struct RockScissorsPaper {
     var firstTurn: String {
         if userTurn == true {
             return "사용자"
-        } else if userTurn == false {
-            return "컴퓨터"
-        } else {
-            return ""
         }
+        return "컴퓨터"
     }
-
+    
     mutating func startGame() {
         guard userTurn != nil else {
             return
@@ -135,16 +132,7 @@ struct RockScissorsPaper {
         printGameResult(when: userTurn)
     }
     
-    private func printGameResult(when userTurn: Bool?) {
-        if userTurn == true {
-            print("사용자의 승리!")
-        } else {
-            print("컴퓨터의 승리!")
-        }
-    }
-    private func isWrongInput(playerHand: PlayerOption?) -> Bool { playerHand == nil }
-    
-    func recieveUserInput(_ userInput: String? = readLine()) -> PlayerOption? {
+    private func recieveUserInput(_ userInput: String? = readLine()) -> PlayerOption? {
         switch userInput {
         case "0":
             return .quit
@@ -157,6 +145,14 @@ struct RockScissorsPaper {
         default:
             print(Message.wrongInput)
             return nil
+        }
+    }
+    
+    private func printGameResult(when userTurn: Bool?) {
+        if userTurn == true {
+            print("사용자의 승리!")
+        } else {
+            print("컴퓨터의 승리!")
         }
     }
 }
