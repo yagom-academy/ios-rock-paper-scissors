@@ -166,4 +166,13 @@ func inputMainGameSign() -> String {
     return playerInput
 }
 
-
+func swapRockAndScissors(from input: String) -> String {
+    switch input {
+    case "1":
+        return "2"
+    case "2":
+        return "1"
+    default:
+        return input
+    }
+}
