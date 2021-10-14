@@ -113,6 +113,9 @@ struct RockScissorsPaper {
     }
 
     mutating func startGame() {
+        guard userTurn != nil else {
+            return
+        }
         print("[\(firstTurn)의 턴] \(Message.startRockScissorsPaper)", terminator: "")
         let computerHand: PlayerOption = PlayerOption.randomHand
         guard let playerHand = recieveUserInput() else {
