@@ -24,7 +24,7 @@ enum Player: CustomStringConvertible {
         case .computer : return "컴퓨터"
         case .user : return "사용자"
         case .nobody: return "nobody"
-      }
+        }
     }
 }
 
@@ -116,12 +116,16 @@ struct RockPaperScissorsGame {
         case .exit:
             printResult = .exit
         }
-        print(printResult.description)
+        print(printResult)
     }
 }
 
 
 struct MukChiPaGame {
+    init() {
+        turn = Player.nobody
+    }
+
     private enum MukChiPaChoice: Int {
         case muk = 1
         case chi = 2
@@ -133,7 +137,7 @@ struct MukChiPaGame {
         return Int.random(in: 1...3)
     }
     
-    private var turn: Player = Player.nobody
+    private var turn: Player
     
     private func receiveInput() throws -> String {
            guard let input = readLine() else {
@@ -195,15 +199,17 @@ struct MukChiPaGame {
     }
     
     private mutating func printGameTurn(gamePlayer: Player) {
-        var printPlayer: Player
+        var turnPlayer: Player
         switch gamePlayer {
         case .user:
-            printPlayer = .user
+            turnPlayer = .user
         case .computer:
-            printPlayer = .computer
+            turnPlayer = .computer
+        case .nobody:
+            return
         }
-        print("\(printPlayer)의 턴입니다")
-        turn = printPlayer
+        print("\(turnPlayer)의 턴입니다")
+        turn = turnPlayer
     }
 }
 
