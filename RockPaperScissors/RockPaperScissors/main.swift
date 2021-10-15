@@ -27,20 +27,28 @@ enum GameType {
     case mukChiPa
 }
 
-enum PlayerType: String {
+enum Player: String {
     case user = "사용자"
     case computer = "컴퓨터"
+    mutating func changeTurn() {
+        switch self {
+        case .computer:
+            self = .user
+        case .user:
+            self = .computer
+        }
+    }
 }
 
 enum Result: CustomStringConvertible {
     var description: String {
         switch self {
         case .win:
-            return "이겼습니다."
+            return "이겼습니다!"
         case .lose:
-            return "졌습니다."
+            return "졌습니다!"
         case .draw:
-            return "비겼습니다."
+            return "비겼습니다!"
         case .exit:
             return "게임종료"
         case .none:
@@ -54,9 +62,16 @@ enum Result: CustomStringConvertible {
     case none
 }
 
+enum MukChiPaResult {
+    case win
+    case changeTurn
+    case maintainTurn
+    case exit
+}
+
 func playGame() {
     var rockPaperScissorsResult: Result = .draw
-    var turnOwner: PlayerType = .user
+    var turnOwner: Player = .user
     while rockPaperScissorsResult == .draw {
         rockPaperScissorsResult = playRockPaperScissors()
         
@@ -68,40 +83,36 @@ func playGame() {
         turnOwner = .computer
     }
     
-    var mukChiPaResult: Result = .win
+    var mukChiPaResult: MukChiPaResult = .maintainTurn
     
-    while mukChiPaResult == .win || mukChiPaResult == .lose {
-        printTurnOwner(turnOwner: turnOwner)
+    while mukChiPaResult == .changeTurn || mukChiPaResult == .maintainTurn {
+        mukChiPaResult = playMukChiPa(turnOwner: turnOwner)
         
-        mukChiPaResult = playMukChiPa()
-        
-        turnOwner = judgeTurnOwner(gameResult: mukChiPaResult, turnOwner: turnOwner)
+        turnOwner = judgeTurnOwner(mukChiPaResult: mukChiPaResult, turnOwner: turnOwner)
         
         printTurnOwner(of: mukChiPaResult, turnOwner: turnOwner)
     }
     
     if mukChiPaResult == .exit {
-        print(mukChiPaResult.description)
-        
+        print("게임종료")
         return
     }
     print("\(turnOwner.rawValue)의 승리!\n게임종료")
 }
 
-func printTurnOwner(of gameResult: Result, turnOwner: PlayerType) {
-    if gameResult == .draw || gameResult == .exit {
-        
+func printTurnOwner(of gameResult: MukChiPaResult, turnOwner: Player) {
+    if gameResult == .win {
         return
     }
     print("\(turnOwner.rawValue)의 턴입니다.")
 }
 
-func judgeTurnOwner(gameResult: Result, turnOwner: PlayerType) -> PlayerType {
-    switch (gameResult, turnOwner) {
-    case (.win, .computer) :
-        return .user
-    case (.lose, .user) :
-        return .computer
+func judgeTurnOwner(mukChiPaResult: MukChiPaResult, turnOwner: Player) -> Player {
+    var turnOwner = turnOwner
+    switch mukChiPaResult {
+    case .changeTurn :
+        turnOwner.changeTurn()
+        return turnOwner
     default:
         return turnOwner
     }
@@ -116,7 +127,8 @@ func makeValidHand(input: String) throws -> Hand {
     return hand
 }
 
-func playMukChiPa() -> Result {
+func playMukChiPa(turnOwner: Player) -> MukChiPaResult {
+    printTurnOwner(turnOwner: turnOwner)
     let userInput = receiveVaildInput(gameType: .mukChiPa)
     var gameResult: Result = .none
     if userInput == "0" {
@@ -132,10 +144,27 @@ func playMukChiPa() -> Result {
         print("입력이 잘못 되었습니다.")
     }
     
-    return gameResult
+    let mukChiPaResult = judgeMukChiPa(gameResult: gameResult, turnOwner: turnOwner)
+    
+    return mukChiPaResult
 }
 
-func printTurnOwner(turnOwner: PlayerType) {
+func judgeMukChiPa(gameResult: Result, turnOwner: Player) -> MukChiPaResult {
+    switch (gameResult, turnOwner) {
+    case (.win, .computer) :
+        return .changeTurn
+    case (.lose, .user) :
+        return .changeTurn
+    case (.win, .user):
+        return .maintainTurn
+    case (.lose, .computer):
+        return .maintainTurn
+    default:
+        return .win
+    }
+}
+
+func printTurnOwner(turnOwner: Player) {
     print("[\(turnOwner.rawValue) 턴] ", terminator: "")
 }
 
