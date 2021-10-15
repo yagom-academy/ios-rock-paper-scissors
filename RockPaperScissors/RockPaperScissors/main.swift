@@ -16,9 +16,9 @@ enum Option {
     static let list = ["0", "1", "2", "3"]
 }
 
-enum Winner {
-    case computer
-    case player
+enum Winner: String {
+    case computer = "컴퓨터"
+    case player = "사용자"
     case none
 }
 
@@ -148,7 +148,7 @@ func playTurnGame() {
 // MARK: - Step2
 
 func printMainGameMessage() {
-    print("[\(gameTurn) 턴] 묵(1), 찌(2), 빠(3)!<종료: 0> : ", terminator: "")
+    print("[\(gameTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)!<종료: 0> : ", terminator: "")
 }
 
 func inputMainGameSign() -> String {
@@ -186,9 +186,9 @@ func judgeMainGameWinner() {
 
 func printMainGameResult() {
     if playerSign == computerSign {
-        print("\(mainGameWinner)의 승리!")
+        print("\(mainGameWinner.rawValue)의 승리!")
     } else {
-        print("\(gameTurn)의 턴입니다")
+        print("\(gameTurn.rawValue)의 턴입니다")
     }
 }
 
