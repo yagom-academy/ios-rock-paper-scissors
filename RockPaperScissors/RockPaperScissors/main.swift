@@ -47,17 +47,38 @@ enum GameNotice {
             print("사용자의 턴입니다")
         }
     }
+    
+    static func printResultOfScissorsRockPaper(matchResult: MatchResult) {
+        switch matchResult {
+        case .computerWins:
+            print("졌습니다!")
+        case .userWins:
+            print("이겼습니다!")
+        case .draw:
+            print("비겼습니다!")
+        default:
+            break
+        }
+    }
+    
+    static func printWinner(winner: Player) {
+        switch winner {
+        case .computer:
+            print("컴퓨터의 승리!")
+        case .user:
+            print("사용자의 승리!")
+        default:
+            break
+        }
+    }
+        
 }
 
-enum MatchResult: String {
-    case computerWins = "졌습니다."
-    case userWins = "이겼습니다."
-    case draw = "비겼습니다."
+enum MatchResult {
+    case computerWins
+    case userWins
+    case draw
     case stop
-    
-    func printResult() {
-        print(self.rawValue)
-    }
 }
 
 enum PlayerOption {
@@ -126,7 +147,7 @@ func playRockScissorsPaper(firstTurn: Player) {
         //컴퓨터 패 결정
         //승패 결정
         //턴 변경
-        //턴 출력
+        GameNotice.printCurrentTurn(currentTurn: currentTurn)
     
     }
     //승리자 출력
@@ -177,7 +198,7 @@ func doScissorsRockPaper() -> MatchResult {
     }
     
     let matchResult = doMatchInScissorsRockPaper(between: computersHand, and: usersHand)
-    matchResult.printResult()
+    GameNotice.printResultOfScissorsRockPaper(matchResult: matchResult)
     return matchResult
 }
 
