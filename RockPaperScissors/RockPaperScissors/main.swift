@@ -22,8 +22,15 @@ enum Winner: String {
     case none
 }
 
-enum InputError: Error {
+enum InputError: Error, CustomStringConvertible {
     case invalidInput
+    
+    var description: String {
+        switch self {
+        case .invalidInput:
+            return "잘못된 입력입니다.다시 시도해주세요."
+        }
+    }
 }
 
 var computerSign: RockScissorsPaperSign = .paper
@@ -50,7 +57,7 @@ func validatedInput() -> String? {
         let playerInput = try receivePlayerInput()
         return playerInput
     } catch InputError.invalidInput {
-        print("잘못된 입력입니다.다시 시도해주세요.")
+        print(InputError.invalidInput.description)
     } catch {
         print(error)
     }
