@@ -27,6 +27,7 @@ func startGame() {
     var needToRestart: Bool = false
     
     do {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
         guard let handOfUser = try getUserInput() else {
             return
         }
@@ -48,12 +49,10 @@ func startGame() {
 }
 
 func getUserInput() throws -> RockPaperScissors? {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
     guard let userInput = readLine()?.replacingOccurrences(of: " ", with: ""),
           let userInputNumber = Int(userInput) else {
         throw GameError.invalidValueError
     }
-    
     let exitGame = 0
     
     if userInputNumber == exitGame {
@@ -80,13 +79,20 @@ func needToRestartGame(handOfUser: RockPaperScissors, handOfComputer: RockPaperS
     if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
         return true
     } else {
-        let myturn:Gamer
+        var currentTurn:Gamer?
         while true {
-        myturn = try determineGameResult(handOfUser: handOfUser, handOfComputer: handOfComputer,myturn: myturn)
-        //묵찌빠
+        currentTurn = try determineGameResult(handOfUser: handOfUser,
+                                              handOfComputer: handOfComputer,
+                                              currentTurn: currentTurn)
+            print("[\(String(describing: currentTurn?.rawValue)) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> ",terminator: "")
+        getMukJjiBbaHand()
         }
         return false
     }
+}
+
+func getMukJjiBbaHand() {
+    
 }
 
 func isDraw(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) -> Bool {
@@ -97,17 +103,15 @@ func isDraw(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) ->
     return false
 }
 
-func assingnedTurn(whoseTurn: Bool) -> Gamer {
-    if whoseTurn {
-        print("이겼습니다.")
+func assignTurn(winOfGame: Bool) -> Gamer {
+    if winOfGame {
         return .user
     } else {
-        print("졌습니다.")
         return .computer
     }
 }
 
-func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors, myturn: Gamer?) throws -> Gamer {
+func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors, currentTurn: Gamer?) throws -> Gamer {
     let pointToWin: [RockPaperScissors: RockPaperScissors] = [.scissor: .paper,
                                                                 .rock: .scissor,
                                                                 .paper: .rock]
@@ -116,11 +120,11 @@ func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPape
         throw GameError.unmatchedError
     }
     
-    if var myturn = myturn {
-        let winner: Bool = matchedWin == handOfComputer
-        
-        myturn = assingnedTurn(whoseTurn: winner)
-        return myturn
+    if var currentTurn = currentTurn {
+        let winOfGame: Bool = matchedWin == handOfComputer
+        winOfGame ? print("이겼습니다.") : print("졌습니다.")
+        currentTurn = assignTurn(winOfGame: winOfGame)
+        return currentTurn
     } else {
         return .user
     }
