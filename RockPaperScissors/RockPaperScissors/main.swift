@@ -39,6 +39,14 @@ enum GameNotice {
         }
     }
     
+    static func printCurrentTurn(currentTurn: Player) {
+        switch currentTurn {
+        case .computer:
+            print("컴퓨터의 턴입니다")
+        default:
+            print("사용자의 턴입니다")
+        }
+    }
 }
 
 enum MatchResult: String {
@@ -104,6 +112,21 @@ func runGame() {
     let (firstTurn, userWannaExit) = decideFirstTurn()
     
     guard userWannaExit == false else { return }
+}
+
+func decidePlayerOption(currentTurn: inout Player) -> PlayerOption {
+    var isValidateOption = false
+    var playerOption: PlayerOption = .none
+    
+    while isValidateOption == false {
+        GameNotice.printRockScissorsPaper(turn: currentTurn)
+        (playerOption, isValidateOption) = receiveUsersInput()
+        if isValidateOption == true { break }
+        currentTurn = Player.computer
+        GameNotice.printCurrentTurn(currentTurn: currentTurn)
+    }
+    
+    return playerOption
 }
 
 func decideFirstTurn() -> (Player, Bool) {
