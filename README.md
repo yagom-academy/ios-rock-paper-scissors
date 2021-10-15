@@ -25,8 +25,6 @@
 
 ---
 
-## [STEP 1]
-
 ### 고민했던 점
 
 1. 재귀 함수
@@ -39,20 +37,18 @@
     
     ```swift
     func startGame() {
-        var isRestart: Bool = false
-        let userInputNumber =  inputUserData()
-    
-        generateRandomNumber()
-        isRestart = isRestartGame(inputNumber: userInputNumber)
+        var needToRestart: Bool = false
+     
+        needToRestart = try needToRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
         
-        if isRestart {
+        if needToRestart {
             startGame()
         }
     }
     ```
     
 
-1. optional
+2. optional
     
     입력값을 받을 때, 숫자가 아닌 값이거나 `readline()`시에 EOF 입력이 된 경우에 `guard`문을 사용하여 optional binding을 하였습니다.
     
@@ -62,8 +58,8 @@
         }
     ```
     
-2. randomNumber 생성 방법
-처음에는 [random.Int](http://random.int/) 방식으로 랜덤숫자를 생성하는 generateRandomNumber()를 구성하고 싶었으나, 다른 방식인 shuffle()을 이용함으로써 새롭게 구성해보았습니다.
+3. randomNumber 생성 방법
+    처음에는 [random.Int](http://random.int/) 방식으로 랜덤숫자를 생성하는 generateRandomNumber()를 구성하고 싶었으나, 다른 방식인 shuffle()을 이용함으로써 새롭게 구성해보았습니다.
     
     ```swift
     func generateRandomNumber() {
@@ -75,8 +71,11 @@
     }
     ```
     
-3. enum 사용
-프로젝트에서 가위,바위,보를 숫자로 입력받기 때문에, 처음에는 generateRandomNumber() 함수에서 computerNumbers 배열에 `[1,2,3]`을 각각 할당해주었습니다. 하지만, 가독성이 떨어진다고 판단되어 열거형 enum을 사용하여 다음과 같이 구성했습니다.
+4. Enumeration
+
+    프로젝트에서 가위,바위,보를 숫자로 입력받기 때문에, 처음에는 `getComputerHand()` 함수에서 computerNumbers 배열에 `[1,2,3]`을 각각 할당해주었습니다. 
+    
+    하지만, 가독성이 떨어진다고 판단되어 열거형 enum을 사용하여 다음과 같이 구성했습니다.
     
     ```swift
     enum RockPaperScissors: Int {
@@ -87,8 +86,20 @@
     var computerNumbers: [RockPaperScissors] = [.scissor,.rock,.paper]
     ```
     
+    추가로 열거형에서 CaseIterable 프로토콜을 채택하면 열거형의 case들을 하나의 배열로 반환할 수 있음을 알게되었습니다. 아래 코드로 최종 수정 하였습니다. 
+    
+    더 나아가 고차함수를 이용해 해당 열거형의 rawValue 값도 가져와 사용할 수 있겠네요 :)
+    
+    ```swift
+    let handsOfComputer: [ShapesOfHand] = ShapesOfHand.allCases
+    ```
+    
 4. if 와 switch 문의 사용
-저희는 유저의 숫자를 입력받아 처리를 할 때 if문을 쓰지않고 switch문을 사용해주었습니다. 이유인 즉슨, if문의 경우에는 속도에 있습니다. 비록 간단한 프로젝트이기에 속도에서 큰 차이를 보이지않을 수 있으나, if의 경우에는 조건문이 초반에 있을 수록 빠르고, 후반부에 있을 수록 느립니다. 반면 switch문은 차이가 있을 지언정 그 차이가 if문 만큼 심하지 않습니다. 결론적으로 ,`if문은 사용자가 자주 사용하는 기능 순서대로 조건문을 구현해주면 성능에 도움이 되고, 여러가지 기능을 유사한 빈도로 사용한다면 switch문을 이용하는 것이 더좋다` 라고 생각이 들어 switch문을 사용하게 되었습니다.
+    저희는 유저의 숫자를 입력받아 처리를 할 때 if문을 쓰지않고 switch문을 사용해주었습니다. 이유인 즉슨, if문의 경우에는 속도에 있습니다. 
+    비록 간단한 프로젝트이기에 속도에서 큰 차이를 보이지않을 수 있으나, if의 경우에는 조건문이 초반에 있을 수록 빠르고, 후반부에 있을 수록 느립니다. 
+    
+    반면 switch문은 차이가 있을 지언정 그 차이가 if문 만큼 심하지 않습니다. 
+    결론적으로 ,`if문은 사용자가 자주 사용하는 기능 순서대로 조건문을 구현해주면 성능에 도움이 되고, 여러가지 기능을 유사한 빈도로 사용한다면 switch문을 이용하는 것이 더좋다` 라고 생각이 들어 switch문을 사용하게 되었습니다.
 
     
     ```swift
@@ -109,3 +120,11 @@
         return isRestart
     }
     ```
+5. Dictionary
+    Dictionary를 이용해서 가위바위보의 승패를 알려주는 로직을 이용했어요. 
+
+    ```swift
+    pointToWin = [.scissor: .paper,.rock: .scissor,.paper: .rock]
+    ```
+
+    key-value값의 속성을 이용해서 key: 사용자의 패, value: 컴퓨터의 패 라고 가정하여 key-value가 일치하는 경우 사용자가 이겼다! 라는 것을 알 수 있게 됩니다.
