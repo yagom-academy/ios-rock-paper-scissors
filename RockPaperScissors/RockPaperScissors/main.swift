@@ -110,14 +110,12 @@ func compareRockScissorsPaper(_ computerValue: Int, to userInputValue: Int) {
     }
 }
 
-func switchTurn() -> String {
+func switchTurn() {
     if turn == "사용자" {
         turn = "컴퓨터"
     } else if turn == "컴퓨터" {
         turn = "사용자"
     }
-
-    return turn
 }
 
 func runMukJjiBba(_ input: String) {
@@ -155,17 +153,15 @@ func compareMukJjiBba(_ computerValue: Int, to userInputValue: Int) {
     
     switch (computerData, userData) {
     case (.muk, .jji), (.jji, .bba), (.bba, .muk):
-        let player = switchTurn()
+        switchTurn()
         
-        print("\(player)의 턴입니다.")
+        print("\(turn)의 턴입니다.")
         
-        runMukJjiBba(player)
+        runMukJjiBba(turn)
     case (.muk, .bba), (.jji, .muk), (.bba, .jji):
-        let player = turn
+        print("\(turn)의 턴입니다.")
         
-        print("\(player)의 턴입니다.")
-        
-        runMukJjiBba(player)
+        runMukJjiBba(turn)
     case (.muk, .muk), (.jji, .jji), (.bba, .bba):
         print("\(turn)의 승리!")
         
