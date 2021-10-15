@@ -29,6 +29,7 @@ enum InputError: Error {
 var computerSign: RockScissorsPaperSign = .paper
 var playerSign: RockScissorsPaperSign = .paper
 var gameTurn: Winner = .none
+var mainGameWinner:Winner = .none
 var shouldContinue: Bool = true
 
 // MARK: - 사용자 입력
@@ -174,5 +175,11 @@ func swapRockAndScissors(from input: String) -> String {
         return "1"
     default:
         return input
+    }
+}
+
+func judgeMainGameWinner() {
+    if playerSign == computerSign {
+        mainGameWinner = gameTurn
     }
 }
