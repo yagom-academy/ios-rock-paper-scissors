@@ -167,6 +167,21 @@ func printGameResult(gameResult: GameResult?) {
     }
 }
 
+func printMukJjiPpaGameResult(gameResult: GameResult) {
+    let winner: String
+    
+    switch gameResult {
+    case .userWin:
+        winner = checkTurn(prevResult: .userWin)
+    case .computerWin:
+        winner = checkTurn(prevResult: .computerWin)
+    case .same:
+        return
+    }
+    
+    print("\(winner)의 턴입니다.")
+}
+
 func printGameOver() {
     print("게임 종료")
 }
@@ -209,7 +224,7 @@ func playMukJjiPpaGame(prevResult: GameResult) -> GameResult? {
     case .valid(let userInput):
         let (userSign, computerSign) = generatePlayersSign(userInput: userInput, gameType: .mukJjiPpa(prevResult: prevResult))
         let currentGameResult = checkWinner(userSign: userSign, computerSign: computerSign)
-        currentGameResult != .same ? print("\(checkTurn(prevResult: currentGameResult))턴 입니다") : ()
+        printMukJjiPpaGameResult(gameResult: currentGameResult)
         let finalGameResult = (currentGameResult == .same) ? (prevResult) : playMukJjiPpaGame(prevResult: currentGameResult)
         return finalGameResult
     }
