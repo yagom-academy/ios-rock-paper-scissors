@@ -90,11 +90,13 @@ extension Player: CustomStringConvertible {
     }
 }
 
+typealias MukChiBaGamePlayer = (player: Player, pick: ScissorsRockPaper)
+
 func startMukChiBaGame(hasTurn: Player?) {
     guard let hasTurnPlayer = hasTurn else {
         return
     }
-
+    
     printMukChiBaMenu(hasTurnPlayer)
     
     do {
@@ -109,16 +111,8 @@ func startMukChiBaGame(hasTurn: Player?) {
         
         let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase()
         
-        let attacker: (player: Player, pick: ScissorsRockPaper)
-        let defender: (player: Player, pick: ScissorsRockPaper)
-        
-        if hasTurnPlayer == .user {
-            attacker = (.user, usersPick)
-            defender = (.computer, computerPick)
-        } else {
-            attacker = (.computer, computerPick)
-            defender = (.user, usersPick)
-        }
+        let attacker: MukChiBaGamePlayer = decideAttackerAndDefender(by: hasTurnPlayer, usersPick: usersPick, computerPick: computerPick).attacker
+        let defender: MukChiBaGamePlayer = decideAttackerAndDefender(by: hasTurnPlayer, usersPick: usersPick, computerPick: computerPick).defender
         
         let gameResult: MukChiBaGameResult = compareMukChiBa(to: attacker.pick, with: defender.pick)
         gameResult.show(player: attacker.player)
@@ -141,6 +135,22 @@ func startMukChiBaGame(hasTurn: Player?) {
     } catch {
         print(error)
     }
+}
+
+func decideAttackerAndDefender(by hasTurnPlayer: Player, usersPick: ScissorsRockPaper, computerPick: ScissorsRockPaper) -> (attacker: MukChiBaGamePlayer, defender: MukChiBaGamePlayer) {
+    
+    let attacker: (player: Player, pick: ScissorsRockPaper)
+    let defender: (player: Player, pick: ScissorsRockPaper)
+    
+    if hasTurnPlayer == .user {
+        attacker = (.user, usersPick)
+        defender = (.computer, computerPick)
+    } else {
+        attacker = (.computer, computerPick)
+        defender = (.user, usersPick)
+    }
+    
+    return (attacker, defender)
 }
 
 func startScissorsRockPaperGame() -> Player? {
