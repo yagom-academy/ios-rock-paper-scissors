@@ -113,6 +113,14 @@ func assignTurn(winOfGame: Bool) -> Gamer {
     }
 }
 
+func assignTurn(winOfGame: Bool, currentTurn: Gamer) -> Gamer {
+    if currentTurn == .computer {
+        return .user
+    } else {
+        return .computer
+    }
+}
+
 func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors, currentTurn: Gamer?) throws -> Gamer {
     let pointToWin: [RockPaperScissors: RockPaperScissors] = [.scissor: .paper,
                                                                 .rock: .scissor,
@@ -121,16 +129,15 @@ func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPape
     guard let matchedWin = pointToWin[handOfUser] else {
         throw GameError.unmatchedError
     }
+    let winOfGame: Bool = matchedWin == handOfComputer
     
-    if var currentTurn = currentTurn {
-        let winOfGame: Bool = matchedWin == handOfComputer
-        winOfGame ? print("이겼습니다.") : print("졌습니다.")
-        currentTurn = assignTurn(winOfGame: winOfGame)
-        return currentTurn
+    if let currentTurn = currentTurn {
+        print("\(currentTurn)의 턴입니다")
+        return assignTurn(winOfGame: winOfGame , currentTurn: currentTurn)
     } else {
-        return .user
+        winOfGame ? print("이겼습니다.") : print("졌습니다.")
+        return assignTurn(winOfGame: winOfGame)
     }
-    
 }
 
 startGame()
