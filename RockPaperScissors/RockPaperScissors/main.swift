@@ -123,9 +123,12 @@ func startMukChiBaGame(hasTurn: Player?) {
         let gameResult: MukChiBaGameResult = compareMukChiBa(to: attacker.pick, with: defender.pick)
         gameResult.show(player: attacker.player)
         
-        if gameResult == .win {
+        guard isAttackerWin(to: gameResult) == false else {
             printGameOver()
-        } else if gameResult == .keepTurn {
+            return
+        }
+        
+        if gameResult == .keepTurn {
             startMukChiBaGame(hasTurn: attacker.player)
         } else {
             startMukChiBaGame(hasTurn: defender.player)
@@ -179,6 +182,10 @@ func startScissorsRockPaperGame() -> Player? {
 
 func isDrawScissorsRockPaperGame(to result: ScissorsRockPaperGameResult) -> Bool {
     return result == .draw
+}
+
+func isAttackerWin(to result: MukChiBaGameResult) -> Bool {
+    return result == .win
 }
 
 func isExitGame(input: Int) -> Bool {
