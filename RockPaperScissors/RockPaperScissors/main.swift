@@ -53,14 +53,8 @@ extension Player: CustomStringConvertible {
     }
 }
 
-let user: Player = .user
-let computer: Player = .computer
-
-var attacker: (player: Player, pick: ScissorsRockPaper)
-var defender: (player: Player, pick: ScissorsRockPaper)
-
-func startMukChiBaGame() {
-    printMukChiBaMenu()
+func startMukChiBaGame(winner: Player) {
+    printMukChiBaMenu(attacker: winner)
 }
 
 func startScissorsRockPaperGame() {
@@ -111,8 +105,8 @@ func printScissorsRockPaperMenu() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
-func printMukChiBaMenu() {
-    print("묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
+func printMukChiBaMenu(attacker: Player) {
+    print("[\(attacker) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
 }
 
 func receiveUserInput() throws -> Int {
@@ -150,3 +144,4 @@ func printGameOver() {
 }
 
 startScissorsRockPaperGame()
+startMukChiBaGame(winner: scissorsRockPaperGameWinner)
