@@ -27,8 +27,8 @@ enum ScissorsRockPaper: Int, CaseIterable {
         }
     }
     
-    static func createRandomCase() -> ScissorsRockPaper? {
-        return ScissorsRockPaper.allCases.randomElement()
+    static func createRandomCase() -> ScissorsRockPaper {
+        return ScissorsRockPaper.allCases.randomElement() ?? .scissors
     }
 }
 
@@ -70,10 +70,7 @@ func startScissorsRockPaperGame() {
         
         let usersPick: ScissorsRockPaper = try convert(into: userInput)
         
-        guard let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase() else {
-            startScissorsRockPaperGame()
-            return
-        }
+        let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase()
         
         let gameResult: ScissorsRockPaperGameResult = compare(to: usersPick, with: computerPick)
         gameResult.show()
