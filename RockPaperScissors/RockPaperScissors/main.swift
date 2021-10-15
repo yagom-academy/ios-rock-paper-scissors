@@ -140,7 +140,7 @@ func generatePlayersSign(userInput: Int, gameType: Game) -> (userSign: Sign, com
     return (userSign, computerSign)
 }
 
-func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
+func checkGameResult(userSign: Sign, computerSign: Sign) -> GameResult {
     if userSign == computerSign.counter {
         return .userWin
     } else if userSign == computerSign {
@@ -150,7 +150,7 @@ func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
     }
 }
 
-func checkTurn(prevResult: GameResult) -> Player? {
+func checkWinner(prevResult: GameResult) -> Player? {
     if prevResult == .userWin {
         return Player.user
     } else if prevResult == .computerWin {
@@ -165,7 +165,7 @@ func printGameMenu(gameType: Game) {
     case .rockPaperScissors:
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     case .mukJjiPpa(let prevResult):
-        guard let player = checkTurn(prevResult: prevResult) else {
+        guard let player = checkWinner(prevResult: prevResult) else {
             return
         }
         print("[\(player) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
@@ -190,7 +190,7 @@ func printGameResult(gameResult: GameResult?) {
 }
 
 func printMukJjiPpaGameResult(gameResult: GameResult) {
-    guard let currentTurn = checkTurn(prevResult: gameResult) else {
+    guard let currentTurn = checkWinner(prevResult: gameResult) else {
         return
     }
     
@@ -216,7 +216,7 @@ func playRockPaperScissorsGame() -> GameResult? {
         return nil
     case .valid(let userInput):
         let (userSign, computerSign) = generatePlayersSign(userInput: userInput, gameType: .rockPaperScissors)
-        gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
+        gameResult = checkGameResult(userSign: userSign, computerSign: computerSign)
         printGameResult(gameResult: gameResult)
         gameResult = (gameResult == .same) ? playRockPaperScissorsGame() : (gameResult)
     }
@@ -238,7 +238,7 @@ func playMukJjiPpaGame(prevResult: GameResult) -> GameResult? {
         return nil
     case .valid(let userInput):
         let (userSign, computerSign) = generatePlayersSign(userInput: userInput, gameType: .mukJjiPpa(prevResult: prevResult))
-        let currentGameResult = checkWinner(userSign: userSign, computerSign: computerSign)
+        let currentGameResult = checkGameResult(userSign: userSign, computerSign: computerSign)
         printMukJjiPpaGameResult(gameResult: currentGameResult)
         let finalGameResult = (currentGameResult == .same) ? (prevResult) : playMukJjiPpaGame(prevResult: currentGameResult)
         return finalGameResult
@@ -246,7 +246,7 @@ func playMukJjiPpaGame(prevResult: GameResult) -> GameResult? {
 }
 
 func printFinalWinner(finalResult: GameResult) {
-    guard let finalWinner = checkTurn(prevResult: finalResult) else {
+    guard let finalWinner = checkWinner(prevResult: finalResult) else {
         return
     }
     
