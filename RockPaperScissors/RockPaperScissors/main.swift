@@ -53,45 +53,49 @@ extension Player: CustomStringConvertible {
     }
 }
 
-func startMukChiBaGame(winner: Player) {
-    printMukChiBaMenu(attacker: winner)
+func startMukChiBaGame(attacker: Player) {
+    printMukChiBaMenu(player: attacker)
 }
 
-func startScissorsRockPaperGame() {
-    printScissorsRockPaperMenu()
+func startScissorsRockPaperGame() -> Player {
+    var isScissorsRockPaperRuning = true
+    var gameResult: ScissorsRockPaperGameResult = .draw
     
-    do {
-        let userInput = try receiveUserInput()
+    while isScissorsRockPaperRuning {
+        printScissorsRockPaperMenu()
         
-        guard isExitGame(input: userInput) == false else {
-            printGameOver()
-            return
+        do {
+            let userInput = try receiveUserInput()
+            
+            guard isExitGame(input: userInput) == false else {
+                printGameOver()
+                break
+            }
+            
+            let usersPick: ScissorsRockPaper = try convert(into: userInput)
+            
+            let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase()
+            
+            gameResult = compare(to: usersPick, with: computerPick)
+            gameResult.show()
+            
+            if isDrawScissorsRockPaperGame(to: gameResult) == false {
+                isScissorsRockPaperRuning = false
+            }
+            
+        } catch ScissorsRockPaperError.wrongInput,
+                ScissorsRockPaperError.notConverted {
+            printErrorMessage()
+        } catch {
+            print(error)
         }
-        
-        let usersPick: ScissorsRockPaper = try convert(into: userInput)
-        
-        let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase()
-        
-        let gameResult: ScissorsRockPaperGameResult = compare(to: usersPick, with: computerPick)
-        gameResult.show()
-                
-        if isDrawScissorsRockPaperGame(to: gameResult) == true {
-            startScissorsRockPaperGame()
-        } else {
-            printGameOver()
-        }
-        
-    } catch ScissorsRockPaperError.wrongInput,
-            ScissorsRockPaperError.notConverted {
-        printErrorMessage()
-        startScissorsRockPaperGame()
-    } catch {
-        print(error)
     }
+    
+    return gameResult == .win ? .user : .computer
 }
 
 func isDrawScissorsRockPaperGame(to result: ScissorsRockPaperGameResult) -> Bool {
-    return result == .draw 
+    return result == .draw
 }
 
 func isExitGame(input: Int) -> Bool {
@@ -102,8 +106,8 @@ func printScissorsRockPaperMenu() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
-func printMukChiBaMenu(attacker: Player) {
-    print("[\(attacker) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
+func printMukChiBaMenu(player: Player) {
+    print("[\(player) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
 }
 
 func receiveUserInput() throws -> Int {
@@ -140,5 +144,5 @@ func printGameOver() {
     print("게임 종료")
 }
 
-startScissorsRockPaperGame()
-startMukChiBaGame(winner: scissorsRockPaperGameWinner)
+let scissorRockPaperWinner: Player = startScissorsRockPaperGame()
+startMukChiBaGame(attacker: scissorRockPaperWinner)
