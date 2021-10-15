@@ -73,7 +73,7 @@ func playGame() {
         
         turnOwner = judgeTurnOwner(gameResult: mukChiPaResult, turnOwner: turnOwner)
         
-        printGameResult(gameResult: mukChiPaResult, turnOwner: turnOwner)
+        printTurnOwner(of: mukChiPaResult, turnOwner: turnOwner)
     }
     
     if mukChiPaResult == .exit {
@@ -84,7 +84,7 @@ func playGame() {
     print("\(turnOwner.rawValue)의 승리!\n게임종료")
 }
 
-func printGameResult(gameResult: Result, turnOwner: PlayerType) {
+func printTurnOwner(of gameResult: Result, turnOwner: PlayerType) {
     if gameResult == .draw || gameResult == .exit {
         
         return
