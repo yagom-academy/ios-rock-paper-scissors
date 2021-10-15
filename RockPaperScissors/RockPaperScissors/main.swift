@@ -43,6 +43,12 @@ enum ScissorsRockPaper: Int, CaseIterable {
     }
 }
 
+enum MukChiBaGameResult: String {
+    case win
+    case changeTurn
+    case keepTurn
+}
+
 enum ScissorsRockPaperGameResult: String {
     case win = "이겼습니다!"
     case lose = "졌습니다!"
@@ -151,6 +157,16 @@ func receiveUserInput() throws -> Int {
     }
     
     return convertedInteger
+}
+
+func compareMukChiBa(to attackerPick: ScissorsRockPaper, with defenderPick: ScissorsRockPaper) -> MukChiBaGameResult {
+    if attackerPick == defenderPick {
+        return .win
+    } else if attackerPick == defenderPick.winCase() {
+        return .keepTurn
+    } else {
+        return .changeTurn
+    }
 }
 
 func compareScissorsRockPaper(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) -> ScissorsRockPaperGameResult {
