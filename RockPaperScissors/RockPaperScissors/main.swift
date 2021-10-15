@@ -31,6 +31,50 @@ enum GameResult : String {
     case draw
 }
 
+func runProgram() {
+    var gameResult: GameResult
+    let shutDown = "0"
+    
+    while true {
+        print(MenuMessage.startGame.rawValue, terminator: "")
+        
+        guard let userInput = receiveInput() else { print(MenuMessage.inputError.rawValue)
+            continue
+        }
+        if userInput == shutDown {
+            print(ResultMessage.gameEnd.rawValue)
+            break
+        }
+        
+        gameResult = startFirstGame(userNumber: userInput)
+        if gameResult == .draw {
+            continue
+        } else {
+            print(ResultMessage.gameEnd.rawValue)
+            break
+        }
+    }
+}
+
+func receiveInput() -> String? {
+    let allowedInputRange = 0...3
+    let userInput = readLine()
+    let inputRangeVerification: Bool = (allowedInputRange.map{ String($0) }).contains(userInput)
+    
+    guard inputRangeVerification else { return nil }
+    return userInput
+}
+
+func startFirstGame(userNumber: String?) -> GameResult {
+    let allowedNumberRange = 1...3
+    let computerNumber = String(Int.random(in: allowedNumberRange))
+    
+    let userHand = convertNumberToHandName(oneNumber: userNumber)
+    let computerHand = convertNumberToHandName(oneNumber: computerNumber)
+    let gameResult = fightHandsGame(userHand: userHand, computerHand: computerHand)
+    return gameResult
+}
+
 func convertNumberToHandName(oneNumber: String?) -> Hand {
     switch oneNumber {
     case "1":
@@ -44,51 +88,7 @@ func convertNumberToHandName(oneNumber: String?) -> Hand {
     }
 }
 
-func receiveInput() -> String? {
-    let allowedInputRange = 0...3
-    let userInput = readLine()
-    let inputRangeVerification: Bool = (allowedInputRange.map{ String($0) }).contains(userInput)
-    
-    guard inputRangeVerification else { return "" }
-    return userInput
-}
-
-func runProgram() {
-    let shutDown = "0"
-    let notAllowedInput = ""
-    var gameResult: GameResult
-    
-    while true {
-        print(MenuMessage.startGame.rawValue, terminator: "")
-        let userInput = receiveInput()
-        if userInput == notAllowedInput {
-            print(MenuMessage.inputError.rawValue)
-            continue
-        } else if userInput == shutDown {
-            print(ResultMessage.gameEnd.rawValue)
-            break
-        }
-        gameResult = startFirstGame(userNumber: userInput)
-        if gameResult == .draw {
-            continue
-        } else {
-            print(ResultMessage.gameEnd.rawValue)
-            break
-        }
-    }
-}
-
-func startFirstGame(userNumber: String?) -> GameResult {
-    let allowedNumberRange = 1...3
-    let computerNumber = String(Int.random(in: allowedNumberRange))
-    
-    let userHand = convertNumberToHandName(oneNumber: userNumber)
-    let computerHand = convertNumberToHandName(oneNumber: computerNumber)
-    let gameResult = fightFirstGame(userHand: userHand, computerHand: computerHand)
-    return gameResult
-}
-
-func fightFirstGame(userHand: Hand, computerHand: Hand) -> GameResult {
+func fightHandsGame(userHand: Hand, computerHand: Hand) -> GameResult {
     switch (userHand, computerHand) {
     case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
         print(ResultMessage.userWin.rawValue)
