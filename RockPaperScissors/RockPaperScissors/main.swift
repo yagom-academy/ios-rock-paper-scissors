@@ -11,12 +11,12 @@ enum Player {
     case user
     case none
     
-    static func switchPlayer(currentTurn: inout Player) {
-        switch currentTurn {
+    mutating func toggle() {
+        switch self {
         case .computer:
-            currentTurn = .user
+            self = .user
         case .user:
-            currentTurn = .computer
+            self = .computer
         default:
             break
         }
@@ -41,13 +41,8 @@ enum GameNotice {
         }
     }
     
-    static func printError(error: GameError) {
-        switch error {
-        case .wrongInput:
-            print("잘못된 입력입니다. 다시 입력해주세요.")
-        case .turnDecisionFail:
-            print("턴 결정에 실패하였습니다.")
-        }
+    static func printWrongInputError() {
+        print("잘못된 입력입니다. 다시 입력해주세요.")
     }
     
     static func printCurrentTurn(currentTurn: Player) {
@@ -129,17 +124,12 @@ enum PlayerOption {
     }
 }
 
-enum GameError: Error {
-    case wrongInput
-    case turnDecisionFail
-}
-
 func runProgram() {
-    runGame()
+    startGame()
     GameNotice.printTheEnd()
 }
 
-func runGame() {
+func startGame() {
     let (firstTurn, userWannaExit) = decideFirstTurn()
     
     guard userWannaExit == false else { return }
@@ -149,29 +139,38 @@ func runGame() {
 
 func playRockScissorsPaper(firstTurn: Player) {
     var currentTurn = firstTurn
-    var playerOption = PlayerOption.none
+    var userOption = PlayerOption.none
     
     while true {
-        playerOption = decidePlayerOption(currentTurn: &currentTurn)
-        if playerOption == PlayerOption.stop { return }
-        let competitorOption = generateRandomHand()
-        if playerOption == competitorOption { break }
-        Player.switchPlayer(currentTurn: &currentTurn)
+        userOption = decideUserOption(currentTurn: &currentTurn)
+        
+        if userOption == PlayerOption.stop { return }
+        
+        let computerOption = generateRandomHand()
+        
+        if userOption == computerOption { break }
+        
+        currentTurn.toggle()
+        
         GameNotice.printCurrentTurn(currentTurn: currentTurn)
     }
     
     GameNotice.printWinner(winner: currentTurn)
 }
 
-func decidePlayerOption(currentTurn: inout Player) -> PlayerOption {
+func decideUserOption(currentTurn: inout Player) -> PlayerOption {
     var isValidateOption = false
     var playerOption: PlayerOption = .none
     
     while isValidateOption == false {
         GameNotice.printRockScissorsPaper(turn: currentTurn)
+        
         (playerOption, isValidateOption) = receiveUsersInput()
+        
         if isValidateOption == true { break }
+        
         currentTurn = Player.computer
+        
         GameNotice.printCurrentTurn(currentTurn: currentTurn)
     }
     
@@ -182,23 +181,23 @@ func decideFirstTurn() -> (Player, Bool) {
     var matchResult: MatchResult
     
     repeat {
-        matchResult = doScissorsRockPaper()
+        matchResult = playScissorsRockPaper()
     } while matchResult == .draw
     
-    let firstTurn = decideWinnerInScissorsRockPaper(from: matchResult)
+    let firstTurn = decideWinnerOfScissorsRockPaper(from: matchResult)
     let userWannaExit = (matchResult == .stop) ? true : false
     
     return (firstTurn, userWannaExit)
 }
 
-func doScissorsRockPaper() -> MatchResult {
+func playScissorsRockPaper() -> MatchResult {
     GameNotice.printScissorsRockPaper()
     
     let computersHand: PlayerOption = generateRandomHand()
     var (usersHand, isValidInput) = receiveUsersInput()
     
     while isValidInput == false {
-        GameNotice.printError(error: .wrongInput)
+        GameNotice.printWrongInputError()
         GameNotice.printScissorsRockPaper()
         (usersHand, isValidInput) = receiveUsersInput()
     }
@@ -207,12 +206,13 @@ func doScissorsRockPaper() -> MatchResult {
         return MatchResult.stop
     }
     
-    let matchResult = doMatchInScissorsRockPaper(between: computersHand, and: usersHand)
+    let matchResult = decideMatchResult(between: computersHand, and: usersHand)
+    
     GameNotice.printResultOfScissorsRockPaper(matchResult: matchResult)
     return matchResult
 }
 
-func decideWinnerInScissorsRockPaper(from matchResult: MatchResult) -> Player {
+func decideWinnerOfScissorsRockPaper(from matchResult: MatchResult) -> Player {
     switch matchResult {
     case .computerWins:
         return .computer
@@ -252,7 +252,7 @@ func verify(userInput: String) -> Bool {
     return (0...3).contains(integerUserInput)
 }
 
-func doMatchInScissorsRockPaper(between computersHand: PlayerOption, and usersHand: PlayerOption) -> MatchResult {
+func decideMatchResult(between computersHand: PlayerOption, and usersHand: PlayerOption) -> MatchResult {
     if computersHand == usersHand {
         return MatchResult.draw
     }
@@ -266,6 +266,5 @@ func doMatchInScissorsRockPaper(between computersHand: PlayerOption, and usersHa
         return MatchResult.draw
     }
 }
-
 
 runProgram()
