@@ -112,6 +112,24 @@ func runGame() {
     let (firstTurn, userWannaExit) = decideFirstTurn()
     
     guard userWannaExit == false else { return }
+    
+    playRockScissorsPaper(firstTurn: firstTurn)
+}
+
+func playRockScissorsPaper(firstTurn: Player) {
+    var currentTurn = firstTurn
+    var playerOption = PlayerOption.none
+    
+    while true {
+        playerOption = decidePlayerOption(currentTurn: &currentTurn)
+        if playerOption == PlayerOption.stop { return }
+        //컴퓨터 패 결정
+        //승패 결정
+        //턴 변경
+        //턴 출력
+    
+    }
+    //승리자 출력
 }
 
 func decidePlayerOption(currentTurn: inout Player) -> PlayerOption {
