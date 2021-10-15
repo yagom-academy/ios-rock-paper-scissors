@@ -6,6 +6,8 @@
 
 import Foundation
 
+var whoseTurn: Player = .user
+
 enum Hand: String {
     case scissors = "1"
     case rock = "2"
@@ -71,7 +73,7 @@ enum MukChiPaResult {
 
 func playGame() {
     var rockPaperScissorsResult: Result = .draw
-    var turnOwner: Player = .user
+    
     while rockPaperScissorsResult == .draw {
         rockPaperScissorsResult = playRockPaperScissors()
         
@@ -80,41 +82,40 @@ func playGame() {
     if rockPaperScissorsResult == .exit {
         return
     } else if rockPaperScissorsResult == .lose {
-        turnOwner = .computer
+        whoseTurn = .computer
     }
     
     var mukChiPaResult: MukChiPaResult = .maintainTurn
     
     while mukChiPaResult == .changeTurn || mukChiPaResult == .maintainTurn {
-        mukChiPaResult = playMukChiPa(turnOwner: turnOwner)
+        mukChiPaResult = playMukChiPa()
         
-        turnOwner = judgeTurnOwner(mukChiPaResult: mukChiPaResult, turnOwner: turnOwner)
+        whoseTurn = judgeTurnOwner(mukChiPaResult: mukChiPaResult)
         
-        printTurnOwner(of: mukChiPaResult, turnOwner: turnOwner)
+        printTurnOwner(of: mukChiPaResult)
     }
     
     if mukChiPaResult == .exit {
         print("게임종료")
         return
     }
-    print("\(turnOwner.rawValue)의 승리!\n게임종료")
+    print("\(whoseTurn.rawValue)의 승리!\n게임종료")
 }
 
-func printTurnOwner(of gameResult: MukChiPaResult, turnOwner: Player) {
+func printTurnOwner(of gameResult: MukChiPaResult) {
     if gameResult == .win {
         return
     }
-    print("\(turnOwner.rawValue)의 턴입니다.")
+    print("\(whoseTurn.rawValue)의 턴입니다.")
 }
 
-func judgeTurnOwner(mukChiPaResult: MukChiPaResult, turnOwner: Player) -> Player {
-    var turnOwner = turnOwner
+func judgeTurnOwner(mukChiPaResult: MukChiPaResult) -> Player {
     switch mukChiPaResult {
     case .changeTurn :
-        turnOwner.changeTurn()
-        return turnOwner
+        whoseTurn.changeTurn()
+        return whoseTurn
     default:
-        return turnOwner
+        return whoseTurn
     }
 }
 
@@ -127,10 +128,10 @@ func makeValidHand(input: String) throws -> Hand {
     return hand
 }
 
-func playMukChiPa(turnOwner: Player) -> MukChiPaResult {
-    
-    let userInput = receiveVaildInput(gameType: .mukChiPa, turnOwner: turnOwner.rawValue)
+func playMukChiPa() -> MukChiPaResult {
+    let userInput = receiveVaildInput(gameType: .mukChiPa)
     var gameResult: Result = .none
+    
     if userInput == "0" {
         return .exit
     }
@@ -140,20 +141,18 @@ func playMukChiPa(turnOwner: Player) -> MukChiPaResult {
         
         userHand.changeToMukChiPa()
         computerHand.changeToMukChiPa()
-        print(userHand)
-        print(computerHand)
         gameResult = judgeRockPaperScissors(userHand, computerHand)
     } catch {
         print("입력이 잘못 되었습니다.")
     }
     
-    let mukChiPaResult = judgeMukChiPa(gameResult: gameResult, turnOwner: turnOwner)
+    let mukChiPaResult = judgeMukChiPa(gameResult: gameResult)
     
     return mukChiPaResult
 }
 
-func judgeMukChiPa(gameResult: Result, turnOwner: Player) -> MukChiPaResult {
-    switch (gameResult, turnOwner) {
+func judgeMukChiPa(gameResult: Result) -> MukChiPaResult {
+    switch (gameResult, whoseTurn) {
     case (.win, .computer) :
         return .changeTurn
     case (.lose, .user) :
@@ -167,9 +166,8 @@ func judgeMukChiPa(gameResult: Result, turnOwner: Player) -> MukChiPaResult {
     }
 }
 
-
 func playRockPaperScissors() -> Result  {
-    let userInput = receiveVaildInput(gameType: .rockPaperScissors, turnOwner: "")
+    let userInput = receiveVaildInput(gameType: .rockPaperScissors)
 
     if userInput == "0" {
         return .exit
@@ -186,12 +184,12 @@ func playRockPaperScissors() -> Result  {
     return gameResult
 }
 
-func receiveVaildInput(gameType: GameType, turnOwner: String) -> String {
+func receiveVaildInput(gameType: GameType) -> String {
     var isInvalid: Bool = true
     var input: String = ""
     
     while isInvalid {
-        printHandChoiceMenu(gameType: gameType, turnOwner: turnOwner)
+        printHandChoiceMenu(gameType: gameType)
         input = receiveInput()
         isInvalid = checkValidInput(of: input)
     }
@@ -212,6 +210,7 @@ func checkValidInput(of input: String) -> Bool {
     case "0", "1", "2", "3":
         return false
     default:
+        whoseTurn = .computer
         printErrorMessage()
         return true
     }
@@ -221,11 +220,11 @@ func printErrorMessage() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func printHandChoiceMenu(gameType: GameType, turnOwner: String){
+func printHandChoiceMenu(gameType: GameType){
     if gameType == .rockPaperScissors {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     } else {
-        print("[\(turnOwner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        print("[\(whoseTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
 }
 
