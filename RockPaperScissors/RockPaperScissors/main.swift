@@ -77,27 +77,29 @@ func showComputerHand() throws -> RockPaperScissors {
 
 func needToRestartGame(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) throws -> Bool {
     if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
+        print("비겼습니다!")
         return true
     } else {
         var currentTurn:Gamer?
         while true {
-        currentTurn = try determineGameResult(handOfUser: handOfUser,
+            currentTurn = try determineGameResult(handOfUser: handOfUser,
                                               handOfComputer: handOfComputer,
                                               currentTurn: currentTurn)
-            print("[\(String(describing: currentTurn?.rawValue)) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> ",terminator: "")
-        getMukJjiBbaHand()
+            
+            print("[\(currentTurn?.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> ",terminator: "")
+            guard let handOfUser = try getUserInput() else {
+                return true
+            }
+            let handOfComputer = try showComputerHand()
+            if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
+                return false
+            }
         }
-        return false
     }
-}
-
-func getMukJjiBbaHand() {
-    
 }
 
 func isDraw(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) -> Bool {
     if handOfUser == handOfComputer {
-        print("비겼습니다!")
         return true
     }
     return false
