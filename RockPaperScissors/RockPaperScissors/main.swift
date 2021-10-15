@@ -28,7 +28,7 @@ enum PlayerType: String {
     case computer = "컴퓨터"
 }
 
-enum GameResult: CustomStringConvertible {
+enum Result: CustomStringConvertible {
     var description: String {
         switch self {
         case .win:
@@ -48,7 +48,7 @@ enum GameResult: CustomStringConvertible {
 }
 
 func playGame() {
-    var rockPaperScissorsResult: GameResult = .draw
+    var rockPaperScissorsResult: Result = .draw
     var turnOwner: PlayerType = .user
     while rockPaperScissorsResult == .draw {
         rockPaperScissorsResult = playRockPaperScissors()
@@ -57,11 +57,12 @@ func playGame() {
     }
     if rockPaperScissorsResult == .exit {
         return
-    } else if rockPaperScissorsResult == .lose {
+    }
+    if rockPaperScissorsResult == .lose {
         turnOwner = .computer
     }
     
-    var mukChiPaResult: GameResult = .win
+    var mukChiPaResult: Result = .win
     
     while mukChiPaResult == .win || mukChiPaResult == .lose {
         printTurnOwner(turnOwner: turnOwner)
@@ -81,7 +82,7 @@ func playGame() {
     print("\(turnOwner.rawValue)의 승리!\n게임종료")
 }
 
-func printGameResult(gameResult: GameResult, turnOwner: PlayerType) {
+func printGameResult(gameResult: Result, turnOwner: PlayerType) {
     if gameResult == .draw || gameResult == .exit {
         
         return
@@ -89,7 +90,7 @@ func printGameResult(gameResult: GameResult, turnOwner: PlayerType) {
     print("\(turnOwner.rawValue)의 턴입니다.")
 }
 
-func judgeTurnOwner(gameResult: GameResult, turnOwner: PlayerType) -> PlayerType {
+func judgeTurnOwner(gameResult: Result, turnOwner: PlayerType) -> PlayerType {
     switch (gameResult, turnOwner) {
     case (.win, .computer) :
         return .user
@@ -100,8 +101,8 @@ func judgeTurnOwner(gameResult: GameResult, turnOwner: PlayerType) -> PlayerType
     }
 }
 
-func playMukChiPa() -> GameResult {
-    var gameResult: GameResult
+func playMukChiPa() -> Result {
+    var gameResult: Result
     
     guard let userInput = receiveVaildInput(gameType: .mukChiPa) else {
         return .win
@@ -125,8 +126,8 @@ func printTurnOwner(turnOwner: PlayerType) {
     print("[\(turnOwner.rawValue) 턴] ", terminator: "")
 }
 
-func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> GameResult {
-    var gameResult: GameResult
+func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> Result {
+    var gameResult: Result
     
     switch (userHand, computerHand) {
     case (.chi, .pa), (.muk, .chi), (.pa, .muk):
@@ -140,7 +141,7 @@ func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> GameResult
     return gameResult
 }
 
-func playRockPaperScissors() -> GameResult  {
+func playRockPaperScissors() -> Result  {
     guard let userInput = receiveVaildInput(gameType: .rockPaperScissors) else {
         return .win
     }
@@ -154,7 +155,7 @@ func playRockPaperScissors() -> GameResult  {
         return .win
 
     }
-    var gameResult: GameResult
+    var gameResult: Result
     
     gameResult = judgeRockPaperScissors(userHand, computerHand)
     
@@ -208,8 +209,8 @@ func makeRandomNumber() -> String{
     return String(Int.random(in: 1...3))
 }
 
-func judgeRockPaperScissors(_ userHand: RockScissorsPaper, _ computerHand: RockScissorsPaper) -> GameResult {
-    var gameResult: GameResult
+func judgeRockPaperScissors(_ userHand: RockScissorsPaper, _ computerHand: RockScissorsPaper) -> Result {
+    var gameResult: Result
     
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
