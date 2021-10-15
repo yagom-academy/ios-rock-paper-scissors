@@ -6,16 +6,20 @@
 
 import Foundation
 
-enum RockScissorsPaper: String {
+enum Hand: String {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
-}
-
-enum MukChiPa: String {
-    case muk = "1"
-    case chi = "2"
-    case pa = "3"
+    mutating func changeToMukChiPa() {
+        switch self {
+        case .scissors:
+            self = .rock
+        case .rock:
+            self = .scissors
+        case .paper:
+            self = .paper
+        }
+    }
 }
 
 enum GameType {
@@ -107,21 +111,23 @@ enum gameError: Error {
     case inValidInput
 }
 
-func makeValidHand(input: String) throws -> MukChiPa {
-    guard let hand = MukChiPa(rawValue: input) else { throw gameError.inValidInput }
+func makeValidHand(input: String) throws -> Hand {
+    guard let hand = Hand(rawValue: input) else { throw gameError.inValidInput }
     return hand
 }
 
 func playMukChiPa() -> Result {
-    let userInput = receiveVaildInput(gameType: .mukChiPa) // 0...3
+    let userInput = receiveVaildInput(gameType: .mukChiPa)
     var gameResult: Result = .none
     if userInput == "0" {
         return .exit
     }
     do {
-        let userHand = try makeValidHand(input: userInput)
-        let computerHand = try makeValidHand(input: makeRandomNumber())
-        gameResult = judgeMukChiPa(userHand, computerHand)
+        var userHand = try makeValidHand(input: userInput)
+        var computerHand = try makeValidHand(input: makeRandomNumber())
+        userHand.changeToMukChiPa()
+        computerHand.changeToMukChiPa()
+        gameResult = judgeRockPaperScissors(userHand, computerHand)
     } catch {
         print("입력이 잘못 되었습니다.")
     }
@@ -133,31 +139,16 @@ func printTurnOwner(turnOwner: PlayerType) {
     print("[\(turnOwner.rawValue) 턴] ", terminator: "")
 }
 
-func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> Result {
-    var gameResult: Result
-    
-    switch (userHand, computerHand) {
-    case (.chi, .pa), (.muk, .chi), (.pa, .muk):
-        gameResult = .win
-    case (.chi, .chi), (.muk, .muk), (.pa, .pa):
-        gameResult = .draw
-    default:
-        gameResult = .lose
-    }
-    
-    return gameResult
-}
-
 func playRockPaperScissors() -> Result  {
     let userInput = receiveVaildInput(gameType: .rockPaperScissors)
 
     if userInput == "0" {
         return .exit
     }
-    guard let userHand = RockScissorsPaper(rawValue: userInput) else {
+    guard let userHand = Hand(rawValue: userInput) else {
         return .win
     }
-    guard let computerHand = RockScissorsPaper(rawValue: makeRandomNumber()) else {
+    guard let computerHand = Hand(rawValue: makeRandomNumber()) else {
         return .win
     }
     
@@ -213,7 +204,7 @@ func makeRandomNumber() -> String{
     return String(Int.random(in: 1...3))
 }
 
-func judgeRockPaperScissors(_ userHand: RockScissorsPaper, _ computerHand: RockScissorsPaper) -> Result {
+func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) -> Result {
     var gameResult: Result
     
     switch (userHand, computerHand) {
