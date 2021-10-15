@@ -6,11 +6,11 @@
 
 import Foundation
 
+var shouldRunGame = true
+
 var validInputRange: ClosedRange<Int> {
     return 0...RockPaperScissors.allCases.count
 }
-
-var shouldRunGame = true
 
 enum Script: String, CustomStringConvertible {
     var description: String {
@@ -31,25 +31,10 @@ enum RockPaperScissorsGameError: Error {
     case choiceOutOfRange
 }
 
-func receiveUserNumber() throws -> Int {
-    guard let input = readLine(), !input.isEmpty else {
-        throw RockPaperScissorsGameError.invalidInput
-    }
-    
-    let filteredInput = input.compactMap { Int(String($0)) }
-    guard filteredInput.count == input.count else {
-        throw RockPaperScissorsGameError.invalidInput
-    }
-    
-    guard filteredInput.count == 1, validInputRange ~= filteredInput[0] else {
-        throw RockPaperScissorsGameError.invalidInput
-    }
-    
-    return filteredInput[0]
-}
-
-func selectComputersChoice() -> Int {
-    return Int.random(in: RockPaperScissors.getRange())
+enum RockPaperScissorsJudgement {
+    case win
+    case lose
+    case draw
 }
 
 enum RockPaperScissors: CaseIterable {
@@ -60,39 +45,6 @@ enum RockPaperScissors: CaseIterable {
     
     static func getRange() -> ClosedRange<Int> {
         return 1...Self.allCases.count
-    }
-}
-
-func matchChoice(with number: Int) throws -> RockPaperScissors {
-    switch number {
-    case 1:
-        return .rock
-    case 2:
-        return .paper
-    case 3:
-        return .scissors
-    default:
-        throw RockPaperScissorsGameError.choiceOutOfRange
-    }
-}
-
-enum RockPaperScissorsJudgement {
-    case win
-    case lose
-    case draw
-}
-
-func gameJudgement(by choice: (user: RockPaperScissors, computer: RockPaperScissors)) -> RockPaperScissorsJudgement {
-    let (user, computer) = choice
-    
-    if (user == computer) {
-        return .draw
-    } else if (user == .paper && computer == .scissors ||
-               user == .rock && computer == .paper ||
-               user == .scissors && computer == .rock) {
-        return .lose
-    } else {
-        return .win
     }
 }
 
@@ -110,13 +62,6 @@ func manageRockPaperScissorsGame() {
     }
     
     print(Script.gameEnd)
-}
-
-func initUserAndComputerChoice(by userInput: Int) throws -> (user: RockPaperScissors, computer: RockPaperScissors) {
-    let computerChoice: RockPaperScissors = try matchChoice(with: selectComputersChoice())
-    let userChoice: RockPaperScissors = try matchChoice(with: userInput)
-    
-    return (userChoice, computerChoice)
 }
 
 func startRockPaperScissorsGame() throws {
@@ -143,6 +88,61 @@ func startRockPaperScissorsGame() throws {
         case .draw:
             print(Script.draw)
         }
+    }
+}
+
+func receiveUserNumber() throws -> Int {
+    guard let input = readLine(), !input.isEmpty else {
+        throw RockPaperScissorsGameError.invalidInput
+    }
+    
+    let filteredInput = input.compactMap { Int(String($0)) }
+    guard filteredInput.count == input.count else {
+        throw RockPaperScissorsGameError.invalidInput
+    }
+    
+    guard filteredInput.count == 1, validInputRange ~= filteredInput[0] else {
+        throw RockPaperScissorsGameError.invalidInput
+    }
+    
+    return filteredInput[0]
+}
+
+func initUserAndComputerChoice(by userInput: Int) throws -> (user: RockPaperScissors, computer: RockPaperScissors) {
+    let computerChoice: RockPaperScissors = try matchChoice(with: selectComputersChoice())
+    let userChoice: RockPaperScissors = try matchChoice(with: userInput)
+    
+    return (userChoice, computerChoice)
+}
+
+func matchChoice(with number: Int) throws -> RockPaperScissors {
+    switch number {
+    case 1:
+        return .rock
+    case 2:
+        return .paper
+    case 3:
+        return .scissors
+    default:
+        throw RockPaperScissorsGameError.choiceOutOfRange
+    }
+}
+
+func selectComputersChoice() -> Int {
+    return Int.random(in: RockPaperScissors.getRange())
+}
+
+func gameJudgement(by choice: (user: RockPaperScissors, computer: RockPaperScissors)) -> RockPaperScissorsJudgement {
+    let (user, computer) = choice
+    
+    if (user == computer) {
+        return .draw
+    } else if (user == .paper && computer == .scissors ||
+               user == .rock && computer == .paper ||
+               user == .scissors && computer == .rock) {
+        return .lose
+    } else {
+        return .win
     }
 }
 
