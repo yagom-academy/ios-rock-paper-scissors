@@ -43,7 +43,7 @@ func runRockScissorsPaper() {
         case "0":
             print(GameMessage.end.rawValue)
         case "1", "2", "3":
-            try compareRockScissorsPaper(generateRandomNumber(), to: convertUserInputType(input: userInput))
+            try compareRockScissorsPaper(generateRockScissorsPaper(), to: convertUserInputType(input: userInput))
         default:
             print(GameMessage.error.rawValue)
             
@@ -54,7 +54,7 @@ func runRockScissorsPaper() {
     }
 }
 
-func generateRandomNumber() -> Int {
+func generateRockScissorsPaper() -> Int {
     var rockScissorsPaper = [Int]()
     rockScissorsPaper.append(RockScissorsPaper.scissors.rawValue)
     rockScissorsPaper.append(RockScissorsPaper.rock.rawValue)
@@ -64,6 +64,18 @@ func generateRandomNumber() -> Int {
     
     return rockScissorsPaper[0]
 }
+
+func generateMukJjiBba() -> Int {
+    var mukJjiBba = [Int]()
+    mukJjiBba.append(MukJjiBba.muk.rawValue)
+    mukJjiBba.append(MukJjiBba.jji.rawValue)
+    mukJjiBba.append(MukJjiBba.bba.rawValue)
+        
+    mukJjiBba.shuffle()
+        
+    return mukJjiBba[0]
+}
+
 
 func convertUserInputType(input: String?) throws -> Int {
     var stringTypeUserInput = ""
@@ -92,39 +104,37 @@ func compareRockScissorsPaper(_ computerValue: Int, to userInputValue: Int) {
     case 1, -2:
         print(GameMessage.win.rawValue)
         
-        let turn = "사용자"
+        let player = "사용자"
         
-        runMukJjiBba(player: turn)
+        runMukJjiBba(turn: player)
     case -1, 2:
         print(GameMessage.lose.rawValue)
         
-        let turn = "컴퓨터"
+        let player = "컴퓨터"
         
-        runMukJjiBba(player: turn)
+        runMukJjiBba(turn: player)
     default:
         break
     }
 }
 
-func runMukJjiBba(player: String) {
-    print("[\(player) 턴]", GameMenu.mukJjiBba.rawValue, terminator: "")
+func runMukJjiBba(turn: String) {
+    print("[\(turn) 턴]", GameMenu.mukJjiBba.rawValue, terminator: "")
     
     let userInput = readLine()
-    
-    var turn = ""
     
     do {
         switch userInput {
         case "0":
             print(GameMessage.end.rawValue)
         case "1", "2", "3":
-            try compareMukJjiBba(generateRandomNumber(), to: convertUserInputType(input: userInput), at: player)
+            try compareMukJjiBba(generateMukJjiBba(), to: convertUserInputType(input: userInput), at: turn)
         default:
             print(GameMessage.error.rawValue)
             
-            turn = "컴퓨터"
+            let player = "컴퓨터"
             
-            runMukJjiBba(player: turn)
+            runMukJjiBba(turn: player)
         }
     } catch {
         print(GameMessage.error.rawValue)
@@ -147,13 +157,13 @@ func compareMukJjiBba(_ computerValue: Int, to userInputValue: Int, at turn: Str
         
         print("\(player)의 턴입니다.")
         
-        runMukJjiBba(player: player)
+        runMukJjiBba(turn: player)
     case (.muk, .bba), (.jji, .muk), (.bba, .jji):
         let player = "사용자"
         
         print("\(player)의 턴입니다.")
         
-        runMukJjiBba(player: player)
+        runMukJjiBba(turn: player)
     case (.muk, .muk), (.jji, .jji), (.bba, .bba):
         print("\(turn)의 승리!")
         
