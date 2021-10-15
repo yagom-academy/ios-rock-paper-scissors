@@ -6,11 +6,11 @@
 
 import Foundation
 
-var possibleInputRange: ClosedRange<Int> {
+var validInputRange: ClosedRange<Int> {
     return 0...RockPaperScissors.allCases.count
 }
 
-var isGameRunning = true
+var shouldRunGame = true
 
 enum Script: String, CustomStringConvertible {
     var description: String {
@@ -19,36 +19,36 @@ enum Script: String, CustomStringConvertible {
     
     case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     case win = "이겼습니다!"
-    case loose = "졌습니다!"
+    case lose = "졌습니다!"
     case draw = "비겼습니다!"
     case gameEnd = "게임 종료"
     case dismissedError = "잘못된 입력입니다. 다시 시도해주세요."
-    case handPoseOutOfRangeError = "가위바위보와 매칭될 수 있는 유효값이 아닙니다."
+    case choiceOutOfRangeError = "가위바위보와 매칭될 수 있는 유효값이 아닙니다."
 }
 
-enum RockPaperScissorsError: Error {
-    case dismissedError
-    case handPoseOutOfRangeError
+enum RockPaperScissorsGameError: Error {
+    case invalidInput
+    case choiceOutOfRange
 }
 
 func receiveUserNumber() throws -> Int {
     guard let input = readLine(), !input.isEmpty else {
-        throw RockPaperScissorsError.dismissedError
+        throw RockPaperScissorsGameError.invalidInput
     }
     
     let filteredInput = input.compactMap { Int(String($0)) }
     guard filteredInput.count == input.count else {
-        throw RockPaperScissorsError.dismissedError
+        throw RockPaperScissorsGameError.invalidInput
     }
     
-    guard filteredInput.count == 1, possibleInputRange ~= filteredInput[0] else {
-        throw RockPaperScissorsError.dismissedError
+    guard filteredInput.count == 1, validInputRange ~= filteredInput[0] else {
+        throw RockPaperScissorsGameError.invalidInput
     }
     
     return filteredInput[0]
 }
 
-func pullComputersHandPose() -> Int {
+func selectComputersChoice() -> Int {
     return Int.random(in: RockPaperScissors.getRange())
 }
 
@@ -63,7 +63,7 @@ enum RockPaperScissors: CaseIterable {
     }
 }
 
-func matchHandPose(with number: Int) throws -> RockPaperScissors {
+func matchChoice(with number: Int) throws -> RockPaperScissors {
     switch number {
     case 1:
         return .rock
@@ -72,38 +72,38 @@ func matchHandPose(with number: Int) throws -> RockPaperScissors {
     case 3:
         return .scissors
     default:
-        throw RockPaperScissorsError.handPoseOutOfRangeError
+        throw RockPaperScissorsGameError.choiceOutOfRange
     }
 }
 
 enum RockPaperScissorsJudgement {
     case win
-    case loose
+    case lose
     case draw
 }
 
-func matchJudgement(by handPoses: (user: RockPaperScissors, computer: RockPaperScissors)) -> RockPaperScissorsJudgement {
-    let (user, computer) = handPoses
+func gameJudgement(by choice: (user: RockPaperScissors, computer: RockPaperScissors)) -> RockPaperScissorsJudgement {
+    let (user, computer) = choice
     
     if (user == computer) {
         return .draw
     } else if (user == .paper && computer == .scissors ||
                user == .rock && computer == .paper ||
                user == .scissors && computer == .rock) {
-        return .loose
+        return .lose
     } else {
         return .win
     }
 }
 
 func manageRockPaperScissorsGame() {
-    while isGameRunning == true {
+    while shouldRunGame {
         do {
             try startRockPaperScissorsGame()
-        } catch RockPaperScissorsError.dismissedError {
+        } catch RockPaperScissorsGameError.invalidInput {
             print(Script.dismissedError)
-        } catch RockPaperScissorsError.handPoseOutOfRangeError {
-            print(Script.handPoseOutOfRangeError)
+        } catch RockPaperScissorsGameError.choiceOutOfRange {
+            print(Script.choiceOutOfRangeError)
         } catch {
             print(error)
         }
@@ -112,34 +112,34 @@ func manageRockPaperScissorsGame() {
     print(Script.gameEnd)
 }
 
-func initUserAndComputerHandPose(by userInput: Int) throws -> (user: RockPaperScissors, computer: RockPaperScissors) {
-    let computerHandPose: RockPaperScissors = try matchHandPose(with: pullComputersHandPose())
-    let userHandPose: RockPaperScissors = try matchHandPose(with: userInput)
+func initUserAndComputerChoice(by userInput: Int) throws -> (user: RockPaperScissors, computer: RockPaperScissors) {
+    let computerChoice: RockPaperScissors = try matchChoice(with: selectComputersChoice())
+    let userChoice: RockPaperScissors = try matchChoice(with: userInput)
     
-    return (userHandPose, computerHandPose)
+    return (userChoice, computerChoice)
 }
 
 func startRockPaperScissorsGame() throws {
-    while isGameRunning {
+    while shouldRunGame {
         print(Script.menu, terminator: "")
         
         let userInput = try receiveUserNumber()
         if userInput == 0 {
-            isGameRunning = false
+            shouldRunGame = false
             break
         }
-    
-        let handPoses = try initUserAndComputerHandPose(by: userInput)
         
-        let gameResult = matchJudgement(by: handPoses)
+        let choices = try initUserAndComputerChoice(by: userInput)
+        
+        let gameResult = gameJudgement(by: choices)
         
         switch gameResult {
         case .win:
             print(Script.win)
-            isGameRunning = false
-        case .loose:
-            print(Script.loose)
-            isGameRunning = false
+            shouldRunGame = false
+        case .lose:
+            print(Script.lose)
+            shouldRunGame = false
         case .draw:
             print(Script.draw)
         }
