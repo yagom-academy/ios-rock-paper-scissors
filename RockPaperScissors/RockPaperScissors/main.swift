@@ -90,17 +90,27 @@ func startMukChiBaGame(hasTurn: Player?) {
         let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase()
         
         let attacker: (player: Player, pick: ScissorsRockPaper)
-        let denfender: (player: Player, pick: ScissorsRockPaper)
+        let defender: (player: Player, pick: ScissorsRockPaper)
         
         if hasTurnPlayer == .user {
             attacker = (.user, usersPick)
-            denfender = (.computer, computerPick)
+            defender = (.computer, computerPick)
         } else {
             attacker = (.computer, computerPick)
-            denfender = (.user, usersPick)
+            defender = (.user, usersPick)
         }
         
-    } catch ScissorsRockPaperError.wrongInput{
+        let gameResult: MukChiBaGameResult = compareMukChiBa(to: attacker.pick, with: defender.pick)
+        if gameResult == .win {
+            print("\(attacker.player)의 승리!")
+        } else if gameResult == .keepTurn {
+            startMukChiBaGame(hasTurn: attacker.player)
+        } else {
+            startMukChiBaGame(hasTurn: defender.player)
+        }
+        
+    } catch ScissorsRockPaperError.wrongInput,
+            ScissorsRockPaperError.notConverted {
         printErrorMessage()
         startMukChiBaGame(hasTurn: .computer)
     } catch {
@@ -206,4 +216,4 @@ func printGameOver() {
 }
 
 let scissorRockPaperWinner: Player? = startScissorsRockPaperGame()
-startMukChiBaGame(scissorRockPaperWinner)
+startMukChiBaGame(hasTurn: scissorRockPaperWinner)
