@@ -111,7 +111,7 @@ func startScissorsRockPaperGame() -> Player? {
             
             let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase()
             
-            gameResult = compare(to: usersPick, with: computerPick)
+            gameResult = compareScissorsRockPaper(to: usersPick, with: computerPick)
             gameResult.show()
             
             if isDrawScissorsRockPaperGame(to: gameResult) == false {
@@ -153,7 +153,7 @@ func receiveUserInput() throws -> Int {
     return convertedInteger
 }
 
-func compare(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) -> ScissorsRockPaperGameResult {
+func compareScissorsRockPaper(to usersPick: ScissorsRockPaper, with computerRandomPick: ScissorsRockPaper) -> ScissorsRockPaperGameResult {
     if usersPick == computerRandomPick {
         return .draw
     } else if usersPick == computerRandomPick.winCase() {
