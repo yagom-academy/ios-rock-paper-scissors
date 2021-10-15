@@ -5,7 +5,7 @@
 //
 import Foundation
 
-enum RockPaperScissors: Int, CaseIterable {
+enum ShapesOfHand: Int, CaseIterable {
     case scissor = 1
     case rock = 2
     case paper = 3
@@ -55,7 +55,7 @@ func startGame() {
     }
 }
 
-func gameMukJjiBba(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors, currentTurn: Gamer?) {
+func gameMukJjiBba(handOfUser: ShapesOfHand, handOfComputer: ShapesOfHand, currentTurn: Gamer?) {
 
     var attackerTurn: Gamer = .user
     var needToRestart: Bool = true
@@ -88,7 +88,7 @@ func gameMukJjiBba(handOfUser: RockPaperScissors, handOfComputer: RockPaperSciss
     }
 }
 
-func needToRestartGame(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) throws -> Bool {
+func needToRestartGame(handOfUser: ShapesOfHand, handOfComputer: ShapesOfHand) throws -> Bool {
     if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
         print(GameResult.draw.rawValue)
         return true
@@ -99,8 +99,8 @@ func needToRestartGame(handOfUser: RockPaperScissors, handOfComputer: RockPaperS
 }
 
 
-func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors, currentTurn: Gamer?) throws -> Gamer {
-    let pointToWin: [RockPaperScissors: RockPaperScissors] = [.scissor: .paper,
+func determineGameResult(handOfUser: ShapesOfHand, handOfComputer: ShapesOfHand, currentTurn: Gamer?) throws -> Gamer {
+    let pointToWin: [ShapesOfHand: ShapesOfHand] = [.scissor: .paper,
                                                                 .rock: .scissor,
                                                                 .paper: .rock]
     
@@ -119,7 +119,7 @@ func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPape
     }
 }
 
-func getUserInput() throws -> RockPaperScissors? {
+func getUserInput() throws -> ShapesOfHand? {
     guard let userInput = readLine()?.replacingOccurrences(of: " ", with: ""),
           let userInputNumber = Int(userInput) else {
         throw GameError.invalidValueError
@@ -131,14 +131,14 @@ func getUserInput() throws -> RockPaperScissors? {
         return nil
     }
     
-    guard let handOfUser = RockPaperScissors(rawValue: userInputNumber) else {
+    guard let handOfUser = ShapesOfHand(rawValue: userInputNumber) else {
         throw GameError.invalidValueError
     }
     return handOfUser
 }
 
-func getComputerHand() throws -> RockPaperScissors {
-    let handsOfComputer: [RockPaperScissors] = RockPaperScissors.allCases
+func getComputerHand() throws -> ShapesOfHand {
+    let handsOfComputer: [ShapesOfHand] = ShapesOfHand.allCases
     
     guard let handOfComputer = handsOfComputer.randomElement() else {
         throw GameError.emptyValueError
@@ -146,7 +146,7 @@ func getComputerHand() throws -> RockPaperScissors {
     return handOfComputer
 }
 
-func isDraw(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) -> Bool {
+func isDraw(handOfUser: ShapesOfHand, handOfComputer: ShapesOfHand) -> Bool {
     if handOfUser == handOfComputer {
         return true
     }
