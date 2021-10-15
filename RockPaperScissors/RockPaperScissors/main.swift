@@ -201,6 +201,14 @@ func printGameOver() {
     print("게임 종료")
 }
 
+func printFinalWinner(finalResult: GameResult) {
+    guard let finalWinner = checkWinner(prevResult: finalResult) else {
+        return
+    }
+    
+    print("\(finalWinner)의 승리!")
+}
+
 func playRockPaperScissorsGame() -> GameResult? {
     printGameMenu(gameType: .rockPaperScissors)
     let userInput = getUserInput()
@@ -243,14 +251,6 @@ func playMukJjiPpaGame(prevResult: GameResult) -> GameResult? {
         let finalGameResult = (currentGameResult == .same) ? (prevResult) : playMukJjiPpaGame(prevResult: currentGameResult)
         return finalGameResult
     }
-}
-
-func printFinalWinner(finalResult: GameResult) {
-    guard let finalWinner = checkWinner(prevResult: finalResult) else {
-        return
-    }
-    
-    print("\(finalWinner)의 승리!")
 }
 
 func playGame() {
