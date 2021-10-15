@@ -65,7 +65,7 @@ enum SignFactory {
 enum GameResult {
     case userWin
     case computerWin
-    case draw
+    case same
 }
 
 enum Game: Equatable {
@@ -130,7 +130,7 @@ func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
     if userSign == computerSign.counter {
         return .userWin
     } else if userSign == computerSign {
-        return .draw
+        return .same
     } else {
         return .computerWin
     }
@@ -160,7 +160,7 @@ func printGameResult(gameResult: GameResult?) {
         print("이겼습니다!")
     case .computerWin:
         print("졌습니다!")
-    case .draw:
+    case .same:
         print("비겼습니다!")
     default:
         print("컴퓨터가 판단할 수 없습니다")
@@ -188,7 +188,29 @@ func playRockPaperScissorsGame() -> GameResult? {
         let (userSign, computerSign) = generatePlayersSign(userInput: userInput, gameType: .rockPaperScissors)
         gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
         printGameResult(gameResult: gameResult)
-        gameResult = (gameResult == .draw) ? playRockPaperScissorsGame() : (gameResult)
+        gameResult = (gameResult == .same) ? playRockPaperScissorsGame() : (gameResult)
     }
     return gameResult
+}
+
+func playMukJjiPpaGame(prevResult: GameResult) -> GameResult? {
+    printGameMenu(gameType: .mukJjiPpa(prevResult: prevResult))
+    let userInput = getUserInput()
+    let validationResult = isValid(userInput: userInput)
+    
+    switch validationResult {
+    case .invalid:
+        printInputError()
+        let gameResult = playMukJjiPpaGame(prevResult: prevResult)
+        return gameResult
+    case .valid(0):
+        printGameOver()
+        return nil
+    case .valid(let userInput):
+        let (userSign, computerSign) = generatePlayersSign(userInput: userInput, gameType: .mukJjiPpa(prevResult: prevResult))
+        let currentGameResult = checkWinner(userSign: userSign, computerSign: computerSign)
+        currentGameResult != .same ? print("\(checkTurn(prevResult: currentGameResult))턴 입니다") : ()
+        let finalGameResult = (currentGameResult == .same) ? (prevResult) : playMukJjiPpaGame(prevResult: currentGameResult)
+        return finalGameResult
+    }
 }
