@@ -39,12 +39,15 @@ enum Result: CustomStringConvertible {
             return "비겼습니다."
         case .exit:
             return "게임종료"
+        case .none:
+            return "결과가 없습니다."
         }
     }
     case win
     case lose
     case draw
     case exit
+    case none
 }
 
 func playGame() {
@@ -57,8 +60,7 @@ func playGame() {
     }
     if rockPaperScissorsResult == .exit {
         return
-    }
-    if rockPaperScissorsResult == .lose {
+    } else if rockPaperScissorsResult == .lose {
         turnOwner = .computer
     }
     
@@ -101,23 +103,28 @@ func judgeTurnOwner(gameResult: Result, turnOwner: PlayerType) -> PlayerType {
     }
 }
 
+enum gameError: Error {
+    case inValidInput
+}
+
+func makeValidHand(input: String) throws -> MukChiPa {
+    guard let hand = MukChiPa(rawValue: input) else { throw gameError.inValidInput }
+    return hand
+}
+
 func playMukChiPa() -> Result {
-    var gameResult: Result
-    
-    guard let userInput = receiveVaildInput(gameType: .mukChiPa) else {
-        return .win
-    }
+    let userInput = receiveVaildInput(gameType: .mukChiPa) // 0...3
+    var gameResult: Result = .none
     if userInput == "0" {
         return .exit
     }
-    guard let userHand = MukChiPa(rawValue: userInput) else {
-        return .win
+    do {
+        let userHand = try makeValidHand(input: userInput)
+        let computerHand = try makeValidHand(input: makeRandomNumber())
+        gameResult = judgeMukChiPa(userHand, computerHand)
+    } catch {
+        print("입력이 잘못 되었습니다.")
     }
-    guard let computerHand = MukChiPa(rawValue: makeRandomNumber()) else {
-        return .win
-    }
-
-    gameResult = judgeMukChiPa(userHand, computerHand)
     
     return gameResult
 }
@@ -142,9 +149,8 @@ func judgeMukChiPa(_ userHand: MukChiPa, _ computerHand: MukChiPa) -> Result {
 }
 
 func playRockPaperScissors() -> Result  {
-    guard let userInput = receiveVaildInput(gameType: .rockPaperScissors) else {
-        return .win
-    }
+    let userInput = receiveVaildInput(gameType: .rockPaperScissors)
+
     if userInput == "0" {
         return .exit
     }
@@ -153,16 +159,14 @@ func playRockPaperScissors() -> Result  {
     }
     guard let computerHand = RockScissorsPaper(rawValue: makeRandomNumber()) else {
         return .win
-
     }
-    var gameResult: Result
     
-    gameResult = judgeRockPaperScissors(userHand, computerHand)
+    let gameResult = judgeRockPaperScissors(userHand, computerHand)
     
     return gameResult
 }
 
-func receiveVaildInput(gameType: GameType) -> String? {
+func receiveVaildInput(gameType: GameType) -> String {
     var isInvalid: Bool = true
     var input: String = ""
     
