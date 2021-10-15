@@ -21,8 +21,7 @@
 ---
 
 ### 순서도
-
-![순서도](https://user-images.githubusercontent.com/40068674/137440011-79ebd873-1f81-4894-925f-c3a4f2ecce3a.png)
+<img src="https://user-images.githubusercontent.com/40068674/137440011-79ebd873-1f81-4894-925f-c3a4f2ecce3a.png" width="800" height="1600">
 
 ---
 
