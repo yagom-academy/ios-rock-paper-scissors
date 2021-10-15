@@ -5,7 +5,6 @@
 //
 
 import Foundation
-// + 누구의 턴인지 표시하는 String메세지를 HandGameResult타입이 가지고 있는게 좋지않을까 ?
 
 enum HandGameManual: String {
     case rockPaperSiccorsManual = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
@@ -46,6 +45,16 @@ enum MukjipaTurn: String {
     case computer = "[컴퓨터 턴]"
     case nobody = "[누구의 턴도 아닙니다.]"
     
+    var turnChangeMessage: String {
+        switch self {
+        case .user:
+            return "사용자의 턴입니다"
+        case .computer:
+            return "컴퓨터의 턴입니다"
+        case .nobody:
+            return "잘못된 결과입니다."
+        }
+    }
     var winMessage: String {
         switch self {
         case .user:
@@ -62,13 +71,13 @@ enum GameMode {
     case rockPaperSiccorsGame
     case mukjipaGame
 }
-//입력잘못했을때 턴 넘기는것 ex)[사용자 턴]
-//턴넘어갔을때 누구턴인지 메세지출력해주는것 ex) 컴퓨터의 턴입니다.
 func startMukjipaGame() {
-    guard let rockPaperSiccorsGameWinner = startRockPaperSiccorsGame(),
-         let _ = repeatMukjipaGame(turn: rockPaperSiccorsGameWinner.mukjipaTurn) else {
+    guard let rockPaperSiccorsGameWinner = startRockPaperSiccorsGame() else {
               return
           }
+    if repeatMukjipaGame(turn: rockPaperSiccorsGameWinner.mukjipaTurn) == nil {
+        return
+    }
 }
 
 func startRockPaperSiccorsGame() -> HandGameResult? {
@@ -76,8 +85,9 @@ func startRockPaperSiccorsGame() -> HandGameResult? {
         return nil
     }
     let computerHand = generateRandomHand()
-    let gameResult = checkGameResult(by: userHand, computerHand: computerHand)
+    let gameResult = checkGameResultBy(userHand: userHand, computerHand: computerHand)
     printMessage(of: gameResult)
+    
     if gameResult == .draw {
         return startRockPaperSiccorsGame()
     } else {
@@ -95,23 +105,26 @@ func repeatMukjipaGame(turn: MukjipaTurn) -> HandGameResult? {
         return nil
     }
     let computerHand = generateRandomHand()
-    print(computerHand)
+    
     if userHand == computerHand {
         print(turn.winMessage)
         printMessage(of: HandGameExceptionMessage.endGame)
         return nil
     } else {
-        return repeatMukjipaGame(turn: checkGameResult(by: userHand, computerHand: computerHand).mukjipaTurn)
+        let nextTurn: MukjipaTurn
+        nextTurn = checkGameResultBy(userHand: userHand, computerHand: computerHand).mukjipaTurn
+        print(nextTurn.turnChangeMessage)
+        return repeatMukjipaGame(turn: nextTurn)
     }
 }
 
 func receiveUserHand(of gameMode: GameMode) -> (userHand: HandGameHand?, turn: MukjipaTurn?) {
     let userInput = receiveUserManualInput(of: gameMode)
+    
     switch userInput.exceptionMessage {
     case .wrongInput where gameMode == .mukjipaGame:
         printMessage(of: HandGameExceptionMessage.wrongInput)
         return (nil, .computer)
-//        return (receiveUserHand(of: gameMode).userHand, .computer)
     case .wrongInput:
         printMessage(of: HandGameExceptionMessage.wrongInput)
         return receiveUserHand(of: gameMode)
@@ -129,25 +142,22 @@ func receiveUserHand(of gameMode: GameMode) -> (userHand: HandGameHand?, turn: M
 }
 
 func receiveUserManualInput(of gameMode: GameMode) -> (userHand: HandGameHand?, exceptionMessage: HandGameExceptionMessage?) {
-    var statusMessage: HandGameExceptionMessage?
-    var userHandResult: HandGameHand?
     printMessage(of: gameMode == .rockPaperSiccorsGame ?
                     HandGameManual.rockPaperSiccorsManual : HandGameManual.mukjipaManual)
     let userInput = readLine()?.replacingOccurrences(of: " ", with: "")
 
     switch (userInput,gameMode) {
     case ("1", .rockPaperSiccorsGame), ("2", .mukjipaGame):
-        userHandResult = .siccors
+        return (.siccors, nil)
     case ("2", .rockPaperSiccorsGame), ("1", .mukjipaGame):
-        userHandResult = .rock
+        return (.rock, nil)
     case ("3", .rockPaperSiccorsGame), ("3", .mukjipaGame):
-        userHandResult = .paper
+        return (.paper, nil)
     case ("0", .rockPaperSiccorsGame), ("0", .mukjipaGame):
-        statusMessage = .endGame
+        return (nil, .endGame)
     default:
-        statusMessage = .wrongInput
+        return (nil, .wrongInput)
     }
-    return (userHandResult, statusMessage)
 }
 
 func generateRandomHand() -> HandGameHand {
@@ -155,7 +165,7 @@ func generateRandomHand() -> HandGameHand {
     return HandGameHand.allCases[randomIndex]
 }
 
-func checkGameResult(by userHand: HandGameHand, computerHand: HandGameHand) -> HandGameResult {
+func checkGameResultBy(userHand: HandGameHand, computerHand: HandGameHand) -> HandGameResult {
     if userHand == computerHand {
         return .draw
     } else if (userHand == .paper && computerHand == .rock) ||
@@ -170,22 +180,6 @@ func checkGameResult(by userHand: HandGameHand, computerHand: HandGameHand) -> H
 func printMessage<T: RawRepresentable>(of message: T) {
     print(message.rawValue, terminator: "")
 }
-
-//묵찌빠게임 시작
-//가위(1), 바위(2), 보(3)! <종료 : 0> : 1
-//이겼습니다!
-//[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : 6
-//잘못된 입력입니다. 다시 시도해주세요.
-//묵(1), 찌(2), 빠(3)! <종료 : 0> : 6
-//잘못된 입력입니다. 다시 시도해주세요.
-//묵(1), 찌(2), 빠(3)! <종료 : 0> : 3
-//[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : 3
-//컴퓨터의 턴입니다
-//[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : 3
-//사용자의 턴입니다
-//[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : 3
-//사용자의 승리!
-//게임 종료
 
 startMukjipaGame()
 
