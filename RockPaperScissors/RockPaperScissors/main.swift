@@ -47,6 +47,17 @@ enum MukChiBaGameResult: String {
     case win
     case changeTurn
     case keepTurn
+    
+    func show(player: Player) {
+        switch self {
+        case .win:
+            print("\(player)의 승리!")
+        case .changeTurn:
+            print("\(player.anotherPlayer())의 턴입니다.")
+        case .keepTurn:
+            print("\(player)의 턴입니다.")
+        }
+    }
 }
 
 enum ScissorsRockPaperGameResult: String {
@@ -62,6 +73,15 @@ enum ScissorsRockPaperGameResult: String {
 enum Player: String {
     case user = "사용자"
     case computer = "컴퓨터"
+    
+    func anotherPlayer() -> Player {
+        switch self {
+        case .user:
+            return .computer
+        case .computer:
+            return .user
+        }
+    }
 }
 
 extension Player: CustomStringConvertible {
@@ -101,8 +121,10 @@ func startMukChiBaGame(hasTurn: Player?) {
         }
         
         let gameResult: MukChiBaGameResult = compareMukChiBa(to: attacker.pick, with: defender.pick)
+        gameResult.show(player: attacker.player)
+        
         if gameResult == .win {
-            print("\(attacker.player)의 승리!")
+            printGameOver()
         } else if gameResult == .keepTurn {
             startMukChiBaGame(hasTurn: attacker.player)
         } else {
