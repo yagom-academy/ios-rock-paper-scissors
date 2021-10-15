@@ -10,6 +10,17 @@ enum Player {
     case computer
     case user
     case none
+    
+    static func switchPlayer(currentTurn: inout Player) {
+        switch currentTurn {
+        case .computer:
+            currentTurn = .user
+        case .user:
+            currentTurn = .computer
+        default:
+            break
+        }
+    }
 }
 
 enum GameNotice {
@@ -71,7 +82,6 @@ enum GameNotice {
             break
         }
     }
-        
 }
 
 enum MatchResult {
@@ -144,13 +154,13 @@ func playRockScissorsPaper(firstTurn: Player) {
     while true {
         playerOption = decidePlayerOption(currentTurn: &currentTurn)
         if playerOption == PlayerOption.stop { return }
-        //컴퓨터 패 결정
-        //승패 결정
-        //턴 변경
+        let competitorOption = generateRandomHand()
+        if playerOption == competitorOption { break }
+        Player.switchPlayer(currentTurn: &currentTurn)
         GameNotice.printCurrentTurn(currentTurn: currentTurn)
-    
     }
-    //승리자 출력
+    
+    GameNotice.printWinner(winner: currentTurn)
 }
 
 func decidePlayerOption(currentTurn: inout Player) -> PlayerOption {
