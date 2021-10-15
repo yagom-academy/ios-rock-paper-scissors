@@ -1,62 +1,83 @@
-//
-//  RockPaperScissors - main.swift
-//  Created by yagom.
-//  Copyright © yagom academy. All rights reserved.
-//
-
 import Foundation
 
-enum MenuMessage: String {
-    case startGame = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-    case inputError = "잘못된 입력입니다. 다시 시도해주세요."
-}
-
-enum ResultMessage: String {
-    case userWin = "이겼습니다!"
-    case userLose = "졌습니다!"
-    case draw = "비겼습니다!"
-    case gameEnd = "게임 종료"
-}
-
-enum Hand : Int {
+enum Hand: Int {
     case scissors
     case rock
     case paper
     case none
 }
 
-enum GameResult : String {
-    case userWin
-    case userLose
-    case draw
+enum Game {
+    enum Turn {
+        case user
+        case computer
+        
+        var printedText: String {
+            switch self {
+            case .user:
+                return "사용자"
+            case .computer:
+                return "컴퓨터"
+            }
+        }
+    }
+    
+    enum Finish {
+        static let shutDown = "0"
+    }
+
+    enum Result {
+        case userWin
+        case userLose
+        case fightAgain
+    }
 }
 
-func runProgram() {
-    var gameResult: GameResult
-    let shutDown = "0"
+enum Message {
+    enum Menu {
+        static let startGame = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+        static let startSecondGame = "턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+        static let inputError = "잘못된 입력입니다. 다시 시도해주세요."
+    }
+
+    enum Result {
+        static let userWin = "이겼습니다!"
+        static let userLose = "졌습니다!"
+        static let draw = "비겼습니다!"
+        static let gameEnd = "게임 종료"
+    }
+}
+
+func runFirstRound() {
+    let userInput: String? = printMenuForFirstGame()
     
+    if userInput == Game.Finish.shutDown {
+        print(Message.Result.gameEnd)
+        return
+    }
+    
+    let gameResult: Game.Result = startFirstGame(userNumber: userInput)
+    printGameResultMessage(gameResult: gameResult)
+    
+    if gameResult == .fightAgain {
+        runFirstRound()
+        return
+    }
+}
+
+func printMenuForFirstGame() -> String? {
     while true {
-        print(MenuMessage.startGame.rawValue, terminator: "")
+        print(Message.Menu.startGame, terminator: "")
         
-        guard let userInput = receiveInput() else { print(MenuMessage.inputError.rawValue)
-            continue
-        }
-        if userInput == shutDown {
-            print(ResultMessage.gameEnd.rawValue)
-            break
-        }
-        
-        gameResult = startFirstGame(userNumber: userInput)
-        if gameResult == .draw {
-            continue
+        if let userFirstInput = receiveRightInput() {
+            return userFirstInput
         } else {
-            print(ResultMessage.gameEnd.rawValue)
-            break
+            print(Message.Menu.inputError)
         }
     }
 }
 
-func receiveInput() -> String? {
+func receiveRightInput() -> String? {
     let allowedInputRange = 0...3
     let userInput = readLine()
     let inputRangeVerification: Bool = (allowedInputRange.map{ String($0) }).contains(userInput)
@@ -65,17 +86,17 @@ func receiveInput() -> String? {
     return userInput
 }
 
-func startFirstGame(userNumber: String?) -> GameResult {
+func startFirstGame(userNumber: String?) -> Game.Result {
     let allowedNumberRange = 1...3
     let computerNumber = String(Int.random(in: allowedNumberRange))
     
-    let userHand = convertNumberToHandName(oneNumber: userNumber)
-    let computerHand = convertNumberToHandName(oneNumber: computerNumber)
-    let gameResult = fightHandsGame(userHand: userHand, computerHand: computerHand)
+    let userHand = convertNumberForFisrtGame(oneNumber: userNumber)
+    let computerHand = convertNumberForFisrtGame(oneNumber: computerNumber)
+    let gameResult = fightFirstGame(userHand: userHand, computerHand: computerHand)
     return gameResult
 }
 
-func convertNumberToHandName(oneNumber: String?) -> Hand {
+func convertNumberForFisrtGame(oneNumber: String?) -> Hand {
     switch oneNumber {
     case "1":
         return .scissors
@@ -88,18 +109,26 @@ func convertNumberToHandName(oneNumber: String?) -> Hand {
     }
 }
 
-func fightHandsGame(userHand: Hand, computerHand: Hand) -> GameResult {
+func fightFirstGame(userHand: Hand, computerHand: Hand) -> Game.Result {
     switch (userHand, computerHand) {
     case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
-        print(ResultMessage.userWin.rawValue)
         return .userWin
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        print(ResultMessage.userLose.rawValue)
         return .userLose
     default:
-        print(ResultMessage.draw.rawValue)
-        return .draw
+        return .fightAgain
     }
 }
 
-runProgram()
+func printGameResultMessage(gameResult: Game.Result) {
+    switch gameResult {
+    case .userWin:
+        print(Message.Result.userWin)
+    case .userLose:
+        print(Message.Result.userLose)
+    case .fightAgain:
+        print(Message.Result.draw)
+    }
+}
+
+runFirstRound()
