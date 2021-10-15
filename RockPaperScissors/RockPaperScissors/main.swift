@@ -70,6 +70,26 @@ func startMukChiBaGame(attacker: Player?) {
     }
 
     printMukChiBaMenu(player: attacker)
+    
+    do {
+        let userInput = try receiveUserInput()
+        
+        guard isExitGame(input: userInput) == false else {
+            printGameOver()
+            return
+        }
+        
+        let userPick: ScissorsRockPaper = try convert(into: userInput).convertMukChiBa()
+        
+        let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase()
+        
+        
+    } catch ScissorsRockPaperError.wrongInput{
+        printErrorMessage()
+        startMukChiBaGame(attacker: .computer)
+    } catch {
+        print(error)
+    }
 }
 
 func startScissorsRockPaperGame() -> Player? {
