@@ -80,7 +80,11 @@ func needToRestartGame(handOfUser: RockPaperScissors, handOfComputer: RockPaperS
     if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
         return true
     } else {
-        try determineGameResult(handOfUser: handOfUser, handOfComputer: handOfComputer)
+        let myturn:Gamer
+        while true {
+        myturn = try determineGameResult(handOfUser: handOfUser, handOfComputer: handOfComputer,myturn: myturn)
+        //묵찌빠
+        }
         return false
     }
 }
@@ -93,7 +97,17 @@ func isDraw(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) ->
     return false
 }
 
-func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) throws {
+func assingnedTurn(whoseTurn: Bool) -> Gamer {
+    if whoseTurn {
+        print("이겼습니다.")
+        return .user
+    } else {
+        print("졌습니다.")
+        return .computer
+    }
+}
+
+func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors, myturn: Gamer?) throws -> Gamer {
     let pointToWin: [RockPaperScissors: RockPaperScissors] = [.scissor: .paper,
                                                                 .rock: .scissor,
                                                                 .paper: .rock]
@@ -101,11 +115,16 @@ func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPape
     guard let matchedWin = pointToWin[handOfUser] else {
         throw GameError.unmatchedError
     }
-    if matchedWin == handOfComputer {
-        print("이겼습니다!")
+    
+    if var myturn = myturn {
+        let winner: Bool = matchedWin == handOfComputer
+        
+        myturn = assingnedTurn(whoseTurn: winner)
+        return myturn
     } else {
-        print("졌습니다!")
+        return .user
     }
+    
 }
 
 startGame()
