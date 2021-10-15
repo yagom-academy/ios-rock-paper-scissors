@@ -128,8 +128,8 @@ func makeValidHand(input: String) throws -> Hand {
 }
 
 func playMukChiPa(turnOwner: Player) -> MukChiPaResult {
-    printTurnOwner(turnOwner: turnOwner)
-    let userInput = receiveVaildInput(gameType: .mukChiPa)
+    
+    let userInput = receiveVaildInput(gameType: .mukChiPa, turnOwner: turnOwner.rawValue)
     var gameResult: Result = .none
     if userInput == "0" {
         return .exit
@@ -137,8 +137,11 @@ func playMukChiPa(turnOwner: Player) -> MukChiPaResult {
     do {
         var userHand = try makeValidHand(input: userInput)
         var computerHand = try makeValidHand(input: makeRandomNumber())
+        
         userHand.changeToMukChiPa()
         computerHand.changeToMukChiPa()
+        print(userHand)
+        print(computerHand)
         gameResult = judgeRockPaperScissors(userHand, computerHand)
     } catch {
         print("입력이 잘못 되었습니다.")
@@ -164,12 +167,9 @@ func judgeMukChiPa(gameResult: Result, turnOwner: Player) -> MukChiPaResult {
     }
 }
 
-func printTurnOwner(turnOwner: Player) {
-    print("[\(turnOwner.rawValue) 턴] ", terminator: "")
-}
 
 func playRockPaperScissors() -> Result  {
-    let userInput = receiveVaildInput(gameType: .rockPaperScissors)
+    let userInput = receiveVaildInput(gameType: .rockPaperScissors, turnOwner: "")
 
     if userInput == "0" {
         return .exit
@@ -186,12 +186,12 @@ func playRockPaperScissors() -> Result  {
     return gameResult
 }
 
-func receiveVaildInput(gameType: GameType) -> String {
+func receiveVaildInput(gameType: GameType, turnOwner: String) -> String {
     var isInvalid: Bool = true
     var input: String = ""
     
     while isInvalid {
-        printHandChoiceMenu(gameType: gameType)
+        printHandChoiceMenu(gameType: gameType, turnOwner: turnOwner)
         input = receiveInput()
         isInvalid = checkValidInput(of: input)
     }
@@ -221,11 +221,11 @@ func printErrorMessage() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func printHandChoiceMenu(gameType: GameType){
+func printHandChoiceMenu(gameType: GameType, turnOwner: String){
     if gameType == .rockPaperScissors {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     } else {
-        print("묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        print("[\(turnOwner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
 }
 
