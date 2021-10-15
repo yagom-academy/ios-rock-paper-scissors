@@ -70,12 +70,12 @@ extension Player: CustomStringConvertible {
     }
 }
 
-func startMukChiBaGame(attacker: Player?) {
-    guard let attacker = attacker else {
+func startMukChiBaGame(hasTurn: Player?) {
+    guard let hasTurnPlayer = hasTurn else {
         return
     }
 
-    printMukChiBaMenu(player: attacker)
+    printMukChiBaMenu(hasTurnPlayer)
     
     do {
         let userInput = try receiveUserInput()
@@ -85,14 +85,24 @@ func startMukChiBaGame(attacker: Player?) {
             return
         }
         
-        let userPick: ScissorsRockPaper = try convert(into: userInput).convertMukChiBa()
+        let usersPick: ScissorsRockPaper = try convert(into: userInput).convertMukChiBa()
         
         let computerPick: ScissorsRockPaper = ScissorsRockPaper.createRandomCase()
         
+        let attacker: (player: Player, pick: ScissorsRockPaper)
+        let denfender: (player: Player, pick: ScissorsRockPaper)
+        
+        if hasTurnPlayer == .user {
+            attacker = (.user, usersPick)
+            denfender = (.computer, computerPick)
+        } else {
+            attacker = (.computer, computerPick)
+            denfender = (.user, usersPick)
+        }
         
     } catch ScissorsRockPaperError.wrongInput{
         printErrorMessage()
-        startMukChiBaGame(attacker: .computer)
+        startMukChiBaGame(hasTurn: .computer)
     } catch {
         print(error)
     }
@@ -147,7 +157,7 @@ func printScissorsRockPaperMenu() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
 
-func printMukChiBaMenu(player: Player) {
+func printMukChiBaMenu(_ player: Player) {
     print("[\(player) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
 }
 
@@ -196,4 +206,4 @@ func printGameOver() {
 }
 
 let scissorRockPaperWinner: Player? = startScissorsRockPaperGame()
-startMukChiBaGame(attacker: scissorRockPaperWinner)
+startMukChiBaGame(scissorRockPaperWinner)
