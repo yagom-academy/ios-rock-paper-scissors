@@ -18,6 +18,11 @@ enum GameError: Error {
     case unmatchedError
 }
 
+enum Gamer: String {
+    case user = "사용자"
+    case computer = "컴퓨터"
+}
+
 func startGame() {
     var needToRestart: Bool = false
     
