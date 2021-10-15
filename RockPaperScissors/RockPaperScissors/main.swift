@@ -23,21 +23,26 @@ enum Gamer: String {
     case computer = "컴퓨터"
 }
 
+enum GameResult: String {
+    case draw = "비겼습니다!"
+    case win = "이겼습니다!"
+    case lose = "졌습니다!"
+}
+
 func startGame() {
     var needToRestart: Bool = false
     
     do {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
+        printRockpaperScissor()
         guard let handOfUser = try getUserInput() else {
             return
         }
-        let handOfComputer = try showComputerHand()
+        let handOfComputer = try getComputerHand()
         
         needToRestart = try needToRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
         
     } catch GameError.invalidValueError {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        
+        printInvaildError()
         needToRestart = true
     } catch {
         print(error)
@@ -45,43 +50,8 @@ func startGame() {
     
     if needToRestart {
         startGame()
-    }
-}
-
-func getUserInput() throws -> RockPaperScissors? {
-    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: ""),
-          let userInputNumber = Int(userInput) else {
-        throw GameError.invalidValueError
-    }
-    let exitGame = 0
-    
-    if userInputNumber == exitGame {
-        print("게임 종료")
-        return nil
-    }
-    
-    guard let handOfUser = RockPaperScissors(rawValue: userInputNumber) else {
-        throw GameError.invalidValueError
-    }
-    return handOfUser
-}
-
-func showComputerHand() throws -> RockPaperScissors {
-    let handsOfComputer: [RockPaperScissors] = RockPaperScissors.allCases
-    
-    guard let handOfComputer = handsOfComputer.randomElement() else {
-        throw GameError.emptyValueError
-    }
-    return handOfComputer
-}
-
-func needToRestartGame(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) throws -> Bool {
-    if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
-        print("비겼습니다!")
-        return true
     } else {
-        gameMukJjiBba(handOfUser: handOfUser, handOfComputer: handOfComputer, currentTurn: nil)
-        return false
+        printGameExit()
     }
 }
 
@@ -95,20 +65,18 @@ func gameMukJjiBba(handOfUser: RockPaperScissors, handOfComputer: RockPaperSciss
                                       handOfComputer: handOfComputer,
                                       currentTurn: currentTurn)
 
-        print("[\(attackerTurn.rawValue)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ",terminator: "")
-    
+        printMukJjiBba(attackerTurn: attackerTurn)
         guard let handOfUser = try getUserInput() else {
             return
         }
-        let handOfComputer = try showComputerHand()
+        let handOfComputer = try getComputerHand()
         
         if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
-            print("\(attackerTurn.rawValue)의 승리!")
+            printWinner(attackerTurn: attackerTurn)
             return
         }
     } catch GameError.invalidValueError {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-    
+        printInvaildError()
         attackerTurn = changeTurn(currentTurn: attackerTurn)
         needToRestart = true
     } catch {
@@ -118,6 +86,64 @@ func gameMukJjiBba(handOfUser: RockPaperScissors, handOfComputer: RockPaperSciss
     if needToRestart {
         gameMukJjiBba(handOfUser: handOfUser, handOfComputer: handOfComputer, currentTurn: attackerTurn)
     }
+}
+
+func needToRestartGame(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) throws -> Bool {
+    if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
+        print(GameResult.draw.rawValue)
+        return true
+    } else {
+        gameMukJjiBba(handOfUser: handOfUser, handOfComputer: handOfComputer, currentTurn: nil)
+        return false
+    }
+}
+
+
+func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors, currentTurn: Gamer?) throws -> Gamer {
+    let pointToWin: [RockPaperScissors: RockPaperScissors] = [.scissor: .paper,
+                                                                .rock: .scissor,
+                                                                .paper: .rock]
+    
+    guard let matchedWin = pointToWin[handOfUser] else {
+        throw GameError.unmatchedError
+    }
+    let winOfGame: Bool = matchedWin == handOfComputer
+    
+    if let currentTurn = currentTurn {
+        let changedTurn = changeTurn(currentTurn: currentTurn)
+        printChangedTurn(changedTurn: changedTurn)
+        return changedTurn
+    } else {
+        winOfGame ? print(GameResult.win.rawValue) : print(GameResult.lose.rawValue)
+        return assignTurn(winOfGame: winOfGame)
+    }
+}
+
+func getUserInput() throws -> RockPaperScissors? {
+    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: ""),
+          let userInputNumber = Int(userInput) else {
+        throw GameError.invalidValueError
+    }
+    let exitGame = 0
+    
+    if userInputNumber == exitGame {
+        printGameExit()
+        return nil
+    }
+    
+    guard let handOfUser = RockPaperScissors(rawValue: userInputNumber) else {
+        throw GameError.invalidValueError
+    }
+    return handOfUser
+}
+
+func getComputerHand() throws -> RockPaperScissors {
+    let handsOfComputer: [RockPaperScissors] = RockPaperScissors.allCases
+    
+    guard let handOfComputer = handsOfComputer.randomElement() else {
+        throw GameError.emptyValueError
+    }
+    return handOfComputer
 }
 
 func isDraw(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) -> Bool {
@@ -143,24 +169,28 @@ func changeTurn(currentTurn: Gamer?) -> Gamer {
     }
 }
 
-func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors, currentTurn: Gamer?) throws -> Gamer {
-    let pointToWin: [RockPaperScissors: RockPaperScissors] = [.scissor: .paper,
-                                                                .rock: .scissor,
-                                                                .paper: .rock]
-    
-    guard let matchedWin = pointToWin[handOfUser] else {
-        throw GameError.unmatchedError
-    }
-    let winOfGame: Bool = matchedWin == handOfComputer
-    
-    if let currentTurn = currentTurn {
-        let changedTurn = changeTurn(currentTurn: currentTurn)
-        print("\(changedTurn.rawValue)의 턴입니다")
-        return changedTurn
-    } else {
-        winOfGame ? print("이겼습니다.") : print("졌습니다.")
-        return assignTurn(winOfGame: winOfGame)
-    }
+func printRockpaperScissor() {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
+}
+
+func printMukJjiBba(attackerTurn: Gamer) {
+    print("[\(attackerTurn.rawValue)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ",terminator: "")
+}
+
+func printChangedTurn(changedTurn: Gamer) {
+    print("\(changedTurn.rawValue)의 턴입니다")
+}
+
+func printWinner(attackerTurn: Gamer) {
+    print("\(attackerTurn.rawValue)의 승리!")
+}
+
+func printInvaildError() {
+    print("잘못된 입력입니다. 다시 시도해주세요.")
+}
+
+func printGameExit() {
+    print("게임 종료")
 }
 
 startGame()
