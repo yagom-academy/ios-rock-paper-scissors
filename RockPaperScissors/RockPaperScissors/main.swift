@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
+//import Foundation
 
 var turn = ""
 
@@ -133,7 +133,10 @@ func runMukJjiBba(_ input: String) {
             try compareMukJjiBba(generateRandomNumber(), to: convertUserInputType(input: userInput))
         default:
             print(GameMessage.error.rawValue)
-            runMukJjiBba(switchTurn())
+            
+            turn = "컴퓨터"
+            
+            runMukJjiBba(turn)
         }
     } catch {
         print(GameMessage.error.rawValue)
