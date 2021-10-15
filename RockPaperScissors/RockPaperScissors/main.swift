@@ -136,8 +136,14 @@ func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
     }
 }
 
-func checkTurn(prevResult: GameResult) -> String {
-    return (prevResult == .userWin) ? "사용자" : "컴퓨터"
+func checkTurn(prevResult: GameResult) -> String? {
+    if prevResult == .userWin {
+        return "사용자"
+    } else if prevResult == .computerWin {
+        return "컴퓨터"
+    } else {
+        return nil
+    }
 }
 
 func printGameMenu(gameType: Game) {
@@ -145,7 +151,9 @@ func printGameMenu(gameType: Game) {
     case .rockPaperScissors:
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     case .mukJjiPpa(let prevResult):
-        let player = checkTurn(prevResult: prevResult)
+        guard let player = checkTurn(prevResult: prevResult) else {
+            return
+        }
         print("[\(player) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
 }
@@ -168,18 +176,11 @@ func printGameResult(gameResult: GameResult?) {
 }
 
 func printMukJjiPpaGameResult(gameResult: GameResult) {
-    let winner: String
-    
-    switch gameResult {
-    case .userWin:
-        winner = checkTurn(prevResult: .userWin)
-    case .computerWin:
-        winner = checkTurn(prevResult: .computerWin)
-    case .same:
+    guard let currentTurn = checkTurn(prevResult: gameResult) else {
         return
     }
     
-    print("\(winner)의 턴입니다.")
+    print("\(currentTurn)의 턴입니다.")
 }
 
 func printGameOver() {
