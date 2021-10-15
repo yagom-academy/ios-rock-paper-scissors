@@ -7,4 +7,4 @@
 ### Flow chart
 ![가위바위보 시작](https://i.imgur.com/SbJ7RUy.jpg)
 ![승패판정 메소드](https://i.imgur.com/XIC3Gle.jpg)
-![묵찌빠 시작](https://i.imgur.com/hgJYKsI.jpg)
+![묵찌빠 시작](https://i.imgur.com/Ei5xUvV.jpg)
