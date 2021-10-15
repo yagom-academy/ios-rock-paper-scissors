@@ -57,8 +57,7 @@ func playGame() {
     }
     if rockPaperScissorsResult == .exit {
         return
-    }
-    if rockPaperScissorsResult == .lose {
+    } else if rockPaperScissorsResult == .lose {
         turnOwner = .computer
     }
     
