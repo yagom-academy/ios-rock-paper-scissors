@@ -80,42 +80,43 @@ func needToRestartGame(handOfUser: RockPaperScissors, handOfComputer: RockPaperS
         print("비겼습니다!")
         return true
     } else {
-        gameMukJjiBba(handOfUser: handOfUser, handOfComputer: handOfComputer)
+        gameMukJjiBba(handOfUser: handOfUser, handOfComputer: handOfComputer, currentTurn: nil)
         return false
     }
 }
 
-func gameMukJjiBba(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors) {
-    var currentTurn:Gamer? = nil
-    var needToRestart: Bool = false
+func gameMukJjiBba(handOfUser: RockPaperScissors, handOfComputer: RockPaperScissors, currentTurn: Gamer?) {
+
+    var attackerTurn: Gamer = .user
+    var needToRestart: Bool = true
     
     do {
-        currentTurn = try determineGameResult(handOfUser: handOfUser,
+        attackerTurn = try determineGameResult(handOfUser: handOfUser,
                                       handOfComputer: handOfComputer,
                                       currentTurn: currentTurn)
-    
-        print("[\((currentTurn?.rawValue)!)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :",terminator: "")
+
+        print("[\(attackerTurn.rawValue)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ",terminator: "")
     
         guard let handOfUser = try getUserInput() else {
             return
         }
-    
         let handOfComputer = try showComputerHand()
+        
         if isDraw(handOfUser: handOfUser, handOfComputer: handOfComputer) {
-            print("\((currentTurn?.rawValue)!)의 승리!")
+            print("\(attackerTurn.rawValue)의 승리!")
             return
         }
     } catch GameError.invalidValueError {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     
-        currentTurn = changeTurn(currentTurn: currentTurn)
+        attackerTurn = changeTurn(currentTurn: attackerTurn)
         needToRestart = true
     } catch {
         print(error)
     }
     
     if needToRestart {
-        gameMukJjiBba(handOfUser: handOfUser, handOfComputer: handOfComputer)
+        gameMukJjiBba(handOfUser: handOfUser, handOfComputer: handOfComputer, currentTurn: attackerTurn)
     }
 }
 
@@ -153,8 +154,9 @@ func determineGameResult(handOfUser: RockPaperScissors, handOfComputer: RockPape
     let winOfGame: Bool = matchedWin == handOfComputer
     
     if let currentTurn = currentTurn {
-        print("\(currentTurn)의 턴입니다")
-        return changeTurn(currentTurn: currentTurn)
+        let changedTurn = changeTurn(currentTurn: currentTurn)
+        print("\(changedTurn.rawValue)의 턴입니다")
+        return changedTurn
     } else {
         winOfGame ? print("이겼습니다.") : print("졌습니다.")
         return assignTurn(winOfGame: winOfGame)
