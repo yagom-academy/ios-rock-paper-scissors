@@ -92,11 +92,26 @@ enum Validity {
     case valid(userInput: Int)
 }
 
-enum Menu: Int {
+enum Menu {
     case zero
     case one
     case two
     case three
+    
+    init?(input: Int) {
+        switch input {
+        case 0:
+            self = .zero
+        case 1:
+            self = .one
+        case 2:
+            self = .two
+        case 3:
+            self = .three
+        default:
+            return nil
+        }
+    }
 }
 
 func getUserInput() -> Int? {
@@ -107,8 +122,8 @@ func getUserInput() -> Int? {
 }
 
 func isWithinRange(input: Int) -> Bool {
-    switch input {
-    case Menu.zero.rawValue, Menu.one.rawValue, Menu.two.rawValue, Menu.three.rawValue:
+    switch Menu(input: input) {
+    case .zero, .one, .two, .three:
         return true
     default:
         return false
