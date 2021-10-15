@@ -1,4 +1,9 @@
 enum Result: CustomStringConvertible {
+    case win
+    case draw
+    case lose
+    case exit
+    
     var description: String {
         switch self {
         case .win : return "이겼습니다!"
@@ -7,21 +12,20 @@ enum Result: CustomStringConvertible {
         case .exit : return "게임 종료"
         }
     }
-    case win
-    case draw
-    case lose
-    case exit
 }
 
 enum Player: CustomStringConvertible {
+    case computer
+    case user
+    case nobody
+    
     var description: String {
         switch self {
         case .computer : return "컴퓨터"
         case .user : return "사용자"
+        case .nobody: return "nobody"
       }
     }
-    case computer
-    case user
 }
 
 enum ErrorMessage: Error {
@@ -129,7 +133,7 @@ struct MukChiPaGame {
         return Int.random(in: 1...3)
     }
     
-    private var turn: Player = Player.user
+    private var turn: Player = Player.nobody
     
     private func receiveInput() throws -> String {
            guard let input = readLine() else {
