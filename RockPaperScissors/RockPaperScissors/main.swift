@@ -183,3 +183,11 @@ func judgeMainGameWinner() {
         mainGameWinner = gameTurn
     }
 }
+
+func printMainGameResult() {
+    if playerSign == computerSign {
+        print("\(mainGameWinner)의 승리!")
+    } else {
+        print("\(gameTurn)의 턴입니다")
+    }
+}
