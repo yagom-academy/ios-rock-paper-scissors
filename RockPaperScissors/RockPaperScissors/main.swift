@@ -202,3 +202,21 @@ func playMainGameOnce(input: String) {
     }
 }
 
+func playMainGame() {
+    shouldContinue = true
+    repeat {
+        let playerInput = inputMainGameSign()
+        let swapped = swapRockAndScissors(from: playerInput)
+        playMainGameOnce(input: swapped)
+    } while gameTurn != .none && shouldContinue
+}
+
+func runMukJjiBba() {
+    playTurnGame()
+    if playerSign != computerSign {
+        playMainGame()
+    }
+    print("게임 종료")
+}
+
+runMukJjiBba()
