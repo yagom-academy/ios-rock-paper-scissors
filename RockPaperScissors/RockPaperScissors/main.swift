@@ -53,11 +53,15 @@ extension Player: CustomStringConvertible {
     }
 }
 
-func startMukChiBaGame(attacker: Player) {
+func startMukChiBaGame(attacker: Player?) {
+    guard let attacker = attacker else {
+        return
+    }
+
     printMukChiBaMenu(player: attacker)
 }
 
-func startScissorsRockPaperGame() -> Player {
+func startScissorsRockPaperGame() -> Player? {
     var isScissorsRockPaperRuning = true
     var gameResult: ScissorsRockPaperGameResult = .draw
     
@@ -69,7 +73,7 @@ func startScissorsRockPaperGame() -> Player {
             
             guard isExitGame(input: userInput) == false else {
                 printGameOver()
-                break
+                return nil
             }
             
             let usersPick: ScissorsRockPaper = try convert(into: userInput)
@@ -144,5 +148,5 @@ func printGameOver() {
     print("게임 종료")
 }
 
-let scissorRockPaperWinner: Player = startScissorsRockPaperGame()
+let scissorRockPaperWinner: Player? = startScissorsRockPaperGame()
 startMukChiBaGame(attacker: scissorRockPaperWinner)
