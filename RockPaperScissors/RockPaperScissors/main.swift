@@ -63,10 +63,10 @@ struct RockPaperScissorsGame {
             let inputUserChoice = try receiveInput()
             try checkValidInput(from: inputUserChoice)
         } catch ErrorMessage.wrongInput {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            printErrorMessage(errorCase: ErrorMessage.wrongInput)
             selectUserChoice()
         } catch ErrorMessage.systemError {
-            print("[SystemError: nil]")
+            printErrorMessage(errorCase: ErrorMessage.systemError)
         } catch {
             print(error)
         }
@@ -101,6 +101,15 @@ struct RockPaperScissorsGame {
         } else {
             printGameResult(gameResult: .lose)
             mukChiPaGame.startMukChiPa(winner: Player.computer)
+        }
+    }
+    
+    private func printErrorMessage(errorCase: ErrorMessage) {
+        switch errorCase {
+        case .wrongInput:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        case .systemError:
+            print("\n[SystemError: nil]")
         }
     }
     
@@ -154,11 +163,11 @@ struct MukChiPaGame {
                 let inputUserChoice = try receiveInput()
                 try checkValidInput(from: inputUserChoice)
             } catch ErrorMessage.wrongInput {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
+                printErrorMessage(errorCase: ErrorMessage.wrongInput)
                 turn = Player.computer
                 startMukChiPa(winner: turn)
             } catch ErrorMessage.systemError {
-                print("[SystemError: nil]")
+                printErrorMessage(errorCase: ErrorMessage.systemError)
             } catch {
                 print(error)
             }
@@ -196,6 +205,15 @@ struct MukChiPaGame {
     
     private func printVictoryMessage(winner turn: Player) {
         print("\(turn)의 승리!")
+    }
+    
+    private func printErrorMessage(errorCase: ErrorMessage) {
+        switch errorCase {
+        case .wrongInput:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        case .systemError:
+            print("\n[SystemError: nil]")
+        }
     }
     
     private mutating func printGameTurn(gamePlayer: Player) {
