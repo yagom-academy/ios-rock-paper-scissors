@@ -11,11 +11,24 @@ enum RockPaperScissors: Int, CaseIterable {
     case paper = 3
 }
 
-enum GameError: Error {
+enum GameError: LocalizedError {
     case invalidValueError
     case emptyValueError
     case wrongChooseError
     case unmatchedError
+    
+    var errorDescription: String {
+        switch self {
+        case .invalidValueError:
+            return "잘못된 입력입니다. 다시 시도해주세요."
+        case .emptyValueError:
+            return "값을 비어있어 오류가 생겼습니다."
+        case .unmatchedError:
+            return "값을 매치하는데 오류가 생겼습니다."
+        case .wrongChooseError:
+            return "잘못된 값이 선택되었습니다."
+        }
+    }
 }
 
 func getUserInput() throws -> RockPaperScissors? {
@@ -91,8 +104,12 @@ func startGame() {
         needToRestart = try isRestartGame(handOfUser: handOfUser, handOfComputer: handOfComputer)
         
     } catch GameError.invalidValueError {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        let invaildError = GameError.invalidValueError
+        print(invaildError.errorDescription)
+        
         needToRestart = true
+    } catch let error as GameError {
+        print(error.errorDescription)
     } catch {
         print(error)
     }
