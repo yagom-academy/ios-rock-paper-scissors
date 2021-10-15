@@ -40,7 +40,7 @@ func getUserInput() throws -> RockPaperScissors? {
 func showComputerHand() throws -> RockPaperScissors {
     let handsOfComputer: [RockPaperScissors] = RockPaperScissors.allCases
     
-    guard let handOfComputer = handsOfComputer.randomElement() else {
+    guard let handOfComputer = handsOfComputer.first else {
         throw GameError.emptyValueError
     }
     return handOfComputer
