@@ -12,14 +12,24 @@ enum RockScissorsPaperSign: CaseIterable {
     case paper
 }
 
-enum Option {
-    static let list = ["0", "1", "2", "3"]
-}
+let validInputs = ["0", "1", "2", "3"]
 
-enum Winner: String, CustomStringConvertible {
-    case computer = "컴퓨터"
-    case player = "사용자"
+
+enum Winner: CustomStringConvertible {
+    case computer
+    case player
     case none
+    
+    var name: String {
+        switch self {
+        case .player:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        case .none:
+            return ""
+        }
+    }
     
     var description: String {
         switch self {
@@ -33,7 +43,15 @@ enum Winner: String, CustomStringConvertible {
     }
 }
 
-enum InputError: Error, CustomStringConvertible {
+enum GameMessages {
+    static let turnGameStart = "가위(1), 바위(2), 보(3)! <종료: 0>"
+    
+    static func makeMainGameStartMessage(input: Winner) -> String {
+        return "[\(input.name) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : "
+    }
+}
+
+enum InputError: LocalizedError {
     case invalidInput
     
     var description: String {
@@ -47,13 +65,13 @@ enum InputError: Error, CustomStringConvertible {
 var computerSign: RockScissorsPaperSign = .paper
 var playerSign: RockScissorsPaperSign = .paper
 var gameTurn: Winner = .none
-var mainGameWinner:Winner = .none
+var mainGameWinner: Winner = .none
 var shouldContinue: Bool = true
 
 // MARK: - 게임 메세지 출력
 
 func printTurnGameMessage() {
-    print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
+    print(GameMessages.turnGameStart, terminator: "")
 }
 
 func printTurnGameResult() {
@@ -61,21 +79,23 @@ func printTurnGameResult() {
 }
 
 func printMainGameMessage() {
-    print("[\(gameTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)!<종료: 0> : ", terminator: "")
+    let message = GameMessages.makeMainGameStartMessage(input: gameTurn)
+    print(message, terminator: "")
+
 }
 
 func printMainGameResult() {
     if playerSign == computerSign {
-        print("\(mainGameWinner.rawValue)의 승리!")
+        print("\(mainGameWinner.name)의 승리!")
     } else {
-        print("\(gameTurn.rawValue)의 턴입니다")
+        print("\(gameTurn.name)의 턴입니다")
     }
 }
 
 // MARK: - 사용자 입력
 
 func receivePlayerInput() throws -> String {
-    guard let playerInput = readLine(), Option.list.contains(playerInput) else {
+    guard let playerInput = readLine(), validInputs.contains(playerInput) else {
         throw InputError.invalidInput
     }
     return playerInput
@@ -133,6 +153,12 @@ func inputMainGameSign() -> String {
         }
     } while !isValidInput
     return playerInput
+}
+
+func changeToMainGame() -> String {
+    let input = inputMainGameSign()
+    let swappedInput = swapRockAndScissors(from: input)
+    return swappedInput
 }
 
 // MARK: - 컴퓨터, 사용자 패 생성
@@ -218,9 +244,8 @@ func playMainGameOnce(input: String) {
 func playMainGame() {
     shouldContinue = true
     repeat {
-        let playerInput = inputMainGameSign()
-        let swapped = swapRockAndScissors(from: playerInput)
-        playMainGameOnce(input: swapped)
+        let playerInput = changeToMainGame()
+        playMainGameOnce(input: playerInput)
     } while gameTurn != .none && shouldContinue
 }
 
