@@ -91,6 +91,10 @@ func startRockPaperScissorsGame() throws {
     }
 }
 
+
+/// 사용자 입력을 받아서 타입을 변환하고 유효성을 검증하여 사용자 숫자를 반환합니다.
+/// - Throws: 잘못된 입력 오류
+/// - Returns: 사용자 숫자
 func receiveUserNumber() throws -> Int {
     guard let input = readLine(), !input.isEmpty else {
         throw RockPaperScissorsGameError.invalidInput
