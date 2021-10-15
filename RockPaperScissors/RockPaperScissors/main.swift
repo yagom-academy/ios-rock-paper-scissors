@@ -131,12 +131,35 @@ func startFirstGame(userNumber: String?) -> Game.Result {
     return gameResult
 }
 
+func startSecondGame(userNumber: String?) -> Game.Result {
+    let allowedNumberRange = 1...3
+    let computerNumber = String(Int.random(in: allowedNumberRange))
+    
+    let userHand = convertNumberForSecondGame(oneNumber: userNumber)
+    let computerHand = convertNumberForSecondGame(oneNumber: computerNumber)
+    let gameResult = fightSecondGame(userHand: userHand, computerHand: computerHand)
+    return gameResult
+}
+
 func convertNumberForFisrtGame(oneNumber: String?) -> Hand {
     switch oneNumber {
     case "1":
         return .scissors
     case "2":
         return .rock
+    case "3":
+        return .paper
+    default:
+        return .none
+    }
+}
+
+func convertNumberForSecondGame(oneNumber: String?) -> Hand {
+    switch oneNumber {
+    case "1":
+        return .rock
+    case "2":
+        return .scissors
     case "3":
         return .paper
     default:
@@ -175,4 +198,3 @@ func printGameResultMessage(gameResult: Game.Result) {
 }
 
 runFirstRound()
-
