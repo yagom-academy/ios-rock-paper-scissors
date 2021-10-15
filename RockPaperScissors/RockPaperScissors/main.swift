@@ -27,6 +27,19 @@ enum Hand: CaseIterable {
         }
     }
     
+    static func changeNumberToHandForMukChiBaGame(number: Int) -> Hand? {
+        switch number {
+        case 1:
+            return .rock
+        case 2:
+            return .scissors
+        case 3:
+            return .paper
+        default:
+            return nil
+        }
+    }
+    
     static func createRandomHand() -> Hand? {
         if let randomChoice = Hand.allCases.randomElement() {
             return randomChoice
@@ -75,13 +88,24 @@ func assignPlayerHandIfValidated(with playerInputString: String) {
     playerHand = handFromInputNumber
 }
 
-func startRockPaperScissorsGame() {
-
+func createComputerHand() -> Hand? {
     guard let computerHand: Hand = .createRandomHand() else {
         print("오류 - 컴퓨터 패 생성 실패")
-        return
+        return nil
     }
     print(computerHand)
+    return computerHand
+}
+
+func startRockPaperScissorsGame() {
+    guard let computerHand = createComputerHand() else {
+        return
+    }
+//    guard let computerHand: Hand = .createRandomHand() else {
+//        print("오류 - 컴퓨터 패 생성 실패")
+//        return
+//    }
+//    print(computerHand)
     
     comparePlayerHandForRockPaperScissorsGame(with: computerHand)
     printRockPaperScissorsGameResult(of: rockPaperScissorsGameResult)
@@ -137,15 +161,52 @@ startProgram()
 /// 에러를 방지하기 위해 특정 값으로 초기화
 
 func startMukChiBaGame() {
-    printMukChiBaGameMenu()
-
+    printTurnAndMukChiBaGameMenu()
+    receiveValidPlayerInput()
+    assignPlayerHandIfValidated2(with: inputString)
+    guard let computerHand = createComputerHand() else {
+        return
+    }
+    comparePlayerHandForRockPaperScissorsGame(with: computerHand)
+    printRockPaperScissorsGameResult2(of: rockPaperScissorsGameResult)
 }
 
 var isPlayerTurn: Bool = false
 
-func printMukChiBaGameMenu() {
+func printTurnAndMukChiBaGameMenu() {
+    if rockPaperScissorsGameResult == .win {
+        isPlayerTurn = true
+    }
+//    else if rockPaperScissorsGameResult == .lose {
+//        isPlayerTurn = false
+//    }
     let thisGameTurn: String = isPlayerTurn ? "사용자" : "컴퓨터"
     let programTerminator = "0"
     
     print("[\(thisGameTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : \(programTerminator)> : ", terminator: "")
+}
+
+func assignPlayerHandIfValidated2(with playerInputString: String) {
+    guard let playerInputNumber = Int(playerInputString),
+          let handFromInputNumber: Hand = .changeNumberToHandForMukChiBaGame(number: playerInputNumber) else {
+        isPlayerTurn = false
+        print("\(isPlayerTurn): 테스트용")
+        return
+    }
+
+    playerHand = handFromInputNumber
+}
+
+func printRockPaperScissorsGameResult2(of gameResult: RockPaperScissorsGameResult) {
+
+    if rockPaperScissorsGameResult == .draw {
+        let thisGameTurn: String = isPlayerTurn ? "사용자" : "컴퓨터"
+        print("\(thisGameTurn)의 승리!")
+    } else if rockPaperScissorsGameResult == .win{
+        isPlayerTurn = true
+        print("사용자의 턴입니다")
+    } else {
+        isPlayerTurn = false
+        print("컴퓨터의 턴입니다")
+    }
 }
