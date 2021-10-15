@@ -103,7 +103,7 @@ func playGame() {
 }
 
 func printTurnOwner(of gameResult: MukChiPaResult) {
-    if gameResult == .win {
+    if gameResult == .win || gameResult == .exit {
         return
     }
     print("\(whoseTurn.rawValue)의 턴입니다.")
