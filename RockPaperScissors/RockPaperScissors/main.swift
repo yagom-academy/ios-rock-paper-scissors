@@ -114,10 +114,14 @@ enum Menu {
     }
 }
 
-func getUserInput() -> Int? {
+func receiveUserInput() -> Int? {
     guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "") else {
         return nil
     }
+    guard userInput.count == 1 else {
+        return nil
+    }
+    
     return Int(userInput)
 }
 
@@ -226,7 +230,7 @@ func printFinalWinner(finalResult: GameResult) {
 
 func playRockPaperScissorsGame() -> GameResult? {
     printGameMenu(gameType: .rockPaperScissors)
-    let userInput = getUserInput()
+    let userInput = receiveUserInput()
     let validationResult = isValid(userInput: userInput)
     var gameResult: GameResult?
     
@@ -248,7 +252,7 @@ func playRockPaperScissorsGame() -> GameResult? {
 
 func playMukJjiPpaGame(prevResult: GameResult) -> GameResult? {
     printGameMenu(gameType: .mukJjiPpa(prevResult: prevResult))
-    let userInput = getUserInput()
+    let userInput = receiveUserInput()
     let validationResult = isValid(userInput: userInput)
     
     switch validationResult {
