@@ -4,10 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-//import Foundation
-
-var turn = ""
-
 enum RockScissorsPaper: Int {
     case scissors = 1
     case rock = 2
@@ -96,45 +92,39 @@ func compareRockScissorsPaper(_ computerValue: Int, to userInputValue: Int) {
     case 1, -2:
         print(GameMessage.win.rawValue)
         
-        turn = "사용자"
+        let turn = "사용자"
         
-        runMukJjiBba(turn)
+        runMukJjiBba(player: turn)
     case -1, 2:
         print(GameMessage.lose.rawValue)
         
-        turn = "컴퓨터"
+        let turn = "컴퓨터"
         
-        runMukJjiBba(turn)
+        runMukJjiBba(player: turn)
     default:
         break
     }
 }
 
-func switchTurn() {
-    if turn == "사용자" {
-        turn = "컴퓨터"
-    } else if turn == "컴퓨터" {
-        turn = "사용자"
-    }
-}
-
-func runMukJjiBba(_ input: String) {
-    print("[\(turn) 턴]", GameMenu.mukJjiBba.rawValue, terminator: "")
+func runMukJjiBba(player: String) {
+    print("[\(player) 턴]", GameMenu.mukJjiBba.rawValue, terminator: "")
     
     let userInput = readLine()
+    
+    var turn = ""
     
     do {
         switch userInput {
         case "0":
             print(GameMessage.end.rawValue)
         case "1", "2", "3":
-            try compareMukJjiBba(generateRandomNumber(), to: convertUserInputType(input: userInput))
+            try compareMukJjiBba(generateRandomNumber(), to: convertUserInputType(input: userInput), at: player)
         default:
             print(GameMessage.error.rawValue)
             
             turn = "컴퓨터"
             
-            runMukJjiBba(turn)
+            runMukJjiBba(player: turn)
         }
     } catch {
         print(GameMessage.error.rawValue)
@@ -142,7 +132,7 @@ func runMukJjiBba(_ input: String) {
     
 }
 
-func compareMukJjiBba(_ computerValue: Int, to userInputValue: Int) {
+func compareMukJjiBba(_ computerValue: Int, to userInputValue: Int, at turn: String) {
     guard let computerData = MukJjiBba(rawValue: computerValue) else {
         return
     }
@@ -153,15 +143,17 @@ func compareMukJjiBba(_ computerValue: Int, to userInputValue: Int) {
     
     switch (computerData, userData) {
     case (.muk, .jji), (.jji, .bba), (.bba, .muk):
-        switchTurn()
+        let player = "컴퓨터"
         
-        print("\(turn)의 턴입니다.")
+        print("\(player)의 턴입니다.")
         
-        runMukJjiBba(turn)
+        runMukJjiBba(player: player)
     case (.muk, .bba), (.jji, .muk), (.bba, .jji):
-        print("\(turn)의 턴입니다.")
+        let player = "사용자"
         
-        runMukJjiBba(turn)
+        print("\(player)의 턴입니다.")
+        
+        runMukJjiBba(player: player)
     case (.muk, .muk), (.jji, .jji), (.bba, .bba):
         print("\(turn)의 승리!")
         
