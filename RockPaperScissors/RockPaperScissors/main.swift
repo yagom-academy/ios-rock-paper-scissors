@@ -44,54 +44,24 @@ enum RockPaperScissorsGameResult: String {
 /// 에러를 방지하기 위해 특정 값으로 초기화
 var playerHand: Hand? = nil
 /// 에러를 방지하기 위해 특정 값으로 초기화
-var rockPaperScissorsGameResult: RockPaperScissorsGameResult = RockPaperScissorsGameResult.lose
+var rockPaperScissorsGameResult: RockPaperScissorsGameResult = .lose
 
+var isEndOfGame: Bool = false
 var inputString: String = ""
-var isRockPaperScissorsGameOver: Bool = false
-
-func startProgram() {
-    printRockPaperScissorsGameMenu()
-    receiveValidPlayerInput()
-    if inputString.isEmpty == false {
-        assignPlayerHandIfValidated(with: inputString)
-    }
-    if playerHand != nil {
-        startRockPaperScissorsGame()
-    }
-}
-
-startProgram()
 
 func printRockPaperScissorsGameMenu() {
-        let programTerminator = "0"
-        print("가위(1), 바위(2), 보(3)! <종료 : \(programTerminator)> : ", terminator: "")
-}
-
-func assignPlayerHandWithValidInput() {
     let programTerminator = "0"
-    guard let playerInputString: String = readLine(), playerInputString != programTerminator else {
-        print("게임 종료")
-        return
-    }
-        guard let playerInputNumber = Int(playerInputString),
-              let handFromInputNumber: Hand = .changeNumberToHandForRockPaperScissorsGame(number: playerInputNumber) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            /// 잘못된 입력 처리 시 전역변수 초기화
-            inputString = ""
-            startProgram()
-            return
-        }
-    
-        playerHand = handFromInputNumber
+    print("가위(1), 바위(2), 보(3)! <종료 : \(programTerminator)> : ", terminator: "")
 }
 
 func receiveValidPlayerInput() {
     let programTerminator = "0"
     guard let playerInputString: String = readLine(), playerInputString != programTerminator else {
         print("게임 종료")
+        isEndOfGame = true
         return
     }
-
+    
     inputString = playerInputString
 }
 
@@ -99,9 +69,6 @@ func assignPlayerHandIfValidated(with playerInputString: String) {
     guard let playerInputNumber = Int(playerInputString),
           let handFromInputNumber: Hand = .changeNumberToHandForRockPaperScissorsGame(number: playerInputNumber) else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        /// 잘못된 입력 처리 시 전역변수 초기화
-        inputString = ""
-        startProgram()
         return
     }
 
@@ -109,6 +76,7 @@ func assignPlayerHandIfValidated(with playerInputString: String) {
 }
 
 func startRockPaperScissorsGame() {
+
     guard let computerHand: Hand = .createRandomHand() else {
         print("오류 - 컴퓨터 패 생성 실패")
         return
@@ -117,14 +85,6 @@ func startRockPaperScissorsGame() {
     
     comparePlayerHandForRockPaperScissorsGame(with: computerHand)
     printRockPaperScissorsGameResult(of: rockPaperScissorsGameResult)
-    // 묵찌빠 게임 시작함수 별도 분리
-    startMukChiBaGame()
-}
-
-func startMukChiBaGame() {
-    if isRockPaperScissorsGameOver == true {
-        printMukChiBaGameMenu()
-    }
 }
 
 func comparePlayerHandForRockPaperScissorsGame(with computerHand: Hand){
@@ -140,24 +100,47 @@ func comparePlayerHandForRockPaperScissorsGame(with computerHand: Hand){
     } else {
         rockPaperScissorsGameResult = .lose
     }
-    // 잘못된 입력값을 한 번 이상 처리할 경우, 승패 출력 후 다시 startGame 함수가 실행되지 않도록 전역변수를 초기화
-    playerHand = nil
 }
 
 func printRockPaperScissorsGameResult(of gameResult: RockPaperScissorsGameResult) {
-    if gameResult == .draw {
-        print(gameResult.rawValue)
-        isRockPaperScissorsGameOver = true
-        startProgram()
-        return
+    if rockPaperScissorsGameResult == .draw {
+        playerHand = nil
+    }
+    print(gameResult.rawValue)
+    return
+}
+
+func startProgram() {
+    while playerHand == nil {
+        printRockPaperScissorsGameMenu()
+        
+        receiveValidPlayerInput()
+        if isEndOfGame == true {
+            break
+        }
+        
+        assignPlayerHandIfValidated(with: inputString)
+        if playerHand == nil {
+            continue
+        }
+        
+        startRockPaperScissorsGame()
     }
     
-    print(gameResult.rawValue)
-    isRockPaperScissorsGameOver = true
+    // 조건을 붙여서 처리...
+    startMukChiBaGame()
 }
+
+startProgram()
 
 // STEP2
 /// 에러를 방지하기 위해 특정 값으로 초기화
+
+func startMukChiBaGame() {
+    printMukChiBaGameMenu()
+
+}
+
 var isPlayerTurn: Bool = false
 
 func printMukChiBaGameMenu() {
