@@ -1,5 +1,7 @@
 import Foundation
 
+var whoseTurn: Game.Turn = .user
+
 enum Hand: Int {
     case scissors
     case rock
@@ -63,6 +65,26 @@ func runFirstRound() {
         runFirstRound()
         return
     }
+    determineWhoseTurn(gameResult: gameResult)
+    runSecondRound()
+}
+
+func runSecondRound() {
+    var gameResult: Game.Result
+    let userSecondInput: String? = printMenuForSecondGame()
+    
+    if userSecondInput == Game.Finish.shutDown {
+        print(Message.Result.gameEnd)
+        return
+    }
+    
+    gameResult = startSecondGame(userNumber: userSecondInput)
+
+    if gameResult == .fightAgain {
+        runSecondRound()
+        return
+    }
+    print(Message.Result.gameEnd)
 }
 
 func printMenuForFirstGame() -> String? {
@@ -73,6 +95,19 @@ func printMenuForFirstGame() -> String? {
             return userFirstInput
         } else {
             print(Message.Menu.inputError)
+        }
+    }
+}
+
+func printMenuForSecondGame() -> String? {
+    while true {
+        print("[\(whoseTurn.printedText)", Message.Menu.startSecondGame, terminator: "")
+        
+        if let userSecondInput = receiveRightInput() {
+            return userSecondInput
+        } else {
+            print(Message.Menu.inputError)
+            whoseTurn = .computer
         }
     }
 }
@@ -120,6 +155,14 @@ func fightFirstGame(userHand: Hand, computerHand: Hand) -> Game.Result {
     }
 }
 
+func determineWhoseTurn(gameResult: Game.Result) {
+    if gameResult == .userWin {
+        whoseTurn = .user
+    } else if gameResult == .userLose {
+        whoseTurn = .computer
+    }
+}
+
 func printGameResultMessage(gameResult: Game.Result) {
     switch gameResult {
     case .userWin:
@@ -132,3 +175,4 @@ func printGameResultMessage(gameResult: Game.Result) {
 }
 
 runFirstRound()
+
