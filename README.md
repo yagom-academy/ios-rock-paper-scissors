@@ -2,6 +2,9 @@
 
 ### 묵찌빠 프로젝트 저장소
 
+### 프로젝트에 참여한 인원
+@oksunwoo @llghdud921
+
 ### 프로그램 가이드
 
 ---
@@ -95,6 +98,7 @@
     ```
     
 4. if 와 switch 문의 사용
+
     저희는 유저의 숫자를 입력받아 처리를 할 때 if문을 쓰지않고 switch문을 사용해주었습니다. 이유인 즉슨, if문의 경우에는 속도에 있습니다. 
     비록 간단한 프로젝트이기에 속도에서 큰 차이를 보이지않을 수 있으나, if의 경우에는 조건문이 초반에 있을 수록 빠르고, 후반부에 있을 수록 느립니다. 
     
@@ -128,3 +132,27 @@
     ```
 
     key-value값의 속성을 이용해서 key: 사용자의 패, value: 컴퓨터의 패 라고 가정하여 key-value가 일치하는 경우 사용자가 이겼다! 라는 것을 알 수 있게 됩니다.
+    
+    
+6. RandomElement
+
+처음에는 랜덤넘버를 생성하여 줄 때, shuffle()을 사용하여 배열을 랜덤하게 섞어준 후, 가장 앞에 있는 숫자의 값을 받아왔었습니다. 여러번의 고민을 걸친 후 randomElement 라는 것을 알게 되어 사용해주었습니다. 
+
+randomElement 는 컬렉션으로부터 랜덤한 요소를 반환하며, 만약 컬렉션이 비어있다면 메소드는 nil을 리턴하게 됩니다.
+
+```swift
+func randomElement() -> Element?
+```
+
+사용예시
+
+```swift
+func getComputerHand() throws -> ShapesOfHand {
+    let handsOfComputer: [ShapesOfHand] = ShapesOfHand.allCases
+    
+    guard let handOfComputer = handsOfComputer.randomElement() else {
+        throw GameError.emptyValueError
+    }
+    return handOfComputer
+}
+```
