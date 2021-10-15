@@ -16,10 +16,21 @@ enum Option {
     static let list = ["0", "1", "2", "3"]
 }
 
-enum Winner: String {
+enum Winner: String, CustomStringConvertible {
     case computer = "컴퓨터"
     case player = "사용자"
     case none
+    
+    var description: String {
+        switch self {
+        case .computer:
+            return "졌습니다!"
+        case .player:
+            return "이겼습니다!"
+        case .none:
+            return "비겼습니다!"
+        }
+    }
 }
 
 enum InputError: Error, CustomStringConvertible {
@@ -117,14 +128,7 @@ func judgeWinner() {
 }
 
 func printTurnGameResult() {
-    switch gameTurn {
-    case .computer:
-        print("졌습니다!")
-    case .player:
-        print("이겼습니다!")
-    case .none:
-        print("비겼습니다!")
-    }
+    print(gameTurn.description)
 }
 
 func setShouldContinue() {
