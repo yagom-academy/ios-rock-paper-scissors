@@ -27,6 +27,17 @@ enum ScissorsRockPaper: Int, CaseIterable {
         }
     }
     
+    func convertMukChiBa() -> ScissorsRockPaper {
+        switch self {
+        case .scissors:
+            return .rock
+        case .rock:
+            return .scissors
+        case .paper:
+            return .paper
+        }
+    }
+    
     static func createRandomCase() -> ScissorsRockPaper {
         return ScissorsRockPaper.allCases.randomElement() ?? .scissors
     }
