@@ -1,8 +1,8 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
@@ -66,6 +66,20 @@ enum GameResult {
     case userWin
     case computerWin
     case same
+}
+
+enum Player: CustomStringConvertible {
+    case user
+    case computer
+    
+    var description: String {
+        switch self {
+        case .user:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        }
+    }
 }
 
 enum Game: Equatable {
@@ -136,11 +150,11 @@ func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
     }
 }
 
-func checkTurn(prevResult: GameResult) -> String? {
+func checkTurn(prevResult: GameResult) -> Player? {
     if prevResult == .userWin {
-        return "사용자"
+        return Player.user
     } else if prevResult == .computerWin {
-        return "컴퓨터"
+        return Player.computer
     } else {
         return nil
     }
@@ -231,6 +245,14 @@ func playMukJjiPpaGame(prevResult: GameResult) -> GameResult? {
     }
 }
 
+func printFinalWinner(finalResult: GameResult) {
+    guard let finalWinner = checkTurn(prevResult: finalResult) else {
+        return
+    }
+    
+    print("\(finalWinner)의 승리!")
+}
+
 func playGame() {
     guard let rockPaperScissorsResult = playRockPaperScissorsGame() else {
         return
@@ -238,13 +260,8 @@ func playGame() {
     guard let finalResult = playMukJjiPpaGame(prevResult: rockPaperScissorsResult) else {
         return
     }
-    if finalResult == .userWin {
-        print("사용자의 승리!")
-    } else if finalResult == .computerWin {
-        print("컴퓨터의 승리!")
-    } else {
-        print("잘못된 게임 결과입니다")
-    }
+    
+    printFinalWinner(finalResult: finalResult)
 }
 
 playGame()
