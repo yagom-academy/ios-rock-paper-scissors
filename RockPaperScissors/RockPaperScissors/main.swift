@@ -55,16 +55,17 @@ enum RockPaperScissorsGameResult: String {
 }
 
 // STEP1
-/// 에러를 방지하기 위해 특정 값으로 초기화
-var playerHand: Hand? = nil
+
 /// 에러를 방지하기 위해 특정 값으로 초기화
 var rockPaperScissorsGameResult: RockPaperScissorsGameResult = .lose
-
+var playerHand: Hand? = nil
 var isEndOfGame: Bool = false
 var inputString: String = ""
+var isPlayerTurn: Bool = false
 
 func printRockPaperScissorsGameMenu() {
     let programTerminator = "0"
+    
     print("가위(1), 바위(2), 보(3)! <종료 : \(programTerminator)> : ", terminator: "")
 }
 
@@ -94,7 +95,7 @@ func createComputerHand() -> Hand? {
         print("오류 - 컴퓨터 패 생성 실패")
         return nil
     }
-    print("테스트용 : \(computerHand)")
+    
     return computerHand
 }
 
@@ -117,6 +118,7 @@ func printRockPaperScissorsGameResult(of gameResult: RockPaperScissorsGameResult
     if rockPaperScissorsGameResult == .draw {
         playerHand = nil
     }
+    
     print(gameResult.rawValue)
     return
 }
@@ -132,15 +134,16 @@ func startRockPaperScissorsGame() {
 }
 
 // STEP2
-/// 에러를 방지하기 위해 특정 값으로 초기화
-var isPlayerTurn: Bool = false
+
 
 func printTurnAndMukChiBaGameMenu() {
     if rockPaperScissorsGameResult == .win {
         isPlayerTurn = true
     }
+    
     let thisGameTurn: String = isPlayerTurn ? "사용자" : "컴퓨터"
     let programTerminator = "0"
+    
     print("[\(thisGameTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : \(programTerminator)> : ", terminator: "")
 }
 
@@ -149,11 +152,11 @@ func assignPlayerHandIfValidatedForMukChiBaGame(with playerInputString: String) 
           let handFromInputNumber: Hand = .changeNumberToHandForMukChiBaGame(number: playerInputNumber) else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         playerHand = nil
-        
         isPlayerTurn = false
         rockPaperScissorsGameResult = .lose // 잘못된 입력을 하면 가위바위보 게임에서 컴퓨터가 이긴 셈이 된다
         return
     }
+    
     playerHand = handFromInputNumber
 }
 
@@ -178,24 +181,21 @@ func printMukChiBaGameResult(of gameResult: RockPaperScissorsGameResult) {
 func startMukChiBaGame() {
     while rockPaperScissorsGameResult != .draw {
         printTurnAndMukChiBaGameMenu()
+        
         receiveValidPlayerInput()
-        if isEndOfGame == true {
-            break
-        }
+        if isEndOfGame == true { break }
         
         assignPlayerHandIfValidatedForMukChiBaGame(with: inputString)
-        if playerHand == nil {
-            continue
-        }
+        if playerHand == nil { continue }
         
-        guard let computerHand = createComputerHand() else {
-            return
-        }
+        guard let computerHand = createComputerHand() else { return }
         comparePlayerHandForRockPaperScissorsGame(with: computerHand)
+        
         if rockPaperScissorsGameResult != .draw {
             changeTurn(with: rockPaperScissorsGameResult)
             continue
         }
+        
         printMukChiBaGameResult(of: rockPaperScissorsGameResult)
     }
 }
@@ -206,14 +206,10 @@ func startProgram() {
         printRockPaperScissorsGameMenu()
         
         receiveValidPlayerInput()
-        if isEndOfGame == true {
-            break
-        }
+        if isEndOfGame == true { break }
         
         assignPlayerHandIfValidatedForRockPaperScissorsGame(with: inputString)
-        if playerHand == nil {
-            continue
-        }
+        if playerHand == nil { continue }
         
         startRockPaperScissorsGame()
     }
