@@ -3,7 +3,6 @@
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
 // 
-
 import Foundation
 
 var whoseTurn: Player = .user
@@ -24,7 +23,7 @@ enum Hand: String {
     }
 }
 
-enum GameType {
+enum Game {
     case rockPaperScissors
     case mukChiPa
 }
@@ -42,7 +41,7 @@ enum Player: String {
     }
 }
 
-enum Result: CustomStringConvertible {
+enum RockPaperScissorsResult: CustomStringConvertible {
     var description: String {
         switch self {
         case .win:
@@ -72,7 +71,7 @@ enum MukChiPaResult {
 }
 
 func playGame() {
-    var rockPaperScissorsResult: Result = .draw
+    var rockPaperScissorsResult: RockPaperScissorsResult = .draw
     
     while rockPaperScissorsResult == .draw {
         rockPaperScissorsResult = playRockPaperScissors()
@@ -130,7 +129,7 @@ func makeValidHand(input: String) throws -> Hand {
 
 func playMukChiPa() -> MukChiPaResult {
     let userInput = receiveVaildInput(gameType: .mukChiPa)
-    var gameResult: Result = .none
+    var gameResult: RockPaperScissorsResult = .none
     
     if userInput == "0" {
         return .exit
@@ -151,7 +150,7 @@ func playMukChiPa() -> MukChiPaResult {
     return mukChiPaResult
 }
 
-func judgeMukChiPa(gameResult: Result) -> MukChiPaResult {
+func judgeMukChiPa(gameResult: RockPaperScissorsResult) -> MukChiPaResult {
     switch (gameResult, whoseTurn) {
     case (.win, .computer) :
         return .changeTurn
@@ -166,7 +165,7 @@ func judgeMukChiPa(gameResult: Result) -> MukChiPaResult {
     }
 }
 
-func playRockPaperScissors() -> Result  {
+func playRockPaperScissors() -> RockPaperScissorsResult  {
     let userInput = receiveVaildInput(gameType: .rockPaperScissors)
 
     if userInput == "0" {
@@ -184,7 +183,7 @@ func playRockPaperScissors() -> Result  {
     return gameResult
 }
 
-func receiveVaildInput(gameType: GameType) -> String {
+func receiveVaildInput(gameType: Game) -> String {
     var isInvalid: Bool = true
     var input: String = ""
     
@@ -220,7 +219,7 @@ func printErrorMessage() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func printHandChoiceMenu(gameType: GameType){
+func printHandChoiceMenu(gameType: Game){
     if gameType == .rockPaperScissors {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     } else {
@@ -232,8 +231,8 @@ func makeRandomNumber() -> String{
     return String(Int.random(in: 1...3))
 }
 
-func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) -> Result {
-    var gameResult: Result
+func judgeRockPaperScissors(_ userHand: Hand, _ computerHand: Hand) -> RockPaperScissorsResult {
+    var gameResult: RockPaperScissorsResult
     
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
