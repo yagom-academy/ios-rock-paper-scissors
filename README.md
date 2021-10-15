@@ -1,13 +1,13 @@
 ## iOS 커리어 스타터 캠프
 
 ### 묵찌빠 프로젝트 저장소
-
-### 프로젝트에 참여한 인원
+---
+#### 프로젝트에 참여한 인원
 @oksunwoo @llghdud921
 
-### 프로그램 가이드
-
 ---
+
+### 프로그램 가이드
 
 [Step 1] 
 
@@ -20,6 +20,12 @@
 같은 패를 낸 경우 - 턴을 가진 쪽이 승리 후 게임 종료
 
 다른 패를 낸 경우 - 패를 비교하여 가위바위보의 승자가 턴을 가지고 묵찌빠 게임을 진행합니다.
+
+---
+
+### 출력문
+
+![묵찌빠_출력문](https://user-images.githubusercontent.com/40068674/137495846-f81d3fbd-7458-4fe0-9f89-35e70579a53e.png)
 
 ---
 
@@ -59,19 +65,6 @@
     guard let userInput = readLine(), let userInputNumber = Int(userInput) else {
             return -1
         }
-    ```
-    
-3. randomNumber 생성 방법
-    처음에는 [random.Int](http://random.int/) 방식으로 랜덤숫자를 생성하는 generateRandomNumber()를 구성하고 싶었으나, 다른 방식인 shuffle()을 이용함으로써 새롭게 구성해보았습니다.
-    
-    ```swift
-    func generateRandomNumber() {
-        var computerNumbers: [RockPaperScissors] = [.scissor,.rock,.paper]
-        let randomIndex = 0
-        
-        computerNumbers.shuffle()
-        computerNumber = computerNumbers[randomIndex].rawValue
-    }
     ```
     
 4. Enumeration
@@ -125,6 +118,7 @@
     }
     ```
 5. Dictionary
+    
     Dictionary를 이용해서 가위바위보의 승패를 알려주는 로직을 이용했어요. 
 
     ```swift
@@ -136,23 +130,24 @@
     
 6. RandomElement
 
-처음에는 랜덤넘버를 생성하여 줄 때, shuffle()을 사용하여 배열을 랜덤하게 섞어준 후, 가장 앞에 있는 숫자의 값을 받아왔었습니다. 여러번의 고민을 걸친 후 randomElement 라는 것을 알게 되어 사용해주었습니다. 
+    처음에는 랜덤넘버를 생성하여 줄 때, shuffle()을 사용하여 배열을 랜덤하게 섞어준 후, 가장 앞에 있는 숫자의 값을 받아왔었습니다. 
+    여러번의 고민을 걸친 후 randomElement 라는 것을 알게 되어 사용해주었습니다. 
 
-randomElement 는 컬렉션으로부터 랜덤한 요소를 반환하며, 만약 컬렉션이 비어있다면 메소드는 nil을 리턴하게 됩니다.
+    randomElement 는 컬렉션으로부터 랜덤한 요소를 반환하며, 만약 컬렉션이 비어있다면 메소드는 nil을 리턴하게 됩니다.
 
-```swift
-func randomElement() -> Element?
-```
+    ```swift
+    func randomElement() -> Element?
+    ```
 
-사용예시
+    사용예시
 
-```swift
-func getComputerHand() throws -> ShapesOfHand {
-    let handsOfComputer: [ShapesOfHand] = ShapesOfHand.allCases
-    
-    guard let handOfComputer = handsOfComputer.randomElement() else {
-        throw GameError.emptyValueError
+    ```swift
+    func getComputerHand() throws -> ShapesOfHand {
+        let handsOfComputer: [ShapesOfHand] = ShapesOfHand.allCases
+
+        guard let handOfComputer = handsOfComputer.randomElement() else {
+            throw GameError.emptyValueError
+        }
+        return handOfComputer
     }
-    return handOfComputer
-}
-```
+    ```
