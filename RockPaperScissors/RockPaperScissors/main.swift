@@ -50,11 +50,29 @@ var gameTurn: Winner = .none
 var mainGameWinner:Winner = .none
 var shouldContinue: Bool = true
 
-// MARK: - 사용자 입력
+// MARK: - 게임 메세지 출력
 
 func printTurnGameMessage() {
     print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 }
+
+func printTurnGameResult() {
+    print(gameTurn.description)
+}
+
+func printMainGameMessage() {
+    print("[\(gameTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)!<종료: 0> : ", terminator: "")
+}
+
+func printMainGameResult() {
+    if playerSign == computerSign {
+        print("\(mainGameWinner.rawValue)의 승리!")
+    } else {
+        print("\(gameTurn.rawValue)의 턴입니다")
+    }
+}
+
+// MARK: - 사용자 입력
 
 func receivePlayerInput() throws -> String {
     guard let playerInput = readLine(), Option.list.contains(playerInput) else {
@@ -84,6 +102,33 @@ func inputTurnGameSign() -> String {
             playerInput = input
             isValidInput = true
         } else {
+            isValidInput = false
+        }
+    } while !isValidInput
+    return playerInput
+}
+
+func swapRockAndScissors(from input: String) -> String {
+    switch input {
+    case "1":
+        return "2"
+    case "2":
+        return "1"
+    default:
+        return input
+    }
+}
+
+func inputMainGameSign() -> String {
+    var isValidInput: Bool = false
+    var playerInput = String()
+    repeat {
+        printMainGameMessage()
+        if let input = validatedInput() {
+            playerInput = input
+            isValidInput = true
+        } else {
+            gameTurn = .computer
             isValidInput = false
         }
     } while !isValidInput
@@ -127,9 +172,13 @@ func judgeWinner() {
     }
 }
 
-func printTurnGameResult() {
-    print(gameTurn.description)
+func judgeMainGameWinner() {
+    if playerSign == computerSign {
+        mainGameWinner = gameTurn
+    }
 }
+
+// MARK: - 게임 진행
 
 func setShouldContinue() {
     if gameTurn == .none {
@@ -154,53 +203,6 @@ func playTurnGame() {
         let playerInput = inputTurnGameSign()
         playTurnGameOnce(input: playerInput)
     } while shouldContinue
-}
-
-// MARK: - Step2
-
-func printMainGameMessage() {
-    print("[\(gameTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)!<종료: 0> : ", terminator: "")
-}
-
-func inputMainGameSign() -> String {
-    var isValidInput: Bool = false
-    var playerInput = String()
-    repeat {
-        printMainGameMessage()
-        if let input = validatedInput() {
-            playerInput = input
-            isValidInput = true
-        } else {
-            gameTurn = .computer
-            isValidInput = false
-        }
-    } while !isValidInput
-    return playerInput
-}
-
-func swapRockAndScissors(from input: String) -> String {
-    switch input {
-    case "1":
-        return "2"
-    case "2":
-        return "1"
-    default:
-        return input
-    }
-}
-
-func judgeMainGameWinner() {
-    if playerSign == computerSign {
-        mainGameWinner = gameTurn
-    }
-}
-
-func printMainGameResult() {
-    if playerSign == computerSign {
-        print("\(mainGameWinner.rawValue)의 승리!")
-    } else {
-        print("\(gameTurn.rawValue)의 턴입니다")
-    }
 }
 
 func playMainGameOnce(input: String) {
