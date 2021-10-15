@@ -1,3 +1,9 @@
+//
+//  RockPaperScissors - main.swift
+//  Created by yagom.
+//  Copyright © yagom academy. All rights reserved.
+//
+
 import Foundation
 
 var whoseTurn: Game.Turn = .user
@@ -174,6 +180,21 @@ func fightFirstGame(userHand: Hand, computerHand: Hand) -> Game.Result {
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
         return .userLose
     default:
+        return .fightAgain
+    }
+}
+
+func fightSecondGame(userHand: Hand, computerHand: Hand) -> Game.Result {
+    if userHand == computerHand && whoseTurn == .user {
+        print("\(whoseTurn.printedText)의 승리!")
+        return .userWin
+    } else if userHand == computerHand && whoseTurn == .computer {
+        print("\(whoseTurn.printedText)의 승리!")
+        return .userLose
+    } else {
+        let gameResult: Game.Result = fightFirstGame(userHand: userHand, computerHand: computerHand)
+        determineWhoseTurn(gameResult: gameResult)
+        print("\(whoseTurn.printedText)의 턴입니다")
         return .fightAgain
     }
 }
