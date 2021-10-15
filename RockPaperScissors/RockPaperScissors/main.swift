@@ -66,13 +66,13 @@ enum GameMode {
 //턴넘어갔을때 누구턴인지 메세지출력해주는것 ex) 컴퓨터의 턴입니다.
 func startMukjipaGame() {
     guard let rockPaperSiccorsGameWinner = startRockPaperSiccorsGame(),
-         let _ = repeatMukjipaGame(turn: rockPaperSiccorsGameWinner.mukjipaTurn)else {
+         let _ = repeatMukjipaGame(turn: rockPaperSiccorsGameWinner.mukjipaTurn) else {
               return
           }
 }
 
 func startRockPaperSiccorsGame() -> HandGameResult? {
-    guard let userHand = receiveUserHand(of: .rockPaperSiccorsGame) else {
+    guard let userHand = receiveUserHand(of: .rockPaperSiccorsGame).userHand else {
         return nil
     }
     let computerHand = generateRandomHand()
@@ -85,15 +85,39 @@ func startRockPaperSiccorsGame() -> HandGameResult? {
     }
 }
 
-func receiveUserHand(of gameMode: GameMode) -> HandGameHand? {
+func repeatMukjipaGame(turn: MukjipaTurn) -> HandGameResult? {
+    printMessage(of: turn)
+    let input = receiveUserHand(of: .mukjipaGame)
+    if input.turn == .computer {
+        return repeatMukjipaGame(turn: .computer)
+    }
+    guard let userHand = input.userHand else {
+        return nil
+    }
+    let computerHand = generateRandomHand()
+    print(computerHand)
+    if userHand == computerHand {
+        print(turn.winMessage)
+        printMessage(of: HandGameExceptionMessage.endGame)
+        return nil
+    } else {
+        return repeatMukjipaGame(turn: checkGameResult(by: userHand, computerHand: computerHand).mukjipaTurn)
+    }
+}
+
+func receiveUserHand(of gameMode: GameMode) -> (userHand: HandGameHand?, turn: MukjipaTurn?) {
     let userInput = receiveUserManualInput(of: gameMode)
     switch userInput.exceptionMessage {
+    case .wrongInput where gameMode == .mukjipaGame:
+        printMessage(of: HandGameExceptionMessage.wrongInput)
+        return (nil, .computer)
+//        return (receiveUserHand(of: gameMode).userHand, .computer)
     case .wrongInput:
         printMessage(of: HandGameExceptionMessage.wrongInput)
         return receiveUserHand(of: gameMode)
     case .endGame:
         printMessage(of: HandGameExceptionMessage.endGame)
-        return nil
+        return (nil, nil)
     default:
         break
     }
@@ -101,7 +125,7 @@ func receiveUserHand(of gameMode: GameMode) -> HandGameHand? {
         printMessage(of: HandGameExceptionMessage.unknownError)
         return receiveUserHand(of: gameMode)
     }
-    return userHand
+    return (userHand, nil)
 }
 
 func receiveUserManualInput(of gameMode: GameMode) -> (userHand: HandGameHand?, exceptionMessage: HandGameExceptionMessage?) {
@@ -148,29 +172,20 @@ func printMessage<T: RawRepresentable>(of message: T) {
 }
 
 //묵찌빠게임 시작
-
-func repeatMukjipaGame(turn: MukjipaTurn) -> HandGameResult? {
-    printMessage(of: turn)
-    guard let userHand = receiveUserHand(of: .mukjipaGame) else {
-        return nil
-    }
-    let computerHand = generateRandomHand()
-    if userHand == computerHand {
-        print(turn.winMessage)
-        printMessage(of: HandGameExceptionMessage.endGame)
-        return nil
-    } else {
-        return repeatMukjipaGame(turn: checkGameResult(by: userHand, computerHand: computerHand).mukjipaTurn)
-    }
-}
-
-
-
-
-
-
-
-
+//가위(1), 바위(2), 보(3)! <종료 : 0> : 1
+//이겼습니다!
+//[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : 6
+//잘못된 입력입니다. 다시 시도해주세요.
+//묵(1), 찌(2), 빠(3)! <종료 : 0> : 6
+//잘못된 입력입니다. 다시 시도해주세요.
+//묵(1), 찌(2), 빠(3)! <종료 : 0> : 3
+//[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : 3
+//컴퓨터의 턴입니다
+//[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : 3
+//사용자의 턴입니다
+//[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : 3
+//사용자의 승리!
+//게임 종료
 
 startMukjipaGame()
 
