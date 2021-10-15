@@ -214,3 +214,21 @@ func playMukJjiPpaGame(prevResult: GameResult) -> GameResult? {
         return finalGameResult
     }
 }
+
+func playGame() {
+    guard let rockPaperScissorsResult = playRockPaperScissorsGame() else {
+        return
+    }
+    guard let finalResult = playMukJjiPpaGame(prevResult: rockPaperScissorsResult) else {
+        return
+    }
+    if finalResult == .userWin {
+        print("사용자의 승리!")
+    } else if finalResult == .computerWin {
+        print("컴퓨터의 승리!")
+    } else {
+        print("잘못된 게임 결과입니다")
+    }
+}
+
+playGame()
