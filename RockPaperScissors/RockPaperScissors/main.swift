@@ -191,3 +191,14 @@ func printMainGameResult() {
         print("\(gameTurn)의 턴입니다")
     }
 }
+
+func playMainGameOnce(input: String) {
+    setComputerSign()
+    setPlayerSign(input: input)
+    if shouldContinue {
+        judgeMainGameWinner()
+        judgeWinner()
+        printMainGameResult()
+    }
+}
+
