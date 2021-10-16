@@ -37,10 +37,14 @@ enum PlayerOption: CaseIterable {
     }
 }
 
-enum Turn {
+enum Turn: String, CustomStringConvertible{
     case quit
-    case playersTurn
-    case computersTurn
+    case playersTurn = "사용자"
+    case computersTurn = "컴퓨터"
+    
+    var description: String {
+        return rawValue
+    }
 }
 
 struct GameManager {
@@ -119,12 +123,6 @@ struct ScissorsRockPaperGame {
 struct RockScissorsPaperGame {
     private let gameManager = GameManager()
     private var currentTurnHolder: Turn = ScissorsRockPaperGame().playScissorsRockPaper()
-    private var currentTurnHolderString: String {
-        if currentTurnHolder == .playersTurn {
-            return "사용자"
-        }
-        return "컴퓨터"
-    }
     
     mutating func startGame() {
         guard currentTurnHolder != .quit else { return }
@@ -146,7 +144,7 @@ struct RockScissorsPaperGame {
             return
         }
         
-        print("\(currentTurnHolderString)의 승리!")
+        print("\(currentTurnHolder)의 승리!")
     }
     
     mutating private func changeTurn(when isContinued: inout Bool, _ playerHand: PlayerOption?, _ computerHand: PlayerOption) {
