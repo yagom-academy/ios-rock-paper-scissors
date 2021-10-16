@@ -32,7 +32,8 @@ enum PlayerOption: CaseIterable {
     case paper
     
     static var randomHand: PlayerOption {
-        return PlayerOption.allCases[Int.random(in: 1...3)]
+        let handCount = PlayerOption.allCases.count
+        return PlayerOption.allCases[Int.random(in: 1...handCount)]
     }
 }
 
