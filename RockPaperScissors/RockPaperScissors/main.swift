@@ -76,7 +76,6 @@ func runFirstRound() {
 }
 
 func runSecondRound() {
-    var gameResult: Game.Result
     let userSecondInput: String? = printMenuForSecondGame()
     
     if userSecondInput == Game.Finish.shutDown {
@@ -84,7 +83,7 @@ func runSecondRound() {
         return
     }
     
-    gameResult = startSecondGame(userNumber: userSecondInput)
+    let gameResult: Game.Result = startSecondGame(userNumber: userSecondInput)
 
     if gameResult == .fightAgain {
         runSecondRound()
