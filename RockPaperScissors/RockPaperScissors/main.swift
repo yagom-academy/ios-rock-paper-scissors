@@ -135,11 +135,10 @@ struct RockScissorsPaperGame {
         
         repeat {
             computerHand = PlayerOption.randomHand
-            changeTurn(when: isContinued, playerHand, computerHand)
+            changeTurn(when: &isContinued, playerHand, computerHand)
             print("[\(currentTurnHolder)의 턴] \(Message.startRockScissorsPaper)", terminator: "")
             playerHand = recieveUserInput()
             if playerHand == .quit { break }
-            isContinued = true
         } while gameManager.isRestartable(mode: .rockScissorsPaper, playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
         
         guard playerHand != .quit else {
@@ -150,8 +149,11 @@ struct RockScissorsPaperGame {
         printGameResult(when: whosTurn)
     }
     
-    mutating private func changeTurn(when isContinued: Bool, _ playerHand: PlayerOption?, _ computerHand: PlayerOption) {
-        guard isContinued else { return }
+    mutating private func changeTurn(when isContinued: inout Bool, _ playerHand: PlayerOption?, _ computerHand: PlayerOption) {
+        guard isContinued else {
+            isContinued = true
+            return
+        }
         if gameManager.isWrongInput(playerHand: playerHand) {
             whosTurn = .computersTurn
         } else if isContinued {
