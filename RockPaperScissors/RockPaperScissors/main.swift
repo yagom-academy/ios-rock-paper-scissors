@@ -1,8 +1,8 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
@@ -11,8 +11,8 @@ enum Sign: CaseIterable {
     case rock
     case paper
     
-    init(userInput: Int) {
-        switch userInput {
+    init(rockPaperScissorsUserInput: Int) {
+        switch rockPaperScissorsUserInput {
         case 1:
             self = .scissors
         case 2:
@@ -24,7 +24,20 @@ enum Sign: CaseIterable {
         }
     }
     
-    var counter: Self {
+    init(mukJjiPpaUserInput: Int) {
+        switch mukJjiPpaUserInput {
+        case 1:
+            self = .rock
+        case 2:
+            self = .scissors
+        case 3:
+            self = .paper
+        default:
+            fatalError("\(Self.self)의 \(#function)에서 초기화에 실패했습니다")
+        }
+    }
+
+    var opponent: Self {
         switch self {
         case .scissors:
             return .rock
@@ -33,10 +46,6 @@ enum Sign: CaseIterable {
         case .rock:
             return .paper
         }
-    }
-    
-    static var count: Int {
-        return Self.allCases.count
     }
 }
 
@@ -52,7 +61,26 @@ enum SignFactory {
 enum GameResult {
     case userWin
     case computerWin
-    case draw
+    case same
+}
+
+enum Player: CustomStringConvertible {
+    case user
+    case computer
+    
+    var description: String {
+        switch self {
+        case .user:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        }
+    }
+}
+
+enum Game: Equatable {
+    case rockPaperScissors
+    case mukJjiPpa(prevResult: GameResult)
 }
 
 enum Validity {
@@ -60,30 +88,53 @@ enum Validity {
     case valid(userInput: Int)
 }
 
-enum Menu: Int {
+enum Menu {
     case zero
     case one
     case two
     case three
+    
+    init?(input: Int) {
+        switch input {
+        case 0:
+            self = .zero
+        case 1:
+            self = .one
+        case 2:
+            self = .two
+        case 3:
+            self = .three
+        default:
+            return nil
+        }
+    }
 }
 
-func getUserInput() -> Int? {
-    guard let userInput = readLine()?.replacingOccurrences(of: " ", with: "") else {
+func receiveUserInput() -> Int? {
+    let spaceString = " "
+    let emptyString = ""
+    let validMenuCount = 1
+    
+    guard let userInput = readLine()?.replacingOccurrences(of: spaceString, with: emptyString) else {
         return nil
     }
+    guard userInput.count == validMenuCount else {
+        return nil
+    }
+    
     return Int(userInput)
 }
 
 func isWithinRange(input: Int) -> Bool {
-    switch input {
-    case Menu.zero.rawValue, Menu.one.rawValue, Menu.two.rawValue, Menu.three.rawValue:
+    switch Menu(input: input) {
+    case .zero, .one, .two, .three:
         return true
     default:
         return false
     }
 }
 
-func isValid(userInput: Int?) -> Validity {
+func isValid(input userInput: Int?) -> Validity {
     guard let userInput = userInput else {
         return .invalid
     }
@@ -94,65 +145,134 @@ func isValid(userInput: Int?) -> Validity {
     return .valid(userInput: userInput)
 }
 
-func generatePlayersSign(userInput: Int) -> (userSign: Sign, computerSign: Sign) {
-    let userSign = Sign(userInput: userInput)
+func generatePlayersSign(userInput: Int, gameType: Game) -> (userSign: Sign, computerSign: Sign) {
+    let userSign: Sign
+
+    if gameType == .rockPaperScissors {
+        userSign = Sign(rockPaperScissorsUserInput: userInput)
+    } else {
+        userSign = Sign(mukJjiPpaUserInput: userInput)
+    }
+    
     let computerSign = SignFactory.generateRandomElement()
     
     return (userSign, computerSign)
 }
 
-func checkWinner(userSign: Sign, computerSign: Sign) -> GameResult {
-    if userSign == computerSign.counter {
+func checkGameResult(user userSign: Sign, computer computerSign: Sign) -> GameResult {
+    if userSign == computerSign.opponent {
         return .userWin
     } else if userSign == computerSign {
-        return .draw
+        return .same
     } else {
         return .computerWin
     }
 }
 
-func printMenu() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+func checkWinner(prevResult: GameResult) -> Player? {
+    if prevResult == .userWin {
+        return Player.user
+    } else if prevResult == .computerWin {
+        return Player.computer
+    } else {
+        return nil
+    }
+}
+
+func printGameMenu(type gameType: Game) {
+    switch gameType {
+    case .rockPaperScissors:
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    case .mukJjiPpa(let prevResult):
+        guard let player = checkWinner(prevResult: prevResult) else {
+            return
+        }
+        print("[\(player) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    }
 }
 
 func printInputError() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func printGameResult(gameResult: GameResult) {
+func printRockPaperScissorsGameResult(gameResult: GameResult?) {
     switch gameResult {
     case .userWin:
         print("이겼습니다!")
     case .computerWin:
         print("졌습니다!")
-    case .draw:
+    case .same:
         print("비겼습니다!")
+    default:
+        print("컴퓨터가 판단할 수 없습니다")
     }
+}
+
+func printMukJjiPpaGameResult(by gameResult: GameResult) {
+    guard let currentTurn = checkWinner(prevResult: gameResult) else {
+        return
+    }
+    
+    print("\(currentTurn)의 턴입니다.")
 }
 
 func printGameOver() {
     print("게임 종료")
 }
 
-func playGame() {
-    printMenu()
-    let userInput = getUserInput()
-    let validationResult = isValid(userInput: userInput)
+func printFinalWinner(finalResult: GameResult) {
+    guard let finalWinner = checkWinner(prevResult: finalResult) else {
+        return
+    }
+    
+    print("\(finalWinner)의 승리!")
+}
+
+func playHandSignGame(input userInput: Int, type gameType: Game) -> GameResult? {
+    let (userSign, computerSign) = generatePlayersSign(userInput: userInput, gameType: .rockPaperScissors)
+    let currentGameResult = checkGameResult(user: userSign, computer: computerSign)
+    let gameResult: GameResult?
+    
+    switch gameType {
+    case .rockPaperScissors:
+        printRockPaperScissorsGameResult(gameResult: currentGameResult)
+        gameResult = (currentGameResult == .same) ? runHandSignGame(gameType: .rockPaperScissors) : (currentGameResult)
+    case .mukJjiPpa(let prevResult):
+        printMukJjiPpaGameResult(by: currentGameResult)
+        gameResult = (currentGameResult == .same) ? (prevResult) : runHandSignGame(gameType: .mukJjiPpa(prevResult: currentGameResult))
+    }
+    
+    return gameResult
+}
+
+func runHandSignGame(gameType: Game) -> GameResult? {
+    printGameMenu(type: gameType)
+    let userInput = receiveUserInput()
+    let validationResult = isValid(input: userInput)
     
     switch validationResult {
     case .invalid:
         printInputError()
-        playGame()
+        let gameResult = runHandSignGame(gameType: gameType)
+        return gameResult
     case .valid(0):
         printGameOver()
+        return nil
     case .valid(let userInput):
-        let (userSign, computerSign) = generatePlayersSign(userInput: userInput)
-        let gameResult = checkWinner(userSign: userSign, computerSign: computerSign)
-        printGameResult(gameResult: gameResult)
-        (gameResult == .draw) ? playGame() : printGameOver()
+        let gameResult = playHandSignGame(input: userInput, type: gameType)
+        return gameResult
     }
 }
 
+func playGame() {
+    guard let RockPaperScissorsGameResult = runHandSignGame(gameType: .rockPaperScissors) else {
+        return
+    }
+    
+    guard let finalResult = runHandSignGame(gameType: .mukJjiPpa(prevResult: RockPaperScissorsGameResult)) else {
+        return
+    }
+    printFinalWinner(finalResult: finalResult)
+}
+
 playGame()
-
-
