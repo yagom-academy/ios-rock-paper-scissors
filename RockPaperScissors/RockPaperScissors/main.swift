@@ -60,8 +60,8 @@ struct GameManager {
         }
     }
     
-    func printGameResult(from playerHand: PlayerOption?, and opponentHand: PlayerOption) {
-        if isPlayerWin(playerHand, opponentHand) {
+    func printGameResult(_ isPlayerWin: Bool) {
+        if isPlayerWin {
             print(Message.gameWin)
         } else {
             print(Message.gameLose)
@@ -88,8 +88,9 @@ struct ScissorsRockPaperGame {
             print(Message.gameEnd)
             return nil
         }
-        gameManager.printGameResult(from: playerHand, and: computerHand)
-        return gameManager.isPlayerWin(playerHand, computerHand)
+        let gameResult = gameManager.isPlayerWin(playerHand, computerHand)
+        gameManager.printGameResult(gameResult)
+        return gameResult
     }
     
     private func recieveUserInput(_ userInput: String? = readLine()) -> PlayerOption? {
