@@ -152,7 +152,7 @@ struct RockScissorsPaperGame {
     
     mutating private func changeTurn(when isContinued: Bool, _ playerHand: PlayerOption?, _ computerHand: PlayerOption) {
         guard isContinued else { return }
-        if playerHand == nil {
+        if gameManager.isWrongInput(playerHand: playerHand) {
             whosTurn = .computersTurn
         } else if isContinued {
             whosTurn = gameManager.decideTurn(playerHand, computerHand)
