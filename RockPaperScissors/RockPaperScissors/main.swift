@@ -37,6 +37,12 @@ enum PlayerOption: CaseIterable {
     }
 }
 
+enum Turn {
+    case quit
+    case playersTurn
+    case computersTurn
+}
+
 struct GameManager {
     func isRestartable(mode: GameMode, _ playerHand: PlayerOption?, _ opponentHand: PlayerOption) -> Bool {
         let isHandSame = playerHand == opponentHand
@@ -108,12 +114,6 @@ struct ScissorsRockPaperGame {
             print(Message.gameLose)
         }
     }
-}
-
-enum Turn {
-    case quit
-    case playersTurn
-    case computersTurn
 }
 
 struct RockScissorsPaperGame {
