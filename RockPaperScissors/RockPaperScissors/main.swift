@@ -118,16 +118,16 @@ struct ScissorsRockPaperGame {
 
 struct RockScissorsPaperGame {
     private let gameManager = GameManager()
-    private var whosTurn: Turn = ScissorsRockPaperGame().playScissorsRockPaper()
-    private var currentTurnHolder: String {
-        if whosTurn == .playersTurn {
+    private var currentTurnHolder: Turn = ScissorsRockPaperGame().playScissorsRockPaper()
+    private var currentTurnHolderString: String {
+        if currentTurnHolder == .playersTurn {
             return "사용자"
         }
         return "컴퓨터"
     }
     
     mutating func startGame() {
-        guard whosTurn != .quit else { return }
+        guard currentTurnHolder != .quit else { return }
         
         var playerHand: PlayerOption?
         var computerHand: PlayerOption
@@ -146,7 +146,7 @@ struct RockScissorsPaperGame {
             return
         }
         
-        printGameResult(when: whosTurn)
+        print("\(currentTurnHolderString)의 승리!")
     }
     
     mutating private func changeTurn(when isContinued: inout Bool, _ playerHand: PlayerOption?, _ computerHand: PlayerOption) {
@@ -155,9 +155,9 @@ struct RockScissorsPaperGame {
             return
         }
         if gameManager.isWrongInput(playerHand: playerHand) {
-            whosTurn = .computersTurn
+            currentTurnHolder = .computersTurn
         } else if isContinued {
-            whosTurn = gameManager.decideTurn(playerHand, computerHand)
+            currentTurnHolder = gameManager.decideTurn(playerHand, computerHand)
             print("\(currentTurnHolder)의 턴입니다.")
         }
     }
@@ -175,14 +175,6 @@ struct RockScissorsPaperGame {
         default:
             print(Message.wrongInput)
             return nil
-        }
-    }
-    
-    private func printGameResult(when userTurn: Turn) {
-        if userTurn == .playersTurn {
-            print("사용자의 승리!")
-        } else {
-            print("컴퓨터의 승리!")
         }
     }
 }
