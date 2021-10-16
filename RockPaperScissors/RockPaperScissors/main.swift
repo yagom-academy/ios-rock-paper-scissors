@@ -120,9 +120,7 @@ struct RockScissorsPaperGame {
     }
     
     mutating func startGame() {
-        guard isPlayerTurn != nil else {
-            return
-        }
+        guard isPlayerTurn != nil else { return }
         
         var playerHand: PlayerOption?
         var computerHand: PlayerOption
