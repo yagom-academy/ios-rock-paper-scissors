@@ -82,7 +82,7 @@ struct ScissorsRockPaperGame {
             computerHand = PlayerOption.randomHand
             print(Message.start, terminator: "")
             playerHand = recieveUserInput()
-        } while gameManager.isRestartable(mode: .scissorsRockPaper,playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
+        } while gameManager.isRestartable(mode: .scissorsRockPaper, playerHand, computerHand) || gameManager.isWrongInput(playerHand: playerHand)
         
         guard playerHand != .quit else {
             print(Message.gameEnd)
