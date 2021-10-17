@@ -162,6 +162,7 @@ ex) `validate(userInput:) validateUserInput(_ input:)`
 
 ## 2-1. 고민했던 것
 
+- 여러가지 문제 해결방법이 있을때, 그 중에서 한 가지를 선택하는 기준들
 - 재귀함수와 반복문의 적절한 사용법
 - 가위바위보에서 활용하였던 승패판정을 묵찌빠에서도 활용할 수 있는 법
 - 적절한 Naming
@@ -204,3 +205,5 @@ ex) `validate(userInput:) validateUserInput(_ input:)`
 - 사용자의 턴을 나타냈던 `Bool`타입을 `Turn`타입으로 새롭게 만들어서 개선
 - `changeTurn` 내부 조건문을 `isWrongInput` 메서드로 대체
 - 묵찌빠 게임 타입 내부에 `startGame` 메서드에서 `isContinued`를 `repeat-while문`이 아니라 `changeTurn` 메서드 내부에서 바꿔주도록 로직 변경
+- `Turn` 타입에 `CustomStringConvertible`을 적용시킴으로서 `printGameResult` 삭제가 가능해졌다.
+
