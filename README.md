@@ -49,11 +49,11 @@
 
 # Contributors
 
-@leeari95 @junbangg
+[@leeari95](https://github.com/leeari95) [@junbangg](https://github.com/junbangg)
 
 # Reviewers
 
-@soll4u 
+[@soll4u](https://github.com/soll4u) 
 
 # Flow chart
 ![가위바위보 시작](https://i.imgur.com/SbJ7RUy.jpg)
