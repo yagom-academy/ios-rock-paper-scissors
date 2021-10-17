@@ -112,6 +112,6 @@
     - 현재 `compareRockScissorsPaper()`, `compareMukJjiBba()`의 로직을 서로 다르게 구현. 
 
 ## 참고 문서
-[Swift Language Guide - Control Flow](https://docs.swift.org/swift-book/LanguageGuide/ControlFlow.html)
-[Swift Language Guide - Enumerations](https://docs.swift.org/swift-book/LanguageGuide/Enumerations.html)
-[Apple Developer Document - Error](https://developer.apple.com/documentation/swift/error)
+- [Swift Language Guide - Control Flow](https://docs.swift.org/swift-book/LanguageGuide/ControlFlow.html)
+- [Swift Language Guide - Enumerations](https://docs.swift.org/swift-book/LanguageGuide/Enumerations.html)
+- [Apple Developer Document - Error](https://developer.apple.com/documentation/swift/error)
