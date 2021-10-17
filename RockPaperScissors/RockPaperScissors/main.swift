@@ -122,17 +122,16 @@ func runMukJjiBba(turn: String) {
     } catch {
         print(GameMessage.error.rawValue)
     }
-
 }
 
 func compareMukJjiBba(_ computerValue: Int, to userInputValue: Int, at turn: String) {
-    guard let computerData = MukJjiBba(rawValue: computerValue) else {
+    guard let computerData = MukJjiBba(rawValue: computerValue), let userData = MukJjiBba(rawValue: userInputValue) else {
         return
     }
 
-    guard let userData = MukJjiBba(rawValue: userInputValue) else {
-        return
-    }
+//    guard let userData = MukJjiBba(rawValue: userInputValue) else {
+//        return
+//    }
 
     switch (computerData, userData) {
     case (.muk, .jji), (.jji, .bba), (.bba, .muk):
