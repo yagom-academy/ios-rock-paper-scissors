@@ -50,6 +50,7 @@ func runRockScissorsPaper() {
 
 func compareRockScissorsPaper(_ computerValue: Int, to userInputValue: Int) {
     let subtractionValue = userInputValue - computerValue
+    var player: String
 
     if subtractionValue == 0 {
         print(GameMessage.draw.rawValue)
@@ -61,13 +62,13 @@ func compareRockScissorsPaper(_ computerValue: Int, to userInputValue: Int) {
     case 1, -2:
         print(GameMessage.win.rawValue)
 
-        let player = "사용자"
+        player = "사용자"
 
         runMukJjiBba(turn: player)
     case -1, 2:
         print(GameMessage.lose.rawValue)
 
-        let player = "컴퓨터"
+        player = "컴퓨터"
 
         runMukJjiBba(turn: player)
     default:
@@ -128,10 +129,6 @@ func compareMukJjiBba(_ computerValue: Int, to userInputValue: Int, at turn: Str
     guard let computerData = MukJjiBba(rawValue: computerValue), let userData = MukJjiBba(rawValue: userInputValue) else {
         return
     }
-
-//    guard let userData = MukJjiBba(rawValue: userInputValue) else {
-//        return
-//    }
 
     switch (computerData, userData) {
     case (.muk, .jji), (.jji, .bba), (.bba, .muk):
