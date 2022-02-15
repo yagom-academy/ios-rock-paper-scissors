@@ -10,7 +10,6 @@ import Foundation
 struct User {
     enum UserOption {
         static let wrongInput: Int = 4
-        static let userNumberRange: ClosedRange<Int> = 0...3
     }
     
     func selectedMenu() -> Int {
@@ -27,7 +26,7 @@ struct User {
     }
     
     private func verifyUserInput(userInput: Int) -> Bool {
-        let verifiedNumberRange: ClosedRange<Int> = UserOption.userNumberRange
+        let verifiedNumberRange: ClosedRange<Int> = GameOption.userNumberRange
         
         if verifiedNumberRange.contains(userInput) == false {
             return false

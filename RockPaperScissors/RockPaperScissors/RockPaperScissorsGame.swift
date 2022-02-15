@@ -7,26 +7,40 @@
 
 import Foundation
 
-class RockPaperScissorsGame {
+final class RockPaperScissorsGame {
     private enum RockPaperScissorsType: Int {
-        case rock = 1
-        case paper = 2
-        case scissor = 3
-        case exit = 0
+        case rock
+        case paper
+        case scissor
+        case exit
         
         var value: Int {
             switch self {
-            case .rock: return 1
-            case .paper: return 2
-            case .scissor: return 3
+            case .scissor: return 1
+            case .rock: return 2
+            case .paper: return 3
             case .exit: return 0
                 
             }
         }
     }
     
-    let user: User
-    let computer: Computer
+    private enum GameResult {
+        case draw
+        case win
+        case lose
+        
+        var value: String {
+            switch self {
+            case .draw: return "비겼습니다!"
+            case .win: return "이겼습니다!"
+            case .lose: return "졌습니다!"
+            }
+        }
+    }
+    
+    private let user: User
+    private let computer: Computer
     
     init(user: User, computer: Computer) {
         self.user = user
@@ -36,21 +50,17 @@ class RockPaperScissorsGame {
     func startProgram() {
         printUserInterface()
         playSelectedMenu()
-        
     }
     
     private func playSelectedMenu()  {
         let userSelectedMenu = user.selectedMenu()
+        let rock = RockPaperScissorsType.rock.value
+        let paper = RockPaperScissorsType.paper.value
+        let scissor = RockPaperScissorsType.scissor.value
         
         switch userSelectedMenu {
-        case RockPaperScissorsType.rock.value:
-            print("이겼습니다!")
-            
-        case RockPaperScissorsType.paper.value:
-            print("졌습니다!")
-            
-        case RockPaperScissorsType.scissor.value:
-            print("비겼습니다!")
+        case scissor, rock, paper:
+            judgeGameResult(userSelectedNumber: userSelectedMenu)
             
         case RockPaperScissorsType.exit.value:
             printGameOver()
@@ -61,8 +71,24 @@ class RockPaperScissorsGame {
         }
     }
     
+    private func judgeGameResult(userSelectedNumber: Int) {
+        let computerSelectedNumber = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
+        
+        if userSelectedNumber == computerSelectedNumber {
+            printGameResut(gameResult: .draw)
+        }
+        
+        if userSelectedNumber == computerSelectedNumber + 1 || userSelectedNumber == computerSelectedNumber - 2 {
+            printGameResut(gameResult: .win)
+        }
+        
+        if userSelectedNumber == computerSelectedNumber - 1 || userSelectedNumber == computerSelectedNumber + 2 {
+            printGameResut(gameResult: .lose)
+        }
+    }
+    
     private func printUserInterface() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> :" , terminator: "")
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> :" , terminator: " ")
     }
     
     private func printGameOver() {
@@ -71,5 +97,9 @@ class RockPaperScissorsGame {
     
     private func printErrorMessage() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+    
+    private func printGameResut(gameResult: GameResult) {
+        print(gameResult.value)
     }
 }

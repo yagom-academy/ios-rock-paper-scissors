@@ -8,11 +8,7 @@
 import Foundation
 
 struct Computer {
-    enum ComputerOption {
-        static let numberRange: ClosedRange<Int> = 1...3
-    }
-    
-    func generatedComputerNumber(numberRange: ClosedRange<Int> = ComputerOption.numberRange) -> Int {
+    func generatedComputerNumber(numberRange: ClosedRange<Int> = GameOption.computerNumberRange) -> Int {
         Int.random(in: numberRange)
     }
 }
