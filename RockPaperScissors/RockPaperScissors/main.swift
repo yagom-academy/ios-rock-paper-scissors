@@ -6,50 +6,76 @@
 
 import Foundation
 
-func printMenu() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+enum Result: Int {
+    case win = 1
+    case draw = 0
+    case lose = -1
 }
 
-func startGame() {
-    printMenu()
-    inputSelectionCard()
+enum Card: String {
+    case scissors = "1"
+    case rock = "2"
+    case paper = "3"
+    static let cases: [Card] = [.scissors, .rock, .paper]
 }
 
-func makeRandomCard() -> Int {
-    let randomCard = Int.random(in: 1...3)
-    return randomCard
+enum Command: String {
+    case terminator = "0"
 }
 
 func inputSelectionCard() {
+    printMenu()
     let userInput: String? = readLine()
     switch userInput {
-    case "1", "2", "3":
-        checkCard(selectedCard: userInput)
-    case "0":
+    case Card.scissors.rawValue, Card.rock.rawValue, Card.paper.rawValue:
+        playGame(selectedCard: userInput)
+    case Command.terminator.rawValue:
         print("게임 종료")
     case .none:
         print("nil")
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        startGame()
+        inputSelectionCard()
     }
 }
 
-func checkCard(selectedCard: String?) {
-    let computerCard = makeRandomCard()
+func printMenu() {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+}
+
+func playGame(selectedCard: String?) {
+    guard let computerCard = (makeRandomCard().flatMap{ Int($0) }) else { return }
     guard let userCard = (selectedCard.flatMap{ Int($0) }) else { return }
-    getGameResult(userCard: userCard, computerCard: computerCard)
+    printResult(gameResult: compareEachCard(userCard: userCard, computerCard: computerCard))
 }
 
-func getGameResult(userCard: Int, computerCard: Int) {
-    if userCard == computerCard {
+func makeRandomCard() -> String? {
+    let randomCard = Card.cases[Int.random(in: 0..<Card.cases.count)]
+    return randomCard.rawValue
+}
+
+func printResult(gameResult: Result) {
+    switch gameResult {
+    case Result.draw:
         print("비겼습니다.")
-        startGame()
-    } else if (computerCard - userCard) == -1 || (computerCard - userCard) == 2 {
+        inputSelectionCard()
+    case Result.win:
         print("이겼습니다.")
-    } else {
+        print("게임 종료")
+    case Result.lose:
         print("졌습니다.")
+        print("게임 종료")
     }
 }
 
-startGame()
+func compareEachCard(userCard: Int, computerCard: Int) -> Result {
+    if userCard == computerCard {
+        return Result.draw
+    } else if (computerCard - userCard) == -1 || (computerCard - userCard) == 2 {
+        return Result.win
+    } else {
+        return Result.lose
+    }
+}
+
+inputSelectionCard()
