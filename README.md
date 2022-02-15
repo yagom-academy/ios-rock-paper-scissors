@@ -6,16 +6,13 @@
 📝 설명 : 컴퓨터와 묵찌빠 게임(console app)
 
 ### 게임 규칙
-
-- 컴퓨터가 생성한 숫자와 유저가 입력한 숫자를 비교하여 같으면 비김, 두 값의 차이가 1 || -2 인 경우 사용자 승리, 두값의 차이가 -1 || 2 인 경우 컴퓨터 승리
+- 컴퓨터가 생성한 숫자와 유저가 입력한 숫자를 비교하여 같으면 비김, 두 값의 차이가 1 이거나 -2 인 경우 사용자 승리, 두값의 차이가 -1 이거나 2 인 경우 컴퓨터 승리
 - 번호가 0...3이 아닌 수가 입력 되면 다시 메뉴로 돌아가게 구현 
 
 ### Flow Chart
 <img src = "https://i.imgur.com/4Pvq7Kj.jpg" width="200px"></br>
 
-### STEP1
-
-
+### STEP1 실행 화면
 <img src = "https://user-images.githubusercontent.com/54234176/154023942-56040465-d3c5-4be4-8364-db895dac103f.gif" width="250px" height="300"></br>
 
 
@@ -26,10 +23,8 @@
 3. `startProgram()  : ` 가위바위보 시작하는 함수
 4. `playSelectedMenu()`: 메뉴 선택 함수
 5. `judgeGameResult` 가위바위 보 판별 하는 함수
-6.  
 
-
-
+## 구현 내용 
 ### Step1
 1. `printUserInterface() 함수` 사용자 입력 받는 함수 구현 
 2. `selectedMenu() 함수 ` 사용자 입력 받는 함수 생성
@@ -42,25 +37,23 @@
 
 
 
-
-
 ### 로직구현  
 - final class RockPaperScissorsGame
    - `private enum RockPaperScissorsType: Int`
    - `private enum GameResult: String`
-   - `func startProgram()`
-   -  `private func playSelectedMenu()` 
-   - `private func       judgeGameResult(userSelectedNumber: Int)`
-  - `private func printUserInterface()`
-  - `private func printGameOver()`
-  - `private func printErrorMessage()`
-  - `private func printGameResut(gameResult: GameResult)`
+   - `func startProgram()`: 프로그램을 시작하는 함수
+   -  `private func playSelectedMenu()`: 선택된 메뉴에 따른 게임 실행 함수
+   - `private func judgeGameResult(userSelectedNumber: Int)`: 결과를 판단해주는 함수
+  - `private func printUserInterface()`: 사용자 인터페이스를 출력해주는 함수
+  - `private func printGameOver()`: 게임 종료를 출력해주는 함수
+  - `private func printErrorMessage()`: 에러 메세지를 출력해주는 함수
+  - `private func printGameResut(gameResult: GameResult)`: 게임의 결과를 출력 하는 함수 
 - struct User
   - `enum UserOption
-func selectedMenu() -> Int`
-  - `private func verifyUserInput(userInput: Int) -> Bool`
+func selectedMenu() -> Int`: 가위바위보 메뉴 선택 함수 
+  - `private func verifyUserInput(userInput: Int) -> Bool`: 사용자의 입력 검증 하는 함수 
 - struct Computer
-  - `func generatedComputerNumber(numberRange: ClosedRange<Int> = GameOption.computerNumberRange) -> Int`
+  - `func generatedComputerNumber(numberRange: ClosedRange<Int> = GameOption.computerNumberRange) -> Int`: 컴퓨터의 난수를 생성해주는 함수
 - enum GameOption
 
 
@@ -79,3 +72,22 @@ func selectedMenu() -> Int`
 - switch 문에서 self가 동작하는 이유가 무엇인지 궁금합니다.
 - 역시나 네이밍은 매번 어렵네요 😂
 
+
+#### 매직 넘버도 피하도록 하자!
+
+- 매직 넘버는 코드 중간에 갑자기 등장하는 상수를 의미한다. (문자의 경우 매직 리터럴이라고 한다.)
+- 매직 넘버를 사용하게 되면 코드를 알아보기도, 유지보수하기도 힘들어진다.
+ 
+
+#### 재귀 함수
+
+- [컴퓨터 과학](https://ko.wikipedia.org/wiki/%EC%BB%B4%ED%93%A8%ED%84%B0_%EA%B3%BC%ED%95%99)에 있어서 재귀(再歸, Recursion)는 자신을 정의할 때 자기 자신을 재참조하는 방법을 뜻하며, 이를 프로그래밍에 적용한 재귀 호출(Recursive call)의 형태로 많이 사용된다.
+> [재귀 - 위키백과](https://ko.wikipedia.org/wiki/%EC%9E%AC%EA%B7%80_(%EC%BB%B4%ED%93%A8%ED%84%B0_%EA%B3%BC%ED%95%99))
+
+- 반복문을 사용하는 것보다 코드가 짧고 간결해진다는 장점이 존재한다.
+- 함수를 호출하는 과정에서 오버헤드가 계속 발생하고, 스택오버플로우의 위험이 존재한다.
+- 스택프레임을 구성하고 해제하는 시간이 추가적으로 필요하므로 일반적인 반복문보다 느리다는 단점이 있다.
+
+#### 함수는 최대한 쪼개도록 하자!
+
+- 사용자에게서 입력을 받거나 콘솔에 출력하는 아주 간단한 함수라고 하더라도 가독성, 확장성을 고려한다면 별도의 함수로 감싸서 작성하는 것이 좋다. (의미면에서도 더 명확할 것이다.)
