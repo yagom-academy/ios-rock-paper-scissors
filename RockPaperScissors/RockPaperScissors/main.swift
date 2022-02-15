@@ -7,10 +7,8 @@
 import Foundation
 
 func getUserInput() -> Int? {
-    let userInput = readLine()
+    guard let userInput = readLine(), let userIntInput = Int(userInput) else { return nil }
     
-    guard let checkInput = userInput else { return nil }
-    guard let userIntInput = Int(checkInput) else { return nil }
     if userIntInput >= 0 && userIntInput <= 3 {
         return userIntInput
     }
