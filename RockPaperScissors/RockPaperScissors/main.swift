@@ -19,7 +19,28 @@ func checkValidity() -> String {
     if arrayOfValidNumbers.contains(userInput) {
         return userInput
     } else {
-        return "잘못된 입력입니다. 다시 시도해주세요."
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return selectGameMenu()
+    }
+}
+
+func checkStartGame() {
+    if checkValidity() == "0" {
+        print("게임 종료")
+        return
+    } else {
+        
+    }
+}
+
+func decideWinner() {
+    let computerNumber = String(Int.random(in: 1...3))
+    let userInput = checkValidity()
+    if computerNumber == userInput {
+        print("비겼습니다!")
+        selectGameMenu()
+    } else {
+        
     }
 }
 
