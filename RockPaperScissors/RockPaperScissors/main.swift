@@ -37,7 +37,28 @@ enum GameResult {
     case draw
 }
 
-class RockPaperScissorsGame {
+struct RockPaperScissorsGame {
+    
+    func start() {
+        var gameFlag = true
+        
+        while gameFlag {
+            print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
+            
+            guard let computerSign = makeComputerSign() else {
+                continue
+            }
+            
+            guard let userSign = inputUserSign(gameFlag: &gameFlag) else {
+                continue
+            }
+            
+            let gameResult = userSign.playGame(with: computerSign)
+            gameFlag = printGameResult(gameResult: gameResult)
+        }
+        
+        print("게임 종료")
+    }
     
     func makeComputerSign() -> RockPaperScissors? {
         guard let randomSign = RockPaperScissors.allCases.randomElement() else {
@@ -68,28 +89,7 @@ class RockPaperScissorsGame {
         
         return rockPaperScissorsSign
     }
-    
-    func startGame() {
-        var gameFlag = true
-        
-        while gameFlag {
-            print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
-            
-            guard let computerSign = makeComputerSign() else {
-                continue
-            }
-            
-            guard let userSign = inputUserSign(gameFlag: &gameFlag) else {
-                continue
-            }
-            
-            let gameResult = userSign.playGame(with: computerSign)
-            gameFlag = printGameResult(gameResult: gameResult)
-        }
-        
-        print("게임 종료")
-    }
-    
+
     func printGameResult(gameResult: GameResult) -> Bool {
         switch gameResult {
         case .win:
@@ -105,5 +105,5 @@ class RockPaperScissorsGame {
     }
 }
 
-let c = RockPaperScissorsGame()
-c.startGame()
+let newGame = RockPaperScissorsGame()
+newGame.start()
