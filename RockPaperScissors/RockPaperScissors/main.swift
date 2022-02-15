@@ -2,7 +2,7 @@
 //  RockPaperScissors - main.swift
 //  Created by Doogie, Eddy
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 import Foundation
 
