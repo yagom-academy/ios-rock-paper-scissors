@@ -6,11 +6,11 @@
 
 import Foundation
 
-enum GameValue: Int {
-    case exit = 0
-    case scissor = 1
-    case rock = 2
-    case paper = 3
+enum GameValue {
+    case exit
+    case scissor
+    case rock
+    case paper
     case error
 }
 
