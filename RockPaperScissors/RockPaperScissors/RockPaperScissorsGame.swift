@@ -35,6 +35,30 @@ class RockPaperScissorsGame {
     
     func startProgram() {
         printUserInterface()
+        playSelectedMenu()
+        
+    }
+    
+    private func playSelectedMenu()  {
+        let userSelectedMenu = user.selectedMenu()
+        
+        switch userSelectedMenu {
+        case RockPaperScissorsType.rock.value:
+            print("이겼습니다!")
+            
+        case RockPaperScissorsType.paper.value:
+            print("졌습니다!")
+            
+        case RockPaperScissorsType.scissor.value:
+            print("비겼습니다!")
+            
+        case RockPaperScissorsType.exit.value:
+            printGameOver()
+            
+        default:
+            printErrorMessage()
+            startProgram()
+        }
     }
     
     private func printUserInterface() {
