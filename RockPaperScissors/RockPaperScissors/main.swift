@@ -23,12 +23,20 @@ func makeRandomCard() -> String {
 func inputSelectionCard() {
     let userInput: String? = readLine()
     switch userInput {
-    case "1": print("가위")
-    case "2": print("바위")
-    case "3": print("보")
+    case "1", "2", "3": checkCard(userCard: userInput)
     case "0": return
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startGame()
     }
+}
+
+func checkCard(userCard: String?) {
+    let computerCard = makeRandomCard()
+    print("사용자 : \(userCard)")
+    print("컴퓨터 : \(computerCard)")
+}
+
+while true {
+    startGame()
 }
