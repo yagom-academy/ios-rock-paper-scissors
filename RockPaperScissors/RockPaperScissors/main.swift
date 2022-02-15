@@ -6,25 +6,22 @@
 
 import Foundation
 
-func playRockPaperScissors() {
-    print("가위(1),바위(2),보(3)!<종료 :0>: ", terminator: "")
-    let userHand = checkInputNumber()
-    let computerHand = makeComputerHand()
-    if userHand != 0 {
-        match(userHand: userHand, computerHand: computerHand)
-    }
+enum Hand: String {
+    case scissors = "1", rock = "2", paper = "3"
 }
 
-func match(userHand: Int, computerHand: Int) {
-    if userHand == 0 {
-        
-    } else if userHand == computerHand {
-        print("비겼습니다")
-        playRockPaperScissors()
-    } else if userHand-1 == computerHand || userHand+2 == computerHand {
-        print("유저가 이겼습니다")
-    } else {
-        print("컴퓨터가 이겼습니다")
+func startGame() {
+    print("가위(1),바위(2),보(3)!<종료 :0>: ", terminator: "")
+    let userInput = inputValue()
+    switch userInput{
+    case "1","2","3" :
+        playRockPaperScissors(userHand: userInput)
+    case "0" :
+        print("프로그램 종료")
+        return
+    default:
+        print("입력이 잘못되었습니다")
+        startGame()
     }
 }
 
@@ -33,27 +30,20 @@ func inputValue() -> String {
     return inputValue
 }
 
-func convertStringToInt() -> Int {
-    guard let intValue = Int(inputValue()) else { return 0 }
-    return intValue
+func playRockPaperScissors(userHand: String) {
+    let computerHand = String(Int.random(in: 1...3))
+    matchHand(userHand: userHand, computerHand: computerHand)
 }
 
-func checkInputNumber() -> Int {
-    let checkNumber = convertStringToInt()
-    if checkNumber == 1 || checkNumber == 2 || checkNumber == 3 {
-        return checkNumber
-    } else if checkNumber == 0 {
-        print("종료합니다.")
+func matchHand(userHand: String, computerHand: String) {
+    if userHand == computerHand {
+        print("비겼습니다")
+        selectGameMenu()
+    } else if userHand == Hand.scissors.rawValue && computerHand == Hand.paper.rawValue || userHand == Hand.rock.rawValue && computerHand == Hand.scissors.rawValue || userHand == Hand.paper.rawValue && computerHand == Hand.rock.rawValue {
+        print("유저가 이겼습니다")
     } else {
-        print("잘못된입력입니다. 다시 시도해 주세요.")
-        playRockPaperScissors()
+        print("컴퓨터가 이겼습니다")
     }
-    return checkNumber
 }
 
-func makeComputerHand() -> Int {
-    let computerHand = Int.random(in: 1...3)
-    return computerHand
-}
-
-playRockPaperScissors()
+selectGameMenu()
