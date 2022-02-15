@@ -9,9 +9,9 @@ import Foundation
 
 final class RockPaperScissorsGame {
     private enum RockPaperScissorsType: Int {
+        case scissor
         case rock
         case paper
-        case scissor
         case exit
         
         var value: Int {
@@ -52,7 +52,7 @@ final class RockPaperScissorsGame {
         playSelectedMenu()
     }
     
-    private func playSelectedMenu()  {
+    private func playSelectedMenu() {
         let userSelectedMenu: Int = user.selectedMenu()
         let rock: Int = RockPaperScissorsType.rock.value
         let paper: Int = RockPaperScissorsType.paper.value
@@ -76,6 +76,7 @@ final class RockPaperScissorsGame {
         
         if userSelectedNumber == computerSelectedNumber {
             printGameResut(gameResult: .draw)
+            startProgram()
         }
         
         if userSelectedNumber == computerSelectedNumber + 1 || userSelectedNumber == computerSelectedNumber - 2 {
