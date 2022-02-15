@@ -81,6 +81,7 @@ final class RockPaperScissorsGame {
         
         if userSelectedNumber == computerSelectedNumber + 1 || userSelectedNumber == computerSelectedNumber - 2 {
             printGameResut(gameResult: .win)
+            printGameOver()
         }
         
         if userSelectedNumber == computerSelectedNumber - 1 || userSelectedNumber == computerSelectedNumber + 2 {
