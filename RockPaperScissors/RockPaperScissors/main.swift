@@ -1,16 +1,55 @@
 import Foundation
 
-enum HandShapes: CaseIterable {
+enum Hands: CaseIterable {
     case rock, paper, scissors
     
     var description: String {
         switch self {
         case .scissors:
-            return "1"
+            return "가위"
         case .rock:
-            return "2"
+            return "바위"
         case .paper:
-            return "3"
+            return "보"
+        }
+    }
+}
+
+enum GameGuide {
+    case message
+    
+    var description: String {
+        switch self {
+        case .message:
+            return "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+        }
+    }
+}
+
+enum GameResult {
+    case win, lose, draw, endGame
+    
+    var description: String {
+        switch self {
+        case .win:
+            return "이겼습니다!"
+        case .lose:
+            return "졌습니다!"
+        case .draw:
+            return "비겼습니다!"
+        case .endGame:
+            return "게임종료"
+        }
+    }
+}
+
+enum GameError {
+    case wrongInput
+    
+    var description: String {
+        switch self {
+        case .wrongInput:
+            return "잘못된 입력입니다. 다시 시도해주세요."
         }
     }
 }
@@ -22,9 +61,9 @@ func startGame() {
     }
     let computerHand = generatedRandomHandShape()
     if isNumberZero(input: userHandShape) {
-        print("게임 종료")
+        print(GameResult.endGame.description)
         return
-    } else if userHandShape == "wrongInput" {
+    } else if userHandShape == GameError.wrongInput.description {
         startGame()
     } else {
         compareHandShape(userHand: userHandShape, computerHand: computerHand)
@@ -32,7 +71,7 @@ func startGame() {
 }
 
 func printInputGuidanceMessage() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    print(GameGuide.message.description, terminator: "")
 }
 
 func receiveUserInputHandShape() -> String? {
@@ -49,18 +88,22 @@ func isNumberZero(input: String) -> Bool {
 
 func verifiedUserHandShape(_ input: String?) -> String? {
     switch input {
-    case "1", "2", "3":
-        return input
+    case "1":
+        return Hands.scissors.description
+    case "2":
+        return Hands.rock.description
+    case "3":
+        return Hands.paper.description
     case "0" :
         return input
     default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return "wrongInput"
+        print(GameError.wrongInput.description)
+        return GameError.wrongInput.description
     }
 }
 
 func generatedRandomHandShape() -> String {
-    if let handShape = HandShapes.allCases.randomElement()?.description {
+    if let handShape = Hands.allCases.randomElement()?.description {
         return handShape
     }
     return generatedRandomHandShape()
@@ -68,12 +111,15 @@ func generatedRandomHandShape() -> String {
 
 func compareHandShape(userHand: String, computerHand: String) {
     if userHand == computerHand {
-        print("비겼습니다!")
-    } else if (userHand, computerHand) == ("1", "3") ||
-              (userHand, computerHand) == ("2", "1") ||
-              (userHand, computerHand) == ("3", "1") {
-        print("이겼습니다!")
+        print(GameResult.draw.description)
+    } else if (userHand, computerHand) ==
+                (Hands.scissors.description, Hands.paper.description) ||
+                (userHand, computerHand) ==
+                (Hands.rock.description, Hands.scissors.description) ||
+                (userHand, computerHand) ==
+                (Hands.paper.description, Hands.rock.description) {
+        print(GameResult.win.description)
     } else {
-        print("졌습니다!")
+        print(GameResult.lose.description)
     }
 }
