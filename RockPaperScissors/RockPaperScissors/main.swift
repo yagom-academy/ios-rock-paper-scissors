@@ -5,3 +5,9 @@
 // 
 
 import Foundation
+
+let user: User = User()
+let computer: Computer = Computer()
+let rockPaperScissorsGame: RockPaperScissorsGame = RockPaperScissorsGame(user: user, computer: computer)
+
+rockPaperScissorsGame.startProgram()

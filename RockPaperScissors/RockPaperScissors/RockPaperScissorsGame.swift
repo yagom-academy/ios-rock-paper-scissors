@@ -8,14 +8,6 @@
 import Foundation
 
 class RockPaperScissorsGame {
-    let user: User
-    let computer: Computer
-    
-    init(user: User, computer: Computer) {
-        self.user = user
-        self.computer = computer
-    }
-    
     private enum RockPaperScissorsType: Int {
         case rock = 1
         case paper = 2
@@ -33,7 +25,27 @@ class RockPaperScissorsGame {
         }
     }
     
+    let user: User
+    let computer: Computer
+    
+    init(user: User, computer: Computer) {
+        self.user = user
+        self.computer = computer
+    }
+    
+    func startProgram() {
+        printUserInterface()
+    }
+    
     private func printUserInterface() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :" , terminator: "")
+    }
+    
+    private func printGameOver() {
+        print("게임 종료")
+    }
+    
+    private func printErrorMessage() {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }

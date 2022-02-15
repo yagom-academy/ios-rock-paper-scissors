@@ -19,14 +19,14 @@ struct User {
                   return UserOption.wrongInput
               }
         
-        if verifyUserInput(userInput: convertedUserInput) {
+        if verifyUserInput(userInput: convertedUserInput) == false {
             return UserOption.wrongInput
         }
         
         return convertedUserInput
     }
     
-   private func verifyUserInput(userInput: Int) -> Bool {
+    private func verifyUserInput(userInput: Int) -> Bool {
         let verifiedNumberRange: ClosedRange<Int> = UserOption.userNumberRange
         
         if verifiedNumberRange.contains(userInput) == false {
@@ -36,4 +36,4 @@ struct User {
         return true
     }
 }
-    
+
