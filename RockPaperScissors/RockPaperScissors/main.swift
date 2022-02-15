@@ -6,10 +6,10 @@
 
 import Foundation
 
-enum RockPaperScissors {
-    case rock
-    case paper
-    case scissor
+enum RockPaperScissors: Int, CaseIterable {
+    case scissor = 1
+    case rock = 2
+    case paper = 3
 }
 
 enum Result {
@@ -23,17 +23,29 @@ enum ErrorCase: Error {
 }
 
 class RockPaperScissorsGame {
-    let computerNumber = Int.random(in: 1..<4)
     
-    func inputUserNumber() -> Int {
+    func generateComputerNumber() -> RockPaperScissors? {
+        guard let randomData = RockPaperScissors.allCases.randomElement() else {
+            return nil
+        }
+        
+        return randomData
+    }
+    
+    func inputUserNumber() -> RockPaperScissors? {
         guard let inputNumber = readLine() else {
-            return 4
+            return nil
         }
         
         guard let convertedInt = Int(inputNumber) else {
-            return 4
+            return nil
         }
         
-        return convertedInt
+        guard let RockPaperScissorsData = RockPaperScissors(rawValue: convertedInt) else {
+            return nil
+        }
+        
+        return RockPaperScissorsData
     }
+    
 }
