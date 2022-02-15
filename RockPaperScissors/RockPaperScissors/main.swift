@@ -12,10 +12,11 @@ func selectGameMenu() -> String {
     return userInput
 }
 
-func checkValidity(userInput: String) -> String {
+func checkValidity(userInput: String) -> Int? {
     let arrayOfValidNumbers = ["0", "1", "2", "3"]
     if arrayOfValidNumbers.contains(userInput) {
-        return userInput
+        guard let intUserInput = Int(userInput) else { return nil }
+        return intUserInput
     } else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return checkValidity(userInput: selectGameMenu())
@@ -27,29 +28,23 @@ func checkStartGame(userInput: String) {
         print("게임 종료")
         return
     } else {
-        decideWinner(indexArray: setIndexArray(userNumber: userInput))
+        decideWinner(userNumber: userInput)
     }
 }
 
-func setIndexArray(userNumber: String) -> [Int] {
-    let validNumber = checkValidity(userInput: userNumber)
-    let computerNumber = String(Int.random(in: 1...3))
-    let indexArray = ["1","2","3","1"]
-    guard let computerIndex = indexArray.firstIndex(of: computerNumber).map({Int($0)}) else { return [] }
-    guard let userIndex = indexArray.firstIndex(of: validNumber).map({Int($0)}) else { return [] }
-    return [computerIndex, userIndex]
-}
-
-func decideWinner(indexArray: [Int]) {
-    let userIndex = indexArray[1]
-    let computerIndex = indexArray[0]
-    if userIndex == computerIndex + 1 {
+func decideWinner(userNumber: String) {
+    guard let validNumber = checkValidity(userInput: userNumber) else { return }
+    let numberRange: ClosedRange<Int> = 1...3
+    let computerNumber = Int.random(in: numberRange)
+    let number: Int = validNumber - computerNumber
+    switch number {
+    case 1, -2:
         print("이겼습니다!\n게임 종료")
-    } else if userIndex == computerIndex {
-        print("비겼습니다!")
-    } else {
+    case 2, -1:
         print("졌습니다!\n게임 종료")
+    default:
+        print("비겼습니다!")
     }
 }
 
-print(checkStartGame(userInput: selectGameMenu()))
+checkStartGame(userInput: selectGameMenu())
