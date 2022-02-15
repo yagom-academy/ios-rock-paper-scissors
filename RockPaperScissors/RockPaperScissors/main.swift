@@ -15,6 +15,22 @@ enum HandShapes: CaseIterable {
     }
 }
 
+func startGame() {
+    printInputGuidanceMessage()
+    guard let userHandShape = verifiedUserHandShape(receiveUserInputHandShape()) else {
+        return
+    }
+    let computerHand = generatedRandomHandShape()
+    if isNumberZero(input: userHandShape) {
+        print("게임 종료")
+        return
+    } else if userHandShape == "wrongInput" {
+        startGame()
+    } else {
+        compareHandShape(userHand: userHandShape, computerHand: computerHand)
+    }
+}
+
 func printInputGuidanceMessage() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
