@@ -11,6 +11,24 @@ struct RockScissorPaper {
     var computerHand: Int
     var playerHand: Int
     let optionRange = 1...3
+    let outcomesForRock: Array<String> = ["승", "무승부", "패"]
+    let outcomesForScissor: Array<String> = ["무승부", "패", "승"]
+    let outcomesForPaper: Array<String> = ["패", "승", "무승부"]
+    
+    func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> String {
+        var result: String = ""
+        switch playerHand {
+        case 1:
+            result = outcomesForScissor[computerHand-1]
+        case 2:
+            result = outcomesForRock[computerHand-1]
+        case 3:
+            result = outcomesForPaper[computerHand-1]
+        default:
+            break
+        }
+        return result
+    }
     
     mutating func generateComputerHand() {
         computerHand = Int.random(in: optionRange)
