@@ -8,9 +8,11 @@
 import Foundation
 
 struct Computer {
-    
-    func rockSicssorPaper() -> Int {
-        let computerOutput = 
+    enum ComputerOption {
+        static let numberRange: ClosedRange<Int> = 1...3
     }
-
+    
+    func generatedComputerNumber(numberRange: ClosedRange<Int> = ComputerOption.numberRange) -> Int {
+        Int.random(in: numberRange)
+    }
 }
