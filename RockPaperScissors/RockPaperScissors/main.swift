@@ -2,22 +2,20 @@
 //  RockPaperScissors - main.swift
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
-// 
-
-import Foundation
+//
 
 enum RockPaperScissors: Int, CaseIterable {
-    case scissor = 1
+    case scissors = 1
     case rock = 2
     case paper = 3
     
-    func playGame(with opponentPlayer: RockPaperScissors) -> Result {
+    func playGame(with opponentPlayer: RockPaperScissors) -> GameResult {
         
         if self == opponentPlayer {
             return .draw
         }
         
-        if self == .scissor {
+        if self == .scissors {
             return opponentPlayer == .paper ? .win : .lose
         }
         
@@ -26,79 +24,74 @@ enum RockPaperScissors: Int, CaseIterable {
         }
         
         if self == .rock {
-            return opponentPlayer == .scissor ? .win : .lose
+            return opponentPlayer == .scissors ? .win : .lose
         }
         
         return .draw
     }
 }
 
-enum Result {
+enum GameResult {
     case win
     case lose
     case draw
-//    case unknown
-}
-
-enum ErrorCase: Error {
-    case inputError
 }
 
 class RockPaperScissorsGame {
     
-    func generateComputerNumber() -> RockPaperScissors? {
-        guard let randomData = RockPaperScissors.allCases.randomElement() else {
+    func makeComputerSign() -> RockPaperScissors? {
+        guard let randomSign = RockPaperScissors.allCases.randomElement() else {
             return nil
         }
         
-        return randomData
+        return randomSign
     }
     
-    func inputUserNumber(flag: inout Bool) -> RockPaperScissors? {
+    func inputUserSign(gameFlag: inout Bool) -> RockPaperScissors? {
         guard let inputNumber = readLine() else {
             return nil
         }
         
-        guard let convertedInt = Int(inputNumber) else {
+        guard let convertedIntNumber = Int(inputNumber) else {
             return nil
         }
         
-        guard convertedInt != Int.zero else {
-            flag = false
+        guard convertedIntNumber != Int.zero else {
+            gameFlag = false
             return nil
         }
         
-        guard let RockPaperScissorsData = RockPaperScissors(rawValue: convertedInt) else {
+        guard let rockPaperScissorsSign = RockPaperScissors(rawValue: convertedIntNumber) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return nil
         }
         
-        return RockPaperScissorsData
+        return rockPaperScissorsSign
     }
     
     func startGame() {
-        var flag = true
+        var gameFlag = true
         
-        while flag {
+        while gameFlag {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
             
-            guard let computerNumber = generateComputerNumber() else {
+            guard let computerSign = makeComputerSign() else {
                 continue
             }
             
-            guard let userNumber = inputUserNumber(flag: &flag) else {
+            guard let userSign = inputUserSign(gameFlag: &gameFlag) else {
                 continue
             }
             
-//            let checkResult = checkNumber(computer: computerNumber, user: userNumber)
-            let checkResult = userNumber.playGame(with: computerNumber)
-            flag = printResult(checkResult: checkResult)
+            let gameResult = userSign.playGame(with: computerSign)
+            gameFlag = printGameResult(gameResult: gameResult)
         }
+        
         print("게임 종료")
     }
     
-    func printResult(checkResult: Result) -> Bool {
-        switch checkResult {
+    func printGameResult(gameResult: GameResult) -> Bool {
+        switch gameResult {
         case .win:
             print("이겼습니다!")
             return false
@@ -108,44 +101,8 @@ class RockPaperScissorsGame {
         case .draw:
             print("비겼습니다")
             return true
-//        case .unknown:
-//            print("모릅니다")
-//            return true
         }
     }
-    
-//    func checkNumber(computer: RockPaperScissors, user: RockPaperScissors) -> Result {
-//
-//        if computer == user {
-//            return Result.draw
-//        }
-//
-//        if computer == .scissor && user == .paper {
-//            return Result.lose
-//        }
-//
-//        if computer == .scissor && user == .rock {
-//            return Result.win
-//        }
-//
-//        if computer == .rock && user == .paper {
-//            return Result.win
-//        }
-//
-//        if computer == .rock && user == .scissor {
-//            return Result.lose
-//        }
-//
-//        if computer == .paper && user == .scissor {
-//            return Result.win
-//        }
-//
-//        if computer == .paper && user == .rock {
-//            return Result.lose
-//        }
-//
-//        return Result.unknown
-//    }
 }
 
 let c = RockPaperScissorsGame()
