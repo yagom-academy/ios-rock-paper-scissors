@@ -38,7 +38,7 @@ func playRockPaperScissors(userHand: String) {
 func matchHand(userHand: String, computerHand: String) {
     if userHand == computerHand {
         print("비겼습니다")
-        selectGameMenu()
+        startGame()
     } else if userHand == Hand.scissors.rawValue && computerHand == Hand.paper.rawValue || userHand == Hand.rock.rawValue && computerHand == Hand.scissors.rawValue || userHand == Hand.paper.rawValue && computerHand == Hand.rock.rawValue {
         print("유저가 이겼습니다")
     } else {
