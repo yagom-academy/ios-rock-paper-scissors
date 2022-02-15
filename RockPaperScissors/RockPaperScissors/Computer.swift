@@ -8,5 +8,9 @@
 import Foundation
 
 struct Computer {
+    
+    func rockSicssorPaper() -> Int {
+        let computerOutput = 
+    }
 
 }

@@ -9,4 +9,14 @@ import Foundation
 
 struct User {
 
+    let anotherNumber: Int = 4
+    
+    func selectedMenu() -> Int {
+        guard let userInput = readLine(),
+            let convertedInput =  Int(userInput) else {
+                return anotherNumber
+        }
+        return convertedInput
+    }
 }
+
