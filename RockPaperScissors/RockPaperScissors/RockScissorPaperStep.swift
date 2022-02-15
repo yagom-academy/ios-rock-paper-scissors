@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum ErrorCase: Error {
+    case valueIsWorngFormat
+}
+
 struct RockScissorPaper {
     var computerHand: Int
     var playerHand: Int
@@ -14,6 +18,43 @@ struct RockScissorPaper {
     let outcomesForRock: Array<String> = ["승", "무승부", "패"]
     let outcomesForScissor: Array<String> = ["무승부", "패", "승"]
     let outcomesForPaper: Array<String> = ["패", "승", "무승부"]
+    
+    mutating func startGame() {
+        do {
+            try inputPlayerOption()
+        } catch ErrorCase.valueIsWorngFormat {
+            print("잘못된 입력 입니다. 다시 시도해 주세요.")
+        } catch{}
+    }
+    
+    mutating func generateComputerHand() {
+        computerHand = Int.random(in: optionRange)
+    }
+    
+    mutating func inputPlayerOption() throws {
+        while true {
+            print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
+            guard let inputPlayerHand: String = readLine() else { throw ErrorCase.valueIsWorngFormat }
+            let convertedPlayerHand: Int = try convertStringToInt(to: inputPlayerHand)
+            switch convertedPlayerHand {
+            case 1:
+                playerHand = 1
+            case 2:
+                playerHand = 2
+            case 3:
+                playerHand = 3
+            case 0:
+                return
+            default:
+                throw ErrorCase.valueIsWorngFormat
+            }
+        }
+    }
+    
+    mutating func convertStringToInt(to: String) throws -> Int {
+        guard let inputPlayerHand: Int = Int(to) else { throw ErrorCase.valueIsWorngFormat }
+        return inputPlayerHand
+    }
     
     func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> String {
         var result: String = ""
@@ -28,20 +69,5 @@ struct RockScissorPaper {
             break
         }
         return result
-    }
-    
-    mutating func generateComputerHand() {
-        computerHand = Int.random(in: optionRange)
-    }
-    
-    mutating func inputPlayerOption() {
-        guard let inputPlayerHand: String = readLine() else { return }
-        convertStringToInt(to: inputPlayerHand)
-    }
-    
-    mutating func convertStringToInt(to: String) {
-        if let inputPlayerHand: Int = Int(to) {
-            playerHand = inputPlayerHand
-        } else { print("잘못된 입력입니다. 다시 시도해 주세요.") }
     }
 }
