@@ -9,36 +9,18 @@ import Foundation
 
 final class RockPaperScissorsGame {
     private enum RockPaperScissorsType: Int {
-        case scissor
-        case rock
-        case paper
-        case exit
-        
-        var value: Int {
-            switch self {
-            case .scissor: return 1
-            case .rock: return 2
-            case .paper: return 3
-            case .exit: return 0
-                
-            }
-        }
+        case scissor = 1
+        case rock = 2
+        case paper = 3
+        case exit = 0
     }
     
     private enum GameResult: String {
-        case draw
-        case win
-        case lose
-        
-        var value: String {
-            switch self {
-            case .draw: return "비겼습니다!"
-            case .win: return "이겼습니다!"
-            case .lose: return "졌습니다!"
-            }
-        }
+        case draw = "비겼습니다!"
+        case win = "이겼습니다!"
+        case lose = "졌습니다!"
     }
-    
+
     private let user: User
     private let computer: Computer
     
@@ -54,15 +36,15 @@ final class RockPaperScissorsGame {
     
     private func playSelectedMenu() {
         let userSelectedMenu: Int = user.selectedMenu()
-        let rock: Int = RockPaperScissorsType.rock.value
-        let paper: Int = RockPaperScissorsType.paper.value
-        let scissor: Int = RockPaperScissorsType.scissor.value
+        let rock: Int = RockPaperScissorsType.rock.rawValue
+        let paper: Int = RockPaperScissorsType.paper.rawValue
+        let scissor: Int = RockPaperScissorsType.scissor.rawValue
         
         switch userSelectedMenu {
         case scissor, rock, paper:
             judgeGameResult(userSelectedNumber: userSelectedMenu)
             
-        case RockPaperScissorsType.exit.value:
+        case RockPaperScissorsType.exit.rawValue:
             printGameOver()
             
         default:
@@ -103,6 +85,6 @@ final class RockPaperScissorsGame {
     }
     
     private func printGameResut(gameResult: GameResult) {
-        print(gameResult.value)
+        print(gameResult.rawValue)
     }
 }
