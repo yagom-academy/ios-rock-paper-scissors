@@ -46,4 +46,4 @@ func matchHand(userHand: String, computerHand: String) {
     }
 }
 
-selectGameMenu()
+startGame()
