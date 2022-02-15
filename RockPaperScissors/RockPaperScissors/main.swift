@@ -12,3 +12,16 @@ func selectGameMenu() -> String {
 
     return userInput
 }
+
+func checkValidity() -> String {
+    let userInput = selectGameMenu()
+    let arrayOfValidNumbers = ["0", "1", "2", "3"]
+    if arrayOfValidNumbers.contains(userInput) {
+        return userInput
+    } else {
+        return "잘못된 입력입니다. 다시 시도해주세요."
+    }
+}
+
+print(checkValidity())
+
