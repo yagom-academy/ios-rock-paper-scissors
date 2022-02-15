@@ -10,6 +10,7 @@ func showMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
+    selectMenu()
 }
 
 func receiveNumber() -> Int {
@@ -21,12 +22,12 @@ func receiveNumber() -> Int {
 func convertNumber(inputNumber: String) -> Int {
     let trimmedNumber = inputNumber.trimmingCharacters(in: .whitespaces)
     guard let numberToInt = Int(trimmedNumber) else { return 5 }
-    let numberResult = checkInputNumber(userNumber: numberToInt)
-    return numberResult
+    return numberToInt
 }
 
-func checkInputNumber(userNumber: Int) -> Int {
-    switch userNumber {
+func selectMenu() {
+    let number = receiveNumber()
+    switch number {
     case 0:
         print("게임 종료")
         break
@@ -40,5 +41,4 @@ func checkInputNumber(userNumber: Int) -> Int {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         showMenu()
     }
-    return userNumber
 }
