@@ -42,3 +42,8 @@ func selectMenu() {
         showMenu()
     }
 }
+
+func makeRandomNumber() -> Int {
+    let computerRandomNumber = Int.random(in: 1...3)
+    return computerRandomNumber
+}
