@@ -44,13 +44,13 @@ func printMenu() {
 }
 
 func playGame(selectedCard: String?) {
-    guard let computerCard = (makeRandomCard().flatMap{ Int($0) }) else { return }
-    guard let userCard = (selectedCard.flatMap{ Int($0) }) else { return }
+    guard let computerCard: Int = (makeRandomCard().flatMap{ Int($0) }) else { return }
+    guard let userCard: Int = (selectedCard.flatMap{ Int($0) }) else { return }
     printResult(gameResult: compareEachCard(userCard: userCard, computerCard: computerCard))
 }
 
 func makeRandomCard() -> String? {
-    let randomCard = Card.cases[Int.random(in: 0..<Card.cases.count)]
+    let randomCard: Card = Card.cases[Int.random(in: 0..<Card.cases.count)]
     return randomCard.rawValue
 }
 
