@@ -15,28 +15,41 @@ func startGame() {
     inputSelectionCard()
 }
 
-func makeRandomCard() -> String {
-    let randomCard: String = String(Int.random(in: 1...3))
+func makeRandomCard() -> Int {
+    let randomCard = Int.random(in: 1...3)
     return randomCard
 }
 
 func inputSelectionCard() {
     let userInput: String? = readLine()
     switch userInput {
-    case "1", "2", "3": checkCard(userCard: userInput)
-    case "0": return
+    case "1", "2", "3":
+        checkCard(selectedCard: userInput)
+    case "0":
+        print("게임 종료")
+    case .none:
+        print("nil")
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startGame()
     }
 }
 
-func checkCard(userCard: String?) {
+func checkCard(selectedCard: String?) {
     let computerCard = makeRandomCard()
-    print("사용자 : \(userCard)")
-    print("컴퓨터 : \(computerCard)")
+    guard let userCard = (selectedCard.flatMap{ Int($0) }) else { return }
+    getGameResult(userCard: userCard, computerCard: computerCard)
 }
 
-while true {
-    startGame()
+func getGameResult(userCard: Int, computerCard: Int) {
+    if userCard == computerCard {
+        print("비겼습니다.")
+        startGame()
+    } else if (computerCard - userCard) == -1 || (computerCard - userCard) == 2 {
+        print("이겼습니다.")
+    } else {
+        print("졌습니다.")
+    }
 }
+
+startGame()
