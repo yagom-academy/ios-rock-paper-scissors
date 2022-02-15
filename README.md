@@ -18,7 +18,7 @@
 ## 프로젝트 규칙
 
 ## 순서도
-
+<img src="https://user-images.githubusercontent.com/69573768/153990820-b0d03969-e372-4bd5-baf7-d4816447c2a1.png" width="500"/>
 ## STEP 1 기능 구현
 
 ## 의문점
