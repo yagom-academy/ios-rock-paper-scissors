@@ -9,6 +9,7 @@ import Foundation
 
 enum ErrorCase: Error {
     case valueIsWorngFormat
+    case valueIsOverRange
 }
 
 enum ResultMassage: String {
@@ -19,7 +20,7 @@ enum ResultMassage: String {
 
 struct StoreGameData {
     var computerHand: Int = 0
-    let optionRange = 1...3
+    let optionRange: ClosedRange = 1...3
     
     mutating func generateComputerHand() -> Int {
         computerHand = Int.random(in: optionRange)
@@ -29,65 +30,67 @@ struct StoreGameData {
     mutating func inputPlayerOption() throws -> Int {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
         guard let inputPlayerOption: String = readLine() else { throw ErrorCase.valueIsWorngFormat }
-        let convertedPlayerOption: Int = try convertStringToInt(to: inputPlayerOption)
-        return convertedPlayerOption
+        let convertedPlayerOption: Int = try convertStringToInt(from: inputPlayerOption)
+        let validPlayerOption = try checkValidOption(with: convertedPlayerOption)
+        return validPlayerOption
     }
     
-    mutating func convertStringToInt(to playerOption: String) throws -> Int {
+    mutating func convertStringToInt(from playerOption: String) throws -> Int {
         guard let inputPlayerOption: Int = Int(playerOption) else { throw ErrorCase.valueIsWorngFormat }
         return inputPlayerOption
+    }
+    
+    mutating func checkValidOption(with playerOption: Int) throws -> Int {
+        guard optionRange.contains(playerOption) else { throw ErrorCase.valueIsOverRange }
+        return playerOption
     }
 }
 
 struct PlayRockScissorPaper {
     var gameData = StoreGameData()
     var playerHand: Int = 0
-    let outcomesForRock: Array<String> = [ResultMassage.win.rawValue, ResultMassage.draw.rawValue, ResultMassage.lose.rawValue]
-    let outcomesForScissor: Array<String> = [ResultMassage.draw.rawValue, ResultMassage.lose.rawValue, ResultMassage.win.rawValue]
-    let outcomesForPaper: Array<String> = [ResultMassage.lose.rawValue, ResultMassage.win.rawValue, ResultMassage.draw.rawValue]
+    let resultListWithRock: Array<ResultMassage> = [ResultMassage.win, ResultMassage.draw, ResultMassage.lose]
+    let resultListWithScissor: Array<ResultMassage> = [ResultMassage.draw, ResultMassage.lose, ResultMassage.win]
+    let resultListWithPaper: Array<ResultMassage> = [ResultMassage.lose, ResultMassage.win, ResultMassage.draw]
     
-    mutating func playGame() {
+    mutating func playGame() throws {
         controlGame()
         let computerHand = gameData.generateComputerHand()
-        print(vertifyWinner(playerHand, computerHand))
+        let result = try vertifyWinner(playerHand, computerHand)
+        
+        if result == ResultMassage.draw {
+            print(result.rawValue)
+            try playGame()
+        } else {
+            print(result.rawValue)
+        }
     }
     
     mutating func controlGame() {
         do {
-            try allocatePlayerOption(playerOption: gameData.inputPlayerOption())
+            try playerHand = gameData.inputPlayerOption()
         } catch ErrorCase.valueIsWorngFormat {
             print("잘못된 입력 입니다. 다시 시도해 주세요.")
-        } catch { }
+            controlGame()
+        } catch ErrorCase.valueIsOverRange {
+            print("잘못된 입력 입니다. 다시 시도해 주세요.")
+            controlGame()
+        } catch {}
     }
     
-    func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> String {
-        var result: String = ""
-        print("test \(computerHand)")
+    func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) throws -> ResultMassage {
+        var result: ResultMassage
+        
         switch playerHand {
         case 1:
-            result = outcomesForScissor[computerHand-1]
+            result = resultListWithScissor[computerHand-1]
         case 2:
-            result = outcomesForRock[computerHand-1]
+            result = resultListWithRock[computerHand-1]
         case 3:
-            result = outcomesForPaper[computerHand-1]
-        default:
-            break
-        }
-        return result
-    }
-    
-    mutating func allocatePlayerOption(playerOption: Int) throws {
-        switch playerOption {
-        case 1:
-            playerHand = 1
-        case 2:
-            playerHand = 2
-        case 3:
-            playerHand = 3
-        case 0:
-            return
+            result = resultListWithPaper[computerHand-1]
         default:
             throw ErrorCase.valueIsWorngFormat
         }
+        return result
     }
 }
