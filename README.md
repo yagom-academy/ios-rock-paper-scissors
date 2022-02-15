@@ -21,7 +21,7 @@
 - inputSelectionCard 함수
     - 사용자에게 입력값을 받아 게임을 시작하는 함수
 - printMenu 함수
-    - 게임 메뉴르 출력하는 함수
+    - 게임 메뉴를 출력하는 함수
 - playGame 함수
     - 입력받은 값과 임의의 컴퓨터의 패를 비교하는 게임을 진행하는 함수
 - makeRandomCard 함수
