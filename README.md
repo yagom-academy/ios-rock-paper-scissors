@@ -1,6 +1,6 @@
 # 숫자야구 프로젝트 저장소
 > 프로젝트 기간 2022.02.08 ~ 2022.02.11 </br>
-팀원 : [@mmim](https://github.com/josh0318) [@Red](https://github.com/cherrishRed) / 리뷰어 : [@chacha](https://github.com/HJEHA)
+팀원 : [@mmim](https://github.com/josh0318) [@Red](https://github.com/cherrishRed) / 리뷰어 : [@chacha](https://github.com/trueman9512)
 
 ## 목차
 
@@ -26,7 +26,7 @@
 [![xcode](https://img.shields.io/badge/Xcode-13.0-blue)]()
 
 ## 순서도
-
+<img width="2976" alt="rockSissor_PaperFlowChart" src="https://user-images.githubusercontent.com/88810018/153987254-9eca7d89-f9bb-4676-a477-058f257e0f40.png">
 
 ## 키워드
 
