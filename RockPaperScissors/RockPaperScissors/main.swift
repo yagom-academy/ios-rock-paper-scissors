@@ -4,13 +4,16 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Darwin
-
 enum rockPaperScissors: String {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
-    case error = "Error"
+}
+
+enum gameResult {
+    case win
+    case loss
+    case tie
 }
 
 func rockPaperScissorsGameStart() {
@@ -20,10 +23,29 @@ func rockPaperScissorsGameStart() {
         printMenu()
         let oneDigitComputerNumber: Int = makeOneDigitComputerNumber()
         let userSelectedNumber: String = selectedUserGameMenuNumber()
+        if userSelectedNumber == "0" { return }
         guard let computerHand: rockPaperScissors = convert(number: String(oneDigitComputerNumber)) else { return }
         guard let userHand: rockPaperScissors = convert(number: userSelectedNumber) else { return }
-        ifWinnerIsFound = findIfUserWin(computerNumber: computerHand, userNumber: userHand)
+        let result = findIfUserWin(computerNumber: computerHand, userNumber: userHand)
+        
+        if result == .win || result == .loss {
+            ifWinnerIsFound = true
+        }
+        printResult(result: result)
     } while !ifWinnerIsFound
+}
+
+func printResult(result: gameResult) {
+    switch result {
+    case .win:
+        print("이겼습니다!")
+    case .loss:
+        print("졌습니다!")
+    case .tie:
+        print("비겼습니다!")
+//    case .error:
+//        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
 }
 
 func printMenu() {
@@ -41,38 +63,14 @@ func selectedUserGameMenuNumber() -> String {
     return userSelectedNumber
 }
 
-func findIfUserWin(computerNumber: rockPaperScissors, userNumber: rockPaperScissors) -> Bool {
+func findIfUserWin(computerNumber: rockPaperScissors, userNumber: rockPaperScissors) -> gameResult {
     switch (computerNumber, userNumber) {
-    case (.rock, .paper):
-        print("이겼습니다!")
-        return true
-    case (.scissors, .rock):
-        print("이겼습니다!")
-        return true
-    case (.paper, .scissors):
-        print("이겼습니다!")
-        return true
-    case (.scissors, .paper):
-        print("졌습니다!")
-        return true
-    case (.paper, .rock):
-        print("졌습니다!")
-        return true
-    case (.rock, .scissors):
-        print("졌습니다!")
-        return true
-    case (.rock, .rock):
-        print("비겼습니다.")
-        return false
-    case (.scissors, .scissors):
-        print("비겼습니다.")
-        return false
-    case (.paper, .paper):
-        print("비겼습니다.")
-        return false
-    default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return true
+    case (.rock, .paper), (.scissors, .rock), (.paper, .scissors):
+        return .win
+    case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
+        return .loss
+    case (.rock, .rock), (.scissors, .scissors), (.paper, .paper):
+        return .tie
     }
 }
 
