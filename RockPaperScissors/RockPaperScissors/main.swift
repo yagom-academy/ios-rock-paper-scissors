@@ -24,6 +24,25 @@ func receiveUserInputHandShape() -> String? {
     return inputtedHandShape
 }
 
+func isNumberZero(input: String) -> Bool {
+    if input == "0" {
+        return true
+    }
+    return false
+}
+
+func verifiedUserHandShape(_ input: String?) -> String? {
+    switch input {
+    case "1", "2", "3":
+        return input
+    case "0" :
+        return input
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return "wrongInput"
+    }
+}
+
 func generatedRandomHandShape() -> String {
     if let handShape = HandShapes.allCases.randomElement()?.description {
         return handShape
