@@ -8,6 +8,7 @@ enum rockPaperScissors: String {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
+    case error
 }
 
 enum gameResult {
@@ -25,15 +26,13 @@ func rockPaperScissorsGameStart() {
         let oneDigitComputerNumber: Int = makeOneDigitComputerNumber()
         let userSelectedNumber: String = selectedUserGameMenuNumber()
         if userSelectedNumber == "0" { break }
-        guard let computerHand: rockPaperScissors = convert(number: String(oneDigitComputerNumber)) else { return }
-        var result: gameResult
-        if let userHand: rockPaperScissors = convert(number: userSelectedNumber) {
-            result = findIfUserWin(computerNumber: computerHand, userNumber: userHand)
-            if result == .win || result == .loss {
-                ifWinnerIsFound = true
-            }
-        } else {
-            result = .error
+        
+        let computerHand: rockPaperScissors = convert(number: String(oneDigitComputerNumber))
+        let userHand: rockPaperScissors = convert(number: userSelectedNumber)
+        let result: gameResult = findIfUserWin(computerNumber: computerHand, userNumber: userHand)
+        
+        if result == .win || result == .loss {
+            ifWinnerIsFound = true
         }
         printResult(result: result)
     } while !ifWinnerIsFound
@@ -59,7 +58,6 @@ func printMenu() {
 
 func makeOneDigitComputerNumber() -> Int {
     let oneDigitComputerNumber = Int.random(in: 1...3)
-    print("oneDigitComputerNumber:", oneDigitComputerNumber)
     return oneDigitComputerNumber
 }
 
@@ -76,19 +74,21 @@ func findIfUserWin(computerNumber: rockPaperScissors, userNumber: rockPaperSciss
         return .loss
     case (.rock, .rock), (.scissors, .scissors), (.paper, .paper):
         return .tie
+    default:
+        return .error
     }
 }
 
-func convert(number: String) -> rockPaperScissors? {
+func convert(number: String) -> rockPaperScissors {
     switch number {
     case "1":
-        return rockPaperScissors.scissors
+        return .scissors
     case "2":
-        return rockPaperScissors.rock
+        return .rock
     case "3":
-        return rockPaperScissors.paper
+        return .paper
     default:
-        return nil
+        return .error
     }
 }
 
