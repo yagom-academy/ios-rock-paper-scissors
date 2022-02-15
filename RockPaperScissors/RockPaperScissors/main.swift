@@ -16,6 +16,7 @@ enum Result {
     case win
     case lose
     case draw
+    case unknown
 }
 
 enum ErrorCase: Error {
@@ -61,7 +62,62 @@ class RockPaperScissorsGame {
             guard let userNumber = inputUserNumber() else {
                 continue
             }
+            
+            let checkResult = checkNumber(computer: computerNumber, user: userNumber)
+            flag = printResult(checkResult: checkResult)
         }
     }
     
+    func printResult(checkResult: Result) -> Bool {
+        switch checkResult {
+        case .win:
+            print("이겼습니다!")
+            return false
+        case .lose:
+            print("졌습니다!")
+            return false
+        case .draw:
+            print("비겼습니다")
+            return true
+        case .unknown:
+            print("모릅니다")
+            return true
+        }
+    }
+    
+    func checkNumber(computer: RockPaperScissors, user: RockPaperScissors) -> Result {
+
+        if computer == user {
+            return Result.draw
+        }
+        
+        if computer == .scissor && user == .paper {
+            return Result.lose
+        }
+        
+        if computer == .scissor && user == .rock {
+            return Result.win
+        }
+        
+        if computer == .rock && user == .paper {
+            return Result.win
+        }
+        
+        if computer == .rock && user == .scissor {
+            return Result.lose
+        }
+        
+        if computer == .paper && user == .scissor {
+            return Result.win
+        }
+        
+        if computer == .paper && user == .rock {
+            return Result.lose
+        }
+        
+        return Result.unknown
+    }
 }
+
+let c = RockPaperScissorsGame()
+c.startGame()
