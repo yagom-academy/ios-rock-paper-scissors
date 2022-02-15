@@ -14,6 +14,7 @@ enum gameResult {
     case win
     case loss
     case tie
+    case error
 }
 
 func rockPaperScissorsGameStart() {
@@ -23,16 +24,20 @@ func rockPaperScissorsGameStart() {
         printMenu()
         let oneDigitComputerNumber: Int = makeOneDigitComputerNumber()
         let userSelectedNumber: String = selectedUserGameMenuNumber()
-        if userSelectedNumber == "0" { return }
+        if userSelectedNumber == "0" { break }
         guard let computerHand: rockPaperScissors = convert(number: String(oneDigitComputerNumber)) else { return }
-        guard let userHand: rockPaperScissors = convert(number: userSelectedNumber) else { return }
-        let result = findIfUserWin(computerNumber: computerHand, userNumber: userHand)
-        
-        if result == .win || result == .loss {
-            ifWinnerIsFound = true
+        var result: gameResult
+        if let userHand: rockPaperScissors = convert(number: userSelectedNumber) {
+            result = findIfUserWin(computerNumber: computerHand, userNumber: userHand)
+            if result == .win || result == .loss {
+                ifWinnerIsFound = true
+            }
+        } else {
+            result = .error
         }
         printResult(result: result)
     } while !ifWinnerIsFound
+    print("게임 종료")
 }
 
 func printResult(result: gameResult) {
@@ -43,8 +48,8 @@ func printResult(result: gameResult) {
         print("졌습니다!")
     case .tie:
         print("비겼습니다!")
-//    case .error:
-//        print("잘못된 입력입니다. 다시 시도해주세요.")
+    case .error:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }
 
