@@ -1,11 +1,11 @@
 # ⛺️iOS 커리어 스타터 캠프
 
 # 목차
-1. [Ground Rules](href="#️-ground-rules)
-2. [가위바위보 게임 프로젝트 ](href="#️-가위바위보-게임-프로젝트)
+1. [Ground Rules](#️-ground-rules)
+2. [가위바위보 게임 프로젝트](#️-가위바위보-게임-프로젝트)
 3. [게임 규칙](#게임-규칙)
-4. [Flow Chart](href="#flow-chart")
-5. [STEP1 실행 영상](href="#step1-실행-화면")
+4. [Flow Chart](#flow-chart)
+5. [STEP1 실행 영상](#step1-실행-화면)
 6. [구현 내용](#구현-내용)
 7. [피드백 수정](#피드백-받아서-수정)
 
