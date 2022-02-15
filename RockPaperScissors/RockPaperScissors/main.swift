@@ -12,6 +12,15 @@ func printMenu() {
 
 func startGame() {
     printMenu()
+    inputSelectionCard()
+}
+
+func makeRandomCard() -> String {
+    let randomCard: String = String(Int.random(in: 1...3))
+    return randomCard
+}
+
+func inputSelectionCard() {
     let userInput: String? = readLine()
     switch userInput {
     case "1": print("가위")
