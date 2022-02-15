@@ -13,8 +13,8 @@ struct User {
     }
     
     func selectedMenu() -> Int {
-        guard let userInput = readLine(),
-              let convertedUserInput = Int(userInput) else {
+        guard let userInput: String = readLine(),
+              let convertedUserInput: Int = Int(userInput) else {
                   return UserOption.wrongInput
               }
         

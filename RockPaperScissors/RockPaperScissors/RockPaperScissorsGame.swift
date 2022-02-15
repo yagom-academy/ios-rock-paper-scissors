@@ -25,7 +25,7 @@ final class RockPaperScissorsGame {
         }
     }
     
-    private enum GameResult {
+    private enum GameResult: String {
         case draw
         case win
         case lose
@@ -53,10 +53,10 @@ final class RockPaperScissorsGame {
     }
     
     private func playSelectedMenu()  {
-        let userSelectedMenu = user.selectedMenu()
-        let rock = RockPaperScissorsType.rock.value
-        let paper = RockPaperScissorsType.paper.value
-        let scissor = RockPaperScissorsType.scissor.value
+        let userSelectedMenu: Int = user.selectedMenu()
+        let rock: Int = RockPaperScissorsType.rock.value
+        let paper: Int = RockPaperScissorsType.paper.value
+        let scissor: Int = RockPaperScissorsType.scissor.value
         
         switch userSelectedMenu {
         case scissor, rock, paper:
@@ -72,7 +72,7 @@ final class RockPaperScissorsGame {
     }
     
     private func judgeGameResult(userSelectedNumber: Int) {
-        let computerSelectedNumber = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
+        let computerSelectedNumber: Int = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
         
         if userSelectedNumber == computerSelectedNumber {
             printGameResut(gameResult: .draw)
