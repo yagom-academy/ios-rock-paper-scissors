@@ -4,6 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
+import Darwin
+
 enum rockPaperScissors: String {
     case scissors = "1"
     case rock = "2"
@@ -12,12 +14,6 @@ enum rockPaperScissors: String {
 }
 
 func rockPaperScissorsGameStart() {
-    
-//    switch userSelectedNumber {
-//    case userSelectedNumber == oneDigitComputerNumber:
-//        print("비겼습니다!")
-//        case
-//    }
     var ifWinnerIsFound: Bool = false
     
     repeat {
@@ -32,11 +28,11 @@ func rockPaperScissorsGameStart() {
 
 func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-
 }
 
 func makeOneDigitComputerNumber() -> Int {
     let oneDigitComputerNumber = Int.random(in: 1...3)
+    print("oneDigitComputerNumber:", oneDigitComputerNumber)
     return oneDigitComputerNumber
 }
 
@@ -45,23 +41,38 @@ func selectedUserGameMenuNumber() -> String {
     return userSelectedNumber
 }
 
-//func convertStringToInt(_ stringTypeComputerNumber: String) -> Int {
-//    guard let convertedIntTypeElement = stringTypeComputerNumber.compactMap { Int($0) } else { return }
-//    return convertedIntTypeElement
-//}
-
-
-
 func findIfUserWin(computerNumber: rockPaperScissors, userNumber: rockPaperScissors) -> Bool {
     switch (computerNumber, userNumber) {
     case (.rock, .paper):
+        print("이겼습니다!")
+        return true
+    case (.scissors, .rock):
+        print("이겼습니다!")
+        return true
+    case (.paper, .scissors):
+        print("이겼습니다!")
+        return true
+    case (.scissors, .paper):
+        print("졌습니다!")
+        return true
+    case (.paper, .rock):
+        print("졌습니다!")
         return true
     case (.rock, .scissors):
-        return false
-    case (.paper, .scissors):
+        print("졌습니다!")
         return true
-    default:
+    case (.rock, .rock):
+        print("비겼습니다.")
         return false
+    case (.scissors, .scissors):
+        print("비겼습니다.")
+        return false
+    case (.paper, .paper):
+        print("비겼습니다.")
+        return false
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return true
     }
 }
 
