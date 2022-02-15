@@ -6,5 +6,5 @@
 
 import Foundation
 
-print("Hello, World!")
-
+var somePlayer = PlayRockScissorPaper()
+somePlayer.playGame()
