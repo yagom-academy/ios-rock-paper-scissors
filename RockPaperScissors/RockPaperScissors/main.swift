@@ -14,19 +14,31 @@ func showMenu() {
 
 func receiveNumber() -> Int {
     guard let inputNumber = readLine() else { return 5 }
-    if checkInputNumber(userNumber: inputNumber).bool == true {
-        return checkInputNumber(userNumber: inputNumber).userNumber ?? 5
-    } else {
-        return 5
-    }
+    let userInput = convertNumber(inputNumber: inputNumber)
+    return userInput
 }
 
-func checkInputNumber(userNumber: String) -> (bool: Bool, userNumber: Int?) {
-    let trimmedNumber = userNumber.trimmingCharacters(in: .whitespaces)
-    guard let numberToInt = Int(trimmedNumber) else { return (false, nil) }
-    if numberToInt < 0 || numberToInt > 3 {
-        return (false, nil)
-    }
-    return (true, numberToInt)
+func convertNumber(inputNumber: String) -> Int {
+    let trimmedNumber = inputNumber.trimmingCharacters(in: .whitespaces)
+    guard let numberToInt = Int(trimmedNumber) else { return 5 }
+    let numberResult = checkInputNumber(userNumber: numberToInt)
+    return numberResult
 }
 
+func checkInputNumber(userNumber: Int) -> Int {
+    switch userNumber {
+    case 0:
+        print("게임 종료")
+        break
+    case 1:
+        print("1")
+    case 2:
+        print("2")
+    case 3:
+        print("3")
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        showMenu()
+    }
+    return userNumber
+}
