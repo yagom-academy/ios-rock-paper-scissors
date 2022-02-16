@@ -101,7 +101,7 @@ struct PlayRockScissorPaper {
         
         if playerHand == computerHand {
             result = .draw
-        } else if playerHand - computerHand == 1 || playerHand - computerHand < 0 {
+        } else if playerHand - computerHand == 1 ||  computerHand - playerHand == 2 {
             result = .win
         } else {
             result = .lose
