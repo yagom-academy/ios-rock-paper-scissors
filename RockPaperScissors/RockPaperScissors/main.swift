@@ -95,6 +95,10 @@ func printGameResult(_ gameResult: GameResult) {
     }
 }
 
+func print묵찌빠gameMenu(turnValue: String) {
+    print("[\(turnValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>: ", terminator: "")
+}
+
 startRockPaperScissorsGame()
 
 
