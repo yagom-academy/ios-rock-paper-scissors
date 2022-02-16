@@ -40,7 +40,7 @@ struct MukjipaGame {
         
         switch userSelectedMenu {
         case muk, ji, pa:
-            break
+            judgeGameResult(userSelectedNumber: userSelectedMenu)
             
         case MukjipaType.exit.rawValue:
             userInterface.printGameOver()
@@ -50,6 +50,18 @@ struct MukjipaGame {
             self.currentTurn = .computer
             startMukjipaGame(currentTurn: self.currentTurn)
         }
+    }
+    
+    private mutating func judgeGameResult(userSelectedNumber: Int) {
+        let computerSelectedNumber: Int = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
+
+        guard userSelectedNumber == computerSelectedNumber else {
+            changeCurrentTurn()
+            startMukjipaGame(currentTurn: self.currentTurn)
+            return
+        }
+        
+        userInterface.printMukjipaGameWinner(currentTurn: self.currentTurn)
     }
     
     private mutating func changeCurrentTurn() {
