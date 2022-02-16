@@ -8,6 +8,11 @@ import Foundation
 
 let user = User()
 let computer = Computer()
-let rockPaperScissorsGame = RockPaperScissorsGame(user: user, computer: computer)
+let userInterface = UserInterface()
+let rockPaperScissorsGame = RockPaperScissorsGame(
+    user: user,
+    computer: computer,
+    userInterface: userInterface
+)
 
 rockPaperScissorsGame.startProgram()

@@ -7,7 +7,7 @@
 
 import Foundation
 
- struct RockPaperScissorsGame {
+struct RockPaperScissorsGame {
     private enum RockPaperScissorsType: Int {
         case scissor = 1
         case rock = 2
@@ -15,22 +15,18 @@ import Foundation
         case exit = 0
     }
     
-    private enum GameResult: String {
-        case draw = "비겼습니다!"
-        case win = "이겼습니다!"
-        case lose = "졌습니다!"
-    }
-
     private let user: User
     private let computer: Computer
+    private let userInterface: UserInterface
     
-    init(user: User, computer: Computer) {
+    init(user: User, computer: Computer, userInterface: UserInterface) {
         self.user = user
         self.computer = computer
+        self.userInterface = userInterface
     }
     
     func startProgram() {
-        printUserInterface()
+        userInterface.printRockPaperScissorsGameUserInterface()
         playSelectedMenu()
     }
     
@@ -45,10 +41,10 @@ import Foundation
             judgeGameResult(userSelectedNumber: userSelectedMenu)
             
         case RockPaperScissorsType.exit.rawValue:
-            printGameOver()
+            userInterface.printGameOver()
             
         default:
-            printErrorMessage()
+            userInterface.printErrorMessage()
             startProgram()
         }
     }
@@ -57,34 +53,18 @@ import Foundation
         let computerSelectedNumber: Int = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
         
         if userSelectedNumber == computerSelectedNumber {
-            printGameResut(gameResult: .draw)
+            userInterface.printRockPaperScissorsGameResut(gameResult: .draw)
             startProgram()
         }
         
         if userSelectedNumber == computerSelectedNumber + 1 || userSelectedNumber == computerSelectedNumber - 2 {
-            printGameResut(gameResult: .win)
-            printGameOver()
+            userInterface.printRockPaperScissorsGameResut(gameResult: .win)
+            userInterface.printGameOver()
         }
         
         if userSelectedNumber == computerSelectedNumber - 1 || userSelectedNumber == computerSelectedNumber + 2 {
-            printGameResut(gameResult: .lose)
-            printGameOver()
+            userInterface.printRockPaperScissorsGameResut(gameResult: .lose)
+            userInterface.printGameOver()
         }
-    }
-    
-    private func printUserInterface() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> :" , terminator: " ")
-    }
-    
-    private func printGameOver() {
-        print("게임 종료")
-    }
-    
-    private func printErrorMessage() {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-    }
-    
-    private func printGameResut(gameResult: GameResult) {
-        print(gameResult.rawValue)
     }
 }
