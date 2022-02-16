@@ -8,8 +8,8 @@
 import Foundation
 
 struct StoreGameData {
-    var computerHand: Int = Int.zero
-    var playerHand: Int = Int.zero
+    var computerHand: Int = 0
+    var playerHand: CaseOfOptions = .scissor
     let optionRange: ClosedRange = 1...3
     
     mutating func generateComputerHand() {
@@ -19,15 +19,23 @@ struct StoreGameData {
     mutating func inputPlayerOption() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
         guard let inputPlayerOption: String = readLine() else {
-            return playerHand = 4
+            return playerHand = CaseOfOptions.error
         }
-        let convertedPlayerOption: Int = convertStringToInt(from: inputPlayerOption)
-        playerHand = convertedPlayerOption
+        playerHand = convertStringToOption(inputPlayerOption)
     }
     
-    mutating func convertStringToInt(from playerOption: String) -> Int {
-        guard let inputPlayerOption: Int = Int(playerOption) else {
-            return 4 }
-        return inputPlayerOption
+    func convertStringToOption(_ playerOption: String ) -> CaseOfOptions {
+        switch playerOption {
+        case "0":
+            return .exit
+        case "1":
+            return .scissor
+        case "2":
+            return .rock
+        case "3":
+            return .paper
+        default:
+            return .error
+        }
     }
 }

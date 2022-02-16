@@ -26,12 +26,39 @@ extension MatchResult {
     }
 }
 
-enum CaseOfHands: Int {
-    case exit = 0
-    case scissor = 1
-    case rock = 2
-    case paper = 3
-    case error = 4
+enum CaseOfOptions {
+    case exit
+    case scissor
+    case rock
+    case paper
+    case error
+}
+
+extension CaseOfOptions {
+    var optionNumber: Int {
+        switch self {
+        case .exit:
+            return 0
+        case .scissor:
+            return 1
+        case .rock:
+            return 2
+        case .paper:
+            return 3
+        case .error:
+            return 4
+        }
+    }
+    var printMassage: String {
+        switch self {
+        case .exit:
+            return "게임종료"
+        case .error:
+            return "잘못된 입력입니다. 다시 시도해 주세요."
+        default:
+            return ""
+        }
+    }
 }
 
 struct PlayRockScissorPaper {
@@ -44,19 +71,19 @@ struct PlayRockScissorPaper {
     }
     
     mutating func controlGame() {
-        if gameData.optionRange.contains(gameData.playerHand) {
+        if gameData.optionRange.contains(gameData.playerHand.optionNumber) {
             afterAction()
-        } else if gameData.playerHand == 0 {
-            print("게임종료")
+        } else if gameData.playerHand == CaseOfOptions.exit {
+            print(CaseOfOptions.exit.printMassage)
             return
         } else {
-            print("잘못된 입력입니다. 다시 시도해 주세요.")
+            print(CaseOfOptions.error.printMassage)
             playGame()
         }
     }
     
     mutating func afterAction() {
-        let matchResult = vertifyWinner(gameData.playerHand, gameData.computerHand)
+        let matchResult = vertifyWinner(gameData.playerHand.optionNumber, gameData.computerHand)
         print(matchResult.printMessage)
         
         switch matchResult {
@@ -71,15 +98,13 @@ struct PlayRockScissorPaper {
     
     func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> MatchResult {
         var result: MatchResult = .draw
+        
         if playerHand == computerHand {
             result = .draw
-            
         } else if playerHand - computerHand == 1 || playerHand - computerHand < 0 {
             result = .win
-            
         } else {
             result = .lose
-            
         }
         return result
     }
