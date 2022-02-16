@@ -16,3 +16,17 @@
     case lose
     case draw
 }
+
+enum Turn {
+    case user
+    case computer
+    
+    var check: String {
+        switch self {
+        case .user:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        }
+    }
+}

@@ -86,11 +86,13 @@ struct RockPaperScissorsGame {
         switch gameResult {
         case .win:
             print("이겼습니다!")
-            print("게임 종료")
+            var mukchiba: MukchibaGame = MukchibaGame(turn: .user)
+            mukchiba.start()
             return false
         case .lose:
             print("졌습니다!")
-            print("게임 종료")
+            var mukchiba: MukchibaGame = MukchibaGame(turn: .computer)
+            mukchiba.start()
             return false
         case .draw:
             print("비겼습니다")
