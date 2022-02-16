@@ -19,24 +19,50 @@ enum GameResult {
 struct RockPaperScissorsGame {
     
     func start() {
-        var gameFlag = true
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
+        let userInput = inputUserNumber()
         
-        while gameFlag {
-            print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
-            
-            guard let computerSign = makeComputerSign() else {
-                continue
-            }
-            
-            guard let userSign = inputUserSign(gameFlag: &gameFlag) else {
-                continue
-            }
-            
-            let gameResult = decideResult(computerSign: computerSign, userSign: userSign)
-            gameFlag = printGameResult(gameResult: gameResult)
+        switch userInput {
+        case 0:
+            print("게임 종료")
+        case 1, 2, 3:
+            compareSigns(userInput: userInput)
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            start()
+        }
+    }
+    
+    func inputUserNumber() -> Int? {
+        guard let userInput = readLine() else {
+            return nil
         }
         
-        print("게임 종료")
+        guard let userNumber = Int(userInput) else {
+            return nil
+        }
+        
+        return userNumber
+    }
+    
+    func compareSigns(userInput: Int?) {
+        guard let computerSign = makeComputerSign() else {
+            return
+        }
+        
+        guard let userNumber = userInput else {
+            return
+        }
+        
+        guard let userSign = RockPaperScissors(rawValue: userNumber) else {
+            return
+        }
+        
+        let gameResult = decideResult(computerSign: computerSign, userSign: userSign)
+        
+        if printGameResult(gameResult: gameResult) {
+            start()
+        }
     }
     
     func makeComputerSign() -> RockPaperScissors? {
@@ -47,30 +73,7 @@ struct RockPaperScissorsGame {
         return randomSign
     }
     
-    func inputUserSign(gameFlag: inout Bool) -> RockPaperScissors? {
-        guard let inputNumber = readLine() else {
-            return nil
-        }
-        
-        guard let convertedIntNumber = Int(inputNumber) else {
-            return nil
-        }
-        
-        guard convertedIntNumber != Int.zero else {
-            gameFlag = false
-            return nil
-        }
-        
-        guard let rockPaperScissorsSign = RockPaperScissors(rawValue: convertedIntNumber) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return nil
-        }
-        
-        return rockPaperScissorsSign
-    }
-    
-    func decideResult(computerSign: RockPaperScissors, userSign: RockPaperScissors) -> GameResult{
-        
+    func decideResult(computerSign: RockPaperScissors, userSign: RockPaperScissors) -> GameResult {
         if userSign == computerSign {
             return .draw
         }
@@ -90,14 +93,15 @@ struct RockPaperScissorsGame {
         return .draw
     }
     
-
     func printGameResult(gameResult: GameResult) -> Bool {
         switch gameResult {
         case .win:
             print("이겼습니다!")
+            print("게임 종료")
             return false
         case .lose:
             print("졌습니다!")
+            print("게임 종료")
             return false
         case .draw:
             print("비겼습니다")
