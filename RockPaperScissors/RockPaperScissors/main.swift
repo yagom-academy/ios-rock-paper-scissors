@@ -102,8 +102,7 @@ func matchedHand(_ hand: String) -> GameOptions {
 }
 
 func receiveNumber() -> String {
-    guard let inputNumber = readLine() else { return " " }
-    return inputNumber
+    return readLine() ?? " "
 }
 
 func makeRandomNumber() -> String {
