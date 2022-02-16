@@ -31,9 +31,9 @@ enum Game {
     case 묵찌빠
 }
 
-func startRockPaperScissorsGame(game: Game, currentTurn: ComputerOrUser) -> ComputerOrUser {
+func startRockPaperScissorsGame(game: Game, currentTurnParameter: ComputerOrUser) -> ComputerOrUser {
     var isWinnerFound: Bool = false
-    var currentTurn: ComputerOrUser = currentTurn
+    var currentTurn: ComputerOrUser = currentTurnParameter
     let gameoverNumber: String = "0"
     
     repeat {
@@ -42,7 +42,7 @@ func startRockPaperScissorsGame(game: Game, currentTurn: ComputerOrUser) -> Comp
             let computerNumber: Int = makeRandomComputerNumber()
             print("컴퓨터 랜덤 넘버: ",computerNumber)
             let userNumber: String = selectGameMenuUserNumber()
-            
+            // 1안 묵찌빠로 변환하는 함수 호출 -> 묵 + 1, 찌 -1 보 그대로 <한 표>
             if userNumber == gameoverNumber {
                 break
             }
@@ -50,15 +50,19 @@ func startRockPaperScissorsGame(game: Game, currentTurn: ComputerOrUser) -> Comp
             let computerValue: RockPaperScissors = try convertType(of: String(computerNumber))
             let userValue: RockPaperScissors = try convertType(of: userNumber)
             let gameResult: GameResult = findGameResult(computerValue: computerValue, userValue: userValue)
-            
+            print(gameResult, computerValue, userValue)
             if game == .가위바위보 {
                 printGameResult(gameResult)
                 if gameResult != .tie {
+                    currentTurn = changeTurn(currentValue: currentTurn, gameResult: gameResult)
                     isWinnerFound = true
                 }
-            } else {
+            } else if game == .묵찌빠 {
+                print("1", gameResult)
                 if gameResult != .tie {
-                    currentTurn = changeTurn(game: game, currentValue: currentTurn)
+                    print("2", gameResult, currentTurn)
+                    currentTurn = changeTurn(currentValue: currentTurn, gameResult: gameResult)
+                    print("현재 턴: ",currentTurn)
                 } else {
                     isWinnerFound = true
                 }
@@ -77,16 +81,16 @@ func startRockPaperScissorsGame(game: Game, currentTurn: ComputerOrUser) -> Comp
     return currentTurn
 }
 
-func changeTurn(game: Game, currentValue: ComputerOrUser) -> ComputerOrUser {
-    var currentValue = currentValue
-    if game == .묵찌빠 {
-        if currentValue == .user {
-            currentValue = .computer
-        } else {
-            currentValue = .user
-        }
+func changeTurn(currentValue: ComputerOrUser, gameResult: GameResult) -> ComputerOrUser {
+    var currentValue1 = currentValue
+    if gameResult == .win {
+        print("win 확인")
+        currentValue1 = .user
+    } else if gameResult == .loss {
+        print("loss 확인")
+        currentValue1 = .computer
     }
-    return currentValue
+    return currentValue1
 }
 
 func print가위바위보GameMenu() {
@@ -108,6 +112,7 @@ func convertType(of selectedNumber: String) throws -> RockPaperScissors {
     guard let value = RockPaperScissors(rawValue: selectedNumber) else {
         throw InputError.wrongInputError
     }
+    print("convert from \(value) to \(selectedNumber)")
     return value
 }
 
@@ -147,9 +152,9 @@ func printGameMenu(of game: Game, turnValue: String) {
 }
 
 func gameMaster() {
-    let turn = startRockPaperScissorsGame(game: .가위바위보, currentTurn: .nobody)
+    let turn = startRockPaperScissorsGame(game: .가위바위보, currentTurnParameter: .nobody)
     print("가위바위보 승리자",turn)
-    let winnerTurn = startRockPaperScissorsGame(game: .묵찌빠, currentTurn: turn)
+    let winnerTurn = startRockPaperScissorsGame(game: .묵찌빠, currentTurnParameter: turn)
     print("묵찌빠 승리자",winnerTurn)
 }
 
