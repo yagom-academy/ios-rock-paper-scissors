@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class RockPaperScissorsGame {
+ struct RockPaperScissorsGame {
     private enum RockPaperScissorsType: Int {
         case scissor = 1
         case rock = 2
