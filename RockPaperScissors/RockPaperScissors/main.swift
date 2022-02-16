@@ -48,12 +48,12 @@ func printMenu() {
 }
 
 func playGame(selectedCard: Card?) {
-    guard let computerCard: Card = makeRandomCard() else { return }
+    let computerCard = makeRandomCard()
     guard let userCard: Card = selectedCard else { return }
     printResult(gameResult: compareEachCard(userCard: userCard, computerCard: computerCard))
 }
 
-func makeRandomCard() -> Card? {
+func makeRandomCard() -> Card {
     let randomCard: Card = Card.cases[Int.random(in: 0..<Card.cases.count)]
     return randomCard
 }
