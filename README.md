@@ -56,7 +56,7 @@
 🗓 팀원 : [로이](https://github.com/Roy-wonji), [마이노](https://github.com/Mino777)</br>
 📝 설명 : 컴퓨터와 묵찌빠 게임(console app)</br>
 🗓 피드백 주신분 : [lily](https://github.com/yeahg-dev), [수박](https://github.com/soo941226), 
-
+[Tacocat](https://github.com/Ldoy)
 </br>
 
 ### 게임 규칙
