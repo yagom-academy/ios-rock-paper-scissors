@@ -25,6 +25,11 @@ enum ComputerOrUser: String {
     case user = "사용자"
 }
 
+enum Game: GameResult {
+    case 가위바위보 = .win
+    case 묵찌빠 = .tie
+}
+
 func startRockPaperScissorsGame() -> ComputerOrUser {
     var isWinnerFound: Bool = false
     var currentTurn: ComputerOrUser = .user
