@@ -65,7 +65,7 @@ enum RockScissorsPaper: CaseIterable {
 }
 
 func startRockScissorsPaperGame(userInputValues: String?) {
-    guard let computerCard = creatComputerCard() else {
+    guard let computerCard = createComputerCard() else {
         print(RockScissorsPaperGameError.failCreateRandomCard.rawValue)
         return
     }
@@ -90,7 +90,7 @@ func compare(userCard: RockScissorsPaper, computerCard: RockScissorsPaper) {
     }
 }
     
-func creatComputerCard() -> RockScissorsPaper? {
+func createComputerCard() -> RockScissorsPaper? {
     guard let computerCard: RockScissorsPaper = .createRandomCard() else {
         return nil
     }
