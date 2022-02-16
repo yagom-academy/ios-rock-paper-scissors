@@ -6,81 +6,94 @@
 
 import Foundation
 
-enum GameDisplaySetting: String {
-    case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> :"
-    case gameEnd = "게임 종료"
-    case gameWin = "이겼습니다!"
-    case gameLose = "졌습니다!"
-    case gameDraw = "비겼습니다!"
-    case gameWrongInput = "잘못된 입력입니다. 다시 시도해주세요."
+enum Settings {
+    static let exitCode = 0
 }
 
-enum GameOptions: Int {
-    case gameEnd = 0
+enum GameDisplayMessage: String {
+    case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    case gameDidEnd = "게임 종료"
+    case playerDidWin = "이겼습니다!"
+    case playerDidLose = "졌습니다!"
+    case playerDidDraw = "비겼습니다!"
+    case invalidPlayerInput = "잘못된 입력입니다. 다시 시도해주세요."
+    case error = "에러가 발생했습니다. 게임을 다시 실행시켜 주세요."
+    
+    var text: String {
+        return self.rawValue
+    }
+}
+
+enum HandType: Int, CaseIterable {
     case scissor = 1
-    case lock = 2
+    case rock = 2
     case paper = 3
+    
+    static func randomHandType() -> Int? {
+        return Self.allCases.randomElement()?.rawValue
+    }
 }
 
 enum GameResult {
-    case win
-    case lose
-    case draw
+    case playerWin
+    case playerLose
+    case playerDraw
 }
 
-func getUserInput() -> Int? {
-    guard let userInput = readLine(), let userIntInput = Int(userInput)
-    else {
+func getPlayerInput() -> Int? {
+    guard let playerInput = readLine(),
+          let playerIntInput = Int(playerInput),
+          let playerGameOptionsInput = HandType(rawValue: playerIntInput),
+          (HandType.allCases.contains(playerGameOptionsInput) || playerIntInput == Settings.exitCode) else {
         return nil
     }
-    if userIntInput >= GameOptions.gameEnd.rawValue && userIntInput <= GameOptions.paper.rawValue {
-        return userIntInput
-    }
-    return nil
+    return playerIntInput
 }
 
 func checkGameResult(player playerInput: Int, computer computerInput: Int) -> GameResult {
-    if playerInput == computerInput {
-        return GameResult.draw
-    } else if (playerInput == GameOptions.scissor.rawValue && computerInput == GameOptions.lock.rawValue) ||
-              (playerInput == GameOptions.lock.rawValue && computerInput == GameOptions.paper.rawValue) ||
-              (playerInput == GameOptions.paper.rawValue && computerInput == GameOptions.scissor.rawValue)
-    {
-        return GameResult.lose
+    let computerLoseCondition = (computerInput % 3) + 1
+
+    if playerInput == computerLoseCondition {
+        return GameResult.playerWin
+    } else if playerInput == computerInput {
+        return GameResult.playerDraw
     } else {
-        return GameResult.win
+        return GameResult.playerLose
     }
 }
 
-func showGameResult(result: GameResult) {
+func showGameResult(_ result: GameResult) {
     switch result {
-    case .win:
-        print(GameDisplaySetting.gameWin.rawValue)
-        print(GameDisplaySetting.gameEnd.rawValue)
-    case .lose:
-        print(GameDisplaySetting.gameLose.rawValue)
-        print(GameDisplaySetting.gameEnd.rawValue)
-    case .draw:
-        print(GameDisplaySetting.gameDraw.rawValue)
+    case .playerWin:
+        print(GameDisplayMessage.playerDidWin.text)
+        print(GameDisplayMessage.gameDidEnd.text)
+    case .playerLose:
+        print(GameDisplayMessage.playerDidLose.text)
+        print(GameDisplayMessage.gameDidEnd.text)
+    case .playerDraw:
+        print(GameDisplayMessage.playerDidDraw.text)
         startGame()
     }
 }
 
 func startGame() {
-    print(GameDisplaySetting.menu.rawValue, terminator: " ")
-    guard let playerInput = getUserInput()
+    print(GameDisplayMessage.menu.text, terminator: "")
+    guard let playerInput = getPlayerInput()
     else {
-        print(GameDisplaySetting.gameWrongInput.rawValue)
+        print(GameDisplayMessage.invalidPlayerInput.text)
         startGame()
         return
     }
-    if playerInput == GameOptions.gameEnd.rawValue {
-        print(GameDisplaySetting.gameEnd.rawValue)
+    if playerInput == Settings.exitCode {
+        print(GameDisplayMessage.gameDidEnd.text)
         return
     }
-    let computerInput = Int.random(in: 1...3)
+    guard let computerInput = HandType.randomHandType() else{
+        print(GameDisplayMessage.error.text)
+        return
+    }
     let gameResult = checkGameResult(player: playerInput, computer: computerInput)
-    showGameResult(result: gameResult)
+    showGameResult(gameResult)
 }
 
 startGame()
