@@ -45,6 +45,7 @@ struct MukchibaGame {
         guard let computerSign = makeComputerSign() else {
             return
         }
+        print("컴퓨터", computerSign)
         
         guard let userNumber = userInput else {
             return
@@ -54,11 +55,10 @@ struct MukchibaGame {
             return
         }
         
-        let gameResult = decideResult(computerSign: computerSign, userSign: userSign)
+        print("유저사인", userSign)
         
-        if printGameResult(gameResult: gameResult) {
-            start()
-        }
+        let gameResult = decideResult(computerSign: computerSign, userSign: userSign)
+        printGameResult(gameResult: gameResult)
     }
     
     private func makeComputerSign() -> RockPaperScissors? {
@@ -74,7 +74,7 @@ struct MukchibaGame {
             return .draw
         }
         
-        if userSign == .scissors {
+        if userSign == .scissors && computerSign == .paper {
             return computerSign == .paper ? .win : .lose
         }
         
@@ -89,19 +89,20 @@ struct MukchibaGame {
         return .draw
     }
     
-    private func printGameResult(gameResult: GameResult) -> Bool {
+    private mutating func printGameResult(gameResult: GameResult) {
         switch gameResult {
         case .win:
-            print("이겼습니다!")
-            print("게임 종료")
-            return false
+            turn = .user
+            print("사용자의 턴입니다")
+            start()
+            
         case .lose:
-            print("졌습니다!")
-            print("게임 종료")
-            return false
+            turn = .computer
+            print("컴퓨터의 턴입니다")
+            start()
+            
         case .draw:
-            print("비겼습니다")
-            return true
+            print("\(turn.check)의 승리!")
         }
     }
 }

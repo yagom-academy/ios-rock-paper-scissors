@@ -6,7 +6,7 @@
 //
 
 struct RockPaperScissorsGame {
-        
+    
     func start() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
         let userInput = inputUserNumber()
@@ -48,10 +48,10 @@ struct RockPaperScissorsGame {
         }
         
         let gameResult = decideResult(computerSign: computerSign, userSign: userSign)
-        
-        if printGameResult(gameResult: gameResult) {
-            start()
-        }
+        printGameResult(gameResult: gameResult)
+        //        if printGameResult(gameResult: gameResult) {
+        //            start()
+        //        }
     }
     
     private func makeComputerSign() -> RockPaperScissors? {
@@ -82,21 +82,19 @@ struct RockPaperScissorsGame {
         return .draw
     }
     
-    private func printGameResult(gameResult: GameResult) -> Bool {
+    private func printGameResult(gameResult: GameResult) {
         switch gameResult {
         case .win:
             print("이겼습니다!")
             var mukchiba: MukchibaGame = MukchibaGame(turn: .user)
             mukchiba.start()
-            return false
         case .lose:
             print("졌습니다!")
             var mukchiba: MukchibaGame = MukchibaGame(turn: .computer)
             mukchiba.start()
-            return false
         case .draw:
             print("비겼습니다")
-            return true
+            start()
         }
     }
 }
