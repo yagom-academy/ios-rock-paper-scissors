@@ -6,5 +6,8 @@
 
 import Foundation
 
-print("Hello, World!")
+let user = User()
+let computer = Computer()
+let rockPaperScissorsGame = RockPaperScissorsGame(user: user, computer: computer)
 
+rockPaperScissorsGame.startProgram()
