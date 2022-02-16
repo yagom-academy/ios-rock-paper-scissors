@@ -10,7 +10,7 @@ enum RockPaperScissors: Int, CaseIterable {
     case paper = 3
 }
 
-enum GameResult {
+private enum GameResult {
     case win
     case lose
     case draw
@@ -33,7 +33,7 @@ struct RockPaperScissorsGame {
         }
     }
     
-    func inputUserNumber() -> Int? {
+    private func inputUserNumber() -> Int? {
         guard let userInput = readLine() else {
             return nil
         }
@@ -45,7 +45,7 @@ struct RockPaperScissorsGame {
         return userNumber
     }
     
-    func compareSigns(userInput: Int?) {
+    private func compareSigns(userInput: Int?) {
         guard let computerSign = makeComputerSign() else {
             return
         }
@@ -65,7 +65,7 @@ struct RockPaperScissorsGame {
         }
     }
     
-    func makeComputerSign() -> RockPaperScissors? {
+    private func makeComputerSign() -> RockPaperScissors? {
         guard let randomSign = RockPaperScissors.allCases.randomElement() else {
             return nil
         }
@@ -73,7 +73,7 @@ struct RockPaperScissorsGame {
         return randomSign
     }
     
-    func decideResult(computerSign: RockPaperScissors, userSign: RockPaperScissors) -> GameResult {
+    private func decideResult(computerSign: RockPaperScissors, userSign: RockPaperScissors) -> GameResult {
         if userSign == computerSign {
             return .draw
         }
@@ -93,7 +93,7 @@ struct RockPaperScissorsGame {
         return .draw
     }
     
-    func printGameResult(gameResult: GameResult) -> Bool {
+    private func printGameResult(gameResult: GameResult) -> Bool {
         switch gameResult {
         case .win:
             print("이겼습니다!")
