@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7FF7FE9527BCE13F00B06218 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF7FE9427BCE13F00B06218 /* Player.swift */; };
 		A19BB70E27BCE0660005BBE5 /* MukjipaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19BB70D27BCE0660005BBE5 /* MukjipaGame.swift */; };
 		A1ECB3B227BB724700368711 /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ECB3B127BB724700368711 /* RockPaperScissorsGame.swift */; };
 		A1ECB3B427BB725E00368711 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ECB3B327BB725E00368711 /* User.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7FF7FE9427BCE13F00B06218 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		A19BB70D27BCE0660005BBE5 /* MukjipaGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukjipaGame.swift; sourceTree = "<group>"; };
 		A1ECB3B127BB724700368711 /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
 		A1ECB3B327BB725E00368711 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				A1ECB3B727BB8DA400368711 /* GameOption.swift */,
 				A19BB70D27BCE0660005BBE5 /* MukjipaGame.swift */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				7FF7FE9427BCE13F00B06218 /* Player.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 				A1ECB3B627BB726400368711 /* Computer.swift in Sources */,
 				A1ECB3B227BB724700368711 /* RockPaperScissorsGame.swift in Sources */,
 				A19BB70E27BCE0660005BBE5 /* MukjipaGame.swift in Sources */,
+				7FF7FE9527BCE13F00B06218 /* Player.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				A1ECB3B427BB725E00368711 /* User.swift in Sources */,
 			);
