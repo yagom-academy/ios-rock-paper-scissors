@@ -54,7 +54,7 @@ struct MukjipaGame {
     
     private mutating func judgeGameResult(userSelectedNumber: Int) {
         let computerSelectedNumber: Int = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
-
+        
         guard userSelectedNumber == computerSelectedNumber else {
             changeCurrentTurn()
             startMukjipaGame(currentTurn: self.currentTurn)

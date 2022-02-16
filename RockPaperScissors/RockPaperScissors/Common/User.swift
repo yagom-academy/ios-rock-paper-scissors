@@ -8,7 +8,7 @@
 import Foundation
 
 struct User {
-    enum Option {
+    private enum Option {
         static let wrongInput: Int = 4
     }
     
