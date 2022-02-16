@@ -25,7 +25,7 @@ enum HandType: Int, CaseIterable {
     case rock = 2
     case paper = 3
     
-    static var randomHandType: Int? {
+    static var randomPick: Int? {
         return Self.allCases.randomElement()?.rawValue
     }
 }
@@ -39,22 +39,28 @@ enum GameResult {
 func getPlayerInput() -> Int? {
     guard let playerInput = readLine(),
           let playerIntInput = Int(playerInput),
-          let playerGameOptionsInput = HandType(rawValue: playerIntInput),
-          (HandType.allCases.contains(playerGameOptionsInput) || playerIntInput == Settings.exitCode) else {
+          let playerGameOptionsInput = HandType(rawValue: playerIntInput)
+    else {
         return nil
     }
+
+    guard HandType.allCases.contains(playerGameOptionsInput) || playerIntInput == Settings.exitCode
+    else {
+        return nil
+    }
+    
     return playerIntInput
 }
 
 func checkGameResult(player playerInput: Int, computer computerInput: Int) -> GameResult {
     let computerLoseCondition = (computerInput % 3) + 1
-
+    
     if playerInput == computerLoseCondition {
-        return GameResult.playerWin
+        return .playerWin
     } else if playerInput == computerInput {
-        return GameResult.playerDraw
+        return .playerDraw
     } else {
-        return GameResult.playerLose
+        return .playerLose
     }
 }
 
@@ -85,7 +91,7 @@ func startGame() {
         print(GameDisplayMessage.gameDidEnd)
         return
     }
-    guard let computerInput = HandType.randomHandType else{
+    guard let computerInput = HandType.randomPick else{
         print(GameDisplayMessage.error)
         return
     }
