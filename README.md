@@ -23,7 +23,7 @@
 - 이긴경우와 진경우 게임을 종료합니다.  
 
 ## 순서도
-<img src="https://user-images.githubusercontent.com/69573768/153990820-b0d03969-e372-4bd5-baf7-d4816447c2a1.png" width="500"/>
+<img src="https://user-images.githubusercontent.com/88717147/154256526-926ed0fd-bb4d-4866-83bb-de442e655b5d.png" width="500"/>
 
 ## STEP 1 기능 구현 
 - RockPaperScissors enum 구현
