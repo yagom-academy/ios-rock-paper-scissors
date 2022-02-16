@@ -26,7 +26,7 @@ func showMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
-    showResult(gameResult: compareValues(userValue: makeUserValue(), computerValue: makeComputerValue()))
+    showResult(gameResult: compareValues(userValue: matchedValue(value: receiveNumber()), computerValue: matchedValue(value: makeRandomNumber())))
 }
 
 func showResult(gameResult: GameResult) {
@@ -63,25 +63,10 @@ func compareValues(userValue: GameValue, computerValue: GameValue) -> GameResult
     }
 }
 
-func makeUserValue() -> GameValue {
-    let userNumber = receiveNumber()
-    switch userNumber {
+func matchedValue(value: String) -> GameValue {
+    switch value {
     case "0":
         return .exit
-    case "1":
-        return .scissor
-    case "2":
-        return .rock
-    case "3":
-        return .paper
-    default:
-        return .error
-    }
-}
-
-func makeComputerValue() -> GameValue {
-    let computerNumber = makeRandomNumber()
-    switch computerNumber {
     case "1":
         return .scissor
     case "2":
