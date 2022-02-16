@@ -20,6 +20,11 @@ enum InputError: Error {
     case wrongInputError
 }
 
+enum ComputerOrUser: String {
+    case computer = "컴퓨터"
+    case user = "사용자"
+}
+
 func startRockPaperScissorsGame() {
     var isWinnerFound: Bool = false
     let gameoverNumber: String = "0"
@@ -94,6 +99,10 @@ func printGameResult(_ gameResult: GameResult) {
         print("비겼습니다!")
     }
 }
+
+//func start묵찌빠game() {
+//
+//}
 
 func print묵찌빠gameMenu(turnValue: String) {
     print("[\(turnValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>: ", terminator: "")
