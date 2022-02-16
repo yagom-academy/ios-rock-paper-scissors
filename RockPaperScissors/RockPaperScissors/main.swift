@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-enum RockPaperScissors: Int, CaseIterable {
+private enum RockPaperScissors: Int, CaseIterable {
     case scissors = 1
     case rock = 2
     case paper = 3
@@ -17,7 +17,7 @@ private enum GameResult {
 }
 
 struct RockPaperScissorsGame {
-    
+        
     func start() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
         let userInput = inputUserNumber()
