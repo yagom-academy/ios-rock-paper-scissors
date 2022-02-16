@@ -7,4 +7,4 @@
 import Foundation
 
 var somePlayer = PlayRockScissorPaper()
-try somePlayer.playGame()
+somePlayer.playGame()
