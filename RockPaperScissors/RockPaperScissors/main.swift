@@ -51,27 +51,11 @@ func startRockPaperScissorsGame(game: Game, winner: Bool) -> ComputerOrUser {
             let gameResult: GameResult = findGameResult(computerValue: computerValue, userValue: userValue)
             
             printGameResult(gameResult)
-//            if gameResult == .win {
-//                currentTurn = .user
-//                isWinnerFound = true
-//            } else if gameResult == .loss {
-//                currentTurn = .computer
-//                isWinnerFound = true
-//            } else if gameResult == .tie {
-//                isWinnerFound = false
-//            }
-            
             if gameResult != .tie {
                 isWinnerFound = !isWinnerFound
             }
+            let tmpTurn = changeTurn(game: game, currentValue: currentTurn)
             
-            if game == .묵찌빠 {
-                if currentTurn == .user {
-                    currentTurn = .computer
-                } else {
-                    currentTurn = .user
-                }
-            }
             
         } catch InputError.wrongInputError where game == .묵찌빠 {
             print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -83,6 +67,18 @@ func startRockPaperScissorsGame(game: Game, winner: Bool) -> ComputerOrUser {
         }
     } while !isWinnerFound
     return currentTurn
+}
+
+func changeTurn(game: Game, currentValue: ComputerOrUser) -> String {
+    var currentValue = currentValue
+    if game == .묵찌빠 {
+        if currentValue == .user {
+            currentValue = .computer
+        } else {
+            currentValue = .user
+        }
+    }
+    return currentValue.rawValue
 }
 
 func print가위바위보GameMenu() {
