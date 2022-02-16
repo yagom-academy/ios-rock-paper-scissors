@@ -14,7 +14,7 @@ enum MatchResult {
 }
 
 extension MatchResult {
-    var printMessage: String {
+    var message: String {
         switch self {
         case .win:
             return "이겼습니다!"

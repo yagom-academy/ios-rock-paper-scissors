@@ -16,6 +16,7 @@ enum PlayerOptions {
     case error
 }
 
+
 extension PlayerOptions {
     var optionNumber: Int {
         switch self {
@@ -31,7 +32,7 @@ extension PlayerOptions {
             return 4
         }
     }
-    var printMassage: String {
+    var message: String {
         switch self {
         case .exit:
             return "게임종료"

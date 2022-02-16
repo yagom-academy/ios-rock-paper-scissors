@@ -8,20 +8,21 @@
 import Foundation
 
 struct GameData {
-    var computerHand: Int = 0
-    var playerOption: PlayerOptions = .scissor
+//    var computerHand: Int
+//    var playerOption: PlayerOptions
     let handsRange: ClosedRange = 1...3
     
-    mutating func generateComputerHand() {
-        computerHand = Int.random(in: handsRange)
+    
+    mutating func generateComputerHand() -> Int {
+        return Int.random(in: handsRange)
     }
     
-    mutating func inputPlayerOption() {
+    mutating func inputPlayerOption() -> PlayerOptions {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         guard let inputPlayerOption = readLine() else {
-            return playerOption = PlayerOptions.error
+            return PlayerOptions.error
         }
-        playerOption = convertToPlayerOption(from: inputPlayerOption)
+        return convertToPlayerOption(from: inputPlayerOption)
     }
     
     func convertToPlayerOption(from playerOption: String ) -> PlayerOptions {
