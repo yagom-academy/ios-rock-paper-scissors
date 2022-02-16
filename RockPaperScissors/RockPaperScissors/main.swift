@@ -22,29 +22,52 @@ enum GameResult {
     case error
 }
 
+enum ResultTexts {
+    static let winText = "이겼습니다!"
+    static let drawText = "비겼습니다!"
+    static let loseText = "졌습니다!"
+    static let endText = "게임 종료"
+    static let errorText = "잘못된 입력입니다. 다시 시도해주세요."
+    static func printWin() {
+        print(winText)
+        print(endText)
+    }
+    static func printDraw() {
+        print(drawText)
+        showMenu()
+    }
+    static func printlose() {
+        print(loseText)
+        print(endText)
+    }
+    static func printEnd() {
+        print(endText)
+    }
+    static func printError() {
+        print(errorText)
+        showMenu()
+    }
+}
+
 func showMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
-    showResult(compare(userOption: matchedValue(receiveNumber()), computerOption: matchedValue(makeRandomNumber())))
+    showResult(compare(userOption: matchedHand(receiveNumber()), computerOption: matchedHand(makeRandomNumber())))
 }
 
 func showResult(_ gameResult: GameResult) {
     switch gameResult {
     case .win:
-        print("이겼습니다!")
-        print("게임 종료")
+        ResultTexts.printWin()
     case .draw:
-        print("비겼습니다!")
-        showMenu()
+        ResultTexts.printDraw()
     case .lose:
-        print("졌습니다!")
-        print("게임 종료")
+        ResultTexts.printlose()
     case .exit:
-        print("게임 종료")
+        ResultTexts.printEnd()
     case .error:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        showMenu()
+        ResultTexts.printError()
     }
 }
 
@@ -63,8 +86,8 @@ func compare(userOption: GameOptions, computerOption: GameOptions) -> GameResult
     }
 }
 
-func matchedValue(_ value: String) -> GameOptions {
-    switch value {
+func matchedHand(_ hand: String) -> GameOptions {
+    switch hand {
     case "0":
         return .exit
     case "1":
