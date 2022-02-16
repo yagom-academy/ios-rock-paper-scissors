@@ -23,4 +23,10 @@ struct UserInterface {
     func printRockPaperScissorsGameResut(gameResult: RockPaperScissorsGameResult) {
         print(gameResult.rawValue)
     }
+    
+    func printMukjipaGameUserInterface(currentTurn: Player) {
+        let currentTurnPlayer = "\(currentTurn.rawValue) 턴"
+        print("[\(currentTurnPlayer)] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+    }
+    
 }

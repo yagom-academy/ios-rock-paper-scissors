@@ -15,11 +15,19 @@ struct MukjipaGame {
         case exit = 0
     }
     
+    private var currentTurn: Player = .none
     private let user: User
     private let computer: Computer
+    private let userInterface: UserInterface
     
-    init(user: User, computer: Computer) {
+    init(user: User, computer: Computer, userInterface: UserInterface) {
         self.user = user
         self.computer = computer
+        self.userInterface = userInterface
+    }
+    
+    mutating func startMujipaGame(currentTurn: Player) {
+        self.currentTurn = currentTurn
+        userInterface.printMukjipaGameUserInterface(currentTurn: currentTurn)
     }
 }

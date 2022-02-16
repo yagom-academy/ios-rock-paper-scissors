@@ -52,6 +52,13 @@ struct RockPaperScissorsGame {
     private func judgeGameResult(userSelectedNumber: Int) {
         let computerSelectedNumber: Int = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
         
+        var mukjipaGame = MukjipaGame(
+            user: self.user,
+            computer: self.computer,
+            userInterface: self.userInterface
+        )
+        
+        
         if userSelectedNumber == computerSelectedNumber {
             userInterface.printRockPaperScissorsGameResut(gameResult: .draw)
             startProgram()
@@ -59,12 +66,12 @@ struct RockPaperScissorsGame {
         
         if userSelectedNumber == computerSelectedNumber + 1 || userSelectedNumber == computerSelectedNumber - 2 {
             userInterface.printRockPaperScissorsGameResut(gameResult: .win)
-            userInterface.printGameOver()
+            mukjipaGame.startMujipaGame(currentTurn: .user)
         }
-        
+
         if userSelectedNumber == computerSelectedNumber - 1 || userSelectedNumber == computerSelectedNumber + 2 {
             userInterface.printRockPaperScissorsGameResut(gameResult: .lose)
-            userInterface.printGameOver()
+            mukjipaGame.startMujipaGame(currentTurn: .computer)
         }
     }
 }
