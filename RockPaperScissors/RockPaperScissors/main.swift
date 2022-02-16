@@ -120,10 +120,9 @@ func print묵찌빠gameMenu(turnValue: String) {
 func printGameMenu(of game: Game, turnValue: String) {
     switch game {
     case .가위바위보:
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        print가위바위보GameMenu()
     case .묵찌빠:
-        print("[\(turnValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
-
+        print묵찌빠gameMenu(turnValue: turnValue)
     }
 }
 
