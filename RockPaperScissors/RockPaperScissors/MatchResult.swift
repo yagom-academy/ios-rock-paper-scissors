@@ -19,9 +19,9 @@ extension MatchResult {
         case .win:
             return "이겼습니다!"
         case .lose:
-            return "졌습니다"
+            return "졌습니다!"
         case .draw:
-            return "비겼습니다"
+            return "비겼습니다!"
         }
     }
 }

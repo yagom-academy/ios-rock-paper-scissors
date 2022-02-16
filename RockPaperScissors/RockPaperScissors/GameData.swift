@@ -11,28 +11,37 @@ struct GameData {
     let handsRange: ClosedRange = 1...3
     
     mutating func generateComputerHand() -> PlayerHands {
-        let computerRange = String(Int.random(in: handsRange))
-        return convertToPlayerOption(from: computerRange)
+        let computerOption = String(Int.random(in: handsRange))
+        let (computerHand, _) = convertToPlayerOption(from: computerOption)
+        return computerHand
     }
     
-    mutating func inputPlayerOption() -> (PlayerHands, Statuse) {
+    mutating func conveyPlayerHandAndStatus() -> (PlayerHands, Status) {
+        let playerOption = inputPlayerOption()
+        let (playerHand, status) = convertToPlayerOption(from: playerOption)
+        return (playerHand, status)
+    }
+    
+    mutating func inputPlayerOption() -> String {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         guard let inputPlayerOption = readLine() else {
-            return (PlayerHands.none, Statuse.error)
+            return "error"
         }
-        return (convertToPlayerOption(from: inputPlayerOption), Statuse.inProgress)
+        return inputPlayerOption
     }
     
-    func convertToPlayerOption(from playerOption: String ) -> PlayerHands {
+    mutating func convertToPlayerOption(from playerOption: String ) -> (PlayerHands, Status) {
         switch playerOption {
         case "1":
-            return .scissor
+            return (.scissor, .inProgress)
         case "2":
-            return .rock
+            return (.rock, .inProgress)
         case "3":
-            return .paper
+            return (.paper, .inProgress)
+        case "0":
+            return (.none, .exit)
         default:
-            return .none
+            return (.none, .error)
         }
     }
 }

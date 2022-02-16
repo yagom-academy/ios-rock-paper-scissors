@@ -12,16 +12,16 @@ struct RockScissorPaperGame {
     
     mutating func playGame() {
         let computerHand = gameData.generateComputerHand()
-        let (playerHand, statuse) = gameData.inputPlayerOption()
-        executeByOption(playerHand, computerHand, statuse)
+        let (playerHand, status) = gameData.conveyPlayerHandAndStatus()
+        executeByOption(playerHand, computerHand, status)
     }
     
-    mutating func executeByOption(_ playerHand: PlayerHands, _ computerHand: PlayerHands, _ statuse: Statuse) {
-        if statuse == .exit {
-            print(Statuse.exit.message)
+    mutating func executeByOption(_ playerHand: PlayerHands, _ computerHand: PlayerHands, _ status: Status) {
+        if status == .exit {
+            print(Status.exit.message)
             return
-        } else if statuse == .error{
-            print(Statuse.error.message)
+        } else if status == .error{
+            print(Status.error.message)
             playGame()
         } else {
             let result = vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
@@ -38,7 +38,7 @@ struct RockScissorPaperGame {
         if result == .draw {
             playGame()
         } else {
-            print(Statuse.exit.message)
+            print(Status.exit.message)
             return
         }
     }

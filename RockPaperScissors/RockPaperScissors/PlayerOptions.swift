@@ -22,19 +22,21 @@ extension PlayerHands {
             return 1
         case .rock:
             return 2
-        default:
+        case .paper:
             return 3
+        default:
+            return Int.zero
         }
     }
 }
 
-enum Statuse {
+enum Status {
     case exit
     case error
     case inProgress
 }
 
-extension Statuse {
+extension Status {
     var message: String {
         switch self {
         case .exit:
