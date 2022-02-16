@@ -25,19 +25,19 @@ enum ComputerOrUser: String {
     case user = "사용자"
 }
 
-enum Game: GameResult {
-    case 가위바위보 = .win
-    case 묵찌빠 = .tie
+enum Game {
+    case 가위바위보
+    case 묵찌빠
 }
 
 func startRockPaperScissorsGame(game: Game, winner: Bool) -> ComputerOrUser {
     var isWinnerFound: Bool = winner
-    var currentTurn: ComputerOrUser
+    var currentTurn: ComputerOrUser = .user
     let gameoverNumber: String = "0"
     
     repeat {
         do {
-            printGameMenu()
+//            printGameMenu(of: game, turnValue: currentTurn)
             let computerNumber: Int = makeRandomComputerNumber()
             let userNumber: String = selectGameMenuUserNumber()
             
@@ -68,7 +68,7 @@ func startRockPaperScissorsGame(game: Game, winner: Bool) -> ComputerOrUser {
     return currentTurn
 }
 
-func printGameMenu() {
+func print가위바위보GameMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
@@ -112,14 +112,18 @@ func printGameResult(_ gameResult: GameResult) {
     }
 }
 
-//func start묵찌빠game() {
-//
-//}
-
 func print묵찌빠gameMenu(turnValue: String) {
-    print("[\(turnValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>: ", terminator: "")
+    print("[\(turnValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
 }
 
-startRockPaperScissorsGame()
+func printGameMenu(of game: Game, turnValue: String) {
+    switch game {
+    case .가위바위보:
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    case .묵찌빠:
+        print("[\(turnValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
+
+    }
+}
 
 
