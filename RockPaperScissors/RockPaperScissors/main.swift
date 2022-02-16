@@ -30,9 +30,9 @@ enum Game {
     case 묵찌빠
 }
 
-func startRockPaperScissorsGame(game: Game, winner: Bool) -> ComputerOrUser {
-    var isWinnerFound: Bool = winner
-    var currentTurn: ComputerOrUser = .user
+func startRockPaperScissorsGame(game: Game, currentTurn: ComputerOrUser) -> ComputerOrUser {
+    var isWinnerFound: Bool = false
+    var currentTurn: ComputerOrUser = currentTurn
     let gameoverNumber: String = "0"
     
     repeat {
@@ -50,18 +50,31 @@ func startRockPaperScissorsGame(game: Game, winner: Bool) -> ComputerOrUser {
             let userValue: RockPaperScissors = try convertType(of: userNumber)
             let gameResult: GameResult = findGameResult(computerValue: computerValue, userValue: userValue)
             
-            printGameResult(gameResult)
+            if game == .가위바위보 {
+                printGameResult(gameResult)
+                if gameResult != .tie {
+                    isWinnerFound = true
+                }
+            }
+            if gameResult != .tie {
+                currentTurn = changeTurn(game: game, currentValue: currentTurn)
+            } else {
+                isWinnerFound = true
+            }
+            
             if gameResult != .tie {
                 isWinnerFound = !isWinnerFound
             }
-            let tmpTurn = changeTurn(game: game, currentValue: currentTurn)
+            currentTurn = changeTurn(game: game, currentValue: currentTurn)
             
             
         } catch InputError.wrongInputError where game == .묵찌빠 {
             print("잘못된 입력입니다. 다시 시도해주세요.")
+            print("묵찌빠")
             currentTurn = .computer
         } catch InputError.wrongInputError {
             print("잘못된 입력입니다. 다시 시도해주세요.")
+            print("가워바위보")
         } catch {
             print(error)
         }
@@ -69,7 +82,7 @@ func startRockPaperScissorsGame(game: Game, winner: Bool) -> ComputerOrUser {
     return currentTurn
 }
 
-func changeTurn(game: Game, currentValue: ComputerOrUser) -> String {
+func changeTurn(game: Game, currentValue: ComputerOrUser) -> ComputerOrUser {
     var currentValue = currentValue
     if game == .묵찌빠 {
         if currentValue == .user {
@@ -78,7 +91,7 @@ func changeTurn(game: Game, currentValue: ComputerOrUser) -> String {
             currentValue = .user
         }
     }
-    return currentValue.rawValue
+    return currentValue
 }
 
 func print가위바위보GameMenu() {
@@ -139,9 +152,9 @@ func printGameMenu(of game: Game, turnValue: String) {
 }
 
 func gameMaster() {
-    let turn = startRockPaperScissorsGame(game: .가위바위보, winner: false)
+    let turn = startRockPaperScissorsGame(game: .가위바위보, currentTurn: .user)
     print("가위바위보 승리자",turn)
-    let winnerTurn = startRockPaperScissorsGame(game: .묵찌빠, winner: true)
+    let winnerTurn = startRockPaperScissorsGame(game: .묵찌빠, currentTurn: turn)
     print("묵찌빠 승리자",winnerTurn)
 }
 
