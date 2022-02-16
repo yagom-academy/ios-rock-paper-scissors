@@ -7,9 +7,18 @@
 
 import Foundation
 
-struct UserInterface {
+struct UserInterface { //5 refactor: UserInterface
     func printRockPaperScissorsGameUserInterface() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :" , terminator: " ")
+    }
+    
+    func printMukjipaGameUserInterface(currentTurn: Player) {
+        let currentTurnPlayer = "\(currentTurn.rawValue) 턴"
+        print("[\(currentTurnPlayer)] 묵(1), 찌(2), 빠(3)! <종료 : 0> :" , terminator: " ")
+    }
+    
+    func printCurrentTurn(currentTurn: Player) {
+        print("\(currentTurn.rawValue) 턴입니다")
     }
     
     func printGameOver() {
@@ -24,9 +33,8 @@ struct UserInterface {
         print(gameResult.rawValue)
     }
     
-    func printMukjipaGameUserInterface(currentTurn: Player) {
-        let currentTurnPlayer = "\(currentTurn.rawValue) 턴"
-        print("[\(currentTurnPlayer)] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+    func printMukjipaGameWinner(currentTurn: Player) {
+        print("\(currentTurn.rawValue)의 승리!")
+        printGameOver()
     }
-    
 }

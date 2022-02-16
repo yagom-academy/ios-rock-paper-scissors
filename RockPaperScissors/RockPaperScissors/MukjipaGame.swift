@@ -26,8 +26,29 @@ struct MukjipaGame {
         self.userInterface = userInterface
     }
     
-    mutating func startMujipaGame(currentTurn: Player) {
+    mutating func startMukjipaGame(currentTurn: Player) {
         self.currentTurn = currentTurn
         userInterface.printMukjipaGameUserInterface(currentTurn: currentTurn)
+        playSelectedMenu()
+    }
+    
+    private mutating func playSelectedMenu() {
+        let userSelectedMenu: Int = user.selectedMenu()
+        let muk: Int = MukjipaType.muk.rawValue
+        let ji: Int = MukjipaType.ji.rawValue
+        let pa: Int = MukjipaType.pa.rawValue
+        
+        switch userSelectedMenu {
+        case muk, ji, pa:
+            break
+            
+        case MukjipaType.exit.rawValue:
+            userInterface.printGameOver()
+            
+        default:
+            userInterface.printErrorMessage()
+            self.currentTurn = .computer
+            startMukjipaGame(currentTurn: self.currentTurn)
+        }
     }
 }

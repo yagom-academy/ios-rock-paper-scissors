@@ -58,7 +58,6 @@ struct RockPaperScissorsGame {
             userInterface: self.userInterface
         )
         
-        
         if userSelectedNumber == computerSelectedNumber {
             userInterface.printRockPaperScissorsGameResut(gameResult: .draw)
             startProgram()
@@ -66,12 +65,12 @@ struct RockPaperScissorsGame {
         
         if userSelectedNumber == computerSelectedNumber + 1 || userSelectedNumber == computerSelectedNumber - 2 {
             userInterface.printRockPaperScissorsGameResut(gameResult: .win)
-            mukjipaGame.startMujipaGame(currentTurn: .user)
+            mukjipaGame.startMukjipaGame(currentTurn: .user)
         }
-
+        
         if userSelectedNumber == computerSelectedNumber - 1 || userSelectedNumber == computerSelectedNumber + 2 {
             userInterface.printRockPaperScissorsGameResut(gameResult: .lose)
-            mukjipaGame.startMujipaGame(currentTurn: .computer)
+            mukjipaGame.startMukjipaGame(currentTurn: .computer)
         }
     }
 }
