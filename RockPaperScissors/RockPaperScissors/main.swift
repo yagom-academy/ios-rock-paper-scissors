@@ -87,7 +87,12 @@ struct Game {
     mutating func playGame(selectedCard: String?) {
         computer.setRandomCard()
         user.setCardFromInput(selectedCard: selectedCard)
-        
+        printResult(gameResult: compareEachCard(userCard: user.getCard(), computerCard: computer.getCard()))
+    }
+    
+    mutating func playMukChiBa(selectedCard: String?) {
+        computer.setRandomCard()
+        user.setCardFromInput(selectedCard: selectedCard)
         printResult(gameResult: compareEachCard(userCard: user.getCard(), computerCard: computer.getCard()))
     }
 
@@ -99,11 +104,11 @@ struct Game {
         case Result.win:
             print("이겼습니다.")
             turn = user.getName()
-            printMenu()
+            startMukChiBa()
         case Result.lose:
             print("졌습니다.")
             turn = computer.getName()
-            printMenu()
+            startMukChiBa()
         }
     }
 
@@ -117,21 +122,29 @@ struct Game {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func convertValue(input: String) -> String? {
+    func convertValue(input: String?) -> String? {
         switch input {
-        case "1": return "2"
-        case "2": return "1"
-        case "3": return "3"
+        case "1": return Card.rock.rawValue
+        case "2": return Card.scissors.rawValue
+        case "3": return Card.paper.rawValue
         default: return nil
+        }
+    }
+    
+    mutating func startMukChiBa() {
+        printMenu()
+        let userInput: String? = readLine()
+        switch userInput {
+        case Card.scissors.rawValue, Card.rock.rawValue, Card.paper.rawValue:
+            playGame(selectedCard: convertValue(input: userInput))
+        case Command.terminator.rawValue:
+            print("게임 종료")
+        case .none:
+            print("nil")
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            turn = computer.getName()
+            startMukChiBa()
         }
     }
 }
