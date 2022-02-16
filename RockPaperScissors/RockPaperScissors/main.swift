@@ -23,6 +23,35 @@ enum Command: String {
     case terminator = "0"
 }
 
+struct Player {
+    private var name: String
+    private var card: String = ""
+    
+    init(name: String) {
+        self.name = name
+    }
+    
+    mutating func setRandomCard() {
+        let randomCard: Card = Card.cases[Int.random(in: 0..<Card.cases.count)]
+        card = randomCard.rawValue
+    }
+    
+    mutating func setCardFromInput() {
+        let userInput: String? = readLine()
+        switch userInput {
+        case Card.scissors.rawValue, Card.rock.rawValue, Card.paper.rawValue:
+            playGame(selectedCard: userInput)
+        case Command.terminator.rawValue:
+            print("게임 종료")
+        case .none:
+            print("nil")
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            setCardFromInput()
+        }
+    }
+}
+
 func inputSelectionCard() {
     printMenu()
     let userInput: String? = readLine()
