@@ -51,4 +51,17 @@ struct MukjipaGame {
             startMukjipaGame(currentTurn: self.currentTurn)
         }
     }
+    
+    private mutating func changeCurrentTurn() {
+        switch currentTurn {
+        case .user:
+            self.currentTurn = .computer
+            userInterface.printCurrentTurn(currentTurn: .computer)
+        case .computer:
+            self.currentTurn = .user
+            userInterface.printCurrentTurn(currentTurn: .user)
+        case .none:
+            break
+        }
+    }
 }
