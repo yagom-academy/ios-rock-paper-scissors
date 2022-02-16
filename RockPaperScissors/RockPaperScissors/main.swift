@@ -25,8 +25,9 @@ enum ComputerOrUser: String {
     case user = "사용자"
 }
 
-func startRockPaperScissorsGame() {
+func startRockPaperScissorsGame() -> ComputerOrUser {
     var isWinnerFound: Bool = false
+    var currentTurn: ComputerOrUser = .user
     let gameoverNumber: String = "0"
     
     repeat {
@@ -43,17 +44,23 @@ func startRockPaperScissorsGame() {
             let userValue: RockPaperScissors = try convertType(of: userNumber)
             let gameResult: GameResult = findGameResult(computerValue: computerValue, userValue: userValue)
             
-            if gameResult != .tie {
-                isWinnerFound = true
-            }
             printGameResult(gameResult)
+            if gameResult == .win {
+                currentTurn = .user
+                isWinnerFound = true
+            } else if gameResult == .loss {
+                currentTurn = .computer
+                isWinnerFound = true
+            } else if gameResult == .tie {
+                isWinnerFound = false
+            }
         } catch InputError.wrongInputError {
             print("잘못된 입력입니다. 다시 시도해주세요.")
         } catch {
             print(error)
         }
     } while !isWinnerFound
-    print("게임 종료")
+    return currentTurn
 }
 
 func printGameMenu() {
