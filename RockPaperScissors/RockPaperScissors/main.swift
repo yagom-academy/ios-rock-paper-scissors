@@ -8,14 +8,16 @@ enum RockPaperScissors: String {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
-    case error
 }
 
 enum GameResult {
     case win
     case loss
     case tie
-    case error
+}
+
+enum InputError: Error {
+    case wrongInputError
 }
 
 func startRockPaperScissorsGame() {
@@ -23,20 +25,28 @@ func startRockPaperScissorsGame() {
     let gameoverNumber: String = "0"
     
     repeat {
-        printGameMenu()
-        let oneDigitComputerNumber: Int = makeRandomComputerNumber()
-        let selectedUserNumber: String = selectGameMenuUserNumber()
-        
-        if selectedUserNumber == gameoverNumber { break }
-        
-        let computerValue: RockPaperScissors = convertType(of: String(oneDigitComputerNumber))
-        let userValue: RockPaperScissors = convertType(of: selectedUserNumber)
-        let gameResult: GameResult = findGameResult(computerValue: computerValue, userValue: userValue)
-        
-        if gameResult == .win || gameResult == .loss {
-            isWinnerFound = true
+        do {
+            printGameMenu()
+            let computerNumber: Int = makeRandomComputerNumber()
+            let userNumber: String = selectGameMenuUserNumber()
+            
+            if userNumber == gameoverNumber {
+                break
+            }
+            
+            let computerValue: RockPaperScissors = try convertType(of: String(computerNumber))
+            let userValue: RockPaperScissors = try convertType(of: userNumber)
+            let gameResult: GameResult = findGameResult(computerValue: computerValue, userValue: userValue)
+            
+            if gameResult != .tie {
+                isWinnerFound = true
+            }
+            printGameResult(gameResult)
+        } catch InputError.wrongInputError {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        } catch {
+            print(error)
         }
-        printGameResult(gameResult)
     } while !isWinnerFound
     print("게임 종료")
 }
@@ -46,26 +56,21 @@ func printGameMenu() {
 }
 
 func makeRandomComputerNumber() -> Int {
-    let oneDigitComputerNumber = Int.random(in: 1...3)
-    return oneDigitComputerNumber
+    return Int.random(in: 1...3)
 }
 
 func selectGameMenuUserNumber() -> String {
-    guard let selectedUserNumber = readLine() else { return "" }
+    guard let selectedUserNumber = readLine() else {
+        return ""
+    }
     return selectedUserNumber
 }
 
-func convertType(of selectedNumber: String) -> RockPaperScissors {
-    switch selectedNumber {
-    case "1":
-        return .scissors
-    case "2":
-        return .rock
-    case "3":
-        return .paper
-    default:
-        return .error
+func convertType(of selectedNumber: String) throws -> RockPaperScissors {
+    guard let value = RockPaperScissors(rawValue: selectedNumber) else {
+        throw InputError.wrongInputError
     }
+    return value
 }
 
 func findGameResult(computerValue: RockPaperScissors, userValue: RockPaperScissors) -> GameResult {
@@ -76,8 +81,6 @@ func findGameResult(computerValue: RockPaperScissors, userValue: RockPaperScisso
         return .loss
     case (.rock, .rock), (.scissors, .scissors), (.paper, .paper):
         return .tie
-    default:
-        return .error
     }
 }
 
@@ -89,8 +92,6 @@ func printGameResult(_ gameResult: GameResult) {
         print("졌습니다!")
     case .tie:
         print("비겼습니다!")
-    case .error:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }
 
