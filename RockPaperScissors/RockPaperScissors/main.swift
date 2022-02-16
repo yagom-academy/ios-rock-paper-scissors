@@ -37,8 +37,9 @@ func startRockPaperScissorsGame(game: Game, winner: Bool) -> ComputerOrUser {
     
     repeat {
         do {
-//            printGameMenu(of: game, turnValue: currentTurn)
+            printGameMenu(of: game, turnValue: currentTurn.rawValue)
             let computerNumber: Int = makeRandomComputerNumber()
+            print("컴퓨터 랜덤 넘버: ",computerNumber)
             let userNumber: String = selectGameMenuUserNumber()
             
             if userNumber == gameoverNumber {
@@ -126,4 +127,11 @@ func printGameMenu(of game: Game, turnValue: String) {
     }
 }
 
+func gameMaster() {
+    let turn = startRockPaperScissorsGame(game: .가위바위보, winner: false)
+    print("가위바위보 승리자",turn)
+    let winnerTurn = startRockPaperScissorsGame(game: .묵찌빠, winner: false)
+    print("묵찌빠 승리자",winnerTurn)
+}
 
+gameMaster()
