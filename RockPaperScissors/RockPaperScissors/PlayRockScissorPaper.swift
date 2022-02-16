@@ -21,9 +21,6 @@ enum CaseOfHands: Int {
 
 struct PlayRockScissorPaper {
     var gameData = StoreGameData()
-    let resultListWithRock: Array<ResultMassage> = [ResultMassage.win, ResultMassage.draw, ResultMassage.lose]
-    let resultListWithScissor: Array<ResultMassage> = [ResultMassage.draw, ResultMassage.lose, ResultMassage.win]
-    let resultListWithPaper: Array<ResultMassage> = [ResultMassage.lose, ResultMassage.win, ResultMassage.draw]
     
     mutating func playGame() throws {
         controlGame()
@@ -45,19 +42,15 @@ struct PlayRockScissorPaper {
     }
     
     func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) throws -> ResultMassage {
-        var fixedResult: ResultMassage
-        
-        switch playerHand {
-        case CaseOfHands.scissor.rawValue:
-            fixedResult = resultListWithScissor[computerHand-1]
-        case CaseOfHands.rock.rawValue:
-            fixedResult = resultListWithRock[computerHand-1]
-        case CaseOfHands.paper.rawValue:
-            fixedResult = resultListWithPaper[computerHand-1]
-        default:
-            throw ErrorCase.valueIsWorngFormat
+        var result: ResultMassage = .draw
+        if playerHand == computerHand {
+            result = .draw
+        } else if playerHand - computerHand == 1 || playerHand - computerHand < 0 {
+            result = .win
+        } else {
+            result = .lose
         }
-        return fixedResult
+        return result
     }
     
     mutating func displayResult(with fixedResult: ResultMassage) throws {
