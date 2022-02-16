@@ -16,7 +16,7 @@
 * 입력이 완료되면, 임의의 패가 생성되고, 두 패(사용자, 컴퓨터)를 비교합니다.
 * 비교 후 결과에 대한 문구가 출력되고, 비긴 경우엔 다시 처음 과정으로 돌아갑니다. 그 외엔 "게임 종료"문구가 출력되고, 게임이 종료됩니다.
 
-## 순서도
+## STEP 1 순서도
 <img src = "https://user-images.githubusercontent.com/91936941/154011096-fcb0d0f5-bcf8-41f8-8f3b-5db47c1ed709.png" width="500px">
 
 ## STEP 1 기능 구현
@@ -50,3 +50,6 @@
 
 
 ## PR 후 개선사항
+
+## STEP 2 순서도
+<img src = "https://user-images.githubusercontent.com/91936941/154185828-6e5d68f6-233b-4956-b263-cdef49ab2379.png" width="500px">
