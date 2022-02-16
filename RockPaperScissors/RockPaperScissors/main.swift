@@ -6,17 +6,33 @@
 
 import Foundation
 
-enum Result: Int {
-    case win = 1
-    case draw = 0
-    case lose = -1
+enum Result: String {
+    case win = "이겼습니다."
+    case draw = "비겼습니다."
+    case lose = "졌습니다."
+    
+    func printMessage() {
+        print(self.rawValue)
+    }
 }
 
-enum Card: String {
+enum Card: String, CaseIterable {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
-    static let cases: [Card] = [.scissors, .rock, .paper]
+    static let cases: [Card] = Card.allCases
+    
+    func compareEachCard(computerCard: Card) -> Result {
+        let winCase = [[Card.scissors, Card.paper],[Card.rock, Card.scissors],[Card.paper, Card.rock]]
+        let cardPair = [self, computerCard]
+        if self == computerCard {
+            return Result.draw
+        } else if winCase.contains(cardPair) {
+            return Result.win
+        } else {
+            return Result.lose
+        }
+    }
 }
 
 enum Command: String {
@@ -25,13 +41,13 @@ enum Command: String {
 
 struct Player {
     private let name: String
-    private var card: Int = 0
+    private var card: Card?
     
     init(name: String) {
         self.name = name
     }
     
-    func getCard() -> Int {
+    func getCard() -> Card? {
         return card
     }
     
@@ -39,19 +55,19 @@ struct Player {
         return name
     }
     
-    func makeRandomCard() -> String? {
+    func makeRandomCard() -> Card {
         let randomCard: Card = Card.cases[Int.random(in: 0..<Card.cases.count)]
-        return randomCard.rawValue
+        return randomCard
     }
     
     mutating func setRandomCard() {
-        guard let randomCard: Int = (makeRandomCard().flatMap{ Int($0) }) else { return }
+        let randomCard: Card = makeRandomCard()
         card = randomCard
     }
     
-    mutating func setCardFromInput(selectedCard: String?) {
-        guard let userCard: Int = (selectedCard.flatMap{ Int($0) }) else { return }
-        card = userCard
+    mutating func setCardFromInput(selectedCard: Card) {
+        //guard let userCard: Card = selectedCard else { return }
+        card = selectedCard
     }
 }
 
@@ -62,18 +78,17 @@ struct Game {
     
     mutating func inputSelectionCard() {
         printMenu()
-        let userInput: String? = readLine()
-        switch userInput {
-        case Card.scissors.rawValue, Card.rock.rawValue, Card.paper.rawValue:
-            playGame(selectedCard: userInput)
-        case Command.terminator.rawValue:
+        guard let userInput: String = readLine() else { return }
+        if userInput == Command.terminator.rawValue {
             print("게임 종료")
-        case .none:
-            print("nil")
-        default:
+            return
+        }
+        guard let userCard: Card = Card(rawValue: userInput) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             inputSelectionCard()
+            return
         }
+        playGame(selectedCard: userCard)
     }
 
     func printMenu() {
@@ -84,16 +99,26 @@ struct Game {
         }
     }
 
-    mutating func playGame(selectedCard: String?) {
+    mutating func playGame(selectedCard: Card) {
         computer.setRandomCard()
         user.setCardFromInput(selectedCard: selectedCard)
-        printResult(gameResult: compareEachCard(userCard: user.getCard(), computerCard: computer.getCard()))
+        
+        guard let userCard: Card = user.getCard() else { return }
+        guard let computerCard: Card = computer.getCard() else { return }
+        
+        let resultOfCompare = userCard.compareEachCard(computerCard: computerCard)
+        printResult(gameResult: resultOfCompare)
     }
     
-    mutating func playMukChiBa(selectedCard: String?) {
+    mutating func playMukChiBa(selectedCard: Card) {
         computer.setRandomCard()
         user.setCardFromInput(selectedCard: selectedCard)
-        printResult(gameResult: compareEachCard(userCard: user.getCard(), computerCard: computer.getCard()))
+        
+        guard let userCard: Card = user.getCard() else { return }
+        guard let computerCard: Card = computer.getCard() else { return }
+        
+        let resultOfCompare = userCard.compareEachCard(computerCard: computerCard)
+        printResult(gameResult: resultOfCompare)
     }
 
     mutating func printResult(gameResult: Result) {
@@ -111,41 +136,31 @@ struct Game {
             startMukChiBa()
         }
     }
-
-    func compareEachCard(userCard: Int, computerCard: Int) -> Result {
-        if userCard == computerCard {
-            return Result.draw
-        } else if (computerCard - userCard) == -1 || (computerCard - userCard) == 2 {
-            return Result.win
-        } else {
-            return Result.lose
-        }
-    }
     
-    func convertValue(input: String?) -> String? {
+    func convertValue(input: String) -> String {
         switch input {
         case "1": return Card.rock.rawValue
         case "2": return Card.scissors.rawValue
         case "3": return Card.paper.rawValue
-        default: return nil
+        default: return input
         }
     }
     
     mutating func startMukChiBa() {
         printMenu()
-        let userInput: String? = readLine()
-        switch userInput {
-        case Card.scissors.rawValue, Card.rock.rawValue, Card.paper.rawValue:
-            playGame(selectedCard: convertValue(input: userInput))
-        case Command.terminator.rawValue:
+        
+        guard let userInput: String = readLine() else { return }
+        if userInput == Command.terminator.rawValue {
             print("게임 종료")
-        case .none:
-            print("nil")
-        default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            turn = computer.getName()
-            startMukChiBa()
+            return
         }
+        guard let userCard: Card = Card(rawValue: convertValue(input: userInput)) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            startMukChiBa()
+            return
+        }
+        //playGame(selectedCard: userCard)
+        print(userCard.rawValue)
     }
 }
 
