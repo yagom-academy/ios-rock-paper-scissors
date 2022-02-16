@@ -30,9 +30,9 @@ enum Game: GameResult {
     case 묵찌빠 = .tie
 }
 
-func startRockPaperScissorsGame() -> ComputerOrUser {
-    var isWinnerFound: Bool = false
-    var currentTurn: ComputerOrUser = .user
+func startRockPaperScissorsGame(game: Game, winner: Bool) -> ComputerOrUser {
+    var isWinnerFound: Bool = winner
+    var currentTurn: ComputerOrUser
     let gameoverNumber: String = "0"
     
     repeat {
