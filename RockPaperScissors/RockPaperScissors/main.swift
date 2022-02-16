@@ -8,27 +8,6 @@ enum RockPaperScissors: Int, CaseIterable {
     case scissors = 1
     case rock = 2
     case paper = 3
-    
-    func playGame(with opponentPlayer: RockPaperScissors) -> GameResult {
-        
-        if self == opponentPlayer {
-            return .draw
-        }
-        
-        if self == .scissors {
-            return opponentPlayer == .paper ? .win : .lose
-        }
-        
-        if self == .paper {
-            return opponentPlayer == .rock ? .win : .lose
-        }
-        
-        if self == .rock {
-            return opponentPlayer == .scissors ? .win : .lose
-        }
-        
-        return .draw
-    }
 }
 
 enum GameResult {
@@ -53,7 +32,7 @@ struct RockPaperScissorsGame {
                 continue
             }
             
-            let gameResult = userSign.playGame(with: computerSign)
+            let gameResult = decideResult(computerSign: computerSign, userSign: userSign)
             gameFlag = printGameResult(gameResult: gameResult)
         }
         
@@ -89,6 +68,28 @@ struct RockPaperScissorsGame {
         
         return rockPaperScissorsSign
     }
+    
+    func decideResult(computerSign: RockPaperScissors, userSign: RockPaperScissors) -> GameResult{
+        
+        if userSign == computerSign {
+            return .draw
+        }
+        
+        if userSign == .scissors {
+            return computerSign == .paper ? .win : .lose
+        }
+        
+        if userSign == .paper {
+            return computerSign == .rock ? .win : .lose
+        }
+        
+        if userSign == .rock {
+            return computerSign == .scissors ? .win : .lose
+        }
+        
+        return .draw
+    }
+    
 
     func printGameResult(gameResult: GameResult) -> Bool {
         switch gameResult {
