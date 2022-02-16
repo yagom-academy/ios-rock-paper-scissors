@@ -35,6 +35,10 @@ struct Player {
         return card
     }
     
+    func getName() -> String {
+        return name
+    }
+    
     func makeRandomCard() -> String? {
         let randomCard: Card = Card.cases[Int.random(in: 0..<Card.cases.count)]
         return randomCard.rawValue
@@ -52,9 +56,11 @@ struct Player {
 }
 
 struct Game {
+    var user: Player
+    var computer: Player
     var turn: String
     
-    func inputSelectionCard() {
+    mutating func inputSelectionCard() {
         printMenu()
         let userInput: String? = readLine()
         switch userInput {
@@ -71,27 +77,33 @@ struct Game {
     }
 
     func printMenu() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+        if turn.isEmpty {
+            print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+        } else {
+            print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
+        }
     }
 
-    func playGame(selectedCard: String?) {
-        guard let computerCard: Int = (makeRandomCard().flatMap{ Int($0) }) else { return }
-        guard let userCard: Int = (selectedCard.flatMap{ Int($0) }) else { return }
-        printResult(gameResult: compareEachCard(userCard: userCard, computerCard: computerCard))
+    mutating func playGame(selectedCard: String?) {
+        computer.setRandomCard()
+        user.setCardFromInput(selectedCard: selectedCard)
+        
+        printResult(gameResult: compareEachCard(userCard: user.getCard(), computerCard: computer.getCard()))
     }
 
-
-    func printResult(gameResult: Result) {
+    mutating func printResult(gameResult: Result) {
         switch gameResult {
         case Result.draw:
             print("비겼습니다.")
             inputSelectionCard()
         case Result.win:
             print("이겼습니다.")
-            print("게임 종료")
+            turn = user.getName()
+            printMenu()
         case Result.lose:
             print("졌습니다.")
-            print("게임 종료")
+            turn = computer.getName()
+            printMenu()
         }
     }
 
@@ -105,6 +117,15 @@ struct Game {
         }
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func convertValue(input: String) -> String? {
         switch input {
         case "1": return "2"
@@ -112,11 +133,11 @@ struct Game {
         case "3": return "3"
         default: return nil
         }
-        
     }
-    
 }
 
+var user: Player = Player(name: "사용자")
+var computer: Player = Player(name: "컴퓨터")
 
-
-
+var newGame: Game = Game(user: user, computer: computer, turn: "")
+newGame.inputSelectionCard()
