@@ -6,7 +6,7 @@
 
 import Foundation
 
-enum GameValue {
+enum GameOptions {
     case exit
     case scissor
     case rock
@@ -26,10 +26,10 @@ func showMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
-    showResult(gameResult: compareValues(userValue: matchedValue(value: receiveNumber()), computerValue: matchedValue(value: makeRandomNumber())))
+    showResult(compare(userOption: matchedValue(receiveNumber()), computerOption: matchedValue(makeRandomNumber())))
 }
 
-func showResult(gameResult: GameResult) {
+func showResult(_ gameResult: GameResult) {
     switch gameResult {
     case .win:
         print("이겼습니다!")
@@ -48,8 +48,8 @@ func showResult(gameResult: GameResult) {
     }
 }
 
-func compareValues(userValue: GameValue, computerValue: GameValue) -> GameResult {
-    switch (userValue, computerValue) {
+func compare(userOption: GameOptions, computerOption: GameOptions) -> GameResult {
+    switch (userOption, computerOption) {
     case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
         return .win
     case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
@@ -63,7 +63,7 @@ func compareValues(userValue: GameValue, computerValue: GameValue) -> GameResult
     }
 }
 
-func matchedValue(value: String) -> GameValue {
+func matchedValue(_ value: String) -> GameOptions {
     switch value {
     case "0":
         return .exit
