@@ -23,6 +23,7 @@ enum InputError: Error {
 enum ComputerOrUser: String {
     case computer = "컴퓨터"
     case user = "사용자"
+    case nobody
 }
 
 enum Game {
@@ -55,26 +56,20 @@ func startRockPaperScissorsGame(game: Game, currentTurn: ComputerOrUser) -> Comp
                 if gameResult != .tie {
                     isWinnerFound = true
                 }
-            }
-            if gameResult != .tie {
-                currentTurn = changeTurn(game: game, currentValue: currentTurn)
             } else {
-                isWinnerFound = true
+                if gameResult != .tie {
+                    currentTurn = changeTurn(game: game, currentValue: currentTurn)
+                } else {
+                    isWinnerFound = true
+                }
             }
-            
-            if gameResult != .tie {
-                isWinnerFound = !isWinnerFound
-            }
-            currentTurn = changeTurn(game: game, currentValue: currentTurn)
-            
-            
         } catch InputError.wrongInputError where game == .묵찌빠 {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             print("묵찌빠")
             currentTurn = .computer
         } catch InputError.wrongInputError {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            print("가워바위보")
+            print("가위바위보")
         } catch {
             print(error)
         }
@@ -152,7 +147,7 @@ func printGameMenu(of game: Game, turnValue: String) {
 }
 
 func gameMaster() {
-    let turn = startRockPaperScissorsGame(game: .가위바위보, currentTurn: .user)
+    let turn = startRockPaperScissorsGame(game: .가위바위보, currentTurn: .nobody)
     print("가위바위보 승리자",turn)
     let winnerTurn = startRockPaperScissorsGame(game: .묵찌빠, currentTurn: turn)
     print("묵찌빠 승리자",winnerTurn)
