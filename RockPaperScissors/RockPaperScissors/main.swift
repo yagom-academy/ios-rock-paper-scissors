@@ -10,18 +10,14 @@ enum Settings {
     static let exitCode = 0
 }
 
-enum GameDisplayMessage: String {
-    case menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-    case gameDidEnd = "게임 종료"
-    case playerDidWin = "이겼습니다!"
-    case playerDidLose = "졌습니다!"
-    case playerDidDraw = "비겼습니다!"
-    case invalidPlayerInput = "잘못된 입력입니다. 다시 시도해주세요."
-    case error = "에러가 발생했습니다. 게임을 다시 실행시켜 주세요."
-    
-    var text: String {
-        return self.rawValue
-    }
+enum GameDisplayMessage {
+    static let menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    static let gameDidEnd = "게임 종료"
+    static let playerDidWin = "이겼습니다!"
+    static let playerDidLose = "졌습니다!"
+    static let playerDidDraw = "비겼습니다!"
+    static let invalidPlayerInput = "잘못된 입력입니다. 다시 시도해주세요."
+    static let error = "에러가 발생했습니다. 게임을 다시 실행시켜 주세요."
 }
 
 enum HandType: Int, CaseIterable {
@@ -65,31 +61,31 @@ func checkGameResult(player playerInput: Int, computer computerInput: Int) -> Ga
 func showGameResult(_ result: GameResult) {
     switch result {
     case .playerWin:
-        print(GameDisplayMessage.playerDidWin.text)
-        print(GameDisplayMessage.gameDidEnd.text)
+        print(GameDisplayMessage.playerDidWin)
+        print(GameDisplayMessage.gameDidEnd)
     case .playerLose:
-        print(GameDisplayMessage.playerDidLose.text)
-        print(GameDisplayMessage.gameDidEnd.text)
+        print(GameDisplayMessage.playerDidLose)
+        print(GameDisplayMessage.gameDidEnd)
     case .playerDraw:
-        print(GameDisplayMessage.playerDidDraw.text)
+        print(GameDisplayMessage.playerDidDraw)
         startGame()
     }
 }
 
 func startGame() {
-    print(GameDisplayMessage.menu.text, terminator: "")
+    print(GameDisplayMessage.menu, terminator: "")
     guard let playerInput = getPlayerInput()
     else {
-        print(GameDisplayMessage.invalidPlayerInput.text)
+        print(GameDisplayMessage.invalidPlayerInput)
         startGame()
         return
     }
     if playerInput == Settings.exitCode {
-        print(GameDisplayMessage.gameDidEnd.text)
+        print(GameDisplayMessage.gameDidEnd)
         return
     }
     guard let computerInput = HandType.randomHandType() else{
-        print(GameDisplayMessage.error.text)
+        print(GameDisplayMessage.error)
         return
     }
     let gameResult = checkGameResult(player: playerInput, computer: computerInput)
