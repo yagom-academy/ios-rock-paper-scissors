@@ -7,10 +7,23 @@
 
 import Foundation
 
-enum ResultMassage: String {
-    case win = "이겼습니다!"
-    case lose = "졌습니다!"
-    case draw = "비겼습니다!"
+enum MatchResult {
+    case win
+    case lose
+    case draw
+}
+
+extension MatchResult {
+    var printMessage: String {
+        switch self {
+        case .win:
+            return "이겼습니다!"
+        case .lose:
+            return "졌습니다"
+        case .draw:
+            return "비겼습니다"
+        }
+    }
 }
 
 enum CaseOfHands: Int {
@@ -44,21 +57,20 @@ struct PlayRockScissorPaper {
     
     mutating func afterAction() {
         let matchResult = vertifyWinner(gameData.playerHand, gameData.computerHand)
+        print(matchResult.printMessage)
+        
         switch matchResult {
         case .draw:
-            print(matchResult.rawValue)
             playGame()
         case .win:
-            print(matchResult.rawValue)
             return
         case .lose:
-            print(matchResult.rawValue)
             return
         }
     }
     
-    func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> ResultMassage {
-        var result: ResultMassage = .draw
+    func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> MatchResult {
+        var result: MatchResult = .draw
         if playerHand == computerHand {
             result = .draw
             
