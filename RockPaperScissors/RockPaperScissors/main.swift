@@ -25,7 +25,7 @@ enum HandType: Int, CaseIterable {
     case rock = 2
     case paper = 3
     
-    static func randomHandType() -> Int? {
+    static var randomHandType: Int? {
         return Self.allCases.randomElement()?.rawValue
     }
 }
@@ -74,6 +74,7 @@ func showGameResult(_ result: GameResult) {
 
 func startGame() {
     print(GameDisplayMessage.menu, terminator: "")
+
     guard let playerInput = getPlayerInput()
     else {
         print(GameDisplayMessage.invalidPlayerInput)
@@ -84,7 +85,7 @@ func startGame() {
         print(GameDisplayMessage.gameDidEnd)
         return
     }
-    guard let computerInput = HandType.randomHandType() else{
+    guard let computerInput = HandType.randomHandType else{
         print(GameDisplayMessage.error)
         return
     }
