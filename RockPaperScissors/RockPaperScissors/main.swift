@@ -1,49 +1,75 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom.
+//  Created by papri,Taeangel
 //  Copyright © yagom academy. All rights reserved.
 //
 
 import Foundation
 
-enum Hand: String {
+enum Userinput: String, CaseIterable {
     case scissors = "1", rock = "2", paper = "3"
+    static let exit = "0"
+}
+
+enum MessegePrint {
+    static let userWinMessege = "사용자가 승리했습니다"
+    static let computerWinMessege = "컴퓨터가 승리했습니다"
+    static let drawMessege = "비겼습니다"
+    static let prgramExitMessege = "프로그램 종료"
+    static let inputErrorMessege = "입력이 잘못되었습니다"
+    static let menuDisplay = "가위(1),바위(2),보(3)!<종료 :0>: "
+    static let gameErrorMessege = "게임을 실행할 수 없습니다"
 }
 
 func startGame() {
-    print("가위(1),바위(2),보(3)!<종료 :0>: ", terminator: "")
+    print(MessegePrint.menuDisplay, terminator: "")
     let userInput = inputValue()
-    switch userInput{
-    case "1","2","3" :
+    switch userInput {
+    case Userinput.scissors.rawValue, Userinput.rock.rawValue, Userinput.paper.rawValue :
         playRockPaperScissors(userHand: userInput)
-    case "0" :
-        print("프로그램 종료")
+    case Userinput.exit :
+        print(MessegePrint.prgramExitMessege)
         return
     default:
-        print("입력이 잘못되었습니다")
+        print(MessegePrint.inputErrorMessege)
         startGame()
     }
 }
 
 func inputValue() -> String {
-    guard let inputValue = readLine() else { return "" }
+    guard let inputValue = readLine() else {
+        print(MessegePrint.inputErrorMessege)
+        return ""
+    }
     return inputValue
 }
 
-func playRockPaperScissors(userHand: String) {
-    let computerHand = String(Int.random(in: 1...3))
-    matchHand(userHand: userHand, computerHand: computerHand)
+func makeComputerHand() -> String {
+    guard let computerHand = Userinput.allCases.randomElement()?.rawValue else {
+        print(MessegePrint.gameErrorMessege)
+        return ""
+    }
+    return computerHand
 }
 
-func matchHand(userHand: String, computerHand: String) {
+func playRockPaperScissors(userHand: String) {
+    let computerHand = makeComputerHand()
+    compareHand(userHand: userHand, computerHand: computerHand)
+}
+
+func compareHand(userHand: String, computerHand: String) {
     if userHand == computerHand {
-        print("비겼습니다")
+        print(MessegePrint.drawMessege)
         startGame()
-    } else if userHand == Hand.scissors.rawValue && computerHand == Hand.paper.rawValue || userHand == Hand.rock.rawValue && computerHand == Hand.scissors.rawValue || userHand == Hand.paper.rawValue && computerHand == Hand.rock.rawValue {
-        print("유저가 이겼습니다")
+    } else if checkUserWinCondition(userHand, computerHand) {
+        print(MessegePrint.userWinMessege)
     } else {
-        print("컴퓨터가 이겼습니다")
+        print(MessegePrint.computerWinMessege)
     }
+}
+
+func checkUserWinCondition(_ userHand: String, _ computerHand: String) -> Bool {
+    return userHand == Userinput.scissors.rawValue && computerHand == Userinput.paper.rawValue || userHand == Userinput.rock.rawValue && computerHand == Userinput.scissors.rawValue || userHand == Userinput.paper.rawValue && computerHand == Userinput.rock.rawValue
 }
 
 startGame()
