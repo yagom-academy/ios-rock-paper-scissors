@@ -12,11 +12,11 @@ enum Result {
     static let lose = "졌습니다."
 }
 
-enum Card: String {
+enum Card: String, CaseIterable {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
-    static let cases: [Card] = [.scissors, .rock, .paper]
+    static let cases: [Card] = Card.allCases
 }
 
 enum Command: String {
