@@ -30,6 +30,7 @@ extension PlayerHands {
 }
 
 enum Status {
+    case begin
     case exit
     case error
     case inProgress
@@ -40,10 +41,16 @@ enum Status {
 extension Status {
     var message: String {
         switch self {
+        case .begin:
+            return "가위(1), 바위(2), 보(3)! <종료 : 0> : "
         case .exit:
             return "게임종료"
         case .error:
             return "잘못된 입력입니다. 다시 시도해 주세요."
+        case .computerTurn:
+            return "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+        case .playerTurn:
+            return "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
         default:
             return "게임이 진행 중 입니다."
         }

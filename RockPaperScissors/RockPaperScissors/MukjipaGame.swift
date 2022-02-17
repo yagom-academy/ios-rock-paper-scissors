@@ -21,10 +21,10 @@ struct MukjipaGame {
         
         if result == .win {
             status = .playerTurn
-            print("[사용자턴]")
+            print(Status.playerTurn.message)
         } else if result == .lose {
             status = .computerTurn
-            print("[컴퓨터턴]")
+            print(Status.computerTurn.message)
         } else {
             status = .inProgress
         }
