@@ -1,6 +1,8 @@
 import Foundation
 
 struct HandGame {
+    private var hasUserWin = false
+    
     enum kinds {
         case rockPaperScissors, mukjipa
     }
@@ -28,9 +30,9 @@ struct HandGame {
         var description: String {
             switch self {
             case .userTurn:
-                return "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
+                return "사용자"
             case .computerTurn:
-                return "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
+                return "컴퓨터"
             }
         }
     }
@@ -57,7 +59,7 @@ struct HandGame {
     }
     
     enum Result {
-        case win, lose, draw, endGame
+        case win, lose, draw, endGame, computerWin, userWin
         
         var description: String {
             switch self {
@@ -69,6 +71,10 @@ struct HandGame {
                 return "비겼습니다!"
             case .endGame:
                 return "게임 종료"
+            case .computerWin:
+                return "컴퓨터의 승리!"
+            case .userWin:
+                return "사용자의 승리!"
             }
         }
     }
@@ -116,7 +122,7 @@ struct HandGame {
         }
         return false
     }
-
+    
     func verifiedUserHand(_ inputtedValue: String?) -> HandGame.Hand {
         switch inputtedValue {
         case HandGame.Guide.numberOne.description:
@@ -132,7 +138,7 @@ struct HandGame {
             return verifiedUserHand(receiveUserInputHand())
         }
     }
-
+    
     func generatedRandomHand() -> HandGame.Hand {
         if let hand = HandGame.Hand.allCases.filter ({ (hand: Hand) in
             return hand != .end })
@@ -141,7 +147,7 @@ struct HandGame {
         }
         return generatedRandomHand()
     }
-
+    
     func judgeUserGameResult(userHand: HandGame.Hand, computerHand: HandGame.Hand) -> HandGame.Result {
         if userHand == computerHand {
             return .draw
@@ -180,12 +186,12 @@ struct HandGame {
         let computerHand = generatedRandomHand()
         let userHand = verifiedUserHand(receiveUserInputHand())
         let mukjipaGameResult = judgeUserGameResult(userHand: userHand, computerHand: computerHand)
-                printGameResult(user: mukjipaGameResult)
+        printGameResult(user: mukjipaGameResult)
     }
     
     func printMukjipaWinner(mukjipaGameResult: HandGame.Result) {
         if mukjipaGameResult == .draw {
-        
+            
         }
     }
 }
