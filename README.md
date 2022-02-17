@@ -56,7 +56,7 @@
 ## ⛺️ 묵찌빠 게임 프로젝트 
 🗓 기간 : 2022.02.14 ~ 2022.02.18(4d)</br>
 🗓 팀원 : [로이](https://github.com/Roy-wonji), [마이노](https://github.com/Mino777)</br>
-🗓 리뷰어: [yohan](https://github.com/YohanBlessYou)
+🗓 리뷰어: [yohan](https://github.com/YohanBlessYou)</br>
 📝 설명 : 컴퓨터와 묵찌빠 게임(console app)</br>
 🗓 피드백 주신분 : [lily](https://github.com/yeahg-dev), [수박](https://github.com/soo941226), 
 [Tacocat](https://github.com/Ldoy)
