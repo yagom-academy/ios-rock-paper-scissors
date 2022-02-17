@@ -5,7 +5,7 @@
 //  Created by 김동욱 on 2022/02/16.
 //
 
-class RockPaperScissorsGame: Game {
+final class RockPaperScissorsGame: Game {
     
     override func printGameGuide() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")

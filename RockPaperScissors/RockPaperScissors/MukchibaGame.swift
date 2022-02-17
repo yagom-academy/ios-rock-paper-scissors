@@ -5,7 +5,7 @@
 //  Created by 김동욱 on 2022/02/16.
 //
 
-class MukchibaGame: Game {
+final class MukchibaGame: Game {
     
     var turn: Turn
     

@@ -25,7 +25,7 @@ class Game {
     
     func printGameGuide() {}
     func changeTurn(to player: Turn) {}
-     
+    
     func inputUserNumber() -> Int? {
         guard let userInput = readLine() else {
             return nil
