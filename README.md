@@ -50,6 +50,82 @@
 
 
 ## PR 후 개선사항
+- Result타입에 printMessage()함수를 두어 케이스를 나눠 출력하는 부분을 험수 하나로 통합
+> ```swift
+> //전
+> case Result.win:
+>     print("이겼습니다.")
+>     print("게임 종료")
+> ```
+   
+> ```swift
+> //후
+> case Result.win:
+>     Result.win.printMessage()
+>     print("게임 종료")
+>```
+
+- 패의 승패를 결정해주는 함수 compareEachCard()를 전역에서 Card타입 내부로 이동
+> ```swift
+> //전
+>func compareEachCard(userCard: Int, computerCard: Int) -> Result {
+>    if userCard == computerCard {
+>        return Result.draw
+>    ...
+>}
+>printResult(gameResult: compareEachCard(userCard: userCard, computerCard: computerCard))
+> ```
+   
+> ```swift
+> //후
+>enum Card: String, CaseIterable {
+>    case scissors = "1"
+>    case rock = "2"
+>    case paper = "3"
+>    static let cases: [Card] = Card.allCases
+>    
+>    func compareEachCard(computerCard: Card) -> Result {
+>        let winCase = [[Card.scissors, Card.paper],[Card.rock, Card.scissors],[Card.paper, Card.rock]]
+>        let cardPair = [self, computerCard]
+>        ...
+>    }
+>}
+>printResult(gameResult: userCard.compareEachCard(computerCard: computerCard))
+>```
 
 ## STEP 2 순서도
 <img src = "https://user-images.githubusercontent.com/91936941/154185828-6e5d68f6-233b-4956-b263-cdef49ab2379.png" width="500px">
+
+## STEP 2 기능 구현
+- ```printMessage()```함수
+    - 가위바위보 결과에 따라 메시지를 출력하는 함수
+- ```Player``` 클래스: 게임을 진행하는 플레이어
+- ```Game``` 클래스: 가위바위보 게임, 묵찌빠 게임의 부모 클래스
+- ```RockPaperScissors``` 클래스: Game 클래스를 상속받은 가위바위보 게임
+- ```MukChiBa``` 클래스: Game 클래스를 상속받은  게임
+- ```playGame()``` 함수
+    - 게임을 시작하는 함수. 입력이 잘못된 경우 다시 입력을 받는다.
+- ```turnPlayerName: String``` 변수
+    - 현재 턴 플레이어의 이름을 담는 변수
+- ```convertCard()``` 함수
+    - 가위바위보 게임과 묵찌빠 게임의 값을 동일하게 가져가기 위한 값 변환 함수
+- ```decideTurn()``` 함수
+    - 묵찌빠 게임에서 턴 전환이 필요한 경우 현재 턴 플레이어의 값을 저장하는 함수
+
+## 고민했던 것들
+- 열거형 내에서 함수 정의를 할 수 있는 부분은 최대한 사용하자
+- 함수의 재사용
+- 함수와 변수의 naming(많이 도움된 곳 : [Swift 개발자처럼 변수 이름 짓기](https://soojin.ro/blog/english-for-developers-swift))
+- 가위바위보와 묵찌빠를 별도의 인스턴스로 볼 것인지
+- 가위바위보의 결과를 바탕으로 묵찌빠가 실행되어야 하는데 묵찌빠의 실행을 어떻게 호출할 것인지
+- 은닉화와 캡슐화에 대한 고민
+    - Game에서 상속받아 오버라이딩한 함수에 대한 은닉화
+
+## 배운 개념
+- 객체지향적 프로그래밍
+- 은닉화, 캡슐화
+- 구초제와 클래스의 기능적 차이
+- 클래스 상속 및 함수 오버라이딩
+- 열거형 타입에 대한 유연한 사용방법(열거형 내부에 함수를 구현하여 메인 코드를 간결하게 할 수 있다.)
+- 열거형의 프로토콜 사용에 대해
+- 삼항연산자 사용방법
