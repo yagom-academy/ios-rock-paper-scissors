@@ -12,8 +12,8 @@ struct MukjipaGame {
     let gameData = GameData()
     
     mutating func main() {
-        rockSicssorPaperGame.playGame()
         changeTurn()
+        verifyWinner()
     }
     
     mutating func changeTurn() {
@@ -27,6 +27,18 @@ struct MukjipaGame {
             print(Status.computerTurn.message)
         } else {
             status = .inProgress
+        }
+    }
+    
+    mutating func verifyWinner() {
+        var (_ , _ , status, result) = rockSicssorPaperGame.playGame()
+        
+        if status == .playerTurn && result == .draw {
+            print("사용자의 승리!")
+        } else if status == .computerTurn && result == .draw {
+            print("컴퓨터의 승리!")
+        } else {
+            return
         }
     }
 }
