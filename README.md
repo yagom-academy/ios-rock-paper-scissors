@@ -2,5 +2,4 @@
 
 ### 묵찌빠 프로젝트 저장소
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
-
+![image](https://user-images.githubusercontent.com/66284051/154024845-98725c3e-86d6-43e0-ac70-c87b543fcfb3.png)
