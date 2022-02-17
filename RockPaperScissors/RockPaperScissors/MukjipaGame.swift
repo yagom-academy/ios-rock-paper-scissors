@@ -41,13 +41,11 @@ struct MukjipaGame {
         switch userSelectedMenu {
         case muk, ji, pa:
             judgeGameResult(userSelectedNumber: userSelectedMenu)
-            
         case MukjipaType.exit.rawValue:
             userInterface.printGameOver()
-            
         default:
             userInterface.printErrorMessage()
-            self.currentTurn = .computer
+            currentTurn = .computer
             startMukjipaGame(currentTurn: self.currentTurn)
         }
     }
@@ -67,10 +65,10 @@ struct MukjipaGame {
     private mutating func changeCurrentTurn() {
         switch currentTurn {
         case .user:
-            self.currentTurn = .computer
+            currentTurn = .computer
             userInterface.printCurrentTurn(currentTurn: .computer)
         case .computer:
-            self.currentTurn = .user
+            currentTurn = .user
             userInterface.printCurrentTurn(currentTurn: .user)
         case .none:
             break
