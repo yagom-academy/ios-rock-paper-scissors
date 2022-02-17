@@ -7,4 +7,4 @@
 import Foundation
 
 var somePlayer = MukjipaGame()
-somePlayer.playTotalGame()
+somePlayer.startGame()

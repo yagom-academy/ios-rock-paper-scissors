@@ -10,16 +10,18 @@ import Foundation
 class GameData {
     let handsRange: ClosedRange = 1...3
     var status: Status = .begin
-    var turn: Turn = .playerTurn
     var matchResult: MatchResult = .draw
     
     func startGame() {
+        displayMention()
         let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
+        
         switch status {
         case .exit:
+            print(Status.exit.message)
             break
         case .error:
-            
+            forceTurnChange()
             startGame()
         case .inProgress:
             executeByOption(makeResult(playerOption))
@@ -27,6 +29,8 @@ class GameData {
             startGame()
         }
     }
+    
+    func forceTurnChange() { }
     
     func generateComputerHand() -> PlayerHands {
         let computerOption = String(Int.random(in: handsRange))
@@ -48,7 +52,6 @@ class GameData {
     }
     
     func executeByOption(_ matchResult: MatchResult) {}
-    // 가위바위보, 묵찌빠에서 각각 승리 조건에 따른 행동
     
     func makeResult(_ playerHand: PlayerHands) -> MatchResult {
         let computerHand = generateComputerHand()
@@ -64,6 +67,13 @@ class GameData {
         } else {
             return .lose
         }
+    }
+    
+    func displayMention() {
+        print(Status.begin.message)
+    }
+    
+    func displayMatchResult() {
     }
     
     func convertToPlayerOption(from playerOption: String ) -> (PlayerHands, Status) {
