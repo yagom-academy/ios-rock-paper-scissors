@@ -28,9 +28,9 @@ struct HandGame {
         var description: String {
             switch self {
             case .userTurn:
-                return "사용자 턴"
+                return "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
             case .computerTurn:
-                return "컴퓨터 턴"
+                return "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
             }
         }
     }
@@ -94,6 +94,7 @@ struct HandGame {
         }
         let userGameResult = judgeUserGameResult(userHand: userHand, computerHand: computerHand)
         printGameResult(user: userGameResult)
+        
     }
     
     func printInputGuidanceMessage(gameKind: kinds) {
@@ -133,8 +134,8 @@ struct HandGame {
     }
 
     func generatedRandomHand() -> HandGame.Hand {
-        if let hand = HandGame.Hand.allCases.filter({ (hand: Hand) in
-            return hand != .end})
+        if let hand = HandGame.Hand.allCases.filter ({ (hand: Hand) in
+            return hand != .end })
             .randomElement() {
             return hand
         }
@@ -153,7 +154,7 @@ struct HandGame {
         }
     }
     //턴 알려줌
-    func printRockPaperScissorsWinnerTurn(userGameResult: Result) {
+    func printRockPaperScissorsWinnerTurn(userGameResult: HandGame.Result) {
         if userGameResult == .win {
             print(Players.userTurn.description, terminator: "")
         } else if userGameResult == .lose {
@@ -171,6 +172,20 @@ struct HandGame {
         } else {
             print(HandGame.Result.lose.description)
             print(HandGame.Result.endGame.description)
+        }
+    }
+    
+    func playMukjipa(userGameResult: HandGame.Result) {
+        printRockPaperScissorsWinnerTurn(userGameResult: userGameResult)
+        let computerHand = generatedRandomHand()
+        let userHand = verifiedUserHand(receiveUserInputHand())
+        let mukjipaGameResult = judgeUserGameResult(userHand: userHand, computerHand: computerHand)
+                printGameResult(user: mukjipaGameResult)
+    }
+    
+    func printMukjipaWinner(mukjipaGameResult: HandGame.Result) {
+        if mukjipaGameResult == .draw {
+        
         }
     }
 }
