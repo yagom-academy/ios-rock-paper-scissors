@@ -44,30 +44,38 @@ enum ResultTexts {
     static let errorText = "잘못된 입력입니다. 다시 시도해주세요."
     static func printWin() {
         print(winText)
-        print(endText)
+        showStepTwoMenu(whoseTurn: true)
     }
     static func printDraw() {
         print(drawText)
-        showMenu()
+        showStepOneMenu()
     }
     static func printlose() {
         print(loseText)
-        print(endText)
+        showStepTwoMenu(whoseTurn: false)
     }
     static func printEnd() {
         print(endText)
     }
     static func printError() {
         print(errorText)
-        showMenu()
+        showStepOneMenu()
     }
 }
 
-func showMenu() {
+func showStepOneMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
     showResult(compareStepOne(userOption: matchedHand(receiveNumber()), computerOption: matchedHand(makeRandomNumber())))
+}
+
+func showStepTwoMenu(whoseTurn: Bool) {
+    if whoseTurn {
+        print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+    } else {
+        print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+    }
 }
 
 func showResult(_ gameResult: GameResult) {
@@ -125,4 +133,4 @@ func makeRandomNumber() -> String {
     return String(Int.random(in: 1...3))
 }
 
-showMenu()
+showStepOneMenu()
