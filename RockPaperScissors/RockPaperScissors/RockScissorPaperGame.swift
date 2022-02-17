@@ -10,7 +10,7 @@ import Foundation
 struct RockScissorPaperGame {
     var gameData = GameData()
     
-    mutating func loadRockScissorPaperGame() -> (MatchResult?, Status){
+    mutating func loadRockScissorPaperGame() -> (MatchResult, Status){
         print(Status.begin.message, terminator: "")
         let computerHand = gameData.generateComputerHand()
         let (playerHand, status) = gameData.conveyPlayerHandAndStatus()
@@ -18,7 +18,7 @@ struct RockScissorPaperGame {
         return (result, status)
     }
     
-    mutating func executeByOption(_ playerHand: PlayerHands, _ computerHand: PlayerHands, _ status: Status) -> MatchResult? {
+    mutating func executeByOption(_ playerHand: PlayerHands, _ computerHand: PlayerHands, _ status: Status) -> MatchResult {
         switch status {
         case .exit:
             print(Status.exit.message)
@@ -27,12 +27,15 @@ struct RockScissorPaperGame {
             print(Status.error.message)
             let _ = loadRockScissorPaperGame()
         default:
-            let result = vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
+            var result = vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
+            print("처음 verify 한 이후: \(result)")
             displayMatchResult(result)
-            executeAfterMatch(result)
+            print("디스플레이한 이후: \(result)")
+            executeAfterMatch(&result)
+            print("애프터 매치: \(result)")
             return result
         }
-        return nil
+        return .draw
     }
 
     mutating func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> MatchResult {
@@ -49,9 +52,10 @@ struct RockScissorPaperGame {
         print(result.message)
     }
     
-    mutating func executeAfterMatch(_ result: MatchResult) {
+    mutating func executeAfterMatch(_ result: inout MatchResult) {
         if result == .draw {
-            let _ = loadRockScissorPaperGame()
+            let (newResult, _) = loadRockScissorPaperGame()
+           result = newResult
         }
     }
 }

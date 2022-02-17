@@ -17,13 +17,16 @@ struct MukjipaGame {
     
     mutating func playTotalGame() {
         let (result, updateStatus) = rockScissorPaperGame.loadRockScissorPaperGame()
+        print("묵찌빠에 넘어온 값: \(result)")
         changeTurn(result)
+        print("턴정보로 바꾸고 나: \(turn)")
         status = updateStatus
         loadMukjipaGame()
     }
     
     mutating func loadMukjipaGame() {
-        print("[\(turn)] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ")
+        
+        print(turn.message, terminator: "")
         let (playerHand, computerHand) = generateHandsAndStatus()
         executeByOption(playerHand, computerHand)
     }
@@ -59,12 +62,15 @@ struct MukjipaGame {
     
     mutating func verifyFinalWinner(_ playerHand: PlayerHands, _ computerHand: PlayerHands){
         if turn == .playerTurn && playerHand == computerHand {
-            print(MatchResult.win.message)
+            print(MatchResult.win.messageForMukjipa)
+            print(Status.exit.message)
         } else if turn == .computerTurn && playerHand == computerHand {
-            print(MatchResult.lose.message)
+            print(MatchResult.lose.messageForMukjipa)
+            print(Status.exit.message)
         } else {
-            let 가위바위보결과 = rockScissorPaperGame.vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
-            matchResult = 가위바위보결과
+            let resultOfRockScissorPaper = rockScissorPaperGame.vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
+            changeTurn(resultOfRockScissorPaper)
+            print(turn.messageForMukjipa)
             loadMukjipaGame()
         }
     }
