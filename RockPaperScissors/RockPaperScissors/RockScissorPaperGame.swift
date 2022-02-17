@@ -9,29 +9,36 @@ import Foundation
 
 struct RockScissorPaperGame {
     var gameData = GameData()
+    var status: Status = .begin
     
-    mutating func playGame() -> (PlayerHands, PlayerHands, Status, MatchResult?){
+    mutating func playGame() -> (Status, MatchResult?) {
+        let (playerHand, computerHand) = makeHands()
+        let result = vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
+        return (status, result)
+    }
+    
+    mutating func makeHands() -> (PlayerHands, PlayerHands) {
         let computerHand = gameData.generateComputerHand()
-        let (playerHand, status) = gameData.conveyPlayerHandAndStatus()
-        let result = executeByOption(playerHand, computerHand, status)
-        return ( playerHand, computerHand, status, result )
+        let (playerHand, nowStatus) = gameData.conveyPlayerHandAndStatus()
+        status = nowStatus
+        return (playerHand, computerHand)
     }
     
-    mutating func executeByOption(_ playerHand: PlayerHands, _ computerHand: PlayerHands, _ status: Status) -> MatchResult? {
-        if status == .exit {
-            print(Status.exit.message)
-            return nil
-        } else if status == .error{
-            print(Status.error.message)
-            playGame()
-            return nil
-        } else {
-            let result = vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
-            displayMatchResult(result)
-            executeAfterMatch(result)
-            return result
-        }
-    }
+//    mutating func executeByOption(_ playerHand: PlayerHands, _ computerHand: PlayerHands, _ status: Status) -> MatchResult? {
+//        if status == .exit {
+//            print(Status.exit.message)
+//            return nil
+//        } else if status == .error{
+//            print(Status.error.message)
+//            playGame()
+//            return nil
+//        } else {
+//            let result = vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
+//            displayMatchResult(result)
+//            executeAfterMatch(result)
+//            return result
+//        }
+//    }
     
     mutating func displayMatchResult(_ result: MatchResult) {
         print(result.message)
@@ -49,9 +56,9 @@ struct RockScissorPaperGame {
         if playerHand == computerHand {
             return .drawInRockScissorPaperGame
         } else if playerHand - computerHand == 1 || computerHand - playerHand == 2 {
-            return .playerTurn
+            return .win
         } else {
-            return .computerTurn
+            return .lose
         }
     }
 }

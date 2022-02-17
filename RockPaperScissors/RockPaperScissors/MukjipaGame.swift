@@ -12,30 +12,32 @@ struct MukjipaGame {
     let gameData = GameData()
     
     mutating func main() {
-//        changeTurn()
-        verifyWinner()
+        let (status, result) = rockSicssorPaperGame.playGame()
+        verifyWinner(changeTurn(), result)
     }
     
-//    mutating func changeTurn() {
-//        var (_ , _ , _ , result) = rockSicssorPaperGame.playGame()
-//
-//        if result == .playerTurn {
-//
-//        } else if result == .lose {
-//        } else {
-//            status = .inProgress
-//        }
-//    }
+    mutating func changeTurn() -> MatchResult {
+        let (_ , result) = rockSicssorPaperGame.playGame()
+        var turn: MatchResult = .playerTurn
+        if result == .win {
+            turn = .playerTurn
+        } else if result == .lose {
+            turn = .computerTurn
+        } else {
+            
+        }
+        return turn
+    }
     
-    mutating func verifyWinner() {
-        let (playerHand , computerHand , _ , result) = rockSicssorPaperGame.playGame()
+    mutating func verifyWinner(_ turn: MatchResult, _ result: MatchResult?) {
+        let ( _ , result) = rockSicssorPaperGame.playGame()
         
-        if result == .playerTurn && playerHand == computerHand {
+        if result == .win && turn == .playerTurn {
             print(MatchResult.win.message)
-        } else if result == .computerTurn && playerHand == computerHand {
+        } else if result == .lose && turn == .computerTurn {
             print(MatchResult.lose.message)
         } else {
-            rockSicssorPaperGame.executeByOption(playerHand, computerHand, Status.inProgress)
+            main()
         }
     }
 }
