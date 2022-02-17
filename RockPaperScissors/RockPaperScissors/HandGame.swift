@@ -100,7 +100,6 @@ struct HandGame {
         }
         let userGameResult = judgeUserGameResult(userHand: userHand, computerHand: computerHand)
         printGameResult(user: userGameResult)
-        
     }
     
     func printInputGuidanceMessage(gameKind: kinds) {
@@ -159,13 +158,44 @@ struct HandGame {
             return .lose
         }
     }
-    //턴 알려줌
+    
+    func playMukjipa(didUserWin: Bool) {
+        printRockPaperScissorsWinnerTurn(by: didUserWin)
+        printInputGuidanceMessage(gameKind: .mukjipa)
+        
+        let userHand = receiveUserInputHand()
+        let verifiedUserHand = verifiedUserHand(userHand, gameKind: .mukjipa)
+        
+        guard isValueZero(to: verifiedUserHand) else {
+            print(HandGame.Result.endGame.description)
+            return
+        }
+        guard isWrongInputted(userHand) == true else {
+            print(Error.wrongInput.description)
+            switchTurn(by: didUserWin)
+            playMukjipa(didUserWin: self.hasUserWin)
+            return
+        }
+        
+        let computerHand = generatedRandomHand()
+        let mukjipaGameResult = judgeUserGameResult(userHand: verifiedUserHand, computerHand: computerHand)
+        printWinner(by: mukjipaGameResult)
+    }
+    
     func printRockPaperScissorsWinnerTurn(userGameResult: HandGame.Result) {
         if userGameResult == .win {
             print(Players.userTurn.description, terminator: "")
         } else if userGameResult == .lose {
             print(Players.computerTurn.description, terminator: "")
         }
+    }
+    
+    func isWrongInputted(_ value: String?) -> Bool {
+        let normalValues = ["1", "2", "3", "0"]
+        for normalValue in normalValues {
+            if normalValue == value { return false }
+        }
+        return true
     }
     
     func printGameResult(user: HandGame.Result) {
@@ -181,17 +211,11 @@ struct HandGame {
         }
     }
     
-    func playMukjipa(userGameResult: HandGame.Result) {
-        printRockPaperScissorsWinnerTurn(userGameResult: userGameResult)
-        let computerHand = generatedRandomHand()
-        let userHand = verifiedUserHand(receiveUserInputHand())
-        let mukjipaGameResult = judgeUserGameResult(userHand: userHand, computerHand: computerHand)
-        printGameResult(user: mukjipaGameResult)
-    }
-    
-    func printMukjipaWinner(mukjipaGameResult: HandGame.Result) {
-        if mukjipaGameResult == .draw {
-            
+    func switchTurn(by gameResult: Bool) {
+        if gameResult == true {
+            self.hasUserWin = false
+        } else {
+            self.hasUserWin = true
         }
     }
 }
