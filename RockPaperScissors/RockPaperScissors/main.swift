@@ -19,6 +19,7 @@ enum Result: String {
 }
 
 enum Card: String, CaseIterable {
+    case terminator = "0"
     case scissors = "1"
     case rock = "2"
     case paper = "3"
@@ -37,10 +38,6 @@ enum Card: String, CaseIterable {
     }
 }
 
-enum Command: String {
-    case terminator = "0"
-}
-
 struct Player {
     private let name: String
     private var card: Card?
@@ -56,9 +53,8 @@ struct Player {
     func getName() -> String {
         return name
     }
-        
+    
     mutating func setCard(selectedCard: Card) {
-        //guard let userCard: Card = selectedCard else { return }
         card = selectedCard
     }
 }
@@ -73,31 +69,20 @@ class Game {
         self.computer = computer
     }
     
-    func inputSelectionCard() {
-        printMenu()
-        guard let userInput: String = readLine() else { return }
-        if userInput == Command.terminator.rawValue {
-            print("게임 종료")
-            return
-        }
-        guard let userCard: Card = Card(rawValue: userInput) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            inputSelectionCard()
-            return
-        }
-        playGame(selectedCard: userCard)
+    func playGame() {
+
     }
     
     func makeRandomCard() -> Card {
-        let randomCard: Card = Card.cases[Int.random(in: 0..<Card.cases.count)]
+        let randomCard: Card = Card.cases[Int.random(in: 1..<Card.cases.count)]
         return randomCard
     }
-
+    
     func printMenu() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+        
     }
-
-    func playGame(selectedCard: Card) {
+    
+    func openCard(selectedCard: Card) {
         computer.setCard(selectedCard: makeRandomCard())
         user.setCard(selectedCard: selectedCard)
         
@@ -106,61 +91,47 @@ class Game {
         
         let resultOfCompare = userCard.compareEachCard(computerCard: computerCard)
         printResult(gameResult: resultOfCompare)
-        
-        
     }
     
-//    func playMukChiBa(selectedCard: Card) {
-//        computer.setCard(selectedCard: makeRandomCard())
-//        user.setCard(selectedCard: selectedCard)
-//
-//        guard let userCard: Card = user.getCard() else { return }
-//        guard let computerCard: Card = computer.getCard() else { return }
-//
-//        let resultOfCompare = userCard.compareEachCard(computerCard: computerCard)
-//        printResult(gameResult: resultOfCompare)
-//    }
-
     func printResult(gameResult: Result) {
+
+    }
+}
+
+class RockPaperScissors: Game {
+    override func printMenu() {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+    }
+    
+    override func playGame() {
+        printMenu()
+        guard let userInput: String = readLine() else { return }
+        if userInput == Card.terminator.rawValue {
+            print("게임 종료")
+            return
+        }
+        guard let userCard: Card = Card(rawValue: userInput) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            playGame()
+            return
+        }
+        openCard(selectedCard: userCard)
+    }
+    
+    override func printResult(gameResult: Result) {
+        gameResult.printMessage()
         switch gameResult {
         case Result.draw:
-            gameResult.printMessage()
-            inputSelectionCard()
+            //gameResult.printMessage()
+            playGame()
         case Result.win:
             winner = user.getName()
-            gameResult.printMessage()
+            //gameResult.printMessage()
         case Result.lose:
             winner = computer.getName()
-            gameResult.printMessage()
-            
+            //gameResult.printMessage()
         }
     }
-    
-//    func convertValue(input: String) -> String {
-//        switch input {
-//        case "1": return Card.rock.rawValue
-//        case "2": return Card.scissors.rawValue
-//        case "3": return Card.paper.rawValue
-//        default: return input
-//        }
-//    }
-    
-//    func startMukChiBa() {
-//        printMenu()
-//
-//        guard let userInput: String = readLine() else { return }
-//        if userInput == Command.terminator.rawValue {
-//            print("게임 종료")
-//            return
-//        }
-//        guard let userCard: Card = Card(rawValue: convertValue(input: userInput)) else {
-//            print("잘못된 입력입니다. 다시 시도해주세요.")
-//            startMukChiBa()
-//            return
-//        }
-//        //playGame(selectedCard: userCard)
-//        print(userCard.rawValue)
-//    }
 }
 
 class MukChiBaGame: Game {
@@ -177,32 +148,50 @@ class MukChiBaGame: Game {
     override func printResult(gameResult: Result) {
         switch gameResult {
         case Result.draw:
-            print(turn + "승리")
-        case Result.win:
-            setTurn(name: user.getName())
-            print(turn + "의 턴입니다.")
-            inputSelectionCard()
-        case Result.lose:
-            setTurn(name: computer.getName())
-            print(turn + "의 턴입니다.")
-            inputSelectionCard()
+            print("\(turn)의 승리!")
+            print("게임 종료")
+        default:
+            decideTurn(gameResult: gameResult)
+            playGame()
         }
     }
     
+    override func playGame() {
+        printMenu()
+        guard let userInput: String = readLine() else { return }
+        if userInput == Card.terminator.rawValue {
+            print("게임 종료")
+            return
+        }
+        guard let userCard: Card = Card(rawValue: convertValue(input: userInput)) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            setTurn(name: computer.getName())
+            playGame()
+            return
+        }
+        openCard(selectedCard: userCard)
+    }
     
+    func decideTurn(gameResult: Result) {
+        gameResult == Result.win ? setTurn(name: user.getName()) : setTurn(name: computer.getName())
+        print("\(turn)의 턴입니다.")
+    }
     
-    
-    //게임결과 판단 기능
-    //입력값 변환 묵찌바 -> 가위바위보
+    func convertValue(input: String) -> String {
+        switch input {
+        case "1": return Card.rock.rawValue
+        case "2": return Card.scissors.rawValue
+        case "3": return Card.paper.rawValue
+        default: return input
+        }
+    }
 }
 
 var user: Player = Player(name: "사용자")
 var computer: Player = Player(name: "컴퓨터")
-
-var newGame: Game = Game(user: user, computer: computer)
-
+var newGame: Game = RockPaperScissors(user: user, computer: computer)
 var sGame: MukChiBaGame = MukChiBaGame(user: user, computer: computer)
-newGame.inputSelectionCard()
+newGame.playGame()
 sGame.setTurn(name: newGame.winner)
-sGame.inputSelectionCard()
+sGame.playGame()
 
