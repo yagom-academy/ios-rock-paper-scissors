@@ -6,21 +6,34 @@
 
 import Foundation
 
-var turn = true
 enum GameOptions {
     case exit
     case scissor
     case rock
     case paper
     case error
-    init(option: String) {
-        switch option {
+    init(stepOneOption: String) {
+        switch stepOneOption {
         case "0":
             self = .exit
         case "1":
             self = .scissor
         case "2":
             self = .rock
+        case "3":
+            self = .paper
+        default:
+            self = .error
+        }
+    }
+    init(stepTwoOption: String) {
+        switch stepTwoOption {
+        case "0":
+            self = .exit
+        case "1":
+            self = .rock
+        case "2":
+            self = .scissor
         case "3":
             self = .paper
         default:
@@ -71,7 +84,6 @@ enum StepTwoResultTexts {
     static let computerTurnText = "컴퓨터의 턴입니다"
     static let userWinText = "사용자의 승리!"
     static let computerWinText = "컴퓨터의 승리!"
-    
     static func printStepOneWin() {
         if turn {
             print(userTurnText)
@@ -103,38 +115,53 @@ enum StepTwoResultTexts {
     }
     static func printError() {
         print(StepOneResultTexts.errorText)
+        print(computerTurnText)
         turn = false
         showStepTwoMenu()
     }
 }
 
+var turn = true
 func showStepOneMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
-    showStepOneResult(compareStepOne(userOption: matchedHand(receiveNumber()), computerOption: matchedHand(makeRandomNumber())))
+    showStepOneResult(
+        compareStepOne(userOption: matchedStepOneHand(receiveNumber()),
+                       computerOption: matchedStepOneHand(makeRandomNumber())
+                      )
+    )
 }
 
 func showStepTwoMenu() {
     if turn {
         print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
-        showStepTwoResult(compareStepTwo(attackOption: matchedHand(receiveNumber()), defenseOption: matchedHand(makeRandomNumber())))
+        showStepTwoResult(
+            compareStepTwo(
+                attackOption: matchedStepTwoHand(receiveNumber()),
+                defenseOption: matchedStepTwoHand(makeRandomNumber())
+            )
+        )
     } else {
         print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
-        showStepTwoResult(compareStepTwo(attackOption: matchedHand(makeRandomNumber()), defenseOption: matchedHand(receiveNumber())))
+        showStepTwoResult(
+            compareStepTwo(attackOption: matchedStepTwoHand(makeRandomNumber()),
+                           defenseOption: matchedStepTwoHand(receiveNumber())
+                          )
+        )
     }
 }
 
 func showStepOneResult(_ gameResult: GameResult) {
     switch gameResult {
+    case .exit:
+        StepOneResultTexts.printEnd()
     case .win:
         StepOneResultTexts.printWin()
     case .draw:
         StepOneResultTexts.printDraw()
     case .lose:
         StepOneResultTexts.printlose()
-    case .exit:
-        StepOneResultTexts.printEnd()
     case .error:
         StepOneResultTexts.printError()
     }
@@ -151,7 +178,7 @@ func showStepTwoResult(_ gameResult: GameResult) {
     case .lose:
         StepTwoResultTexts.printStepOneLose()
     case .error:
-        StepOneResultTexts.printError()
+        StepTwoResultTexts.printError()
     }
 }
 
@@ -185,8 +212,12 @@ func compareStepTwo(attackOption: GameOptions, defenseOption: GameOptions) -> Ga
     }
 }
 
-func matchedHand(_ hand: String) -> GameOptions {
-    GameOptions(option: hand)
+func matchedStepOneHand(_ hand: String) -> GameOptions {
+    GameOptions(stepOneOption: hand)
+}
+
+func matchedStepTwoHand(_ hand: String) -> GameOptions {
+    GameOptions(stepTwoOption: hand)
 }
 
 func receiveNumber() -> String {
