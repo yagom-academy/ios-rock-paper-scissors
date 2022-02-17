@@ -110,7 +110,7 @@ struct HandGame {
     }
     
     func isNumberZero(userInputtedValue: HandGame.Hand) -> Bool {
-        if userInputtedValue.description == HandGame.Hand.end.description {
+        if userInputtedValue == .end {
             return true
         }
         return false
@@ -119,13 +119,13 @@ struct HandGame {
     func verifiedUserHand(_ inputtedValue: String?) -> HandGame.Hand {
         switch inputtedValue {
         case HandGame.Guide.numberOne.description:
-            return HandGame.Hand.scissors
+            return .scissors
         case HandGame.Guide.numberTwo.description:
-            return HandGame.Hand.rock
+            return .rock
         case HandGame.Guide.numberThree.description:
-            return HandGame.Hand.paper
+            return .paper
         case HandGame.Guide.numberZero.description:
-            return HandGame.Hand.end
+            return .end
         default:
             print(HandGame.Error.wrongInput.description)
             return verifiedUserHand(receiveUserInputHand())
@@ -134,7 +134,7 @@ struct HandGame {
 
     func generatedRandomHand() -> HandGame.Hand {
         if let hand = HandGame.Hand.allCases.filter({ (hand: Hand) in
-            return hand.description != HandGame.Hand.end.description})
+            return hand != .end})
             .randomElement() {
             return hand
         }
@@ -143,16 +143,13 @@ struct HandGame {
 
     func judgeUserGameResult(userHand: HandGame.Hand, computerHand: HandGame.Hand) -> HandGame.Result {
         if userHand == computerHand {
-            return HandGame.Result.draw
-        } else if (userHand, computerHand) ==
-                    (HandGame.Hand.scissors, HandGame.Hand.paper) ||
-                    (userHand, computerHand) ==
-                    (HandGame.Hand.rock, HandGame.Hand.scissors) ||
-                    (userHand, computerHand) ==
-                    (HandGame.Hand.paper, HandGame.Hand.rock) {
-            return HandGame.Result.win
+            return .draw
+        } else if (userHand, computerHand) == (.scissors, .paper) ||
+                    (userHand, computerHand) == (.rock, .scissors) ||
+                    (userHand, computerHand) == (.paper, .rock) {
+            return .win
         } else {
-            return HandGame.Result.lose
+            return .lose
         }
     }
     //턴 알려줌
