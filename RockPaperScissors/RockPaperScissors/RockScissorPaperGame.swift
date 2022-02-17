@@ -38,7 +38,7 @@ struct RockScissorPaperGame {
     }
     
     mutating func executeAfterMatch(_ result: MatchResult) {
-        if result == .draw {
+        if result == .drawInRockScissorPaperGame {
             playGame()
         } else {
             return
@@ -47,11 +47,11 @@ struct RockScissorPaperGame {
     
     mutating func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> MatchResult {
         if playerHand == computerHand {
-            return .draw
+            return .drawInRockScissorPaperGame
         } else if playerHand - computerHand == 1 || computerHand - playerHand == 2 {
-            return .win
+            return .playerTurn
         } else {
-            return .lose
+            return .computerTurn
         }
     }
 }

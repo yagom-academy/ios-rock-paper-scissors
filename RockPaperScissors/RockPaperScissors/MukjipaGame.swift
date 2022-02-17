@@ -12,33 +12,30 @@ struct MukjipaGame {
     let gameData = GameData()
     
     mutating func main() {
-        changeTurn()
+//        changeTurn()
         verifyWinner()
     }
     
-    mutating func changeTurn() {
-        var (_ , _ , status, result) = rockSicssorPaperGame.playGame()
-        
-        if result == .win {
-            status = .playerTurn
-            print(Status.playerTurn.message)
-        } else if result == .lose {
-            status = .computerTurn
-            print(Status.computerTurn.message)
-        } else {
-            status = .inProgress
-        }
-    }
+//    mutating func changeTurn() {
+//        var (_ , _ , _ , result) = rockSicssorPaperGame.playGame()
+//
+//        if result == .playerTurn {
+//
+//        } else if result == .lose {
+//        } else {
+//            status = .inProgress
+//        }
+//    }
     
     mutating func verifyWinner() {
-        var (_ , _ , status, result) = rockSicssorPaperGame.playGame()
+        let (playerHand , computerHand , _ , result) = rockSicssorPaperGame.playGame()
         
-        if status == .playerTurn && result == .draw {
-            print("사용자의 승리!")
-        } else if status == .computerTurn && result == .draw {
-            print("컴퓨터의 승리!")
+        if result == .playerTurn && playerHand == computerHand {
+            print(MatchResult.win.message)
+        } else if result == .computerTurn && playerHand == computerHand {
+            print(MatchResult.lose.message)
         } else {
-            return
+            rockSicssorPaperGame.executeByOption(playerHand, computerHand, Status.inProgress)
         }
     }
 }

@@ -34,8 +34,6 @@ enum Status {
     case exit
     case error
     case inProgress
-    case computerTurn
-    case playerTurn
 }
 
 extension Status {
@@ -47,10 +45,6 @@ extension Status {
             return "게임종료"
         case .error:
             return "잘못된 입력입니다. 다시 시도해 주세요."
-        case .computerTurn:
-            return "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
-        case .playerTurn:
-            return "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
         default:
             return "게임이 진행 중 입니다."
         }
