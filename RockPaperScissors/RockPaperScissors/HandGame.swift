@@ -8,7 +8,7 @@ struct HandGame {
     }
     
     private enum Hand: CaseIterable {
-        case rock, paper, scissors, end
+        case rock, paper, scissors
         
         var description: String {
             switch self {
@@ -18,8 +18,6 @@ struct HandGame {
                 return "바위"
             case .paper:
                 return "보"
-            case .end:
-                return "종료"
             }
         }
     }
@@ -92,13 +90,15 @@ struct HandGame {
     
     mutating func play() {
         printInputGuidanceMessage(gameKind: .rockPaperScissors)
-        let userHand = verifiedUserHand(receiveUserInputHand(), gameKind: .rockPaperScissors)
+        
+        let userHand = receiveUserInputHand()
         if isValueZero(to: userHand) {
             print(HandGame.Result.endGame.description)
             return
         }
+        let verifiedUserHand = verifiedUserHand(userHand, gameKind: .rockPaperScissors)
         let computerHand = generatedRandomHand()
-        let userGameResult = judgeUserGameResult(userHand: userHand, computerHand: computerHand)
+        let userGameResult = judgeUserGameResult(userHand: verifiedUserHand, computerHand: computerHand)
         printGameResult(by: userGameResult)
         playMukjipa(didUserWin: self.hasUserWin)
     }
@@ -126,25 +126,21 @@ struct HandGame {
             return .rock
         case HandGame.Guide.numberThree.description:
             return .paper
-        case HandGame.Guide.numberZero.description:
-            return .end
         default:
             print(HandGame.Error.wrongInput.description)
             return verifiedUserHand(receiveUserInputHand(), gameKind: .rockPaperScissors)
         }
     }
     
-    private func isValueZero(to userInputted: HandGame.Hand) -> Bool {
-        if userInputted == .end {
+    private func isValueZero(to userInputted: String?) -> Bool {
+        if userInputted == Guide.numberZero.description {
             return true
         }
         return false
     }
 
     private func generatedRandomHand() -> HandGame.Hand {
-        if let hand = HandGame.Hand.allCases.filter ({ (hand: Hand) in
-            return hand != .end })
-            .randomElement() {
+        if let hand = HandGame.Hand.allCases.randomElement() {
             return hand
         }
         return generatedRandomHand()
@@ -167,11 +163,9 @@ struct HandGame {
     private mutating func playMukjipa(didUserWin: Bool) {
         printRockPaperScissorsWinnerTurn(by: didUserWin)
         printInputGuidanceMessage(gameKind: .mukjipa)
-        
+
         let userHand = receiveUserInputHand()
-        let verifiedUserHand = verifiedUserHand(userHand, gameKind: .mukjipa)
-        
-        guard isValueZero(to: verifiedUserHand) else {
+        if isValueZero(to: userHand) {
             print(HandGame.Result.endGame.description)
             return
         }
@@ -181,7 +175,7 @@ struct HandGame {
             playMukjipa(didUserWin: self.hasUserWin)
             return
         }
-        
+        let verifiedUserHand = verifiedUserHand(userHand, gameKind: .mukjipa)
         let computerHand = generatedRandomHand()
         let mukjipaGameResult = judgeUserGameResult(userHand: verifiedUserHand, computerHand: computerHand)
         printWinner(by: mukjipaGameResult)

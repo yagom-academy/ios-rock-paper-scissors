@@ -1,4 +1,4 @@
 import Foundation
 
-let handGame = HandGame()
+var handGame = HandGame()
 handGame.play()
