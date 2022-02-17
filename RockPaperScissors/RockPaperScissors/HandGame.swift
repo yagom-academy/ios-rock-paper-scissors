@@ -1,6 +1,10 @@
 import Foundation
 
 struct HandGame {
+    enum kinds {
+        case rockPaperScissors, mukjipa
+    }
+    
     enum Hand: CaseIterable {
         case rock, paper, scissors, end
         
@@ -18,13 +22,28 @@ struct HandGame {
         }
     }
     
-    enum Guide {
-        case message, numberOne, numberTwo, numberThree, numberZero
+    enum Players {
+        case user, computer
         
         var description: String {
             switch self {
-            case .message:
+            case .user:
+                return "사용자 턴"
+            case .computer:
+                return "컴퓨터 턴"
+            }
+        }
+    }
+    
+    enum Guide {
+        case rockPaperScissorsMessage, mukjipaMessage, numberOne, numberTwo, numberThree, numberZero
+        
+        var description: String {
+            switch self {
+            case .rockPaperScissorsMessage:
                 return "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+            case .mukjipaMessage:
+                return "묵(1), 찌(2), 빠(3)! <종료 : 0> : "
             case .numberOne:
                 return "1"
             case .numberTwo:
@@ -66,7 +85,7 @@ struct HandGame {
     }
     
     func play() {
-        printInputGuidanceMessage()
+        printInputGuidanceMessage(gameKind: .rockPaperScissors)
         let userHand = verifiedUserHand(receiveUserInputHand())
         let computerHand = generatedRandomHand()
         if isNumberZero(userInputtedValue: userHand) {
@@ -77,8 +96,12 @@ struct HandGame {
         printGameResult(user: userGameResult)
     }
     
-    func printInputGuidanceMessage() {
-        print(HandGame.Guide.message.description, terminator: "")
+    func printInputGuidanceMessage(gameKind: kinds) {
+        if gameKind == kinds.rockPaperScissors {
+            print(HandGame.Guide.rockPaperScissorsMessage.description, terminator: "")
+        } else {
+            print(HandGame.Guide.mukjipaMessage.description, terminator: "")
+        }
     }
     
     func receiveUserInputHand() -> String? {
