@@ -12,6 +12,20 @@ enum GameOptions {
     case rock
     case paper
     case error
+    init(option: String) {
+        switch option {
+        case "0":
+            self = .exit
+        case "1":
+            self = .scissor
+        case "2":
+            self = .rock
+        case "3":
+            self = .paper
+        default:
+            self = .error
+        }
+    }
 }
 
 enum GameResult {
@@ -87,18 +101,7 @@ func compare(userOption: GameOptions, computerOption: GameOptions) -> GameResult
 }
 
 func matchedHand(_ hand: String) -> GameOptions {
-    switch hand {
-    case "0":
-        return .exit
-    case "1":
-        return .scissor
-    case "2":
-        return .rock
-    case "3":
-        return .paper
-    default:
-        return .error
-    }
+    GameOptions(option: hand)
 }
 
 func receiveNumber() -> String {
