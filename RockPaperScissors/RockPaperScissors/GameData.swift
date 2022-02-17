@@ -23,7 +23,7 @@ struct GameData {
     }
     
     mutating func inputPlayerOption() -> String {
-        print(Status.begin.message, terminator: "")
+//        print(Status.begin.message, terminator: "")
         guard let inputPlayerOption = readLine() else {
             return "error"
         }

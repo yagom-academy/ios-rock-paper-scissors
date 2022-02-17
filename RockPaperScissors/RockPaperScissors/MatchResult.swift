@@ -10,7 +10,7 @@ import Foundation
 enum MatchResult {
     case win
     case lose
-    case drawInRockScissorPaperGame
+    case draw
     case computerTurn
     case playerTurn
 }
@@ -22,7 +22,7 @@ extension MatchResult {
             return "사용자의 승리!"
         case .lose:
             return "컴퓨터의 승리!"
-        case .drawInRockScissorPaperGame:
+        case .draw:
             return "비겼습니다!"
         case .computerTurn:
             return "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
