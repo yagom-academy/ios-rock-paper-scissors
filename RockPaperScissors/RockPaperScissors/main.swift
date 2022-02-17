@@ -6,6 +6,7 @@
 
 import Foundation
 
+var turn = true
 enum GameOptions {
     case exit
     case scissor
@@ -36,7 +37,7 @@ enum GameResult {
     case error
 }
 
-enum ResultTexts {
+enum StepOneResultTexts {
     static let winText = "이겼습니다!"
     static let drawText = "비겼습니다!"
     static let loseText = "졌습니다!"
@@ -44,7 +45,8 @@ enum ResultTexts {
     static let errorText = "잘못된 입력입니다. 다시 시도해주세요."
     static func printWin() {
         print(winText)
-        showStepTwoMenu(whoseTurn: true)
+        turn = true
+        showStepTwoMenu()
     }
     static func printDraw() {
         print(drawText)
@@ -52,7 +54,8 @@ enum ResultTexts {
     }
     static func printlose() {
         print(loseText)
-        showStepTwoMenu(whoseTurn: false)
+        turn = false
+        showStepTwoMenu()
     }
     static func printEnd() {
         print(endText)
@@ -63,33 +66,92 @@ enum ResultTexts {
     }
 }
 
+enum StepTwoResultTexts {
+    static let userTurnText = "사용자의 턴입니다"
+    static let computerTurnText = "컴퓨터의 턴입니다"
+    static let userWinText = "사용자의 승리!"
+    static let computerWinText = "컴퓨터의 승리!"
+    
+    static func printStepOneWin() {
+        if turn {
+            print(userTurnText)
+            showStepTwoMenu()
+        } else {
+            print(computerTurnText)
+            showStepTwoMenu()
+        }
+    }
+    static func printStepOneDraw() {
+        if turn {
+            print(userWinText)
+            StepOneResultTexts.printEnd()
+        } else {
+            print(computerWinText)
+            StepOneResultTexts.printEnd()
+        }
+    }
+    static func printStepOneLose() {
+        if turn {
+            print(computerTurnText)
+            turn = false
+            showStepTwoMenu()
+        } else {
+            print(userTurnText)
+            turn = true
+            showStepTwoMenu()
+        }
+    }
+    static func printError() {
+        print(StepOneResultTexts.errorText)
+        turn = false
+        showStepTwoMenu()
+    }
+}
+
 func showStepOneMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
-    showResult(compareStepOne(userOption: matchedHand(receiveNumber()), computerOption: matchedHand(makeRandomNumber())))
+    showStepOneResult(compareStepOne(userOption: matchedHand(receiveNumber()), computerOption: matchedHand(makeRandomNumber())))
 }
 
-func showStepTwoMenu(whoseTurn: Bool) {
-    if whoseTurn {
+func showStepTwoMenu() {
+    if turn {
         print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+        showStepTwoResult(compareStepTwo(attackOption: matchedHand(receiveNumber()), defenseOption: matchedHand(makeRandomNumber())))
     } else {
         print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+        showStepTwoResult(compareStepTwo(attackOption: matchedHand(makeRandomNumber()), defenseOption: matchedHand(receiveNumber())))
     }
 }
 
-func showResult(_ gameResult: GameResult) {
+func showStepOneResult(_ gameResult: GameResult) {
     switch gameResult {
     case .win:
-        ResultTexts.printWin()
+        StepOneResultTexts.printWin()
     case .draw:
-        ResultTexts.printDraw()
+        StepOneResultTexts.printDraw()
     case .lose:
-        ResultTexts.printlose()
+        StepOneResultTexts.printlose()
     case .exit:
-        ResultTexts.printEnd()
+        StepOneResultTexts.printEnd()
     case .error:
-        ResultTexts.printError()
+        StepOneResultTexts.printError()
+    }
+}
+
+func showStepTwoResult(_ gameResult: GameResult) {
+    switch gameResult {
+    case .exit:
+        StepOneResultTexts.printEnd()
+    case .win:
+        StepTwoResultTexts.printStepOneWin()
+    case .draw:
+        StepTwoResultTexts.printStepOneDraw()
+    case .lose:
+        StepTwoResultTexts.printStepOneLose()
+    case .error:
+        StepOneResultTexts.printError()
     }
 }
 
@@ -108,12 +170,14 @@ func compareStepOne(userOption: GameOptions, computerOption: GameOptions) -> Gam
     }
 }
 
-func compareStepTwo(userOption: GameOptions, computerOption: GameOptions) -> GameResult {
-    switch (userOption, computerOption) {
+func compareStepTwo(attackOption: GameOptions, defenseOption: GameOptions) -> GameResult {
+    switch (attackOption, defenseOption) {
     case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
-        return .win
-    case (.paper, .scissor), (.scissor, .rock), (.rock, .paper), (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
         return .draw
+    case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
+        return .win
+    case (.paper, .scissor), (.scissor, .rock), (.rock, .paper):
+        return .lose
     case (.exit, _):
         return .exit
     default:
