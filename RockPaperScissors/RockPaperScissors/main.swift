@@ -26,6 +26,11 @@ enum PunctuationMarks {
     static let emptyString = ""
 }
 
+enum DecisionNumber {
+    static let winNumber = [1, -2]
+    static let defeatNumber = [2, -1]
+}
+
 func selectGameMenu() -> String {
     print(StartAndEndMessage.startOfGame, terminator: PunctuationMarks.colon)
     guard let userInput = readLine() else { return PunctuationMarks.emptyString }
@@ -43,29 +48,34 @@ func checkValidity(_ userInput: String) -> Int? {
     }
 }
 
-func startGame(userInput: String) {
+func startGame(_ userInput: String) {
     let endingNumber = "0"
     if userInput == endingNumber {
         print(StartAndEndMessage.endOfGame)
         return
     } else {
-        decideWinner(userNumber: userInput)
+        decideWinner(makeValidNumber(userInput))
     }
 }
 
-func decideWinner(userNumber: String) {
-    guard let validNumber = checkValidity(userNumber) else { return }
+func makeValidNumber(_ userNumber: String) -> Int {
+    guard let validNumber = checkValidity(userNumber) else { return 0 }
+    return validNumber
+}
+
+func decideWinner(_ validNumber: Int) {
     let allowedNumberRange: ClosedRange<Int> = 1...3
     let computerNumber = Int.random(in: allowedNumberRange)
     let numberToDecideWinner: Int = validNumber - computerNumber
     switch numberToDecideWinner {
-    case 1, -2:
+    case DecisionNumber.winNumber[0], DecisionNumber.winNumber[1]:
         print(GameResultMessage.win)
-    case 2, -1:
+    case DecisionNumber.defeatNumber[0], DecisionNumber.defeatNumber[1]:
         print(GameResultMessage.defeat)
     default:
         print(GameResultMessage.draw)
+        startGame(selectGameMenu())
     }
 }
 
-startGame(userInput: selectGameMenu())
+startGame(selectGameMenu())
