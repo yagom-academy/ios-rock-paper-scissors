@@ -12,6 +12,8 @@ enum Settings {
 
 enum GameDisplayMessage {
     static let menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    static let playerTurnSubMenu = "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let computerTurnSubMenu = "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
     static let gameDidEnd = "게임 종료"
     static let playerDidWin = "이겼습니다!"
     static let playerDidLose = "졌습니다!"
@@ -96,7 +98,38 @@ func startGame() {
         return
     }
     let gameResult = checkGameResult(player: playerInput, computer: computerInput)
-    showGameResult(gameResult)
+    startSubGame(gameResult)
 }
+
+func printSubGameMenu(_ result: GameResult) {
+    switch result {
+    case .playerWin:
+        print(GameDisplayMessage.playerTurnSubMenu, terminator: "")
+    case .playerLose:
+        print(GameDisplayMessage.computerTurnSubMenu, terminator: "")
+    default:
+        break
+    }
+}
+
+func startSubGame(_ result: GameResult) {
+    printSubGameMenu(result)
+    guard let playerInput = getPlayerInput()
+    else {
+        print(GameDisplayMessage.invalidPlayerInput)
+        startSubGame(GameResult.playerLose)
+        return
+    }
+    if playerInput == Settings.exitCode {
+        print(GameDisplayMessage.gameDidEnd)
+        return
+    }
+    guard let computerInput = HandType.randomPick else{
+        print(GameDisplayMessage.error)
+        return
+    }
+}
+
+
 
 startGame()
