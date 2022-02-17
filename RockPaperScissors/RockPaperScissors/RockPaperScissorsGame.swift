@@ -24,7 +24,9 @@ struct RockPaperScissorsGame {
     }
     
     private func playSelectedMenu() {
-        let userHand: RockPaperScissorsType = convertIntToRockPaperScissorsType(playerInput: user.selectedMenu())
+        let userHand: RockPaperScissorsType = user
+            .selectedMenu()
+            .convertedIntToRockPaperScissorsType()
         let rock: RockPaperScissorsType = RockPaperScissorsType.rock
         let paper: RockPaperScissorsType = RockPaperScissorsType.paper
         let scissor: RockPaperScissorsType = RockPaperScissorsType.scissor
@@ -42,7 +44,9 @@ struct RockPaperScissorsGame {
     }
     
     private func judgeGameResult(userHand: RockPaperScissorsType) {
-        let computerHand: RockPaperScissorsType = convertIntToRockPaperScissorsType(playerInput: computer.generatedComputerNumber())
+        let computerHand: RockPaperScissorsType = computer
+            .generatedComputerNumber()
+            .convertedIntToRockPaperScissorsType()
                 
         var mukjipaGame = MukjipaGame(
             user: self.user,
@@ -63,21 +67,6 @@ struct RockPaperScissorsGame {
         if userHand.rawValue == computerHand.rawValue - 1 || userHand.rawValue == computerHand.rawValue + 2 {
             userInterface.printRockPaperScissorsGameResut(gameResult: .lose)
             mukjipaGame.startMukjipaGame(currentTurn: .computer)
-        }
-    }
-    
-    private func convertIntToRockPaperScissorsType(playerInput: Int) -> RockPaperScissorsType {
-        switch playerInput {
-        case RockPaperScissorsType.scissor.rawValue:
-            return .scissor
-        case RockPaperScissorsType.rock.rawValue:
-            return .rock
-        case RockPaperScissorsType.paper.rawValue:
-            return .paper
-        case RockPaperScissorsType.exit.rawValue:
-            return .exit
-        default:
-            return .error
         }
     }
 }

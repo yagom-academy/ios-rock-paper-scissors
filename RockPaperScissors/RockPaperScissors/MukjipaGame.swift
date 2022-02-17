@@ -7,16 +7,7 @@
 
 import Foundation
 
-struct MukjipaGame {
-    private enum MukjipaType: Int {
-        case muk = 1
-        case ji = 2
-        case pa = 3
-        case exit = 0
-        
-        case error = -1
-    }
-    
+struct MukjipaGame {    
     private var currentTurn: Player = .none
     private let user: User
     private let computer: Computer
@@ -35,7 +26,9 @@ struct MukjipaGame {
     }
     
     private mutating func playSelectedMenu() {
-        let userHand: MukjipaType = convertIntToRockPaperScissorsType(playerInput: user.selectedMenu())
+        let userHand: MukjipaType = user
+            .selectedMenu()
+            .convertedIntToMukjipaType()
         let muk: MukjipaType = MukjipaType.muk
         let ji: MukjipaType = MukjipaType.ji
         let pa: MukjipaType = MukjipaType.pa
@@ -54,7 +47,9 @@ struct MukjipaGame {
     }
     
     private mutating func judgeGameResult(userHand: MukjipaType) {
-        let computerHand: MukjipaType = convertIntToRockPaperScissorsType(playerInput: computer.generatedComputerNumber())
+        let computerHand: MukjipaType = computer
+            .generatedComputerNumber()
+            .convertedIntToMukjipaType()
                 
         guard userHand == computerHand else {
             changeCurrentTurn()
@@ -75,21 +70,6 @@ struct MukjipaGame {
             userInterface.printCurrentTurn(currentTurn: .user)
         case .none:
             break
-        }
-    }
-    
-    private func convertIntToRockPaperScissorsType(playerInput: Int) -> MukjipaType {
-        switch playerInput {
-        case MukjipaType.muk.rawValue:
-            return .muk
-        case MukjipaType.ji.rawValue:
-            return .ji
-        case MukjipaType.pa.rawValue:
-            return .pa
-        case MukjipaType.exit.rawValue:
-            return .exit
-        default:
-            return .error
         }
     }
 }
