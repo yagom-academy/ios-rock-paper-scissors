@@ -96,6 +96,11 @@ struct HandGame {
             print(HandGame.Result.endGame.description)
             return
         }
+        if isWrongInputted(userHand) {
+            print(Error.wrongInput.description)
+            play()
+            return
+        }
         let verifiedUserHand = verifiedUserHand(userHand, gameKind: .rockPaperScissors)
         let computerHand = generatedRandomHand()
         let userGameResult = judgeUserGameResult(userHand: verifiedUserHand, computerHand: computerHand)
@@ -117,18 +122,14 @@ struct HandGame {
     }
     
     private func verifiedUserHand(_ inputtedValue: String?, gameKind: kind) -> HandGame.Hand {
-        switch inputtedValue {
-        case HandGame.Guide.numberOne.description:
+        if inputtedValue == HandGame.Guide.numberOne.description {
             if gameKind == .mukjipa { return .rock }
             return .scissors
-        case HandGame.Guide.numberTwo.description:
+        } else if inputtedValue == HandGame.Guide.numberTwo.description {
             if gameKind == .mukjipa { return .scissors }
             return .rock
-        case HandGame.Guide.numberThree.description:
+        } else {
             return .paper
-        default:
-            print(HandGame.Error.wrongInput.description)
-            return verifiedUserHand(receiveUserInputHand(), gameKind: .rockPaperScissors)
         }
     }
     
@@ -169,7 +170,7 @@ struct HandGame {
             print(HandGame.Result.endGame.description)
             return
         }
-        guard isWrongInputted(userHand) == true else {
+        if isWrongInputted(userHand) {
             print(Error.wrongInput.description)
             switchTurn(by: didUserWin)
             playMukjipa(didUserWin: self.hasUserWin)
@@ -201,6 +202,7 @@ struct HandGame {
         if user == .draw {
             print(HandGame.Result.draw.description)
             play()
+            return
         } else if user == .win {
             print(HandGame.Result.win.description)
         } else {
@@ -240,6 +242,7 @@ struct HandGame {
         } else {
             printMukjipaWinnerTurn(by: self.hasUserWin)
             playMukjipa(didUserWin: self.hasUserWin)
+            return
         }
     }
 }
