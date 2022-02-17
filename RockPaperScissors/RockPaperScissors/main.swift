@@ -44,23 +44,20 @@ func checkValidity(_ userInput: String) -> Int? {
         return intUserInput
     } else {
         print(ErrorMessage.wrongInput)
-        return checkValidity(selectGameMenu())
+        startGame(selectGameMenu())
+        return nil
     }
 }
 
 func startGame(_ userInput: String) {
-    let endingNumber = "0"
-    if userInput == endingNumber {
+    let endingNumber = 0
+    guard let validNumber = checkValidity(userInput) else { return }
+    if validNumber == endingNumber {
         print(StartAndEndMessage.endOfGame)
         return
     } else {
-        decideWinner(makeValidNumber(userInput))
+        decideWinner(validNumber)
     }
-}
-
-func makeValidNumber(_ userNumber: String) -> Int {
-    guard let validNumber = checkValidity(userNumber) else { return 0 }
-    return validNumber
 }
 
 func decideWinner(_ validNumber: Int) {
