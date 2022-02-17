@@ -23,13 +23,13 @@ struct HandGame {
     }
     
     enum Players {
-        case user, computer
+        case userTurn, computerTurn
         
         var description: String {
             switch self {
-            case .user:
+            case .userTurn:
                 return "사용자 턴"
-            case .computer:
+            case .computerTurn:
                 return "컴퓨터 턴"
             }
         }
@@ -97,9 +97,9 @@ struct HandGame {
     }
     
     func printInputGuidanceMessage(gameKind: kinds) {
-        if gameKind == kinds.rockPaperScissors {
+        if gameKind == .rockPaperScissors {
             print(HandGame.Guide.rockPaperScissorsMessage.description, terminator: "")
-        } else {
+        } else if gameKind == .mukjipa {
             print(HandGame.Guide.mukjipaMessage.description, terminator: "")
         }
     }
@@ -155,12 +155,20 @@ struct HandGame {
             return HandGame.Result.lose
         }
     }
+    //턴 알려줌
+    func printRockPaperScissorsWinnerTurn(userGameResult: Result) {
+        if userGameResult == .win {
+            print(Players.userTurn.description, terminator: "")
+        } else if userGameResult == .lose {
+            print(Players.computerTurn.description, terminator: "")
+        }
+    }
     
     func printGameResult(user: HandGame.Result) {
-        if user == HandGame.Result.draw {
+        if user == .draw {
             print(HandGame.Result.draw.description)
             play()
-        } else if user == HandGame.Result.win {
+        } else if user == .win {
             print(HandGame.Result.win.description)
             print(HandGame.Result.endGame.description)
         } else {
