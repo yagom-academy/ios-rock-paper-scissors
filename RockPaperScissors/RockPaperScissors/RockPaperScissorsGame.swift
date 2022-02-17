@@ -8,13 +8,6 @@
 import Foundation
 
 struct RockPaperScissorsGame {
-    private enum RockPaperScissorsType: Int {
-        case scissor = 1
-        case rock = 2
-        case paper = 3
-        case exit = 0
-    }
-    
     private let user: User
     private let computer: Computer
     private let userInterface: UserInterface
@@ -31,46 +24,60 @@ struct RockPaperScissorsGame {
     }
     
     private func playSelectedMenu() {
-        let userSelectedMenu: Int = user.selectedMenu()
-        let rock: Int = RockPaperScissorsType.rock.rawValue
-        let paper: Int = RockPaperScissorsType.paper.rawValue
-        let scissor: Int = RockPaperScissorsType.scissor.rawValue
+        let userHand: RockPaperScissorsType = convertIntToRockPaperScissorsType(playerInput: user.selectedMenu())
+        let rock: RockPaperScissorsType = RockPaperScissorsType.rock
+        let paper: RockPaperScissorsType = RockPaperScissorsType.paper
+        let scissor: RockPaperScissorsType = RockPaperScissorsType.scissor
+        let exit: RockPaperScissorsType = RockPaperScissorsType.exit
         
-        switch userSelectedMenu {
+        switch userHand {
         case scissor, rock, paper:
-            judgeGameResult(userSelectedNumber: userSelectedMenu)
-            
-        case RockPaperScissorsType.exit.rawValue:
+            judgeGameResult(userHand: userHand)
+        case exit:
             userInterface.printGameOver()
-            
         default:
             userInterface.printErrorMessage()
             startProgram()
         }
     }
     
-    private func judgeGameResult(userSelectedNumber: Int) {
-        let computerSelectedNumber: Int = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
-        
+    private func judgeGameResult(userHand: RockPaperScissorsType) {
+        let computerHand: RockPaperScissorsType = convertIntToRockPaperScissorsType(playerInput: computer.generatedComputerNumber())
+                
         var mukjipaGame = MukjipaGame(
             user: self.user,
             computer: self.computer,
             userInterface: self.userInterface
         )
         
-        if userSelectedNumber == computerSelectedNumber {
+        if userHand == computerHand {
             userInterface.printRockPaperScissorsGameResut(gameResult: .draw)
             startProgram()
         }
         
-        if userSelectedNumber == computerSelectedNumber + 1 || userSelectedNumber == computerSelectedNumber - 2 {
+        if userHand.rawValue == computerHand.rawValue + 1 || userHand.rawValue == computerHand.rawValue - 2 {
             userInterface.printRockPaperScissorsGameResut(gameResult: .win)
             mukjipaGame.startMukjipaGame(currentTurn: .user)
         }
         
-        if userSelectedNumber == computerSelectedNumber - 1 || userSelectedNumber == computerSelectedNumber + 2 {
+        if userHand.rawValue == computerHand.rawValue - 1 || userHand.rawValue == computerHand.rawValue + 2 {
             userInterface.printRockPaperScissorsGameResut(gameResult: .lose)
             mukjipaGame.startMukjipaGame(currentTurn: .computer)
+        }
+    }
+    
+    private func convertIntToRockPaperScissorsType(playerInput: Int) -> RockPaperScissorsType {
+        switch playerInput {
+        case RockPaperScissorsType.scissor.rawValue:
+            return .scissor
+        case RockPaperScissorsType.rock.rawValue:
+            return .rock
+        case RockPaperScissorsType.paper.rawValue:
+            return .paper
+        case RockPaperScissorsType.exit.rawValue:
+            return .exit
+        default:
+            return .error
         }
     }
 }

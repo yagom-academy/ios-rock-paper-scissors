@@ -9,7 +9,7 @@ import Foundation
 
 struct User {
     private enum Option {
-        static let wrongInput: Int = 4
+        static let wrongInput: Int = -1
     }
     
     func selectedMenu() -> Int {

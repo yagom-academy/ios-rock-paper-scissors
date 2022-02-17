@@ -13,6 +13,8 @@ struct MukjipaGame {
         case ji = 2
         case pa = 3
         case exit = 0
+        
+        case error = -1
     }
     
     private var currentTurn: Player = .none
@@ -33,15 +35,16 @@ struct MukjipaGame {
     }
     
     private mutating func playSelectedMenu() {
-        let userSelectedMenu: Int = user.selectedMenu()
-        let muk: Int = MukjipaType.muk.rawValue
-        let ji: Int = MukjipaType.ji.rawValue
-        let pa: Int = MukjipaType.pa.rawValue
+        let userHand: MukjipaType = convertIntToRockPaperScissorsType(playerInput: user.selectedMenu())
+        let muk: MukjipaType = MukjipaType.muk
+        let ji: MukjipaType = MukjipaType.ji
+        let pa: MukjipaType = MukjipaType.pa
+        let exit: MukjipaType = MukjipaType.exit
         
-        switch userSelectedMenu {
+        switch userHand {
         case muk, ji, pa:
-            judgeGameResult(userSelectedNumber: userSelectedMenu)
-        case MukjipaType.exit.rawValue:
+            judgeGameResult(userHand: userHand)
+        case exit:
             userInterface.printGameOver()
         default:
             userInterface.printErrorMessage()
@@ -50,10 +53,10 @@ struct MukjipaGame {
         }
     }
     
-    private mutating func judgeGameResult(userSelectedNumber: Int) {
-        let computerSelectedNumber: Int = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
-        
-        guard userSelectedNumber == computerSelectedNumber else {
+    private mutating func judgeGameResult(userHand: MukjipaType) {
+        let computerHand: MukjipaType = convertIntToRockPaperScissorsType(playerInput: computer.generatedComputerNumber())
+                
+        guard userHand == computerHand else {
             changeCurrentTurn()
             startMukjipaGame(currentTurn: self.currentTurn)
             return
@@ -72,6 +75,21 @@ struct MukjipaGame {
             userInterface.printCurrentTurn(currentTurn: .user)
         case .none:
             break
+        }
+    }
+    
+    private func convertIntToRockPaperScissorsType(playerInput: Int) -> MukjipaType {
+        switch playerInput {
+        case MukjipaType.muk.rawValue:
+            return .muk
+        case MukjipaType.ji.rawValue:
+            return .ji
+        case MukjipaType.pa.rawValue:
+            return .pa
+        case MukjipaType.exit.rawValue:
+            return .exit
+        default:
+            return .error
         }
     }
 }
