@@ -60,19 +60,23 @@ func startGame(_ userInput: String) {
     }
 }
 
-func decideWinner(_ validNumber: Int) {
+func decideWinner(_ validNumber: Int) -> String {
     let allowedNumberRange: ClosedRange<Int> = 1...3
     let computerNumber = Int.random(in: allowedNumberRange)
     let numberToDecideWinner: Int = validNumber - computerNumber
+    var initialTurn: String = ""
     switch numberToDecideWinner {
     case DecisionNumber.winNumber[0], DecisionNumber.winNumber[1]:
         print(GameResultMessage.win)
+        initialTurn = "사용자"
     case DecisionNumber.defeatNumber[0], DecisionNumber.defeatNumber[1]:
         print(GameResultMessage.defeat)
+        initialTurn = "컴퓨터"
     default:
         print(GameResultMessage.draw)
         startGame(selectGameMenu())
     }
+    return initialTurn
 }
 
 startGame(selectGameMenu())
