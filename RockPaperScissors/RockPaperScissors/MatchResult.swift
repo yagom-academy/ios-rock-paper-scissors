@@ -11,8 +11,6 @@ enum MatchResult {
     case win
     case lose
     case draw
-    case computerTurn
-    case playerTurn
 }
 
 extension MatchResult {
@@ -24,13 +22,9 @@ extension MatchResult {
             return "졌습니다!"
         case .draw:
             return "비겼습니다!"
-        case .computerTurn:
-            return "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
-        case .playerTurn:
-            return "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
         }
     }
-    var messageForMukjipa: String {
+    var finalMessage: String {
         switch self {
         case .win:
             return "사용자의 승리!"
@@ -38,10 +32,30 @@ extension MatchResult {
             return "컴퓨터의 승리!"
         case .draw:
             return ""
+        }
+    }
+}
+
+enum Turn {
+    case computerTurn
+    case playerTurn
+}
+
+extension Turn {
+    var inputMessage: String {
+        switch self {
         case .computerTurn:
-            return "컴퓨터의 턴입니다"
+            return "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
         case .playerTurn:
-            return "사용자의 턴입니다"
+            return "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+        }
+    }
+    var message: String {
+        switch self {
+        case .computerTurn:
+            return "사용자의 턴입니다."
+        case .playerTurn:
+            return "컴퓨터의 턴입니다."
         }
     }
 }

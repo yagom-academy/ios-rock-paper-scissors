@@ -7,30 +7,66 @@
 
 import Foundation
 
-struct GameData {
+class GameData {
     let handsRange: ClosedRange = 1...3
+    var status: Status = .begin
+    var turn: Turn = .playerTurn
+    var matchResult: MatchResult = .draw
     
-    mutating func generateComputerHand() -> PlayerHands {
+    func startGame() {
+        let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
+        switch status {
+        case .exit:
+            break
+        case .error:
+            
+            startGame()
+        case .inProgress:
+            executeByOption(makeResult(playerOption))
+        default:
+            startGame()
+        }
+    }
+    
+    func generateComputerHand() -> PlayerHands {
         let computerOption = String(Int.random(in: handsRange))
         let (computerHand, _) = convertToPlayerOption(from: computerOption)
         return computerHand
     }
     
-    mutating func conveyPlayerHandAndStatus() -> (PlayerHands, Status) {
+    func conveyPlayerHandAndStatus() -> (PlayerHands, Status) {
         let playerOption = inputPlayerOption()
         let (playerHand, status) = convertToPlayerOption(from: playerOption)
         return (playerHand, status)
     }
     
-    mutating func inputPlayerOption() -> String {
-//        print(Status.begin.message, terminator: "")
+    func inputPlayerOption() -> String {
         guard let inputPlayerOption = readLine() else {
-            return "error"
+            return Status.error.message
         }
         return inputPlayerOption
     }
     
-    mutating func convertToPlayerOption(from playerOption: String ) -> (PlayerHands, Status) {
+    func executeByOption(_ matchResult: MatchResult) {}
+    // 가위바위보, 묵찌빠에서 각각 승리 조건에 따른 행동
+    
+    func makeResult(_ playerHand: PlayerHands) -> MatchResult {
+        let computerHand = generateComputerHand()
+        let matchResult = verifyWinner(playerHand.optionNumber, computerHand.optionNumber)
+        return matchResult
+    }
+    
+    func verifyWinner(_ playerHand: Int,_ computerHand: Int ) -> MatchResult {
+        if playerHand == computerHand {
+            return .draw
+        } else if playerHand - computerHand == 1 || computerHand - playerHand == 2 {
+            return .win
+        } else {
+            return .lose
+        }
+    }
+    
+    func convertToPlayerOption(from playerOption: String ) -> (PlayerHands, Status) {
         switch playerOption {
         case "1":
             return (.scissor, .inProgress)

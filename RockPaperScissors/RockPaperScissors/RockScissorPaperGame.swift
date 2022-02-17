@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct RockScissorPaperGame {
+class RockScissorPaperGame: GameData {
     var gameData = GameData()
     
-    mutating func loadRockScissorPaperGame() -> (MatchResult, Status){
+    func loadRockScissorPaperGame() -> (MatchResult, Status) {
         print(Status.begin.message, terminator: "")
         let computerHand = gameData.generateComputerHand()
         let (playerHand, status) = gameData.conveyPlayerHandAndStatus()
@@ -18,7 +18,7 @@ struct RockScissorPaperGame {
         return (result, status)
     }
     
-    mutating func executeByOption(_ playerHand: PlayerHands, _ computerHand: PlayerHands, _ status: Status) -> MatchResult {
+    func executeByOption(_ playerHand: PlayerHands, _ computerHand: PlayerHands, _ status: Status) -> MatchResult {
         switch status {
         case .exit:
             print(Status.exit.message)
@@ -28,17 +28,14 @@ struct RockScissorPaperGame {
             let _ = loadRockScissorPaperGame()
         default:
             var result = vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
-            print("처음 verify 한 이후: \(result)")
             displayMatchResult(result)
-            print("디스플레이한 이후: \(result)")
             executeAfterMatch(&result)
-            print("애프터 매치: \(result)")
             return result
         }
         return .draw
     }
 
-    mutating func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> MatchResult {
+    func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> MatchResult {
         if playerHand == computerHand {
             return .draw
         } else if playerHand - computerHand == 1 || computerHand - playerHand == 2 {
@@ -48,11 +45,11 @@ struct RockScissorPaperGame {
         }
     }
     
-    mutating func displayMatchResult(_ result: MatchResult) {
+    func displayMatchResult(_ result: MatchResult) {
         print(result.message)
     }
     
-    mutating func executeAfterMatch(_ result: inout MatchResult) {
+    func executeAfterMatch(_ result: inout MatchResult) {
         if result == .draw {
             let (newResult, _) = loadRockScissorPaperGame()
            result = newResult
