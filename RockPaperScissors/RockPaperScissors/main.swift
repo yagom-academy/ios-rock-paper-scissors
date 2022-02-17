@@ -98,7 +98,38 @@ func startGame() {
         return
     }
     let gameResult = checkGameResult(player: playerInput, computer: computerInput)
-    startSubGame(gameResult)
+    
+    showGameResult(gameResult)
+    
+    if gameResult == .playerDraw {
+        startGame()
+        return
+    }
+    
+    guard let subGameResult = startSubGame(gameResult) else {
+        return
+    }
+    
+    showSubGameResult(subGameResult)
+}
+
+// MARK: - Sub
+func getPlayerSubInput() -> Int? {
+    guard let playerInput = readLine(),
+          let playerIntInput = Int(playerInput)
+    else {
+        return nil
+    }
+    
+    if playerIntInput == Settings.exitCode {
+        return playerIntInput
+    }
+    
+    guard let _ = SubGameHandType(rawValue: playerIntInput) else {
+        return nil
+    }
+
+    return playerIntInput
 }
 
 func printSubGameMenu(_ result: GameResult) {
@@ -112,24 +143,50 @@ func printSubGameMenu(_ result: GameResult) {
     }
 }
 
-func startSubGame(_ result: GameResult) {
+func startSubGame(_ result: GameResult) -> GameResult? {
     printSubGameMenu(result)
-    guard let playerInput = getPlayerInput()
-    else {
+    guard let playerInput = getPlayerSubInput() else {
         print(GameDisplayMessage.invalidPlayerInput)
-        startSubGame(GameResult.playerLose)
-        return
+        return startSubGame(GameResult.playerLose)
     }
     if playerInput == Settings.exitCode {
         print(GameDisplayMessage.gameDidEnd)
-        return
+        return nil
     }
-    guard let computerInput = HandType.randomPick else{
+    guard let computerInput = SubGameHandType.randomPick else {
         print(GameDisplayMessage.error)
-        return
+        return nil
+    }
+    return checkSubGameResult(player: playerInput, computer: computerInput, lastWinner: result)
+}
+
+func showSubGameResult(_ result: GameResult) {
+    switch result {
+    case .playerWin:
+        print(GameDisplayMessage.playerDidWin) //TODO
+    case .playerLose:
+        print(GameDisplayMessage.playerDidLose)
+    case .playerDraw:
+        print(GameDisplayMessage.playerDidDraw)
     }
 }
 
-
+func checkSubGameResult(player playerInput: Int, computer computerInput: Int, lastWinner: GameResult) -> GameResult? {
+    let computerLoseCondition = (computerInput % 3) + 1
+    
+    print("사용자: \(SubGameHandType(rawValue: playerInput)!), 컴퓨터 \(SubGameHandType(rawValue: computerInput)!)")
+    
+    if playerInput == computerInput, lastWinner == .playerWin {
+        return .playerWin
+    } else if playerInput == computerInput, lastWinner == .playerLose{
+        return .playerLose
+    } else if playerInput == computerLoseCondition {
+        print(GameDisplayMessage.isPlayerTurn)
+        return startSubGame(.playerWin)
+    } else {
+        print(GameDisplayMessage.isComputerTurn)
+        return startSubGame(.playerLose)
+    }
+}
 
 startGame()
