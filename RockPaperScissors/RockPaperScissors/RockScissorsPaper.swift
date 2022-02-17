@@ -7,8 +7,6 @@
 
 import Foundation
 
-var isProgramExit = false
-
 enum GameResult: String {
     case win = "이겼습니다!"
     case draw = "비겼습니다!"
@@ -21,7 +19,7 @@ enum RockScissorsPaperGameError: String {
     case failConvert = "변환에 실패했습니다."
 }
 
-enum RockScissorsPaperGameView: String {
+enum RockScissorsPaperGameMessage: String {
     case gameMenu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     case gameEnd = "종료되었습니다."
 }
@@ -31,7 +29,7 @@ enum RockScissorsPaper: CaseIterable {
     case rock
     case paper
     
-    func judgeWinAndLose() -> RockScissorsPaper {
+    func returnCase() -> RockScissorsPaper {
         switch self {
         case .scissors:
             return .rock
@@ -42,7 +40,7 @@ enum RockScissorsPaper: CaseIterable {
         }
     }
     
-    static func convertUserCard(userInput: String?) -> RockScissorsPaper? {
+    static func convert(userInput: String?) -> RockScissorsPaper? {
         switch userInput {
         case "1":
             return .scissors
@@ -69,7 +67,7 @@ func startRockScissorsPaperGame(userInputValues: String?) {
         print(RockScissorsPaperGameError.failCreateRandomCard.rawValue)
         return
     }
-    guard let userCard: RockScissorsPaper = .convertUserCard(userInput: userInputValues) else {
+    guard let userCard: RockScissorsPaper = .convert(userInput: userInputValues) else {
         print(RockScissorsPaperGameError.failConvert.rawValue)
         return
     }
@@ -79,13 +77,13 @@ func startRockScissorsPaperGame(userInputValues: String?) {
 func compare(userCard: RockScissorsPaper, computerCard: RockScissorsPaper) {
     if userCard == computerCard{
         print(GameResult.draw.rawValue)
-    } else if userCard == computerCard.judgeWinAndLose() {
+    } else if userCard == computerCard.returnCase() {
         print(GameResult.win.rawValue)
-        print(RockScissorsPaperGameView.gameEnd.rawValue)
+        print(RockScissorsPaperGameMessage.gameEnd.rawValue)
         isProgramExit = true
     } else{
         print(GameResult.lose.rawValue)
-        print(RockScissorsPaperGameView.gameEnd.rawValue)
+        print(RockScissorsPaperGameMessage.gameEnd.rawValue)
         isProgramExit = true
     }
 }
