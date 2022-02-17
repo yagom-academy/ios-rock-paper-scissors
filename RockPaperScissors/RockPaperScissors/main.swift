@@ -67,7 +67,7 @@ func showMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
-    showResult(compare(userOption: matchedHand(receiveNumber()), computerOption: matchedHand(makeRandomNumber())))
+    showResult(compareStepOne(userOption: matchedHand(receiveNumber()), computerOption: matchedHand(makeRandomNumber())))
 }
 
 func showResult(_ gameResult: GameResult) {
@@ -85,7 +85,7 @@ func showResult(_ gameResult: GameResult) {
     }
 }
 
-func compare(userOption: GameOptions, computerOption: GameOptions) -> GameResult {
+func compareStepOne(userOption: GameOptions, computerOption: GameOptions) -> GameResult {
     switch (userOption, computerOption) {
     case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
         return .win
@@ -93,6 +93,19 @@ func compare(userOption: GameOptions, computerOption: GameOptions) -> GameResult
         return .draw
     case (.paper, .scissor), (.scissor, .rock), (.rock, .paper):
         return .lose
+    case (.exit, _):
+        return .exit
+    default:
+        return .error
+    }
+}
+
+func compareStepTwo(userOption: GameOptions, computerOption: GameOptions) -> GameResult {
+    switch (userOption, computerOption) {
+    case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
+        return .win
+    case (.paper, .scissor), (.scissor, .rock), (.rock, .paper), (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
+        return .draw
     case (.exit, _):
         return .exit
     default:
