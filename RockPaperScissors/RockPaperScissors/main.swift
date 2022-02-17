@@ -6,8 +6,6 @@
 
 import Foundation
 
-
-
 enum Result: String {
     case win = "이겼습니다."
     case draw = "비겼습니다."
@@ -60,17 +58,19 @@ struct Player {
 }
 
 class Game {
-    var winner: String = ""
-    var user: Player
-    var computer: Player
+    private var user: Player
+    private var computer: Player
     
     init(user: Player, computer: Player){
         self.user = user
         self.computer = computer
     }
     
-    func playGame() {
-
+    func playGame() { }
+    
+    func inputCard() -> Card? {
+        guard let userCard: String = readLine() else { return nil }
+        return Card(rawValue: userCard)
     }
     
     func makeRandomCard() -> Card {
@@ -78,9 +78,7 @@ class Game {
         return randomCard
     }
     
-    func printMenu() {
-        
-    }
+    func printMenu() { }
     
     func openCard(selectedCard: Card) {
         computer.setCard(selectedCard: makeRandomCard())
@@ -93,26 +91,27 @@ class Game {
         printResult(gameResult: resultOfCompare)
     }
     
-    func printResult(gameResult: Result) {
-
-    }
+    func printResult(gameResult: Result) { }
 }
 
 class RockPaperScissors: Game {
+    private var winner: String = ""
+    
+    func gatWinner() -> String { winner }
+    
     override func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
     }
     
     override func playGame() {
         printMenu()
-        guard let userInput: String = readLine() else { return }
-        if userInput == Card.terminator.rawValue {
-            print("게임 종료")
-            return
-        }
-        guard let userCard: Card = Card(rawValue: userInput) else {
+        guard let userCard = inputCard() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             playGame()
+            return
+        }
+        if userCard == Card.terminator {
+            print("게임 종료")
             return
         }
         openCard(selectedCard: userCard)
@@ -122,33 +121,30 @@ class RockPaperScissors: Game {
         gameResult.printMessage()
         switch gameResult {
         case Result.draw:
-            //gameResult.printMessage()
             playGame()
         case Result.win:
             winner = user.getName()
-            //gameResult.printMessage()
         case Result.lose:
             winner = computer.getName()
-            //gameResult.printMessage()
         }
     }
 }
 
-class MukChiBaGame: Game {
-    var turn: String = ""
+class MukChiBa: Game {
+    var turnPlayerName: String = ""
     
     func setTurn(name: String) {
-        turn = name
+        turnPlayerName = name
     }
     
     override func printMenu() {
-        print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
+        print("[\(turnPlayerName) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
     }
     
     override func printResult(gameResult: Result) {
         switch gameResult {
         case Result.draw:
-            print("\(turn)의 승리!")
+            print("\(turnPlayerName)의 승리!")
             print("게임 종료")
         default:
             decideTurn(gameResult: gameResult)
@@ -158,30 +154,28 @@ class MukChiBaGame: Game {
     
     override func playGame() {
         printMenu()
-        guard let userInput: String = readLine() else { return }
-        if userInput == Card.terminator.rawValue {
-            print("게임 종료")
-            return
-        }
-        guard let userCard: Card = Card(rawValue: convertValue(input: userInput)) else {
+        guard let userCard = inputCard() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             setTurn(name: computer.getName())
             playGame()
             return
         }
-        openCard(selectedCard: userCard)
+        if userCard == Card.terminator {
+            print("게임 종료")
+            return
+        }
+        openCard(selectedCard: convertCard(input: userCard))
     }
     
-    func decideTurn(gameResult: Result) {
+    private func decideTurn(gameResult: Result) {
         gameResult == Result.win ? setTurn(name: user.getName()) : setTurn(name: computer.getName())
-        print("\(turn)의 턴입니다.")
+        print("\(turnPlayerName)의 턴입니다.")
     }
     
-    func convertValue(input: String) -> String {
+    private func convertCard(input: Card) -> Card {
         switch input {
-        case "1": return Card.rock.rawValue
-        case "2": return Card.scissors.rawValue
-        case "3": return Card.paper.rawValue
+        case Card.scissors: return Card.rock
+        case Card.rock: return Card.scissors
         default: return input
         }
     }
@@ -189,9 +183,9 @@ class MukChiBaGame: Game {
 
 var user: Player = Player(name: "사용자")
 var computer: Player = Player(name: "컴퓨터")
-var newGame: Game = RockPaperScissors(user: user, computer: computer)
-var sGame: MukChiBaGame = MukChiBaGame(user: user, computer: computer)
-newGame.playGame()
-sGame.setTurn(name: newGame.winner)
-sGame.playGame()
+var rockPaperScissorsGame: RockPaperScissors = RockPaperScissors(user: user, computer: computer)
+var mukChiBaGame: MukChiBa = MukChiBa(user: user, computer: computer)
+rockPaperScissorsGame.playGame()
+mukChiBaGame.setTurn(name: rockPaperScissorsGame.gatWinner())
+mukChiBaGame.playGame()
 
