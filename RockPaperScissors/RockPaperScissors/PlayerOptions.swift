@@ -2,8 +2,7 @@
 //  PlayerOptions.swift
 //  RockPaperScissors
 //
-//  Created by mmim, Red on 2022/02/16.
-
+//  Created by mmim, Red on 2022/02/17.
 //
 
 import Foundation
@@ -34,6 +33,8 @@ enum Status {
     case exit
     case error
     case inProgress
+    case computerTurn
+    case playerTurn
 }
 
 extension Status {
