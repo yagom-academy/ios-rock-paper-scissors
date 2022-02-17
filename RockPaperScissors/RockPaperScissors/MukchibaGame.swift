@@ -14,27 +14,27 @@ class MukchibaGame: Game {
     }
     
     override func printGameInfo() {
-        print("[\(turn.check) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: "")
+        print("[\(turn.message) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: "")
     }
     
-    override func changeTurn() {
-        turn = .computer
+    override func changeTurn(to player: Turn) {
+        turn = player
     }
     
     override func printGameResult(gameResult: GameResult) {
         switch gameResult {
         case .win:
-            turn = .user
-            print("사용자의 턴입니다")
+            changeTurn(to: .user)
+            print("\(turn.message)의 턴입니다")
             start()
             
         case .lose:
-            turn = .computer
-            print("컴퓨터의 턴입니다")
+            changeTurn(to: .computer)
+            print("\(turn.message)의 턴입니다")
             start()
             
         case .draw:
-            print("\(turn.check)의 승리!")
+            print("\(turn.message)의 승리!")
         }
     }
 }

@@ -12,17 +12,17 @@ class RockPaperScissorsGame: Game {
     }
     
     override func printGameResult(gameResult: GameResult) {
+        
+        print(gameResult.message)
+        
         switch gameResult {
         case .win:
-            print("이겼습니다!")
             let mukchiba: MukchibaGame = MukchibaGame(turn: .user)
             mukchiba.start()
         case .lose:
-            print("졌습니다!")
             let mukchiba: MukchibaGame = MukchibaGame(turn: .computer)
             mukchiba.start()
         case .draw:
-            print("비겼습니다")
             start()
         }
     }

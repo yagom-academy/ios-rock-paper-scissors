@@ -18,13 +18,13 @@ class Game {
             compareSigns(userInput: userInput)
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            changeTurn()
+            changeTurn(to: .computer)
             start()
         }
     }
     
     func printGameInfo() {}
-    func changeTurn() {}
+    func changeTurn(to player: Turn) {}
     
     func inputUserNumber() -> Int? {
         guard let userInput = readLine() else {
