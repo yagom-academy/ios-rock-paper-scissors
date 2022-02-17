@@ -13,7 +13,7 @@ class MukchibaGame: Game {
         self.turn = turn
     }
     
-    override func printGameInfo() {
+    override func printGameGuide() {
         print("[\(turn.message) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: "")
     }
     

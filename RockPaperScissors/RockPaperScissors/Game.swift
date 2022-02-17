@@ -8,7 +8,7 @@
 class Game {
     
     func start() {
-        printGameInfo()
+        printGameGuide()
         let userInput = inputUserNumber()
         
         switch userInput {
@@ -23,9 +23,9 @@ class Game {
         }
     }
     
-    func printGameInfo() {}
+    func printGameGuide() {}
     func changeTurn(to player: Turn) {}
-    
+     
     func inputUserNumber() -> Int? {
         guard let userInput = readLine() else {
             return nil

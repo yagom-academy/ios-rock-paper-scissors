@@ -7,7 +7,7 @@
 
 class RockPaperScissorsGame: Game {
     
-    override func printGameInfo() {
+    override func printGameGuide() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
     }
     
@@ -17,10 +17,10 @@ class RockPaperScissorsGame: Game {
         
         switch gameResult {
         case .win:
-            let mukchiba: MukchibaGame = MukchibaGame(turn: .user)
+            let mukchiba = MukchibaGame(turn: .user)
             mukchiba.start()
         case .lose:
-            let mukchiba: MukchibaGame = MukchibaGame(turn: .computer)
+            let mukchiba = MukchibaGame(turn: .computer)
             mukchiba.start()
         case .draw:
             start()

@@ -19,8 +19,6 @@ enum GameResult: String {
     var message: String {
         return self.rawValue
     }
-    
-    
 }
 
 enum Turn: String {
