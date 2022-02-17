@@ -89,6 +89,14 @@ allCases라는 타입 프로퍼티를 이용해서  모든 case가 포함된 컬
 그런데 randomElement() 매서드가 옵셔널을 반환해서 찾아보니, 컬렉션이 비었을때는 옵셔널을 반환해준다고 해서 guard let 바인딩을 사용했습니다
 
 ## PR 후 개선사항
+- playGame(with opponentPlayer: RockPaperScissors) -> GameResult 네이밍 변경
+    - decideResult(with opponentPlayer: RockPaperScissors) -> GameResult 으로 변경함
+- decideResult(with opponentPlayer: RockPaperScissors) -> GameResult 메서드 위치 변경
+    -  RockPaperScissors enum에 위치하던 메소드를 RockPaperScissorsGame struct내부로 변경함
+- 가독성이 떨어지는 guard 이중 부정 구문 수정
+    - guard convertedIntNumber != Int.zero else {} 을 if 문으로 수정하여 가독성 향상 시킴
+- 가위바위보 게임을 시작하는 start() 메서드 내부 로직 변경
+    - 반복문을 이용해 작동되는 로직을 switch와 재귀 함수를 이용한 방식으로 수정
 
 ## STEP 2 기능 구현
 
