@@ -9,11 +9,9 @@ import Foundation
 
 class GameData {
     let handsRange: ClosedRange = 1...3
-    var status: Status = .begin
-    var matchResult: MatchResult = .draw
     
     func startGame() {
-        displayMention()
+        displayInputMessage()
         let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
         
         switch status {
@@ -21,16 +19,35 @@ class GameData {
             print(Status.exit.message)
             break
         case .error:
-            forceTurnChange()
+            changeTurnByError()
             startGame()
         case .inProgress:
-            executeByOption(makeResult(playerOption))
+            runByOption(makeResult(playerOption))
         default:
             startGame()
         }
     }
     
-    func forceTurnChange() { }
+    func displayInputMessage() {
+        print(Status.begin.message, terminator: "")
+    }
+    
+    func convertToPlayerOption(from playerOption: String ) -> (PlayerHands, Status) {
+        switch playerOption {
+        case "1":
+            return (.scissor, .inProgress)
+        case "2":
+            return (.rock, .inProgress)
+        case "3":
+            return (.paper, .inProgress)
+        case "0":
+            return (.none, .exit)
+        default:
+            return (.none, .error)
+        }
+    }
+    
+    func changeTurnByError() { }
     
     func generateComputerHand() -> PlayerHands {
         let computerOption = String(Int.random(in: handsRange))
@@ -51,7 +68,7 @@ class GameData {
         return inputPlayerOption
     }
     
-    func executeByOption(_ matchResult: MatchResult) {}
+    func runByOption(_ matchResult: MatchResult) {}
     
     func makeResult(_ playerHand: PlayerHands) -> MatchResult {
         let computerHand = generateComputerHand()
@@ -69,25 +86,5 @@ class GameData {
         }
     }
     
-    func displayMention() {
-        print(Status.begin.message)
-    }
-    
-    func displayMatchResult() {
-    }
-    
-    func convertToPlayerOption(from playerOption: String ) -> (PlayerHands, Status) {
-        switch playerOption {
-        case "1":
-            return (.scissor, .inProgress)
-        case "2":
-            return (.rock, .inProgress)
-        case "3":
-            return (.paper, .inProgress)
-        case "0":
-            return (.none, .exit)
-        default:
-            return (.none, .error)
-        }
-    }
+    func displayMatchResult(_ matchResult: MatchResult) { }
 }

@@ -6,5 +6,5 @@
 
 import Foundation
 
-var somePlayer = MukjipaGame()
+var somePlayer = RockScissorPaperGame()
 somePlayer.startGame()

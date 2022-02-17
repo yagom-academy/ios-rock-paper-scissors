@@ -14,7 +14,7 @@ enum MatchResult {
 }
 
 extension MatchResult {
-    var message: String {
+    var midtermMessage: String {
         switch self {
         case .win:
             return "이겼습니다!"
@@ -50,12 +50,12 @@ extension Turn {
             return "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
         }
     }
-    var message: String {
+    var notificationMessage: String {
         switch self {
         case .computerTurn:
-            return "사용자의 턴입니다."
-        case .playerTurn:
             return "컴퓨터의 턴입니다."
+        case .playerTurn:
+            return "사용자의 턴입니다."
         }
     }
 }

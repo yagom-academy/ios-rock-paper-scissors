@@ -10,30 +10,38 @@ import Foundation
 class MukjipaGame: GameData  {
     var turn: Turn = .playerTurn
     
-    override func executeByOption(_ matchResult: MatchResult) {
+    override func runByOption(_ matchResult: MatchResult) {
         if turn == .playerTurn && matchResult == .draw {
-            print(MatchResult.win.finalMessage)
+            displayMatchResult(MatchResult.win)
+            print(Status.exit.message)
         } else if turn == .computerTurn && matchResult == .draw  {
-            print(MatchResult.lose.finalMessage)
+            displayMatchResult(MatchResult.lose)
+            print(Status.exit.message)
         } else {
             changeTurn(matchResult)
             startGame()
         }
-        
     }
-    override func displayMention() {
+    
+    override func displayInputMessage() {
         print(turn.inputMessage, terminator: "")
+    }
+    
+    override func displayMatchResult(_ matchResult: MatchResult) {
+        print(matchResult.finalMessage)
     }
     
     func changeTurn(_ result: MatchResult ) {
         if result == .win {
             turn = .playerTurn
+            print(turn.notificationMessage)
         } else if result == .lose {
             turn = .computerTurn
-        } else {}
+            print(turn.notificationMessage)
+        }
     }
     
-    override func forceTurnChange() {
+    override func changeTurnByError() {
         turn = .computerTurn
         print(Status.error.message)
     }
