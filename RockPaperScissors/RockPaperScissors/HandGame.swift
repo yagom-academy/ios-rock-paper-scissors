@@ -218,4 +218,31 @@ struct HandGame {
             self.hasUserWin = true
         }
     }
+    
+    private func printMukjipaWinnerTurn(by gameResult: Bool) {
+        if gameResult == true {
+            print("\(Player.userTurn.description) 턴입니다")
+        } else if gameResult == false {
+            print("\(Player.computerTurn.description) 턴입니다")
+        }
+    }
+    
+    private func printMukjipaResultMessage(didUserWin: Bool) {
+        if didUserWin {
+            print(Result.userWin.description)
+        } else {
+            print(Result.computerWin.description)
+        }
+    }
+    
+    private mutating func printWinner(by mukjipaGameResult: HandGame.Result) {
+        if mukjipaGameResult == .draw {
+            printMukjipaResultMessage(didUserWin: self.hasUserWin)
+            print(Result.endGame.description)
+            return
+        } else {
+            printMukjipaWinnerTurn(by: self.hasUserWin)
+            playMukjipa(didUserWin: self.hasUserWin)
+        }
+    }
 }
