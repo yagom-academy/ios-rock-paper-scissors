@@ -3,12 +3,12 @@
 //  Created by papri,Taeangel
 //  Copyright © yagom academy. All rights reserved.
 //
-
 import Foundation
 
-enum Userinput: String, CaseIterable {
-    case scissors = "1", rock = "2", paper = "3"
-    static let exit = "0"
+enum Hand: String {
+    case scissors, rock , paper
+    case extraordinary
+    case exit
 }
 
 enum MessegePrint {
@@ -23,11 +23,12 @@ enum MessegePrint {
 
 func startGame() {
     print(MessegePrint.menuDisplay, terminator: "")
-    let userInput = inputValue()
+    let userInput = convertStringToHand()
+    
     switch userInput {
-    case Userinput.scissors.rawValue, Userinput.rock.rawValue, Userinput.paper.rawValue :
+    case Hand.scissors, Hand.rock, Hand.paper:
         playRockPaperScissors(userHand: userInput)
-    case Userinput.exit :
+    case Hand.exit:
         print(MessegePrint.prgramExitMessege)
         return
     default:
@@ -44,20 +45,40 @@ func inputValue() -> String {
     return inputValue
 }
 
-func makeComputerHand() -> String {
-    guard let computerHand = Userinput.allCases.randomElement()?.rawValue else {
+func convertStringToHand() -> Hand {
+    let handValue: Hand
+    
+    let inputValue = inputValue()
+    if inputValue == "1" {
+        handValue = Hand.scissors
+    } else if inputValue == "2" {
+        handValue = Hand.rock
+    } else if inputValue == "3" {
+        handValue = Hand.paper
+    } else if inputValue == "0" {
+        handValue = Hand.exit
+    } else {
+        handValue = Hand.extraordinary
+    }
+    return handValue
+}
+
+func makeComputerHand() -> Hand {
+    let rockScissorsPaper: Set<Hand> = [Hand.rock, Hand.scissors, Hand.paper]
+    
+    guard let computerHand = rockScissorsPaper.randomElement() else {
         print(MessegePrint.gameErrorMessege)
-        return ""
+        return Hand.extraordinary
     }
     return computerHand
 }
 
-func playRockPaperScissors(userHand: String) {
+func playRockPaperScissors(userHand: Hand) {
     let computerHand = makeComputerHand()
-    compareHand(userHand: userHand, computerHand: computerHand)
+    compareHand(userHand: userHand, to: computerHand)
 }
 
-func compareHand(userHand: String, computerHand: String) {
+func compareHand(userHand: Hand,to computerHand: Hand) {
     if userHand == computerHand {
         print(MessegePrint.drawMessege)
         startGame()
@@ -68,8 +89,8 @@ func compareHand(userHand: String, computerHand: String) {
     }
 }
 
-func checkUserWinCondition(_ userHand: String, _ computerHand: String) -> Bool {
-    return userHand == Userinput.scissors.rawValue && computerHand == Userinput.paper.rawValue || userHand == Userinput.rock.rawValue && computerHand == Userinput.scissors.rawValue || userHand == Userinput.paper.rawValue && computerHand == Userinput.rock.rawValue
+func checkUserWinCondition(_ userHand: Hand, _ computerHand: Hand) -> Bool {
+    return userHand == Hand.scissors && computerHand == Hand.paper || userHand == Hand.rock && computerHand == Hand.scissors || userHand == Hand.paper && computerHand == Hand.rock
 }
 
 startGame()
