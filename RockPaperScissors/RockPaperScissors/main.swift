@@ -37,62 +37,71 @@ func startRockPaperScissorsGame(game: Game, currentTurnParameter: ComputerOrUser
     let gameoverNumber: String = "0"
     
     repeat {
+        printGameMenu(of: game, turnValue: currentTurn.rawValue)
+        
+        var computerNumber: String = ""
+        var userNumber: String = ""
+        
+        (computerNumber, userNumber) = generateValues(game: game)
+        
+        if userNumber == gameoverNumber {
+            break
+        }
+        
         do {
-            printGameMenu(of: game, turnValue: currentTurn.rawValue)
-            
-            var computerNumber: String = ""
-            var userNumber: String = ""
-            
-            if game == .가위바위보 {
-                computerNumber = String(makeRandomComputerNumber())
-                print("가위바위보 랜덤 넘버 : ",computerNumber)
-                userNumber = selectGameMenuUserNumber()
-            }
-            
-            if game == .묵찌빠 {
-                computerNumber = changeTo묵찌빠(number: makeRandomComputerNumber())
-                print("묵찌빠 컴퓨터 변환된 넘버  : ", computerNumber)
-                let tempNumber = Int(selectGameMenuUserNumber()) ?? -1
-                userNumber = changeTo묵찌빠(number: tempNumber)
-                print("묵찌빠 유져 변환된 넘버 : ", userNumber)
-            }
-
-            if userNumber == gameoverNumber {
-                break
-            }
-            
-            let computerValue: RockPaperScissors = try convertType(of: String(computerNumber))
+            let computerValue: RockPaperScissors = try convertType(of: computerNumber)
             let userValue: RockPaperScissors = try convertType(of: userNumber)
             let gameResult: GameResult = findGameResult(computerValue: computerValue, userValue: userValue)
-            print(gameResult, computerValue, userValue)
             
-            if game == .가위바위보 {
-                printGameResult(gameResult)
-                if gameResult != .tie {
-                    currentTurn = changeTurn(currentValue: currentTurn, gameResult: gameResult)
-                    isWinnerFound = true
-                }
+            printGameResult(game: game, gameResult)
+            
+            isWinnerFound = stopGameLoop(game: game, gameResult: gameResult)
+            currentTurn = changeTurn(currentValue: currentTurn, gameResult: gameResult)
+            
+            if isWinnerFound == false {
+                printCurrentTrun(game: game, turn: currentTurn)
             }
             
-            if game == .묵찌빠 {
-                if gameResult != .tie {
-                    currentTurn = changeTurn(currentValue: currentTurn, gameResult: gameResult)
-                } else {
-                    isWinnerFound = true
-                }
-            }
         } catch InputError.wrongInputError where game == .묵찌빠 {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            print("묵찌빠")
             currentTurn = .computer
         } catch InputError.wrongInputError {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            print("가위바위보")
         } catch {
             print(error)
         }
     } while !isWinnerFound
     return currentTurn
+}
+
+func generateValues(game: Game) -> (computerValue: String, userValue: String) {
+    var computerNumber: String = ""
+    var userNumber: String = ""
+    
+    switch game {
+    case .가위바위보:
+        computerNumber = String(makeRandomComputerNumber())
+        userNumber = selectGameMenuUserNumber()
+    case .묵찌빠:
+        computerNumber = changeTo묵찌빠(number: makeRandomComputerNumber())
+        let tempNumber = Int(selectGameMenuUserNumber()) ?? -1
+        userNumber = changeTo묵찌빠(number: tempNumber)
+    }
+    return (computerNumber, userNumber)
+}
+
+func stopGameLoop(game: Game, gameResult: GameResult) -> Bool {
+    var isWinnerFound = false
+    
+    if game == .가위바위보 && gameResult != .tie {
+        isWinnerFound = true
+    }
+   
+    if game == .묵찌빠 && gameResult == .tie {
+        isWinnerFound = true
+    }
+    
+    return isWinnerFound
 }
 
 func changeTurn(currentValue: ComputerOrUser, gameResult: GameResult) -> ComputerOrUser {
@@ -139,7 +148,19 @@ func findGameResult(computerValue: RockPaperScissors, userValue: RockPaperScisso
     }
 }
 
-func printGameResult(_ gameResult: GameResult) {
+func printCurrentTrun(game: Game, turn: ComputerOrUser) {
+    if game == .가위바위보 {
+        return
+    }
+    print("\(turn.rawValue)의 턴입니다.")
+}
+
+func printGameResult(game: Game, _ gameResult: GameResult) {
+    
+    if game == .묵찌빠 {
+        return
+    }
+    
     switch gameResult {
     case .win:
         print("이겼습니다!")
@@ -165,9 +186,13 @@ func printGameMenu(of game: Game, turnValue: String) {
 
 func gameMaster() {
     let turn = startRockPaperScissorsGame(game: .가위바위보, currentTurnParameter: .nobody)
-    print("가위바위보 승리자",turn)
+    
+    if turn == ComputerOrUser.nobody {
+        return
+    }
+    
     let winnerTurn = startRockPaperScissorsGame(game: .묵찌빠, currentTurnParameter: turn)
-    print("묵찌빠 승리자",winnerTurn)
+    print("\(winnerTurn.rawValue)의 승리!\n게임 종료")
 }
 
 func changeTo묵찌빠(number: Int) -> String {
@@ -177,6 +202,8 @@ func changeTo묵찌빠(number: Int) -> String {
         return "1"
     } else if number == 3 {
         return "3"
+    } else if number == 0 {
+        return "0"
     }
     return "-1"
 }
