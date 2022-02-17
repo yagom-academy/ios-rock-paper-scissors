@@ -42,9 +42,9 @@ extension Status {
         case .begin:
             return "가위(1), 바위(2), 보(3)! <종료 : 0> : "
         case .exit:
-            return "게임종료"
+            return "게임 종료"
         case .error:
-            return "잘못된 입력입니다. 다시 시도해 주세요."
+            return "잘못된 입력입니다. 다시 시도해주세요."
         default:
             return "게임이 진행 중 입니다."
         }
