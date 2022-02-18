@@ -20,6 +20,8 @@
 
 야곰과 묵! 찌! 빠!
 
+<img width="430" alt="2022-02-18_10 47 04" src="https://user-images.githubusercontent.com/88810018/154695736-27fdf3ba-939d-4da2-b94e-7091e0308eee.png">
+
 ## 개발환경 및 라이브러리
 
 [![swift](https://img.shields.io/badge/swift-5.0-orange)]()
