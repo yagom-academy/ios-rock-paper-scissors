@@ -22,7 +22,7 @@
 ## 프로젝트 소개
 
 ## 순서도
-<img width="700" alt="STEP 1 순서도" src="https://user-images.githubusercontent.com/94151993/153993074-194d00ee-afc1-4daa-8ac8-afcd7f158ac3.png">
+<img width="700" alt="야곰 프로젝트 2 - STEP2" src="https://user-images.githubusercontent.com/94151993/154623905-6b50dd1d-2eda-4bce-aa8c-7bc2707fbec4.png">
 
 ## [STEP 1]
 
