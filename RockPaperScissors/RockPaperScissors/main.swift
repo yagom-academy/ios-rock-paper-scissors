@@ -1,10 +1,7 @@
-//
-//  RockPaperScissors - main.swift
-//  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
-// 
-
 import Foundation
+
+var turnOfUser: Bool = false
+var thisTurn: String = ""
 
 enum StartAndEndMessage {
     static let startOfFirstGame = "가위(1), 바위(2), 보(3)! <종료 : 0>"
@@ -32,6 +29,11 @@ enum Decision {
     static let defeatNumber = [2, -1]
 }
 
+enum Player {
+    static let user = "사용자"
+    static let computer = "컴퓨터"
+}
+
 func selectFirstGameMenu() -> String {
     print(StartAndEndMessage.startOfFirstGame, terminator: PunctuationMarks.colon)
     guard let userInput = readLine() else { return PunctuationMarks.emptyString }
@@ -39,7 +41,7 @@ func selectFirstGameMenu() -> String {
 }
 
 func selectSecondGameMenu() -> String {
-    print(StartAndEndMessage.startOfSecondGame, terminator: PunctuationMarks.colon)
+    print("[\(decideTurn())턴]", StartAndEndMessage.startOfSecondGame, terminator: PunctuationMarks.colon)
     guard let userInput = readLine() else { return PunctuationMarks.emptyString }
     return userInput
 }
@@ -63,6 +65,8 @@ func checkValidity2(of userInput: String) -> Int? {
         return intUserInput
     } else {
         print(ErrorMessage.wrongInput)
+        turnOfUser = false
+        print("\(decideTurn())의 턴입니다")
         startSecondGame(selectSecondGameMenu())
         return nil
     }
@@ -83,7 +87,6 @@ func decideFirstWinner(_ validNumber: Int) -> Bool {
     let allowedNumberRange: ClosedRange<Int> = 1...3
     let computerNumber = Int.random(in: allowedNumberRange)
     let numberToDecideWinner: Int = validNumber - computerNumber
-    var turnOfUser: Bool = true
     switch numberToDecideWinner {
     case Decision.winNumber[0], Decision.winNumber[1]:
         print(GameResultMessage.win)
@@ -105,23 +108,31 @@ func startSecondGame(_ userInput: String) {
         print(StartAndEndMessage.endOfGame)
         return
     } else {
-        
+        decideSecondWinner(validNumber)
     }
 }
 
 func decideSecondWinner(_ validNumber: Int) {
+    thisTurn = decideTurn()
     let allowedNumberRange: ClosedRange<Int> = 1...3
     let computerNumber = Int.random(in: allowedNumberRange)
+    print("컴퓨터 : \(computerNumber), 사용자 : \(validNumber)")
+    let numberToDecideWinner: Int = validNumber - computerNumber
     if validNumber == computerNumber {
-        
+        print("\(thisTurn)의 승리!")
+    }
+    while validNumber != computerNumber {
+        // 사용자 숫자와 컴퓨터 숫자가 같지 않을때
+        print("사용자 숫자와 컴퓨터 숫자가 같지 않습니다.")
+        break
     }
 }
 
-func decideTurn(_ turnOfUser: Bool) -> String {
+func decideTurn() -> String {
     if turnOfUser == true {
-        return "사용자"
+        return Player.user
     } else {
-        return "컴퓨터"
+        return Player.computer
     }
 }
 
