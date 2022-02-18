@@ -8,7 +8,7 @@
 import Foundation
 
 struct MukjipaGame {    
-    private var currentTurn: Player = .none
+    private var currentTurn: Player = .user
     private let user: User
     private let computer: Computer
     private let userInterface: UserInterface
@@ -69,8 +69,6 @@ struct MukjipaGame {
         case .computer:
             currentTurn = .user
             userInterface.printCurrentTurn(currentTurn: .user)
-        case .none:
-            break
         }
     }
 }

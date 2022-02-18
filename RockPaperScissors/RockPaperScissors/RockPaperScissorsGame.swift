@@ -55,19 +55,18 @@ struct RockPaperScissorsGame {
             userInterface: self.userInterface
         )
         
-        if userHand == computerHand {
+        switch (userHand, computerHand) {
+        case (.rock, .rock), (.scissor, .scissor), (.paper, .paper):
             userInterface.printRockPaperScissorsGameResut(gameResult: .draw)
             startProgram()
-        }
-        
-        if userHand.rawValue == computerHand.rawValue + 1 || userHand.rawValue == computerHand.rawValue - 2 {
+        case (.rock, .scissor), (.scissor, .paper), (.paper, .rock):
             userInterface.printRockPaperScissorsGameResut(gameResult: .win)
             mukjipaGame.startMukjipaGame(currentTurn: .user)
-        }
-        
-        if userHand.rawValue == computerHand.rawValue - 1 || userHand.rawValue == computerHand.rawValue + 2 {
+        case (.rock, .paper), (.scissor, .rock), (.paper, .scissor):
             userInterface.printRockPaperScissorsGameResut(gameResult: .lose)
             mukjipaGame.startMukjipaGame(currentTurn: .computer)
+        default:
+            break
         }
     }
 }

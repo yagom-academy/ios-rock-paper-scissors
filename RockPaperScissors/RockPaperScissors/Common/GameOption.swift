@@ -10,4 +10,5 @@ import Foundation
 enum GameOption {
     static let userNumberRange: ClosedRange<Int> = 0...3
     static let computerNumberRange: ClosedRange<Int> = 1...3
+    static let wrongInput: Int = -1
 }
