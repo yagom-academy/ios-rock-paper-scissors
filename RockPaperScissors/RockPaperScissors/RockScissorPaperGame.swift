@@ -54,7 +54,7 @@ class RockScissorPaperGame: GameData {
         return matchResult
     }
     
-    func verifyWinner(by playerHand: Int,and computerHand: Int ) -> MatchResult {
+    func verifyWinner(by playerHand: Int,and computerHand: Int) -> MatchResult {
         if playerHand == computerHand {
             return .sameHand
         } else if playerHand - computerHand == 1 || computerHand - playerHand == 2 {

@@ -9,7 +9,7 @@ import Foundation
 
 class GameData {
     
-    func convertToPlayerOption(from playerOption: String ) -> (PlayerHands, Status) {
+    func convertToPlayerOption(from playerOption: String) -> (PlayerHands, Status) {
         switch playerOption {
         case "1":
             return (.scissor, .inProgress)

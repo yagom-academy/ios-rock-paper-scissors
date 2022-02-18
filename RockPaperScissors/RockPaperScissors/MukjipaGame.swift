@@ -34,7 +34,7 @@ final class MukjipaGame: RockScissorPaperGame {
         if turn == .playerTurn && matchResult == .sameHand {
             displayMatchResult(MatchResult.playerWin)
             print(Status.exit.statusMessage)
-        } else if turn == .computerTurn && matchResult == .sameHand  {
+        } else if turn == .computerTurn && matchResult == .sameHand {
             displayMatchResult(MatchResult.playerLose)
             print(Status.exit.statusMessage)
         } else {
@@ -51,7 +51,7 @@ final class MukjipaGame: RockScissorPaperGame {
         print(matchResult.finalMessage)
     }
     
-    private func changeTurn(by result: MatchResult ) {
+    private func changeTurn(by result: MatchResult) {
         if result == .playerWin {
             turn = .playerTurn
             displayNotification(by: turn)
