@@ -42,9 +42,9 @@ func getPlayerInput() -> Int? {
 }
 
 func checkGameResult(player playerInput: Int, computer computerInput: Int) -> GameResult {
-    let computerLoseCondition = (computerInput % 3) + 1
+    let playerWinCondition = (computerInput % 3) + 1
     
-    if playerInput == computerLoseCondition {
+    if playerInput == playerWinCondition {
         return .playerWin
     } else if playerInput == computerInput {
         return .playerDraw
