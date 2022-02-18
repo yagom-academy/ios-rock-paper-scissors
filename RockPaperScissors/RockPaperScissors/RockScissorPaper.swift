@@ -14,6 +14,13 @@ enum HandType: Int, CaseIterable {
     static var randomPick: Int? {
         return Self.allCases.randomElement()?.rawValue
     }
+    
+    static func isHandType(_ value: Int) -> Bool {
+        if let _ = HandType(rawValue: value) {
+            return true
+        }
+        return false
+    }
 }
 
 func getPlayerInput() -> Int? {
@@ -23,11 +30,11 @@ func getPlayerInput() -> Int? {
         return nil
     }
     
-    if playerIntInput == Settings.exitCode {
+    guard playerIntInput != Settings.exitCode else {
         return playerIntInput
     }
     
-    guard let _ = HandType(rawValue: playerIntInput) else {
+    guard HandType.isHandType(playerIntInput) else {
         return nil
     }
 
