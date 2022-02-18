@@ -9,6 +9,7 @@ class RockPaperScissors {
     
     func checkValidity(of userInput: String) -> Int? {
         let validNumbersForGame = ["0", "1", "2", "3"]
+        
         if validNumbersForGame.contains(userInput) {
             guard let intUserInput = Int(userInput) else { return nil }
             return intUserInput
@@ -22,13 +23,13 @@ class RockPaperScissors {
     func startGame(_ userInput: String) {
         let endingNumber = 0
         guard let validNumber = checkValidity(of: userInput) else { return }
+        
         if validNumber == endingNumber {
             print(StartAndEndMessage.endOfGame)
             return
         } else {
             decideWinner(validNumber)
-            mukjipa.startGame(selectGameMenu())
-            return
+            mukjipa.startGame(mukjipa.selectGameMenu())
         }
     }
     
@@ -39,13 +40,13 @@ class RockPaperScissors {
         
         switch numberToDecideWinner {
         case Decision.winNumber[0], Decision.winNumber[1]:
-            print(GameResultMessage.win)
+            print(ResultMessage.win)
             isTurnOfUser = true
         case Decision.defeatNumber[0], Decision.defeatNumber[1]:
-            print(GameResultMessage.defeat)
+            print(ResultMessage.defeat)
             isTurnOfUser = false
         default:
-            print(GameResultMessage.draw)
+            print(ResultMessage.draw)
             startGame(selectGameMenu())
         }
     }

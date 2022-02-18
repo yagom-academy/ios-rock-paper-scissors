@@ -9,6 +9,7 @@ class MukJiPa: RockPaperScissors {
     
     override func checkValidity(of userInput: String) -> Int? {
         let validNumbersForGame = ["0", "1", "2", "3"]
+        
         if validNumbersForGame.contains(userInput) {
             guard let intUserInput = Int(userInput) else { return nil }
             return intUserInput
@@ -23,6 +24,7 @@ class MukJiPa: RockPaperScissors {
     override func startGame(_ userInput: String) {
         let endingNumber = 0
         guard let validNumber = checkValidity(of: userInput) else { return }
+        
         if validNumber == endingNumber {
             print(StartAndEndMessage.endOfGame)
             return
@@ -32,17 +34,22 @@ class MukJiPa: RockPaperScissors {
     }
     
     override func decideWinner(_ validNumber: Int) {
-        thisTurn = decideTurn()
-        var winner: String = PunctuationMarks.emptyString
         let allowedNumberRange: ClosedRange<Int> = 1...3
         let computerNumber = Int.random(in: allowedNumberRange)
         let numberToDecideWinner: Int = validNumber - computerNumber
+        thisTurn = decideTurn()
         
         if validNumber == computerNumber {
-            print("\(thisTurn)의 승리!")
+            print(ResultMessage.victoryOfThisTurn)
             print(StartAndEndMessage.endOfGame)
             return
         }
+        changeTurnAndRestartGame(numberToDecideWinner)
+    }
+    
+    func changeTurnAndRestartGame(_ numberToDecideWinner: Int) {
+        var winner: String = PunctuationMarks.emptyString
+        let numberToDecideWinner = numberToDecideWinner
         
         switch numberToDecideWinner {
         case Decision.winNumber[0], Decision.winNumber[1]:
@@ -52,11 +59,11 @@ class MukJiPa: RockPaperScissors {
         }
         
         if winner == thisTurn {
-            print("\(thisTurn)의 턴입니다")
+            print(ResultMessage.unchangedTurn)
             startGame(selectGameMenu())
         } else {
             isTurnOfUser = !isTurnOfUser
-            print("\(decideTurn())의 턴입니다")
+            print(ResultMessage.changedTurn)
             startGame(selectGameMenu())
         }
     }
