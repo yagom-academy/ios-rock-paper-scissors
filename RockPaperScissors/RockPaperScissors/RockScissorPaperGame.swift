@@ -2,54 +2,74 @@
 //  RockScissorPaperGame.swift
 //  RockPaperScissors
 //
-//  Created by mmim, Red on 2022/02/16.
+//  Created by mmim, Red on 2022/02/18.
 //
 
 import Foundation
 
-struct RockScissorPaperGame {
-    var gameData = GameData()
+class RockScissorPaperGame: GameData {
     
-    mutating func playGame() {
-        let computerHand = gameData.generateComputerHand()
-        let (playerHand, status) = gameData.conveyPlayerHandAndStatus()
-        executeByOption(playerHand, computerHand, status)
-    }
-    
-    mutating func executeByOption(_ playerHand: PlayerHands, _ computerHand: PlayerHands, _ status: Status) {
-        if status == .exit {
-            print(Status.exit.message)
-            return
-        } else if status == .error{
-            print(Status.error.message)
-            playGame()
-        } else {
-            let result = vertifyWinner(playerHand.optionNumber, computerHand.optionNumber)
-            displayMatchResult(result)
-            executeAfterMatch(result)
+    func startGame() {
+        displayInputMessage()
+        
+        let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
+        
+        switch status {
+        case .exit:
+            print(Status.exit.statusMessage)
+            break
+        case .error:
+            displayErrorMessage()
+            startGame()
+        case .inProgress:
+            runByOption(of: makeResult(by: playerOption))
+        default:
+            startGame()
         }
     }
     
-    mutating func displayMatchResult(_ result: MatchResult) {
-        print(result.message)
+    func displayInputMessage() {
+        print(Status.begin.statusMessage, terminator: "")
     }
     
-    mutating func executeAfterMatch(_ result: MatchResult) {
-        if result == .draw {
-            playGame()
+    func runByOption(of matchResult: MatchResult) {
+        displayMatchResult(matchResult)
+        
+        if matchResult == .sameHand {
+            startGame()
+        } else if matchResult == .playerWin {
+            let mukjipa = MukjipaGame()
+            mukjipa.turn = .playerTurn
+            mukjipa.startGame()
         } else {
-            print(Status.exit.message)
-            return
+            let mukjipa = MukjipaGame()
+            mukjipa.turn = .computerTurn
+            mukjipa.startGame()
         }
     }
     
-    mutating func vertifyWinner(_ playerHand: Int,_ computerHand: Int ) -> MatchResult {
+    func makeResult(by playerHand: PlayerHands) -> MatchResult {
+        let computerHand = generateComputerHand()
+        let matchResult = verifyWinner(by: playerHand.optionNumber, and: computerHand.optionNumber)
+        return matchResult
+    }
+    
+    func verifyWinner(by playerHand: Int,and computerHand: Int) -> MatchResult {
         if playerHand == computerHand {
-            return .draw
+            return .sameHand
         } else if playerHand - computerHand == 1 || computerHand - playerHand == 2 {
-            return .win
+            return .playerWin
         } else {
-            return .lose
+            return .playerLose
         }
+    }
+    
+    func displayMatchResult(_ matchResult: MatchResult) {
+        print(matchResult.midtermMessage)
+    }
+    
+    func displayErrorMessage() {
+        print(Status.error.statusMessage)
     }
 }
+

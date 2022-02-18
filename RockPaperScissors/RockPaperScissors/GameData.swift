@@ -2,35 +2,14 @@
 //  GameData.swift
 //  RockPaperScissors
 //
-//  Created by mmim, Red on 2022/02/16.
+//  Created by mmim, Red on 2022/02/18.
 //
 
 import Foundation
 
-struct GameData {
-    let handsRange: ClosedRange = 1...3
+class GameData {
     
-    mutating func generateComputerHand() -> PlayerHands {
-        let computerOption = String(Int.random(in: handsRange))
-        let (computerHand, _) = convertToPlayerOption(from: computerOption)
-        return computerHand
-    }
-    
-    mutating func conveyPlayerHandAndStatus() -> (PlayerHands, Status) {
-        let playerOption = inputPlayerOption()
-        let (playerHand, status) = convertToPlayerOption(from: playerOption)
-        return (playerHand, status)
-    }
-    
-    mutating func inputPlayerOption() -> String {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        guard let inputPlayerOption = readLine() else {
-            return "error"
-        }
-        return inputPlayerOption
-    }
-    
-    mutating func convertToPlayerOption(from playerOption: String ) -> (PlayerHands, Status) {
+    func convertToPlayerOption(from playerOption: String) -> (PlayerHands, Status) {
         switch playerOption {
         case "1":
             return (.scissor, .inProgress)
@@ -43,5 +22,25 @@ struct GameData {
         default:
             return (.none, .error)
         }
+    }
+    
+    func generateComputerHand() -> PlayerHands {
+        let handsRange: ClosedRange = 1...3
+        let computerOption = String(Int.random(in: handsRange))
+        let (computerHand, _) = convertToPlayerOption(from: computerOption)
+        return computerHand
+    }
+    
+    func conveyPlayerHandAndStatus() -> (PlayerHands, Status) {
+        let playerOption = inputPlayerOption()
+        let (playerHand, status) = convertToPlayerOption(from: playerOption)
+        return (playerHand, status)
+    }
+    
+    func inputPlayerOption() -> String {
+        guard let inputPlayerOption = readLine() else {
+            return Status.error.statusMessage
+        }
+        return inputPlayerOption
     }
 }
