@@ -10,7 +10,6 @@
 		3050D04A27BD016300B0C891 /* MukchibaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050D04927BD016300B0C891 /* MukchibaGame.swift */; };
 		3050D04C27BD01B200B0C891 /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050D04B27BD01B200B0C891 /* RockPaperScissorsGame.swift */; };
 		3050D04E27BD023400B0C891 /* Relatedmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050D04D27BD023400B0C891 /* Relatedmodel.swift */; };
-		3050D07227BE408900B0C891 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050D07127BE408900B0C891 /* Game.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +29,6 @@
 		3050D04927BD016300B0C891 /* MukchibaGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukchibaGame.swift; sourceTree = "<group>"; };
 		3050D04B27BD01B200B0C891 /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
 		3050D04D27BD023400B0C891 /* Relatedmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relatedmodel.swift; sourceTree = "<group>"; };
-		3050D07127BE408900B0C891 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,7 +64,6 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
-				3050D07127BE408900B0C891 /* Game.swift */,
 				3050D04B27BD01B200B0C891 /* RockPaperScissorsGame.swift */,
 				3050D04927BD016300B0C891 /* MukchibaGame.swift */,
 				3050D04D27BD023400B0C891 /* Relatedmodel.swift */,
@@ -132,7 +129,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3050D04C27BD01B200B0C891 /* RockPaperScissorsGame.swift in Sources */,
-				3050D07227BE408900B0C891 /* Game.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				3050D04A27BD016300B0C891 /* MukchibaGame.swift in Sources */,
 				3050D04E27BD023400B0C891 /* Relatedmodel.swift in Sources */,
