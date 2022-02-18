@@ -7,9 +7,9 @@
 
 - [프로젝트 소개](#프로젝트-소개)
 - [순서도](#순서도)
-- [키워드](#키워드)
 - [STEP 1](#step-1)
     + [고민한점](#고민한점)
+    + [해결한점](#해결한점)
     + [배운개념](#배운개념)
 - [STEP 2](#step-2)
     + [고민한점](#고민한점)
@@ -24,20 +24,93 @@
 ## 순서도
 <img width="700" alt="STEP 1 순서도" src="https://user-images.githubusercontent.com/94151993/153993074-194d00ee-afc1-4daa-8ac8-afcd7f158ac3.png">
 
-## 키워드
-
 ## [STEP 1]
 
 ### 고민한점
+- checkGameResult 함수에서 기존에 출력 기능과 체크하는 기능이 같이 있어서 분리를 했습니다.
+- GameOptions 열거형 타입으로 지나치게 사용한 건 아닌지 고민이 되었습니다.
+- 열거형 타입을 사용하여 하드코딩을 최대한 줄일 수 있도록 고민했습니다.
+
+### 해결한점
+- checkGameResult 함수에서 기존에 출력 기능과 체크하는 기능이 같이 있어서 하나의 함수가 여러 기능을 하고 있다고 생각했습니다. showGameResult 함수를 새로 생성하여 게임 결과를 체크하는 부분과 출력하는 부분으로 분리했습니다.
 
 ### 배운개념
+
+- 열거형과 같은 `사용자 정의 타입` 내부에 프로퍼티나 메서드를 만들 땐, `호출될 때의 모습`을 생각해야한다.
+- 네이밍을 할 때 사용자 중심으로 네이밍을 한다.
+- `이벤트의 before/after` 시점을 생각하여 `Did/Will`을 사용해서 네이밍한다.
+- 열거형을 네임스페이스로 사용할때 `case`보단 `static let`을 사용해서 구현한다.
+
+**1. 네임스페이스는 왜 필요할까?**
+
+하드 코딩된 소스코드는 읽기 어렵고 유지보수 측면에서도 좋지 않다고 생각합니다.
+네임스페이스를 사용하게 되면 읽기 쉬워지고 유지보수와 재사용성이 늘어나기 때문입니다.
+
+**2. 네임스페이스는 보통 열거형으로 만든다는데, 구체적으로 어떻게 만드는 게 좋을까?**
+
+열거형의 raw 타입과 case 사용해서 만들게 되면 rawValue 를 통해 접근해야하는 번거로움이 있다.
+static let 타입 프로퍼티를 사용하여 구성하는 것이 좋으며, 
+struct 를 사용하게 되면 인스턴스화 되는 경우가 있기 때문에 보통 enum 을 사용한다.
+
+```swift
+Enum Settings {
+    static let menu = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    static let gameDidEnd = "게임 종료"
+    ...
+}
+print(Settings.menu)
+```
+
+- 열거형 타입에서 `CaseIterable` 프로토콜을 채택하면 `allCases` 프로퍼티를 통해 열거형의 `case` 들을 배열로 반환해줄 수 있다는 것을 알았습니다.
+- 열겨형 타입에서 `타입 연산 프로퍼티` 사용법에 대해 배웠습니다.
+
+```swift
+// HandType.allCases: [HandType]
+enum HandType: Int, CaseIterable {
+    case scissor = 1
+    case rock = 2
+    case paper = 3
+    
+    static func randomHandType() -> Int? {
+        return Self.allCases.randomElement()?.rawValue
+    }
+}
+```
+
+- 하나의 `guard` 문에 너무 많은 일들이 모여있으면 가독성이 떨어지므로 분리해주는 것이 좋다.
+
+---
 
 ## [STEP 2]
 
 ### 고민한점
+- 가위바위보 함수를 구현할 때 반환하는 GameResult 타입이 승/패/무승부 밖에 없는데 묵찌빠 함수에서는 반환해야되는 조건이 많아서 이를 구현하는 데 고민이 되었습니다.
 
 ### 배운개념
+- 스타일가이드 컨벤션에 따라서 guard else 를 무조건 줄바꿈을 해줬는데 다시 읽어보니 길어질 때 줄바꿈을 해줘야한다는 것을 알았습니다.
+- `guard`, `if let` 문을 사용해서 바인딩을 해줄 때 통일성있게 해주는 것이 좋다.
 
+```swift
+// (O)
+guard let ... else { return }
+guard let ... else { return }
+guard let ... else { return }
+```
+
+```swift
+// (X)
+guard let ... else { return }
+if let ... else { return }
+guard let ... else { return }
+```
+
+- 객체지향의 캡슐화를 위한 규칙 중 하나인 `TDA 원칙`에 대해 알 수 있었습니다.
+```
+TDA 원칙이란? 
+객체 끼리 협력하는 경우, 다른 객체에게 정보를 달라고 요청해서(Ask), 받은 데이터를 갖고 스스로 일하는 게 아니라. 처리해야 할 정보를 다른 객체에게 넘기면서, 필요한 작업을 해달라고 시키라는 의미입니다.
+```
+
+---
 
 ## 그라운드 룰
 ### 활동 시간
