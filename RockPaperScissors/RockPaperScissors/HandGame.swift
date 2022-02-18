@@ -179,7 +179,7 @@ struct HandGame {
         let verifiedUserHand = convertedUserHand(userHand, gameKind: .mukjipa)
         let computerHand = generatedRandomHand()
         let mukjipaGameResult = judgeUserGameResult(userHand: verifiedUserHand, computerHand: computerHand)
-        printWinner(by: mukjipaGameResult)
+        judgeMukjipaWinner(by: mukjipaGameResult)
     }
     
     private func printRockPaperScissorsWinnerTurn(by gameResult: Bool) {
@@ -225,7 +225,7 @@ struct HandGame {
         }
     }
     
-    private func printMukjipaResultMessage(didUserWin: Bool) {
+    private func printMukjipaWinner(didUserWin: Bool) {
         if didUserWin {
             print(Result.userWin.description)
         } else {
@@ -233,9 +233,9 @@ struct HandGame {
         }
     }
     
-    private mutating func printWinner(by mukjipaGameResult: HandGame.Result) {
+    private mutating func judgeMukjipaWinner(by mukjipaGameResult: HandGame.Result) {
         if mukjipaGameResult == .draw {
-            printMukjipaResultMessage(didUserWin: self.hasUserWin)
+            printMukjipaWinner(didUserWin: self.hasUserWin)
             print(Result.endGame.description)
             return
         } else {
