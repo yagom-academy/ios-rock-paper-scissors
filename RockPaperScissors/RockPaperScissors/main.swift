@@ -1,6 +1,6 @@
 import Foundation
 
-var turnOfUser: Bool = false
+var isTurnOfUser: Bool = false
 var thisTurn: String = ""
 
 enum StartAndEndMessage {
@@ -41,7 +41,7 @@ func selectFirstGameMenu() -> String {
 }
 
 func selectSecondGameMenu() -> String {
-    print("[\(decideTurn())턴]", StartAndEndMessage.startOfSecondGame, terminator: PunctuationMarks.colon)
+    print("[\(decideTurn()) 턴]", StartAndEndMessage.startOfSecondGame, terminator: PunctuationMarks.colon)
     guard let userInput = readLine() else { return PunctuationMarks.emptyString }
     return userInput
 }
@@ -65,8 +65,7 @@ func checkValidity2(of userInput: String) -> Int? {
         return intUserInput
     } else {
         print(ErrorMessage.wrongInput)
-        turnOfUser = false
-        print("\(decideTurn())의 턴입니다")
+        isTurnOfUser = false
         startSecondGame(selectSecondGameMenu())
         return nil
     }
@@ -80,25 +79,26 @@ func startFirstGame(_ userInput: String) {
         return
     } else {
         decideFirstWinner(validNumber)
+        startSecondGame(selectSecondGameMenu())
+        return
     }
 }
 
-func decideFirstWinner(_ validNumber: Int) -> Bool {
+func decideFirstWinner(_ validNumber: Int) {
     let allowedNumberRange: ClosedRange<Int> = 1...3
     let computerNumber = Int.random(in: allowedNumberRange)
     let numberToDecideWinner: Int = validNumber - computerNumber
     switch numberToDecideWinner {
     case Decision.winNumber[0], Decision.winNumber[1]:
         print(GameResultMessage.win)
-        turnOfUser = true
+        isTurnOfUser = true
     case Decision.defeatNumber[0], Decision.defeatNumber[1]:
         print(GameResultMessage.defeat)
-        turnOfUser = false
+        isTurnOfUser = false
     default:
         print(GameResultMessage.draw)
         startFirstGame(selectFirstGameMenu())
     }
-    return turnOfUser
 }
 
 func startSecondGame(_ userInput: String) {
@@ -106,30 +106,45 @@ func startSecondGame(_ userInput: String) {
     guard let validNumber = checkValidity2(of: userInput) else { return }
     if validNumber == endingNumber {
         print(StartAndEndMessage.endOfGame)
-        return
     } else {
         decideSecondWinner(validNumber)
+        return
     }
 }
 
 func decideSecondWinner(_ validNumber: Int) {
     thisTurn = decideTurn()
+    var winner: String = ""
     let allowedNumberRange: ClosedRange<Int> = 1...3
     let computerNumber = Int.random(in: allowedNumberRange)
     print("컴퓨터 : \(computerNumber), 사용자 : \(validNumber)")
     let numberToDecideWinner: Int = validNumber - computerNumber
     if validNumber == computerNumber {
         print("\(thisTurn)의 승리!")
+        print(StartAndEndMessage.endOfGame)
+        return
     }
     while validNumber != computerNumber {
-        // 사용자 숫자와 컴퓨터 숫자가 같지 않을때
-        print("사용자 숫자와 컴퓨터 숫자가 같지 않습니다.")
+        switch numberToDecideWinner {
+        case Decision.winNumber[0], Decision.winNumber[1]:
+            winner = Player.user
+        default:
+            winner = Player.computer
+        }
+        if winner == thisTurn {
+            print("\(thisTurn)의 턴입니다")
+            startSecondGame(selectSecondGameMenu())
+        } else {
+            isTurnOfUser = !isTurnOfUser
+            print("\(decideTurn())의 턴입니다")
+            startSecondGame(selectSecondGameMenu())
+        }
         break
     }
 }
 
 func decideTurn() -> String {
-    if turnOfUser == true {
+    if isTurnOfUser == true {
         return Player.user
     } else {
         return Player.computer
@@ -137,4 +152,3 @@ func decideTurn() -> String {
 }
 
 startFirstGame(selectFirstGameMenu())
-startSecondGame(selectSecondGameMenu())
