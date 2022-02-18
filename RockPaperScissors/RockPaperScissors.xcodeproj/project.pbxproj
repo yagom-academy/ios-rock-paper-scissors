@@ -54,6 +54,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B39A0C6727BFD20700B70BA4 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				B39A0C6527BFCBC800B70BA4 /* Player.swift */,
+				B39A0C6327BFCBAE00B70BA4 /* Decision.swift */,
+				B39A0C6127BFCB9A00B70BA4 /* PunctuationMarks.swift */,
+				B39A0C5F27BFCB7E00B70BA4 /* ResultMessage.swift */,
+				B39A0C5D27BFCB5E00B70BA4 /* ErrorMessage.swift */,
+				B39A0C5B27BFCB3300B70BA4 /* StartAndEndMessage.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		C7ABA0D4254EA63000B2367D = {
 			isa = PBXGroup;
 			children = (
@@ -73,15 +86,10 @@
 		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
 			isa = PBXGroup;
 			children = (
+				B39A0C6727BFD20700B70BA4 /* Enum */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
-				B39A0C5727BF7BD200B70BA4 /* RockPaperScissors.swift */,
 				B39A0C5927BF840A00B70BA4 /* MukJiPa.swift */,
-				B39A0C6527BFCBC800B70BA4 /* Player.swift */,
-				B39A0C6327BFCBAE00B70BA4 /* Decision.swift */,
-				B39A0C6127BFCB9A00B70BA4 /* PunctuationMarks.swift */,
-				B39A0C5F27BFCB7E00B70BA4 /* ResultMessage.swift */,
-				B39A0C5D27BFCB5E00B70BA4 /* ErrorMessage.swift */,
-				B39A0C5B27BFCB3300B70BA4 /* StartAndEndMessage.swift */,
+				B39A0C5727BF7BD200B70BA4 /* RockPaperScissors.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
