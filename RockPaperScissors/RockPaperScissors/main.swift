@@ -50,22 +50,23 @@ enum GameResult {
     case error
 }
 
-enum RockScissorPaper메세지 {
-    static func printWin() {
-        print("이겼습니다!")
-        whoseTurn = true
-        gameMode = false
-        showMukChiBaMenu()
+enum RockScissorPaperResult {
+    static func startMukChiBa(result: GameResult) {
+        if result == .win {
+            print("이겼습니다!")
+            whoseTurn = true
+            gameMode = false
+            showMukChiBaMenu()
+        } else {
+            print("졌습니다!")
+            whoseTurn = false
+            gameMode = false
+            showMukChiBaMenu()
+        }
     }
-    static func printDraw() {
+    static func resumeRockScissorPaper() {
         print("비겼습니다!")
         showRockScissorPaperMenu()
-    }
-    static func printLose() {
-        print("졌습니다!")
-        whoseTurn = false
-        gameMode = false
-        showMukChiBaMenu()
     }
     static func printError() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -73,8 +74,8 @@ enum RockScissorPaper메세지 {
     }
 }
 
-enum MukChiBa메세지 {
-    static func resumeRockScissorPaperWin() {
+enum MukChiBaResult {
+    static func keepTurn() {
         if whoseTurn {
             print("사용자의 턴입니다")
             showMukChiBaMenu()
@@ -83,7 +84,7 @@ enum MukChiBa메세지 {
             showMukChiBaMenu()
         }
     }
-    static func printRockScissorPaperDraw() {
+    static func finishGame() {
         if whoseTurn {
             print("사용자의 승리!")
             print("게임 종료")
@@ -92,7 +93,7 @@ enum MukChiBa메세지 {
             print("게임 종료")
         }
     }
-    static func printRockScissorPaperLose() {
+    static func changeTurn() {
         if whoseTurn {
             print("컴퓨터의 턴입니다")
             whoseTurn = false
@@ -111,33 +112,33 @@ enum MukChiBa메세지 {
     }
 }
     
-enum 실행모음 {
+enum MukChiBaDirections {
     static func rockScissorPaperWin(mode: Bool) {
         if mode {
-            RockScissorPaper메세지.printWin()
+            RockScissorPaperResult.startMukChiBa(result: .win)
         } else {
-            MukChiBa메세지.resumeRockScissorPaperWin()
+            MukChiBaResult.keepTurn()
         }
     }
     static func rockScissorPaperDraw(mode: Bool) {
         if mode {
-            RockScissorPaper메세지.printDraw()
+            RockScissorPaperResult.resumeRockScissorPaper()
         } else {
-            MukChiBa메세지.printRockScissorPaperDraw()
+            MukChiBaResult.finishGame()
         }
     }
     static func rockScissorPaperLose(mode: Bool) {
         if mode {
-            RockScissorPaper메세지.printLose()
+            RockScissorPaperResult.startMukChiBa(result: .lose)
         } else {
-            MukChiBa메세지.printRockScissorPaperLose()
+            MukChiBaResult.changeTurn()
         }
     }
     static func printError(mode: Bool) {
         if mode {
-            RockScissorPaper메세지.printError()
+            RockScissorPaperResult.printError()
         } else {
-            MukChiBa메세지.printError()
+            MukChiBaResult.printError()
         }
     }
 }
@@ -181,13 +182,13 @@ func showGameResult(_ gameResult: GameResult) {
     case .exit:
         print("게임 종료")
     case .win:
-        실행모음.rockScissorPaperWin(mode: gameMode)
+        MukChiBaDirections.rockScissorPaperWin(mode: gameMode)
     case .draw:
-        실행모음.rockScissorPaperDraw(mode: gameMode)
+        MukChiBaDirections.rockScissorPaperDraw(mode: gameMode)
     case .lose:
-        실행모음.rockScissorPaperLose(mode: gameMode)
+        MukChiBaDirections.rockScissorPaperLose(mode: gameMode)
     case .error:
-        실행모음.printError(mode: gameMode)
+        MukChiBaDirections.printError(mode: gameMode)
     }
 }
 
