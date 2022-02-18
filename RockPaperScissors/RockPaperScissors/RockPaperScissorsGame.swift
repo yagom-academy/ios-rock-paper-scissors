@@ -27,6 +27,7 @@ struct RockPaperScissorsGame {
         let userHand: RockPaperScissorsType = user
             .selectedMenu()
             .convertedIntToRockPaperScissorsType()
+
         let rock: RockPaperScissorsType = RockPaperScissorsType.rock
         let paper: RockPaperScissorsType = RockPaperScissorsType.paper
         let scissor: RockPaperScissorsType = RockPaperScissorsType.scissor
@@ -70,3 +71,21 @@ struct RockPaperScissorsGame {
         }
     }
 }
+
+fileprivate extension Int {
+    func convertedIntToRockPaperScissorsType() -> RockPaperScissorsType {
+        switch self {
+        case RockPaperScissorsType.scissor.rawValue:
+            return .scissor
+        case RockPaperScissorsType.rock.rawValue:
+            return .rock
+        case RockPaperScissorsType.paper.rawValue:
+            return .paper
+        case RockPaperScissorsType.exit.rawValue:
+            return .exit
+        default:
+            return .error
+        }
+    }
+}
+

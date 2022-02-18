@@ -29,6 +29,7 @@ struct MukjipaGame {
         let userHand: MukjipaType = user
             .selectedMenu()
             .convertedIntToMukjipaType()
+        
         let muk: MukjipaType = MukjipaType.muk
         let ji: MukjipaType = MukjipaType.ji
         let pa: MukjipaType = MukjipaType.pa
@@ -70,6 +71,23 @@ struct MukjipaGame {
             userInterface.printCurrentTurn(currentTurn: .user)
         case .none:
             break
+        }
+    }
+}
+
+fileprivate extension Int {
+    func convertedIntToMukjipaType() -> MukjipaType {
+        switch self {
+        case MukjipaType.muk.rawValue:
+            return .muk
+        case MukjipaType.ji.rawValue:
+            return .ji
+        case MukjipaType.pa.rawValue:
+            return .pa
+        case MukjipaType.exit.rawValue:
+            return .exit
+        default:
+            return .error
         }
     }
 }
