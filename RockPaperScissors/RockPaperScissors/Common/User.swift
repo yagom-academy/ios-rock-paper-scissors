@@ -8,18 +8,14 @@
 import Foundation
 
 struct User {
-    enum Option {
-        static let wrongInput: Int = 4
-    }
-    
     func selectedMenu() -> Int {
         guard let userInput: String = readLine(),
               let convertedUserInput: Int = Int(userInput) else {
-                  return Option.wrongInput
+                  return GameOption.wrongInput
               }
         
         guard verifyUserInput(userInput: convertedUserInput) else {
-            return Option.wrongInput
+            return GameOption.wrongInput
         }
         
         return convertedUserInput

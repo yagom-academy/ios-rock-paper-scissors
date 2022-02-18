@@ -7,84 +7,84 @@
 
 import Foundation
 
-final class RockPaperScissorsGame {
-    private enum RockPaperScissorsType: Int {
-        case scissor = 1
-        case rock = 2
-        case paper = 3
-        case exit = 0
-    }
-    
-    private enum GameResult: String {
-        case draw = "비겼습니다!"
-        case win = "이겼습니다!"
-        case lose = "졌습니다!"
-    }
-
+struct RockPaperScissorsGame {
     private let user: User
     private let computer: Computer
+    private let userInterface: UserInterface
     
-    init(user: User, computer: Computer) {
+    init(user: User, computer: Computer, userInterface: UserInterface) {
         self.user = user
         self.computer = computer
+        self.userInterface = userInterface
     }
     
     func startProgram() {
-        printUserInterface()
+        userInterface.printRockPaperScissorsGameUserInterface()
         playSelectedMenu()
     }
     
     private func playSelectedMenu() {
-        let userSelectedMenu: Int = user.selectedMenu()
-        let rock: Int = RockPaperScissorsType.rock.rawValue
-        let paper: Int = RockPaperScissorsType.paper.rawValue
-        let scissor: Int = RockPaperScissorsType.scissor.rawValue
+        let userHand: RockPaperScissorsType = user
+            .selectedMenu()
+            .convertedIntToRockPaperScissorsType()
+
+        let rock: RockPaperScissorsType = RockPaperScissorsType.rock
+        let paper: RockPaperScissorsType = RockPaperScissorsType.paper
+        let scissor: RockPaperScissorsType = RockPaperScissorsType.scissor
+        let exit: RockPaperScissorsType = RockPaperScissorsType.exit
         
-        switch userSelectedMenu {
+        switch userHand {
         case scissor, rock, paper:
-            judgeGameResult(userSelectedNumber: userSelectedMenu)
-            
-        case RockPaperScissorsType.exit.rawValue:
-            printGameOver()
-            
+            judgeGameResult(userHand: userHand)
+        case exit:
+            userInterface.printGameOver()
         default:
-            printErrorMessage()
+            userInterface.printErrorMessage()
             startProgram()
         }
     }
     
-    private func judgeGameResult(userSelectedNumber: Int) {
-        let computerSelectedNumber: Int = computer.generatedComputerNumber(numberRange: GameOption.computerNumberRange)
+    private func judgeGameResult(userHand: RockPaperScissorsType) {
+        let computerHand: RockPaperScissorsType = computer
+            .generatedComputerNumber()
+            .convertedIntToRockPaperScissorsType()
+                
+        var mukjipaGame = MukjipaGame(
+            user: self.user,
+            computer: self.computer,
+            userInterface: self.userInterface
+        )
         
-        if userSelectedNumber == computerSelectedNumber {
-            printGameResut(gameResult: .draw)
+        switch (userHand, computerHand) {
+        case (.rock, .rock), (.scissor, .scissor), (.paper, .paper):
+            userInterface.printRockPaperScissorsGameResut(gameResult: .draw)
             startProgram()
+        case (.rock, .scissor), (.scissor, .paper), (.paper, .rock):
+            userInterface.printRockPaperScissorsGameResut(gameResult: .win)
+            mukjipaGame.startMukjipaGame(currentTurn: .user)
+        case (.rock, .paper), (.scissor, .rock), (.paper, .scissor):
+            userInterface.printRockPaperScissorsGameResut(gameResult: .lose)
+            mukjipaGame.startMukjipaGame(currentTurn: .computer)
+        default:
+            break
         }
-        
-        if userSelectedNumber == computerSelectedNumber + 1 || userSelectedNumber == computerSelectedNumber - 2 {
-            printGameResut(gameResult: .win)
-            printGameOver()
-        }
-        
-        if userSelectedNumber == computerSelectedNumber - 1 || userSelectedNumber == computerSelectedNumber + 2 {
-            printGameResut(gameResult: .lose)
-            printGameOver()
-        }
-    }
-    
-    private func printUserInterface() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> :" , terminator: " ")
-    }
-    
-    private func printGameOver() {
-        print("게임 종료")
-    }
-    
-    private func printErrorMessage() {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-    }
-    
-    private func printGameResut(gameResult: GameResult) {
-        print(gameResult.rawValue)
     }
 }
+
+fileprivate extension Int {
+    func convertedIntToRockPaperScissorsType() -> RockPaperScissorsType {
+        switch self {
+        case RockPaperScissorsType.scissor.rawValue:
+            return .scissor
+        case RockPaperScissorsType.rock.rawValue:
+            return .rock
+        case RockPaperScissorsType.paper.rawValue:
+            return .paper
+        case RockPaperScissorsType.exit.rawValue:
+            return .exit
+        default:
+            return .error
+        }
+    }
+}
+
