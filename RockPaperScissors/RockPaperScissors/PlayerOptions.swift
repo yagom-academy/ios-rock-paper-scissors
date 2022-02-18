@@ -2,30 +2,19 @@
 //  PlayerOptions.swift
 //  RockPaperScissors
 //
-//  Created by mmim, Red on 2022/02/17.
+//  Created by mmim, Red on 2022/02/18.
 //
 
 import Foundation
 
-enum PlayerHands {
-    case scissor
-    case rock
-    case paper
-    case none
-}
-
-extension PlayerHands {
+enum PlayerHands: Int {
+    case scissor = 1
+    case rock = 2
+    case paper = 3
+    case none = 0
+    
     var optionNumber: Int {
-        switch self {
-        case .scissor:
-            return 1
-        case .rock:
-            return 2
-        case .paper:
-            return 3
-        default:
-            return Int.zero
-        }
+        return self.rawValue
     }
 }
 
@@ -37,7 +26,7 @@ enum Status {
 }
 
 extension Status {
-    var message: String {
+    var statusMessage: String {
         switch self {
         case .begin:
             return "가위(1), 바위(2), 보(3)! <종료 : 0> : "

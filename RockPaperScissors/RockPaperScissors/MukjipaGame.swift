@@ -2,42 +2,43 @@
 //  MukjipaGame.swift
 //  RockPaperScissors
 //
-//  Created by mmim, Red on 2022/02/17.
+//  Created by mmim, Red on 2022/02/18.
 //
 
 import Foundation
 
-class MukjipaGame: RockScissorPaperGame {
+final class MukjipaGame: RockScissorPaperGame {
     var turn: Turn = .playerTurn
     
     override func startGame() {
         displayInputMessage()
+        
         let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
         
         switch status {
         case .exit:
-            print(Status.exit.message)
+            print(Status.exit.statusMessage)
             break
         case .error:
             changeTurnByError()
             displayErrorMessage()
             startGame()
         case .inProgress:
-            runByOption(makeResult(playerOption))
+            runByOption(of: makeResult(by: playerOption))
         default:
             startGame()
         }
     }
     
-    override func runByOption(_ matchResult: MatchResult) {
-        if turn == .playerTurn && matchResult == .draw {
-            displayMatchResult(MatchResult.win)
-            print(Status.exit.message)
-        } else if turn == .computerTurn && matchResult == .draw  {
-            displayMatchResult(MatchResult.lose)
-            print(Status.exit.message)
+    override func runByOption(of matchResult: MatchResult) {
+        if turn == .playerTurn && matchResult == .sameHand {
+            displayMatchResult(MatchResult.playerWin)
+            print(Status.exit.statusMessage)
+        } else if turn == .computerTurn && matchResult == .sameHand  {
+            displayMatchResult(MatchResult.playerLose)
+            print(Status.exit.statusMessage)
         } else {
-            changeTurn(matchResult)
+            changeTurn(by: matchResult)
             startGame()
         }
     }
@@ -50,18 +51,21 @@ class MukjipaGame: RockScissorPaperGame {
         print(matchResult.finalMessage)
     }
     
-    func changeTurn(_ result: MatchResult ) {
-        if result == .win {
+    private func changeTurn(by result: MatchResult ) {
+        if result == .playerWin {
             turn = .playerTurn
-            print(turn.notificationMessage)
-        } else if result == .lose {
+            displayNotification(by: turn)
+        } else if result == .playerLose {
             turn = .computerTurn
-            print(turn.notificationMessage)
+            displayNotification(by: turn)
         }
     }
     
-    func changeTurnByError() {
+    func displayNotification(by turn: Turn) {
+        print(turn.notificationMessage)
+    }
+    
+    private func changeTurnByError() {
         turn = .computerTurn
     }
-
 }

@@ -2,36 +2,12 @@
 //  GameData.swift
 //  RockPaperScissors
 //
-//  Created by mmim, Red on 2022/02/17.
+//  Created by mmim, Red on 2022/02/18.
 //
 
 import Foundation
 
 class GameData {
-    let handsRange: ClosedRange = 1...3
-    
-//    func runByOption(_ matchResult: MatchResult) {}
-    
-//    func startGame() {
-//        displayInputMessage()
-//        let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
-//        
-//        switch status {
-//        case .exit:
-//            print(Status.exit.message)
-//            break
-//        case .error:
-//            startGame()
-//        case .inProgress:
-//            runByOption(makeResult(playerOption))
-//        default:
-//            startGame()
-//        }
-//    }
-    
-    func displayInputMessage() {
-        print(Status.begin.message, terminator: "")
-    }
     
     func convertToPlayerOption(from playerOption: String ) -> (PlayerHands, Status) {
         switch playerOption {
@@ -48,8 +24,8 @@ class GameData {
         }
     }
     
-    
     func generateComputerHand() -> PlayerHands {
+        let handsRange: ClosedRange = 1...3
         let computerOption = String(Int.random(in: handsRange))
         let (computerHand, _) = convertToPlayerOption(from: computerOption)
         return computerHand
@@ -63,33 +39,8 @@ class GameData {
     
     func inputPlayerOption() -> String {
         guard let inputPlayerOption = readLine() else {
-            return Status.error.message
+            return Status.error.statusMessage
         }
         return inputPlayerOption
-    }
-    
-    
-    func makeResult(_ playerHand: PlayerHands) -> MatchResult {
-        let computerHand = generateComputerHand()
-        let matchResult = verifyWinner(playerHand.optionNumber, computerHand.optionNumber)
-        return matchResult
-    }
-    
-    func verifyWinner(_ playerHand: Int,_ computerHand: Int ) -> MatchResult {
-        if playerHand == computerHand {
-            return .draw
-        } else if playerHand - computerHand == 1 || computerHand - playerHand == 2 {
-            return .win
-        } else {
-            return .lose
-        }
-    }
-    
-    func displayMatchResult(_ matchResult: MatchResult) {
-        print(matchResult.midtermMessage)
-    }
-    
-    func displayErrorMessage() {
-        print(Status.error.message)
     }
 }
