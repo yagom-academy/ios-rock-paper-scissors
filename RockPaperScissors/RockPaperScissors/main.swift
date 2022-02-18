@@ -5,10 +5,8 @@
 //
 import Foundation
 
-enum Hand: String {
+enum Hand: CaseIterable {
     case scissors, rock , paper
-    case extraordinary
-    case exit
 }
 
 enum MessegePrint {
@@ -22,18 +20,18 @@ enum MessegePrint {
 }
 
 func startGame() {
+    let exitNumber = "0"
     print(MessegePrint.menuDisplay, terminator: "")
-    let userInput = convertStringToHand()
-    
-    switch userInput {
-    case Hand.scissors, Hand.rock, Hand.paper:
-        playRockPaperScissors(userHand: userInput)
-    case Hand.exit:
+    let (userInput, userInputNumber) = convertStringToHand()
+    if userInputNumber == exitNumber {
         print(MessegePrint.prgramExitMessege)
-        return
-    default:
-        print(MessegePrint.inputErrorMessege)
-        startGame()
+    } else {
+        guard let userInput = userInput else {
+            print(MessegePrint.inputErrorMessege)
+            startGame()
+            return
+        }
+        playRockPaperScissors(userHand: userInput)
     }
 }
 
@@ -45,30 +43,27 @@ func inputValue() -> String {
     return inputValue
 }
 
-func convertStringToHand() -> Hand {
+func convertStringToHand() -> (Hand?, String) {
     let handValue: Hand
-    
     let inputValue = inputValue()
-    if inputValue == "1" {
+    
+    switch inputValue {
+    case "1":
         handValue = Hand.scissors
-    } else if inputValue == "2" {
+    case "2":
         handValue = Hand.rock
-    } else if inputValue == "3" {
+    case "3":
         handValue = Hand.paper
-    } else if inputValue == "0" {
-        handValue = Hand.exit
-    } else {
-        handValue = Hand.extraordinary
+    default:
+        return (nil, inputValue)
     }
-    return handValue
+    return (handValue, inputValue)
 }
 
 func makeComputerHand() -> Hand {
-    let rockScissorsPaper: Set<Hand> = [Hand.rock, Hand.scissors, Hand.paper]
-    
-    guard let computerHand = rockScissorsPaper.randomElement() else {
+    guard let computerHand = Hand.allCases.randomElement() else {
         print(MessegePrint.gameErrorMessege)
-        return Hand.extraordinary
+        return .scissors
     }
     return computerHand
 }
@@ -90,7 +85,10 @@ func compareHand(userHand: Hand,to computerHand: Hand) {
 }
 
 func checkUserWinCondition(_ userHand: Hand, _ computerHand: Hand) -> Bool {
-    return userHand == Hand.scissors && computerHand == Hand.paper || userHand == Hand.rock && computerHand == Hand.scissors || userHand == Hand.paper && computerHand == Hand.rock
+    let condition1 = userHand == Hand.scissors && computerHand == Hand.paper
+    let condition2 = userHand == Hand.rock && computerHand == Hand.scissors
+    let condition3 =  userHand == Hand.paper && computerHand == Hand.rock
+    return condition1 || condition2 || condition3
 }
 
 startGame()
