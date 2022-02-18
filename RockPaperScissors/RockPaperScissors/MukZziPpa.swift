@@ -6,32 +6,20 @@
 
 import Foundation
 
-enum MukZziPpaHandType: Int, CaseIterable {
-    case muk = 1
-    case zzi = 2
-    case ppa = 3
-    
-    static var randomPick: Int? {
-        return Self.allCases.randomElement()?.rawValue
-    }
-}
-
 func getPlayerMukZziPpaInput() -> Int? {
     guard let playerInput = readLine(),
           let playerIntInput = Int(playerInput)
     else {
         return nil
     }
-    
-    if playerIntInput == Settings.exitCode {
+    guard playerIntInput != Settings.exitCode else {
         return playerIntInput
     }
-    
-    guard let _ = MukZziPpaHandType(rawValue: playerIntInput) else {
+    guard let playerMukZziPpaInput = HandType.convertMukZziPpaToHandType(playerIntInput) else {
         return nil
     }
 
-    return playerIntInput
+    return playerMukZziPpaInput
 }
 
 func printMukZziPpaGameMenu(_ result: GameResult) {
@@ -45,17 +33,17 @@ func printMukZziPpaGameMenu(_ result: GameResult) {
     }
 }
 
-func startMukZziPpaGame(_ result: GameResult) -> GameResult? {
+func startMukZziPpaGame(with result: GameResult) -> GameResult? {
     printMukZziPpaGameMenu(result)
     guard let playerInput = getPlayerMukZziPpaInput() else {
         print(GameDisplayMessage.invalidPlayerInput)
-        return startMukZziPpaGame(GameResult.playerLose)
+        return startMukZziPpaGame(with: GameResult.playerLose)
     }
     if playerInput == Settings.exitCode {
         print(GameDisplayMessage.gameDidEnd)
         return nil
     }
-    guard let computerInput = MukZziPpaHandType.randomPick else {
+    guard let computerInput = HandType.randomPick else {
         print(GameDisplayMessage.error)
         return nil
     }
@@ -76,17 +64,19 @@ func showMukZziPpaGameResult(_ result: GameResult) {
 }
 
 func checkMukZziPpaGameResult(player playerInput: Int, computer computerInput: Int, lastWinner: GameResult) -> GameResult? {
-    let computerWinCondition = (computerInput % 3) + 1
+    let playerWinCondition = (computerInput % 3) + 1
+    
+    print(HandType(rawValue: playerInput)!, HandType(rawValue: computerInput)!)
     
     if playerInput == computerInput, lastWinner == .playerWin {
         return .playerWin
-    } else if playerInput == computerInput, lastWinner == .playerLose{
+    } else if playerInput == computerInput, lastWinner == .playerLose {
         return .playerLose
-    } else if playerInput == computerWinCondition {
-        print(GameDisplayMessage.isComputerTurn)
-        return startMukZziPpaGame(.playerLose)
-    } else {
+    } else if playerInput == playerWinCondition {
         print(GameDisplayMessage.isPlayerTurn)
-        return startMukZziPpaGame(.playerWin)
+        return startMukZziPpaGame(with: .playerWin)
+    } else {
+        print(GameDisplayMessage.isComputerTurn)
+        return startMukZziPpaGame(with: .playerLose)
     }
 }

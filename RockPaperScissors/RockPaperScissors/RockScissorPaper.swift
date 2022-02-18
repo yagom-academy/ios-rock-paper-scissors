@@ -21,6 +21,19 @@ enum HandType: Int, CaseIterable {
         }
         return false
     }
+    
+    static func convertMukZziPpaToHandType(_ value: Int) -> Int? {
+        switch value {
+        case 1:
+            return 2
+        case 2:
+            return 1
+        case 3:
+            return 3
+        default:
+            return nil
+        }
+    }
 }
 
 func getPlayerInput() -> Int? {
@@ -29,11 +42,9 @@ func getPlayerInput() -> Int? {
     else {
         return nil
     }
-    
     guard playerIntInput != Settings.exitCode else {
         return playerIntInput
     }
-    
     guard HandType.isHandType(playerIntInput) else {
         return nil
     }
@@ -67,13 +78,12 @@ func showGameResult(_ result: GameResult) {
 func startGame() {
     print(GameDisplayMessage.menu, terminator: "")
 
-    guard let playerInput = getPlayerInput()
-    else {
+    guard let playerInput = getPlayerInput() else {
         print(GameDisplayMessage.invalidPlayerInput)
         startGame()
         return
     }
-    if playerInput == Settings.exitCode {
+    guard playerInput != Settings.exitCode else {
         print(GameDisplayMessage.gameDidEnd)
         return
     }
@@ -81,6 +91,7 @@ func startGame() {
         print(GameDisplayMessage.error)
         return
     }
+    
     let gameResult = checkGameResult(player: playerInput, computer: computerInput)
     
     showGameResult(gameResult)
@@ -90,7 +101,7 @@ func startGame() {
         return
     }
     
-    guard let mukZziPpaGameResult = startMukZziPpaGame(gameResult) else {
+    guard let mukZziPpaGameResult = startMukZziPpaGame(with: gameResult) else {
         return
     }
     
