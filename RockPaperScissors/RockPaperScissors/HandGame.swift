@@ -101,7 +101,7 @@ struct HandGame {
             play()
             return
         }
-        let verifiedUserHand = verifiedUserHand(userHand, gameKind: .rockPaperScissors)
+        let verifiedUserHand = convertedUserHand(userHand, gameKind: .rockPaperScissors)
         let computerHand = generatedRandomHand()
         let userGameResult = judgeUserGameResult(userHand: verifiedUserHand, computerHand: computerHand)
         printGameResult(by: userGameResult)
@@ -121,7 +121,7 @@ struct HandGame {
         return inputtedHand
     }
     
-    private func verifiedUserHand(_ inputtedValue: String?, gameKind: kind) -> HandGame.Hand {
+    private func convertedUserHand(_ inputtedValue: String?, gameKind: kind) -> HandGame.Hand {
         if inputtedValue == HandGame.Guide.numberOne.description {
             if gameKind == .mukjipa { return .rock }
             return .scissors
@@ -176,7 +176,7 @@ struct HandGame {
             playMukjipa(didUserWin: self.hasUserWin)
             return
         }
-        let verifiedUserHand = verifiedUserHand(userHand, gameKind: .mukjipa)
+        let verifiedUserHand = convertedUserHand(userHand, gameKind: .mukjipa)
         let computerHand = generatedRandomHand()
         let mukjipaGameResult = judgeUserGameResult(userHand: verifiedUserHand, computerHand: computerHand)
         printWinner(by: mukjipaGameResult)
