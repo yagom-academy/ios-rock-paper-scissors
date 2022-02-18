@@ -7,8 +7,27 @@
 
 import Foundation
 
-class MukjipaGame: GameData  {
+class MukjipaGame: RockScissorPaperGame {
     var turn: Turn = .playerTurn
+    
+    override func startGame() {
+        displayInputMessage()
+        let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
+        
+        switch status {
+        case .exit:
+            print(Status.exit.message)
+            break
+        case .error:
+            changeTurnByError()
+            displayErrorMessage()
+            startGame()
+        case .inProgress:
+            runByOption(makeResult(playerOption))
+        default:
+            startGame()
+        }
+    }
     
     override func runByOption(_ matchResult: MatchResult) {
         if turn == .playerTurn && matchResult == .draw {
@@ -41,9 +60,8 @@ class MukjipaGame: GameData  {
         }
     }
     
-    override func changeTurnByError() {
+    func changeTurnByError() {
         turn = .computerTurn
-        print(Status.error.message)
     }
 
 }

@@ -9,7 +9,25 @@ import Foundation
 
 class RockScissorPaperGame: GameData {
     
-    override func runByOption(_ matchResult: MatchResult) {
+    func startGame() {
+        displayInputMessage()
+        let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
+        
+        switch status {
+        case .exit:
+            print(Status.exit.message)
+            break
+        case .error:
+            displayErrorMessage()
+            startGame()
+        case .inProgress:
+            runByOption(makeResult(playerOption))
+        default:
+            startGame()
+        }
+    }
+    
+    func runByOption(_ matchResult: MatchResult) {
         displayMatchResult(matchResult)
         if matchResult == .draw {
             startGame()
@@ -24,8 +42,5 @@ class RockScissorPaperGame: GameData {
         }
     }
     
-    override func displayMatchResult(_ matchResult: MatchResult) {
-        print(matchResult.midtermMessage)
-    }
 }
 

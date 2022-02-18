@@ -10,23 +10,24 @@ import Foundation
 class GameData {
     let handsRange: ClosedRange = 1...3
     
-    func startGame() {
-        displayInputMessage()
-        let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
-        
-        switch status {
-        case .exit:
-            print(Status.exit.message)
-            break
-        case .error:
-            changeTurnByError()
-            startGame()
-        case .inProgress:
-            runByOption(makeResult(playerOption))
-        default:
-            startGame()
-        }
-    }
+//    func runByOption(_ matchResult: MatchResult) {}
+    
+//    func startGame() {
+//        displayInputMessage()
+//        let (playerOption, status) = convertToPlayerOption(from: inputPlayerOption())
+//        
+//        switch status {
+//        case .exit:
+//            print(Status.exit.message)
+//            break
+//        case .error:
+//            startGame()
+//        case .inProgress:
+//            runByOption(makeResult(playerOption))
+//        default:
+//            startGame()
+//        }
+//    }
     
     func displayInputMessage() {
         print(Status.begin.message, terminator: "")
@@ -47,7 +48,6 @@ class GameData {
         }
     }
     
-    func changeTurnByError() { }
     
     func generateComputerHand() -> PlayerHands {
         let computerOption = String(Int.random(in: handsRange))
@@ -68,7 +68,6 @@ class GameData {
         return inputPlayerOption
     }
     
-    func runByOption(_ matchResult: MatchResult) {}
     
     func makeResult(_ playerHand: PlayerHands) -> MatchResult {
         let computerHand = generateComputerHand()
@@ -86,5 +85,11 @@ class GameData {
         }
     }
     
-    func displayMatchResult(_ matchResult: MatchResult) { }
+    func displayMatchResult(_ matchResult: MatchResult) {
+        print(matchResult.midtermMessage)
+    }
+    
+    func displayErrorMessage() {
+        print(Status.error.message)
+    }
 }
