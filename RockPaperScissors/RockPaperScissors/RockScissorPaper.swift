@@ -42,7 +42,7 @@ func getPlayerInput() -> Int? {
     else {
         return nil
     }
-    guard playerIntInput != Settings.exitCode else {
+    guard playerIntInput != Setting.exitCode else {
         return playerIntInput
     }
     guard HandType.isHandType(playerIntInput) else {
@@ -83,7 +83,7 @@ func startGame() {
         startGame()
         return
     }
-    guard playerInput != Settings.exitCode else {
+    guard playerInput != Setting.exitCode else {
         print(GameDisplayMessage.gameDidEnd)
         return
     }
@@ -93,17 +93,14 @@ func startGame() {
     }
     
     let gameResult = checkGameResult(player: playerInput, computer: computerInput)
-    
     showGameResult(gameResult)
-    
+
     if gameResult == .playerDraw {
         startGame()
         return
     }
     
-    guard let mukZziPpaGameResult = startMukZziPpaGame(with: gameResult) else {
-        return
+    if let mukZziPpaGameResult = startMukZziPpaGame(with: gameResult) {
+        showMukZziPpaGameResult(mukZziPpaGameResult)
     }
-    
-    showMukZziPpaGameResult(mukZziPpaGameResult)
 }

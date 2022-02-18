@@ -12,7 +12,7 @@ func getPlayerMukZziPpaInput() -> Int? {
     else {
         return nil
     }
-    guard playerIntInput != Settings.exitCode else {
+    guard playerIntInput != Setting.exitCode else {
         return playerIntInput
     }
     guard let playerMukZziPpaInput = HandType.convertMukZziPpaToHandType(playerIntInput) else {
@@ -39,7 +39,7 @@ func startMukZziPpaGame(with result: GameResult) -> GameResult? {
         print(GameDisplayMessage.invalidPlayerInput)
         return startMukZziPpaGame(with: GameResult.playerLose)
     }
-    if playerInput == Settings.exitCode {
+    guard playerInput != Setting.exitCode else {
         print(GameDisplayMessage.gameDidEnd)
         return nil
     }
@@ -47,7 +47,12 @@ func startMukZziPpaGame(with result: GameResult) -> GameResult? {
         print(GameDisplayMessage.error)
         return nil
     }
-    return checkMukZziPpaGameResult(player: playerInput, computer: computerInput, lastWinner: result)
+    
+    return checkMukZziPpaGameResult(
+        player: playerInput,
+        computer: computerInput,
+        lastWinner: result
+    )
 }
 
 func showMukZziPpaGameResult(_ result: GameResult) {
@@ -63,10 +68,12 @@ func showMukZziPpaGameResult(_ result: GameResult) {
     }
 }
 
-func checkMukZziPpaGameResult(player playerInput: Int, computer computerInput: Int, lastWinner: GameResult) -> GameResult? {
+func checkMukZziPpaGameResult(
+    player playerInput: Int,
+    computer computerInput: Int,
+    lastWinner: GameResult
+) -> GameResult? {
     let playerWinCondition = (computerInput % 3) + 1
-    
-    print(HandType(rawValue: playerInput)!, HandType(rawValue: computerInput)!)
     
     if playerInput == computerInput, lastWinner == .playerWin {
         return .playerWin

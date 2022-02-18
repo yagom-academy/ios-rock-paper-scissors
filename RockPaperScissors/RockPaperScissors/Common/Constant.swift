@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-enum Settings {
+enum Setting {
     static let exitCode = 0
 }
 
