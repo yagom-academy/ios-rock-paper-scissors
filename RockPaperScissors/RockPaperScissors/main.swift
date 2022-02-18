@@ -50,80 +50,105 @@ enum GameResult {
     case error
 }
 
-enum RockScissorPaperPrintMessage {
-    static let winText = "이겼습니다!"
-    static let drawText = "비겼습니다!"
-    static let loseText = "졌습니다!"
-    static let endText = "게임 종료"
-    static let errorText = "잘못된 입력입니다. 다시 시도해주세요."
+enum RockScissorPaper메세지 {
     static func printWin() {
-        print(winText)
-        turn = true
+        print("이겼습니다!")
+        whoseTurn = true
+        gameMode = false
         showMukChiBaMenu()
     }
     static func printDraw() {
-        print(drawText)
+        print("비겼습니다!")
         showRockScissorPaperMenu()
     }
     static func printLose() {
-        print(loseText)
-        turn = false
+        print("졌습니다!")
+        whoseTurn = false
+        gameMode = false
         showMukChiBaMenu()
     }
     static func printError() {
-        print(errorText)
+        print("잘못된 입력입니다. 다시 시도해주세요.")
         showRockScissorPaperMenu()
     }
 }
 
-enum MukChiBaPrintMessage {
-    static let userTurnText = "사용자의 턴입니다"
-    static let computerTurnText = "컴퓨터의 턴입니다"
-    static let userWinText = "사용자의 승리!"
-    static let computerWinText = "컴퓨터의 승리!"
-    static func printRockScissorPaperWin() {
-        if turn {
-            print(userTurnText)
+enum MukChiBa메세지 {
+    static func resumeRockScissorPaperWin() {
+        if whoseTurn {
+            print("사용자의 턴입니다")
             showMukChiBaMenu()
         } else {
-            print(computerTurnText)
+            print("컴퓨터의 턴입니다")
             showMukChiBaMenu()
         }
     }
     static func printRockScissorPaperDraw() {
-        if turn {
-            print(userWinText)
-            print(RockScissorPaperPrintMessage.endText)
+        if whoseTurn {
+            print("사용자의 승리!")
+            print("게임 종료")
         } else {
-            print(computerWinText)
-            print(RockScissorPaperPrintMessage.endText)
+            print("컴퓨터의 승리!")
+            print("게임 종료")
         }
     }
     static func printRockScissorPaperLose() {
-        if turn {
-            print(computerTurnText)
-            turn = false
+        if whoseTurn {
+            print("컴퓨터의 턴입니다")
+            whoseTurn = false
             showMukChiBaMenu()
         } else {
-            print(userTurnText)
-            turn = true
+            print("사용자의 턴입니다")
+            whoseTurn = true
             showMukChiBaMenu()
         }
     }
     static func printError() {
-        print(RockScissorPaperPrintMessage.errorText)
-        print(computerTurnText)
-        turn = false
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        print("컴퓨터의 턴입니다")
+        whoseTurn = false
         showMukChiBaMenu()
     }
 }
+    
+enum 실행모음 {
+    static func rockScissorPaperWin(mode: Bool) {
+        if mode {
+            RockScissorPaper메세지.printWin()
+        } else {
+            MukChiBa메세지.resumeRockScissorPaperWin()
+        }
+    }
+    static func rockScissorPaperDraw(mode: Bool) {
+        if mode {
+            RockScissorPaper메세지.printDraw()
+        } else {
+            MukChiBa메세지.printRockScissorPaperDraw()
+        }
+    }
+    static func rockScissorPaperLose(mode: Bool) {
+        if mode {
+            RockScissorPaper메세지.printLose()
+        } else {
+            MukChiBa메세지.printRockScissorPaperLose()
+        }
+    }
+    static func printError(mode: Bool) {
+        if mode {
+            RockScissorPaper메세지.printError()
+        } else {
+            MukChiBa메세지.printError()
+        }
+    }
+}
 
-var turn = true
+var gameMode = true
+var whoseTurn = true
 func showRockScissorPaperMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
-    showRockScissorPaperResult(
+    showGameResult(
         compareRockScissorPaper(
             userOption: matchedRockScissorPaperHand(receiveNumber()),
             computerOption: matchedRockScissorPaperHand(makeRandomNumber())
@@ -132,9 +157,9 @@ func showRockScissorPaperMenu() {
 }
 
 func showMukChiBaMenu() {
-    if turn {
+    if whoseTurn {
         print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
-        showMukChiBaResult(
+        showGameResult(
             compareMukChiBa(
                 attackOption: matchedMukChiBaHand(receiveNumber()),
                 defenseOption: matchedMukChiBaHand(makeRandomNumber())
@@ -142,7 +167,7 @@ func showMukChiBaMenu() {
         )
     } else {
         print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
-        showMukChiBaResult(
+        showGameResult(
             compareMukChiBa(
                 attackOption: matchedMukChiBaHand(makeRandomNumber()),
                 defenseOption: matchedMukChiBaHand(receiveNumber())
@@ -151,33 +176,18 @@ func showMukChiBaMenu() {
     }
 }
 
-func showRockScissorPaperResult(_ gameResult: GameResult) {
+func showGameResult(_ gameResult: GameResult) {
     switch gameResult {
     case .exit:
-        print(RockScissorPaperPrintMessage.endText)
+        print("게임 종료")
     case .win:
-        RockScissorPaperPrintMessage.printWin()
+        실행모음.rockScissorPaperWin(mode: gameMode)
     case .draw:
-        RockScissorPaperPrintMessage.printDraw()
+        실행모음.rockScissorPaperDraw(mode: gameMode)
     case .lose:
-        RockScissorPaperPrintMessage.printLose()
+        실행모음.rockScissorPaperLose(mode: gameMode)
     case .error:
-        RockScissorPaperPrintMessage.printError()
-    }
-}
-
-func showMukChiBaResult(_ gameResult: GameResult) {
-    switch gameResult {
-    case .exit:
-        print(RockScissorPaperPrintMessage.endText)
-    case .win:
-        MukChiBaPrintMessage.printRockScissorPaperWin()
-    case .draw:
-        MukChiBaPrintMessage.printRockScissorPaperDraw()
-    case .lose:
-        MukChiBaPrintMessage.printRockScissorPaperLose()
-    case .error:
-        MukChiBaPrintMessage.printError()
+        실행모음.printError(mode: gameMode)
     }
 }
 
@@ -204,7 +214,7 @@ func compareMukChiBa(attackOption: GameOptions, defenseOption: GameOptions) -> G
         return .win
     case (.paper, .scissor), (.scissor, .rock), (.rock, .paper):
         return .lose
-    case (.exit, _):
+    case (.exit, _), (_, .exit):
         return .exit
     default:
         return .error
