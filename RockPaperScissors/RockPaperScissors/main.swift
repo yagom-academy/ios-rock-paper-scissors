@@ -1,8 +1,5 @@
 import Foundation
 
-var isTurnOfUser: Bool = false
-var thisTurn: String = ""
-
 enum StartAndEndMessage {
     static let startOfFirstGame = "가위(1), 바위(2), 보(3)! <종료 : 0>"
     static let startOfSecondGame = "묵(1), 찌(2), 빠(3)! <종료 : 0>"
@@ -33,6 +30,9 @@ enum Player {
     static let user = "사용자"
     static let computer = "컴퓨터"
 }
+
+var isTurnOfUser: Bool = false
+var thisTurn: String = PunctuationMarks.emptyString
 
 func selectFirstGameMenu() -> String {
     print(StartAndEndMessage.startOfFirstGame, terminator: PunctuationMarks.colon)
@@ -84,6 +84,17 @@ func startFirstGame(_ userInput: String) {
     }
 }
 
+func startSecondGame(_ userInput: String) {
+    let endingNumber = 0
+    guard let validNumber = checkValidity2(of: userInput) else { return }
+    if validNumber == endingNumber {
+        print(StartAndEndMessage.endOfGame)
+        return
+    } else {
+        decideSecondWinner(validNumber)
+    }
+}
+
 func decideFirstWinner(_ validNumber: Int) {
     let allowedNumberRange: ClosedRange<Int> = 1...3
     let computerNumber = Int.random(in: allowedNumberRange)
@@ -101,20 +112,9 @@ func decideFirstWinner(_ validNumber: Int) {
     }
 }
 
-func startSecondGame(_ userInput: String) {
-    let endingNumber = 0
-    guard let validNumber = checkValidity2(of: userInput) else { return }
-    if validNumber == endingNumber {
-        print(StartAndEndMessage.endOfGame)
-    } else {
-        decideSecondWinner(validNumber)
-        return
-    }
-}
-
 func decideSecondWinner(_ validNumber: Int) {
     thisTurn = decideTurn()
-    var winner: String = ""
+    var winner: String = PunctuationMarks.emptyString
     let allowedNumberRange: ClosedRange<Int> = 1...3
     let computerNumber = Int.random(in: allowedNumberRange)
     print("컴퓨터 : \(computerNumber), 사용자 : \(validNumber)")
@@ -124,22 +124,19 @@ func decideSecondWinner(_ validNumber: Int) {
         print(StartAndEndMessage.endOfGame)
         return
     }
-    while validNumber != computerNumber {
-        switch numberToDecideWinner {
-        case Decision.winNumber[0], Decision.winNumber[1]:
-            winner = Player.user
-        default:
-            winner = Player.computer
-        }
-        if winner == thisTurn {
-            print("\(thisTurn)의 턴입니다")
-            startSecondGame(selectSecondGameMenu())
-        } else {
-            isTurnOfUser = !isTurnOfUser
-            print("\(decideTurn())의 턴입니다")
-            startSecondGame(selectSecondGameMenu())
-        }
-        break
+    switch numberToDecideWinner {
+    case Decision.winNumber[0], Decision.winNumber[1]:
+        winner = Player.user
+    default:
+        winner = Player.computer
+    }
+    if winner == thisTurn {
+        print("\(thisTurn)의 턴입니다")
+        startSecondGame(selectSecondGameMenu())
+    } else {
+        isTurnOfUser = !isTurnOfUser
+        print("\(decideTurn())의 턴입니다")
+        startSecondGame(selectSecondGameMenu())
     }
 }
 
