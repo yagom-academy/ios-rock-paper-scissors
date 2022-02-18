@@ -105,7 +105,7 @@ struct HandGame {
         let computerHand = generatedRandomHand()
         let userGameResult = judgeUserGameResult(userHand: verifiedUserHand, computerHand: computerHand)
         printGameResult(by: userGameResult)
-        playMukjipa(didUserWin: self.hasUserWin)
+        if userGameResult != .draw { playMukjipa(didUserWin: self.hasUserWin) }
     }
     
     private func printInputGuidanceMessage(gameKind: kind) {
@@ -202,7 +202,6 @@ struct HandGame {
         if user == .draw {
             print(HandGame.Result.draw.description)
             play()
-            return
         } else if user == .win {
             print(HandGame.Result.win.description)
         } else {
