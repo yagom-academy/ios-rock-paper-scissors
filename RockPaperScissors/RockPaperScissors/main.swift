@@ -12,8 +12,8 @@ enum GameOptions {
     case rock
     case paper
     case error
-    init(stepOneOption: String) {
-        switch stepOneOption {
+    init(rockScissorPaperOption: String) {
+        switch rockScissorPaperOption {
         case "0":
             self = .exit
         case "1":
@@ -26,8 +26,8 @@ enum GameOptions {
             self = .error
         }
     }
-    init(stepTwoOption: String) {
-        switch stepTwoOption {
+    init(mukChiBaOption: String) {
+        switch mukChiBaOption {
         case "0":
             self = .exit
         case "1":
@@ -50,7 +50,7 @@ enum GameResult {
     case error
 }
 
-enum StepOneResultTexts {
+enum RockScissorPaperPrintMessage {
     static let winText = "이겼습니다!"
     static let drawText = "비겼습니다!"
     static let loseText = "졌습니다!"
@@ -59,130 +59,129 @@ enum StepOneResultTexts {
     static func printWin() {
         print(winText)
         turn = true
-        showStepTwoMenu()
+        showMukChiBaMenu()
     }
     static func printDraw() {
         print(drawText)
-        showStepOneMenu()
+        showRockScissorPaperMenu()
     }
-    static func printlose() {
+    static func printLose() {
         print(loseText)
         turn = false
-        showStepTwoMenu()
-    }
-    static func printEnd() {
-        print(endText)
+        showMukChiBaMenu()
     }
     static func printError() {
         print(errorText)
-        showStepOneMenu()
+        showRockScissorPaperMenu()
     }
 }
 
-enum StepTwoResultTexts {
+enum MukChiBaPrintMessage {
     static let userTurnText = "사용자의 턴입니다"
     static let computerTurnText = "컴퓨터의 턴입니다"
     static let userWinText = "사용자의 승리!"
     static let computerWinText = "컴퓨터의 승리!"
-    static func printStepOneWin() {
+    static func printRockScissorPaperWin() {
         if turn {
             print(userTurnText)
-            showStepTwoMenu()
+            showMukChiBaMenu()
         } else {
             print(computerTurnText)
-            showStepTwoMenu()
+            showMukChiBaMenu()
         }
     }
-    static func printStepOneDraw() {
+    static func printRockScissorPaperDraw() {
         if turn {
             print(userWinText)
-            StepOneResultTexts.printEnd()
+            print(RockScissorPaperPrintMessage.endText)
         } else {
             print(computerWinText)
-            StepOneResultTexts.printEnd()
+            print(RockScissorPaperPrintMessage.endText)
         }
     }
-    static func printStepOneLose() {
+    static func printRockScissorPaperLose() {
         if turn {
             print(computerTurnText)
             turn = false
-            showStepTwoMenu()
+            showMukChiBaMenu()
         } else {
             print(userTurnText)
             turn = true
-            showStepTwoMenu()
+            showMukChiBaMenu()
         }
     }
     static func printError() {
-        print(StepOneResultTexts.errorText)
+        print(RockScissorPaperPrintMessage.errorText)
         print(computerTurnText)
         turn = false
-        showStepTwoMenu()
+        showMukChiBaMenu()
     }
 }
 
 var turn = true
-func showStepOneMenu() {
+func showRockScissorPaperMenu() {
     print("""
 가위(1), 바위(2), 보(3)! <종료 : 0> :
 """, terminator: " ")
-    showStepOneResult(
-        compareStepOne(userOption: matchedStepOneHand(receiveNumber()),
-                       computerOption: matchedStepOneHand(makeRandomNumber())
-                      )
+    showRockScissorPaperResult(
+        compareRockScissorPaper(
+            userOption: matchedRockScissorPaperHand(receiveNumber()),
+            computerOption: matchedRockScissorPaperHand(makeRandomNumber())
+        )
     )
 }
 
-func showStepTwoMenu() {
+func showMukChiBaMenu() {
     if turn {
         print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
-        showStepTwoResult(
-            compareStepTwo(
-                attackOption: matchedStepTwoHand(receiveNumber()),
-                defenseOption: matchedStepTwoHand(makeRandomNumber())
+        showMukChiBaResult(
+            compareMukChiBa(
+                attackOption: matchedMukChiBaHand(receiveNumber()),
+                defenseOption: matchedMukChiBaHand(makeRandomNumber())
             )
         )
     } else {
         print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
-        showStepTwoResult(
-            compareStepTwo(attackOption: matchedStepTwoHand(makeRandomNumber()),
-                           defenseOption: matchedStepTwoHand(receiveNumber())
-                          )
+        showMukChiBaResult(
+            compareMukChiBa(
+                attackOption: matchedMukChiBaHand(makeRandomNumber()),
+                defenseOption: matchedMukChiBaHand(receiveNumber())
+            )
         )
     }
 }
 
-func showStepOneResult(_ gameResult: GameResult) {
+func showRockScissorPaperResult(_ gameResult: GameResult) {
     switch gameResult {
     case .exit:
-        StepOneResultTexts.printEnd()
+        print(RockScissorPaperPrintMessage.endText)
     case .win:
-        StepOneResultTexts.printWin()
+        RockScissorPaperPrintMessage.printWin()
     case .draw:
-        StepOneResultTexts.printDraw()
+        RockScissorPaperPrintMessage.printDraw()
     case .lose:
-        StepOneResultTexts.printlose()
+        RockScissorPaperPrintMessage.printLose()
     case .error:
-        StepOneResultTexts.printError()
+        RockScissorPaperPrintMessage.printError()
     }
 }
 
-func showStepTwoResult(_ gameResult: GameResult) {
+func showMukChiBaResult(_ gameResult: GameResult) {
     switch gameResult {
     case .exit:
-        StepOneResultTexts.printEnd()
+        print(RockScissorPaperPrintMessage.endText)
     case .win:
-        StepTwoResultTexts.printStepOneWin()
+        MukChiBaPrintMessage.printRockScissorPaperWin()
     case .draw:
-        StepTwoResultTexts.printStepOneDraw()
+        MukChiBaPrintMessage.printRockScissorPaperDraw()
     case .lose:
-        StepTwoResultTexts.printStepOneLose()
+        MukChiBaPrintMessage.printRockScissorPaperLose()
     case .error:
-        StepTwoResultTexts.printError()
+        MukChiBaPrintMessage.printError()
     }
 }
 
-func compareStepOne(userOption: GameOptions, computerOption: GameOptions) -> GameResult {
+func compareRockScissorPaper(userOption: GameOptions, computerOption: GameOptions) -> GameResult {
     switch (userOption, computerOption) {
     case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
         return .win
@@ -197,7 +196,7 @@ func compareStepOne(userOption: GameOptions, computerOption: GameOptions) -> Gam
     }
 }
 
-func compareStepTwo(attackOption: GameOptions, defenseOption: GameOptions) -> GameResult {
+func compareMukChiBa(attackOption: GameOptions, defenseOption: GameOptions) -> GameResult {
     switch (attackOption, defenseOption) {
     case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
         return .draw
@@ -212,12 +211,12 @@ func compareStepTwo(attackOption: GameOptions, defenseOption: GameOptions) -> Ga
     }
 }
 
-func matchedStepOneHand(_ hand: String) -> GameOptions {
-    GameOptions(stepOneOption: hand)
+func matchedRockScissorPaperHand(_ hand: String) -> GameOptions {
+    GameOptions(rockScissorPaperOption: hand)
 }
 
-func matchedStepTwoHand(_ hand: String) -> GameOptions {
-    GameOptions(stepTwoOption: hand)
+func matchedMukChiBaHand(_ hand: String) -> GameOptions {
+    GameOptions(mukChiBaOption: hand)
 }
 
 func receiveNumber() -> String {
@@ -228,4 +227,4 @@ func makeRandomNumber() -> String {
     return String(Int.random(in: 1...3))
 }
 
-showStepOneMenu()
+showRockScissorPaperMenu()
