@@ -21,7 +21,7 @@ enum GameResult {
     case tie
 }
 
-enum ComputerOrUser: String {
+enum Player: String {
     case computer = "컴퓨터"
     case user = "사용자"
     case nobody
@@ -34,7 +34,7 @@ enum GameError: Error {
 func operateGames() {
     let firstWinnerTurn = startGame(of: .rockPaperScissors, .nobody)
     
-    if firstWinnerTurn == ComputerOrUser.nobody {
+    if firstWinnerTurn == Player.nobody {
         return
     }
     
@@ -43,18 +43,15 @@ func operateGames() {
     print("\(finalGameWinner.rawValue)의 승리!\n게임 종료")
 }
 
-func startGame(of game: Game, _ firstTurn: ComputerOrUser) -> ComputerOrUser {
+func startGame(of game: Game, _ firstTurn: Player) -> Player {
     var isWinnerFound: Bool = false
-    var currentTurn: ComputerOrUser = firstTurn
+    var currentTurn: Player = firstTurn
     let gameoverNumber: String = "0"
     
     repeat {
         printGameMenu(of: game, turnValue: currentTurn.rawValue)
         
-        var computerNumber: String = ""
-        var userNumber: String = ""
-        
-        (computerNumber, userNumber) = generateValues(at: game)
+        let (computerNumber, userNumber) = generateValues(at: game)
         if userNumber == gameoverNumber {
             break
         }
@@ -109,8 +106,7 @@ func generateValues(at game: Game) -> (computerValue: String, userValue: String)
         userNumber = selectGameMenuUserNumber()
     case .mukChiPa:
         computerNumber = convertMukChiPa(generateRandomComputerNumber())
-        let number = Int(selectGameMenuUserNumber()) ?? -1
-        userNumber = convertMukChiPa(number)
+        userNumber = convertMukChiPa((selectGameMenuUserNumber().map { Int(String($0)) ?? -1 })[0])
     }
     return (computerNumber, userNumber)
 }
@@ -186,21 +182,18 @@ func stopGameLoop(of game: Game, _ gameResult: GameResult) -> Bool {
     return isWinnerFound
 }
 
-func changeTurn(_ currentValue: ComputerOrUser, _ gameResult: GameResult) -> ComputerOrUser {
-    var currentTurn = currentValue
-    
+func changeTurn(_ currentValue: Player, _ gameResult: GameResult) -> Player {
     switch gameResult {
     case .win:
-        currentTurn = .user
+        return .user
     case .loss:
-        currentTurn = .computer
+        return .computer
     default:
-        break
+        return currentValue
     }
-    return currentTurn
 }
 
-func printCurrentTurn(of game: Game, _ turn: ComputerOrUser) {
+func printCurrentTurn(of game: Game, _ turn: Player) {
     if game == .rockPaperScissors {
         return
     }
