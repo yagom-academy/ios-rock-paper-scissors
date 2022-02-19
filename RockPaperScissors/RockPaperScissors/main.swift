@@ -5,11 +5,11 @@
 //
 import Foundation
 
-enum HandType: CaseIterable {
+enum Hand: CaseIterable {
     case scissors, rock , paper
     
-    static func makeMukJiPa(inputValue: String) -> HandType {
-        let handValue: HandType
+    static func makeMukJiPa(inputValue: String) -> Hand {
+        let handValue: Hand
         
         switch inputValue {
         case "1":
@@ -24,8 +24,8 @@ enum HandType: CaseIterable {
         return handValue
     }
     
-    static func makeRockScissorsPaper(_ inputValue: String) -> HandType {
-        let handValue: HandType
+    static func makeRockScissorsPaper(_ inputValue: String) -> Hand {
+        let handValue: Hand
         
         switch inputValue {
         case "1":
@@ -41,7 +41,7 @@ enum HandType: CaseIterable {
     }
 }
 
-enum MatchType {
+enum MatchResult {
     case win, lose, draw
 }
 
@@ -51,14 +51,15 @@ enum MessagePrint {
     static let drawMessege = "비겼습니다"
     static let prgramExitMessege = "프로그램 종료"
     static let inputErrorMessege = "입력이 잘못되었습니다"
-    static let menuDisplay = "가위(1),바위(2),보(3)!<종료 :0>: "
+    static let rockPaperScissorsDisplay = "가위(1),바위(2),보(3)!<종료 :0>: "
     static let gameErrorMessege = "게임을 실행할 수 없습니다"
-    static let userTurn = "[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
-    static let computerTurn = "[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let mukJiPaDisplay = " 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+    static let userTurn = "[사용자 턴]"
+    static let computerTurn = "[컴퓨터 턴]"
 }
 
-func chooseGameOption() {
-    print(MessagePrint.menuDisplay, terminator: "")
+func startProgram() {
+    print(MessagePrint.rockPaperScissorsDisplay, terminator: "")
     let inputValue = inputValue()
     
     switch inputValue {
@@ -66,34 +67,34 @@ func chooseGameOption() {
         print(MessagePrint.prgramExitMessege)
         break
     case "1", "2", "3":
-        let userHand = HandType.makeRockScissorsPaper(inputValue)
+        let userHand = Hand.makeRockScissorsPaper(inputValue)
         playMukJiPaGame(userHand)
     default:
         print(MessagePrint.inputErrorMessege)
-        chooseGameOption()
+        startProgram()
     }
 }
 
-func playMukJiPaGame(_ userInput: HandType) {
+func playMukJiPaGame(_ userInput: Hand) {
     let userResult = makeMatchResult(userHand: userInput)
-    if userResult != MatchType.draw {
+    if userResult != MatchResult.draw {
         chooseMukJiPaOption(userResult: userResult)
     }
 }
 
-func makeMatchResult(userHand: HandType) -> MatchType {
+func makeMatchResult(userHand: Hand) -> MatchResult {
     let computerHand = makeComputerHand()
-    let userResult = compareHand(userHand: userHand, to: computerHand)
+    let userResult = compare(userHand, to: computerHand)
     return userResult
 }
 
-func compareHand(userHand: HandType,to computerHand: HandType) -> MatchType {
-    var userResult: MatchType
+func compare(_ userHand: Hand,to computerHand: Hand) -> MatchResult {
+    var userResult: MatchResult
     
     if userHand == computerHand {
         userResult = .draw
         print(MessagePrint.drawMessege)
-        chooseGameOption()
+        startProgram()
     } else if checkUserMatchResult(userHand, computerHand) == .win {
         print(MessagePrint.userWinMessege)
         userResult = .win
@@ -112,15 +113,15 @@ func inputValue() -> String {
     return inputValue
 }
 
-func makeComputerHand() -> HandType {
-    guard let computerHand = HandType.allCases.randomElement() else {
+func makeComputerHand() -> Hand {
+    guard let computerHand = Hand.allCases.randomElement() else {
         print(MessagePrint.gameErrorMessege)
         return .scissors
     }
     return computerHand
 }
 
-func checkUserMatchResult(_ userHand: HandType, _ computerHand: HandType) -> MatchType {
+func checkUserMatchResult(_ userHand: Hand, _ computerHand: Hand) -> MatchResult {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
         return .win
@@ -131,8 +132,8 @@ func checkUserMatchResult(_ userHand: HandType, _ computerHand: HandType) -> Mat
     }
 }
 
-func chooseMukJiPaOption(userResult: MatchType) {
-    printTurn(userResult)
+func chooseMukJiPaOption(userResult: MatchResult) {
+    printTurn(with: userResult)
     var userResult = userResult
     let inputValue = inputValue()
     
@@ -141,7 +142,7 @@ func chooseMukJiPaOption(userResult: MatchType) {
            print(MessagePrint.prgramExitMessege)
            break
        case "1", "2", "3":
-        let userHand = HandType.makeMukJiPa(inputValue: inputValue)
+        let userHand = Hand.makeMukJiPa(inputValue: inputValue)
            playMukJiPa(userHand, userResult)
        default:
            userResult = .lose
@@ -150,15 +151,15 @@ func chooseMukJiPaOption(userResult: MatchType) {
        }
 }
 
-func printTurn(_ userResult: MatchType) {
+func printTurn(with userResult: MatchResult) {
     if userResult == .lose {
-        print(MessagePrint.computerTurn, terminator: "")
+        print(MessagePrint.computerTurn + MessagePrint.mukJiPaDisplay, terminator: "")
     } else if userResult == .win {
-        print(MessagePrint.userTurn, terminator: "")
+        print(MessagePrint.computerTurn + MessagePrint.mukJiPaDisplay, terminator: "")
     }
 }
 
-func playMukJiPa(_ userInput: HandType, _ userResult: MatchType) {
+func playMukJiPa(_ userInput: Hand, _ userResult: MatchResult) {
     var userResult = userResult
     let computerHand = makeComputerHand()
     
@@ -171,11 +172,11 @@ func playMukJiPa(_ userInput: HandType, _ userResult: MatchType) {
         userResult = .lose
         chooseMukJiPaOption(userResult: userResult)
     } else {
-        printWinner(userResult)
+        printWinner(with: userResult)
     }
 }
 
-func printWinner(_ userResult: MatchType) {
+func printWinner(with userResult: MatchResult) {
     if userResult == .lose {
         print(MessagePrint.computerWinMessege)
     } else if userResult == .win {
@@ -184,5 +185,5 @@ func printWinner(_ userResult: MatchType) {
     print(MessagePrint.prgramExitMessege)
 }
 
-chooseGameOption()
+startProgram()
 
