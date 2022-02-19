@@ -133,6 +133,7 @@ func checkUserMatchResult(_ userHand: HandType, _ computerHand: HandType) -> Mat
 
 func chooseMukJiPaOption(userResult: MatchType) {
     printTurn(userResult)
+    var userResult = userResult
     let inputValue = inputValue()
     
     switch inputValue {
@@ -143,6 +144,7 @@ func chooseMukJiPaOption(userResult: MatchType) {
         let userHand = HandType.makeMukJiPa(inputValue: inputValue)
            playMukJiPa(userHand, userResult)
        default:
+           userResult = .lose
            print(MessagePrint.inputErrorMessege)
            chooseMukJiPaOption(userResult: userResult)
        }
