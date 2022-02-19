@@ -19,11 +19,11 @@ final class MukchibaGame: RockPaperScissorsGame {
         
         switch userInput {
         case 0:
-            print("게임 종료")
+            printGameOverMessage()
         case 1, 2, 3:
             compareSigns(userInput: userInput)
         default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            printInputErrorMessage()
             changeTurn(to: .computer)
             start()
         }
@@ -59,16 +59,22 @@ final class MukchibaGame: RockPaperScissorsGame {
         switch gameResult {
         case .win:
             changeTurn(to: .user)
-            print("\(turn.message)의 턴입니다")
+            printCurrentTurn()
             start()
-            
         case .lose:
             changeTurn(to: .computer)
-            print("\(turn.message)의 턴입니다")
+            printCurrentTurn()
             start()
-            
         case .draw:
-            print("\(turn.message)의 승리!")
+            printWinner()
         }
+    }
+    
+    func printCurrentTurn() {
+        print("\(turn.message)의 턴입니다")
+    }
+    
+    func printWinner() {
+        print("\(turn.message)의 승리!")
     }
 }

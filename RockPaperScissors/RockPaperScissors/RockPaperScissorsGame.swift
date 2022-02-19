@@ -13,17 +13,25 @@ class RockPaperScissorsGame {
         
         switch userInput {
         case 0:
-            print("게임 종료")
+            printGameOverMessage()
         case 1, 2, 3:
             compareSigns(userInput: userInput)
         default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            printInputErrorMessage()
             start()
         }
     }
     
     func printGameGuide() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: "")
+    }
+    
+    func printGameOverMessage() {
+        print("게임 종료")
+    }
+    
+    func printInputErrorMessage() {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
     }
     
     func inputUserNumber() -> Int? {
