@@ -15,14 +15,12 @@ enum HandType: Int, CaseIterable {
         return Self.allCases.randomElement()?.rawValue
     }
     
-    static func isHandType(_ value: Int) -> Bool {
-        if let _ = HandType(rawValue: value) {
-            return true
-        }
-        return false
+    static func contains(_ value: Int) -> Bool {
+        let rawValues = allCases.map { $0.rawValue }
+        return rawValues.contains(value)
     }
     
-    static func convertMukZziPpaToHandType(_ value: Int) -> Int? {
+    static func convertMukZziPpaToStyle(_ value: Int) -> Int? {
         switch value {
         case 1:
             return 2
@@ -36,7 +34,7 @@ enum HandType: Int, CaseIterable {
     }
 }
 
-func getPlayerInput() -> Int? {
+func getPlayerInput(isMukZziPpa: Bool) -> Int? {
     guard let playerInput = readLine(),
           let playerIntInput = Int(playerInput)
     else {
@@ -45,11 +43,15 @@ func getPlayerInput() -> Int? {
     guard playerIntInput != Setting.exitCode else {
         return playerIntInput
     }
-    guard HandType.isHandType(playerIntInput) else {
+    guard HandType.contains(playerIntInput) else {
         return nil
     }
-
-    return playerIntInput
+    
+    if isMukZziPpa {
+        return HandType.convertMukZziPpaToStyle(playerIntInput)
+    } else {
+        return playerIntInput
+    }
 }
 
 func checkGameResult(player playerInput: Int, computer computerInput: Int) -> GameResult {
@@ -78,7 +80,7 @@ func showGameResult(_ result: GameResult) {
 func startGame() {
     print(GameDisplayMessage.menu, terminator: "")
 
-    guard let playerInput = getPlayerInput() else {
+    guard let playerInput = getPlayerInput(isMukZziPpa: false) else {
         print(GameDisplayMessage.invalidPlayerInput)
         startGame()
         return

@@ -6,36 +6,9 @@
 
 import Foundation
 
-func getPlayerMukZziPpaInput() -> Int? {
-    guard let playerInput = readLine(),
-          let playerIntInput = Int(playerInput)
-    else {
-        return nil
-    }
-    guard playerIntInput != Setting.exitCode else {
-        return playerIntInput
-    }
-    guard let playerMukZziPpaInput = HandType.convertMukZziPpaToHandType(playerIntInput) else {
-        return nil
-    }
-
-    return playerMukZziPpaInput
-}
-
-func printMukZziPpaGameMenu(_ result: GameResult) {
-    switch result {
-    case .playerWin:
-        print(GameDisplayMessage.playerTurnMukzzippaMenu, terminator: "")
-    case .playerLose:
-        print(GameDisplayMessage.computerTurnMukzzippaMenu, terminator: "")
-    default:
-        break
-    }
-}
-
 func startMukZziPpaGame(with result: GameResult) -> GameResult? {
     printMukZziPpaGameMenu(result)
-    guard let playerInput = getPlayerMukZziPpaInput() else {
+    guard let playerInput = getPlayerInput(isMukZziPpa: true) else {
         print(GameDisplayMessage.invalidPlayerInput)
         return startMukZziPpaGame(with: GameResult.playerLose)
     }
@@ -53,6 +26,17 @@ func startMukZziPpaGame(with result: GameResult) -> GameResult? {
         computer: computerInput,
         lastWinner: result
     )
+}
+
+func printMukZziPpaGameMenu(_ result: GameResult) {
+    switch result {
+    case .playerWin:
+        print(GameDisplayMessage.playerTurnMukzzippaMenu, terminator: "")
+    case .playerLose:
+        print(GameDisplayMessage.computerTurnMukzzippaMenu, terminator: "")
+    default:
+        break
+    }
 }
 
 func showMukZziPpaGameResult(_ result: GameResult) {
