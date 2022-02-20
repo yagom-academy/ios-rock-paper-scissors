@@ -7,9 +7,7 @@
 
 import Foundation
 
-enum GameMode {
-    case 디폴트, 가위바위보, 묵찌빠
-}
+
 
 enum Card: String, CaseIterable {
     case terminator = "0"

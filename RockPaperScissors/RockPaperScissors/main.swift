@@ -6,6 +6,5 @@
 
 import Foundation
 
-rockPaperScissorsGame.playGame()
-mukChiBaGame.setTurn(name: rockPaperScissorsGame.getWinner())
-mukChiBaGame.playGame()
+var gameController: GameController = GameController()
+gameController.run()
