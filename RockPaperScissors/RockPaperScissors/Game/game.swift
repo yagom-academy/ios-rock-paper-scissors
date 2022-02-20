@@ -24,7 +24,7 @@ class Game {
     }
     
     func makeRandomCard() -> Card {
-        let randomCard: Card = Card.cases[Int.random(in: 1..<Card.cases.count)]
+        let randomCard: Card = .cases[Int.random(in: 1..<Card.cases.count)]
         return randomCard
     }
     
@@ -37,9 +37,10 @@ class Game {
         guard let userCard: Card = user.getCard() else { return }
         guard let computerCard: Card = computer.getCard() else { return }
         
-        let resultOfCompare = userCard.compareEachCard(computerCard: computerCard)
-        printResult(gameResult: resultOfCompare)
+        compareCard(userCard: userCard, computerCard: computerCard)
     }
+    
+    func compareCard(userCard: Card, computerCard: Card) { }
     
     func printResult(gameResult: Result) { }
 }

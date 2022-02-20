@@ -23,11 +23,16 @@ class RockPaperScissors: Game {
             playGame()
             return
         }
-        if userCard == Card.terminator {
+        if userCard == .terminator {
             print("게임 종료")
             return
         }
         openCard(selectedCard: userCard)
+    }
+    
+    override func compareCard(userCard: Card, computerCard: Card) {
+        let resultOfCompare = userCard.compareEachCard(computerCard: computerCard, mode: GameMode.가위바위보)
+        printResult(gameResult: resultOfCompare)
     }
     
     override func printResult(gameResult: Result) {
@@ -39,6 +44,8 @@ class RockPaperScissors: Game {
             winner = user.getName()
         case .lose:
             winner = computer.getName()
+        default:
+            return
         }
     }
 }

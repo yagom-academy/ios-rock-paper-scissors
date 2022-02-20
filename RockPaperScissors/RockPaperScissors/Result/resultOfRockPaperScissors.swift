@@ -11,6 +11,7 @@ enum Result: String {
     case win = "이겼습니다."
     case draw = "비겼습니다."
     case lose = "졌습니다."
+    case victory = "승리"
     
     func printMessage() {
         print(self.rawValue)

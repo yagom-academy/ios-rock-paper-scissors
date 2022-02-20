@@ -22,8 +22,8 @@ class MukChiBa: Game {
     
     override func printResult(gameResult: Result) {
         switch gameResult {
-        case Result.draw:
-            print("\(turnPlayerName)의 승리!")
+        case .victory:
+            print("\(turnPlayerName)의 \(gameResult.rawValue)!")
             print("게임 종료")
         default:
             decideTurn(gameResult: gameResult)
@@ -42,11 +42,16 @@ class MukChiBa: Game {
             playGame()
             return
         }
-        if userCard == Card.terminator {
+        if userCard == .terminator {
             print("게임 종료")
             return
         }
         openCard(selectedCard: convertCard(input: userCard))
+    }
+    
+    override func compareCard(userCard: Card, computerCard: Card) {
+        let resultOfCompare = userCard.compareEachCard(computerCard: computerCard, mode: GameMode.묵찌빠)
+        printResult(gameResult: resultOfCompare)
     }
     
     private func decideTurn(gameResult: Result) {
