@@ -9,6 +9,10 @@
     + [고민했던 것들](#고민했던-것들)
     + [배운 개념](#배운-개념)
     + [PR 후 개선사항](#pr-후-개선사항)
+- [STEP 2 기능 구현](#step-2-기능-구현)
+    + [고민했던 것](#고민했던-것들-1)
+    + [배운 개념](#배운-개념-1)
+    + [PR 후 개선사항](#pr-후-개선사항-1)
     
 ## 프로젝트 규칙
 
@@ -18,7 +22,7 @@
 - 이긴경우와 진경우 게임을 종료합니다.  
 
 ## 순서도
-<img src="https://user-images.githubusercontent.com/69573768/153990820-b0d03969-e372-4bd5-baf7-d4816447c2a1.png" width="500"/>
+<img src="https://user-images.githubusercontent.com/88717147/154256526-926ed0fd-bb4d-4866-83bb-de442e655b5d.png" width="500"/>
 
 ## STEP 1 기능 구현 
 - RockPaperScissors enum
@@ -80,4 +84,76 @@ string, character, integer or floating-point type을 가질 수 있다고 써 �
     -  `RockPaperScissors enum에 위치하던 메소드를 RockPaperScissorsGame` struct 내부로 변경
 - 가위바위보 게임을 시작하는 start() 메서드 내부 로직 변경
     - 반복문을 이용해 작동되는 로직을 switch와 재귀 함수를 이용한 방식으로 수정
+
+## STEP 2 기능 구현
+처음에는 가위바위보 구조체와 묵찌빠 구조체를 각각 만들어 구현 하였으나
+공통으로 사용되는 메서드가 많아 클래스와 상속을 활용해보면 어떨까 라는 생각을했습니다.
+
+처음에는 Game 라는 클래스를 만들어 공통으로 사용되는 메서드를 구현하고 기능이 달라야 하는 부분은
+가위바위보 게임, 묵찌빠 게임 에서 각각 override 하였습니다.
+
+그런데 Game클래스가 불완전해서, 좋지 못하다는 생각이 들었습니다 가위바위보 클래스를 만들고, 해당 클래스를 상속하여 묵찌빠 클래스를 만드는 방식으로 수정했습니다.
+
+## 고민했던 것들
+### 파일분리
+가위바위보를 나타내는 열거형, 게임의 결과를 나타내는 열거형, 턴을 나타내는 열거형을 파일로 어떻게 분리하여야 할지 고민했다. 
+
+### 컨벤션
+```swift
+let mukchiba = MukchibaGame(turn: .user)
+mukchiba.start()
+
+MukchibaGame(turn: .user).start()
+```
+
+묵찌빠 게임의 인스턴스를 생성할때 위의 방법과 아래 방법중 어떤 방식이 더좋을지 고민했다.
+
+```swift
+enum Turn: String {
+    case user = “사용자”
+    case computer = “컴퓨터”
+    
+    var message: String {
+        return self.rawValue
+    }
+}
+
+enum Turn {
+    case user
+    case computer
+    
+    var message: String {
+        switch self {
+        case .user:
+            return “사용자”
+        case .computer:
+            return “컴퓨터”
+        }
+    }
+}
+```
+외부에서 .rawValue를 호출해서 쓰는건 직관적이지 못하다고 생각해서 두방식중 어떤 방식이 더좋을지 고민했다.
+
+## 배운 개념
+### 상속
+다른 class 에게 메서드나 프로퍼티를 전달 해줘서 사용할수있게 해줍니다.
+이때 상속받는 class를 하위클래스(subclass), 상속해주는 class를 상위 클래스(superclass)라고 합니다.
+
+### override
+superclass 에서 상속받은 프로퍼티나 메서드의 기능을 바꾸거나 값을 변경 하고 싶을때 override 를 사용 할수있습니다.
+override 키워드를 앞에 작성하고 상속받은 프로퍼티, 메소드 의 동일한 이름을 작성한후 값이나 기능을 변경하여 구현해줄수 있습니다.
+
+### Preventing Overrides
+
+> You can prevent a method, property, or subscript from being overridden by marking it as final. Do this by writing the final modifier before the method, property, or subscript’s introducer keyword (such as final var, final func, final class func, and final subscript).
+Any attempt to override a final method, property, or subscript in a subclass is reported as a compile-time error. Methods, properties, or subscripts that you add to a class in an extension can also be marked as final within the extension’s definition.
+You can mark an entire class as final by writing the final modifier before the class keyword in its class definition (final class). Any attempt to subclass a final class is reported as a compile-time error.
+
+문서에 보면 final 을 매서드, 프로퍼티, 클래스에 사용하면 재정의를 막을 수 있다고 되어있습니다.
+(final 키워드가 붙은 매서드, 프로퍼티 클래스를 재정의하려고 하면 컴파일 에러가 발생합니다)
+이번 프로젝트에서 묵찌빠게임과, 가위바위보 게임 클래스는 더는 재정의될 필요가 없기에 final로 선언해 주었습니다
+
+## PR 후 개선사항
+
+피드백에 따라 출력문을 모두 함수로 일관성 있게 분리하였습니다
 

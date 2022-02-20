@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3050D04A27BD016300B0C891 /* MukchibaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050D04927BD016300B0C891 /* MukchibaGame.swift */; };
+		3050D04C27BD01B200B0C891 /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050D04B27BD01B200B0C891 /* RockPaperScissorsGame.swift */; };
+		3050D07427BFDE2100B0C891 /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050D07327BFDE2100B0C891 /* Turn.swift */; };
+		3050D07627BFDE3500B0C891 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050D07527BFDE3500B0C891 /* GameResult.swift */; };
+		3050D07827BFDE4300B0C891 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050D07727BFDE4300B0C891 /* RockPaperScissors.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +28,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3050D04927BD016300B0C891 /* MukchibaGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukchibaGame.swift; sourceTree = "<group>"; };
+		3050D04B27BD01B200B0C891 /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
+		3050D07327BFDE2100B0C891 /* Turn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
+		3050D07527BFDE3500B0C891 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		3050D07727BFDE4300B0C891 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +68,11 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				3050D04B27BD01B200B0C891 /* RockPaperScissorsGame.swift */,
+				3050D04927BD016300B0C891 /* MukchibaGame.swift */,
+				3050D07327BFDE2100B0C891 /* Turn.swift */,
+				3050D07527BFDE3500B0C891 /* GameResult.swift */,
+				3050D07727BFDE4300B0C891 /* RockPaperScissors.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -119,7 +134,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3050D07427BFDE2100B0C891 /* Turn.swift in Sources */,
+				3050D04C27BD01B200B0C891 /* RockPaperScissorsGame.swift in Sources */,
+				3050D07827BFDE4300B0C891 /* RockPaperScissors.swift in Sources */,
+				3050D07627BFDE3500B0C891 /* GameResult.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				3050D04A27BD016300B0C891 /* MukchibaGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
