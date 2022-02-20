@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B012504E27BE6CFC0054E6A1 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012504D27BE6CFC0054E6A1 /* Constant.swift */; };
+		B012505227BE72240054E6A1 /* MukZziPpa.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012505127BE72240054E6A1 /* MukZziPpa.swift */; };
+		B012505427BE72800054E6A1 /* RockScissorPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012505327BE72800054E6A1 /* RockScissorPaper.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +26,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B012504D27BE6CFC0054E6A1 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		B012505127BE72240054E6A1 /* MukZziPpa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukZziPpa.swift; sourceTree = "<group>"; };
+		B012505327BE72800054E6A1 /* RockScissorPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorPaper.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -38,6 +44,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B012504C27BE6CE70054E6A1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B012504D27BE6CFC0054E6A1 /* Constant.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		C7ABA0D4254EA63000B2367D = {
 			isa = PBXGroup;
 			children = (
@@ -57,7 +71,10 @@
 		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
 			isa = PBXGroup;
 			children = (
+				B012504C27BE6CE70054E6A1 /* Common */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				B012505327BE72800054E6A1 /* RockScissorPaper.swift */,
+				B012505127BE72240054E6A1 /* MukZziPpa.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -119,6 +136,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B012505227BE72240054E6A1 /* MukZziPpa.swift in Sources */,
+				B012504E27BE6CFC0054E6A1 /* Constant.swift in Sources */,
+				B012505427BE72800054E6A1 /* RockScissorPaper.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
