@@ -161,7 +161,7 @@ gameController.run()
 ```
 
 - GameMode 열거형 추가, 묵찌빠 승리 조건 수정
-```
+```swift
 //전
 override func printResult(gameResult: Result) {
         switch gameResult {
@@ -172,7 +172,7 @@ override func printResult(gameResult: Result) {
     }
 ```
 
-```
+```swift
 //후
 override func printResult(gameResult: Result) {
         switch gameResult {
