@@ -17,6 +17,7 @@ class MukChiBa: Game {
     }
     
     override func printMenu() {
+        super.printMenu()
         print("[\(turnPlayerName) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
     }
     
