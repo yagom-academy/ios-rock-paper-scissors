@@ -10,7 +10,7 @@ import Foundation
 class RockPaperScissors: Game {
     private var winner: String = ""
     
-    func gatWinner() -> String { winner }
+    func getWinner() -> String { winner }
     
     override func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
@@ -33,11 +33,11 @@ class RockPaperScissors: Game {
     override func printResult(gameResult: Result) {
         gameResult.printMessage()
         switch gameResult {
-        case Result.draw:
+        case .draw:
             playGame()
-        case Result.win:
+        case .win:
             winner = user.getName()
-        case Result.lose:
+        case .lose:
             winner = computer.getName()
         }
     }

@@ -1,3 +1,4 @@
+
 //
 //  mukchiba.swift
 //  RockPaperScissors
@@ -31,6 +32,9 @@ class MukChiBa: Game {
     }
     
     override func playGame() {
+        if turnPlayerName.isEmpty {
+            return
+        }
         printMenu()
         guard let userCard = inputCard() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -52,9 +56,12 @@ class MukChiBa: Game {
     
     private func convertCard(input: Card) -> Card {
         switch input {
-        case Card.scissors: return Card.rock
-        case Card.rock: return Card.scissors
-        default: return input
+        case .scissors:
+            return .rock
+        case .rock:
+            return .scissors
+        default:
+            return input
         }
     }
 }

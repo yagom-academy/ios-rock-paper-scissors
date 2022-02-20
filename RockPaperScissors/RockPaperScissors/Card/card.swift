@@ -18,11 +18,11 @@ enum Card: String, CaseIterable {
         let winCase = [[Card.scissors, Card.paper],[Card.rock, Card.scissors],[Card.paper, Card.rock]]
         let cardPair = [self, computerCard]
         if self == computerCard {
-            return Result.draw
+            return .draw
         } else if winCase.contains(cardPair) {
-            return Result.win
+            return .win
         } else {
-            return Result.lose
+            return .lose
         }
     }
 }

@@ -7,5 +7,5 @@
 import Foundation
 
 rockPaperScissorsGame.playGame()
-mukChiBaGame.setTurn(name: rockPaperScissorsGame.gatWinner())
+mukChiBaGame.setTurn(name: rockPaperScissorsGame.getWinner())
 mukChiBaGame.playGame()
