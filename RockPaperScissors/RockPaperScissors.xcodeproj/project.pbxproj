@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		B39A0C5827BF7BD200B70BA4 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C5727BF7BD200B70BA4 /* RockPaperScissors.swift */; };
 		B39A0C5A27BF840A00B70BA4 /* MukJiPa.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C5927BF840A00B70BA4 /* MukJiPa.swift */; };
-		B39A0C5C27BFCB3300B70BA4 /* StartAndEndMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C5B27BFCB3300B70BA4 /* StartAndEndMessage.swift */; };
-		B39A0C5E27BFCB5E00B70BA4 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C5D27BFCB5E00B70BA4 /* ErrorMessage.swift */; };
-		B39A0C6027BFCB7E00B70BA4 /* ResultMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C5F27BFCB7E00B70BA4 /* ResultMessage.swift */; };
+		B39A0C6027BFCB7E00B70BA4 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C5F27BFCB7E00B70BA4 /* Messages.swift */; };
 		B39A0C6227BFCB9A00B70BA4 /* PunctuationMarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C6127BFCB9A00B70BA4 /* PunctuationMarks.swift */; };
-		B39A0C6427BFCBAE00B70BA4 /* Decision.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C6327BFCBAE00B70BA4 /* Decision.swift */; };
+		B39A0C6427BFCBAE00B70BA4 /* NumbersForGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C6327BFCBAE00B70BA4 /* NumbersForGame.swift */; };
 		B39A0C6627BFCBC800B70BA4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39A0C6527BFCBC800B70BA4 /* Player.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
@@ -33,11 +31,9 @@
 /* Begin PBXFileReference section */
 		B39A0C5727BF7BD200B70BA4 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		B39A0C5927BF840A00B70BA4 /* MukJiPa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukJiPa.swift; sourceTree = "<group>"; };
-		B39A0C5B27BFCB3300B70BA4 /* StartAndEndMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartAndEndMessage.swift; sourceTree = "<group>"; };
-		B39A0C5D27BFCB5E00B70BA4 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
-		B39A0C5F27BFCB7E00B70BA4 /* ResultMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultMessage.swift; sourceTree = "<group>"; };
+		B39A0C5F27BFCB7E00B70BA4 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		B39A0C6127BFCB9A00B70BA4 /* PunctuationMarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PunctuationMarks.swift; sourceTree = "<group>"; };
-		B39A0C6327BFCBAE00B70BA4 /* Decision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decision.swift; sourceTree = "<group>"; };
+		B39A0C6327BFCBAE00B70BA4 /* NumbersForGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumbersForGame.swift; sourceTree = "<group>"; };
 		B39A0C6527BFCBC800B70BA4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -58,11 +54,9 @@
 			isa = PBXGroup;
 			children = (
 				B39A0C6527BFCBC800B70BA4 /* Player.swift */,
-				B39A0C6327BFCBAE00B70BA4 /* Decision.swift */,
+				B39A0C6327BFCBAE00B70BA4 /* NumbersForGame.swift */,
 				B39A0C6127BFCB9A00B70BA4 /* PunctuationMarks.swift */,
-				B39A0C5F27BFCB7E00B70BA4 /* ResultMessage.swift */,
-				B39A0C5D27BFCB5E00B70BA4 /* ErrorMessage.swift */,
-				B39A0C5B27BFCB3300B70BA4 /* StartAndEndMessage.swift */,
+				B39A0C5F27BFCB7E00B70BA4 /* Messages.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -151,15 +145,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B39A0C5C27BFCB3300B70BA4 /* StartAndEndMessage.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
-				B39A0C5E27BFCB5E00B70BA4 /* ErrorMessage.swift in Sources */,
 				B39A0C5A27BF840A00B70BA4 /* MukJiPa.swift in Sources */,
 				B39A0C6227BFCB9A00B70BA4 /* PunctuationMarks.swift in Sources */,
-				B39A0C6027BFCB7E00B70BA4 /* ResultMessage.swift in Sources */,
+				B39A0C6027BFCB7E00B70BA4 /* Messages.swift in Sources */,
 				B39A0C5827BF7BD200B70BA4 /* RockPaperScissors.swift in Sources */,
 				B39A0C6627BFCBC800B70BA4 /* Player.swift in Sources */,
-				B39A0C6427BFCBAE00B70BA4 /* Decision.swift in Sources */,
+				B39A0C6427BFCBAE00B70BA4 /* NumbersForGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

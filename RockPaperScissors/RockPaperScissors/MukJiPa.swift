@@ -1,20 +1,22 @@
 import Foundation
 
 class MukJiPa: RockPaperScissors {
+    var isTurnOfUser: Bool = false
+    var thisTurn: String = PunctuationMarks.emptyString
+    
     override func selectGameMenu() -> String {
-        print("[\(decideTurn()) 턴]", StartAndEndMessage.startOfSecondGame, terminator: PunctuationMarks.colon)
+        print("[\(decideTurn()) 턴]", Messages.StartAndEndMessage.startOfSecondGame, terminator: PunctuationMarks.colon)
         guard let userInput = readLine() else { return PunctuationMarks.emptyString }
         return userInput
     }
     
-    override func checkValidity(of userInput: String) -> Int? {
-        let validNumbersForGame = ["0", "1", "2", "3"]
+    override func returnValidNumbers(of userInput: String) -> Int? {
         
-        if validNumbersForGame.contains(userInput) {
+        if NumbersForGame.ValidNumbersForGame.contains(userInput) {
             guard let intUserInput = Int(userInput) else { return nil }
             return intUserInput
         } else {
-            print(ErrorMessage.wrongInput)
+            print(Messages.ErrorMessage.wrongInput)
             isTurnOfUser = false
             startGame(selectGameMenu())
             return nil
@@ -23,10 +25,10 @@ class MukJiPa: RockPaperScissors {
     
     override func startGame(_ userInput: String) {
         let endingNumber = 0
-        guard let validNumber = checkValidity(of: userInput) else { return }
+        guard let validNumber = returnValidNumbers(of: userInput) else { return }
         
         if validNumber == endingNumber {
-            print(StartAndEndMessage.endOfGame)
+            print(Messages.StartAndEndMessage.endOfGame)
             return
         } else {
             decideWinner(validNumber)
@@ -40,8 +42,8 @@ class MukJiPa: RockPaperScissors {
         thisTurn = decideTurn()
         
         if validNumber == computerNumber {
-            print(ResultMessage.victoryOfThisTurn)
-            print(StartAndEndMessage.endOfGame)
+            print(thisTurn,Messages.ResultMessage.victoryOfThisTurn)
+            print(Messages.StartAndEndMessage.endOfGame)
             return
         }
         changeTurnAndRestartGame(numberToDecideWinner)
@@ -49,22 +51,29 @@ class MukJiPa: RockPaperScissors {
     
     func changeTurnAndRestartGame(_ numberToDecideWinner: Int) {
         var winner: String = PunctuationMarks.emptyString
-        let numberToDecideWinner = numberToDecideWinner
-        
+
         switch numberToDecideWinner {
-        case Decision.winNumber[0], Decision.winNumber[1]:
+        case NumbersForGame.winNumber[0], NumbersForGame.winNumber[1]:
             winner = Player.user
         default:
             winner = Player.computer
         }
         
         if winner == thisTurn {
-            print(ResultMessage.unchangedTurn)
+            print(thisTurn,Messages.ResultMessage.turn)
             startGame(selectGameMenu())
         } else {
             isTurnOfUser = !isTurnOfUser
-            print(ResultMessage.changedTurn)
+            print(thisTurn,Messages.ResultMessage.turn)
             startGame(selectGameMenu())
+        }
+    }
+    
+    func decideTurn() -> String {
+        if isTurnOfUser == true {
+            return Player.user
+        } else {
+            return Player.computer
         }
     }
 }

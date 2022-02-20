@@ -1,20 +1,19 @@
 import Foundation
 
 class RockPaperScissors {
+    
     func selectGameMenu() -> String {
-        print(StartAndEndMessage.startOfFirstGame, terminator: PunctuationMarks.colon)
+        print(Messages.StartAndEndMessage.startOfFirstGame, terminator: PunctuationMarks.colon)
         guard let userInput = readLine() else { return PunctuationMarks.emptyString }
         return userInput
     }
     
-    func checkValidity(of userInput: String) -> Int? {
-        let validNumbersForGame = ["0", "1", "2", "3"]
-        
-        if validNumbersForGame.contains(userInput) {
+    func returnValidNumbers(of userInput: String) -> Int? {
+        if NumbersForGame.ValidNumbersForGame.contains(userInput) {
             guard let intUserInput = Int(userInput) else { return nil }
             return intUserInput
         } else {
-            print(ErrorMessage.wrongInput)
+            print(Messages.ErrorMessage.wrongInput)
             startGame(selectGameMenu())
             return nil
         }
@@ -22,14 +21,13 @@ class RockPaperScissors {
     
     func startGame(_ userInput: String) {
         let endingNumber = 0
-        guard let validNumber = checkValidity(of: userInput) else { return }
+        guard let validNumber = returnValidNumbers(of: userInput) else { return }
         
         if validNumber == endingNumber {
-            print(StartAndEndMessage.endOfGame)
+            print(Messages.StartAndEndMessage.endOfGame)
             return
         } else {
             decideWinner(validNumber)
-            mukjipa.startGame(mukjipa.selectGameMenu())
         }
     }
     
@@ -39,14 +37,18 @@ class RockPaperScissors {
         let numberToDecideWinner: Int = validNumber - computerNumber
         
         switch numberToDecideWinner {
-        case Decision.winNumber[0], Decision.winNumber[1]:
-            print(ResultMessage.win)
-            isTurnOfUser = true
-        case Decision.defeatNumber[0], Decision.defeatNumber[1]:
-            print(ResultMessage.defeat)
-            isTurnOfUser = false
+        case NumbersForGame.winNumber[0], NumbersForGame.winNumber[1]:
+            let mukjipa = MukJiPa()
+            print(Messages.ResultMessage.win)
+            mukjipa.isTurnOfUser = true
+            mukjipa.startGame(mukjipa.selectGameMenu())
+        case NumbersForGame.defeatNumber[0], NumbersForGame.defeatNumber[1]:
+            let mukjipa = MukJiPa()
+            print(Messages.ResultMessage.defeat)
+            mukjipa.isTurnOfUser = false
+            mukjipa.startGame(mukjipa.selectGameMenu())
         default:
-            print(ResultMessage.draw)
+            print(Messages.ResultMessage.draw)
             startGame(selectGameMenu())
         }
     }
