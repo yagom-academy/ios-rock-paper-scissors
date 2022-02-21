@@ -14,6 +14,7 @@
     + [기능 구현](#step-2-기능-구현)
     + [고민했던 것](#step-2-고민했던-것들)
     + [배운 개념](#step-2-배운-개념)
+    + [PR 후 개선사항](#step-2-pr-후-개선사항)
 
 ## 가위 바위 보 게임규칙
 * 프로그램을 실행하게 되면, 선택 메뉴 문구가 출력되고, 입력을 받습니다.
@@ -134,3 +135,50 @@
 - 열거형 타입에 대한 유연한 사용방법(열거형 내부에 함수를 구현하여 메인 코드를 간결하게 할 수 있다.)
 - 열거형의 프로토콜 사용에 대해
 - 삼항연산자 사용방법
+
+## STEP 2 PR 후 개선사항
+- 두 게임을 관리해주는 GameController 타입 추가
+```swift
+//전
+let rockPaperScissorsGame: RockPaperScissors = RockPaperScissors(user: user, computer: computer)
+let mukChiBaGame: MukChiBa = MukChiBa(user: user, computer: computer)
+rockPaperScissorsGame.playGame()
+...
+```
+```swift
+//후
+struct GameController {
+    
+    func run() {
+        
+        let rockPaperScissorsGame: RockPaperScissors = RockPaperScissors(user: user, computer: computer)
+        let mukChiBaGame: MukChiBa = MukChiBa(user: user, computer: computer)
+    ...
+}
+
+var gameController: GameController = GameController()
+gameController.run()
+```
+
+- GameMode 열거형 추가, 묵찌빠 승리 조건 수정
+```swift
+//전
+override func printResult(gameResult: Result) {
+        switch gameResult {
+        case Result.draw:
+            print("\(turnPlayerName)의 승리!")
+            print("게임 종료")
+            ...
+    }
+```
+
+```swift
+//후
+override func printResult(gameResult: Result) {
+        switch gameResult {
+        case .victory:
+            print("\(turnPlayerName)의 \(gameResult.rawValue)!")
+            print("게임 종료")
+            ...
+}
+```
