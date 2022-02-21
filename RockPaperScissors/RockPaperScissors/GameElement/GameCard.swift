@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 enum Card: String, CaseIterable {
     case terminator = "0"
     case scissors = "1"

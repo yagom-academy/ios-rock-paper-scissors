@@ -15,15 +15,15 @@ struct Player {
         self.name = name
     }
     
-    func getCard() -> Card? {
+    public func getCard() -> Card? {
         return card
     }
     
-    func getName() -> String {
+    public func getName() -> String {
         return name
     }
     
-    mutating func setCard(selectedCard: Card) {
+    public mutating func setCard(selectedCard: Card) {
         card = selectedCard
     }
 }

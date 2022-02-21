@@ -8,8 +8,8 @@
 import Foundation
 
 class Game {
-    private var user: Player
-    private var computer: Player
+    var user: Player
+    var computer: Player
     
     init(user: Player, computer: Player){
         self.user = user

@@ -8,7 +8,9 @@
 import Foundation
 
 struct GameController {
-    
+    private var user: Player = Player(name: "사용자")
+    private var computer: Player = Player(name: "컴퓨터")
+
     func run() {
         
         let rockPaperScissorsGame: RockPaperScissors = RockPaperScissors(user: user, computer: computer)
