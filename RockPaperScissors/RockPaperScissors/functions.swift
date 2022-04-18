@@ -25,3 +25,11 @@ func checkInput() {
         return run()
     }
 }
+
+func selectRSP() -> String {
+    let rspArray: [String] = ["1", "2", "3"]
+    guard let selectedCase = rspArray.randomElement() else {
+        return ""
+    }
+    return selectedCase
+}
