@@ -31,24 +31,31 @@ extension RockPaperScissorsGame {
             userSelection = .paper
         case "0":
             endGame()
+            return
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             printMenu()
             return
         }
+        
+        judgeVictory(selectedMenu: userSelection, computer: .paper)
+        return
     }
     
-    private func judgeVictory(selectedMenu: RockPaperScissors, computer: RockPaperScissors) {
+    private func judgeVictory(selectedMenu: RockPaperScissors?, computer: RockPaperScissors?) {
         switch (selectedMenu, computer) {
         case (.scissor, .rock), (.rock, .paper), (.paper, .scissor):
             print("졌습니다!")
             endGame()
+            return
         case (.rock, .scissor), (.paper, .rock), (.scissor, .paper):
             print("이겼습니다!")
             endGame()
+            return
         default:
             print("비겼습니다!")
             printMenu()
+            return
         }
     }
     
