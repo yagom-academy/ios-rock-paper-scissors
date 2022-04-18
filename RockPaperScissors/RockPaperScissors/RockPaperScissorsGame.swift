@@ -48,7 +48,7 @@ struct RockPaperScissorsGame {
             inputUserSelect()
             if verifyUserSelection() {
                 if decideGameStart() {
-//                    compareNumbers()
+                    compareNumbers()
                 } else {
                     printGameMessage(.ending)
                     break
@@ -70,4 +70,24 @@ struct RockPaperScissorsGame {
     func compareToRockOfUser() -> GameResult {
         return computerNumber == convertUserChoiceToNumber(.scissors) ? .win : .lose
     }
+    
+    func compareNumbers() -> GameResult {
+            var unrappedUserNumber = 0
+
+            if let userNumber = inputNumber {
+                unrappedUserNumber = userNumber
+            }
+
+            switch unrappedUserNumber {
+            case convertUserChoiceToNumber(.scissors):
+                return compareToScissorsOfUser()
+            case convertUserChoiceToNumber(.paper):
+                return compareToPaperOfUser()
+            case convertUserChoiceToNumber(.rock):
+                return compareToRockOfUser()
+            default:
+                break
+            }
+            return .draw
+        }
 }
