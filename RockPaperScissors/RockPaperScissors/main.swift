@@ -6,4 +6,4 @@
 
 import Foundation
 
-print(selectMenuByInput())
+startRPS()
