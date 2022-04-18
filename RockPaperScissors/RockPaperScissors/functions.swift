@@ -33,3 +33,29 @@ func selectRSP() -> String {
     }
     return selectedCase
 }
+
+func compareRSP(of user: String, and computer: String) {
+    print(user, computer)
+    if user == computer {
+        print("비겼습니다!")
+        return run()
+    } else if user == "1" && computer == "2" {
+        print("졌습니다!")
+        return run()
+    } else if user == "1" && computer == "3" {
+        print("이겼습니다!")
+        return run()
+    } else if user == "2" && computer == "1" {
+        print("이겼습니다!")
+        return run()
+    } else if user == "2" && computer == "3" {
+        print("졌습니다!")
+        return run()
+    } else if user == "3" && computer == "1" {
+        print("졌습니다!")
+        return run()
+    } else if user == "3" && computer == "2" {
+        print("이겼습니다!")
+        return run()
+    }
+}
