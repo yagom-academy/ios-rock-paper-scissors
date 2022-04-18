@@ -6,4 +6,6 @@
 
 import Foundation
 
-playGame()
+let playButton = RockPaperScissorsGame()
+
+playButton.startGame()
