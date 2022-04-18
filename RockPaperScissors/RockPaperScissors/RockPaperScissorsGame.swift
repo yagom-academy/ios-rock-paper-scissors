@@ -10,7 +10,7 @@ import Foundation
 struct RockPaperScissorsGame {
     var inputNumber: Int?
     let computerNumber = Int.random(in: 1...3)
-
+    
     mutating func inputUserSelect() {
         inputNumber = Int(readLine() ?? "") ?? 4
     }
@@ -57,5 +57,17 @@ struct RockPaperScissorsGame {
                 printGameMessage(.error)
             }
         }
+    }
+    
+    func compareToScissorsOfUser() -> GameResult {
+        return computerNumber == convertUserChoiceToNumber(.paper) ? .win : .lose
+    }
+    
+    func compareToPaperOfUser() -> GameResult {
+        return computerNumber == convertUserChoiceToNumber(.rock) ? .win : .lose
+    }
+    
+    func compareToRockOfUser() -> GameResult {
+        return computerNumber == convertUserChoiceToNumber(.scissors) ? .win : .lose
     }
 }
