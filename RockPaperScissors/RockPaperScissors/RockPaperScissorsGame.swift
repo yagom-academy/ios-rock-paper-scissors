@@ -10,17 +10,16 @@ import Foundation
 struct RockPaperScissorsGame {
     var inputNumber: Int?
     
-    func printMenu() {
-        print(GameMessage.menu.rawValue)
-    }
-    
     mutating func inputUserSelect() {
         inputNumber = Int(readLine() ?? "") ?? 4
     }
     
     func verifyUserSelection() -> Bool {
         switch inputNumber {
-        case 0, 1, 2, 3:
+        case convertUserChoiceToNumber(.end),
+            convertUserChoiceToNumber(.scissors),
+            convertUserChoiceToNumber(.rock),
+            convertUserChoiceToNumber(.paper):
             return true
         default:
             return false
@@ -36,7 +35,7 @@ struct RockPaperScissorsGame {
     }
     
     func decideGameStart() -> Bool {
-        if let number = inputNumber, number > 0 {
+        if let number = inputNumber, number > convertUserChoiceToNumber(.end) {
             return true
         }
         return false
