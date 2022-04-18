@@ -17,4 +17,13 @@ struct RockPaperScissorsGame {
     mutating func inputUserSelect() {
         inputNumber = Int(readLine() ?? "") ?? 4
     }
+    
+    func verifyUserSelection() -> Bool {
+        switch inputNumber {
+        case 0, 1, 2, 3:
+            return true
+        default:
+            return false
+        }
+    }
 }
