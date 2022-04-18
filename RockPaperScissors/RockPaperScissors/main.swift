@@ -6,8 +6,4 @@
 
 import Foundation
 
-var rockPaperScissorsGame = RockPaperScissorsGame()
-rockPaperScissorsGame.printMenu()
-rockPaperScissorsGame.inputUserSelect()
-print(rockPaperScissorsGame.inputNumber)
 

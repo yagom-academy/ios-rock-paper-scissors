@@ -27,6 +27,14 @@ struct RockPaperScissorsGame {
         }
     }
     
+    func convertUserChoiceToNumber(_ userchoice: UserChoice) -> Int {
+        return userchoice.rawValue
+    }
+    
+    func printGameMessage(_ gameMessage: GameMessage) {
+        print(gameMessage.rawValue)
+    }
+    
     func decideGameStart() -> Bool {
         if let number = inputNumber, number > 0 {
             return true
