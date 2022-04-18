@@ -7,47 +7,45 @@
 
 import Foundation
 
-func run() {
-    let choicedNumber = selectMenu()
-    let standardNumber = selectRSP()
+func playGame() {
+    let choicedNumber = choiceMenu()
+    let fixedNumber = choiceRockPaperScissors()
     
     switch choicedNumber {
     case "1":
-        caseS(standardNumber)
+        isCaseScissors(fixedNumber)
         break
     case "2":
-        caseR(standardNumber)
+        isCaseRock(fixedNumber)
         break
     case "3":
-        caseP(standardNumber)
+        isCasePaper(fixedNumber)
         break
     case "0":
         print("게임 종료")
         break
     default:
         print("잘못된 입력입니다. 다시 시도해 주세요.")
-        run()
+        playGame()
     }
 }
 
-func selectMenu() -> String {
+func choiceMenu() -> String {
     print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
-    guard let userInput = readLine() else {
-        return ""
-    }
+    guard let userInput = readLine() else { return "" }
     return userInput
 }
 
-func selectRSP() -> String {
-    let rspArray: [String] = ["1", "2", "3"]
-    guard let selectedCase = rspArray.randomElement() else {
+func choiceRockPaperScissors() -> String {
+    let caseStore: [String] = ["1", "2", "3"]
+    guard let choicedCase = caseStore.randomElement() else {
         return ""
     }
-    return selectedCase
+    return choicedCase
 }
 
-func caseP(_ computer: String) {
-    switch computer {
+func isCasePaper(_ comparedNumber: String) {
+    switch comparedNumber {
     case "1":
         print("졌습니다!")
         print("게임 종료")
@@ -56,17 +54,17 @@ func caseP(_ computer: String) {
         print("게임 종료")
     case "3":
         print("비겼습니다!")
-        run()
+        playGame()
     default:
         break
     }
 }
 
-func caseS(_ computer: String) {
-    switch computer {
+func isCaseScissors(_ comparedNumber: String) {
+    switch comparedNumber {
     case "1":
         print("비겼습니다!")
-        run()
+        playGame()
     case "2":
         print("졌습니다!")
         print("게임 종료")
@@ -78,14 +76,14 @@ func caseS(_ computer: String) {
     }
 }
 
-func caseR(_ computer: String) {
-    switch computer {
+func isCaseRock(_ comparedNumber: String) {
+    switch comparedNumber {
     case "1":
         print("이겼습니다!")
         print("게임 종료")
     case "2":
         print("비겼습니다!")
-        run()
+        playGame()
     case "3":
         print("졌습니다!")
         print("게임 종료")
