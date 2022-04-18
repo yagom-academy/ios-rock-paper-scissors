@@ -20,8 +20,10 @@ func choiceMenu(number: String) {
         RPS.rock
     } else if number == "3" {
         RPS.paper
-    } else {
+    } else if number == "0" {
         print("게임 종료")
+    } else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }
 
@@ -34,7 +36,7 @@ func checkUserInput(of: String) {
     guard let userInput = Int(of) else {
         return
     }
-    if 1...3 ~= userInput {
+    if 0...3 ~= userInput {
     } else {
         print("잘못된 입력입니다.")
         startMenu()
