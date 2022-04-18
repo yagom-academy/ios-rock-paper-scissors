@@ -16,8 +16,7 @@ func startMenu() {
 
 func choiceMenu(number: String) {
     var myChoice: RPS = RPS.none
-    let comChoice: RPS = getComputerNumber()
-    
+    let computerChoice: RPS = getComputerNumber()
     if number == "1" {
         myChoice = RPS.scissors
     } else if number == "2" {
@@ -32,7 +31,7 @@ func choiceMenu(number: String) {
         startMenu()
         return
     }
-    compare(my: myChoice, computer: comChoice)
+    compare(my: myChoice, computer: computerChoice)
 }
 
 func getComputerNumber() -> RPS {
@@ -59,8 +58,8 @@ func compare(my:RPS, computer:RPS) {
         print("비겼습니다!")
         startMenu()
     }else if my == RPS.rock && computer == RPS.scissors ||
-             my == RPS.scissors && computer == RPS.paper ||
-             my == RPS.paper && computer == RPS.rock {
+                my == RPS.scissors && computer == RPS.paper ||
+                my == RPS.paper && computer == RPS.rock {
         print("이겼습니다!")
     } else {
         print("졌습니다!")
