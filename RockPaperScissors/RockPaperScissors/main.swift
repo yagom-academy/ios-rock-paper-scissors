@@ -30,4 +30,15 @@ func getComputerNumber() -> Int {
     return computerRandomNumber
 }
 
+func checkUserInput(of: String) {
+    guard let userInput = Int(of) else {
+        return
+    }
+    if 1...3 ~= userInput {
+    } else {
+        print("잘못된 입력입니다.")
+        startMenu()
+    }
+}
+
 startMenu()
