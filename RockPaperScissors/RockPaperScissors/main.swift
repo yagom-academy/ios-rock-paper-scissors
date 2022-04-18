@@ -55,8 +55,6 @@ func checkUserInput(of: String) {
 }
 
 func compare(my:RPS, computer:RPS) {
-    print(my)
-    print(computer)
     if my == computer {
         print("비겼습니다!")
         startMenu()
