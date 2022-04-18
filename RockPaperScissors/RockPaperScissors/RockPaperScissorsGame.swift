@@ -26,4 +26,11 @@ struct RockPaperScissorsGame {
             return false
         }
     }
+    
+    func decideGameStart() -> Bool {
+        if let number = inputNumber, number > 0 {
+            return true
+        }
+        return false
+    }
 }
