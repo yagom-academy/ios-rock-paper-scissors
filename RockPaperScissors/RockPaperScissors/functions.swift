@@ -1,0 +1,27 @@
+//
+//  functions.swift
+//  RockPaperScissors
+//
+//  Created by dhoney96 on 2022/04/18.
+//
+
+import Foundation
+
+func run() {
+    print("가위(1), 바위(2), 보(3)! 종료<0> :")
+    checkInput()
+}
+
+func checkInput() {
+    let selectMode: String? = readLine()
+    let mode: [String?] = ["1", "2", "3", "0"]
+
+    if selectMode == "0" {
+        print("게임 종료")
+    } else if mode.contains(selectMode) {
+        print(selectMode!)
+    } else {
+        print("잘못된 입력입니다. 다시 시도해 주세요.")
+        return run()
+    }
+}
