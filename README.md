@@ -21,7 +21,7 @@
 [![xcode](https://img.shields.io/badge/Xcode-13.3-blue)]()
 
 # 순서도 
-<img width="100%" src="https://user-images.githubusercontent.com/87175392/163812325-9c3b3242-e38f-41b3-8a54-8f5ad8b30547.jpg"/>
+<img width="100%" src="https://user-images.githubusercontent.com/87175392/163815184-6672d861-a067-401d-83db-da10fd73d082.jpg"/>
 
 
 # 키워드  
