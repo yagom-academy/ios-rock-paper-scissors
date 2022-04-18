@@ -13,13 +13,13 @@ func run() {
     
     switch choicedNumber {
     case "1":
-        caseS(of: choicedNumber, and: standardNumber)
+        caseS(standardNumber)
         break
     case "2":
-        caseR(of: choicedNumber, and: standardNumber)
+        caseR(standardNumber)
         break
     case "3":
-        caseP(of: choicedNumber, and: standardNumber)
+        caseP(standardNumber)
         break
     case "0":
         print("게임 종료")
@@ -46,44 +46,50 @@ func selectRSP() -> String {
     return selectedCase
 }
 
-func caseP(of user: String, and computer: String) {
-    if user == computer {
-        print("비겼습니다!")
-        run()
-    } else if user == "3" && computer == "1" {
+func caseP(_ computer: String) {
+    switch computer {
+    case "1":
         print("졌습니다!")
         print("게임 종료")
-    } else if user == "3" && computer == "2" {
+    case "2":
         print("이겼습니다!")
         print("게임 종료")
+    case "3":
+        print("비겼습니다!")
+        run()
+    default:
+        break
     }
 }
 
-func caseS(of user: String, and computer: String) {
-    if user == computer {
+func caseS(_ computer: String) {
+    switch computer {
+    case "1":
         print("비겼습니다!")
         run()
-        return
-    } else if user == "1" && computer == "2" {
+    case "2":
         print("졌습니다!")
         print("게임 종료")
-        return
-    } else if user == "1" && computer == "3" {
+    case "3":
         print("이겼습니다!")
         print("게임 종료")
-        return
+    default:
+        break
     }
 }
 
-func caseR(of user: String, and computer: String) {
-    if user == computer {
-        print("비겼습니다!")
-        run()
-    } else if user == "2" && computer == "1" {
+func caseR(_ computer: String) {
+    switch computer {
+    case "1":
         print("이겼습니다!")
         print("게임 종료")
-    } else if user == "2" && computer == "3" {
+    case "2":
+        print("비겼습니다!")
+        run()
+    case "3":
         print("졌습니다!")
         print("게임 종료")
+    default:
+        break
     }
 }
