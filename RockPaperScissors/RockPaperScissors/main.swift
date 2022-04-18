@@ -60,10 +60,11 @@ func compare(my:RPS, computer:RPS) {
     }else if my == RPS.rock && computer == RPS.scissors ||
                 my == RPS.scissors && computer == RPS.paper ||
                 my == RPS.paper && computer == RPS.rock {
-        print("이겼습니다!")
+        print("이겼습니다!\n게임종료")
     } else {
-        print("졌습니다!")
+        print("졌습니다!\n게임종료")
     }
+    
 }
 
 startMenu()
