@@ -1,9 +1,10 @@
 import Foundation
 
 enum RPS: Int {
+    case scissors = 1
     case rock = 2
     case paper = 3
-    case scissors = 1
+    case none = -1
 }
 
 func startMenu() {
@@ -14,12 +15,13 @@ func startMenu() {
 }
 
 func choiceMenu(number: String) {
+    var myChoice: RPS = RPS.none
     if number == "1" {
-        RPS.scissors
+        myChoice = RPS.scissors
     } else if number == "2" {
-        RPS.rock
+        myChoice = RPS.rock
     } else if number == "3" {
-        RPS.paper
+        myChoice = RPS.paper
     } else if number == "0" {
         print("게임 종료")
     } else {
@@ -27,9 +29,12 @@ func choiceMenu(number: String) {
     }
 }
 
-func getComputerNumber() -> Int {
-   let computerRandomNumber = Int.random(in: 1...3)
-    return computerRandomNumber
+func getComputerNumber() -> RPS {
+    guard let computerChoice: RPS = RPS(rawValue: Int.random(in: 1...3)) else {
+        print("ERROR getComputerNumber()")
+        return RPS.none
+    }
+    return computerChoice
 }
 
 func checkUserInput(of: String) {
@@ -42,5 +47,7 @@ func checkUserInput(of: String) {
         startMenu()
     }
 }
+
+
 
 startMenu()
