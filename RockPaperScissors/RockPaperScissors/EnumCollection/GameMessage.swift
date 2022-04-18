@@ -15,5 +15,3 @@ enum GameMessage: String {
     case endingMessage = "게임 종료"
     case errorMessage = "잘못된 입력입니다. 다시 시도해주세요."
 }
-
-
