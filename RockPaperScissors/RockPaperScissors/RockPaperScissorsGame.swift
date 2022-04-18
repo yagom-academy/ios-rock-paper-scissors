@@ -9,7 +9,8 @@ import Foundation
 
 struct RockPaperScissorsGame {
     var inputNumber: Int?
-    
+    let computerNumber = Int.random(in: 1...3)
+
     mutating func inputUserSelect() {
         inputNumber = Int(readLine() ?? "") ?? 4
     }
