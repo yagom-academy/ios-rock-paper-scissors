@@ -1,9 +1,9 @@
 import Foundation
 
 enum RPS: Int {
-    case rock
-    case paper
-    case scissors
+    case rock = 2
+    case paper = 3
+    case scissors = 1
 }
 
 func startMenu() {
@@ -23,6 +23,11 @@ func choiceMenu(number: String) {
     } else {
         print("게임 종료")
     }
+}
+
+func getComputerNumber() -> Int {
+   let computerRandomNumber = Int.random(in: 1...3)
+    return computerRandomNumber
 }
 
 startMenu()
