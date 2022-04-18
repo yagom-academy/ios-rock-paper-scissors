@@ -6,30 +6,25 @@
 
 import Foundation
 
-let randomNumberRange = 1...3
-var continueGameCheck = true
-let selectMenu = "0123"
+let randomNumberRange: ClosedRange<Int> = 1...3
+var continueGameCheck: Bool = true
+let cardList: Array<String> = ["1","2","3"]
 
 func startGame() {
     
     while continueGameCheck {
-        
         printUserInterface()
-        let userInputValue = readLine()?.trimmingCharacters(in: .whitespaces) ?? ""
+        let userSelectedCard = readLine()?.trimmingCharacters(in: .whitespaces) ?? ""
         
-        if userInputValue == "0" {
-            printGameOver()
-            continueGameCheck = false
-            break
+        if userSelectedCard == "0" {
+            switchContiueGameCheck()
+        } else if verifyUserInput(userChoiceCard: userSelectedCard){
+            judgeMatchResult(inputUserNumber: userSelectedCard)
         } else {
-            if verifyUserInput(userInput: userInputValue) {
-                
-            } else {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-            }
+            print("잘못된 입력입니다. 다시 시도해주세요.")
         }
     }
-    
+    printGameOver()
 }
 
 func printUserInterface() {
@@ -37,12 +32,11 @@ func printUserInterface() {
 }
 
 func generateComputerNumber() -> Int {
-    var randomNumber = Int.random(in: randomNumberRange)
-    return randomNumber
+    return Int.random(in: randomNumberRange)
 }
 
-func verifyUserInput(userInput: String) -> Bool {
-    if userInput.contains(selectMenu) {
+func verifyUserInput(userChoiceCard: String) -> Bool {
+    if cardList.contains(userChoiceCard) {
         return true
     } else {
         return false
@@ -53,15 +47,22 @@ func printGameOver() {
     print("게임 종료")
 }
 
+func switchContiueGameCheck() {
+    continueGameCheck = !continueGameCheck
+}
+
 func judgeMatchResult(inputUserNumber: String) {
     let computerRandomNumber = generateComputerNumber()
     
-    if inputUserNumber == "1" {
-        if computerRandomNumber == 1 {
-            printMatchResult(matchResult: "tie")
-        }
+    if (inputUserNumber == "3" && computerRandomNumber == 2) || (inputUserNumber == "2" && computerRandomNumber == 1) ||
+       (inputUserNumber == "1" && computerRandomNumber == 3) {
+        printMatchResult(matchResult: "win")
+        switchContiueGameCheck()
+    } else if inputUserNumber == String(computerRandomNumber){
+        printMatchResult(matchResult: "tie")
     } else {
-        
+        printMatchResult(matchResult: "lose")
+        switchContiueGameCheck()
     }
 }
 
@@ -69,10 +70,8 @@ func printMatchResult(matchResult: String) {
     switch matchResult {
     case "win":
         print("이겼습니다!")
-        break
     case "lose":
         print("졌습니다!")
-        break
     default:
         print("비겼습니다!")
     }
