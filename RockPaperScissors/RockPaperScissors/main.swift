@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-var userInput:Int = 0
+//var userInput = 0
 var computerInput:Int = 0
 
 func printUserOption() {
@@ -13,4 +13,24 @@ func printUserOption() {
 
 func makeComputerRandomNumber() {
     computerInput = Int.random(in: 1...3)
+}
+
+func inputUserNumber() -> Int {
+    var userInput: Int
+    let inputNumber = readLine() ?? ""
+    userInput = checkNumber(userInput: inputNumber)
+    return userInput
+}
+
+func checkNumber(userInput: String) -> Int {
+    var selectedNumber = -1
+    if let verifiedUserInput = Int(userInput) {
+        switch verifiedUserInput {
+        case 0,1,2,3:
+            selectedNumber = verifiedUserInput
+        default:
+            selectedNumber = -1
+        }
+    }
+    return selectedNumber
 }
