@@ -12,10 +12,45 @@ func printMenu() {
 
 func inputMenu() -> String {
     let userInput = readLine()
-    print(userInput)
-    guard let menuNumber = userInput  else { return "asdfsf" }  // 질문: 아무것도 입력을 안했을 때else 안의 return값이 안나오고 optional("")이 나오는 이유
+    guard let menuNumber = userInput, menuNumber != "" else { return "잘못된 입력입니다. 다시 시도해주세요." }
+    guard Int(menuNumber) != nil else { return "잘못된 입력입니다. 다시 시도해주세요." }
     return menuNumber
 }
 
+func getComputerNumber() -> String {
+    let randomNumber = String(Int.random(in: 1...3))
+    return randomNumber
+}
+
+func getResult(userNumber: String) -> Int {
+    if getComputerNumber() == userNumber {
+        return 0
+    } else if getComputerNumber() == "1" && userNumber == "3" {
+        return 2
+    } else if getComputerNumber() == "2" && userNumber == "1" {
+        return 2
+    } else if getComputerNumber() == "3" && userNumber == "2" {
+        return 2
+    } else {
+        return 1
+    }
+}
+
+func printResult() {
+    let getMenu = getResult(userNumber: inputMenu())
+
+    switch getMenu {
+    case 0:
+        print("비겼습니다!")
+    case 1:
+        print("이겼습니다!")
+    case 2:
+        print("졌습니다!")
+    default:
+        break
+    }
+}
+
 printMenu()
-inputMenu()
+printResult()
+
