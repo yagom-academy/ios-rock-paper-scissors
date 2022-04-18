@@ -40,4 +40,21 @@ struct RockPaperScissorsGame {
         }
         return false
     }
+    
+    mutating func excuteRockPaperScissors() {
+        while true {
+            printGameMessage(.menu)
+            inputUserSelect()
+            if verifyUserSelection() {
+                if decideGameStart() {
+//                    compareNumbers()
+                } else {
+                    printGameMessage(.ending)
+                    break
+                }
+            } else {
+                printGameMessage(.error)
+            }
+        }
+    }
 }
