@@ -38,7 +38,31 @@ extension RockPaperScissorsGame {
             return
         }
         
-        judgeVictory(selectedMenu: userSelection, computer: .paper)
+        startGame()
+        return
+    }
+    
+    private func makeComputerSelection() {
+        let selection = Int.random(in: 1...3)
+        
+        switch selection {
+        case 1:
+            computerSelection = .scissor
+        case 2:
+            computerSelection = .rock
+        case 3:
+            computerSelection = .paper
+        default:
+            return
+        }
+        
+        return
+    }
+    
+    private func startGame() {
+        makeComputerSelection()
+        judgeVictory(selectedMenu: userSelection, computer: computerSelection)
+        
         return
     }
     

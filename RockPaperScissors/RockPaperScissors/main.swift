@@ -6,6 +6,6 @@
 
 import Foundation
 
-let testGame = RockPaperScissorsGame()
+let game = RockPaperScissorsGame()
 
-testGame.printMenu()
+game.printMenu()
