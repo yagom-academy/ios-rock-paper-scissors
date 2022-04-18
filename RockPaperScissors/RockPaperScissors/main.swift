@@ -4,8 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-//var userInput = 0
 var computerInput:Int = 0
+var winningNumberCases = [(1,3),(2,1),(3,2)] //user wins
 
 func printUserOption() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -18,11 +18,11 @@ func makeComputerRandomNumber() {
 func inputUserNumber() -> Int {
     var userInput: Int
     let inputNumber = readLine() ?? ""
-    userInput = checkNumber(userInput: inputNumber)
+    userInput = checkUserInputNumber(userInput: inputNumber)
     return userInput
 }
 
-func checkNumber(userInput: String) -> Int {
+func checkUserInputNumber(userInput: String) -> Int {
     var selectedNumber = -1
     if let verifiedUserInput = Int(userInput) {
         switch verifiedUserInput {
@@ -33,4 +33,39 @@ func checkNumber(userInput: String) -> Int {
         }
     }
     return selectedNumber
+}
+
+func startGame() {
+    makeComputerRandomNumber()
+    var userInput = inputUserNumber()
+    while true {
+        if userInput == 0 {
+            break
+        }
+        compareTwoNumbers(userInput: userInput, computerInput: computerInput)
+    }
+}
+
+func compareTwoNumbers (userInput:Int, computerInput:Int) -> Int {
+    var matchResult = 1
+    let comparisonGroup = (userInput, computerInput)
+    if userInput == computerInput {
+        matchResult = 1
+    } else if winningNumberCases.contains(where: { $0 == comparisonGroup }) {
+        matchResult = 2
+    } else {
+        matchResult = 3
+    }
+    return matchResult
+}
+
+func printResult(matchResult:Int) {
+    switch matchResult {
+    case 2 :
+        print("이겼습니다!")
+    case 3 :
+        print("졌습니다!")
+    default:
+        print("비겼습니다!")
+    }
 }
