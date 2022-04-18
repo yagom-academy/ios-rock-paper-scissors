@@ -8,6 +8,22 @@ import Foundation
 
 var computerNumber = getComputerNumber()
 
+gameStart()
+
+func gameStart() {
+    printMenu()
+    let userInput = inputNumber()
+    switch userInput {
+    case "0":
+        print("게임 종료")
+    case let number where number == "1" ||  number == "2" || number == "3"  :
+        getResult(userNumber:number)
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        gameStart()
+    }
+}
+
 func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
@@ -16,11 +32,6 @@ func inputNumber() -> String {
     let userNumber = readLine()
     guard let inputNumber = userNumber else { return "" }
     return inputNumber
-}
-
-func getComputerNumber() -> String {
-    let computerRandomNumber = String(Int.random(in: 1...3))
-    return computerRandomNumber
 }
 
 func getResult(userNumber: String) {
@@ -43,18 +54,7 @@ func getResult(userNumber: String) {
     }
 }
 
-gameStart()
-
-func gameStart() {
-    printMenu()
-    let userInput = inputNumber()
-    switch userInput {
-    case "0":
-        print("게임 종료")
-    case let number where number == "1" ||  number == "2" || number == "3"  :
-        getResult(userNumber:number)
-    default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        gameStart()
-    }
+func getComputerNumber() -> String {
+    let computerRandomNumber = String(Int.random(in: 1...3))
+    return computerRandomNumber
 }
