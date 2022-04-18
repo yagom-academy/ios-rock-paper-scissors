@@ -5,3 +5,7 @@
 // 
 
 import Foundation
+
+let testGame = RockPaperScissorsGame()
+
+testGame.printMenu()

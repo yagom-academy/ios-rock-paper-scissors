@@ -8,13 +8,8 @@
 import Foundation
 
 class RockPaperScissorsGame {
-    var userNumber: String
-    var computerNumber: String
-    
-    init(userNumber: String, computerNumber: String) {
-        self.userNumber = userNumber
-        self.computerNumber = computerNumber
-    }
+    var userSelection: RockPaperScissors?
+    var computerSelection: RockPaperScissors?
 }
 
 extension RockPaperScissorsGame {
@@ -28,8 +23,12 @@ extension RockPaperScissorsGame {
         let userInput = readLine()
         
         switch userInput {
-        case "1", "2", "3":
-            judgeVictory(selectedMenu: userInput)
+        case "1":
+            userSelection = .scissor
+        case "2":
+            userSelection = .rock
+        case "3":
+            userSelection = .paper
         case "0":
             endGame()
         default:
@@ -39,11 +38,22 @@ extension RockPaperScissorsGame {
         }
     }
     
-    private func judgeVictory(selectedMenu: String?) {
-        
+    private func judgeVictory(selectedMenu: RockPaperScissors, computer: RockPaperScissors) {
+        switch (selectedMenu, computer) {
+        case (.scissor, .rock), (.rock, .paper), (.paper, .scissor):
+            print("졌습니다!")
+            endGame()
+        case (.rock, .scissor), (.paper, .rock), (.scissor, .paper):
+            print("이겼습니다!")
+            endGame()
+        default:
+            print("비겼습니다!")
+            printMenu()
+        }
     }
     
     private func endGame() {
         print("게임 종료")
+        return
     }
 }
