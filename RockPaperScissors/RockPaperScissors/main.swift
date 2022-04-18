@@ -27,6 +27,7 @@ func getResult(userNumber: String) {
     if computerNumber == userNumber {
         print("비겼습니다!")
         computerNumber = getComputerNumber()
+        gameStart()
     } else if computerNumber == "1" && userNumber == "3" {
         print("졌습니다!")
         print("게임 종료")
@@ -39,5 +40,21 @@ func getResult(userNumber: String) {
     } else {
         print("이겼습니다!")
         print("게임 종료")
+    }
+}
+
+gameStart()
+
+func gameStart() {
+    printMenu()
+    let userInput = inputNumber()
+    switch userInput {
+    case "0":
+        print("게임 종료")
+    case let number where number == "1" ||  number == "2" || number == "3"  :
+        getResult(userNumber:number)
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        gameStart()
     }
 }
