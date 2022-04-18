@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		377F96C1280D4A4A000FE72C /* RockScissorsPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F96C0280D4A4A000FE72C /* RockScissorsPaper.swift */; };
+		377F96C1280D4A4A000FE72C /* UserChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F96C0280D4A4A000FE72C /* UserChoice.swift */; };
 		377F96C4280D5A39000FE72C /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F96C3280D5A39000FE72C /* RockPaperScissorsGame.swift */; };
 		428E3576280D52DB00E27A03 /* GameMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428E3575280D52DB00E27A03 /* GameMessage.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
@@ -26,7 +26,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		377F96C0280D4A4A000FE72C /* RockScissorsPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorsPaper.swift; sourceTree = "<group>"; };
+		377F96C0280D4A4A000FE72C /* UserChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChoice.swift; sourceTree = "<group>"; };
 		377F96C3280D5A39000FE72C /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
 		428E3575280D52DB00E27A03 /* GameMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMessage.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,7 +47,7 @@
 		377F96C2280D4A57000FE72C /* EnumCollection */ = {
 			isa = PBXGroup;
 			children = (
-				377F96C0280D4A4A000FE72C /* RockScissorsPaper.swift */,
+				377F96C0280D4A4A000FE72C /* UserChoice.swift */,
 				428E3575280D52DB00E27A03 /* GameMessage.swift */,
 			);
 			path = EnumCollection;
@@ -137,7 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				377F96C4280D5A39000FE72C /* RockPaperScissorsGame.swift in Sources */,
-				377F96C1280D4A4A000FE72C /* RockScissorsPaper.swift in Sources */,
+				377F96C1280D4A4A000FE72C /* UserChoice.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				428E3576280D52DB00E27A03 /* GameMessage.swift in Sources */,
 			);

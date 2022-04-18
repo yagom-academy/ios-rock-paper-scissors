@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum RockScissorsPaper: Int {
+enum UserChoice: Int {
+    case end = 0
     case scissors = 1
     case rock = 2
     case paper = 3

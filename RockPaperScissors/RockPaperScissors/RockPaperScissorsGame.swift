@@ -11,7 +11,7 @@ struct RockPaperScissorsGame {
     var inputNumber: Int?
     
     func printMenu() {
-        print(GameMessage.menuMessage.rawValue)
+        print(GameMessage.menu.rawValue)
     }
     
     mutating func inputUserSelect() {
