@@ -8,16 +8,21 @@
 import Foundation
 
 class RockPaperScissorsGame {
-    var userSelection: RockPaperScissors?
-    var computerSelection: RockPaperScissors?
+    private var userSelection: RockPaperScissors?
+    private var computerSelection: RockPaperScissors?
 }
 
 extension RockPaperScissorsGame {
+    
     func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료: 0>:", terminator: " ")
         getUserInput()
         return
     }
+    
+}
+
+extension RockPaperScissorsGame {
     
     private func getUserInput() {
         let userInput = readLine()
@@ -42,6 +47,12 @@ extension RockPaperScissorsGame {
         return
     }
     
+    private func startGame() {
+        makeComputerSelection()
+        judgeVictory(userSide: userSelection, computerSide: computerSelection)
+        return
+    }
+    
     private func makeComputerSelection() {
         let selection = Int.random(in: 1...3)
         
@@ -55,19 +66,11 @@ extension RockPaperScissorsGame {
         default:
             return
         }
-        
         return
     }
     
-    private func startGame() {
-        makeComputerSelection()
-        judgeVictory(selectedMenu: userSelection, computer: computerSelection)
-        
-        return
-    }
-    
-    private func judgeVictory(selectedMenu: RockPaperScissors?, computer: RockPaperScissors?) {
-        switch (selectedMenu, computer) {
+    private func judgeVictory(userSide: RockPaperScissors?, computerSide: RockPaperScissors?) {
+        switch (userSide, computerSide) {
         case (.scissor, .rock), (.rock, .paper), (.paper, .scissor):
             print("졌습니다!")
             endGame()
@@ -87,4 +90,5 @@ extension RockPaperScissorsGame {
         print("게임 종료")
         return
     }
+    
 }
