@@ -18,8 +18,4 @@ extension String {
         
         return value.convertAsInt()
     }
-    
-    func printSelf() {
-        print(self)
-    }
 }

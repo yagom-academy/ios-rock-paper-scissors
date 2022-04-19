@@ -22,11 +22,10 @@ final class RockPaperScissorsGame: Runnable {
         
         switch userInputValue {
         case 1, 2, 3 :
-            comparison(of: createComputerNumber(), and: user)
-                .value
-                .printSelf()
+            let result = comparison(of: createComputerNumber(), and: user).value
+            exitGame(result)
         case 0 :
-            print("게임 종료")
+            exitGame()
         default :
             restart()
         }
@@ -34,6 +33,18 @@ final class RockPaperScissorsGame: Runnable {
 }
 
 extension RockPaperScissorsGame {
+    private func exitGame(_ quote: String = "") {
+        if (quote.elementsEqual("비겼습니다.") == false) {
+            print(quote)
+            print("게임 종료")
+            return
+        } else {
+            print(quote)
+            run()
+            return
+        }
+    }
+    
     private func restart() {
         print("잘못된 입력입니다. 다시 시도해주세요")
         run()
@@ -48,7 +59,7 @@ extension RockPaperScissorsGame {
         }
     }
     
-    private func comparison(of computer: ValueType?, and user: ValueType?) -> GameResult{
+    private func comparison(of computer: ValueType?, and user: ValueType?) -> GameResult {
         switch (computer, user) {
         case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
             return .lose
