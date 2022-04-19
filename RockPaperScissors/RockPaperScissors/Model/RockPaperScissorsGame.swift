@@ -22,7 +22,9 @@ final class RockPaperScissorsGame: Runnable {
         
         switch userInputValue {
         case 1, 2, 3 :
-          break
+            comparison(of: createComputerNumber(), and: user)
+                .value
+                .printSelf()
         case 0 :
             print("게임 종료")
         default :
@@ -35,5 +37,25 @@ extension RockPaperScissorsGame {
     private func restart() {
         print("잘못된 입력입니다. 다시 시도해주세요")
         run()
+    }
+    
+    private func createComputerNumber() -> ValueType {
+        if let randomNumber = Int.random(in: 1...3) as? Int,
+           let computer = ValueType(rawValue: randomNumber) {
+            return computer
+        } else {
+            return .none
+        }
+    }
+    
+    private func comparison(of computer: ValueType?, and user: ValueType?) -> GameResult{
+        switch (computer, user) {
+        case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
+            return .lose
+        case (.paper, .scissors), (.rock, .paper), (.scissors, .rock):
+            return .win
+        default :
+            return .draw
+        }
     }
 }
