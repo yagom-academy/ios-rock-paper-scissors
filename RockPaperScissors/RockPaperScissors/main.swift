@@ -18,7 +18,7 @@ enum ExceptionalInput {
     }
 }
 
-enum RockPaperScissor: Int {
+enum RockPaperScissor: CaseIterable {
     case scissor
     case rock
     case paper
@@ -35,19 +35,19 @@ enum RockPaperScissor: Int {
     }
 }
 
-enum GameResult: Int {
+enum GameResult: String {
     case draw
     case win
     case lose
     
-    var result: Int {
+    var result: String {
         switch self {
         case .draw:
-            return 1
+            return "비겼습니다!"
         case .win:
-            return 2
+            return "이겼습니다!"
         case .lose:
-            return 3
+            return "졌습니다!"
         }
     }
 }
@@ -71,12 +71,13 @@ func inputUserNumber() -> Int {
 
 func checkUserInputNumber(userInput: String) -> Int {
     var selectedNumber = ExceptionalInput.wrongInput.correspondingNumber
+    let rockPaperScissorCases = RockPaperScissor.allCases.map( {$0.correspondingNumber} )
+    let closeInputCase = [ExceptionalInput.closeInput.correspondingNumber]
+    let verifiedInputCases = rockPaperScissorCases + closeInputCase
+    
     if let verifiedUserInput = Int(userInput) {
         switch verifiedUserInput {
-        case ExceptionalInput.closeInput.correspondingNumber,
-             RockPaperScissor.scissor.correspondingNumber,
-             RockPaperScissor.rock.correspondingNumber,
-             RockPaperScissor.paper.correspondingNumber:
+        case _ where verifiedInputCases.contains(verifiedUserInput):
             selectedNumber = verifiedUserInput
         default:
             selectedNumber = ExceptionalInput.wrongInput.correspondingNumber
@@ -89,7 +90,7 @@ func printErrorMessage() {
     print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
-func compareTwoNumbers (userInput: Int, computerInput: Int) -> Int {
+func compareTwoNumbers (userInput: Int, computerInput: Int) -> String {
     let winningNumberCases = [(RockPaperScissor.scissor.correspondingNumber, RockPaperScissor.paper.correspondingNumber),
                               (RockPaperScissor.rock.correspondingNumber, RockPaperScissor.scissor.correspondingNumber),
                               (RockPaperScissor.paper.correspondingNumber, RockPaperScissor.rock.correspondingNumber)]
@@ -105,17 +106,6 @@ func compareTwoNumbers (userInput: Int, computerInput: Int) -> Int {
     return matchResult
 }
 
-func printResult(matchResult: Int) {
-    switch matchResult {
-    case GameResult.win.result :
-        print("이겼습니다!")
-    case GameResult.lose.result :
-        print("졌습니다!")
-    default:
-        print("비겼습니다!")
-    }
-}
-
 func startGame() {
     let computerInput = makeComputerRandomNumber()
     while true {
@@ -128,9 +118,9 @@ func startGame() {
             print("게임 종료")
             break
         }
-        let extractedNumber = compareTwoNumbers(userInput: userInput, computerInput: computerInput)
-        printResult(matchResult: extractedNumber)
-        if extractedNumber == GameResult.win.result || extractedNumber == GameResult.lose.result {
+        let comparedResult = compareTwoNumbers(userInput: userInput, computerInput: computerInput)
+        print(comparedResult)
+        if comparedResult == GameResult.win.result || comparedResult == GameResult.lose.result {
             print("게임 종료")
             break
         }
