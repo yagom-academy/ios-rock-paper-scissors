@@ -18,8 +18,8 @@ func decideProcessBy(_ menuChoice: String) {
     case "0":
         print("게임 종료")
     case "1", "2", "3":
-        let pickResult: (Rps, Rps) = playRPS(menuChoice: menuChoice)
-        let winner = pickOutWinner(RpsPicksOf: pickResult)
+        let eachPick: (Rps, Rps) = playRPS(by: menuChoice)
+        let winner = pickOutWinner(from: eachPick)
         printGameResult(winner: winner)
     
         restartIfTie(winner: winner)
@@ -49,19 +49,19 @@ func convertInputToRps(input: String) -> Rps {
     return myRpsPick
 }
 
-func playRPS(menuChoice: String) -> (Rps, Rps) {
+func playRPS(by menuChoice: String) -> (Rps, Rps) {
     let myRpsPick = convertInputToRps(input: menuChoice)
     guard let computerRpsPick = Rps(rawValue: Int.random(in: 1...3)) else { return (.ready, .ready) }
     
     return (myRpsPick, computerRpsPick)
 }
 
-func pickOutWinner(RpsPicksOf: (user: Rps, computer: Rps)) -> GameWinner {
-    if RpsPicksOf.computer == RpsPicksOf.user {
+func pickOutWinner(from pickOf: (user: Rps, computer: Rps)) -> GameWinner {
+    if pickOf.computer == pickOf.user {
         return .tie
     }
     
-    switch (RpsPicksOf.user, RpsPicksOf.computer) {
+    switch (pickOf.user, pickOf.computer) {
     case (.rock, .scissors), (.scissors, .paper), (.paper, .rock):
         return .usersVictory
     default:
