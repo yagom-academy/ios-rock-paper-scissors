@@ -20,11 +20,11 @@ final class RockPaperScissorsGame: Runnable {
             return
         }
         
-        switch userInputValue {
-        case 1, 2, 3 :
+        switch user {
+        case .scissors, .rock, .paper :
             let result = comparison(of: createComputerNumber(), and: user).value
             exitGame(result)
-        case 0 :
+        case .none :
             exitGame()
         default :
             restart()
