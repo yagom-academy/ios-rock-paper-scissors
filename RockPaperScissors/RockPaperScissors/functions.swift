@@ -19,10 +19,10 @@ func decideProcessBy(_ menuChoice: String) {
         print("게임 종료")
     case "1", "2", "3":
         let eachPick: (Rps, Rps) = playRPS(by: menuChoice)
-        let winner = pickOutWinner(from: eachPick)
-        printGameResult(winner: winner)
-    
-        restartIfTie(winner: winner)
+        let gameResult = pickOutWinner(from: eachPick)
+        printResult(basedOn: gameResult)
+        
+        restartIfTie(judgingBy: gameResult)
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startRPS()
@@ -35,17 +35,9 @@ func startRPS() {
 }
 
 func convertInputToRps(input: String) -> Rps {
-    var myRpsPick: Rps
-    switch input {
-    case "1":
-        myRpsPick = Rps(rawValue: 1) ?? Rps.ready
-    case "2":
-        myRpsPick = Rps(rawValue: 2) ?? Rps.ready
-    case "3":
-        myRpsPick = Rps(rawValue: 3) ?? Rps.ready
-    default:
-        return Rps.ready
-    }
+    guard let pickNumber = Int(input) else { return Rps.ready }
+    let myRpsPick:Rps = Rps(rawValue: pickNumber) ?? Rps.ready
+
     return myRpsPick
 }
 
@@ -69,8 +61,8 @@ func pickOutWinner(from pickOf: (user: Rps, computer: Rps)) -> GameWinner {
     }
 }
 
-func printGameResult(winner: GameWinner) {
-    switch winner {
+func printResult(basedOn gameResult: GameWinner) {
+    switch gameResult {
     case .usersVictory:
         print("이겼습니다!")
         print("게임 종료")
@@ -82,8 +74,8 @@ func printGameResult(winner: GameWinner) {
     }
 }
 
-func restartIfTie(winner: GameWinner) {
-    if winner == .tie {
+func restartIfTie(judgingBy gameResult: GameWinner) {
+    if gameResult == .tie {
         startRPS()
     }
 }
