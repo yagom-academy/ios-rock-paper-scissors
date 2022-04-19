@@ -6,7 +6,7 @@
 
 import Foundation
 
-var computerNumber = getComputerNumber()    // 전역변수 변경
+
 func makeComputerChoice() -> Int {
     let computerNumber = getComputerNumber()
     return computerNumber
@@ -39,6 +39,7 @@ func inputNumber() -> Int {
 }
 
 func getResult(userNumber: Int) -> Int {
+    let computerNumber = makeComputerChoice()
     if computerNumber == userNumber {
         return 3
     } else if computerNumber == RockScissorsPaper.scissors && userNumber == RockScissorsPaper.rock {
@@ -62,7 +63,6 @@ func printResult(input: Int) {
         print(Result.gameOver)
     case 3:
         print(Result.draw)
-        computerNumber = getComputerNumber()
         gameStart()
     default:
         break
