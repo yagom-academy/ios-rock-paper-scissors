@@ -17,16 +17,17 @@ func startGame() {
 func operateGame(number: String) {
     var myChoice: RPS = RPS.none
     let computerChoice: RPS = getComputerNumber()
-    if number == "1" {
+    switch number {
+    case "1":
         myChoice = RPS.scissors
-    } else if number == "2" {
+    case "2":
         myChoice = RPS.rock
-    } else if number == "3" {
+    case "3":
         myChoice = RPS.paper
-    } else if number == "0" {
+    case "0":
         print("게임 종료")
         return
-    } else {
+    default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startGame()
         return
