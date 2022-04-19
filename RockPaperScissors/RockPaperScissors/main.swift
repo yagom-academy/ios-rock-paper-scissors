@@ -1,10 +1,10 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by kiwi, bard.
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
 
-print("Hello, World!")
+let game = RockScissorsPaperGame()
+game.startGame()
 
