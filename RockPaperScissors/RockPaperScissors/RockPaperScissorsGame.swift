@@ -90,21 +90,4 @@ struct RockPaperScissorsGame {
                 return .draw
             }
         }
-    
-    mutating func excuteRockPaperScissors() {
-            printGameMessage(.menu)
-            inputUserSelect()
-            if verifyUserSelection() {
-                if decideGameStart() {
-                    compareChoice()
-                    printGameResult()
-                } else {
-                    printGameMessage(.ending)
-                }
-            } else {
-                printGameMessage(.error)
-                excuteRockPaperScissors()
-                return
-            }
-    }
 }
