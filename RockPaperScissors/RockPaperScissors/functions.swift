@@ -20,8 +20,9 @@ func decideProcessBy(_ menuChoice: String) {
     case "1", "2", "3":
         let pickResult: (Rps, Rps) = playRPS(menuChoice: menuChoice)
         let winner = pickOutWinner(RpsPicksOf: pickResult)
-        print(winner)
-        print("printGameResult() 함수 실행 예정")
+        printGameResult(winner: winner)
+    
+        restartIfTie(winner: winner)
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startRPS()
@@ -65,5 +66,24 @@ func pickOutWinner(RpsPicksOf: (user: Rps, computer: Rps)) -> GameWinner {
         return .usersVictory
     default:
         return .computersVictory
+    }
+}
+
+func printGameResult(winner: GameWinner) {
+    switch winner {
+    case .usersVictory:
+        print("이겼습니다!")
+        print("게임 종료")
+    case .computersVictory:
+        print("졌습니다!")
+        print("게임 종료")
+    default:
+        print("비겼습니다")
+    }
+}
+
+func restartIfTie(winner: GameWinner) {
+    if winner == .tie {
+        startRPS()
     }
 }
