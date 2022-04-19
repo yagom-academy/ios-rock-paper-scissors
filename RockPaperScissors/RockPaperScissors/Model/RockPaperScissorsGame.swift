@@ -34,14 +34,12 @@ final class RockPaperScissorsGame: Runnable {
 
 extension RockPaperScissorsGame {
     private func exitGame(_ quote: String = "") {
-        if (quote.elementsEqual("비겼습니다.") == false) {
-            print(quote)
-            print("게임 종료")
-            return
-        } else {
+        if (quote.elementsEqual("비겼습니다.!")) {
             print(quote)
             run()
-            return
+        } else {
+            print(quote)
+            print("게임 종료")
         }
     }
     
