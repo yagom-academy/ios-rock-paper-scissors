@@ -61,19 +61,29 @@ func printGameOver() {
 }
 
 func endGame() {
-    continueGameCheck = !continueGameCheck
+    continueGameCheck = false
 }
 
 func judgeMatchResult(inputUserNumber: RockPaperScissors) {
     let computerRandomNumber = generateComputerNumber()
+    print(computerRandomNumber)
     
-   !(inputUserNumber == .paper && computerRandomNumber == .rock ||
-     inputUserNumber == .rock && computerRandomNumber == .scissors ||
-     inputUserNumber == .scissors && computerRandomNumber == .paper) ?
-    inputUserNumber == computerRandomNumber ?
-    printMatchResult(matchResult: "tie") :
-    printMatchResult(matchResult: "lose") :
-    printMatchResult(matchResult: "win")
+    if inputUserNumber == computerRandomNumber {
+        printMatchResult(matchResult: "tie")
+        return
+    }
+    
+    if inputUserNumber == .scissors {
+        computerRandomNumber == .paper ? printMatchResult(matchResult: "win") : printMatchResult(matchResult: "lose")
+    }
+    
+    if inputUserNumber == .paper {
+        computerRandomNumber == .rock ? printMatchResult(matchResult: "win") : printMatchResult(matchResult: "lose")
+    }
+    
+    if inputUserNumber == .rock {
+        computerRandomNumber == .scissors ? printMatchResult(matchResult: "win") : printMatchResult(matchResult: "lose")
+    }
 }
 
 func printMatchResult(matchResult: String) {
