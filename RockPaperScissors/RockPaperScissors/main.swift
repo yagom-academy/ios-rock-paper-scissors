@@ -16,7 +16,7 @@ func startGame() {
 
 func operateGame(number: String) {
     var myChoice: RPS = RPS.none
-    let computerChoice: RPS = getComputerNumber()
+    let computerChoice: RPS = obtainComputerValue()
     switch number {
     case "1":
         myChoice = RPS.scissors
@@ -35,7 +35,7 @@ func operateGame(number: String) {
     compare(my: myChoice, computer: computerChoice)
 }
 
-func getComputerNumber() -> RPS {
+func obtainComputerValue() -> RPS {
     guard let computerChoice: RPS = RPS(rawValue: Int.random(in: 1...3)) else {
         print("ERROR getComputerNumber()")
         return RPS.none
