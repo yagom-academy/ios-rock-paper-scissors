@@ -4,14 +4,16 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
 func showGameMenu() {
     var isStart = true
     while isStart {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         isStart = getUserInput()
     }
+}
+
+func exitGame() {
+    print("게임 종료")
 }
 
 func getUserInput() -> Bool {
@@ -21,7 +23,7 @@ func getUserInput() -> Bool {
             let rockPaperScissors = makeRandomNumber()
             return comparePlayerInputAndComputerNumber(userInput: inputMenuNumber, computerInput: rockPaperScissors)
         case "0" :
-            print("게임 종료")
+            exitGame()
             return false
         default :
             print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -52,8 +54,10 @@ func printResult(result: Int) {
         print("비겼습니다!")
     case 1:
         print("이겼습니다!")
+        exitGame()
     case 2:
         print("졌습니다!")
+        exitGame()
     default:
         break
     }
