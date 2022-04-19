@@ -6,7 +6,11 @@
 
 import Foundation
 
-var computerNumber = getComputerNumber()
+var computerNumber = getComputerNumber()    // 전역변수 변경
+func makeComputerChoice() -> Int {
+    let computerNumber = getComputerNumber()
+    return computerNumber
+}
 
 gameStart()
 
@@ -14,10 +18,10 @@ func gameStart() {
     printMenu()
     let userInput = inputNumber()
     switch userInput {
-    case "0":
+    case 0:
         print("게임 종료")
-    case let number where number == "1" ||  number == "2" || number == "3"  :
-        getResult(userNumber:number)
+    case 1, 2, 3:
+        printResult(input: getResult(userNumber: userInput))
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         gameStart()
@@ -28,33 +32,63 @@ func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
-func inputNumber() -> String {
-    let userNumber = readLine()
-    guard let inputNumber = userNumber else { return "" }
-    return inputNumber
+func inputNumber() -> Int {
+    guard let inputNumber = readLine()?.trimmingCharacters(in: .whitespaces) else { return 4 }
+    guard let number = Int(inputNumber) else { return 4 }
+    return number
 }
 
-func getResult(userNumber: String) {
+func getResult(userNumber: Int) -> Int {
     if computerNumber == userNumber {
-        print("비겼습니다!")
-        computerNumber = getComputerNumber()
-        gameStart()
-    } else if computerNumber == "1" && userNumber == "3" {
-        print("졌습니다!")
-        print("게임 종료")
-    } else if computerNumber == "2" && userNumber == "1" {
-        print("졌습니다!")
-        print("게임 종료")
-    } else if computerNumber == "3" && userNumber == "2" {
-        print("졌습니다!")
-        print("게임 종료")
+        return 3
+    } else if computerNumber == RockScissorsPaper.scissors && userNumber == RockScissorsPaper.rock {
+        return 2
+    } else if computerNumber == RockScissorsPaper.rock && userNumber == RockScissorsPaper.scissors {
+        return 2
+    } else if computerNumber == RockScissorsPaper.paper && userNumber == RockScissorsPaper.rock {
+        return 2
     } else {
-        print("이겼습니다!")
-        print("게임 종료")
+        return 1
     }
 }
 
-func getComputerNumber() -> String {
-    let computerRandomNumber = String(Int.random(in: 1...3))
+func printResult(input: Int) {
+    switch input {
+    case 1:
+        print(Result.win)
+        print(Result.gameOver)
+    case 2:
+        print(Result.lose)
+        print(Result.gameOver)
+    case 3:
+        print(Result.draw)
+        computerNumber = getComputerNumber()
+        gameStart()
+    default:
+        break
+    }
+}
+
+func getComputerNumber() -> Int {
+    let computerRandomNumber = Int.random(in: Numbers.range)
     return computerRandomNumber
 }
+
+enum Numbers {
+    static let range = 1...3
+}
+
+enum RockScissorsPaper {
+    static let scissors = 1
+    static let rock = 2
+    static let paper = 3
+}
+
+enum Result {
+    static let win = "이겼습니다!"
+    static let lose = "졌습니다!"
+    static let draw = "비겼습니다!"
+    static let gameOver = "게임 종료"
+}
+
+
