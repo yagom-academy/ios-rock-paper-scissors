@@ -22,6 +22,30 @@ func verifyRockPaperScissors(rps: Int?) {
     }
 }
 
+func showGameMenu() {
+    var isStart = true
+    while isStart {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        let inputMenuNumber = readLine() ?? ""
+        switch inputMenuNumber {
+        case "1", "2", "3" :
+            let rockPaperScissors = makeRandomNumber()
+        case "0" :
+            print("게임 종료")
+            isStart = false
+            break
+        default :
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            break
+        }
+    }
+}
+
+func makeRandomNumber() -> String {
+    let randomNumber = Int.random(in: 1...3)
+    return String(randomNumber)
+}
+
 // 컴퓨터 사용자 값 서로 비교해서 검증하는 함수 생성
 // printMessage 함수 생성
 
@@ -29,6 +53,23 @@ func input() {
     if let rps = readLine() {
         //정수 변환
         verifyRockPaperScissors(rps: Int(rps))
+    }
+}
+
+func comparePlayerInputAndComputerNumber(userInput: String?) -> Int {
+    
+}
+
+func printResult(result: Int) {
+    switch result {
+    case 0:
+    print("비겼습니다!")
+    case 1:
+    print("이겼습니다!")
+    case 2:
+        print("졌습니다!")
+    default:
+        
     }
 }
 
