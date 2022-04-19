@@ -13,11 +13,13 @@ func selectMenuByInput() -> String {
     return userInput
 }
 
-func decideProcessBy(_ choice: String) {
-    switch choice {
+func decideProcessBy(_ menuChoice: String) {
+    switch menuChoice {
     case "0":
         print("게임 종료")
     case "1", "2", "3":
+        let pickResult: (Rps, Rps) = playRPS(menuChoice: menuChoice)
+        print(pickResult)
         print("winner = pickOutWinner() 함수 실행 예정")
         print("printGameResult() 함수 실행 예정")
     default:
@@ -44,4 +46,11 @@ func convertInputToRps(input: String) -> Rps {
         return Rps.ready
     }
     return myRpsPick
+}
+
+func playRPS(menuChoice: String) -> (Rps, Rps) {
+    let myRpsPick = convertInputToRps(input: menuChoice)
+    guard let computerRpsPick = Rps(rawValue: Int.random(in: 1...3)) else { return (.ready, .ready) }
+    
+    return (myRpsPick, computerRpsPick)
 }
