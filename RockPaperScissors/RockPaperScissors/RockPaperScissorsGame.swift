@@ -8,15 +8,14 @@
 import Foundation
 
 struct RockPaperScissorsGame {
-    var inputNumber: Int?
-    let computerNumber = Int.random(in: 1...3)
+    var inputUserChoice: Int?
     
     mutating func inputUserSelect() {
-        inputNumber = Int(readLine() ?? "") ?? 4
+        inputUserChoice = Int(readLine() ?? "") ?? 4
     }
     
     func verifyUserSelection() -> Bool {
-        switch inputNumber {
+        switch inputUserChoice {
         case convertUserChoiceToNumber(.end),
             convertUserChoiceToNumber(.scissors),
             convertUserChoiceToNumber(.rock),
@@ -36,7 +35,7 @@ struct RockPaperScissorsGame {
     }
     
     func decideGameStart() -> Bool {
-        if let number = inputNumber, number > convertUserChoiceToNumber(.end) {
+        if let number = inputUserChoice, number > convertUserChoiceToNumber(.end) {
             return true
         }
         return false
@@ -48,7 +47,7 @@ struct RockPaperScissorsGame {
             inputUserSelect()
             if verifyUserSelection() {
                 if decideGameStart() {
-                    compareNumbers()
+                    compareChoice()
                 } else {
                     printGameMessage(.ending)
                     break
@@ -59,35 +58,36 @@ struct RockPaperScissorsGame {
         }
     }
     
-    func compareToScissorsOfUser() -> GameResult {
-        return computerNumber == convertUserChoiceToNumber(.paper) ? .win : .lose
+    func compareToScissorsOfUser(with computerChoice: Int) -> GameResult {
+        return computerChoice == convertUserChoiceToNumber(.paper) ? .win : .lose
     }
     
-    func compareToPaperOfUser() -> GameResult {
-        return computerNumber == convertUserChoiceToNumber(.rock) ? .win : .lose
+    func compareToPaperOfUser(with computerChoice: Int) -> GameResult {
+        return computerChoice == convertUserChoiceToNumber(.rock) ? .win : .lose
     }
     
-    func compareToRockOfUser() -> GameResult {
-        return computerNumber == convertUserChoiceToNumber(.scissors) ? .win : .lose
+    func compareToRockOfUser(with computerChoice: Int) -> GameResult {
+        return computerChoice == convertUserChoiceToNumber(.scissors) ? .win : .lose
     }
     
-    func compareNumbers() -> GameResult {
-            var unrappedUserNumber = 0
-
-            if let userNumber = inputNumber {
-                unrappedUserNumber = userNumber
+    func compareChoice() -> GameResult {
+            var unrappedUserChoice = 0
+            let computerChoice = Int.random(in: 1...3)
+            if let userNumber = inputUserChoice {
+                unrappedUserChoice = userNumber
             }
 
-            switch unrappedUserNumber {
+            switch unrappedUserChoice {
+            case computerChoice:
+                return .draw
             case convertUserChoiceToNumber(.scissors):
-                return compareToScissorsOfUser()
+                return compareToScissorsOfUser(with: computerChoice)
             case convertUserChoiceToNumber(.paper):
-                return compareToPaperOfUser()
+                return compareToPaperOfUser(with: computerChoice)
             case convertUserChoiceToNumber(.rock):
-                return compareToRockOfUser()
+                return compareToRockOfUser(with: computerChoice)
             default:
-                break
+                return .draw
             }
-            return .draw
         }
 }
