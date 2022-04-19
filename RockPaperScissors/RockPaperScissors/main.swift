@@ -33,6 +33,7 @@ enum RockPaperScissor: CaseIterable {
             return 3
         }
     }
+    
     var correspodingMJPNumber: Int {
         switch self {
         case .rock:
@@ -41,6 +42,24 @@ enum RockPaperScissor: CaseIterable {
             return 2
         case .paper:
             return 3
+        }
+    }
+}
+
+enum winnigCases {
+    case RPS
+    case MJP
+    
+    var numberCases: Array<(Int,Int)> {
+        switch self {
+        case .RPS:
+            return [(RockPaperScissor.scissor.correspondingNumber, RockPaperScissor.paper.correspondingNumber),
+                    (RockPaperScissor.rock.correspondingNumber, RockPaperScissor.scissor.correspondingNumber),
+                    (RockPaperScissor.paper.correspondingNumber, RockPaperScissor.rock.correspondingNumber)]
+        case .MJP:
+            return [(RockPaperScissor.rock.correspodingMJPNumber, RockPaperScissor.scissor.correspodingMJPNumber),
+                    (RockPaperScissor.scissor.correspodingMJPNumber, RockPaperScissor.paper.correspodingMJPNumber),
+                    (RockPaperScissor.paper.correspodingMJPNumber, RockPaperScissor.rock.correspodingMJPNumber)]
         }
     }
 }
@@ -83,12 +102,24 @@ struct Player {
     }
 }
 
+var user = Player(playerName: "사용자")
+var computer = Player(playerName: "컴퓨터")
+
+func doTurnChange() {
+    computer.MJPTurnChange()
+    user.MJPTurnChange()
+}
+
 func printRPSOption() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
 func printMJPOption(player: Player) {
     print("[\(player.playerName) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+}
+
+func printErrorMessage() {
+    print("잘못된 입력입니다. 다시 시도해주세요.")
 }
 
 func makeComputerRandomNumber() -> Int {
@@ -108,7 +139,6 @@ func checkUserInputNumber(userInput: String) -> Int {
     let rockPaperScissorCases = RockPaperScissor.allCases.map( {$0.correspondingNumber} )
     let closeInputCase = [ExceptionalInput.closeInput.correspondingNumber]
     let verifiedInputCases = rockPaperScissorCases + closeInputCase
-    
     if let verifiedUserInput = Int(userInput) {
         switch verifiedUserInput {
         case _ where verifiedInputCases.contains(verifiedUserInput):
@@ -120,45 +150,19 @@ func checkUserInputNumber(userInput: String) -> Int {
     return selectedNumber
 }
 
-func printErrorMessage() {
-    print("잘못된 입력입니다. 다시 시도해주세요.")
-}
-
-func compareTwoNumbers (userInput: Int, computerInput: Int) -> String {
-    let winningNumberCases = [(RockPaperScissor.scissor.correspondingNumber, RockPaperScissor.paper.correspondingNumber),
-                              (RockPaperScissor.rock.correspondingNumber, RockPaperScissor.scissor.correspondingNumber),
-                              (RockPaperScissor.paper.correspondingNumber, RockPaperScissor.rock.correspondingNumber)]
+func compareTwoNumbers (userInput: Int, computerInput: Int, winningNumberCase: Array<(Int, Int)>) -> String {
+    let selectedNumberCase = winningNumberCase
     var matchResult = GameResult.draw.result
     let comparisonGroup = (userInput, computerInput)
     if userInput == computerInput {
         matchResult = GameResult.draw.result
-    } else if winningNumberCases.contains(where: { $0 == comparisonGroup }) {
+    } else if selectedNumberCase.contains(where: { $0 == comparisonGroup }) {
         matchResult = GameResult.win.result
     } else {
         matchResult = GameResult.lose.result
     }
     return matchResult
 }
-
-func compareMJPTwoNumbers (userInput: Int, computerInput: Int) -> String {
-    let winningNumberCases = [(RockPaperScissor.rock.correspodingMJPNumber, RockPaperScissor.scissor.correspodingMJPNumber),
-                              (RockPaperScissor.scissor.correspodingMJPNumber, RockPaperScissor.paper.correspodingMJPNumber), (RockPaperScissor.paper.correspodingMJPNumber, RockPaperScissor.rock.correspodingMJPNumber)]
-    var matchResult = GameResult.draw.result
-    let comparisonGroup = (userInput, computerInput)
-    if userInput == computerInput {
-        matchResult = GameResult.draw.result
-    } else if winningNumberCases.contains(where: { $0 == comparisonGroup }) {
-        matchResult = GameResult.win.result
-    } else {
-        matchResult = GameResult.lose.result
-    }
-    return matchResult
-    
-}
-
-var user = Player(playerName: "사용자")
-var computer = Player(playerName: "컴퓨터")
-
 
 func startRPSGame() {
     let computerRPSInput = makeComputerRandomNumber()
@@ -173,24 +177,23 @@ func startRPSGame() {
             print("게임 종료")
             break
         }
-        let comparedResult = compareTwoNumbers(userInput: userRPSInput, computerInput: computerRPSInput)
+        let comparedResult = compareTwoNumbers(userInput: userRPSInput, computerInput: computerRPSInput, winningNumberCase: winnigCases.RPS.numberCases)
         print(comparedResult)
         if comparedResult == GameResult.draw.result {
             continue
         }
-        
         comparedResult == GameResult.win.result ? user.MJPTurnChange() : computer.MJPTurnChange()
         startMJPGame()
         break
     }
 }
 
-
 func startMJPGame() {
     while true {
         let currentWinner = user.retrieveMJPTurn() ? user : computer
         printMJPOption(player: currentWinner)
         let computerMJPInput = makeComputerRandomNumber()
+        print("컴퓨터 값: \(computerMJPInput)")
         let userMJPInput = inputUserNumber()
         if userMJPInput == ExceptionalInput.closeInput.correspondingNumber{
             print("게임 종료")
@@ -204,8 +207,7 @@ func startMJPGame() {
             printErrorMessage()
             continue
         }
-        let matchResult = compareMJPTwoNumbers(userInput: userMJPInput, computerInput: computerMJPInput)
-        
+        let matchResult = compareTwoNumbers(userInput: userMJPInput, computerInput: computerMJPInput, winningNumberCase: winnigCases.MJP.numberCases)
         if matchResult == GameResult.draw.result {
             print("\(currentWinner.playerName)의 승리!")
             print("게임 종료")
@@ -218,11 +220,6 @@ func startMJPGame() {
             print("사용자의 턴입니다")
         }
     }
-}
-
-func doTurnChange() {
-    computer.MJPTurnChange()
-    user.MJPTurnChange()
 }
 
 startRPSGame()
