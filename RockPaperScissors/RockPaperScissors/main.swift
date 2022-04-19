@@ -54,7 +54,6 @@ enum GameResult: String {
 
 struct Player {
     var playerName: String
-    private var RPSTurn = false
     private var MJPTurn = false
     
     init(playerName: String) {
@@ -78,7 +77,7 @@ func printRPSOption() {
 }
 
 func printMJPOption(player: Player) {
-    print("[\(player.playerName)] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    print("[\(player.playerName) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
 }
 
 func makeComputerRandomNumber() -> Int {
@@ -138,16 +137,16 @@ func startRPSGame() {
     let computerRPSInput = makeComputerRandomNumber()
     while true {
         printRPSOption()
-        let userInput = inputUserNumber()
-        if userInput == ExceptionalInput.wrongInput.correspondingNumber {
+        let userRPSInput = inputUserNumber()
+        if userRPSInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             continue
         }
-        if userInput == ExceptionalInput.closeInput.correspondingNumber{
+        if userRPSInput == ExceptionalInput.closeInput.correspondingNumber{
             print("게임 종료")
             break
         }
-        let comparedResult = compareTwoNumbers(userInput: userInput, computerInput: computerRPSInput)
+        let comparedResult = compareTwoNumbers(userInput: userRPSInput, computerInput: computerRPSInput)
         print(comparedResult)
         if comparedResult == GameResult.draw.result {
             continue
@@ -163,8 +162,32 @@ func startRPSGame() {
 
 
 func startMJPGame(firstPlayer: Player) {
-    printMJPOption(player: firstPlayer)
-    var computerMJPInput = makeComputerRandomNumber()
+    var currentWinner = firstPlayer
+    while true {
+        printMJPOption(player: currentWinner)
+        var computerMJPInput = makeComputerRandomNumber()
+        var userMJPInput = inputUserNumber()
+        if currentWinner.playerName == user.playerName && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
+            printErrorMessage()
+            computer.MJPTurnChange()
+            user.MJPTurnChange()
+            currentWinner = computer
+            continue
+        } else if currentWinner.playerName == computer.playerName && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
+            printErrorMessage()
+            continue
+        }
+        var matchResult = compareTwoNumbers(userInput: userMJPInput, computerInput: computerMJPInput)
+        
+        if matchResult == GameResult.draw.result {
+            print("\(currentWinner.playerName)의 승리!")
+            break
+        } else if currentWinner.playerName == user.playerName && matchResult == GameResult.lose.result {
+            currentWinner = computer
+        } else if currentWinner.playerName == computer.playerName && matchResult == GameResult.lose.result {
+            currentWinner = user
+        }
+    }
 }
 
 startRPSGame()
