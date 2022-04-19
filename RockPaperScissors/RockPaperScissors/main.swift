@@ -6,5 +6,6 @@
 
 import Foundation
 
-print("Hello, World!")
+RockPaperScissorsGame().printGameMenu()
+
 
