@@ -52,8 +52,29 @@ enum GameResult: String {
     }
 }
 
-func printUserOption() {
+struct Player {
+    var playerName: String
+    private var RPSTurn = false
+    private var MJPTurn = false
+    
+    init(playerName: String) {
+        self.playerName = playerName
+    }
+    mutating func MJPTurnChange() {
+        if self.MJPTurn {
+            MJPTurn = false
+        } else {
+            MJPTurn = true
+        }
+    }
+}
+
+func printRPSOption() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+}
+
+func printMJPOption(player: Player) {
+    print("[\(player.playerName)] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
 }
 
 func makeComputerRandomNumber() -> Int {
@@ -62,7 +83,7 @@ func makeComputerRandomNumber() -> Int {
 }
 
 func inputUserNumber() -> Int {
-    printUserOption()
+    printRPSOption()
     var userInput: Int
     let inputNumber = readLine() ?? ""
     userInput = checkUserInputNumber(userInput: inputNumber)
@@ -106,6 +127,10 @@ func compareTwoNumbers (userInput: Int, computerInput: Int) -> String {
     return matchResult
 }
 
+var user = Player(playerName: "사용자")
+var computer = Player(playerName: "컴퓨터")
+
+
 func startGame() {
     let computerInput = makeComputerRandomNumber()
     while true {
@@ -120,10 +145,16 @@ func startGame() {
         }
         let comparedResult = compareTwoNumbers(userInput: userInput, computerInput: computerInput)
         print(comparedResult)
-        if comparedResult == GameResult.win.result || comparedResult == GameResult.lose.result {
-            print("게임 종료")
-            break
+        if comparedResult == GameResult.draw.result {
+            continue
         }
+        if comparedResult == GameResult.win.result {
+            user.MJPTurnChange()
+        }
+        if comparedResult == GameResult.lose.result {
+            computer.MJPTurnChange()
+        }
+        
     }
 }
 
