@@ -2,7 +2,6 @@ enum RPS: Int {
     case scissors = 1
     case rock = 2
     case paper = 3
-    case none = -1
 }
 
 enum guidanceMessage {
@@ -19,30 +18,42 @@ func startGame() {
 }
 
 func operateGame(number: String) {
-    var myChoice: RPS = RPS.none
-    let computerChoice: RPS = obtainComputerValue()
-    switch number {
-    case "1":
-        myChoice = RPS.scissors
-    case "2":
-        myChoice = RPS.rock
-    case "3":
-        myChoice = RPS.paper
-    case "0":
+    guard number != "0" else {
         print("게임 종료")
         return
-    default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+    
+    guard let myChoice: RPS = obtainUserValue(number: number) else {
         startGame()
         return
     }
+    
+    guard let computerChoice: RPS = obtainComputerValue() else {
+        startGame()
+        return
+    }
+    
     compare(myChoice: myChoice, computerChoice: computerChoice)
 }
 
-func obtainComputerValue() -> RPS {
+func obtainUserValue(number: String) -> RPS? {
+    switch number {
+    case "1":
+        return RPS.scissors
+    case "2":
+        return RPS.rock
+    case "3":
+        return RPS.paper
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return nil
+    }
+}
+
+func obtainComputerValue() -> RPS? {
     guard let computerChoice: RPS = RPS(rawValue: Int.random(in: 1...3)) else {
         print("컴퓨터의 값을 얻어오지 못했습니다.")
-        return RPS.none
+        return nil
     }
     return computerChoice
 }
