@@ -30,3 +30,18 @@ func startRPS() {
     let userMenuChoice = selectMenuByInput()
     decideProcessBy(userMenuChoice)
 }
+
+func convertInputToRps(input: String) -> Rps {
+    var myRpsPick: Rps
+    switch input {
+    case "1":
+        myRpsPick = Rps(rawValue: 1) ?? Rps.ready
+    case "2":
+        myRpsPick = Rps(rawValue: 2) ?? Rps.ready
+    case "3":
+        myRpsPick = Rps(rawValue: 3) ?? Rps.ready
+    default:
+        return Rps.ready
+    }
+    return myRpsPick
+}
