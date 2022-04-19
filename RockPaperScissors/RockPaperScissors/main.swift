@@ -10,13 +10,6 @@ let randomNumberRange: ClosedRange<Int> = 1...3
 var continueGameCheck: Bool = true
 let cardList: Array<String> = ["1","2","3"]
 
-enum rockPaperScissors: Int {
-    case rock = 1
-    case paper = 2
-    case scissors = 3
-    case wrong = 4
-}
-
 func startGame() {
     while continueGameCheck {
         printUserInterface()
@@ -38,8 +31,8 @@ func printUserInterface() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
-func generateComputerNumber() -> rockPaperScissors? {
-    return rockPaperScissors(rawValue: Int.random(in: randomNumberRange)) ?? .wrong
+func generateComputerNumber() -> RockPaperScissors? {
+    return RockPaperScissors(rawValue: Int.random(in: randomNumberRange)) ?? .wrong
 }
 
 func verifyUserInput(userChoiceCard: String) -> Bool {
@@ -50,7 +43,7 @@ func verifyUserInput(userChoiceCard: String) -> Bool {
     }
 }
 
-func convertNumberToGameCard(targetNumber: String) -> rockPaperScissors {
+func convertNumberToGameCard(targetNumber: String) -> RockPaperScissors {
     switch targetNumber {
     case "1":
         return .scissors
@@ -71,7 +64,7 @@ func switchContiueGameCheck() {
     continueGameCheck = !continueGameCheck
 }
 
-func judgeMatchResult(inputUserNumber: rockPaperScissors) {
+func judgeMatchResult(inputUserNumber: RockPaperScissors) {
     let computerRandomNumber = generateComputerNumber()
     
     if (inputUserNumber == .paper && computerRandomNumber == .rock) ||
