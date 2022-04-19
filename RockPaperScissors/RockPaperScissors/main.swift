@@ -43,17 +43,6 @@ func obtainComputerValue() -> RPS {
     return computerChoice
 }
 
-func checkUserInput(of: String) {
-    guard let userInput = Int(of) else {
-        return
-    }
-    if 0...3 ~= userInput {
-    } else {
-        print("잘못된 입력입니다.")
-        startGame()
-    }
-}
-
 func compare(my:RPS, computer:RPS) {
     if my == computer {
         print("비겼습니다!")
