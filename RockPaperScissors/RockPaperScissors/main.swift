@@ -4,14 +4,21 @@ enum RPS: Int {
     case paper = 3
 }
 
-enum guidanceMessage {
+enum ResultMessage {
     static let win = "이겼습니다!\n게임종료"
     static let draw = "비겼습니다!"
     static let lose = "졌습니다!\n게임종료"
 }
 
+enum InformationMessage {
+    static let startGame = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    static let endGame = "게임 종료"
+    static let inputError = "잘못된 입력입니다. 다시 시도해주세요."
+    static let computerHandDesignError = "컴퓨터의 값을 얻어오지 못했습니다."
+}
+
 func startGame() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    print(InformationMessage.startGame, terminator: "")
     if let choicedMenu = readLine() {
         playGame(number: choicedMenu)
     }
@@ -19,7 +26,7 @@ func startGame() {
 
 func playGame(number: String) {
     guard number != "0" else {
-        print("게임 종료")
+        print(InformationMessage.endGame)
         return
     }
     
@@ -44,14 +51,14 @@ func obtainUserHandDesign(number: String) -> RPS? {
     case "3":
         return RPS.paper
     default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        print(InformationMessage.inputError)
         return nil
     }
 }
 
 func obtainComputerHandDesign() -> RPS? {
     guard let computerHandDesign: RPS = RPS(rawValue: Int.random(in: 1...3)) else {
-        print("컴퓨터의 값을 얻어오지 못했습니다.")
+        print(InformationMessage.computerHandDesignError)
         return nil
     }
     return computerHandDesign
@@ -59,14 +66,14 @@ func obtainComputerHandDesign() -> RPS? {
 
 func compare(myHandDesign: RPS, computerHandDesign: RPS) {
     if myHandDesign == computerHandDesign {
-        print(guidanceMessage.draw)
+        print(ResultMessage.draw)
         startGame()
     } else if myHandDesign == RPS.rock && computerHandDesign == RPS.scissors ||
                 myHandDesign == RPS.scissors && computerHandDesign == RPS.paper ||
                 myHandDesign == RPS.paper && computerHandDesign == RPS.rock {
-        print(guidanceMessage.win)
+        print(ResultMessage.win)
     } else {
-        print(guidanceMessage.lose)
+        print(ResultMessage.lose)
     }
 }
 
