@@ -37,7 +37,7 @@ func operateGame(number: String) {
 
 func obtainComputerValue() -> RPS {
     guard let computerChoice: RPS = RPS(rawValue: Int.random(in: 1...3)) else {
-        print("ERROR getComputerNumber()")
+        print("컴퓨터의 값을 얻어오지 못했습니다.")
         return RPS.none
     }
     return computerChoice
