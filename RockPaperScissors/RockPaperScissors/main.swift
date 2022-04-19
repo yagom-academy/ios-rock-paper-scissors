@@ -7,7 +7,7 @@ enum RPS: Int {
     case none = -1
 }
 
-func startMenu() {
+func startGame() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     if let choicedMenu = readLine() {
         choiceMenu(number: choicedMenu)
@@ -28,7 +28,7 @@ func choiceMenu(number: String) {
         return
     } else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        startMenu()
+        startGame()
         return
     }
     compare(my: myChoice, computer: computerChoice)
@@ -49,14 +49,14 @@ func checkUserInput(of: String) {
     if 0...3 ~= userInput {
     } else {
         print("잘못된 입력입니다.")
-        startMenu()
+        startGame()
     }
 }
 
 func compare(my:RPS, computer:RPS) {
     if my == computer {
         print("비겼습니다!")
-        startMenu()
+        startGame()
     }else if my == RPS.rock && computer == RPS.scissors ||
                 my == RPS.scissors && computer == RPS.paper ||
                 my == RPS.paper && computer == RPS.rock {
@@ -67,4 +67,4 @@ func compare(my:RPS, computer:RPS) {
     
 }
 
-startMenu()
+startGame()
