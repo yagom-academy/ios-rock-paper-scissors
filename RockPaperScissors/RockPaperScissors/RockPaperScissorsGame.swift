@@ -31,7 +31,11 @@ struct RockPaperScissorsGame {
     }
     
     func printGameMessage(_ gameMessage: GameMessage) {
-        print(gameMessage.rawValue)
+        if gameMessage == .menu {
+            print(gameMessage.rawValue, terminator: "")
+        } else {
+            print(gameMessage.rawValue)
+        }
     }
     
     mutating func decideGameStart() {
