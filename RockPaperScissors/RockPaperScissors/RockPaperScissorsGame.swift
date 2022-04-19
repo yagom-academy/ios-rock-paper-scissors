@@ -90,4 +90,18 @@ struct RockPaperScissorsGame {
                 return .draw
             }
         }
+    
+    mutating func printGameResult() {
+        switch compareChoice() {
+        case .draw:
+            printGameMessage(.draw)
+            excuteRockPaperScissors()
+        case .win:
+            printGameMessage(.winning)
+            printGameMessage(.ending)
+        case .lose:
+            printGameMessage(.defeat)
+            printGameMessage(.ending)
+        }
+    }
 }
