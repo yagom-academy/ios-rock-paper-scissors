@@ -67,6 +67,10 @@ struct Player {
             MJPTurn = true
         }
     }
+    
+    func retrieveMJPTurn() -> Bool {
+        return self.MJPTurn
+    }
 }
 
 func printRPSOption() {
@@ -83,7 +87,6 @@ func makeComputerRandomNumber() -> Int {
 }
 
 func inputUserNumber() -> Int {
-    printRPSOption()
     var userInput: Int
     let inputNumber = readLine() ?? ""
     userInput = checkUserInputNumber(userInput: inputNumber)
@@ -131,9 +134,10 @@ var user = Player(playerName: "사용자")
 var computer = Player(playerName: "컴퓨터")
 
 
-func startGame() {
-    let computerInput = makeComputerRandomNumber()
+func startRPSGame() {
+    let computerRPSInput = makeComputerRandomNumber()
     while true {
+        printRPSOption()
         let userInput = inputUserNumber()
         if userInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
@@ -143,19 +147,24 @@ func startGame() {
             print("게임 종료")
             break
         }
-        let comparedResult = compareTwoNumbers(userInput: userInput, computerInput: computerInput)
+        let comparedResult = compareTwoNumbers(userInput: userInput, computerInput: computerRPSInput)
         print(comparedResult)
         if comparedResult == GameResult.draw.result {
             continue
         }
-        if comparedResult == GameResult.win.result {
-            user.MJPTurnChange()
-        }
-        if comparedResult == GameResult.lose.result {
-            computer.MJPTurnChange()
-        }
         
+        comparedResult == GameResult.win.result ? user.MJPTurnChange() : computer.MJPTurnChange()
+        let firstPlayer: Player = user.retrieveMJPTurn() ? user: computer
+        
+        startMJPGame(firstPlayer: firstPlayer)
+        break
     }
 }
 
-startGame()
+
+func startMJPGame(firstPlayer: Player) {
+    printMJPOption(player: firstPlayer)
+    var computerMJPInput = makeComputerRandomNumber()
+}
+
+startRPSGame()
