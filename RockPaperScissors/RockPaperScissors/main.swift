@@ -15,7 +15,7 @@ func startGame() {
     case 0:
         print("게임 종료")
     case 1, 2, 3:
-        printResult(input: fetchResult(userChoice: userInput))
+        printResult(result: fetchResult(userChoice: userInput))
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startGame()
@@ -52,8 +52,8 @@ func fetchResult(userChoice: Int) -> Int {
     }
 }
 
-func printResult(input: Int) {
-    switch input {
+func printResult(result: Int) {
+    switch result {
     case 1:
         print(Result.win)
         print(Result.gameOver)
