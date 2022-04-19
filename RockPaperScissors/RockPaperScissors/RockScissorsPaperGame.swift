@@ -14,16 +14,17 @@ struct RockScissorsPaperGame {
     
     func startGame() {
         printMenu()
-        let checknumber = inputNumber()
-        guard checknumber != 0 else { return print("게임 종료") }
-        let userInput = RockScissorsPaper(rawValue: checknumber)
-        guard let rps = userInput else { return checkInputNumber() }
+        let checkNumber = inputNumber()
+        guard checkNumber != 0 else { return print("게임 종료") }
+        let userInput = RockScissorsPaper(rawValue: checkNumber)
+        guard let rps = userInput else { return printInvalidInput() }
         switch rps {
         case .scissors, .rock, .paper:
             printResult(result: fetchResult(userChoice: rps))
         }
     }
-    func checkInputNumber() {
+    
+    func printInvalidInput() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startGame()
     }
@@ -33,18 +34,18 @@ struct RockScissorsPaperGame {
     }
     
     func inputNumber() -> Int {
-        guard let inputNumber = readLine()?.trimmingCharacters(in: .whitespaces) else { return 4 }
-        guard let number = Int(inputNumber) else { return 4 }
+        guard let userNumber = readLine()?.trimmingCharacters(in: .whitespaces) else { return -1 }
+        guard let number = Int(userNumber) else { return -1 }
         return number
     }
     
-    func makeComputerChoice() -> Int {
+    func makeComputerNumber() -> Int {
         let computerRandomNumber = Int.random(in: Numbers.range)
         return computerRandomNumber
     }
     
-    func fetchResult(userChoice: RockScissorsPaper) -> Result {
-        let computerChoice = RockScissorsPaper(rawValue: makeComputerChoice())
+    func fetchResult(userChoice: RockScissorsPaper) -> GameResult {
+        let computerChoice = RockScissorsPaper(rawValue: makeComputerNumber())
         if computerChoice == userChoice {
             return .draw
         } else if computerChoice == .scissors && userChoice == .rock {
@@ -58,7 +59,7 @@ struct RockScissorsPaperGame {
         }
     }
     
-    func printResult(result: Result) {
+    func printResult(result: GameResult) {
         switch result {
         case .win:
             print("이겼습니다!")
@@ -72,8 +73,3 @@ struct RockScissorsPaperGame {
         }
     }
 }
-
-
-
-
-
