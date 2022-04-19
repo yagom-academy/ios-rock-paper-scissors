@@ -2,4 +2,4 @@
 
 ### Flow chart [STEP 1] 
 
-![RPSFlowChartv1](https://user-images.githubusercontent.com/39454792/163807587-2056a952-5beb-4ee0-95fe-dca56f694761.png)
+![RPSFlowChartv1](https://user-images.githubusercontent.com/39454792/163943281-0ea3df4e-15b2-4bd2-bda2-9b83ccf1c13d.png)
