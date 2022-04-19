@@ -7,6 +7,12 @@ enum RPS: Int {
     case none = -1
 }
 
+enum guidanceMessage {
+    static let win = "이겼습니다!\n게임종료"
+    static let draw = "비겼습니다!"
+    static let lose = "졌습니다!\n게임종료"
+}
+
 func startGame() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     if let choicedMenu = readLine() {
@@ -45,14 +51,14 @@ func obtainComputerValue() -> RPS {
 
 func compare(myChoice: RPS, computerChoice: RPS) {
     if myChoice == computerChoice {
-        print("비겼습니다!")
+        print(guidanceMessage.draw)
         startGame()
     } else if myChoice == RPS.rock && computerChoice == RPS.scissors ||
                 myChoice == RPS.scissors && computerChoice == RPS.paper ||
                 myChoice == RPS.paper && computerChoice == RPS.rock {
-        print("이겼습니다!\n게임종료")
+        print(guidanceMessage.win)
     } else {
-        print("졌습니다!\n게임종료")
+        print(guidanceMessage.lose)
     }
 }
 
