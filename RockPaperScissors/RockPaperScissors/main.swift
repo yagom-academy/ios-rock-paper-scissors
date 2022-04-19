@@ -6,6 +6,5 @@
 
 
 let game = RockScissorsPaperGame()
-
 game.startGame()
 

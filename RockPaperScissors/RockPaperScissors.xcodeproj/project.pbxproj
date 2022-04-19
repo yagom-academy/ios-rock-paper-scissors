@@ -64,9 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
-				D744E022280E5CD80023A3BC /* Result.swift */,
-				D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */,
 				D744E024280E7D730023A3BC /* RockScissorsPaperGame.swift */,
+				D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */,
+				D744E022280E5CD80023A3BC /* Result.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
