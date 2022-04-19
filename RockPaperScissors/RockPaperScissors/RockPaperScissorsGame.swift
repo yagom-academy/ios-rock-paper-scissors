@@ -34,27 +34,23 @@ struct RockPaperScissorsGame {
         print(gameMessage.rawValue)
     }
     
-    func decideGameStart() -> Bool {
-        if let number = inputUserChoice, number > convertUserChoiceToNumber(.end) {
-            return true
+    mutating func decideGameStart() {
+        if inputUserChoice == convertUserChoiceToNumber(.end) {
+            printGameMessage(.ending)
+        } else {
+            printGameResult()
         }
-        return false
     }
     
     mutating func excuteRockPaperScissors() {
-        while true {
-            printGameMessage(.menu)
-            inputUserSelect()
-            if verifyUserSelection() {
-                if decideGameStart() {
-                    compareChoice()
-                } else {
-                    printGameMessage(.ending)
-                    break
-                }
-            } else {
-                printGameMessage(.error)
-            }
+        printGameMessage(.menu)
+        inputUserSelect()
+        if verifyUserSelection() {
+            decideGameStart()
+        } else {
+            printGameMessage(.error)
+            excuteRockPaperScissors()
+            return
         }
     }
     
@@ -105,3 +101,8 @@ struct RockPaperScissorsGame {
         }
     }
 }
+
+refactor: decideGameStart, decideGameStart, compareChoice 함수 내용 수정
+- decideGameStart 에서 printGameResult 함수 호출
+- excuteRockPaperScissors 함수 반복문에서 재귀함수로 수정
+- compareChoice
