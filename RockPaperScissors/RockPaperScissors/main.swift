@@ -13,11 +13,11 @@ enum guidanceMessage {
 func startGame() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     if let choicedMenu = readLine() {
-        operateGame(number: choicedMenu)
+        playGame(number: choicedMenu)
     }
 }
 
-func operateGame(number: String) {
+func playGame(number: String) {
     guard number != "0" else {
         print("게임 종료")
         return
@@ -32,7 +32,6 @@ func operateGame(number: String) {
         startGame()
         return
     }
-    
     compare(myChoice: myChoice, computerChoice: computerChoice)
 }
 
