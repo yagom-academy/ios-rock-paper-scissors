@@ -6,25 +6,19 @@
 
 import Foundation
 
+startGame()
 
-func makeComputerChoice() -> Int {
-    let computerNumber = getComputerNumber()
-    return computerNumber
-}
-
-gameStart()
-
-func gameStart() {
+func startGame() {
     printMenu()
     let userInput = inputNumber()
     switch userInput {
     case 0:
         print("게임 종료")
     case 1, 2, 3:
-        printResult(input: getResult(userNumber: userInput))
+        printResult(input: fetchResult(userChoice: userInput))
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        gameStart()
+        startGame()
     }
 }
 
@@ -38,15 +32,20 @@ func inputNumber() -> Int {
     return number
 }
 
-func getResult(userNumber: Int) -> Int {
-    let computerNumber = makeComputerChoice()
-    if computerNumber == userNumber {
+func makeComputerChoice() -> Int {
+    let computerRandomNumber = Int.random(in: Numbers.range)
+    return computerRandomNumber
+}
+
+func fetchResult(userChoice: Int) -> Int {
+    let computerChoice = makeComputerChoice()
+    if computerChoice == userChoice {
         return 3
-    } else if computerNumber == RockScissorsPaper.scissors && userNumber == RockScissorsPaper.rock {
+    } else if computerChoice == RockScissorsPaper.scissors && userChoice == RockScissorsPaper.rock {
         return 2
-    } else if computerNumber == RockScissorsPaper.rock && userNumber == RockScissorsPaper.scissors {
+    } else if computerChoice == RockScissorsPaper.rock && userChoice == RockScissorsPaper.scissors {
         return 2
-    } else if computerNumber == RockScissorsPaper.paper && userNumber == RockScissorsPaper.rock {
+    } else if computerChoice == RockScissorsPaper.paper && userChoice == RockScissorsPaper.rock {
         return 2
     } else {
         return 1
@@ -63,32 +62,8 @@ func printResult(input: Int) {
         print(Result.gameOver)
     case 3:
         print(Result.draw)
-        gameStart()
+        startGame()
     default:
         break
     }
 }
-
-func getComputerNumber() -> Int {
-    let computerRandomNumber = Int.random(in: Numbers.range)
-    return computerRandomNumber
-}
-
-enum Numbers {
-    static let range = 1...3
-}
-
-enum RockScissorsPaper {
-    static let scissors = 1
-    static let rock = 2
-    static let paper = 3
-}
-
-enum Result {
-    static let win = "이겼습니다!"
-    static let lose = "졌습니다!"
-    static let draw = "비겼습니다!"
-    static let gameOver = "게임 종료"
-}
-
-
