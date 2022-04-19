@@ -2,7 +2,7 @@
 //  Option.swift
 //  RockPaperScissors
 //
-//  Created by 예톤,그루트 on 2022/04/18.
+//  Created by 그루트, 예톤 on 2022/04/18.
 //
 
 import Foundation
