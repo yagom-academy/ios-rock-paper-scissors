@@ -32,7 +32,7 @@ func operateGame(number: String) {
         startGame()
         return
     }
-    compare(my: myChoice, computer: computerChoice)
+    compare(myChoice: myChoice, computerChoice: computerChoice)
 }
 
 func obtainComputerValue() -> RPS {
@@ -43,13 +43,13 @@ func obtainComputerValue() -> RPS {
     return computerChoice
 }
 
-func compare(my:RPS, computer:RPS) {
-    if my == computer {
+func compare(myChoice: RPS, computerChoice: RPS) {
+    if myChoice == computerChoice {
         print("비겼습니다!")
         startGame()
-    }else if my == RPS.rock && computer == RPS.scissors ||
-                my == RPS.scissors && computer == RPS.paper ||
-                my == RPS.paper && computer == RPS.rock {
+    }else if myChoice == RPS.rock && computerChoice == RPS.scissors ||
+                myChoice == RPS.scissors && computerChoice == RPS.paper ||
+                myChoice == RPS.paper && computerChoice == RPS.rock {
         print("이겼습니다!\n게임종료")
     } else {
         print("졌습니다!\n게임종료")
