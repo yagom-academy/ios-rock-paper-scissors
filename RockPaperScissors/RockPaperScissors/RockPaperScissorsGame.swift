@@ -14,9 +14,9 @@ class RockPaperScissorsGame {
 
 extension RockPaperScissorsGame {
     
-    func printMenu() {
+    func printGameMenu() {
         print("가위(1), 바위(2), 보(3)! <종료: 0>:", terminator: " ")
-        getUserInput()
+        receiveUserInput()
         return
     }
     
@@ -24,12 +24,12 @@ extension RockPaperScissorsGame {
 
 extension RockPaperScissorsGame {
     
-    private func getUserInput() {
-        let userInput = readLine()
+    private func receiveUserInput() {
+        let userInputNumber = readLine()
         
-        switch userInput {
+        switch userInputNumber {
         case "1":
-            userSelection = .scissor
+            userSelection = .scissors
         case "2":
             userSelection = .rock
         case "3":
@@ -39,7 +39,7 @@ extension RockPaperScissorsGame {
             return
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            printMenu()
+            printGameMenu()
             return
         }
         
@@ -54,11 +54,11 @@ extension RockPaperScissorsGame {
     }
     
     private func makeComputerSelection() {
-        let selection = Int.random(in: 1...3)
+        let computerRandomNumber = Int.random(in: 1...3)
         
-        switch selection {
+        switch computerRandomNumber {
         case 1:
-            computerSelection = .scissor
+            computerSelection = .scissors
         case 2:
             computerSelection = .rock
         case 3:
@@ -71,17 +71,17 @@ extension RockPaperScissorsGame {
     
     private func judgeVictory(userSide: RockPaperScissors?, computerSide: RockPaperScissors?) {
         switch (userSide, computerSide) {
-        case (.scissor, .rock), (.rock, .paper), (.paper, .scissor):
+        case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
             print("졌습니다!")
             endGame()
             return
-        case (.rock, .scissor), (.paper, .rock), (.scissor, .paper):
+        case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
             print("이겼습니다!")
             endGame()
             return
         default:
             print("비겼습니다!")
-            printMenu()
+            printGameMenu()
             return
         }
     }

@@ -10,5 +10,5 @@ import Foundation
 enum RockPaperScissors {
     case rock
     case paper
-    case scissor
+    case scissors
 }
