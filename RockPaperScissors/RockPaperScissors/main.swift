@@ -4,19 +4,27 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-enum RockPaperScissorsGame: Int {
-    case inputError
-    case terminate
+enum ExceptionalInput {
+    case wrongInput
+    case closeInput
+    
+    var correspondingNumber: Int {
+        switch self {
+        case .wrongInput:
+            return -1
+        case .closeInput:
+            return 0
+        }
+    }
+}
+
+enum RockPaperScissor: Int {
     case scissor
     case rock
     case paper
     
-    var number: Int {
+    var correspondingNumber: Int {
         switch self {
-        case .inputError:
-            return -1
-        case .terminate:
-            return 0
         case .scissor:
             return 1
         case .rock:
@@ -62,16 +70,16 @@ func inputUserNumber() -> Int {
 }
 
 func checkUserInputNumber(userInput: String) -> Int {
-    var selectedNumber = RockPaperScissorsGame.inputError.number
+    var selectedNumber = ExceptionalInput.wrongInput.correspondingNumber
     if let verifiedUserInput = Int(userInput) {
         switch verifiedUserInput {
-        case RockPaperScissorsGame.terminate.number,
-             RockPaperScissorsGame.scissor.number,
-             RockPaperScissorsGame.rock.number,
-             RockPaperScissorsGame.paper.number:
+        case ExceptionalInput.closeInput.correspondingNumber,
+             RockPaperScissor.scissor.correspondingNumber,
+             RockPaperScissor.rock.correspondingNumber,
+             RockPaperScissor.paper.correspondingNumber:
             selectedNumber = verifiedUserInput
         default:
-            selectedNumber = RockPaperScissorsGame.inputError.number
+            selectedNumber = ExceptionalInput.wrongInput.correspondingNumber
         }
     }
     return selectedNumber
@@ -82,9 +90,9 @@ func printErrorMessage() {
 }
 
 func compareTwoNumbers (userInput: Int, computerInput: Int) -> Int {
-    let winningNumberCases = [(RockPaperScissorsGame.scissor.number, RockPaperScissorsGame.paper.number),
-                              (RockPaperScissorsGame.rock.number, RockPaperScissorsGame.scissor.number),
-                              (RockPaperScissorsGame.paper.number, RockPaperScissorsGame.rock.number)]
+    let winningNumberCases = [(RockPaperScissor.scissor.correspondingNumber, RockPaperScissor.paper.correspondingNumber),
+                              (RockPaperScissor.rock.correspondingNumber, RockPaperScissor.scissor.correspondingNumber),
+                              (RockPaperScissor.paper.correspondingNumber, RockPaperScissor.rock.correspondingNumber)]
     var matchResult = GameResult.draw.result
     let comparisonGroup = (userInput, computerInput)
     if userInput == computerInput {
@@ -112,11 +120,11 @@ func startGame() {
     let computerInput = makeComputerRandomNumber()
     while true {
         let userInput = inputUserNumber()
-        if userInput == RockPaperScissorsGame.inputError.number {
+        if userInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             continue
         }
-        if userInput == RockPaperScissorsGame.terminate.number {
+        if userInput == ExceptionalInput.closeInput.correspondingNumber{
             print("게임 종료")
             break
         }
