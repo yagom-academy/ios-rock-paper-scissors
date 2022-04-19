@@ -2,7 +2,7 @@
 
 ### 묵찌빠 프로젝트 저장소
 > 프로젝트 기간 2022/04/18 ~ 2022/04/22  
-> 팀원: @kiwi1023 @bard/ 리뷰어: @FirstDo
+> 팀원: [@kiwi](https://github.com/kiwi1023) [@bard](https://github.com/bar-d)/ 리뷰어: [@FirstDo](https://github.com/FirstDo)
 
 
 # 목차
