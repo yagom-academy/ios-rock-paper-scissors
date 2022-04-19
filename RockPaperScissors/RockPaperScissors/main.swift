@@ -10,16 +10,19 @@ startGame()
 
 func startGame() {
     printMenu()
-    let userInput = inputNumber()
-    switch userInput {
-    case 0:
+    let userInput = RockScissorsPaper(rawValue: inputNumber())
+    guard let rps = userInput else { return checkInputNumber()}
+    switch rps {
+    case .gameOver:
         print("게임 종료")
-    case 1, 2, 3:
-        printResult(result: fetchResult(userChoice: userInput))
-    default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        startGame()
+    case .scissors, .rock, .paper:
+        printResult(result: fetchResult(userChoice: rps))
     }
+}
+
+func checkInputNumber() {
+    print("잘못된 입력입니다. 다시 시도해주세요.")
+    startGame()
 }
 
 func printMenu() {
@@ -37,33 +40,31 @@ func makeComputerChoice() -> Int {
     return computerRandomNumber
 }
 
-func fetchResult(userChoice: Int) -> Int {
-    let computerChoice = makeComputerChoice()
+func fetchResult(userChoice: RockScissorsPaper) -> Result {
+    let computerChoice = RockScissorsPaper(rawValue: makeComputerChoice())
     if computerChoice == userChoice {
-        return 3
-    } else if computerChoice == RockScissorsPaper.scissors && userChoice == RockScissorsPaper.rock {
-        return 2
-    } else if computerChoice == RockScissorsPaper.rock && userChoice == RockScissorsPaper.scissors {
-        return 2
-    } else if computerChoice == RockScissorsPaper.paper && userChoice == RockScissorsPaper.rock {
-        return 2
+        return .draw
+    } else if computerChoice == .scissors && userChoice == .rock {
+        return .lose
+    } else if computerChoice == .rock && userChoice == .scissors {
+        return .lose
+    } else if computerChoice == .paper && userChoice == .rock {
+        return .lose
     } else {
-        return 1
+        return .win
     }
 }
 
-func printResult(result: Int) {
+func printResult(result: Result) {
     switch result {
-    case 1:
-        print(Result.win)
-        print(Result.gameOver)
-    case 2:
-        print(Result.lose)
-        print(Result.gameOver)
-    case 3:
-        print(Result.draw)
+    case .win:
+        print("이겼습니다!")
+        print("게임 종료")
+    case .lose:
+        print("졌습니다!")
+        print("게임 종료")
+    case .draw:
+        print("비겼습니다!")
         startGame()
-    default:
-        break
     }
 }

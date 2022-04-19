@@ -5,8 +5,9 @@
 //  Created by 김동용 on 2022/04/19.
 //
 
-enum RockScissorsPaper {
-    static let scissors = 1
-    static let rock = 2
-    static let paper = 3
+enum RockScissorsPaper: Int {
+    case gameOver = 0
+    case scissors = 1
+    case rock = 2
+    case paper = 3
 }
