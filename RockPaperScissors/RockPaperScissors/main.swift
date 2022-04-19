@@ -16,8 +16,8 @@ func startGame() {
         let userSelectedCard = readLine()?.trimmingCharacters(in: .whitespaces) ?? ""
 
         if userSelectedCard == "0" {
-            switchContiueGameCheck()
-        } else if verifyUserInput(userChoiceCard: userSelectedCard) {
+            endGame()
+        } else if verifyUserInput(of: userSelectedCard) {
             judgeMatchResult(inputUserNumber:
                                 convertNumberToGameCard(targetNumber: userSelectedCard))
         } else {
@@ -35,7 +35,7 @@ func generateComputerNumber() -> RockPaperScissors? {
     return RockPaperScissors(rawValue: Int.random(in: randomNumberRange)) ?? .wrong
 }
 
-func verifyUserInput(userChoiceCard: String) -> Bool {
+func verifyUserInput(of userChoiceCard: String) -> Bool {
     if cardList.contains(userChoiceCard) {
         return true
     } else {
@@ -60,7 +60,7 @@ func printGameOver() {
     print("게임 종료")
 }
 
-func switchContiueGameCheck() {
+func endGame() {
     continueGameCheck = !continueGameCheck
 }
 
@@ -71,12 +71,12 @@ func judgeMatchResult(inputUserNumber: RockPaperScissors) {
         (inputUserNumber == .rock && computerRandomNumber == .scissors) ||
         (inputUserNumber == .scissors && computerRandomNumber == .paper) {
         printMatchResult(matchResult: "win")
-        switchContiueGameCheck()
+        endGame()
     } else if inputUserNumber == computerRandomNumber {
         printMatchResult(matchResult: "tie")
     } else {
         printMatchResult(matchResult: "lose")
-        switchContiueGameCheck()
+        endGame()
     }
 }
 
