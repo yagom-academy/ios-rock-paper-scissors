@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-func showGameMenu() {
+private func showGameMenu() {
     var isStart = true
     while isStart {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -12,16 +12,16 @@ func showGameMenu() {
     }
 }
 
-func exitGame() {
+private func exitGame() {
     print("게임 종료")
 }
 
-func getUserInput() -> Bool {
+private func getUserInput() -> Bool {
     let inputMenuNumber = readLine() ?? ""
         switch inputMenuNumber {
         case "1", "2", "3" :
             let rockPaperScissors = makeRandomNumber()
-            return comparePlayerInputAndComputerNumber(userInput: inputMenuNumber, computerInput: rockPaperScissors)
+            return comparePlayerInputAndComputerNumber(userInput: inputMenuNumber, computerNumber: rockPaperScissors)
         case "0" :
             exitGame()
             return false
@@ -31,15 +31,16 @@ func getUserInput() -> Bool {
         }
 }
 
-func makeRandomNumber() -> String {
+private func makeRandomNumber() -> String {
     return String(Int.random(in: 1...3))
 }
 
-func comparePlayerInputAndComputerNumber(userInput: String, computerInput: String) -> Bool {
-    if computerInput == "1" && userInput == "2" || computerInput == "2" && userInput == "3" || computerInput == "3" && userInput == "1" {
+private func comparePlayerInputAndComputerNumber(userInput: String, computerNumber: String) -> Bool {
+    // 해당 부분 열거형으로 바꾸는데 사용자 입력값에 따라 열거형 셋팅이 가능한가? 그게 핵심인데 그럼 스위치 케이스로? 패턴에 두개를 넣을 수 있나?
+    if computerNumber == "1" && userInput == "2" || computerNumber == "2" && userInput == "3" || computerNumber == "3" && userInput == "1" {
         printResult(result: 1)
         return false
-    } else if computerInput == userInput {
+    } else if computerNumber == userInput {
         printResult(result: 0)
     } else {
         printResult(result: 2)
@@ -48,7 +49,7 @@ func comparePlayerInputAndComputerNumber(userInput: String, computerInput: Strin
     return true
 }
 
-func printResult(result: Int) {
+private func printResult(result: Int) {
     switch result {
     case 0:
         print("비겼습니다!")
