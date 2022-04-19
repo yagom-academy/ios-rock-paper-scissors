@@ -1,5 +1,3 @@
-import Foundation
-
 enum RPS: Int {
     case scissors = 1
     case rock = 2
