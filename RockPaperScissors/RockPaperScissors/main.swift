@@ -23,19 +23,19 @@ func playGame(number: String) {
         return
     }
     
-    guard let myChoice: RPS = obtainUserValue(number: number) else {
+    guard let myHandDesign: RPS = obtainUserHandDesign(number: number) else {
         startGame()
         return
     }
     
-    guard let computerChoice: RPS = obtainComputerValue() else {
+    guard let computerHandDesign: RPS = obtainComputerHandDesign() else {
         startGame()
         return
     }
-    compare(myChoice: myChoice, computerChoice: computerChoice)
+    compare(myHandDesign: myHandDesign, computerHandDesign: computerHandDesign)
 }
 
-func obtainUserValue(number: String) -> RPS? {
+func obtainUserHandDesign(number: String) -> RPS? {
     switch number {
     case "1":
         return RPS.scissors
@@ -49,21 +49,21 @@ func obtainUserValue(number: String) -> RPS? {
     }
 }
 
-func obtainComputerValue() -> RPS? {
-    guard let computerChoice: RPS = RPS(rawValue: Int.random(in: 1...3)) else {
+func obtainComputerHandDesign() -> RPS? {
+    guard let computerHandDesign: RPS = RPS(rawValue: Int.random(in: 1...3)) else {
         print("컴퓨터의 값을 얻어오지 못했습니다.")
         return nil
     }
-    return computerChoice
+    return computerHandDesign
 }
 
-func compare(myChoice: RPS, computerChoice: RPS) {
-    if myChoice == computerChoice {
+func compare(myHandDesign: RPS, computerHandDesign: RPS) {
+    if myHandDesign == computerHandDesign {
         print(guidanceMessage.draw)
         startGame()
-    } else if myChoice == RPS.rock && computerChoice == RPS.scissors ||
-                myChoice == RPS.scissors && computerChoice == RPS.paper ||
-                myChoice == RPS.paper && computerChoice == RPS.rock {
+    } else if myHandDesign == RPS.rock && computerHandDesign == RPS.scissors ||
+                myHandDesign == RPS.scissors && computerHandDesign == RPS.paper ||
+                myHandDesign == RPS.paper && computerHandDesign == RPS.rock {
         print(guidanceMessage.win)
     } else {
         print(guidanceMessage.lose)
