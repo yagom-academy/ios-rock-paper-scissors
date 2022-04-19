@@ -36,7 +36,6 @@ private func makeRandomNumber() -> String {
 }
 
 private func comparePlayerInputAndComputerNumber(userInput: String, computerNumber: String) -> Bool {
-    // 해당 부분 열거형으로 바꾸는데 사용자 입력값에 따라 열거형 셋팅이 가능한가? 그게 핵심인데 그럼 스위치 케이스로? 패턴에 두개를 넣을 수 있나?
     if computerNumber == "1" && userInput == "2" || computerNumber == "2" && userInput == "3" || computerNumber == "3" && userInput == "1" {
         printResult(result: 1)
         return false
