@@ -47,14 +47,13 @@ func compare(myChoice: RPS, computerChoice: RPS) {
     if myChoice == computerChoice {
         print("비겼습니다!")
         startGame()
-    }else if myChoice == RPS.rock && computerChoice == RPS.scissors ||
+    } else if myChoice == RPS.rock && computerChoice == RPS.scissors ||
                 myChoice == RPS.scissors && computerChoice == RPS.paper ||
                 myChoice == RPS.paper && computerChoice == RPS.rock {
         print("이겼습니다!\n게임종료")
     } else {
         print("졌습니다!\n게임종료")
     }
-    
 }
 
 startGame()
