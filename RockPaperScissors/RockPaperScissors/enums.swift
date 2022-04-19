@@ -13,3 +13,9 @@ enum Rps: Int {
     case rock = 2
     case paper = 3
 }
+
+enum GameWinner {
+    case usersVictory
+    case computersVictory
+    case tie
+}

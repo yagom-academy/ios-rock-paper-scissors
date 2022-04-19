@@ -19,8 +19,8 @@ func decideProcessBy(_ menuChoice: String) {
         print("게임 종료")
     case "1", "2", "3":
         let pickResult: (Rps, Rps) = playRPS(menuChoice: menuChoice)
-        print(pickResult)
-        print("winner = pickOutWinner() 함수 실행 예정")
+        let winner = pickOutWinner(RpsPicksOf: pickResult)
+        print(winner)
         print("printGameResult() 함수 실행 예정")
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -53,4 +53,17 @@ func playRPS(menuChoice: String) -> (Rps, Rps) {
     guard let computerRpsPick = Rps(rawValue: Int.random(in: 1...3)) else { return (.ready, .ready) }
     
     return (myRpsPick, computerRpsPick)
+}
+
+func pickOutWinner(RpsPicksOf: (user: Rps, computer: Rps)) -> GameWinner {
+    if RpsPicksOf.computer == RpsPicksOf.user {
+        return .tie
+    }
+    
+    switch (RpsPicksOf.user, RpsPicksOf.computer) {
+    case (.rock, .scissors), (.scissors, .paper), (.paper, .rock):
+        return .usersVictory
+    default:
+        return .computersVictory
+    }
 }
