@@ -82,7 +82,7 @@ enum GameResult: String {
 }
 
 struct Player {
-    var playerName: String
+    private var playerName: String
     private var MJPTurn = false
     
     init(playerName: String) {
@@ -100,6 +100,10 @@ struct Player {
     func retrieveMJPTurn() -> Bool {
         return self.MJPTurn
     }
+    
+    func retrievePlayerName() -> String {
+        return self.playerName
+    }
 }
 
 var user = Player(playerName: "사용자")
@@ -115,7 +119,7 @@ func printRPSOption() {
 }
 
 func printMJPOption(player: Player) {
-    print("[\(player.playerName) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    print("[\(player.retrievePlayerName()) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
 }
 
 func printErrorMessage() {
@@ -193,29 +197,28 @@ func startMJPGame() {
         let currentWinner = user.retrieveMJPTurn() ? user : computer
         printMJPOption(player: currentWinner)
         let computerMJPInput = makeComputerRandomNumber()
-        print("컴퓨터 값: \(computerMJPInput)")
         let userMJPInput = inputUserNumber()
         if userMJPInput == ExceptionalInput.closeInput.correspondingNumber{
             print("게임 종료")
             break
         }
-        if currentWinner.playerName == user.playerName && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
+        if currentWinner.retrievePlayerName() == user.retrievePlayerName() && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             doTurnChange()
             continue
-        } else if currentWinner.playerName == computer.playerName && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
+        } else if currentWinner.retrievePlayerName() == computer.retrievePlayerName() && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             continue
         }
         let matchResult = compareTwoNumbers(userInput: userMJPInput, computerInput: computerMJPInput, winningNumberCase: winnigCases.MJP.numberCases)
         if matchResult == GameResult.draw.result {
-            print("\(currentWinner.playerName)의 승리!")
+            print("\(currentWinner.retrievePlayerName())의 승리!")
             print("게임 종료")
             break
-        } else if currentWinner.playerName == user.playerName && matchResult == GameResult.lose.result {
+        } else if currentWinner.retrievePlayerName() == user.retrievePlayerName() && matchResult == GameResult.lose.result {
             doTurnChange()
             print("컴퓨터의 턴입니다")
-        } else if currentWinner.playerName == computer.playerName && matchResult == GameResult.win.result {
+        } else if currentWinner.retrievePlayerName() == computer.retrievePlayerName() && matchResult == GameResult.win.result {
             doTurnChange()
             print("사용자의 턴입니다")
         }
