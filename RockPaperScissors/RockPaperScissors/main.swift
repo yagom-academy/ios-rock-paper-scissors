@@ -7,4 +7,4 @@
 import Foundation
 
 var rockpaperscissors = RockPaperScissorsGame()
-rockpaperscissors.executeRockPaperScissors()
+rockpaperscissors.excuteRockPaperScissors()

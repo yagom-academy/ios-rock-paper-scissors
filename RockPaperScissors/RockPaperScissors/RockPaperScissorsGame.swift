@@ -2,15 +2,15 @@
 //  RockPaperScissorsGame.swift
 //  RockPaperScissors
 //
-//  Created by 그루트, 예톤 on 2022/04/18.
+//  Created by NAMU on 2022/04/18.
 //
 
 import Foundation
 
 struct RockPaperScissorsGame {
-    private var inputUserChoice: Int?
+    var inputUserChoice: Int?
     
-    private func printGameMessage(_ gameMessage: GameMessage) {
+    func printGameMessage(_ gameMessage: GameMessage) {
         if gameMessage == .menu {
             print(gameMessage.rawValue, terminator: "")
         } else {
@@ -18,11 +18,11 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func convertUserChoiceToNumber(_ userChoice: UserChoice) -> Int {
-        return userChoice.rawValue
+    func convertUserChoiceToNumber(_ userchoice: UserChoice) -> Int {
+        return userchoice.rawValue
     }
     
-    mutating func executeRockPaperScissors() {
+    mutating func excuteRockPaperScissors() {
         printGameMessage(.menu)
         inputUserSelect()
         
@@ -30,16 +30,16 @@ struct RockPaperScissorsGame {
             decideGameStart()
         } else {
             printGameMessage(.error)
-            executeRockPaperScissors()
+            excuteRockPaperScissors()
             return
         }
     }
     
-    private mutating func inputUserSelect() {
-        inputUserChoice = Int(readLine() ?? "") ?? convertUserChoiceToNumber(.error)
+    mutating func inputUserSelect() {
+        inputUserChoice = Int(readLine() ?? "") ?? 4
     }
     
-    private func verifyUserSelection() -> Bool {
+    func verifyUserSelection() -> Bool {
         switch inputUserChoice {
         case convertUserChoiceToNumber(.end),
             convertUserChoiceToNumber(.scissors),
@@ -51,32 +51,37 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private mutating func decideGameStart() {
+    mutating func decideGameStart() {
         if inputUserChoice == convertUserChoiceToNumber(.end) {
-            printGameMessage(.end)
+            printGameMessage(.ending)
         } else {
             printGameResult()
         }
     }
     
-    private mutating func printGameResult() {
+    mutating func printGameResult() {
         switch compareChoice() {
         case .draw:
             printGameMessage(.draw)
-            executeRockPaperScissors()
+            excuteRockPaperScissors()
         case .win:
-            printGameMessage(.win)
-            printGameMessage(.end)
+            printGameMessage(.winning)
+            printGameMessage(.ending)
         case .lose:
-            printGameMessage(.lose)
-            printGameMessage(.end)
+            printGameMessage(.defeat)
+            printGameMessage(.ending)
         }
     }
     
-    private func compareChoice() -> GameResult {
-        let computerChoice = Int.random(in: convertUserChoiceToNumber(.scissors)...convertUserChoiceToNumber(.paper))
+    func compareChoice() -> GameResult {
+        var unrappedUserChoice = 0
+        let computerChoice = Int.random(in: 1...3)
         
-        switch inputUserChoice {
+        if let userNumber = inputUserChoice {
+            unrappedUserChoice = userNumber
+        }
+        
+        switch unrappedUserChoice {
         case computerChoice:
             return .draw
         case convertUserChoiceToNumber(.scissors):
@@ -90,15 +95,15 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func compareToScissorsOfUser(with computerChoice: Int) -> GameResult {
+    func compareToScissorsOfUser(with computerChoice: Int) -> GameResult {
         return computerChoice == convertUserChoiceToNumber(.paper) ? .win : .lose
     }
     
-    private func compareToPaperOfUser(with computerChoice: Int) -> GameResult {
+    func compareToPaperOfUser(with computerChoice: Int) -> GameResult {
         return computerChoice == convertUserChoiceToNumber(.rock) ? .win : .lose
     }
     
-    private func compareToRockOfUser(with computerChoice: Int) -> GameResult {
+    func compareToRockOfUser(with computerChoice: Int) -> GameResult {
         return computerChoice == convertUserChoiceToNumber(.scissors) ? .win : .lose
     }
 }
