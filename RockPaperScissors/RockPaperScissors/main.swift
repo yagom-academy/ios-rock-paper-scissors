@@ -10,11 +10,11 @@ enum RPS: Int {
 func startGame() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     if let choicedMenu = readLine() {
-        choiceMenu(number: choicedMenu)
+        operateGame(number: choicedMenu)
     }
 }
 
-func choiceMenu(number: String) {
+func operateGame(number: String) {
     var myChoice: RPS = RPS.none
     let computerChoice: RPS = getComputerNumber()
     if number == "1" {
