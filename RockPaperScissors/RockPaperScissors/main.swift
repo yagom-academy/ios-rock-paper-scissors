@@ -33,6 +33,16 @@ enum RockPaperScissor: CaseIterable {
             return 3
         }
     }
+    var correspodingMJPNumber: Int {
+        switch self {
+        case .rock:
+            return 1
+        case .scissor:
+            return 2
+        case .paper:
+            return 3
+        }
+    }
 }
 
 enum GameResult: String {
@@ -59,11 +69,12 @@ struct Player {
     init(playerName: String) {
         self.playerName = playerName
     }
+    
     mutating func MJPTurnChange() {
         if self.MJPTurn {
-            MJPTurn = false
+            self.MJPTurn = false
         } else {
-            MJPTurn = true
+            self.MJPTurn = true
         }
     }
     
@@ -129,6 +140,22 @@ func compareTwoNumbers (userInput: Int, computerInput: Int) -> String {
     return matchResult
 }
 
+func compareMJPTwoNumbers (userInput: Int, computerInput: Int) -> String {
+    let winningNumberCases = [(RockPaperScissor.rock.correspodingMJPNumber, RockPaperScissor.scissor.correspodingMJPNumber),
+                              (RockPaperScissor.scissor.correspodingMJPNumber, RockPaperScissor.paper.correspodingMJPNumber), (RockPaperScissor.paper.correspodingMJPNumber, RockPaperScissor.rock.correspodingMJPNumber)]
+    var matchResult = GameResult.draw.result
+    let comparisonGroup = (userInput, computerInput)
+    if userInput == computerInput {
+        matchResult = GameResult.draw.result
+    } else if winningNumberCases.contains(where: { $0 == comparisonGroup }) {
+        matchResult = GameResult.win.result
+    } else {
+        matchResult = GameResult.lose.result
+    }
+    return matchResult
+    
+}
+
 var user = Player(playerName: "사용자")
 var computer = Player(playerName: "컴퓨터")
 
@@ -153,41 +180,49 @@ func startRPSGame() {
         }
         
         comparedResult == GameResult.win.result ? user.MJPTurnChange() : computer.MJPTurnChange()
-        let firstPlayer: Player = user.retrieveMJPTurn() ? user: computer
-        
-        startMJPGame(firstPlayer: firstPlayer)
+        startMJPGame()
         break
     }
 }
 
 
-func startMJPGame(firstPlayer: Player) {
-    var currentWinner = firstPlayer
+func startMJPGame() {
     while true {
+        let currentWinner = user.retrieveMJPTurn() ? user : computer
         printMJPOption(player: currentWinner)
-        var computerMJPInput = makeComputerRandomNumber()
-        var userMJPInput = inputUserNumber()
+        let computerMJPInput = makeComputerRandomNumber()
+        let userMJPInput = inputUserNumber()
+        if userMJPInput == ExceptionalInput.closeInput.correspondingNumber{
+            print("게임 종료")
+            break
+        }
         if currentWinner.playerName == user.playerName && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
-            computer.MJPTurnChange()
-            user.MJPTurnChange()
-            currentWinner = computer
+            doTurnChange()
             continue
         } else if currentWinner.playerName == computer.playerName && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             continue
         }
-        var matchResult = compareTwoNumbers(userInput: userMJPInput, computerInput: computerMJPInput)
+        let matchResult = compareMJPTwoNumbers(userInput: userMJPInput, computerInput: computerMJPInput)
         
         if matchResult == GameResult.draw.result {
             print("\(currentWinner.playerName)의 승리!")
+            print("게임 종료")
             break
         } else if currentWinner.playerName == user.playerName && matchResult == GameResult.lose.result {
-            currentWinner = computer
-        } else if currentWinner.playerName == computer.playerName && matchResult == GameResult.lose.result {
-            currentWinner = user
+            doTurnChange()
+            print("컴퓨터의 턴입니다")
+        } else if currentWinner.playerName == computer.playerName && matchResult == GameResult.win.result {
+            doTurnChange()
+            print("사용자의 턴입니다")
         }
     }
+}
+
+func doTurnChange() {
+    computer.MJPTurnChange()
+    user.MJPTurnChange()
 }
 
 startRPSGame()
