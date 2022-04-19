@@ -18,8 +18,8 @@ func startGame() {
         if userSelectedCard == "0" {
             endGame()
         } else if verifyUserInput(of: userSelectedCard) {
-            judgeMatchResult(inputUserNumber:
-                                convertNumberToGameCard(targetNumber: userSelectedCard))
+            let targetNumber = convertNumberToGameCard(of: userSelectedCard)
+            judgeMatchResult(inputUserNumber: targetNumber)
         } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
@@ -31,7 +31,7 @@ func printUserInterface() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
-func generateComputerNumber() -> RockPaperScissors? {
+func generateComputerNumber() -> RockPaperScissors {
     return RockPaperScissors(rawValue: Int.random(in: randomNumberRange)) ?? .wrong
 }
 
@@ -43,7 +43,7 @@ func verifyUserInput(of userChoiceCard: String) -> Bool {
     }
 }
 
-func convertNumberToGameCard(targetNumber: String) -> RockPaperScissors {
+func convertNumberToGameCard(of targetNumber: String) -> RockPaperScissors {
     switch targetNumber {
     case "1":
         return .scissors
@@ -67,25 +67,23 @@ func endGame() {
 func judgeMatchResult(inputUserNumber: RockPaperScissors) {
     let computerRandomNumber = generateComputerNumber()
     
-    if (inputUserNumber == .paper && computerRandomNumber == .rock) ||
-        (inputUserNumber == .rock && computerRandomNumber == .scissors) ||
-        (inputUserNumber == .scissors && computerRandomNumber == .paper) {
-        printMatchResult(matchResult: "win")
-        endGame()
-    } else if inputUserNumber == computerRandomNumber {
-        printMatchResult(matchResult: "tie")
-    } else {
-        printMatchResult(matchResult: "lose")
-        endGame()
-    }
+   !(inputUserNumber == .paper && computerRandomNumber == .rock ||
+     inputUserNumber == .rock && computerRandomNumber == .scissors ||
+     inputUserNumber == .scissors && computerRandomNumber == .paper) ?
+    inputUserNumber == computerRandomNumber ?
+    printMatchResult(matchResult: "tie") :
+    printMatchResult(matchResult: "lose") :
+    printMatchResult(matchResult: "win")
 }
 
 func printMatchResult(matchResult: String) {
     switch matchResult {
     case "win":
         print("이겼습니다!")
+        endGame()
     case "lose":
         print("졌습니다!")
+        endGame()
     default:
         print("비겼습니다!")
     }
