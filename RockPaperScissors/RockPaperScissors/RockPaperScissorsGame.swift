@@ -4,26 +4,35 @@
 //
 //  Created by dhoney96 on 2022/04/18.
 //
-
-import Foundation
-
 struct RockPaperScissorsGame {
     
+    enum RockPaperSciccorsCondition: String {
+        case scissors = "1"
+        case rock = "2"
+        case paper = "3"
+        case end = "0"
+    }
+    
+    var scissors: String = RockPaperSciccorsCondition.scissors.rawValue
+    var rock: String = RockPaperSciccorsCondition.rock.rawValue
+    var paper: String = RockPaperSciccorsCondition.paper.rawValue
+    var end: String = RockPaperSciccorsCondition.end.rawValue
+    
     func startGame() {
-        let choicedNumber = choiceMenu()
-        let fixedNumber = choiceRockPaperScissors()
+        let userNumber = inputUserNumber()
+        let randomNumber = choiceRockPaperScissors()
         
-        switch choicedNumber {
-        case "1":
-            isCaseScissors(fixedNumber)
+        switch userNumber {
+        case scissors:
+            makeToChoiceScissors(randomNumber)
             break
-        case "2":
-            isCaseRock(fixedNumber)
+        case rock:
+            makeToChoiceRock(randomNumber)
             break
-        case "3":
-            isCasePaper(fixedNumber)
+        case paper:
+            makeToChoicePaper(randomNumber)
             break
-        case "0":
+        case end:
             print("게임 종료")
             break
         default:
@@ -32,29 +41,29 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func choiceMenu() -> String {
+    private func inputUserNumber() -> String {
         print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
         guard let userInput = readLine() else { return "" }
         return userInput
     }
     
     private func choiceRockPaperScissors() -> String {
-        let caseStore: [String] = ["1", "2", "3"]
-        guard let choicedCase = caseStore.randomElement() else {
+        let numberList: [String] = ["1", "2", "3"]
+        guard let choicedCase = numberList.randomElement() else {
             return ""
         }
         return choicedCase
     }
     
-    private func isCasePaper(_ comparedNumber: String) {
+    private func makeToChoicePaper(_ comparedNumber: String) {
         switch comparedNumber {
-        case "1":
+        case scissors:
             print("졌습니다!")
             print("게임 종료")
-        case "2":
+        case rock:
             print("이겼습니다!")
             print("게임 종료")
-        case "3":
+        case paper:
             print("비겼습니다!")
             startGame()
         default:
@@ -62,15 +71,15 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func isCaseScissors(_ comparedNumber: String) {
+    private func makeToChoiceScissors(_ comparedNumber: String) {
         switch comparedNumber {
-        case "1":
+        case scissors:
             print("비겼습니다!")
             startGame()
-        case "2":
+        case rock:
             print("졌습니다!")
             print("게임 종료")
-        case "3":
+        case paper:
             print("이겼습니다!")
             print("게임 종료")
         default:
@@ -78,15 +87,15 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func isCaseRock(_ comparedNumber: String) {
+    private func makeToChoiceRock(_ comparedNumber: String) {
         switch comparedNumber {
-        case "1":
+        case scissors:
             print("이겼습니다!")
             print("게임 종료")
-        case "2":
+        case rock:
             print("비겼습니다!")
             startGame()
-        case "3":
+        case paper:
             print("졌습니다!")
             print("게임 종료")
         default:
