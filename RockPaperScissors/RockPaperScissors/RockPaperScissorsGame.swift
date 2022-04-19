@@ -17,7 +17,6 @@ extension RockPaperScissorsGame {
     func printGameMenu() {
         print("가위(1), 바위(2), 보(3)! <종료: 0>:", terminator: " ")
         receiveUserInput()
-        return
     }
     
 }
@@ -38,19 +37,16 @@ extension RockPaperScissorsGame {
             endGame()
             return
         default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            displayError()
             printGameMenu()
-            return
         }
         
         startGame()
-        return
     }
     
     private func startGame() {
         makeComputerSelection()
         judgeVictory(userSide: userSelection, computerSide: computerSelection)
-        return
     }
     
     private func makeComputerSelection() {
@@ -66,7 +62,6 @@ extension RockPaperScissorsGame {
         default:
             return
         }
-        return
     }
     
     private func judgeVictory(userSide: RockPaperScissors?, computerSide: RockPaperScissors?) {
@@ -86,9 +81,16 @@ extension RockPaperScissorsGame {
         }
     }
     
+}
+
+extension RockPaperScissorsGame {
+    
+    private func displayError() {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+    
     private func endGame() {
         print("게임 종료")
-        return
     }
     
 }
