@@ -102,20 +102,34 @@ struct RockScissorsPaperGame {
             guard let userInput = makeUserSign(userInput: userChoiceNumber) else { return }
             guard let computerInput = makeComputerSign() else { return }
             
-            let result = decideResult2(userSign: userInput, computerSign: computerInput)
-            printResult(of: result)
+            decideResult2(turn: turn, userSign: userInput, computerSign: computerInput)
         default:
             printInvalidInput()
-            startGame()
+            printResult2(of: .lose)
         }
     }
     
-    func decideResult2(userSign: RockScissorsPaper, computerSign: RockScissorsPaper) -> GameResult {
+    func decideResult2(turn: Turn, userSign: RockScissorsPaper, computerSign: RockScissorsPaper) {
         if computerSign == userSign {
-            return .win
+            print("\(turn.rawValue)의 승리!")
+            printEndGame()
         } else {
-            return .draw
+            printResult2(of: decideResult(userSign: userSign, computerSign: computerSign))
+        }
+    }
+    
+    func printResult2(of result: GameResult) {
+        switch result {
+        case .win:
+            let userTurn = Turn.userTurn
+            print("\(userTurn.rawValue)의 턴입니다")
+            startMookJjiPpa(by: userTurn)
+        case .lose:
+            let computerTurn = Turn.computerTurn
+            print("\(computerTurn.rawValue)의 턴입니다")
+            startMookJjiPpa(by: computerTurn)
+        default:
+            break
         }
     }
 }
-
