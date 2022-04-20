@@ -18,6 +18,11 @@ enum InformationMessage {
     static let startMukChiBaGame = "묵(1), 찌(2), 빠(3)! <종료 : 0>:"
 }
 
+enum Winner {
+    static let user = "[사용자 턴]"
+    static let computer = "[컴퓨터 턴]"
+}
+
 func startGame() {
     print(InformationMessage.startGame, terminator: "")
     if let choicedMenu = readLine() {
@@ -73,15 +78,17 @@ func compare(myHandDesign: RPS, computerHandDesign: RPS) {
                 myHandDesign == RPS.scissors && computerHandDesign == RPS.paper ||
                 myHandDesign == RPS.paper && computerHandDesign == RPS.rock {
         print(ResultMessage.win)
+        startMukChiBaGame(winner: Winner.user)
     } else {
         print(ResultMessage.lose)
+        startMukChiBaGame(winner: Winner.computer)
     }
 }
 
-func startMukChiBaGame(number: String) {
-    print(InformationMessage.startMukChiBaGame, terminator: "")
+func startMukChiBaGame(winner: String) {
+    print(winner, InformationMessage.startMukChiBaGame, terminator: "")
     if let choicedMenu = readLine() {
 //        playMukChiBaGame(number: choicedMenu)
-}
+    }
 }
 startGame()
