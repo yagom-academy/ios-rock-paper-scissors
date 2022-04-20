@@ -8,36 +8,40 @@
 import Foundation
 
 struct Game {
-    enum RockPaperScissors: Int {
-        case ready, scissors, rock, paper
+    enum InputOfRockPaperScissors: Int {
+        case quit, scissors, rock, paper, error
         
-        var koreanName: String {
+        var message: String {
             switch self {
-            case .ready:
-                return "준비"
+            case .quit:
+                return "게임 종료"
             case .scissors:
                 return "가위"
             case .rock:
                 return "바위"
             case .paper:
                 return "보"
+            case .error:
+                return "잘못된 입력입니다. 다시 시도해주세요."
             }
         }
     }
     
     enum MukJjiPpa: Int {
-        case ready, muk, jji, ppa
+        case quit, muk, jji, ppa, error
         
         var koreanName: String {
             switch self {
-            case .ready:
-                return "준비"
+            case .quit:
+                return "게임 종료"
             case .muk:
                 return "묵"
             case .jji:
                 return "찌"
             case .ppa:
                 return "빠"
+            case .error:
+                return "잘못된 입력입니다. 다시 시도해주세요."
             }
         }
     }
@@ -48,48 +52,49 @@ struct Game {
         case tie
     }
     
+    let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    
     func startRPS() {
         let userMenuChoice = selectMenuByInput()
         decideProcessBy(userMenuChoice)
     }
     
-    func selectMenuByInput() -> String {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        guard let userInput = readLine() else { return "" }
-        return userInput
+    func selectMenuByInput() -> InputOfRockPaperScissors {
+        print(menu, terminator: "")
+        guard let userInput = readLine() else {
+            return .error
+        }
+        guard let numberChoice = Int(userInput) else {
+            return .error
+        }
+        
+        return InputOfRockPaperScissors(rawValue: numberChoice) ?? .error
     }
     
-    func decideProcessBy(_ menuChoice: String) {
+    func decideProcessBy(_ menuChoice: InputOfRockPaperScissors) {
         switch menuChoice {
-        case "0":
-            print("게임 종료")
-        case "1", "2", "3":
-            let eachPick: (RockPaperScissors, RockPaperScissors) = playRPS(by: menuChoice)
+        case .quit:
+            print(InputOfRockPaperScissors.quit.message)
+        case .scissors, .rock, .paper:
+            let eachPick: (InputOfRockPaperScissors, InputOfRockPaperScissors) = playRPS(by: menuChoice)
             let gameResult = pickOutWinner(from: eachPick)
             printResult(basedOn: gameResult)
             
             restartIfTie(judgingBy: gameResult)
         default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(InputOfRockPaperScissors.error.message)
             startRPS()
         }
     }
     
-    func playRPS(by menuChoice: String) -> (RockPaperScissors, RockPaperScissors) {
-        let myRpsPick = convertInputToRps(userInput: menuChoice)
-        guard let computerRpsPick = RockPaperScissors(rawValue: Int.random(in: 1...3)) else { return (.ready, .ready) }
+    func playRPS(by menuChoice: InputOfRockPaperScissors) -> (InputOfRockPaperScissors, InputOfRockPaperScissors) {
+        let myRpsPick = menuChoice
+        guard let computerRpsPick = InputOfRockPaperScissors(rawValue: Int.random(in: InputOfRockPaperScissors.scissors.rawValue...InputOfRockPaperScissors.paper.rawValue)) else { return (.quit, .quit) }
         
         return (myRpsPick, computerRpsPick)
     }
     
-    func convertInputToRps(userInput: String) -> RockPaperScissors {
-        guard let pickNumber = Int(userInput) else { return RockPaperScissors.ready }
-        let myRpsPick: RockPaperScissors = RockPaperScissors(rawValue: pickNumber) ?? RockPaperScissors.ready
-        
-        return myRpsPick
-    }
-    
-    func pickOutWinner(from pickOf: (user: RockPaperScissors, computer: RockPaperScissors)) -> GameResult {
+    func pickOutWinner(from pickOf: (user: InputOfRockPaperScissors, computer: InputOfRockPaperScissors)) -> GameResult {
         if pickOf.computer == pickOf.user {
             return .tie
         }
