@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D653931280FD625004364F7 /* MookJjiPpa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D653930280FD625004364F7 /* MookJjiPpa.swift */; };
-		4D653933280FDAA8004364F7 /* MookJjiPpaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D653932280FDAA8004364F7 /* MookJjiPpaGame.swift */; };
+		4D653931280FD625004364F7 /* Mukjipa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D653930280FD625004364F7 /* Mukjipa.swift */; };
+		4D653933280FDAA8004364F7 /* MukjipaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D653932280FDAA8004364F7 /* MukjipaGame.swift */; };
 		4D653937280FF1D6004364F7 /* PrintSorts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D653936280FF1D6004364F7 /* PrintSorts.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 		D744E021280E5CCE0023A3BC /* RockScissorsPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */; };
@@ -30,8 +30,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4D653930280FD625004364F7 /* MookJjiPpa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MookJjiPpa.swift; sourceTree = "<group>"; };
-		4D653932280FDAA8004364F7 /* MookJjiPpaGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MookJjiPpaGame.swift; path = ../MookJjiPpaGame.swift; sourceTree = "<group>"; };
+		4D653930280FD625004364F7 /* Mukjipa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mukjipa.swift; sourceTree = "<group>"; };
+		4D653932280FDAA8004364F7 /* MukjipaGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MukjipaGame.swift; path = ../MukjipaGame.swift; sourceTree = "<group>"; };
 		4D653936280FF1D6004364F7 /* PrintSorts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintSorts.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -73,10 +73,10 @@
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				D744E024280E7D730023A3BC /* RockScissorsPaperGame.swift */,
-				4D653932280FDAA8004364F7 /* MookJjiPpaGame.swift */,
+				4D653932280FDAA8004364F7 /* MukjipaGame.swift */,
 				D755C2CE280F91FD00E4F295 /* Turn.swift */,
 				D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */,
-				4D653930280FD625004364F7 /* MookJjiPpa.swift */,
+				4D653930280FD625004364F7 /* Mukjipa.swift */,
 				D744E022280E5CD80023A3BC /* GameResult.swift */,
 				4D653936280FF1D6004364F7 /* PrintSorts.swift */,
 			);
@@ -144,10 +144,10 @@
 				D744E025280E7D740023A3BC /* RockScissorsPaperGame.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				4D653937280FF1D6004364F7 /* PrintSorts.swift in Sources */,
-				4D653933280FDAA8004364F7 /* MookJjiPpaGame.swift in Sources */,
+				4D653933280FDAA8004364F7 /* MukjipaGame.swift in Sources */,
 				D744E023280E5CD80023A3BC /* GameResult.swift in Sources */,
 				D744E021280E5CCE0023A3BC /* RockScissorsPaper.swift in Sources */,
-				4D653931280FD625004364F7 /* MookJjiPpa.swift in Sources */,
+				4D653931280FD625004364F7 /* Mukjipa.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,8 +6,7 @@
 //
 
 struct PrintSorts {
-    
-    func printMookJjiPpaMenu(by turn: Turn) {
+    func printMukjipaMenu(by turn: Turn) {
         print("[\(turn.turnResult) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
 
