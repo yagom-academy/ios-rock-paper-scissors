@@ -1,18 +1,20 @@
 //
-//  Mukjipa.swift
+//  MukJiPa.swift
 //  RockPaperScissors
 //
 //  Created by kiwi,bard on 2022/04/20.
 //
 import Foundation
 
-struct mukjipaGame {
+struct mukJiPaGame {
+    
     //MARK: - 프린트 함수 모음
+    
     func printRockScissorsPaperMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
     
-    func printMukjipaMenu(by turn: Turn) {
+    func printMukJiPaMenu(by turn: Turn) {
         print("[\(turn.turnResult) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
     
@@ -27,7 +29,9 @@ struct mukjipaGame {
     func printEndGame() {
         print("게임 종료")
     }
-    //MARK: -
+    
+    //MARK: - 묵 찌 빠 게임
+    
     enum Numbers {
         static let range = 1...3
     }
@@ -72,35 +76,35 @@ struct mukjipaGame {
     }
     
     func start(by turn: Turn) {
-        printMukjipaMenu(by: turn)
+        printMukJiPaMenu(by: turn)
         let userChoiceNumber = inputNumber()
         
         switch userChoiceNumber {
         case 0:
             printEndGame()
         case 1,2,3:
-            guard let userInput = makeMukjipaUserSign(userInput: userChoiceNumber) else { return }
-            guard let computerInput = makeMukjipaComputerSign() else { return }
+            guard let userInput = makeMukJiPaUserSign(userInput: userChoiceNumber) else { return }
+            guard let computerInput = makeMukJiPaComputerSign() else { return }
             
-            decideMukjipaResult(by: turn, userSign: userInput, computerSign: computerInput)
+            decideResult(by: turn, userSign: userInput, computerSign: computerInput)
         default:
             printInvalidResult()
             start(by: .computer)
         }
     }
     
-    func makeMukjipaUserSign(userInput: Int) -> Mukjipa? {
-        let userSign = Mukjipa(rawValue: userInput)
+    func makeMukJiPaUserSign(userInput: Int) -> MukJiPa? {
+        let userSign = MukJiPa(rawValue: userInput)
         return userSign
     }
     
-    func makeMukjipaComputerSign() -> Mukjipa? {
+    func makeMukJiPaComputerSign() -> MukJiPa? {
         let randomNumber = Int.random(in: Numbers.range)
-        let computerRandomSign = Mukjipa(rawValue: randomNumber)
+        let computerRandomSign = MukJiPa(rawValue: randomNumber)
         return computerRandomSign
     }
     
-    func judgeMukjipaResult(userSign: Mukjipa, computerSign: Mukjipa) -> GameResult {
+    func judgeResult(userSign: MukJiPa, computerSign: MukJiPa) -> GameResult {
         if computerSign == userSign {
             return .draw
         } else if
@@ -113,11 +117,11 @@ struct mukjipaGame {
         }
     }
     
-    func decideMukjipaResult(by turn: Turn, userSign: Mukjipa, computerSign: Mukjipa) {
-        printMukjipaResult(of: judgeMukjipaResult(userSign: userSign, computerSign: computerSign), by: turn)
+    func decideResult(by turn: Turn, userSign: MukJiPa, computerSign: MukJiPa) {
+        printResult(of: judgeResult(userSign: userSign, computerSign: computerSign), by: turn)
     }
     
-    func printMukjipaResult(of result: GameResult, by turn: Turn) {
+    func printResult(of result: GameResult, by turn: Turn) {
         switch result {
         case .win, .lose:
             print("\(turn.turnResult)의 턴입니다")

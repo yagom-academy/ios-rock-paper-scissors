@@ -9,6 +9,7 @@ import Foundation
 struct RockScissorsPaperGame {
     
   // MARK: - 프린트 함수 모음
+    
     func printRockScissorsPaperMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
@@ -20,7 +21,9 @@ struct RockScissorsPaperGame {
     func printEndGame() {
         print("게임 종료")
     }
-    //MARK: -
+    
+    //MARK: - 가위 바위 보 게임 
+    
     enum Numbers {
         static let range = 1...3
     }

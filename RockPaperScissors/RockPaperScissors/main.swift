@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-let mukjipagame = mukjipaGame()
+let mukjipagame = mukJiPaGame()
 mukjipagame.startGame()
 
 
