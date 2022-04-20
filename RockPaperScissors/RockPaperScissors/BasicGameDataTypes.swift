@@ -7,9 +7,9 @@
 
 enum RockPaperScissors: Int {
     case rock = 1
-    case paper = 2
-    case scissors = 3
-    case wrong = 4
+    case paper
+    case scissors
+    case wrong
 }
 
 enum RockPaperScissorsResult {
@@ -17,3 +17,17 @@ enum RockPaperScissorsResult {
     case lose
     case tie
 }
+
+enum GameType {
+    case rockscissors
+    case mukchiba
+}
+
+enum Mukchiba: Int {
+    case muk = 1
+    case chi
+    case ba
+    case wrong
+}
+
+
