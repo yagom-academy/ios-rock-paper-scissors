@@ -46,15 +46,16 @@ struct Game {
         }
     }
     
-    enum GameResult {
-        case usersVictory
-        case computersVictory
+    enum GameResult: String {
+        case usersVictory = "사용자"
+        case computersVictory = "컴퓨터"
         case tie
     }
     
     let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    var turn: String = ""
     
-    func startRPS() {
+    mutating func startRPS() {
         let userMenuChoice = selectMenuByInput()
         decideProcessBy(userMenuChoice)
     }
@@ -71,7 +72,7 @@ struct Game {
         return InputOfRockPaperScissors(rawValue: numberChoice) ?? .error
     }
     
-    func decideProcessBy(_ menuChoice: InputOfRockPaperScissors) {
+    mutating func decideProcessBy(_ menuChoice: InputOfRockPaperScissors) {
         switch menuChoice {
         case .quit:
             print(InputOfRockPaperScissors.quit.message)
@@ -107,20 +108,20 @@ struct Game {
         }
     }
     
-    func printResult(basedOn gameResult: GameResult) {
+    mutating func printResult(basedOn gameResult: GameResult) {
         switch gameResult {
         case .usersVictory:
             print("이겼습니다!")
-            print("게임 종료")
+            turn = GameResult.usersVictory.rawValue
         case .computersVictory:
             print("졌습니다!")
-            print("게임 종료")
+            turn = GameResult.computersVictory.rawValue
         default:
             print("비겼습니다")
         }
     }
     
-    func restartIfTie(judgingBy gameResult: GameResult) {
+    mutating func restartIfTie(judgingBy gameResult: GameResult) {
         if gameResult == .tie {
             startRPS()
         }
