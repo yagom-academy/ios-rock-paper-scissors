@@ -4,7 +4,14 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
+let rockScissorsPaperGame = RockScissorsPaperGame()
+rockScissorsPaperGame.startGame()
 
-let game = RockScissorsPaperGame()
-game.startGame()
+let mookJjiPpagame = MookJjiPpaGame()
+mookJjiPpagame.startGame()
+
+
+
+
+
 
