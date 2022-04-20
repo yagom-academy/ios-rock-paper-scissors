@@ -77,11 +77,9 @@ struct RockScissorsPaperGame {
         
         switch result {
         case .win:
-            let userTurn = Turn.userTurn
-            startMookJjiPpa(by: userTurn)
+            startMookJjiPpa(by: Turn.userTurn)
         case .lose:
-            let computerTurn = Turn.computerTurn
-            startMookJjiPpa(by: computerTurn)
+            startMookJjiPpa(by: Turn.computerTurn)
         case .draw:
             startGame()
         }
@@ -105,31 +103,25 @@ struct RockScissorsPaperGame {
             decideResult2(turn: turn, userSign: userInput, computerSign: computerInput)
         default:
             printInvalidInput()
-            printResult2(of: .lose)
+            startMookJjiPpa(by: .computerTurn)
         }
     }
     
     func decideResult2(turn: Turn, userSign: RockScissorsPaper, computerSign: RockScissorsPaper) {
-        if computerSign == userSign {
-            print("\(turn.rawValue)의 승리!")
-            printEndGame()
-        } else {
-            printResult2(of: decideResult(userSign: userSign, computerSign: computerSign))
-        }
+        printResult2(of: decideResult(userSign: userSign, computerSign: computerSign), turn: turn)
     }
     
-    func printResult2(of result: GameResult) {
+    func printResult2(of result: GameResult, turn: Turn) {
         switch result {
         case .win:
-            let userTurn = Turn.userTurn
-            print("\(userTurn.rawValue)의 턴입니다")
-            startMookJjiPpa(by: userTurn)
+            print("\(Turn.userTurn.rawValue)의 턴입니다")
+            startMookJjiPpa(by: Turn.userTurn)
         case .lose:
-            let computerTurn = Turn.computerTurn
-            print("\(computerTurn.rawValue)의 턴입니다")
-            startMookJjiPpa(by: computerTurn)
-        default:
-            break
+            print("\(Turn.computerTurn.rawValue)의 턴입니다")
+            startMookJjiPpa(by: Turn.computerTurn)
+        case .draw:
+            print("\(turn.rawValue)의 승리!")
+            printEndGame()
         }
     }
 }
