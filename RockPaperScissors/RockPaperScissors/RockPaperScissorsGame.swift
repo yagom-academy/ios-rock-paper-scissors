@@ -11,23 +11,23 @@ class RockPaperScissorsGame {
     
     private var userSelection: RockPaperScissors?
     private var computerSelection: RockPaperScissors?
-    private var turnIndicator: Bool?
+    private var turnIndicator: String = "사용자"
 }
 
 extension RockPaperScissorsGame {
     
     func printGameMenu() {
         print("가위(1), 바위(2), 보(3)! <종료: 0>:", terminator: " ")
-        startGame()
+        receiveUserInput()
+    }
+    
+    private func printMukjipaMenu() {
+        print("[\(turnIndicator) 턴] 묵(1) 찌(2) 빠(3)! <종료: 0>:", terminator: " ")
+        receiveMukjipaInput()
     }
 }
 
 extension RockPaperScissorsGame {
-    
-    private func startGame() {
-        receiveUserInput()
-        playGame()
-    }
     
     private func receiveUserInput() {
         let userInputNumber = readLine()
@@ -45,13 +45,10 @@ extension RockPaperScissorsGame {
         default:
             displayError()
             printGameMenu()
-            
-            if turnIndicator == nil {
-                printGameMenu()
-            } else {
-                print("묵찌빠 메뉴")
-            }
+            return
         }
+        
+        playGame()
     }
     
     private func playGame() {
@@ -59,10 +56,12 @@ extension RockPaperScissorsGame {
         let gameResult = judgeVictory(userSide: userSelection, computerSide: computerSelection)
         if gameResult == 1 {
             print("이겼습니다!")
-            mukjipa()
+            turnIndicator = "사용자"
+            printMukjipaMenu()
         } else if gameResult == -1 {
             print("졌습니다!")
-            mukjipa()
+            turnIndicator = "컴퓨터"
+            printMukjipaMenu()
         } else {
             print("비겼습니다!")
             printGameMenu()
@@ -99,8 +98,48 @@ extension RockPaperScissorsGame {
 
 extension RockPaperScissorsGame {
     
-    private func mukjipa() {
+    private func receiveMukjipaInput() {
+        let userInputNumber = readLine()
         
+        switch userInputNumber {
+        case "1":
+            userSelection = .rock
+        case "2":
+            userSelection = .scissors
+        case "3":
+            userSelection = .paper
+        case "0":
+            endGame()
+            return
+        default:
+            displayError()
+            turnIndicator = "컴퓨터"
+            printMukjipaMenu()
+            return
+        }
+        
+        playMukjipa()
+    }
+    
+    private func playMukjipa() {
+        makeComputerSelection()
+        let mukjipaResult = judgeVictory(userSide: userSelection, computerSide: computerSelection)
+        if mukjipaResult == 0 {
+            print("\(turnIndicator)의 승리!")
+            endGame()
+            return
+        } else if mukjipaResult == 1 {
+            turnIndicator = "사용자"
+        } else {
+            turnIndicator = "컴퓨터"
+        }
+        
+        printTurn()
+        printMukjipaMenu()
+    }
+    
+    private func printTurn() {
+        print("\(turnIndicator)의 턴입니다")
     }
 }
 
