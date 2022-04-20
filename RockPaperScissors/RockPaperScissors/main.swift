@@ -6,10 +6,10 @@
 
 import Foundation
 
-enum GameResult {
-    case win
-    case draw
-    case lose
+enum GameResult: String {
+    case win = "이겼습니다!"
+    case draw = "비겼습니다!" 
+    case lose = "졌습니다!"
 }
 
 enum Hand: Int {
@@ -19,8 +19,8 @@ enum Hand: Int {
 }
 
 enum Winner: String {
-    case user
-    case computer
+    case user = "사용자"
+    case computer = "컴퓨터"
 }
 
 private func printGameMenu() {
@@ -51,7 +51,7 @@ private func convertUserInputToHand(input: Int) -> Hand? {
 }
 
 private func convertComputerNumberToHand() -> Hand? {
-        return Hand(rawValue: Int.random(in: 1...3))
+    return Hand(rawValue: Int.random(in: 1...3))
 }
 
 private func comparePlayerAndComputerHand(userHand: Hand?, computerHand: Hand?) {
@@ -67,21 +67,29 @@ private func comparePlayerAndComputerHand(userHand: Hand?, computerHand: Hand?) 
 }
 
 private func printResult(gameResult: GameResult) {
-    let result: GameResult = gameResult
-    switch result {
+    switch gameResult {
     case .draw:
-        print("비겼습니다!")
+        print("\(GameResult.draw.rawValue)")
     case .win:
-        print("이겼습니다!")
-        printExitMessage()
+        print("\(GameResult.win.rawValue)")
+        printWinner(winner: Winner.user)
     case .lose:
-        print("졌습니다!")
-        printExitMessage()
+        print("\(GameResult.lose.rawValue)")
+        printWinner(winner: Winner.computer)
     }
 }
 
 private func printExitMessage() {
     print("게임 종료")
+}
+
+func printWinner(winner: Winner) {
+    switch winner {
+    case .user:
+        print("\(Winner.user.rawValue) 턴")
+    case .computer:
+        print("\(Winner.computer.rawValue) 턴")
+    }
 }
 
 printGameMenu()
