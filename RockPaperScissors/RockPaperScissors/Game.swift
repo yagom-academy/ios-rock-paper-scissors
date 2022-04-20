@@ -52,15 +52,27 @@ struct Game {
         case tie
     }
     
-    let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-    var turn: String = ""
+    enum Turn: String {
+        case user = "사용자"
+        case computer = "컴퓨터"
+    }
     
-    mutating func startRPS() {
-        let userMenuChoice = selectMenuByInput()
+    let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    var turn: String = "사용자"
+    
+    mutating func start() {
+        let userMenuChoice = selectMenuByInput(menu: menu)
         decideProcessBy(userMenuChoice)
     }
     
-    func selectMenuByInput() -> InputOfRockPaperScissors {
+    mutating func start(turnOfMukJjiPpa turn: String) {
+        let menu = "[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+        let userMenuChoice = selectMenuByInput(menu: menu)
+        decideProcessBy(userMenuChoice)
+    }
+    
+    
+    func selectMenuByInput(menu: String) -> InputOfRockPaperScissors {
         print(menu, terminator: "")
         guard let userInput = readLine() else {
             return .error
@@ -84,7 +96,7 @@ struct Game {
             restartIfTie(judgingBy: gameResult)
         default:
             print(InputOfRockPaperScissors.error.message)
-            startRPS()
+            start()
         }
     }
     
@@ -123,7 +135,9 @@ struct Game {
     
     mutating func restartIfTie(judgingBy gameResult: GameResult) {
         if gameResult == .tie {
-            startRPS()
+            start()
+        } else {
+            start(turnOfMukJjiPpa: turn)
         }
     }
 }

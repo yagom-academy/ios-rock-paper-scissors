@@ -7,4 +7,4 @@
 import Foundation
 
 var game = Game()
-game.startRPS()
+game.start()
