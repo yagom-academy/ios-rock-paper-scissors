@@ -7,19 +7,31 @@
 import Foundation
 
 struct RockScissorsPaperGame {
-    let printSorts = PrintSorts()
     
+  // MARK: - 프린트 함수 모음
+    func printRockScissorsPaperMenu() {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    }
+    
+    func printInvalidResult() {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+    
+    func printEndGame() {
+        print("게임 종료")
+    }
+    //MARK: -
     enum Numbers {
         static let range = 1...3
     }
     
     func startGame() {
-        printSorts.printRockScissorsPaperMenu()
+        printRockScissorsPaperMenu()
         let userChoiceNumber = inputNumber()
         
         switch userChoiceNumber {
         case 0:
-            printSorts.printEndGame()
+            printEndGame()
         case 1,2,3:
             guard let userInput = makeRockScissorsPaperUserSign(userInput: userChoiceNumber) else { return }
             guard let computerInput = makeRockScissorsPaperComputerSign() else { return }
@@ -27,7 +39,7 @@ struct RockScissorsPaperGame {
             let result = decideResult(userSign: userInput, computerSign: computerInput)
             printResult(of: result)
         default:
-            printSorts.printInvalidResult()
+            printInvalidResult()
             startGame()
         }
     }
@@ -63,11 +75,11 @@ struct RockScissorsPaperGame {
     }
     
     func printResult(of result: GameResult) {
-        printSorts.printResult(of: result)
+        print(result.message)
         
         switch result {
         case .win, .lose:
-            printSorts.printEndGame()
+            printEndGame()
         case .draw:
             startGame()
         }
