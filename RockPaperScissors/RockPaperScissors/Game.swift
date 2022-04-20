@@ -30,7 +30,7 @@ struct Game {
     enum InputOfMukJjiPpa: Int {
         case quit, muk, jji, ppa, error
         
-        var koreanName: String {
+        var message: String {
             switch self {
             case .quit:
                 return "게임 종료"
@@ -68,9 +68,7 @@ struct Game {
     mutating func start(turnOfMukJjiPpa turn: String) {
         let menu = "[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
         let userMenuChoice = selectMenuByInput(menuOfMukJjiPpa: menu)
-        let pick = playRPS(by: userMenuChoice)
-        let winner = pickOutWinner(from: pick)
-        printResult(basedOnMukJjiPpa: winner)
+        decideProcessBy(userMenuChoice)
     }
     
     
@@ -108,6 +106,23 @@ struct Game {
             printResult(basedOn: gameResult)
             
             restartIfTie(judgingBy: gameResult)
+        default:
+            print(InputOfRockPaperScissors.error.message)
+            start()
+        }
+    }
+    
+    mutating func decideProcessBy(_ menuChoice: InputOfMukJjiPpa) {
+        switch menuChoice {
+        case .quit:
+            print(InputOfMukJjiPpa.quit.message)
+        case .muk, .jji, .ppa:
+            let eachPick: (InputOfMukJjiPpa, InputOfMukJjiPpa) = playRPS(by: menuChoice)
+            let gameResult = pickOutWinner(from: eachPick)
+            
+            printResult(basedOnMukJjiPpa: gameResult)
+            
+            restartIfTie(judgingBy: gameResult, turnOfMukJjiPpa: turn)
         default:
             print(InputOfRockPaperScissors.error.message)
             start()
@@ -183,6 +198,14 @@ struct Game {
     mutating func restartIfTie(judgingBy gameResult: GameResult) {
         if gameResult == .tie {
             start()
+        } else {
+            start(turnOfMukJjiPpa: turn)
+        }
+    }
+    
+    mutating func restartIfTie(judgingBy gameResult: GameResult, turnOfMukJjiPpa: String) {
+        if gameResult == .tie {
+            print("게임 종료")
         } else {
             start(turnOfMukJjiPpa: turn)
         }
