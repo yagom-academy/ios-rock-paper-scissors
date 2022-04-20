@@ -5,63 +5,68 @@
 //  Created by dhoney96 on 2022/04/18.
 //
 class RockPaperScissorsGame {
-    
-    enum turn: String {
-        case player = "사용자"
-        case computer = "컴퓨터"
-    }
-    
-    var scissors: String = RockPaperSciccorsCondition.scissors.choiceRockPaperScissors
-    var rock: String = RockPaperSciccorsCondition.rock.choiceRockPaperScissors
-    var paper: String = RockPaperSciccorsCondition.paper.choiceRockPaperScissors
-    var end: String = RockPaperSciccorsCondition.end.choiceRockPaperScissors
+    var userNumber: String = ""
+    var randomNumber: String = ""
+    var resultOfCheck: Bool = true
+    var gameResult: String = ""
     
     func startGame() {
-        gameResult()
-    }
-    
-    func inputUserNumber() -> String {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
-        guard let userInput = readLine() else { return "" }
-        return userInput
-    }
-    
-    func choiceRockPaperScissors() -> String {
-        let numberList: [String] = ["1", "2", "3"]
-        guard let choicedCase = numberList.randomElement() else {
-            return ""
+        while true {
+            inputUserNumber()
+            choiceRockPaperScissors()
+            compare(userNumber, with: randomNumber)
+            checkInput(from: userNumber)
+            
+            if resultOfCheck {
+                print("잘못된 입력입니다. 다시 시도해 주세요.")
+                continue
+            }
+            
+            print(gameResult)
+            
+            if gameResult == "이겼습니다." {
+                break
+            } else if gameResult == "졌습니다." {
+                break
+            }
         }
-        return choicedCase
     }
     
-    func gameResult() {
-        let userNumber: String = inputUserNumber()
-        let computerNumber: String = choiceRockPaperScissors()
+    func inputUserNumber() {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+        guard let userInput = readLine() else { return }
+        self.userNumber = userInput
+    }
+    
+    func choiceRockPaperScissors() {
+        let numberList: [String] = ["1", "2", "3"]
+        guard let choicedCase = numberList.randomElement() else { return }
+        self.randomNumber = choicedCase
+    }
+    
+    func compare(_ userInput: String, with randomNumber: String) {
+        if userInput == "3" && randomNumber == "1" {
+            self.gameResult = "졌습니다."
+        } else if userInput == "1" && randomNumber == "3" {
+            self.gameResult = "이겼습니다."
+        } else {
+            if userInput == randomNumber {
+                self.gameResult = "비겼습니다."
+            } else if userInput < randomNumber {
+                self.gameResult = "졌습니다."
+            } else {
+                self.gameResult = "이겼습니다."
+            }
+        }
+    }
+    
+    func checkInput(from inputData: String) {
+        let allright: [String] = ["1", "2", "3"]
         
-        print(userNumber, computerNumber)
-        if userNumber == computerNumber {
-            print("비겼습니다...")
-            startGame()
-            
-        } else if userNumber == "3" && computerNumber == "1" {
-            print("졌습니다...")
-            MukjjibbaGame(winner: .player).startGame()
-            startGame()
-            
-        } else if userNumber > computerNumber {
-            print("이겼습니다...")
-            MukjjibbaGame(winner: .player).startGame()
-            startGame()
-
-        } else if userNumber == "1" && computerNumber == "3" {
-            print("이겼습니다...")
-            MukjjibbaGame(winner: .player).startGame()
-            startGame()
-            
-        } else if userNumber < computerNumber{
-            print("졌습니다...")
-            MukjjibbaGame(winner: .computer).startGame()
-            startGame()
+        if allright.contains(inputData) {
+            self.resultOfCheck = false
+        } else {
+            self.resultOfCheck = true
         }
     }
 }
