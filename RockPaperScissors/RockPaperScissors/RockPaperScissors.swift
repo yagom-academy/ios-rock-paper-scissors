@@ -10,29 +10,21 @@ import Foundation
 struct RockPaperScissors {
     private var userChoice: Int?
     
-    private func printGameMessage(_ gameMessage: GameMessage) {
-        if gameMessage == .menu {
-            print(gameMessage.rawValue, terminator: "")
-        } else {
-            print(gameMessage.rawValue)
-        }
-    }
-    
     mutating func executeGame() {
-        printGameMessage(.menu)
+        GameStatus.menu.printMessage()
         inputUserSelect()
         
-        if verifyUserSelection() {
+        if verifyUserSelection() == true {
             decideGameStart()
         } else {
-            printGameMessage(.error)
+            GameStatus.error.printMessage()
             executeGame()
             return
         }
     }
     
     private mutating func inputUserSelect() {
-        userChoice = Int(readLine() ?? "") ?? UserChoice.error
+        userChoice = Int(readLine() ?? "")
     }
     
     private func verifyUserSelection() -> Bool {
@@ -49,7 +41,7 @@ struct RockPaperScissors {
     
     private mutating func decideGameStart() {
         if userChoice == UserChoice.end {
-            printGameMessage(.end)
+            GameStatus.end.printMessage()
         } else {
             printGameResult()
         }
@@ -58,14 +50,14 @@ struct RockPaperScissors {
     private mutating func printGameResult() {
         switch compareChoice() {
         case .draw:
-            printGameMessage(.draw)
+            GameStatus.draw.printMessage()
             executeGame()
         case .win:
-            printGameMessage(.win)
-            printGameMessage(.end)
+            GameStatus.win.printMessage()
+            GameStatus.end.printMessage()
         case .lose:
-            printGameMessage(.lose)
-            printGameMessage(.end)
+            GameStatus.lose.printMessage()
+            GameStatus.end.printMessage()
         }
     }
     
