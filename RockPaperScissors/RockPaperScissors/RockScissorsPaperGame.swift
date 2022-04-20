@@ -24,7 +24,7 @@ struct RockScissorsPaperGame {
     
     //MARK: - 가위 바위 보 게임 
     
-    enum Numbers {
+    private enum Numbers {
         static let range = 1...3
     }
     

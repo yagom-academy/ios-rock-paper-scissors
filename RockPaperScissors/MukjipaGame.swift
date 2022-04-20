@@ -10,23 +10,23 @@ struct mukJiPaGame {
     
     //MARK: - 프린트 함수 모음
     
-    func printRockScissorsPaperMenu() {
+    private func printRockScissorsPaperMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
     
-    func printMukJiPaMenu(by turn: Turn) {
+    private func printMukJiPaMenu(by turn: Turn) {
         print("[\(turn.turnResult) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
     
-    func printResult(of result: GameResult) {
+    private func printResult(of result: GameResult) {
         print(result.message)
     }
     
-    func printInvalidResult() {
+    private func printInvalidResult() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
     
-    func printEndGame() {
+    private func printEndGame() {
         print("게임 종료")
     }
     
@@ -58,7 +58,7 @@ struct mukJiPaGame {
         }
     }
     
-    func decideTurn (by result: GameResult) {
+    private func decideTurn (by result: GameResult) {
         switch result {
         case .win:
             start(by: Turn.user)
@@ -69,13 +69,13 @@ struct mukJiPaGame {
         }
     }
     
-    func inputNumber() -> Int {
+    private func inputNumber() -> Int {
         guard let userNumber = readLine()?.trimmingCharacters(in: .whitespaces) else { return -1 }
         guard let number = Int(userNumber) else { return -1 }
         return number
     }
     
-    func start(by turn: Turn) {
+    private func start(by turn: Turn) {
         printMukJiPaMenu(by: turn)
         let userChoiceNumber = inputNumber()
         
@@ -93,18 +93,18 @@ struct mukJiPaGame {
         }
     }
     
-    func makeMukJiPaUserSign(userInput: Int) -> MukJiPa? {
+    private func makeMukJiPaUserSign(userInput: Int) -> MukJiPa? {
         let userSign = MukJiPa(rawValue: userInput)
         return userSign
     }
     
-    func makeMukJiPaComputerSign() -> MukJiPa? {
+    private func makeMukJiPaComputerSign() -> MukJiPa? {
         let randomNumber = Int.random(in: Numbers.range)
         let computerRandomSign = MukJiPa(rawValue: randomNumber)
         return computerRandomSign
     }
     
-    func judgeResult(userSign: MukJiPa, computerSign: MukJiPa) -> GameResult {
+    private func judgeResult(userSign: MukJiPa, computerSign: MukJiPa) -> GameResult {
         if computerSign == userSign {
             return .draw
         } else if
@@ -117,11 +117,11 @@ struct mukJiPaGame {
         }
     }
     
-    func decideResult(by turn: Turn, userSign: MukJiPa, computerSign: MukJiPa) {
+    private func decideResult(by turn: Turn, userSign: MukJiPa, computerSign: MukJiPa) {
         printResult(of: judgeResult(userSign: userSign, computerSign: computerSign), by: turn)
     }
     
-    func printResult(of result: GameResult, by turn: Turn) {
+    private func printResult(of result: GameResult, by turn: Turn) {
         switch result {
         case .win, .lose:
             print("\(turn.turnResult)의 턴입니다")
