@@ -11,3 +11,9 @@ enum RockPaperScissors: Int {
     case scissors = 3
     case wrong = 4
 }
+
+enum RockPaperScissorsResult {
+    case win
+    case lose
+    case tie
+}

@@ -6,22 +6,68 @@
 import Foundation
 
 var continueGameCheck: Bool = true
+var gameTurn: String = ""
 
 func startGame() {
     while continueGameCheck {
         printUserInterface()
-        let userSelectedCard = readLine()?.trimmingCharacters(in: .whitespaces) ?? ""
+        let userSelectedCard = requestUserInput()
 
         if userSelectedCard == "0" {
             endGame()
         } else if verifyUserInput(of: userSelectedCard) {
             let targetNumber = convertNumberToGameCard(of: userSelectedCard)
             judgeMatchResult(inputUserNumber: targetNumber)
+            startRockScissorsPaperGame()
         } else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            printWrongInput()
         }
     }
     printGameOver()
+}
+
+func requestUserInput() -> String {
+    return readLine()?.trimmingCharacters(in: .whitespaces) ?? ""
+}
+
+func startRockScissorsPaperGame() {
+    
+    if gameTurn.isEmpty {
+        return
+    }
+    
+    printWhosTurn()
+    
+    let secondSelectedNumber = requestUserInput()
+    
+    
+    if secondSelectedNumber == "0" {
+        endGame()
+        return
+    }
+    
+    if verifyUserInput(of: secondSelectedNumber) {
+        
+        let secondRandomNumber = generateComputerNumber()
+        let secondSeletedCard = convertNumberToGameCard(of: secondSelectedNumber)
+        
+        if secondSeletedCard == secondRandomNumber {
+            
+        } else {
+            
+        }
+        
+    } else {
+        printWrongInput()
+        if gameTurn == "컴퓨터" {
+            startRockScissorsPaperGame()
+        } else {
+            gameTurn = "컴퓨터"
+            startRockScissorsPaperGame()
+        }
+    }
+    
+    
 }
 
 func printUserInterface() {
@@ -56,6 +102,14 @@ func convertNumberToGameCard(of targetNumber: String) -> RockPaperScissors {
     }
 }
 
+func printWrongInput() {
+    print("잘못된 입력입니다. 다시 시도해주세요.")
+}
+
+func printWhosTurn () {
+    print("[\(gameTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+}
+
 func printGameOver() {
     print("게임 종료")
 }
@@ -68,32 +122,32 @@ func judgeMatchResult(inputUserNumber: RockPaperScissors) {
     let computerRandomNumber = generateComputerNumber()
     
     if inputUserNumber == computerRandomNumber {
-        printMatchResult(matchResult: "tie")
+        printMatchResult(matchResult: .tie)
         return
     }
     
     if inputUserNumber == .scissors {
-        computerRandomNumber == .paper ? printMatchResult(matchResult: "win") : printMatchResult(matchResult: "lose")
+        computerRandomNumber == .paper ? printMatchResult(matchResult: .win) : printMatchResult(matchResult: .lose)
     }
     
     if inputUserNumber == .paper {
-        computerRandomNumber == .rock ? printMatchResult(matchResult: "win") : printMatchResult(matchResult: "lose")
+        computerRandomNumber == .rock ? printMatchResult(matchResult: .win) : printMatchResult(matchResult: .lose)
     }
     
     if inputUserNumber == .rock {
-        computerRandomNumber == .scissors ? printMatchResult(matchResult: "win") : printMatchResult(matchResult: "lose")
+        computerRandomNumber == .scissors ? printMatchResult(matchResult: .win) : printMatchResult(matchResult: .lose)
     }
 }
 
-func printMatchResult(matchResult: String) {
+func printMatchResult(matchResult: RockPaperScissorsResult) {
     switch matchResult {
-    case "win":
+    case .win:
         print("이겼습니다!")
-        endGame()
-    case "lose":
+        gameTurn = "사용자"
+    case .lose:
         print("졌습니다!")
-        endGame()
-    default:
+        gameTurn = "컴퓨터"
+    case .tie:
         print("비겼습니다!")
     }
 }
