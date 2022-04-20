@@ -2,7 +2,7 @@
 //  RockPaperScissorsGame.swift
 //  RockPaperScissors
 //
-//  Created by 이원빈 on 2022/04/18.
+//  Created by 나이든별,Judy,웡빙 on 2022/04/18.
 //
 
 import Foundation
