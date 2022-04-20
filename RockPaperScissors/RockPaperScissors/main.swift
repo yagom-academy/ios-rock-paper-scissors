@@ -88,7 +88,25 @@ func compare(myHandDesign: RPS, computerHandDesign: RPS) {
 func startMukChiBaGame(winner: String) {
     print(winner, InformationMessage.startMukChiBaGame, terminator: "")
     if let choicedMenu = readLine() {
-//        playMukChiBaGame(number: choicedMenu)
+        playMukChiBaGame(number: choicedMenu, winner: winner)
     }
+}
+
+func playMukChiBaGame(number: String, winner: String){
+    guard number != "0" else {
+        print(InformationMessage.endGame)
+        return
+    }
+    
+    guard let myHandDesign: RPS = obtainUserHandDesign(number: number) else {
+        startGame()
+        return
+    }
+    
+    guard let computerHandDesign: RPS = obtainComputerHandDesign() else {
+        startGame()
+        return
+    }
+    //compareMukChiBa(myHandDesign: RPS, computerHandDesign: RPS)
 }
 startGame()
