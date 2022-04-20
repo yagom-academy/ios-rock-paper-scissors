@@ -6,5 +6,5 @@
 
 import Foundation
 
-print("Hello, World!")
-
+var game = Game()
+game.startRPS()
