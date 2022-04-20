@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		726A19FB280D400400EAF63D /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726A19FA280D400400EAF63D /* RockPaperScissorsGame.swift */; };
+		A31149DE280ED2E700C903B1 /* MukjjibbaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31149DD280ED2E700C903B1 /* MukjjibbaGame.swift */; };
+		A31149E0281009D300C903B1 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31149DF281009D300C903B1 /* RockPaperScissors.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		726A19FA280D400400EAF63D /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
+		A31149DD280ED2E700C903B1 /* MukjjibbaGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukjjibbaGame.swift; sourceTree = "<group>"; };
+		A31149DF281009D300C903B1 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,6 +65,8 @@
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				726A19FA280D400400EAF63D /* RockPaperScissorsGame.swift */,
+				A31149DD280ED2E700C903B1 /* MukjjibbaGame.swift */,
+				A31149DF281009D300C903B1 /* RockPaperScissors.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -122,7 +128,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A31149DE280ED2E700C903B1 /* MukjjibbaGame.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				A31149E0281009D300C903B1 /* RockPaperScissors.swift in Sources */,
 				726A19FB280D400400EAF63D /* RockPaperScissorsGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
