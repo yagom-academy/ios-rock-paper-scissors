@@ -33,7 +33,6 @@ struct mukjipaGame {
     }
     
     let rockScissorsPaperGame = RockScissorsPaperGame()
-    let printSorts = PrintSorts()
     
     func startGame() {
         printRockScissorsPaperMenu()
@@ -47,7 +46,7 @@ struct mukjipaGame {
             guard let computerInput = rockScissorsPaperGame.makeRockScissorsPaperComputerSign() else { return }
             
             let result = rockScissorsPaperGame.decideResult(userSign: userInput, computerSign: computerInput)
-            printSorts.printResult(of: result)
+            printResult(of: result)
             decideTurn(by: result)
         default:
             printInvalidResult()
@@ -73,7 +72,7 @@ struct mukjipaGame {
     }
     
     func start(by turn: Turn) {
-        printSorts.printMukjipaMenu(by: turn)
+        printMukjipaMenu(by: turn)
         let userChoiceNumber = inputNumber()
         
         switch userChoiceNumber {
