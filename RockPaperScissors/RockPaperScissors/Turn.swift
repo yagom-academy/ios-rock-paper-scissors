@@ -6,16 +6,16 @@
 //
 
 enum Turn {
-    case computerTurn
-    case userTurn
+    case computer
+    case user
 }
 
 extension Turn {
     var turnResult: String {
         switch self {
-        case .computerTurn:
+        case .computer:
             return "컴퓨터"
-        case .userTurn:
+        case .user:
             return "사용자"
         }
     }

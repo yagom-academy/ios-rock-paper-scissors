@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D653931280FD625004364F7 /* MookJjiPpa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D653930280FD625004364F7 /* MookJjiPpa.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 		D744E021280E5CCE0023A3BC /* RockScissorsPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */; };
 		D744E023280E5CD80023A3BC /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744E022280E5CD80023A3BC /* GameResult.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4D653930280FD625004364F7 /* MookJjiPpa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MookJjiPpa.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorsPaper.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				D744E024280E7D730023A3BC /* RockScissorsPaperGame.swift */,
 				D755C2CE280F91FD00E4F295 /* Turn.swift */,
 				D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */,
+				4D653930280FD625004364F7 /* MookJjiPpa.swift */,
 				D744E022280E5CD80023A3BC /* GameResult.swift */,
 			);
 			path = RockPaperScissors;
@@ -136,6 +139,7 @@
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				D744E023280E5CD80023A3BC /* GameResult.swift in Sources */,
 				D744E021280E5CCE0023A3BC /* RockScissorsPaper.swift in Sources */,
+				4D653931280FD625004364F7 /* MookJjiPpa.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
