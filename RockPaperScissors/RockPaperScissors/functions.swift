@@ -7,6 +7,11 @@
 
 import Foundation
 
+func startRPS() {
+    let userMenuChoice = selectMenuByInput()
+    decideProcessBy(userMenuChoice)
+}
+
 func selectMenuByInput() -> String {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     guard let userInput = readLine() else { return "" }
@@ -18,7 +23,7 @@ func decideProcessBy(_ menuChoice: String) {
     case "0":
         print("게임 종료")
     case "1", "2", "3":
-        let eachPick: (Rps, Rps) = playRPS(by: menuChoice)
+        let eachPick: (RockPaperScissors, RockPaperScissors) = playRPS(by: menuChoice)
         let gameResult = pickOutWinner(from: eachPick)
         printResult(basedOn: gameResult)
         
@@ -29,26 +34,21 @@ func decideProcessBy(_ menuChoice: String) {
     }
 }
 
-func startRPS() {
-    let userMenuChoice = selectMenuByInput()
-    decideProcessBy(userMenuChoice)
-}
-
-func convertInputToRps(input: String) -> Rps {
-    guard let pickNumber = Int(input) else { return Rps.ready }
-    let myRpsPick:Rps = Rps(rawValue: pickNumber) ?? Rps.ready
-
-    return myRpsPick
-}
-
-func playRPS(by menuChoice: String) -> (Rps, Rps) {
-    let myRpsPick = convertInputToRps(input: menuChoice)
-    guard let computerRpsPick = Rps(rawValue: Int.random(in: 1...3)) else { return (.ready, .ready) }
+func playRPS(by menuChoice: String) -> (RockPaperScissors, RockPaperScissors) {
+    let myRpsPick = convertInputToRps(userInput: menuChoice)
+    guard let computerRpsPick = RockPaperScissors(rawValue: Int.random(in: 1...3)) else { return (.ready, .ready) }
     
     return (myRpsPick, computerRpsPick)
 }
 
-func pickOutWinner(from pickOf: (user: Rps, computer: Rps)) -> GameWinner {
+func convertInputToRps(userInput: String) -> RockPaperScissors {
+    guard let pickNumber = Int(userInput) else { return RockPaperScissors.ready }
+    let myRpsPick: RockPaperScissors = RockPaperScissors(rawValue: pickNumber) ?? RockPaperScissors.ready
+
+    return myRpsPick
+}
+
+func pickOutWinner(from pickOf: (user: RockPaperScissors, computer: RockPaperScissors)) -> GameResult {
     if pickOf.computer == pickOf.user {
         return .tie
     }
@@ -61,7 +61,7 @@ func pickOutWinner(from pickOf: (user: Rps, computer: Rps)) -> GameWinner {
     }
 }
 
-func printResult(basedOn gameResult: GameWinner) {
+func printResult(basedOn gameResult: GameResult) {
     switch gameResult {
     case .usersVictory:
         print("이겼습니다!")
@@ -74,7 +74,7 @@ func printResult(basedOn gameResult: GameWinner) {
     }
 }
 
-func restartIfTie(judgingBy gameResult: GameWinner) {
+func restartIfTie(judgingBy gameResult: GameResult) {
     if gameResult == .tie {
         startRPS()
     }

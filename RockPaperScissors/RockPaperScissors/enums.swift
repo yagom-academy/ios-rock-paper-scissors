@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum Rps: Int {
+enum RockPaperScissors: Int {
     case ready = 0
     case scissors = 1
     case rock = 2
     case paper = 3
 }
 
-enum GameWinner {
+enum GameResult {
     case usersVictory
     case computersVictory
     case tie
