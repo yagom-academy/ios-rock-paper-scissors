@@ -2,13 +2,10 @@
 //  RockPaperScissors - main.swift
 //  Created by BaekGom, Finnn
 //  Copyright © yagom academy. All rights reserved.
-// 
-
+//
 import Foundation
 
-let randomNumberRange: ClosedRange<Int> = 1...3
 var continueGameCheck: Bool = true
-let cardList: Array<String> = ["1","2","3"]
 
 func startGame() {
     while continueGameCheck {
@@ -32,10 +29,13 @@ func printUserInterface() {
 }
 
 func generateComputerNumber() -> RockPaperScissors {
+    let randomNumberRange: ClosedRange<Int> = 1...3
     return RockPaperScissors(rawValue: Int.random(in: randomNumberRange)) ?? .wrong
 }
 
 func verifyUserInput(of userChoiceCard: String) -> Bool {
+    let cardList: Array<String> = ["1","2","3"]
+    
     if cardList.contains(userChoiceCard) {
         return true
     } else {
@@ -66,7 +66,6 @@ func endGame() {
 
 func judgeMatchResult(inputUserNumber: RockPaperScissors) {
     let computerRandomNumber = generateComputerNumber()
-    print(computerRandomNumber)
     
     if inputUserNumber == computerRandomNumber {
         printMatchResult(matchResult: "tie")
