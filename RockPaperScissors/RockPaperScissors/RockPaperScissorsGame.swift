@@ -11,18 +11,23 @@ class RockPaperScissorsGame {
     
     private var userSelection: RockPaperScissors?
     private var computerSelection: RockPaperScissors?
-    private var turnIndicator: Bool = true
+    private var turnIndicator: Bool?
 }
 
 extension RockPaperScissorsGame {
     
     func printGameMenu() {
         print("가위(1), 바위(2), 보(3)! <종료: 0>:", terminator: " ")
-        receiveUserInput()
+        startGame()
     }
 }
 
 extension RockPaperScissorsGame {
+    
+    private func startGame() {
+        receiveUserInput()
+        playGame()
+    }
     
     private func receiveUserInput() {
         let userInputNumber = readLine()
@@ -40,9 +45,13 @@ extension RockPaperScissorsGame {
         default:
             displayError()
             printGameMenu()
+            
+            if turnIndicator == nil {
+                printGameMenu()
+            } else {
+                print("묵찌빠 메뉴")
+            }
         }
-        
-        playGame()
     }
     
     private func playGame() {
@@ -50,11 +59,14 @@ extension RockPaperScissorsGame {
         let gameResult = judgeVictory(userSide: userSelection, computerSide: computerSelection)
         if gameResult == 1 {
             print("이겼습니다!")
+            mukjipa()
         } else if gameResult == -1 {
             print("졌습니다!")
+            mukjipa()
         } else {
             print("비겼습니다!")
             printGameMenu()
+            return
         }
     }
     
@@ -82,6 +94,13 @@ extension RockPaperScissorsGame {
         default:
             return 0
         }
+    }
+}
+
+extension RockPaperScissorsGame {
+    
+    private func mukjipa() {
+        
     }
 }
 
