@@ -14,38 +14,13 @@ enum GameResult {
 
 enum Hand: Int {
     case scissors = 1
-    case rock = 2
-    case paper = 3
-
-    func returnRockPaperScissors() -> String {
-        switch self {
-        case .scissors:
-            return "scissors"
-        case .rock:
-            return "rock"      
-        case .paper:
-            return "paper"
-        }
-    }
+    case rock
+    case paper
 }
 
-private func convertUserInputToHand(input: String) -> String {
-    guard let convertedInput = Int(input) else { return "" }
-    if let userHandCase = Hand(rawValue: convertedInput) {
-        return userHandCase.returnRockPaperScissors()
-    }
-    return ""
-}
-
-private func convertComputerNumberToHand() -> String {
-    if let computerHandCase = Hand(rawValue: Int.random(in: 1...3)) {
-        return computerHandCase.returnRockPaperScissors()
-    }
-    return ""
-}
-
-private func printExitMessage() {
-    print("게임 종료")
+enum Winner: String {
+    case user
+    case computer
 }
 
 private func printGameMenu() {
@@ -53,16 +28,12 @@ private func printGameMenu() {
     playGame()
 }
 
-private func inputUserHand() -> String {
-    return readLine() ?? ""
-}
-
 private func playGame() {
     let userHand = inputUserHand()
         switch userHand {
-        case "1", "2", "3" :
+        case 1, 2, 3 :
             return comparePlayerAndComputerHand(userHand: convertUserInputToHand(input: userHand), computerHand: convertComputerNumberToHand())
-        case "0" :
+        case 0 :
             printExitMessage()
         default :
             print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -70,8 +41,22 @@ private func playGame() {
         }
 }
 
-private func comparePlayerAndComputerHand(userHand: String, computerHand: String) {
-    if computerHand == "scissors" && userHand == "rock" || computerHand == "rock" && userHand == "paper" || computerHand == "paper" && userHand == "scissors" {
+private func inputUserHand() -> Int {
+    guard let convertedInput = Int(readLine() ?? "") else { return 4 }
+    return convertedInput
+}
+
+private func convertUserInputToHand(input: Int) -> Hand? {
+    return Hand(rawValue: input)
+}
+
+private func convertComputerNumberToHand() -> Hand? {
+        return Hand(rawValue: Int.random(in: 1...3))
+}
+
+private func comparePlayerAndComputerHand(userHand: Hand?, computerHand: Hand?) {
+    if computerHand == .scissors && userHand == .rock || computerHand == .rock && userHand == .paper ||
+        computerHand == .paper && userHand == .scissors {
         printResult(gameResult: GameResult.win)
     } else if computerHand == userHand {
         printResult(gameResult: GameResult.draw)
@@ -93,6 +78,10 @@ private func printResult(gameResult: GameResult) {
         print("졌습니다!")
         printExitMessage()
     }
+}
+
+private func printExitMessage() {
+    print("게임 종료")
 }
 
 printGameMenu()
