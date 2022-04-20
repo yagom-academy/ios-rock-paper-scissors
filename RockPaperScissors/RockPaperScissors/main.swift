@@ -15,6 +15,7 @@ enum InformationMessage {
     static let endGame = "게임 종료"
     static let inputError = "잘못된 입력입니다. 다시 시도해주세요."
     static let computerHandDesignError = "컴퓨터의 값을 얻어오지 못했습니다."
+    static let startMukChiBaGame = "묵(1), 찌(2), 빠(3)! <종료 : 0>:"
 }
 
 func startGame() {
@@ -77,4 +78,10 @@ func compare(myHandDesign: RPS, computerHandDesign: RPS) {
     }
 }
 
+func startMukChiBaGame(number: String) {
+    print(InformationMessage.startMukChiBaGame, terminator: "")
+    if let choicedMenu = readLine() {
+//        playMukChiBaGame(number: choicedMenu)
+}
+}
 startGame()
