@@ -11,20 +11,28 @@ struct RockScissorsPaperGame {
         static let range = 1...3
     }
     
-    func printMenu() {
+    func printRockScissorsPaperMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    }
+    
+    func printMookJjiPpaMenu(by turn: Turn) {
+        print("[\(turn.turnResult) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
     
     func printInvalidInput() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
     
+    func printResult(of result: GameResult) {
+        print(result.message)
+    }
+    
     func printEndGame() {
         print("게임 종료")
-    }       // 함수 나중에 재사용
+    }
     
     func startGame() {
-        printMenu()
+        printRockScissorsPaperMenu()
         let userChoiceNumber = inputNumber()
         
         switch userChoiceNumber {
@@ -36,7 +44,7 @@ struct RockScissorsPaperGame {
             
             let result = decideResult(userSign: userInput, computerSign: computerInput)
             printResult(of: result)
-            abc(of: result)
+            decideTurn(by: result)
         default:
             printInvalidInput()
             startGame()
@@ -73,12 +81,8 @@ struct RockScissorsPaperGame {
         }
     }
     
-    func printResult(of result: GameResult) {
-        print(result.message)
-    }
-    
-    func abc (of result: GameResult) {
-    switch result {
+    func decideTurn (by result: GameResult) {
+        switch result {
         case .win:
             startMookJjiPpa(by: Turn.userTurn)
         case .lose:
@@ -88,12 +92,8 @@ struct RockScissorsPaperGame {
         }
     }
     
-    func printMookJjiPpa(whose turn: Turn) {
-        print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
-    }
-    
     func startMookJjiPpa(by turn: Turn) {
-        printMookJjiPpa(whose: turn)
+        printMookJjiPpaMenu(by: turn)
         let userChoiceNumber = inputNumber()
         
         switch userChoiceNumber {
@@ -103,27 +103,24 @@ struct RockScissorsPaperGame {
             guard let userInput = makeUserSign(userInput: userChoiceNumber) else { return }
             guard let computerInput = makeComputerSign() else { return }
             
-            decideResult2(turn: turn, userSign: userInput, computerSign: computerInput)
+            decideMookJjiPpaResult(by: turn, userSign: userInput, computerSign: computerInput)
         default:
             printInvalidInput()
             startMookJjiPpa(by: .computerTurn)
         }
     }
     
-    func decideResult2(turn: Turn, userSign: RockScissorsPaper, computerSign: RockScissorsPaper) {
-        printResult2(of: decideResult(userSign: userSign, computerSign: computerSign), turn: turn)
+    func decideMookJjiPpaResult(by turn: Turn, userSign: RockScissorsPaper, computerSign: RockScissorsPaper) {
+        printMookJjiPpaResult(of: decideResult(userSign: userSign, computerSign: computerSign), by: turn)
     }
     
-    func printResult2(of result: GameResult, turn: Turn) {
+    func printMookJjiPpaResult(of result: GameResult, by turn: Turn) {
         switch result {
-        case .win:
-            print("\(Turn.userTurn.rawValue)의 턴입니다")
-            startMookJjiPpa(by: Turn.userTurn)
-        case .lose:
-            print("\(Turn.computerTurn.rawValue)의 턴입니다")
-            startMookJjiPpa(by: Turn.computerTurn)
+        case .win, .lose:
+            print("\(turn.turnResult)의 턴입니다")
+            startMookJjiPpa(by: turn)
         case .draw:
-            print("\(turn.rawValue)의 승리!")
+            print("\(turn.turnResult)의 승리!")
             printEndGame()
         }
     }
