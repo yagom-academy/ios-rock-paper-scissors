@@ -125,7 +125,8 @@ struct Game {
             restartIfTie(judgingBy: gameResult, turnOfMukJjiPpa: turn)
         default:
             print(InputOfRockPaperScissors.error.message)
-            start()
+            turn = GameResult.computersVictory.rawValue
+            start(turnOfMukJjiPpa: turn)
         }
     }
     
@@ -139,7 +140,7 @@ struct Game {
     func playRPS(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
         let myRpsPick = menuChoice
         guard let computerRpsPick = InputOfMukJjiPpa(rawValue: Int.random(in: InputOfMukJjiPpa.muk.rawValue...InputOfMukJjiPpa.ppa.rawValue)) else { return (.quit, .quit) }
-        
+        print("사용자: \(myRpsPick.message), 컴퓨터: \(computerRpsPick.message)")
         return (myRpsPick, computerRpsPick)
     }
     
@@ -185,11 +186,11 @@ struct Game {
     mutating func printResult(basedOnMukJjiPpa gameResult: GameResult) {
         switch gameResult {
         case .usersVictory:
-            print("\(turn)의 턴입니다.")
             turn = GameResult.usersVictory.rawValue
-        case .computersVictory:
             print("\(turn)의 턴입니다.")
+        case .computersVictory:
             turn = GameResult.computersVictory.rawValue
+            print("\(turn)의 턴입니다.")
         default:
             print("\(turn)의 승리!")
         }
