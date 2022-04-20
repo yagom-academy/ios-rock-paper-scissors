@@ -7,7 +7,6 @@
 import Foundation
 
 struct RockScissorsPaperGame {
-    
     enum Numbers {
         static let range = 1...3
     }
@@ -22,7 +21,7 @@ struct RockScissorsPaperGame {
     
     func printEndGame() {
         print("게임 종료")
-    }
+    }       // 함수 나중에 재사용
     
     func startGame() {
         printMenu()
@@ -77,10 +76,46 @@ struct RockScissorsPaperGame {
         print(result.message)
         
         switch result {
-        case .win, .lose:
-            printEndGame()
+        case .win:
+            let userTurn = Turn.userTurn
+            startMookJjiPpa(by: userTurn)
+        case .lose:
+            let computerTurn = Turn.computerTurn
+            startMookJjiPpa(by: computerTurn)
         case .draw:
             startGame()
         }
     }
+    
+    func printMookJjiPpa(whose turn: Turn) {
+        print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    }
+    
+    func startMookJjiPpa(by turn: Turn) {
+        printMookJjiPpa(whose: turn)
+        let userChoiceNumber = inputNumber()
+        
+        switch userChoiceNumber {
+        case 0:
+            printEndGame()
+        case 1,2,3:
+            guard let userInput = makeUserSign(userInput: userChoiceNumber) else { return }
+            guard let computerInput = makeComputerSign() else { return }
+            
+            let result = decideResult2(userSign: userInput, computerSign: computerInput)
+            printResult(of: result)
+        default:
+            printInvalidInput()
+            startGame()
+        }
+    }
+    
+    func decideResult2(userSign: RockScissorsPaper, computerSign: RockScissorsPaper) -> GameResult {
+        if computerSign == userSign {
+            return .win
+        } else {
+            return .draw
+        }
+    }
 }
+

@@ -11,6 +11,7 @@
 		D744E021280E5CCE0023A3BC /* RockScissorsPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */; };
 		D744E023280E5CD80023A3BC /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744E022280E5CD80023A3BC /* GameResult.swift */; };
 		D744E025280E7D740023A3BC /* RockScissorsPaperGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D744E024280E7D730023A3BC /* RockScissorsPaperGame.swift */; };
+		D755C2CF280F91FD00E4F295 /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D755C2CE280F91FD00E4F295 /* Turn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,7 @@
 		D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorsPaper.swift; sourceTree = "<group>"; };
 		D744E022280E5CD80023A3BC /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		D744E024280E7D730023A3BC /* RockScissorsPaperGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorsPaperGame.swift; sourceTree = "<group>"; };
+		D755C2CE280F91FD00E4F295 /* Turn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				D744E024280E7D730023A3BC /* RockScissorsPaperGame.swift */,
+				D755C2CE280F91FD00E4F295 /* Turn.swift */,
 				D744E020280E5CCE0023A3BC /* RockScissorsPaper.swift */,
 				D744E022280E5CD80023A3BC /* GameResult.swift */,
 			);
@@ -128,6 +131,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D755C2CF280F91FD00E4F295 /* Turn.swift in Sources */,
 				D744E025280E7D740023A3BC /* RockScissorsPaperGame.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				D744E023280E5CD80023A3BC /* GameResult.swift in Sources */,
