@@ -5,9 +5,9 @@ enum RPS: Int {
 }
 
 enum ResultMessage {
-    static let win = "이겼습니다!\n게임종료"
+    static let win = "이겼습니다!"
     static let draw = "비겼습니다!"
-    static let lose = "졌습니다!\n게임종료"
+    static let lose = "졌습니다!"
 }
 
 enum InformationMessage {
@@ -19,8 +19,8 @@ enum InformationMessage {
 }
 
 enum Winner {
-    static let user = "[사용자 턴]"
-    static let computer = "[컴퓨터 턴]"
+    static let user = "사용자"
+    static let computer = "컴퓨터"
 }
 
 func startGame() {
@@ -86,7 +86,7 @@ func compare(myHandDesign: RPS, computerHandDesign: RPS) {
 }
 
 func startMukChiBaGame(winner: String) {
-    print(winner, InformationMessage.startMukChiBaGame, terminator: "")
+    print("[\(winner) 턴] \(InformationMessage.startMukChiBaGame)", terminator: "")
     if let choicedMenu = readLine() {
         playMukChiBaGame(number: choicedMenu, winner: winner)
     }
@@ -99,14 +99,28 @@ func playMukChiBaGame(number: String, winner: String){
     }
     
     guard let myHandDesign: RPS = obtainUserHandDesign(number: number) else {
-        startGame()
+        startMukChiBaGame(winner: Winner.computer)
         return
     }
     
     guard let computerHandDesign: RPS = obtainComputerHandDesign() else {
-        startGame()
+        startMukChiBaGame(winner: Winner.user)
         return
     }
-    //compareMukChiBa(myHandDesign: RPS, computerHandDesign: RPS)
+    compareMukChiBa(myHandDesign: myHandDesign, computerHandDesign: computerHandDesign, previousWinner: winner)
+}
+
+func compareMukChiBa(myHandDesign: RPS, computerHandDesign: RPS, previousWinner: String) {
+    if myHandDesign == computerHandDesign {
+        print("\(previousWinner)의 승리!")
+    } else if myHandDesign == RPS.rock && computerHandDesign == RPS.scissors ||
+                myHandDesign == RPS.scissors && computerHandDesign == RPS.paper ||
+                myHandDesign == RPS.paper && computerHandDesign == RPS.rock {
+                    print("\(Winner.user)의 턴입니다")
+                    startMukChiBaGame(winner: Winner.user)
+                } else {
+                    print("\(Winner.computer)의 턴입니다")
+                    startMukChiBaGame(winner: Winner.computer)
+                }
 }
 startGame()
