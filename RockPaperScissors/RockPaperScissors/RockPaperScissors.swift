@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct RockPaperScissorsGame {
-    private var inputUserChoice: Int?
+struct RockPaperScissors {
+    private var userChoice: Int?
     
     private func printGameMessage(_ gameMessage: GameMessage) {
         if gameMessage == .menu {
@@ -17,12 +17,8 @@ struct RockPaperScissorsGame {
             print(gameMessage.rawValue)
         }
     }
-
-//    private func convertUserChoiceToNumber(_ userChoice: UserChoice) -> Int {
-//        return userChoice.rawValue
-//    }
     
-    mutating func executeRockPaperScissors() {
+    mutating func executeGame() {
         printGameMessage(.menu)
         inputUserSelect()
         
@@ -30,17 +26,17 @@ struct RockPaperScissorsGame {
             decideGameStart()
         } else {
             printGameMessage(.error)
-            executeRockPaperScissors()
+            executeGame()
             return
         }
     }
     
     private mutating func inputUserSelect() {
-        inputUserChoice = Int(readLine() ?? "") ?? UserChoice.error
+        userChoice = Int(readLine() ?? "") ?? UserChoice.error
     }
     
     private func verifyUserSelection() -> Bool {
-        switch inputUserChoice {
+        switch userChoice {
         case UserChoice.end,
             UserChoice.scissors,
             UserChoice.rock,
@@ -52,7 +48,7 @@ struct RockPaperScissorsGame {
     }
     
     private mutating func decideGameStart() {
-        if inputUserChoice == UserChoice.end {
+        if userChoice == UserChoice.end {
             printGameMessage(.end)
         } else {
             printGameResult()
@@ -63,7 +59,7 @@ struct RockPaperScissorsGame {
         switch compareChoice() {
         case .draw:
             printGameMessage(.draw)
-            executeRockPaperScissors()
+            executeGame()
         case .win:
             printGameMessage(.win)
             printGameMessage(.end)
@@ -76,29 +72,29 @@ struct RockPaperScissorsGame {
     private func compareChoice() -> GameResult {
         let computerChoice = Int.random(in: UserChoice.scissors...UserChoice.paper)
         
-        switch inputUserChoice {
+        switch userChoice {
         case computerChoice:
             return .draw
         case UserChoice.scissors:
-            return compareToScissorsOfUser(with: computerChoice)
+            return compareScissorsOfUser(with: computerChoice)
         case UserChoice.paper:
-            return compareToPaperOfUser(with: computerChoice)
+            return comparePaperOfUser(with: computerChoice)
         case UserChoice.rock:
-            return compareToRockOfUser(with: computerChoice)
+            return compareRockOfUser(with: computerChoice)
         default:
             return .draw
         }
     }
     
-    private func compareToScissorsOfUser(with computerChoice: Int) -> GameResult {
+    private func compareScissorsOfUser(with computerChoice: Int) -> GameResult {
         return computerChoice == UserChoice.paper ? .win : .lose
     }
     
-    private func compareToPaperOfUser(with computerChoice: Int) -> GameResult {
+    private func comparePaperOfUser(with computerChoice: Int) -> GameResult {
         return computerChoice == UserChoice.rock ? .win : .lose
     }
     
-    private func compareToRockOfUser(with computerChoice: Int) -> GameResult {
+    private func compareRockOfUser(with computerChoice: Int) -> GameResult {
         return computerChoice == UserChoice.scissors ? .win : .lose
     }
 }
