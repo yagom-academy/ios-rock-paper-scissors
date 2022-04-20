@@ -36,6 +36,7 @@ struct RockScissorsPaperGame {
             
             let result = decideResult(userSign: userInput, computerSign: computerInput)
             printResult(of: result)
+            abc(of: result)
         default:
             printInvalidInput()
             startGame()
@@ -74,8 +75,10 @@ struct RockScissorsPaperGame {
     
     func printResult(of result: GameResult) {
         print(result.message)
-        
-        switch result {
+    }
+    
+    func abc (of result: GameResult) {
+    switch result {
         case .win:
             startMookJjiPpa(by: Turn.userTurn)
         case .lose:
