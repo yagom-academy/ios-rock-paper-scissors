@@ -68,7 +68,9 @@ struct Game {
     mutating func start(turnOfMukJjiPpa turn: String) {
         let menu = "[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
         let userMenuChoice = selectMenuByInput(menuOfMukJjiPpa: menu)
-//        decideProcessBy(userMenuChoice)
+        let pick = playRPS(by: userMenuChoice)
+        let winner = pickOutWinner(from: pick)
+        printResult(basedOnMukJjiPpa: winner)
     }
     
     
@@ -162,6 +164,19 @@ struct Game {
             turn = GameResult.computersVictory.rawValue
         default:
             print("비겼습니다")
+        }
+    }
+    
+    mutating func printResult(basedOnMukJjiPpa gameResult: GameResult) {
+        switch gameResult {
+        case .usersVictory:
+            print("\(turn)의 턴입니다.")
+            turn = GameResult.usersVictory.rawValue
+        case .computersVictory:
+            print("\(turn)의 턴입니다.")
+            turn = GameResult.computersVictory.rawValue
+        default:
+            print("\(turn)의 승리!")
         }
     }
     
