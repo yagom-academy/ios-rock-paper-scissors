@@ -6,10 +6,10 @@
 
 import Foundation
 
-enum GameResult: String {
-    case win = "WIN"
-    case draw = "DRAW"
-    case lose = "LOSE"     
+enum GameResult {
+    case win
+    case draw
+    case lose
 }
 
 enum Hand: Int {
