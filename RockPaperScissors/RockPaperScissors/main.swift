@@ -45,49 +45,44 @@ private func convertComputerNumberToHand() -> String {
 }
 
 private func showGameMenu() {
-    var isStart = true
-    while isStart {
-        isStart = printGameMenu()
-    }
+    printGameMenu()
 }
 
 private func printExitMessage() {
     print("게임 종료")
 }
 
-private func printGameMenu() -> Bool {
+private func printGameMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    return playGame()
+    playGame()
 }
 
 private func inputUserHand() -> String {
     return readLine() ?? ""
 }
 
-private func playGame() -> Bool {
+private func playGame() {
     let userHand = inputUserHand()
         switch userHand {
         case "1", "2", "3" :
             return comparePlayerAndComputerHand(userHand: convertUserInputToHand(input: userHand), computerHand: convertComputerNumberToHand())
         case "0" :
             printExitMessage()
-            return false
         default :
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return true
+            showGameMenu()
         }
 }
 
-private func comparePlayerAndComputerHand(userHand: String, computerHand: String) -> Bool {
+private func comparePlayerAndComputerHand(userHand: String, computerHand: String) {
     if computerHand == "scissors" && userHand == "rock" || computerHand == "rock" && userHand == "paper" || computerHand == "paper" && userHand == "scissors" {
         printResult(gameResult: GameResult.win)
     } else if computerHand == userHand {
         printResult(gameResult: GameResult.draw)
-        return true
+        showGameMenu()
     } else {
         printResult(gameResult: GameResult.lose)
     }
-    return false
 }
 
 private func printResult(gameResult: GameResult) {
