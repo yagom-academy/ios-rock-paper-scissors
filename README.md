@@ -1,6 +1,5 @@
-## iOS 커리어 스타터 캠프
+## iOS 커리어 스타터 캠프 - 묵찌빠 프로젝트 저장소
 
-### 묵찌빠 프로젝트 저장소
+### Flow chart [STEP 1] 
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
-
+![RPSFlowChartv1](https://user-images.githubusercontent.com/39454792/163943963-b94d0eb5-87cf-4554-b2b7-18d714bd0901.png)
