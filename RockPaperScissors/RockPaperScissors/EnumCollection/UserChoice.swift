@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum UserChoice: Int {
-    case end = 0
-    case scissors = 1
-    case rock = 2
-    case paper = 3
-    case error = 4
+enum UserChoice {
+    static let end = 0
+    static let scissors = 1
+    static let rock = 2
+    static let paper = 3
+    static let error = 4
 }
