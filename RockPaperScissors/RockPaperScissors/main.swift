@@ -44,10 +44,6 @@ private func convertComputerNumberToHand() -> String {
     return ""
 }
 
-private func showGameMenu() {
-    printGameMenu()
-}
-
 private func printExitMessage() {
     print("게임 종료")
 }
@@ -70,7 +66,7 @@ private func playGame() {
             printExitMessage()
         default :
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            showGameMenu()
+            printGameMenu()
         }
 }
 
@@ -79,7 +75,7 @@ private func comparePlayerAndComputerHand(userHand: String, computerHand: String
         printResult(gameResult: GameResult.win)
     } else if computerHand == userHand {
         printResult(gameResult: GameResult.draw)
-        showGameMenu()
+        printGameMenu()
     } else {
         printResult(gameResult: GameResult.lose)
     }
@@ -99,4 +95,4 @@ private func printResult(gameResult: GameResult) {
     }
 }
 
-showGameMenu()
+printGameMenu()
