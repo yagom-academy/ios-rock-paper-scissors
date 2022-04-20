@@ -14,56 +14,57 @@ protocol Runnable {
 final class RockPaperScissorsGame: Runnable {
     func run() {
         let selectionList: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-        guard let userInputValue = selectionList.inputValue(),
-              let user = ValueType(rawValue: userInputValue) else {
-            restart()
+        selectionList.printSelf()
+        
+        guard let userInputValue = inputValue(),
+              let user = RockPaperScissors(rawValue: userInputValue) else {
+            restart(as: "잘못된 입력입니다. 다시 시도해주세요")
             return
         }
         
         switch user {
-        case .scissors, .rock, .paper :
+        case .scissors, .rock, .paper:
             let result = comparison(of: createComputerNumber(), and: user).value
-            exitGame(result)
-        case .none :
-            exitGame()
-        default :
-            restart()
+            judge(result)
+        case .none:
+            judge()
         }
     }
 }
 
+//MARK: RockPaperScissorsGame 클래스 내에서 사용될 함수.
 extension RockPaperScissorsGame {
-    private func exitGame(_ quote: String = "") {
-        if (quote.elementsEqual("비겼습니다.!")) {
-            print(quote)
-            run()
+    private func judge(_ result: String = "") {
+        if (result.elementsEqual("비겼습니다.!")) {
+           restart(as: result)
         } else {
-            print(quote)
+            print(result)
             print("게임 종료")
         }
     }
     
-    private func restart() {
-        print("잘못된 입력입니다. 다시 시도해주세요")
+    private func inputValue() -> Int? {
+        let value: String = readLine()?.replacingOccurrences(of: " ", with: "") ?? "0"
+        return value.convertAsInt()
+    }
+    
+    private func restart(as quote: String) {
+        print(quote)
         run()
     }
     
-    private func createComputerNumber() -> ValueType {
-        if let randomNumber = Int.random(in: 1...3) as? Int,
-           let computer = ValueType(rawValue: randomNumber) {
-            return computer
-        } else {
-            return .none
-        }
+    private func createComputerNumber() -> RockPaperScissors {
+        let computer = RockPaperScissors(rawValue: Int.random(in: 1...3))
+        return computer ?? .scissors
     }
     
-    private func comparison(of computer: ValueType?, and user: ValueType?) -> GameResult {
+    private func comparison(of computer: RockPaperScissors?, and user: RockPaperScissors?) -> GameResult {
         switch (computer, user) {
         case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
             return .lose
         case (.paper, .scissors), (.rock, .paper), (.scissors, .rock):
             return .win
-        default :
+        default:
             return .draw
         }
     }

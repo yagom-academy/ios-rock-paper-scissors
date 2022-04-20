@@ -7,6 +7,9 @@
 
 import Foundation
 
-enum ValueType: Int {
-    case none = 0, scissors , rock, paper
+enum RockPaperScissors: Int {
+    case none
+    case scissors
+    case rock
+    case paper
 }

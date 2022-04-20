@@ -12,10 +12,7 @@ extension String {
         return Int(self)
     }
     
-    func inputValue() -> Int? {
+    func printSelf() {
         print(self, terminator: " ")
-        let value: String = readLine()?.replacingOccurrences(of: " ", with: "") ?? "0"
-        
-        return value.convertAsInt()
     }
 }
