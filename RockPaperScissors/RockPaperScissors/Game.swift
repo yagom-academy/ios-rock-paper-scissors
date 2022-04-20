@@ -27,7 +27,7 @@ struct Game {
         }
     }
     
-    enum MukJjiPpa: Int {
+    enum InnputOfMukJjiPpa: Int {
         case quit, muk, jji, ppa, error
         
         var koreanName: String {
@@ -82,6 +82,18 @@ struct Game {
         }
         
         return InputOfRockPaperScissors(rawValue: numberChoice) ?? .error
+    }
+    
+    func selectMenuByInput(menuOfMukJjiPpa: String) -> InnputOfMukJjiPpa {
+        print(menu, terminator: "")
+        guard let userInput = readLine() else {
+            return .error
+        }
+        guard let numberChoice = Int(userInput) else {
+            return .error
+        }
+        
+        return InnputOfMukJjiPpa(rawValue: numberChoice) ?? .error
     }
     
     mutating func decideProcessBy(_ menuChoice: InputOfRockPaperScissors) {
