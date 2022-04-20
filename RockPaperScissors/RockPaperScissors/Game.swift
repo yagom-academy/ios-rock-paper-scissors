@@ -27,7 +27,7 @@ struct Game {
         }
     }
     
-    enum InnputOfMukJjiPpa: Int {
+    enum InputOfMukJjiPpa: Int {
         case quit, muk, jji, ppa, error
         
         var koreanName: String {
@@ -67,8 +67,8 @@ struct Game {
     
     mutating func start(turnOfMukJjiPpa turn: String) {
         let menu = "[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
-        let userMenuChoice = selectMenuByInput(menu: menu)
-        decideProcessBy(userMenuChoice)
+        let userMenuChoice = selectMenuByInput(menuOfMukJjiPpa: menu)
+//        decideProcessBy(userMenuChoice)
     }
     
     
@@ -84,8 +84,8 @@ struct Game {
         return InputOfRockPaperScissors(rawValue: numberChoice) ?? .error
     }
     
-    func selectMenuByInput(menuOfMukJjiPpa: String) -> InnputOfMukJjiPpa {
-        print(menu, terminator: "")
+    func selectMenuByInput(menuOfMukJjiPpa: String) -> InputOfMukJjiPpa {
+        print(menuOfMukJjiPpa, terminator: "")
         guard let userInput = readLine() else {
             return .error
         }
@@ -93,7 +93,7 @@ struct Game {
             return .error
         }
         
-        return InnputOfMukJjiPpa(rawValue: numberChoice) ?? .error
+        return InputOfMukJjiPpa(rawValue: numberChoice) ?? .error
     }
     
     mutating func decideProcessBy(_ menuChoice: InputOfRockPaperScissors) {
@@ -115,6 +115,13 @@ struct Game {
     func playRPS(by menuChoice: InputOfRockPaperScissors) -> (InputOfRockPaperScissors, InputOfRockPaperScissors) {
         let myRpsPick = menuChoice
         guard let computerRpsPick = InputOfRockPaperScissors(rawValue: Int.random(in: InputOfRockPaperScissors.scissors.rawValue...InputOfRockPaperScissors.paper.rawValue)) else { return (.quit, .quit) }
+        
+        return (myRpsPick, computerRpsPick)
+    }
+    
+    func playRPS(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
+        let myRpsPick = menuChoice
+        guard let computerRpsPick = InputOfMukJjiPpa(rawValue: Int.random(in: InputOfMukJjiPpa.muk.rawValue...InputOfMukJjiPpa.ppa.rawValue)) else { return (.quit, .quit) }
         
         return (myRpsPick, computerRpsPick)
     }
