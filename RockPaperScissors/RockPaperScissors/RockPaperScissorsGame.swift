@@ -8,8 +8,10 @@
 import Foundation
 
 class RockPaperScissorsGame {
+    
     private var userSelection: RockPaperScissors?
     private var computerSelection: RockPaperScissors?
+    private var turnIndicator: Bool = true
 }
 
 extension RockPaperScissorsGame {
@@ -18,7 +20,6 @@ extension RockPaperScissorsGame {
         print("가위(1), 바위(2), 보(3)! <종료: 0>:", terminator: " ")
         receiveUserInput()
     }
-    
 }
 
 extension RockPaperScissorsGame {
@@ -41,12 +42,20 @@ extension RockPaperScissorsGame {
             printGameMenu()
         }
         
-        startGame()
+        playGame()
     }
     
-    private func startGame() {
+    private func playGame() {
         makeComputerSelection()
-        judgeVictory(userSide: userSelection, computerSide: computerSelection)
+        let gameResult = judgeVictory(userSide: userSelection, computerSide: computerSelection)
+        if gameResult == 1 {
+            print("이겼습니다!")
+        } else if gameResult == -1 {
+            print("졌습니다!")
+        } else {
+            print("비겼습니다!")
+            printGameMenu()
+        }
     }
     
     private func makeComputerSelection() {
@@ -64,23 +73,16 @@ extension RockPaperScissorsGame {
         }
     }
     
-    private func judgeVictory(userSide: RockPaperScissors?, computerSide: RockPaperScissors?) {
+    private func judgeVictory(userSide: RockPaperScissors?, computerSide: RockPaperScissors?) -> Int {
         switch (userSide, computerSide) {
         case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-            print("졌습니다!")
-            endGame()
-            return
+            return -1
         case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
-            print("이겼습니다!")
-            endGame()
-            return
+            return 1
         default:
-            print("비겼습니다!")
-            printGameMenu()
-            return
+            return 0
         }
     }
-    
 }
 
 extension RockPaperScissorsGame {
@@ -92,5 +94,4 @@ extension RockPaperScissorsGame {
     private func endGame() {
         print("게임 종료")
     }
-    
 }
