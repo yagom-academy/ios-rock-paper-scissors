@@ -139,6 +139,19 @@ struct Game {
         }
     }
     
+    func pickOutWinner(from pickOf: (user: InputOfMukJjiPpa, computer: InputOfMukJjiPpa)) -> GameResult {
+        if pickOf.computer == pickOf.user {
+            return .tie
+        }
+        
+        switch (pickOf.user, pickOf.computer) {
+        case (.muk, .jji), (.jji, .ppa), (.ppa, .muk):
+            return .usersVictory
+        default:
+            return .computersVictory
+        }
+    }
+    
     mutating func printResult(basedOn gameResult: GameResult) {
         switch gameResult {
         case .usersVictory:
