@@ -6,5 +6,5 @@
 
 import Foundation
 
-let game = RockPaperScissorsGame()
+let game: Runnable = RockPaperScissorsGame()
 game.run()

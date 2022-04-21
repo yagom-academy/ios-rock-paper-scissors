@@ -2,7 +2,7 @@
 //  RockPaperScissorsGame.swift
 //  RockPaperScissors
 //
-//  Created by 변재은 on 2022/04/18.
+//  Created by Derrick kim, ZZBAE on 2022/04/18.
 //
 
 import Foundation
@@ -12,19 +12,22 @@ protocol Runnable {
 }
 
 final class RockPaperScissorsGame: Runnable {
+    private var order: Player?
+    private var userValue: RockPaperScissorsType?
+    private var computerValue: RockPaperScissorsType?
+    
     func run() {
         let selectionList: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
         selectionList.printSelf()
         
         guard let userInputValue = inputValue(),
-              let user = RockPaperScissors(rawValue: userInputValue) else {
-            restart(as: "잘못된 입력입니다. 다시 시도해주세요")
+              let user = RockPaperScissorsType(rawValue: userInputValue) else {
             return
         }
         
         switch user {
         case .scissors, .rock, .paper:
-            let result = comparison(of: createComputerNumber(), and: user).value
+            let result = compare(of: createRandomNumber(), and: user)
             judge(result)
         case .none:
             judge()
@@ -33,32 +36,34 @@ final class RockPaperScissorsGame: Runnable {
 }
 
 //MARK: RockPaperScissorsGame 클래스 내에서 사용될 함수.
-extension RockPaperScissorsGame {
-    private func judge(_ result: String = "") {
-        if (result.elementsEqual("비겼습니다.!")) {
-           restart(as: result)
+private extension RockPaperScissorsGame {
+    func judge(_ result: GameResult = .none) {
+        if result == .win
+            || result == .lose {
+            print(result.value)
+            startSecondGame()
+        } else if result == .draw {
+            restartFirstGame(as: result.value)
         } else {
-            print(result)
-            print("게임 종료")
+            print(result.value)
         }
     }
     
-    private func inputValue() -> Int? {
+    func inputValue() -> Int? {
         let value: String = readLine()?.replacingOccurrences(of: " ", with: "") ?? "0"
         return value.convertAsInt()
     }
     
-    private func restart(as quote: String) {
         print(quote)
         run()
     }
     
-    private func createComputerNumber() -> RockPaperScissors {
-        let computer = RockPaperScissors(rawValue: Int.random(in: 1...3))
+    func createRandomNumber() -> RockPaperScissorsType {
+        let computer = RockPaperScissorsType(rawValue: Int.random(in: 1...3))
         return computer ?? .scissors
     }
     
-    private func comparison(of computer: RockPaperScissors?, and user: RockPaperScissors?) -> GameResult {
+    func compare(of computer: RockPaperScissorsType?, and user: RockPaperScissorsType?) -> GameResult {
         switch (computer, user) {
         case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
             return .lose

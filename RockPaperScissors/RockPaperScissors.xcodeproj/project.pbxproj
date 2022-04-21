@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		7EE61D94280D46F500C0FCB7 /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE61D93280D46F500C0FCB7 /* RockPaperScissorsGame.swift */; };
 		7EE61D96280D483E00C0FCB7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE61D95280D483E00C0FCB7 /* String+Extensions.swift */; };
-		90F74BEA280D835300603C27 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F74BE9280D835300603C27 /* RockPaperScissors.swift */; };
+		90F74BEA280D835300603C27 /* RockPaperScissorsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F74BE9280D835300603C27 /* RockPaperScissorsType.swift */; };
 		90F74BEE280D969600603C27 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F74BED280D969600603C27 /* GameResult.swift */; };
+		90F74BF72811444500603C27 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F74BF62811444500603C27 /* Player.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,8 +30,9 @@
 /* Begin PBXFileReference section */
 		7EE61D93280D46F500C0FCB7 /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
 		7EE61D95280D483E00C0FCB7 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		90F74BE9280D835300603C27 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
+		90F74BE9280D835300603C27 /* RockPaperScissorsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsType.swift; sourceTree = "<group>"; };
 		90F74BED280D969600603C27 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		90F74BF62811444500603C27 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,8 +68,9 @@
 		90F74BEF280E366400603C27 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				90F74BE9280D835300603C27 /* RockPaperScissors.swift */,
+				90F74BE9280D835300603C27 /* RockPaperScissorsType.swift */,
 				90F74BED280D969600603C27 /* GameResult.swift */,
+				90F74BF62811444500603C27 /* Player.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -125,7 +128,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					C7ABA0DC254EA63000B2367D = {
 						CreatedOnToolsVersion = 12.1;
@@ -157,8 +160,9 @@
 			files = (
 				7EE61D94280D46F500C0FCB7 /* RockPaperScissorsGame.swift in Sources */,
 				90F74BEE280D969600603C27 /* GameResult.swift in Sources */,
-				90F74BEA280D835300603C27 /* RockPaperScissors.swift in Sources */,
+				90F74BEA280D835300603C27 /* RockPaperScissorsType.swift in Sources */,
 				7EE61D96280D483E00C0FCB7 /* String+Extensions.swift in Sources */,
+				90F74BF72811444500603C27 /* Player.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,6 +288,7 @@
 		C7ABA0E5254EA63000B2367D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -293,6 +298,7 @@
 		C7ABA0E6254EA63000B2367D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
