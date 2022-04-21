@@ -165,5 +165,5 @@ func 묵찌빠게임시작() {
 
 
 ## 순서도
-![flowChart](./flowChart1.jpg)
+![flowchart1](https://user-images.githubusercontent.com/98514397/164465897-7257f13f-5d0b-439b-9c2c-11da5b104f36.jpg)
 
