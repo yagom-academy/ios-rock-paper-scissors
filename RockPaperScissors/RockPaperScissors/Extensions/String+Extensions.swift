@@ -2,7 +2,7 @@
 //  String+Extensions.swift
 //  RockPaperScissors
 //
-//  Created by 변재은 on 2022/04/18.
+//  Created by Derrick kim, ZZBAE on 2022/04/18.
 //
 
 import Foundation

@@ -1,7 +1,7 @@
 //
 //  RockPaperScissors - main.swift
 //  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
+//  Copyright © Derrick kim, ZZBAE. All rights reserved.
 // 
 
 import Foundation
