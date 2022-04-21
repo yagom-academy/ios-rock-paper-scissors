@@ -145,12 +145,7 @@ extension Game {
         inputUserSelect()
         
         if verifyUserSelection() == true {
-            if userMukChiBaChoice == .end {
-                GameStatus.end.printMessage()
-            } else {
-                decideSameChoice()
-                printMukChiBaResult()
-            }
+            decideMukChiBaStart()
         } else {
             isSatisfying.userTurn = false
             
@@ -164,6 +159,15 @@ extension Game {
             GameStatus.userTurnMukChibaMenu.printMessage()
         } else {
             GameStatus.computerTurnMukChibaMenu.printMessage()
+        }
+    }
+    
+    mutating func decideMukChiBaStart() {
+        if userMukChiBaChoice == .end {
+            GameStatus.end.printMessage()
+        } else {
+            decideSameChoice()
+            printMukChiBaResult()
         }
     }
     
