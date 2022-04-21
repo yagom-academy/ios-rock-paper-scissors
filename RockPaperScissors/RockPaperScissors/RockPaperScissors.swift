@@ -109,6 +109,13 @@ struct RockPaperScissors {
 }
 
 extension RockPaperScissors {
+    func printMukChiBaMenu() {
+        if isUserTurnAndSameChoice.0 == true {
+            GameStatus.userTurnMukChibaMenu.printMessage()
+        } else {
+            GameStatus.computerTurnMukChibaMenu.printMessage()
+        }
+    }
     
     mutating func decideTurn(gameResult: GameResult) {
         if gameResult == .win {
@@ -126,4 +133,18 @@ extension RockPaperScissors {
         }
     }
     
+    mutating func printMukChiBaResult() {
+        switch isUserTurnAndSameChoice {
+        case (true, true):
+            GameStatus.userWin.printMessage()
+        case (true, false):
+            isUserTurnAndSameChoice.0 = false
+            //executeMukChiBa()
+        case (false, true):
+            GameStatus.computerWin.printMessage()
+        case (false, false):
+            isUserTurnAndSameChoice.0 = true
+            //executeMukChiBa()
+        }
+    }
 }
