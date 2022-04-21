@@ -118,4 +118,12 @@ extension RockPaperScissors {
         }
     }
     
+    mutating func decideSameChoice() {
+        if userChoice == computerChoice {
+            isUserTurnAndSameChoice.1 = true
+        } else {
+            isUserTurnAndSameChoice.1 = false
+        }
+    }
+    
 }
