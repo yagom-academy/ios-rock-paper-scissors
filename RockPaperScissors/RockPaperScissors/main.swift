@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-var rockPaperScissors = RockPaperScissors()
-rockPaperScissors.executeGame()
+var game = Game()
+game.execute()

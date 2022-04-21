@@ -5,12 +5,12 @@
 //  Created by 그루트, 예톤 on 2022/04/18.
 //
 
-struct RockPaperScissors {
+struct Game {
     private var userChoice: GameRockPaperScissorsChoice?
     private var computerChoice: GameRockPaperScissorsChoice?
-    private var isUserTurnAndSameChoice = (false, false)
+    private var isSatisfying = (userTurn: false, sameChoice: false)
     
-    mutating func executeGame() {
+    mutating func execute() {
         GameStatus.rockPaperScissorsMenu.printMessage()
         inputUserSelect()
         
@@ -18,8 +18,7 @@ struct RockPaperScissors {
             decideGameStart()
         } else {
             GameStatus.error.printMessage()
-            executeGame()
-            return
+            execute()
         }
     }
     
@@ -52,13 +51,15 @@ struct RockPaperScissors {
         switch compareChoice() {
         case .draw:
             GameStatus.draw.printMessage()
-            executeGame()
+            execute()
         case .win:
             GameStatus.win.printMessage()
-            GameStatus.end.printMessage()
+            isSatisfying.userTurn = true
+            executeMukChiBa()
         case .lose:
             GameStatus.lose.printMessage()
-            GameStatus.end.printMessage()
+            isSatisfying.userTurn = false
+            executeMukChiBa()
         }
     }
     
@@ -108,8 +109,8 @@ struct RockPaperScissors {
     }
 }
 
-extension RockPaperScissors {
-    private var userMukChiBaChoice : GameMukChiBaChoice {
+extension Game {
+    private var userMukChiBaChoice: GameMukChiBaChoice {
         switch userChoice?.number {
         case GameRockPaperScissorsChoice.end.number:
             return .end
@@ -123,8 +124,8 @@ extension RockPaperScissors {
             return .error
         }
     }
-
-    private var computerMukChiBaChoice : GameMukChiBaChoice {
+    
+    private var computerMukChiBaChoice: GameMukChiBaChoice {
         switch computerChoice?.number {
         case GameRockPaperScissorsChoice.end.number:
             return .end
@@ -144,20 +145,22 @@ extension RockPaperScissors {
         inputUserSelect()
         
         if verifyUserSelection() == true {
-            if userChoice == .end {
+            if userMukChiBaChoice == .end {
                 GameStatus.end.printMessage()
             } else {
                 decideSameChoice()
                 printMukChiBaResult()
             }
         } else {
+            isSatisfying.userTurn = false
+            
             GameStatus.error.printMessage()
             executeMukChiBa()
         }
     }
     
     func printMukChiBaMenu() {
-        if isUserTurnAndSameChoice.0 == true {
+        if isSatisfying.userTurn == true {
             GameStatus.userTurnMukChibaMenu.printMessage()
         } else {
             GameStatus.computerTurnMukChibaMenu.printMessage()
@@ -165,27 +168,32 @@ extension RockPaperScissors {
     }
     
     mutating func decideTurn() {
-        isUserTurnAndSameChoice.0 = isUserTurnAndSameChoice.0 == true ? false : true
+        isSatisfying.userTurn = isSatisfying.userTurn == true ? false : true
     }
     
     mutating func decideSameChoice() {
-        if userChoice == computerChoice {
-            isUserTurnAndSameChoice.1 = true
+        let computerChoiceNumber = Int.random(in: GameRockPaperScissorsChoice.scissors.number...GameRockPaperScissorsChoice.paper.number)
+        computerChoice = changeToGameChoice(from: computerChoiceNumber)
+        
+        if userMukChiBaChoice == computerMukChiBaChoice {
+            isSatisfying.sameChoice = true
         } else {
-            isUserTurnAndSameChoice.1 = false
+            isSatisfying.sameChoice = false
         }
     }
     
     mutating func printMukChiBaResult() {
-        switch isUserTurnAndSameChoice {
+        switch isSatisfying {
         case (true, true):
             GameStatus.userWin.printMessage()
+            GameStatus.end.printMessage()
         case (true, false):
             decideTurn()
             GameStatus.computerTurn.printMessage()
             executeMukChiBa()
         case (false, true):
             GameStatus.computerWin.printMessage()
+            GameStatus.end.printMessage()
         case (false, false):
             decideTurn()
             GameStatus.userTurn.printMessage()
