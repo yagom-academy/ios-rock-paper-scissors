@@ -8,6 +8,7 @@
 struct RockPaperScissors {
     private var userChoice: GameRockPaperScissorsChoice?
     private var computerChoice: GameRockPaperScissorsChoice?
+    private var isUserTurnAndSameChoice = (false, false)
     
     mutating func executeGame() {
         GameStatus.rockPaperScissorsMenu.printMessage()
