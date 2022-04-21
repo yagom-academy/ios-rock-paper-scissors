@@ -172,8 +172,8 @@ extension Game {
         }
     }
     
-    private mutating func decideTurn() {
-        isUserTurn = isUserTurn == true ? false : true
+    private mutating func changeTurn() {
+        isUserTurn = isUserTurn ? false : true
     }
     
     private mutating func decideSameChoice() {
@@ -193,14 +193,14 @@ extension Game {
             GameStatus.userWin.printMessage()
             GameStatus.end.printMessage()
         case (true, false):
-            decideTurn()
+            changeTurn()
             GameStatus.computerTurn.printMessage()
             executeMukChiBa()
         case (false, true):
             GameStatus.computerWin.printMessage()
             GameStatus.end.printMessage()
         case (false, false):
-            decideTurn()
+            changeTurn()
             GameStatus.userTurn.printMessage()
             executeMukChiBa()
         }
