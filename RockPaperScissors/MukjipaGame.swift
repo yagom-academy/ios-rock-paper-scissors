@@ -24,8 +24,6 @@ struct mukJiPaGame: Game {
         static let range = 1...3
     }
     
-    let rockScissorsPaperGame = RockScissorsPaperGame()
-    
     func startGame() {
         printRockScissorsPaperMenu()
         let userChoiceNumber = inputNumber()
@@ -34,10 +32,10 @@ struct mukJiPaGame: Game {
         case 0:
             printEndGame()
         case 1,2,3:
-            guard let userInput = rockScissorsPaperGame.makeUserSign(userInput: userChoiceNumber) else { return }
-            guard let computerInput = rockScissorsPaperGame.makeComputerSign() else { return }
+            guard let userInput = makeRockSicssorsPaperUserSign(userInput: userChoiceNumber) else { return }
+            guard let computerInput = makeRockSicssorsPaperComputerSign() else { return }
             
-            let result = rockScissorsPaperGame.decideRockScissorsPaperResult(userSign: userInput, computerSign: computerInput)
+            let result = decideRockScissorsPaperResult(userSign: userInput, computerSign: computerInput)
             printResult(of: result)
             decideTurn(by: result)
         default:
@@ -114,10 +112,3 @@ struct mukJiPaGame: Game {
         }
     }    
 }
-
-
-
-
-
-
-

@@ -8,22 +8,6 @@ import Foundation
 
 struct RockScissorsPaperGame: Game {
     
-  // MARK: - 프린트 함수 모음
-    
-    func printRockScissorsPaperMenu() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    }
-    
-    func printInvalidResult() {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-    }
-    
-    func printEndGame() {
-        print("게임 종료")
-    }
-    
-    //MARK: - 가위 바위 보 게임 
-    
     private enum Numbers {
         static let range = 1...3
     }
@@ -36,8 +20,8 @@ struct RockScissorsPaperGame: Game {
         case 0:
             printEndGame()
         case 1,2,3:
-            guard let userInput = makeUserSign(userInput: userChoiceNumber) else { return }
-            guard let computerInput = makeComputerSign() else { return }
+            guard let userInput = makeRockSicssorsPaperUserSign(userInput: userChoiceNumber) else { return }
+            guard let computerInput = makeRockSicssorsPaperComputerSign() else { return }
             
             let result = decideRockScissorsPaperResult(userSign: userInput, computerSign: computerInput)
             printResult(of: result)
@@ -47,12 +31,12 @@ struct RockScissorsPaperGame: Game {
         }
     }
     
-    func makeUserSign(userInput: Int) -> RockScissorsPaper? {
+    func makeRockSicssorsPaperUserSign(userInput: Int) -> RockScissorsPaper? {
         let userSign = RockScissorsPaper(rawValue: userInput)
         return userSign
     }
     
-    func makeComputerSign() -> RockScissorsPaper? {
+    func makeRockSicssorsPaperComputerSign() -> RockScissorsPaper? {
         let randomNumber = Int.random(in: Numbers.range)
         let computerRandomSign = RockScissorsPaper(rawValue: randomNumber)
         return computerRandomSign
@@ -69,4 +53,3 @@ struct RockScissorsPaperGame: Game {
         }
     }
 }
-
