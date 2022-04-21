@@ -7,15 +7,15 @@
 
 import Foundation
 
-class RockPaperScissorsGame {
+class MukJiPaGame {
     private var userSelection: RockPaperScissors?
     private var computerSelection: RockPaperScissors?
     private var turnIndicator: GameResult = .win
 }
 
-extension RockPaperScissorsGame {
+extension MukJiPaGame {
     
-    func printGameMenu() {
+    func printRockPaperScissorsMenu() {
         print("가위(1), 바위(2), 보(3)! <종료: 0>:", terminator: " ")
         receiveUserInput()
     }
@@ -26,7 +26,7 @@ extension RockPaperScissorsGame {
     }
 }
 
-extension RockPaperScissorsGame {
+extension MukJiPaGame {
     
     private func receiveUserInput() {
         let userInputNumber = readLine()
@@ -43,28 +43,33 @@ extension RockPaperScissorsGame {
             return
         default:
             displayError()
-            printGameMenu()
+            printRockPaperScissorsMenu()
             return
         }
         
-        playGame()
+        playRockPaperScissorsGame()
     }
     
-    private func playGame() {
+    private func playRockPaperScissorsGame() {
         makeComputerSelection()
         let gameResult = judgeVictory(userSide: userSelection, computerSide: computerSelection)
-        if gameResult == .win {
-            print("이겼습니다!")
-            turnIndicator = gameResult
-            printMukjipaMenu()
-        } else if gameResult == .lose {
-            print("졌습니다!")
-            turnIndicator = gameResult
-            printMukjipaMenu()
+        printGameResult(result: gameResult)
+        if gameResult == .draw {
+            printRockPaperScissorsMenu()
         } else {
+            turnIndicator = gameResult
+            printMukjipaMenu()
+        }
+    }
+    
+    private func printGameResult(result: GameResult) {
+        switch result {
+        case .win:
+            print("이겼습니다!")
+        case .lose:
+            print("졌습니다!")
+        case .draw:
             print("비겼습니다!")
-            printGameMenu()
-            return
         }
     }
     
@@ -95,7 +100,7 @@ extension RockPaperScissorsGame {
     }
 }
 
-extension RockPaperScissorsGame {
+extension MukJiPaGame {
     
     private func receiveMukjipaInput() {
         let userInputNumber = readLine()
@@ -142,7 +147,7 @@ extension RockPaperScissorsGame {
     }
 }
 
-extension RockPaperScissorsGame {
+extension MukJiPaGame {
     
     private func displayError() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
