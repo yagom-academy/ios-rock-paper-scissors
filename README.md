@@ -141,6 +141,7 @@ refactor: 매직 넘버/스트링 제거  
 
 # Step 2
 ## 0. 순서도
+![Week_2_Step_2_RPS GAME_Flowchart (minsson, 수꿍)](https://user-images.githubusercontent.com/99063327/164417079-a0e2f3ba-0fd9-446d-90cb-70bb524ce837.jpg)
 
 ## 1. 커밋내역
 [feat: 가위바위보 게임 결과에 따라, 가위바위보를 이긴 쪽이 묵찌바 게임의 선공권을 갖도록 수정](https://github.com/minsson/ios-rock-paper-scissors/commit/dc5ad3b837b59b272bc7732e38683290630e547b)
@@ -230,21 +231,22 @@ enum Game {
 - 추가) [Swift Language Guide - Generics](https://docs.swift.org/swift-book/LanguageGuide/Generics.html)
 
 
-### 프로젝트 수행 중 핵심 경험
-### GroundRule
+---
+
+## GroundRule
 ### 시간
-프로젝트에 집중하는 시간
+#### 프로젝트에 집중하는 시간
 - 09 : 30 ~ 21 : 00
-식사 시간
+#### 식사 시간
 - 점심 12 : 00 ~ 13 : 30
 - 저녁 20 : 00 ~ 21 : 00
-연락이 어려운 시간
+#### 연락이 어려운 시간
 - 없음
-휴일
+#### 휴일
 - 민쏜 - 4/20 (수) 예외상황 발생 (10:00~14:00)
 
 ### 규칙
-커밋
+#### 커밋
 - 최소기능 단위 commit
 - 카르마 스타일 따르기 ( 한글로 작성 )
 - `feat` = 주로 사용자에게 새로운 기능이 추가되는 경우
@@ -255,11 +257,11 @@ enum Game {
 - `test` = 테스트 코드를 수정하거나, 추가하는 경우 (코드의 변화가 생산적인 것이 아닌 경우)
 - `chore` = 별로 중요하지 않은 일을 수정하는 경우 (코드의 변화가 생산적인 것이 아닌 경우)
 
-컨벤션
+#### 컨벤션
 - Swift API Design Guidelines
 - Swift Language Guide
 
-커뮤니케이션
+#### 커뮤니케이션
 - 디스코드 DM
 - 디스코드 단체톡방
 - 디스코드 회의실
