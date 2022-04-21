@@ -18,18 +18,23 @@ enum Hand: Int {
     case paper
 }
 
-enum Winner: String {
-    case user = "사용자"
-    case computer = "컴퓨터"
+struct Turn {
+    var winner: String = ""
+    
+    mutating func inputWinner(winner: String) {
+        self.winner = winner
+    }
 }
+
+var turn = Turn()
 
 private func printGameMenu(game: String) {
     switch game {
     case "rockpaperscissors":
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         playRockPaperScissors()
-    case "mookjiba":
-        print("[\(Winner.user.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ")
+    case "mookjjibba":
+        print("[\(turn.winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ")
     default:
         break
     }
@@ -39,12 +44,12 @@ private func playRockPaperScissors() {
     let userHand = inputUserHand()
     switch userHand {
     case 1, 2, 3 :
-        comparePlayerAndComputerHand(userHand: convertUserInputToHand(input: userHand), computerHand: convertComputerNumberToHand())
+        comparePlayerAndComputerRockPaperScissors(userHand: convertUserInputToHand(input: userHand), computerHand: convertComputerNumberToHand())
     case 0 :
         printExitMessage()
     default :
         print("잘못된 입력입니다. 다시 시도해주세요.")
-//      printGameMenu()
+        printGameMenu(game: "rockpaperscissors")
     }
 }
 
@@ -61,15 +66,25 @@ private func convertComputerNumberToHand() -> Hand? {
     return Hand(rawValue: Int.random(in: 1...3))
 }
 
-private func comparePlayerAndComputerHand(userHand: Hand?, computerHand: Hand?) {
+private func comparePlayerAndComputerRockPaperScissors(userHand: Hand?, computerHand: Hand?) {
     if computerHand == .scissors && userHand == .rock || computerHand == .rock && userHand == .paper ||
         computerHand == .paper && userHand == .scissors {
-        printResult(gameResult: GameResult.win)
+        printResultAndGameMenu(gameResult: GameResult.win, winner: "사용자")
     } else if computerHand == userHand {
-        printResult(gameResult: GameResult.draw)
-        printGameMenu(game: "rockpaperscissors")
+        printResultAndGameMenu(gameResult: GameResult.draw)
     } else {
-        printResult(gameResult: GameResult.lose)
+        printResultAndGameMenu(gameResult: GameResult.lose, winner: "컴퓨터")
+    }
+}
+
+func printResultAndGameMenu(gameResult: GameResult, winner: String = "") {
+    if gameResult == GameResult.win || gameResult == GameResult.lose {
+        turn.inputWinner(winner: winner)
+        printResult(gameResult: gameResult)
+        printGameMenu(game: "mookjjibba")
+    } else {
+        printResult(gameResult: gameResult)
+        printGameMenu(game: "rockpaperscissors")
     }
 }
 
@@ -88,29 +103,27 @@ private func printExitMessage() {
     print("게임 종료")
 }
 
-private func playMookJjiBba() {
+private func playMookjjibba() {
     let userHand = inputUserHand()
     switch userHand {
     case 1, 2, 3 :
-        comparePlayerAndComputerHand(userHand: convertUserInputToHand(input: userHand), computerHand: convertComputerNumberToHand())
+        comparePlayerAndComputerMookjjibba(userHand: convertUserInputToHand(input: userHand), computerHand: convertComputerNumberToHand())
     case 0 :
         printExitMessage()
     default :
         print("잘못된 입력입니다. 다시 시도해주세요.")
-//      printGameMenu()
+        printGameMenu(game: "mookjjibba")
     }
 }
 
-private func comparePlayerAndComputerHand(turn: Winner, userHand: Hand?, computerHand: Hand?) {
+private func comparePlayerAndComputerMookjjibba(userHand: Hand?, computerHand: Hand?) {// 묵찌빠 비교함수
     if computerHand == .scissors && userHand == .rock || computerHand == .rock && userHand == .paper ||
         computerHand == .paper && userHand == .scissors {
-        
     } else if computerHand == userHand {
-        print("\(turn.rawValue)의 승리")
+        
     } else {
 
     }
 }
-
 
 printGameMenu(game: "rockpaperscissors")
