@@ -79,15 +79,14 @@ func obtainComputerHandDesign() -> RPS? {
 }
 
 func compare(myHandDesign: RPS, computerHandDesign: RPS) {
-    if myHandDesign == computerHandDesign {
+    switch (myHandDesign, computerHandDesign) {
+    case (RPS.paper, RPS.paper), (RPS.rock, RPS.rock), (RPS.scissors, RPS.scissors):
         print(ResultMessage.draw)
         startGame()
-    } else if myHandDesign == RPS.rock && computerHandDesign == RPS.scissors ||
-                myHandDesign == RPS.scissors && computerHandDesign == RPS.paper ||
-                myHandDesign == RPS.paper && computerHandDesign == RPS.rock {
+    case (RPS.scissors, RPS.paper), (RPS.paper, RPS.rock), (RPS.rock, RPS.scissors):
         print(ResultMessage.win)
         startMukChiBaGame(winner: Winner.user)
-    } else {
+    default :
         print(ResultMessage.lose)
         startMukChiBaGame(winner: Winner.computer)
     }
