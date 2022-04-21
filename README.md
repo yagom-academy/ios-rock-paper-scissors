@@ -2,6 +2,7 @@
 > 프로젝트 기간 2022.04.18~2022.04.22 
 > 팀원: @Groot-94(starting1231@naver.com), @yeton(lyeeun37@naver.com)
 > 리뷰어: @Red
+
 ## step1 기능 구현
 - UserChoice 타입 구현
 - GameMessage 타입 구현
@@ -75,3 +76,94 @@ switch userChoice {
             return false
         }
 ```
+
+## step2 기능 구현
+[ STEP2-1 ] 변수/열거형 추가
+
+- enum에 새로운 메뉴 메시지 출력하는 case 추가
+- 누구 턴인지 담아놓는 튜플형 전역변수 선언
+ 
+[ STEP2-2 ] 입출력 함수 -> 초록색
+
+- 메뉴 출력  (3)
+- 사용자 입력 받음 (4)
+- 그 입력이 유효한 지 검증(만들었던거 쓰면 됨) (5)
+- 결과 출력하는 함수 
+
+[ STEP2-3 ] 게임을 진행하는 함수   
+
+- 사용자 턴인지 컴퓨터 턴인지 반환하는 함수 (2)
+- 컴퓨터와 사용자 수 비교하는 함수 -> GameResult 반환
+- 묵찌빠를 실행하는 함수 (1)
+- 입력이 유효할 경우 묵찌빠 게임 시작하는 함수
+
+## 고민했던 것들
+- 연산 프로퍼티
+```swift
+enum GameRockPaperScissorsChoice: Int {
+    case end = 0
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+    case error
+    
+    var number: Int {
+        get {
+            return self.rawValue
+        }
+    }
+}
+```
+`rawValue`를 코드상에서 직접적으로 쓰면 그 rawValue가 Int인지 String인지 사용자가 알 수 없기 때문에 가독성을 좋게 하기 위해서 rawValue를 number라는 이름으로 대체해주었다.
+그러기 위해서 `enum(GameRockPaperScissorsChoice)` 안에서 연산 프로퍼티를 사용했다.
+
+- Bool type으로 된 튜플의 네이밍에 대해 고민.
+
+- 순서도만 보고 바로 코드로 구현한다음 어떻게 함수 단위로 분리할 것인지 고민.
+
+ 바로 짠 코드
+```swift
+func 묵찌빠게임시작() {
+    var computernumber: Int
+    var userTurn: Bool = true
+    while true {
+        print("1~3중에 입력하세요, 0은 종료")
+        var userinput = Int(readLine()!)!    // 인풋받는거는 함수가 될 수 있음
+        computernumber = Int.random(in: 1...3)  // 검증하는거도 함수가 될 수 있음
+        if userinput >= 0 && userinput <= 3 { 
+            if userTurn == true {
+                if computernumber == userinput {
+                    print("사용자 승리")
+                    break
+                } else {
+                    userTurn = false
+                }
+            } else {
+                if computernumber == userinput {
+                    print("컴퓨터 승리")
+                    break
+                } else {
+                    userTurn = true
+                }
+            }
+        }
+    }
+}
+
+묵찌빠게임시작()
+```
+
+- extension에서 저장프로퍼티를 사용할 수 없어서 연산프로퍼티를 사용해야하는데 어려움을 겪음.
+
+
+## 배운 개념
+- 연산 프로퍼티: 연산 프로퍼티는 실제로 값을 저장하지 않는 계산된 프로퍼티로, 다른 프로퍼티의 값을 getter을 이용해 간접적으로 값을 가져오고 setter을 이용해서 값을 설정하는 프로퍼티 입니다.
+
+- Bool type으로 된 변수의 네이밍:
+![Bool](./BoolName.png)
+## PR 후 개선사항
+
+
+## 순서도
+![flowChart](./flowChart1.jpg)
+
