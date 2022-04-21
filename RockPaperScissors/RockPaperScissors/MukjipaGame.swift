@@ -7,13 +7,13 @@
 
 import Foundation
 
-class MukJiPaGame {
+class MukjipaGame {
     private var userSelection: RockPaperScissors?
     private var computerSelection: RockPaperScissors?
     private var turnIndicator: GameResult = .win
 }
 
-extension MukJiPaGame {
+extension MukjipaGame {
     
     func printRockPaperScissorsMenu() {
         print("가위(1), 바위(2), 보(3)! <종료: 0>:", terminator: " ")
@@ -26,7 +26,7 @@ extension MukJiPaGame {
     }
 }
 
-extension MukJiPaGame {
+extension MukjipaGame {
     
     private func receiveUserInput() {
         let userInputNumber = readLine()
@@ -52,8 +52,10 @@ extension MukJiPaGame {
     
     private func playRockPaperScissorsGame() {
         makeComputerSelection()
+        
         let gameResult = judgeVictory(userSide: userSelection, computerSide: computerSelection)
         printGameResult(result: gameResult)
+        
         if gameResult == .draw {
             printRockPaperScissorsMenu()
         } else {
@@ -100,7 +102,7 @@ extension MukJiPaGame {
     }
 }
 
-extension MukJiPaGame {
+extension MukjipaGame {
     
     private func receiveMukjipaInput() {
         let userInputNumber = readLine()
@@ -122,20 +124,20 @@ extension MukJiPaGame {
             return
         }
         
-        playMukjipa()
+        playMukjipaGame()
     }
     
-    private func playMukjipa() {
+    private func playMukjipaGame() {
         makeComputerSelection()
+        
         let mukjipaResult = judgeVictory(userSide: userSelection, computerSide: computerSelection)
+        
         if mukjipaResult == .draw {
             print("\(turnIndicator.rawValue)의 승리!")
             endGame()
             return
-        } else if mukjipaResult == .win {
-            turnIndicator = .win
         } else {
-            turnIndicator = .lose
+            turnIndicator = mukjipaResult
         }
         
         printTurn()
@@ -147,7 +149,7 @@ extension MukJiPaGame {
     }
 }
 
-extension MukJiPaGame {
+extension MukjipaGame {
     
     private func displayError() {
         print("잘못된 입력입니다. 다시 시도해주세요.")

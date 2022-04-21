@@ -6,6 +6,6 @@
 
 import Foundation
 
-MukJiPaGame().printRockPaperScissorsMenu()
+MukjipaGame().printRockPaperScissorsMenu()
 
 
