@@ -6,14 +6,10 @@
 //
 import Foundation
 
-struct mukJiPaGame {
+struct mukJiPaGame: Game {
     
     //MARK: - 프린트 함수 모음
-    
-    private func printRockScissorsPaperMenu() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    }
-    
+        
     private func printMukJiPaMenu(by turn: Turn) {
         print("[\(turn.turnResult) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
@@ -21,15 +17,7 @@ struct mukJiPaGame {
     private func printResult(of result: GameResult) {
         print(result.message)
     }
-    
-    private func printInvalidResult() {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-    }
-    
-    private func printEndGame() {
-        print("게임 종료")
-    }
-    
+
     //MARK: - 묵 찌 빠 게임
     
     enum Numbers {
@@ -46,10 +34,10 @@ struct mukJiPaGame {
         case 0:
             printEndGame()
         case 1,2,3:
-            guard let userInput = rockScissorsPaperGame.makeRockScissorsPaperUserSign(userInput: userChoiceNumber) else { return }
-            guard let computerInput = rockScissorsPaperGame.makeRockScissorsPaperComputerSign() else { return }
+            guard let userInput = rockScissorsPaperGame.makeUserSign(userInput: userChoiceNumber) else { return }
+            guard let computerInput = rockScissorsPaperGame.makeComputerSign() else { return }
             
-            let result = rockScissorsPaperGame.decideResult(userSign: userInput, computerSign: computerInput)
+            let result = rockScissorsPaperGame.decideRockScissorsPaperResult(userSign: userInput, computerSign: computerInput)
             printResult(of: result)
             decideTurn(by: result)
         default:
@@ -69,12 +57,6 @@ struct mukJiPaGame {
         }
     }
     
-    private func inputNumber() -> Int {
-        guard let userNumber = readLine()?.trimmingCharacters(in: .whitespaces) else { return -1 }
-        guard let number = Int(userNumber) else { return -1 }
-        return number
-    }
-    
     private func start(by turn: Turn) {
         printMukJiPaMenu(by: turn)
         let userChoiceNumber = inputNumber()
@@ -83,8 +65,8 @@ struct mukJiPaGame {
         case 0:
             printEndGame()
         case 1,2,3:
-            guard let userInput = makeMukJiPaUserSign(userInput: userChoiceNumber) else { return }
-            guard let computerInput = makeMukJiPaComputerSign() else { return }
+            guard let userInput = makeUserSign(userInput: userChoiceNumber) else { return }
+            guard let computerInput = makeComputerSign() else { return }
             
             decideResult(by: turn, userSign: userInput, computerSign: computerInput)
         default:
@@ -93,12 +75,12 @@ struct mukJiPaGame {
         }
     }
     
-    private func makeMukJiPaUserSign(userInput: Int) -> MukJiPa? {
+    func makeUserSign(userInput: Int) -> MukJiPa? {
         let userSign = MukJiPa(rawValue: userInput)
         return userSign
     }
     
-    private func makeMukJiPaComputerSign() -> MukJiPa? {
+    func makeComputerSign() -> MukJiPa? {
         let randomNumber = Int.random(in: Numbers.range)
         let computerRandomSign = MukJiPa(rawValue: randomNumber)
         return computerRandomSign

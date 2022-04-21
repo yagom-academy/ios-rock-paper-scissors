@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct RockScissorsPaperGame {
+struct RockScissorsPaperGame: Game {
     
   // MARK: - 프린트 함수 모음
     
@@ -36,10 +36,10 @@ struct RockScissorsPaperGame {
         case 0:
             printEndGame()
         case 1,2,3:
-            guard let userInput = makeRockScissorsPaperUserSign(userInput: userChoiceNumber) else { return }
-            guard let computerInput = makeRockScissorsPaperComputerSign() else { return }
+            guard let userInput = makeUserSign(userInput: userChoiceNumber) else { return }
+            guard let computerInput = makeComputerSign() else { return }
             
-            let result = decideResult(userSign: userInput, computerSign: computerInput)
+            let result = decideRockScissorsPaperResult(userSign: userInput, computerSign: computerInput)
             printResult(of: result)
         default:
             printInvalidResult()
@@ -47,34 +47,15 @@ struct RockScissorsPaperGame {
         }
     }
     
-    func inputNumber() -> Int {
-        guard let userNumber = readLine()?.trimmingCharacters(in: .whitespaces) else { return -1 }
-        guard let number = Int(userNumber) else { return -1 }
-        return number
-    }
-    
-    func makeRockScissorsPaperUserSign(userInput: Int) -> RockScissorsPaper? {
+    func makeUserSign(userInput: Int) -> RockScissorsPaper? {
         let userSign = RockScissorsPaper(rawValue: userInput)
         return userSign
     }
     
-    func makeRockScissorsPaperComputerSign() -> RockScissorsPaper? {
+    func makeComputerSign() -> RockScissorsPaper? {
         let randomNumber = Int.random(in: Numbers.range)
         let computerRandomSign = RockScissorsPaper(rawValue: randomNumber)
         return computerRandomSign
-    }
-    
-    func decideResult(userSign: RockScissorsPaper, computerSign: RockScissorsPaper) -> GameResult {
-        if computerSign == userSign {
-            return .draw
-        } else if
-            (computerSign == .scissors && userSign == .rock) ||
-                (computerSign == .rock && userSign == .scissors) ||
-                (computerSign == .paper && userSign == .rock) {
-            return .lose
-        } else {
-            return .win
-        }
     }
     
     func printResult(of result: GameResult) {
