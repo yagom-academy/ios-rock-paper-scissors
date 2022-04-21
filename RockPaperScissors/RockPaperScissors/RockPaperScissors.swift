@@ -117,12 +117,8 @@ extension RockPaperScissors {
         }
     }
     
-    mutating func decideTurn(gameResult: GameResult) {
-        if gameResult == .win {
-            isUserTurnAndSameChoice.0 = true
-        } else {
-            isUserTurnAndSameChoice.0 = false
-        }
+    mutating func decideTurn() {
+        isUserTurnAndSameChoice.0 = isUserTurnAndSameChoice.0 == true ? false : true
     }
     
     mutating func decideSameChoice() {
@@ -138,12 +134,14 @@ extension RockPaperScissors {
         case (true, true):
             GameStatus.userWin.printMessage()
         case (true, false):
-            isUserTurnAndSameChoice.0 = false
+            decideTurn()
+            GameStatus.computerTurn.printMessage()
             //executeMukChiBa()
         case (false, true):
             GameStatus.computerWin.printMessage()
         case (false, false):
-            isUserTurnAndSameChoice.0 = true
+            decideTurn()
+            GameStatus.userTurn.printMessage()
             //executeMukChiBa()
         }
     }
