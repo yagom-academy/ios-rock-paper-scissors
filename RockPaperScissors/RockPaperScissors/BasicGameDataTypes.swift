@@ -1,8 +1,7 @@
 //
 //  BasicGameDataTypes.swift
-//  RockPaperScissors
-//
-//  Created by Baek on 2022/04/19.
+//  Created by BaekGom, Finnn
+//  Copyright © yagom academy. All rights reserved.
 //
 
 enum RockPaperScissors: Int {
@@ -12,17 +11,6 @@ enum RockPaperScissors: Int {
     case wrong
 }
 
-enum RockPaperScissorsResult {
-    case win
-    case lose
-    case tie
-}
-
-enum GameType {
-    case rockscissors
-    case mukchiba
-}
-
 enum Mukchiba: Int {
     case muk = 1
     case chi
@@ -30,4 +18,9 @@ enum Mukchiba: Int {
     case wrong
 }
 
-
+enum RockPaperScissorsResult {
+    case win
+    case lose
+    case tie
+    case none
+}
