@@ -82,8 +82,8 @@ enum GameResult: String {
 }
 
 struct Player {
-    private var playerName: String
-    private var MuckJjiPpaTurn = false
+    private(set) var playerName: String
+    private(set) var MuckJjiPpaTurn = false
     
     init(playerName: String) {
         self.playerName = playerName
@@ -95,14 +95,6 @@ struct Player {
         } else {
             self.MuckJjiPpaTurn = true
         }
-    }
-    
-    func retrieveMuckJjiPpaTurn() -> Bool {
-        return self.MuckJjiPpaTurn
-    }
-    
-    func retrievePlayerName() -> String {
-        return self.playerName
     }
 }
 
@@ -119,7 +111,7 @@ func printRockPaperScissorOption() {
 }
 
 func printMuckJjiPpaOption(player: Player) {
-    print("[\(player.retrievePlayerName()) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    print("[\(player.playerName) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
 }
 
 func printErrorMessage() {
@@ -194,7 +186,7 @@ func startRockPaperScissorGame() {
 
 func startMuckJjiPpaGame() {
     while true {
-        let currentWinner = user.retrieveMuckJjiPpaTurn() ? user : computer
+        let currentWinner = user.MuckJjiPpaTurn ? user : computer
         printMuckJjiPpaOption(player: currentWinner)
         let computerMuckJjiPpaInput = makeComputerRandomNumber()
         let userMuckJjiPpaInput = inputUserNumber()
@@ -202,23 +194,23 @@ func startMuckJjiPpaGame() {
             print("게임 종료")
             break
         }
-        if currentWinner.retrievePlayerName() == user.retrievePlayerName() && userMuckJjiPpaInput == ExceptionalInput.wrongInput.correspondingNumber {
+        if currentWinner.playerName == user.playerName && userMuckJjiPpaInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             doTurnChange()
             continue
-        } else if currentWinner.retrievePlayerName() == computer.retrievePlayerName() && userMuckJjiPpaInput == ExceptionalInput.wrongInput.correspondingNumber {
+        } else if currentWinner.playerName == computer.playerName && userMuckJjiPpaInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             continue
         }
         let matchResult = compareTwoNumbers(userInput: userMuckJjiPpaInput, computerInput: computerMuckJjiPpaInput, winningNumberCase: winnigCases.MuckJjiPpaCase.numberCases)
         if matchResult == GameResult.draw.result {
-            print("\(currentWinner.retrievePlayerName())의 승리!")
+            print("\(currentWinner.playerName)의 승리!")
             print("게임 종료")
             break
-        } else if currentWinner.retrievePlayerName() == user.retrievePlayerName() && matchResult == GameResult.lose.result {
+        } else if currentWinner.playerName == user.playerName && matchResult == GameResult.lose.result {
             doTurnChange()
             print("컴퓨터의 턴입니다")
-        } else if currentWinner.retrievePlayerName() == computer.retrievePlayerName() && matchResult == GameResult.win.result {
+        } else if currentWinner.playerName == computer.playerName && matchResult == GameResult.win.result {
             doTurnChange()
             print("사용자의 턴입니다")
         }
