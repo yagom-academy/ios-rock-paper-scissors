@@ -118,16 +118,16 @@ func playMukChiBaGame(number: String, winner: String){
 }
 
 func compareMukChiBa(myHandDesign: RPS, computerHandDesign: RPS, previousWinner: String) {
-    if myHandDesign == computerHandDesign {
+    switch (myHandDesign, computerHandDesign) {
+    case (RPS.paper, RPS.paper), (RPS.rock, RPS.rock), (RPS.scissors, RPS.scissors):
         print("\(previousWinner)의 승리!")
-    } else if myHandDesign == RPS.rock && computerHandDesign == RPS.scissors ||
-                myHandDesign == RPS.scissors && computerHandDesign == RPS.paper ||
-                myHandDesign == RPS.paper && computerHandDesign == RPS.rock {
+    case (RPS.scissors, RPS.paper), (RPS.paper, RPS.rock), (RPS.rock, RPS.scissors):
         print("\(Winner.user)의 턴입니다")
         startMukChiBaGame(winner: Winner.user)
-    } else {
+    default:
         print("\(Winner.computer)의 턴입니다")
         startMukChiBaGame(winner: Winner.computer)
     }
 }
+
 startGame()
