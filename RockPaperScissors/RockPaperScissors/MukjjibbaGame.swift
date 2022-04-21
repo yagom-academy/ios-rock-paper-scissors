@@ -34,9 +34,9 @@ class MukjjibbaGame: RockPaperScissorsGame {
                 continue
             }
             
-            let endGame = setMukjjibbaRule(userInput: userNumber, randomNumber: computerNumber)
+            let mukjjibbaResult = setMukjjibbaRule(userInput: userNumber, randomNumber: computerNumber)
             
-            if endGame {
+            if mukjjibbaResult {
                 print("\(currentTurn)의 승리!")
                 print("게임 종료")
                 break
