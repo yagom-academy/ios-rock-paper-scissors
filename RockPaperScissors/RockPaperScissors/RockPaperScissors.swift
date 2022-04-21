@@ -107,3 +107,15 @@ struct RockPaperScissors {
         }
     }
 }
+
+extension RockPaperScissors {
+    
+    mutating func decideTurn(gameResult: GameResult) {
+        if gameResult == .win {
+            isUserTurnAndSameChoice.0 = true
+        } else {
+            isUserTurnAndSameChoice.0 = false
+        }
+    }
+    
+}

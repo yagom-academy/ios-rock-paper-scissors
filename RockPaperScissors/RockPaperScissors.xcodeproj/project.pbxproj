@@ -52,9 +52,9 @@
 			isa = PBXGroup;
 			children = (
 				377F96C0280D4A4A000FE72C /* GameRockPaperScissorsChoice.swift */,
+				424AEACD2811415300CF194C /* GameMukChiBaChoice.swift */,
 				428E3575280D52DB00E27A03 /* GameStatus.swift */,
 				373625B4280D951D002826E1 /* GameResult.swift */,
-				424AEACD2811415300CF194C /* GameMukChiBaChoice.swift */,
 			);
 			path = GameCollection;
 			sourceTree = "<group>";
