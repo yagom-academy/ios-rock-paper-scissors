@@ -24,14 +24,14 @@ func convertComputerNumberToHand() -> Hand? {
     return Hand(rawValue: Int.random(in: 1...3))
 }
 
-func printResult(gameResult: GameResult) {
+func printRockPaperScissorsResult(gameResult: RockPaperScissorsResult) {
     switch gameResult {
     case .draw:
-        print("\(GameResult.draw.rawValue)")
+        print("\(RockPaperScissorsResult.draw.rawValue)")
     case .win:
-        print("\(GameResult.win.rawValue)")
+        print("\(RockPaperScissorsResult.win.rawValue)")
     case .lose:
-        print("\(GameResult.lose.rawValue)")
+        print("\(RockPaperScissorsResult.lose.rawValue)")
     }
 }
 

@@ -14,21 +14,21 @@ func playRockPaperScissors() {
 func comparePlayerAndComputerRockPaperScissors(userHand: Hand?, computerHand: Hand?) {
     if computerHand == .scissors && userHand == .rock || computerHand == .rock && userHand == .paper ||
         computerHand == .paper && userHand == .scissors {
-        printResultAndGameMenu(gameResult: GameResult.win, winner: "사용자")
+        printResultAndGameMenu(gameResult: RockPaperScissorsResult.win, winner: "사용자")
     } else if computerHand == userHand {
-        printResultAndGameMenu(gameResult: GameResult.draw)
+        printResultAndGameMenu(gameResult: RockPaperScissorsResult.draw)
     } else {
-        printResultAndGameMenu(gameResult: GameResult.lose, winner: "컴퓨터")
+        printResultAndGameMenu(gameResult: RockPaperScissorsResult.lose, winner: "컴퓨터")
     }
 }
 
-func printResultAndGameMenu(gameResult: GameResult, winner: String = "") {
-    if gameResult == GameResult.win || gameResult == GameResult.lose {
+func printResultAndGameMenu(gameResult: RockPaperScissorsResult, winner: String = "") {
+    if gameResult == RockPaperScissorsResult.win || gameResult == RockPaperScissorsResult.lose {
         turn.inputWinner(winner: winner)
-        printResult(gameResult: gameResult)
+        printRockPaperScissorsResult(gameResult: gameResult)
         printGameMenu(game: "mookjjibba")
     } else {
-        printResult(gameResult: gameResult)
+        printRockPaperScissorsResult(gameResult: gameResult)
         printGameMenu(game: "rockpaperscissors")
     }
 }
