@@ -6,7 +6,13 @@
 //
 
 enum GameStatus {
-    case menu
+    case rockPaperScissorsMenu
+    case userTurnMukChibaMenu
+    case computerTurnMukChibaMenu
+    case userTurn
+    case computerTurn
+    case userWin
+    case computerWin
     case win
     case lose
     case draw
@@ -15,8 +21,20 @@ enum GameStatus {
     
     func printMessage() {
         switch self {
-        case .menu:
+        case .rockPaperScissorsMenu:
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        case .userTurnMukChibaMenu:
+            print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        case .computerTurnMukChibaMenu:
+            print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        case .userTurn:
+            print("사용자의 턴입니다")
+        case .computerTurn:
+            print("컴퓨터의 턴입니다")
+        case .userWin:
+            print("사용자의 승리!")
+        case .computerWin:
+            print("컴퓨터의 승리!")
         case .win:
             print("이겼습니다!")
         case .lose:

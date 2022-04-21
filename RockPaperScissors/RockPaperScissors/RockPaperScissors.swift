@@ -10,7 +10,7 @@ struct RockPaperScissors {
     private var computerChoice: GameRockPaperScissorsChoice?
     
     mutating func executeGame() {
-        GameStatus.menu.printMessage()
+        GameStatus.rockPaperScissorsMenu.printMessage()
         inputUserSelect()
         
         if verifyUserSelection() == true {
