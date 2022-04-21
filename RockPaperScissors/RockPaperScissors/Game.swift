@@ -52,11 +52,6 @@ struct Game {
         case tie
     }
     
-    enum Turn: String {
-        case user = "사용자"
-        case computer = "컴퓨터"
-    }
-    
     let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     var turn: String = "사용자"
     
@@ -70,7 +65,6 @@ struct Game {
         let userMenuChoice = selectMenuByInput(menuOfMukJjiPpa: menu)
         decideProcessBy(userMenuChoice)
     }
-    
     
     func selectMenuByInput(menu: String) -> InputOfRockPaperScissors {
         print(menu, terminator: "")
@@ -140,7 +134,6 @@ struct Game {
     func playRPS(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
         let myRpsPick = menuChoice
         guard let computerRpsPick = InputOfMukJjiPpa(rawValue: Int.random(in: InputOfMukJjiPpa.muk.rawValue...InputOfMukJjiPpa.ppa.rawValue)) else { return (.quit, .quit) }
-        print("사용자: \(myRpsPick.message), 컴퓨터: \(computerRpsPick.message)")
         return (myRpsPick, computerRpsPick)
     }
     
