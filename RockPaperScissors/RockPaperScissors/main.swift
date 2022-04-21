@@ -23,6 +23,13 @@ enum Winner {
     static let computer = "컴퓨터"
 }
 
+enum InputCase {
+    static let gameExit = "0"
+    static let throwScissors = "1"
+    static let throwRock = "2"
+    static let thorwPaper = "3"
+}
+
 func startGame() {
     print(GameGuideMessage.startGame, terminator: "")
     if let choicedMenu = readLine() {
@@ -31,7 +38,7 @@ func startGame() {
 }
 
 func playGame(number: String) {
-    guard number != "0" else {
+    guard number != InputCase.gameExit else {
         print(GameGuideMessage.endGame)
         return
     }
@@ -50,11 +57,11 @@ func playGame(number: String) {
 
 func obtainUserHandDesign(number: String) -> RPS? {
     switch number {
-    case "1":
+    case InputCase.throwScissors:
         return RPS.scissors
-    case "2":
+    case InputCase.throwRock:
         return RPS.rock
-    case "3":
+    case InputCase.thorwPaper:
         return RPS.paper
     default:
         print(GameGuideMessage.inputError)
@@ -63,7 +70,8 @@ func obtainUserHandDesign(number: String) -> RPS? {
 }
 
 func obtainComputerHandDesign() -> RPS? {
-    guard let computerHandDesign: RPS = RPS(rawValue: Int.random(in: 1...3)) else {
+    let rangeOfRandomRPS = Int.random(in: 1...3)
+    guard let computerHandDesign: RPS = RPS(rawValue: rangeOfRandomRPS) else {
         print(GameGuideMessage.computerHandDesignError)
         return nil
     }
@@ -93,7 +101,7 @@ func startMukChiBaGame(winner: String) {
 }
 
 func playMukChiBaGame(number: String, winner: String){
-    guard number != "0" else {
+    guard number != InputCase.gameExit else {
         print(GameGuideMessage.endGame)
         return
     }
