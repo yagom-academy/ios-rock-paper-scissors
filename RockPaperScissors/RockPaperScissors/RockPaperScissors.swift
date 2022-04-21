@@ -109,6 +109,36 @@ struct RockPaperScissors {
 }
 
 extension RockPaperScissors {
+    private var userMukChiBaChoice : GameMukChiBaChoice {
+        switch userChoice?.number {
+        case GameRockPaperScissorsChoice.end.number:
+            return .end
+        case GameRockPaperScissorsChoice.scissors.number:
+            return .muk
+        case GameRockPaperScissorsChoice.rock.number:
+            return .chi
+        case GameRockPaperScissorsChoice.paper.number:
+            return .ba
+        default:
+            return .error
+        }
+    }
+
+    private var computerMukChiBaChoice : GameMukChiBaChoice {
+        switch computerChoice?.number {
+        case GameRockPaperScissorsChoice.end.number:
+            return .end
+        case GameRockPaperScissorsChoice.scissors.number:
+            return .muk
+        case GameRockPaperScissorsChoice.rock.number:
+            return .chi
+        case GameRockPaperScissorsChoice.paper.number:
+            return .ba
+        default:
+            return .error
+        }
+    }
+    
     mutating func executeMukChiBa() {
         printMukChiBaMenu()
         inputUserSelect()
