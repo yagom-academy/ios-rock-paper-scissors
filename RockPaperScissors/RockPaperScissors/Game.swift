@@ -53,20 +53,20 @@ struct Game {
     }
     
     let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-    var turn: String = "사용자"
+    var attacker: String = ""
     
     mutating func start() {
-        let userMenuChoice = selectMenuByInput(menu: menu)
+        let userMenuChoice = selectMenuByInput(menu)
         decideProcessBy(userMenuChoice)
     }
     
-    mutating func start(turnOfMukJjiPpa turn: String) {
-        let menu = "[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
-        let userMenuChoice = selectMenuByInput(menuOfMukJjiPpa: menu)
+    mutating func start(MukJjiPpaLedBy attacker: String) {
+        let menu = "[\(attacker) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
+        let userMenuChoice = selectMenuByInput(OfMukJjiPpa: menu)
         decideProcessBy(userMenuChoice)
     }
     
-    func selectMenuByInput(menu: String) -> InputOfRockPaperScissors {
+    func selectMenuByInput(_ menu: String) -> InputOfRockPaperScissors {
         print(menu, terminator: "")
         guard let userInput = readLine() else {
             return .error
@@ -78,8 +78,8 @@ struct Game {
         return InputOfRockPaperScissors(rawValue: numberChoice) ?? .error
     }
     
-    func selectMenuByInput(menuOfMukJjiPpa: String) -> InputOfMukJjiPpa {
-        print(menuOfMukJjiPpa, terminator: "")
+    func selectMenuByInput(OfMukJjiPpa menu: String) -> InputOfMukJjiPpa {
+        print(menu, terminator: "")
         guard let userInput = readLine() else {
             return .error
         }
@@ -95,9 +95,9 @@ struct Game {
         case .quit:
             print(InputOfRockPaperScissors.quit.message)
         case .scissors, .rock, .paper:
-            let eachPick: (InputOfRockPaperScissors, InputOfRockPaperScissors) = playRPS(by: menuChoice)
+            let eachPick: (InputOfRockPaperScissors, InputOfRockPaperScissors) = playGame(by: menuChoice)
             let gameResult = pickOutWinner(from: eachPick)
-            printResult(basedOn: gameResult)
+            printResult(basedOnRockPaperScissors: gameResult)
             
             restartIfTie(judgingBy: gameResult)
         default:
@@ -111,30 +111,30 @@ struct Game {
         case .quit:
             print(InputOfMukJjiPpa.quit.message)
         case .muk, .jji, .ppa:
-            let eachPick: (InputOfMukJjiPpa, InputOfMukJjiPpa) = playRPS(by: menuChoice)
+            let eachPick: (InputOfMukJjiPpa, InputOfMukJjiPpa) = playGame(by: menuChoice)
             let gameResult = pickOutWinner(from: eachPick)
             
             printResult(basedOnMukJjiPpa: gameResult)
             
-            restartIfTie(judgingBy: gameResult, turnOfMukJjiPpa: turn)
+            quitIfTie(judgingBy: gameResult)
         default:
             print(InputOfRockPaperScissors.error.message)
-            turn = GameResult.computersVictory.rawValue
-            start(turnOfMukJjiPpa: turn)
+            attacker = GameResult.computersVictory.rawValue
+            start(MukJjiPpaLedBy: attacker)
         }
     }
     
-    func playRPS(by menuChoice: InputOfRockPaperScissors) -> (InputOfRockPaperScissors, InputOfRockPaperScissors) {
-        let myRpsPick = menuChoice
-        guard let computerRpsPick = InputOfRockPaperScissors(rawValue: Int.random(in: InputOfRockPaperScissors.scissors.rawValue...InputOfRockPaperScissors.paper.rawValue)) else { return (.quit, .quit) }
+    func playGame(by menuChoice: InputOfRockPaperScissors) -> (InputOfRockPaperScissors, InputOfRockPaperScissors) {
+        let myPick = menuChoice
+        guard let computerPick = InputOfRockPaperScissors(rawValue: Int.random(in: InputOfRockPaperScissors.scissors.rawValue...InputOfRockPaperScissors.paper.rawValue)) else { return (.quit, .quit) }
         
-        return (myRpsPick, computerRpsPick)
+        return (myPick, computerPick)
     }
     
-    func playRPS(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
-        let myRpsPick = menuChoice
-        guard let computerRpsPick = InputOfMukJjiPpa(rawValue: Int.random(in: InputOfMukJjiPpa.muk.rawValue...InputOfMukJjiPpa.ppa.rawValue)) else { return (.quit, .quit) }
-        return (myRpsPick, computerRpsPick)
+    func playGame(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
+        let myPick = menuChoice
+        guard let computerPick = InputOfMukJjiPpa(rawValue: Int.random(in: InputOfMukJjiPpa.muk.rawValue...InputOfMukJjiPpa.ppa.rawValue)) else { return (.quit, .quit) }
+        return (myPick, computerPick)
     }
     
     func pickOutWinner(from pickOf: (user: InputOfRockPaperScissors, computer: InputOfRockPaperScissors)) -> GameResult {
@@ -163,14 +163,14 @@ struct Game {
         }
     }
     
-    mutating func printResult(basedOn gameResult: GameResult) {
+    mutating func printResult(basedOnRockPaperScissors gameResult: GameResult) {
         switch gameResult {
         case .usersVictory:
             print("이겼습니다!")
-            turn = GameResult.usersVictory.rawValue
+            attacker = GameResult.usersVictory.rawValue
         case .computersVictory:
             print("졌습니다!")
-            turn = GameResult.computersVictory.rawValue
+            attacker = GameResult.computersVictory.rawValue
         default:
             print("비겼습니다")
         }
@@ -179,13 +179,13 @@ struct Game {
     mutating func printResult(basedOnMukJjiPpa gameResult: GameResult) {
         switch gameResult {
         case .usersVictory:
-            turn = GameResult.usersVictory.rawValue
-            print("\(turn)의 턴입니다.")
+            attacker = GameResult.usersVictory.rawValue
+            print("\(attacker)의 턴입니다.")
         case .computersVictory:
-            turn = GameResult.computersVictory.rawValue
-            print("\(turn)의 턴입니다.")
+            attacker = GameResult.computersVictory.rawValue
+            print("\(attacker)의 턴입니다.")
         default:
-            print("\(turn)의 승리!")
+            print("\(attacker)의 승리!")
         }
     }
     
@@ -193,15 +193,15 @@ struct Game {
         if gameResult == .tie {
             start()
         } else {
-            start(turnOfMukJjiPpa: turn)
+            start(MukJjiPpaLedBy: attacker)
         }
     }
     
-    mutating func restartIfTie(judgingBy gameResult: GameResult, turnOfMukJjiPpa: String) {
+    mutating func quitIfTie(judgingBy gameResult: GameResult) {
         if gameResult == .tie {
             print("게임 종료")
         } else {
-            start(turnOfMukJjiPpa: turn)
+            start(MukJjiPpaLedBy: attacker)
         }
     }
 }
