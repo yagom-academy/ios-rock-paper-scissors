@@ -12,7 +12,7 @@ enum RockPaperScissors {
 }
 
 extension RockPaperScissors {
-    var name: String {
+    var theNumberOfCase: String {
         switch self {
         case .scissors:
             return "1"
@@ -34,7 +34,7 @@ enum Mukjjibba {
 }
 
 extension Mukjjibba {
-    var name2: String {
+    var theNumberOfCase: String {
         switch self {
         case .muk:
             return "1"

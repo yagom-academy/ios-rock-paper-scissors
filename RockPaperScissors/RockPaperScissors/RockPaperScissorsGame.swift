@@ -6,21 +6,22 @@
 //
 class RockPaperScissorsGame {
     var userNumber: String = ""
-    var randomNumber: String = ""
+    var computerNumber: String = ""
     var resultOfCheck: Bool = true
     var gameResult: String = ""
-    private var scissors: String = RockPaperScissors.scissors.name
-    private var paper: String = RockPaperScissors.paper.name
-    private var rock: String = RockPaperScissors.rock.name
-    private var endGame: String = RockPaperScissors.end.name
+    
+    private var scissors: String = RockPaperScissors.scissors.theNumberOfCase
+    private var paper: String = RockPaperScissors.paper.theNumberOfCase
+    private var rock: String = RockPaperScissors.rock.theNumberOfCase
+    private var endGame: String = RockPaperScissors.end.theNumberOfCase
     
     func startGame() {
         while true {
             print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
             inputUserNumber()
             choiceRockPaperScissors()
-            compare(userNumber, with: randomNumber)
-            checkInput(from: userNumber)
+            setRockPaperScissorsRule(userNumber, with: computerNumber)
+            checkRockPaperScissorsRule(from: userNumber)
             
             if userNumber == endGame {
                 break
@@ -48,11 +49,12 @@ class RockPaperScissorsGame {
     
     func choiceRockPaperScissors() {
         let numberList: [String] = ["1", "2", "3"]
+        
         guard let choicedCase = numberList.randomElement() else { return }
-        self.randomNumber = choicedCase
+        self.computerNumber = choicedCase
     }
     
-    func compare(_ userInput: String, with randomNumber: String) {
+    func setRockPaperScissorsRule(_ userInput: String, with randomNumber: String) {
         if userInput == paper && randomNumber == scissors {
             self.gameResult = "졌습니다."
         } else if userInput == scissors && randomNumber == paper {
@@ -68,7 +70,7 @@ class RockPaperScissorsGame {
         }
     }
     
-    func checkInput(from inputData: String) {
+    func checkRockPaperScissorsRule(from inputData: String) {
         let allright: [String] = ["1", "2", "3", "0"]
         
         if allright.contains(inputData) {

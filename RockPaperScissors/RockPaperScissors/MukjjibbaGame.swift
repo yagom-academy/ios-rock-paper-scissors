@@ -1,9 +1,10 @@
 class MukjjibbaGame: RockPaperScissorsGame {
     var currentTurn: String = ""
-    private var jji: String = Mukjjibba.jji.name2
-    private var bba: String = Mukjjibba.bba.name2
-    private var muk: String = Mukjjibba.muk.name2
-    private var endGame: String = Mukjjibba.end.name2
+    
+    private var muk: String = Mukjjibba.muk.theNumberOfCase
+    private var jji: String = Mukjjibba.jji.theNumberOfCase
+    private var bba: String = Mukjjibba.bba.theNumberOfCase
+    private var endGame: String = Mukjjibba.end.theNumberOfCase
     
     func checkTurn() {
         if gameResult == "이겼습니다." {
@@ -17,13 +18,13 @@ class MukjjibbaGame: RockPaperScissorsGame {
         if userInput == randomNumber {
            return true
         } else {
-            compare2(userInput, with: randomNumber)
+            getTurn(userInput, with: randomNumber)
             checkTurn()
             return false
         }
     }
     
-    func compare2(_ userInput: String, with randomNumber: String) {
+    func getTurn(_ userInput: String, with randomNumber: String) {
         if userInput == bba && randomNumber == muk  {
             self.gameResult = "이겼습니다."
         } else if userInput == muk  && randomNumber == bba  {
@@ -47,7 +48,7 @@ class MukjjibbaGame: RockPaperScissorsGame {
             print("[\(currentTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
             inputUserNumber()
             choiceRockPaperScissors()
-            checkInput(from: userNumber)
+            checkRockPaperScissorsRule(from: userNumber)
             
             if userNumber == endGame {
                 break
@@ -59,7 +60,7 @@ class MukjjibbaGame: RockPaperScissorsGame {
                 continue
             }
             
-            let endGame = setMukjjibbaRule(userInput: userNumber, randomNumber: randomNumber)
+            let endGame = setMukjjibbaRule(userInput: userNumber, randomNumber: computerNumber)
             
             if endGame {
                 print("\(currentTurn)의 승리...!")
