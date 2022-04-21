@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		373625B5280D951D002826E1 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373625B4280D951D002826E1 /* GameResult.swift */; };
-		377F96C1280D4A4A000FE72C /* UserChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F96C0280D4A4A000FE72C /* UserChoice.swift */; };
+		377F96C1280D4A4A000FE72C /* GameChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F96C0280D4A4A000FE72C /* GameChoice.swift */; };
 		377F96C4280D5A39000FE72C /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F96C3280D5A39000FE72C /* RockPaperScissors.swift */; };
-		428E3576280D52DB00E27A03 /* GameMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428E3575280D52DB00E27A03 /* GameMessage.swift */; };
+		428E3576280D52DB00E27A03 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428E3575280D52DB00E27A03 /* GameStatus.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,9 +28,9 @@
 
 /* Begin PBXFileReference section */
 		373625B4280D951D002826E1 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
-		377F96C0280D4A4A000FE72C /* UserChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChoice.swift; sourceTree = "<group>"; };
+		377F96C0280D4A4A000FE72C /* GameChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameChoice.swift; sourceTree = "<group>"; };
 		377F96C3280D5A39000FE72C /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
-		428E3575280D52DB00E27A03 /* GameMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMessage.swift; sourceTree = "<group>"; };
+		428E3575280D52DB00E27A03 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -46,14 +46,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		377F96C2280D4A57000FE72C /* EnumCollection */ = {
+		377F96C2280D4A57000FE72C /* GameCollection */ = {
 			isa = PBXGroup;
 			children = (
-				377F96C0280D4A4A000FE72C /* UserChoice.swift */,
-				428E3575280D52DB00E27A03 /* GameMessage.swift */,
+				377F96C0280D4A4A000FE72C /* GameChoice.swift */,
+				428E3575280D52DB00E27A03 /* GameStatus.swift */,
 				373625B4280D951D002826E1 /* GameResult.swift */,
 			);
-			path = EnumCollection;
+			path = GameCollection;
 			sourceTree = "<group>";
 		};
 		C7ABA0D4254EA63000B2367D = {
@@ -77,7 +77,7 @@
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				377F96C3280D5A39000FE72C /* RockPaperScissors.swift */,
-				377F96C2280D4A57000FE72C /* EnumCollection */,
+				377F96C2280D4A57000FE72C /* GameCollection */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -140,9 +140,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				377F96C4280D5A39000FE72C /* RockPaperScissors.swift in Sources */,
-				377F96C1280D4A4A000FE72C /* UserChoice.swift in Sources */,
+				377F96C1280D4A4A000FE72C /* GameChoice.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
-				428E3576280D52DB00E27A03 /* GameMessage.swift in Sources */,
+				428E3576280D52DB00E27A03 /* GameStatus.swift in Sources */,
 				373625B5280D951D002826E1 /* GameResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
