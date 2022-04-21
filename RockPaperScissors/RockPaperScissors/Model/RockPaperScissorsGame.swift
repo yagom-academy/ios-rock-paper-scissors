@@ -22,6 +22,7 @@ final class RockPaperScissorsGame: Runnable {
         
         guard let userInputValue = inputValue(),
               let user = RockPaperScissorsType(rawValue: userInputValue) else {
+            restartFirstGame(as: "잘못된 입력입니다. 다시 시도해주세요")
             return
         }
         
@@ -49,13 +50,36 @@ private extension RockPaperScissorsGame {
         }
     }
     
+    func startSecondGame() {
+        var result: Bool = true
+        
+        while result {
+            let selectionList: String = "[\(order?.rawValue ?? "") 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
+            selectionList.printSelf()
+            
+            guard let inputValue = inputValue(),
+                  let user = RockPaperScissorsType(rawValue: inputValue) else {
+                order = .computer
+                restartSecondGame(as: "잘못된 입력입니다. 다시 시도해주세요.")
+                return
+            }
+            result = compareSecondGame(of: createRandomNumber(), and: user)
+        }
+    }
+
     func inputValue() -> Int? {
         let value: String = readLine()?.replacingOccurrences(of: " ", with: "") ?? "0"
         return value.convertAsInt()
     }
     
+    func restartFirstGame(as quote: String) {
         print(quote)
         run()
+    }
+    
+    func restartSecondGame(as quote: String) {
+        print(quote)
+        startSecondGame()
     }
     
     func createRandomNumber() -> RockPaperScissorsType {
@@ -66,11 +90,31 @@ private extension RockPaperScissorsGame {
     func compare(of computer: RockPaperScissorsType?, and user: RockPaperScissorsType?) -> GameResult {
         switch (computer, user) {
         case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
+            allocate(order: .computer, user: user, and: computer)
             return .lose
         case (.paper, .scissors), (.rock, .paper), (.scissors, .rock):
+            allocate(order: .user, user: user, and: computer)
             return .win
         default:
             return .draw
+        }
+    }
+    
+    func allocate(order: Player?, user: RockPaperScissorsType?, and computer: RockPaperScissorsType? ) {
+        self.order = order
+        self.userValue = user
+        self.computerValue = computer
+        print("\(order?.rawValue ?? "")의 턴입니다.")
+    }
+    
+    func compareSecondGame(of computer: RockPaperScissorsType?, and user: RockPaperScissorsType?) -> Bool {
+        if computer == user {
+            print("\(order?.rawValue ?? "" )의 승리!")
+            print("게임종료")
+            return false
+        } else {
+            compare(of: computer, and: user)
+            return true
         }
     }
 }

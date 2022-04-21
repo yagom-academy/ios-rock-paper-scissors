@@ -11,6 +11,7 @@ enum GameResult {
     case win
     case lose
     case draw
+    case none
 }
 
 extension GameResult {
@@ -22,6 +23,8 @@ extension GameResult {
             return "졌습니다.!"
         case .draw:
             return "비겼습니다.!"
+        case .none:
+            return "게입 종료!"
         }
     }
 }
