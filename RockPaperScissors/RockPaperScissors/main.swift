@@ -34,7 +34,7 @@ enum RockPaperScissor: CaseIterable {
         }
     }
     
-    var correspodingMJPNumber: Int {
+    var correspodingMuckJjiPpaNumber: Int {
         switch self {
         case .rock:
             return 1
@@ -47,19 +47,19 @@ enum RockPaperScissor: CaseIterable {
 }
 
 enum winnigCases {
-    case RPS
-    case MJP
+    case RockPaperScissorCase
+    case MuckJjiPpaCase
     
     var numberCases: Array<(Int,Int)> {
         switch self {
-        case .RPS:
+        case .RockPaperScissorCase:
             return [(RockPaperScissor.scissor.correspondingNumber, RockPaperScissor.paper.correspondingNumber),
                     (RockPaperScissor.rock.correspondingNumber, RockPaperScissor.scissor.correspondingNumber),
                     (RockPaperScissor.paper.correspondingNumber, RockPaperScissor.rock.correspondingNumber)]
-        case .MJP:
-            return [(RockPaperScissor.rock.correspodingMJPNumber, RockPaperScissor.scissor.correspodingMJPNumber),
-                    (RockPaperScissor.scissor.correspodingMJPNumber, RockPaperScissor.paper.correspodingMJPNumber),
-                    (RockPaperScissor.paper.correspodingMJPNumber, RockPaperScissor.rock.correspodingMJPNumber)]
+        case .MuckJjiPpaCase:
+            return [(RockPaperScissor.rock.correspodingMuckJjiPpaNumber, RockPaperScissor.scissor.correspodingMuckJjiPpaNumber),
+                    (RockPaperScissor.scissor.correspodingMuckJjiPpaNumber, RockPaperScissor.paper.correspodingMuckJjiPpaNumber),
+                    (RockPaperScissor.paper.correspodingMuckJjiPpaNumber, RockPaperScissor.rock.correspodingMuckJjiPpaNumber)]
         }
     }
 }
@@ -83,22 +83,22 @@ enum GameResult: String {
 
 struct Player {
     private var playerName: String
-    private var MJPTurn = false
+    private var MuckJjiPpaTurn = false
     
     init(playerName: String) {
         self.playerName = playerName
     }
     
-    mutating func MJPTurnChange() {
-        if self.MJPTurn {
-            self.MJPTurn = false
+    mutating func MuckJjiPpaTurnChange() {
+        if self.MuckJjiPpaTurn {
+            self.MuckJjiPpaTurn = false
         } else {
-            self.MJPTurn = true
+            self.MuckJjiPpaTurn = true
         }
     }
     
-    func retrieveMJPTurn() -> Bool {
-        return self.MJPTurn
+    func retrieveMuckJjiPpaTurn() -> Bool {
+        return self.MuckJjiPpaTurn
     }
     
     func retrievePlayerName() -> String {
@@ -110,15 +110,15 @@ var user = Player(playerName: "사용자")
 var computer = Player(playerName: "컴퓨터")
 
 func doTurnChange() {
-    computer.MJPTurnChange()
-    user.MJPTurnChange()
+    computer.MuckJjiPpaTurnChange()
+    user.MuckJjiPpaTurnChange()
 }
 
-func printRPSOption() {
+func printRockPaperScissorOption() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
-func printMJPOption(player: Player) {
+func printMuckJjiPpaOption(player: Player) {
     print("[\(player.retrievePlayerName()) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
 }
 
@@ -168,49 +168,49 @@ func compareTwoNumbers (userInput: Int, computerInput: Int, winningNumberCase: A
     return matchResult
 }
 
-func startRPSGame() {
-    let computerRPSInput = makeComputerRandomNumber()
+func startRockPaperScissorGame() {
+    let computerRockPaperScissorInput = makeComputerRandomNumber()
     while true {
-        printRPSOption()
-        let userRPSInput = inputUserNumber()
-        if userRPSInput == ExceptionalInput.wrongInput.correspondingNumber {
+        printRockPaperScissorOption()
+        let userRockPaperScissorInput = inputUserNumber()
+        if userRockPaperScissorInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             continue
         }
-        if userRPSInput == ExceptionalInput.closeInput.correspondingNumber{
+        if userRockPaperScissorInput == ExceptionalInput.closeInput.correspondingNumber{
             print("게임 종료")
             break
         }
-        let comparedResult = compareTwoNumbers(userInput: userRPSInput, computerInput: computerRPSInput, winningNumberCase: winnigCases.RPS.numberCases)
+        let comparedResult = compareTwoNumbers(userInput: userRockPaperScissorInput, computerInput: computerRockPaperScissorInput, winningNumberCase: winnigCases.RockPaperScissorCase.numberCases)
         print(comparedResult)
         if comparedResult == GameResult.draw.result {
             continue
         }
-        comparedResult == GameResult.win.result ? user.MJPTurnChange() : computer.MJPTurnChange()
-        startMJPGame()
+        comparedResult == GameResult.win.result ? user.MuckJjiPpaTurnChange() : computer.MuckJjiPpaTurnChange()
+        startMuckJjiPpaGame()
         break
     }
 }
 
-func startMJPGame() {
+func startMuckJjiPpaGame() {
     while true {
-        let currentWinner = user.retrieveMJPTurn() ? user : computer
-        printMJPOption(player: currentWinner)
-        let computerMJPInput = makeComputerRandomNumber()
-        let userMJPInput = inputUserNumber()
-        if userMJPInput == ExceptionalInput.closeInput.correspondingNumber{
+        let currentWinner = user.retrieveMuckJjiPpaTurn() ? user : computer
+        printMuckJjiPpaOption(player: currentWinner)
+        let computerMuckJjiPpaInput = makeComputerRandomNumber()
+        let userMuckJjiPpaInput = inputUserNumber()
+        if userMuckJjiPpaInput == ExceptionalInput.closeInput.correspondingNumber{
             print("게임 종료")
             break
         }
-        if currentWinner.retrievePlayerName() == user.retrievePlayerName() && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
+        if currentWinner.retrievePlayerName() == user.retrievePlayerName() && userMuckJjiPpaInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             doTurnChange()
             continue
-        } else if currentWinner.retrievePlayerName() == computer.retrievePlayerName() && userMJPInput == ExceptionalInput.wrongInput.correspondingNumber {
+        } else if currentWinner.retrievePlayerName() == computer.retrievePlayerName() && userMuckJjiPpaInput == ExceptionalInput.wrongInput.correspondingNumber {
             printErrorMessage()
             continue
         }
-        let matchResult = compareTwoNumbers(userInput: userMJPInput, computerInput: computerMJPInput, winningNumberCase: winnigCases.MJP.numberCases)
+        let matchResult = compareTwoNumbers(userInput: userMuckJjiPpaInput, computerInput: computerMuckJjiPpaInput, winningNumberCase: winnigCases.MuckJjiPpaCase.numberCases)
         if matchResult == GameResult.draw.result {
             print("\(currentWinner.retrievePlayerName())의 승리!")
             print("게임 종료")
@@ -225,4 +225,4 @@ func startMJPGame() {
     }
 }
 
-startRPSGame()
+startRockPaperScissorGame()
