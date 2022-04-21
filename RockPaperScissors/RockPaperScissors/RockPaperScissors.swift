@@ -6,10 +6,8 @@
 //
 
 struct RockPaperScissors {
-    private var userChoice: GameChoice?
-    private var userChoiceNumber: Int?
-    private var computerChoice: GameChoice?
-    let computerChoiceNumber = Int.random(in: GameChoice.scissors.number...GameChoice.paper.number)
+    private var userChoice: GameRockPaperScissorsChoice?
+    private var computerChoice: GameRockPaperScissorsChoice?
     
     mutating func executeGame() {
         GameStatus.menu.printMessage()
@@ -25,7 +23,8 @@ struct RockPaperScissors {
     }
     
     private mutating func inputUserSelect() {
-        userChoiceNumber = Int(readLine() ?? "")
+        let userChoiceNumber = Int(readLine() ?? "")
+        userChoice = changeToGameChoice(from: userChoiceNumber)
     }
     
     private func verifyUserSelection() -> Bool {
@@ -62,7 +61,10 @@ struct RockPaperScissors {
         }
     }
     
-    private func compareChoice() -> GameResult {
+    private mutating func compareChoice() -> GameResult {
+        let computerChoiceNumber = Int.random(in: GameRockPaperScissorsChoice.scissors.number...GameRockPaperScissorsChoice.paper.number)
+        computerChoice = changeToGameChoice(from: computerChoiceNumber)
+        
         switch userChoice {
         case computerChoice:
             return .draw
@@ -77,15 +79,30 @@ struct RockPaperScissors {
         }
     }
     
-    private func compareScissorsOfUser(with computerChoice: GameChoice?) -> GameResult {
+    private func compareScissorsOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
         return computerChoice == .paper ? .win : .lose
     }
     
-    private func comparePaperOfUser(with computerChoice: GameChoice?) -> GameResult {
+    private func comparePaperOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
         return computerChoice == .rock ? .win : .lose
     }
     
-    private func compareRockOfUser(with computerChoice: GameChoice?) -> GameResult {
+    private func compareRockOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
         return computerChoice == .scissors ? .win : .lose
+    }
+    
+    func changeToGameChoice(from number: Int?) -> GameRockPaperScissorsChoice {
+        switch number {
+        case GameRockPaperScissorsChoice.end.number:
+            return .end
+        case GameRockPaperScissorsChoice.scissors.number:
+            return .scissors
+        case GameRockPaperScissorsChoice.paper.number:
+            return .paper
+        case GameRockPaperScissorsChoice.rock.number:
+            return .rock
+        default:
+            return .error
+        }
     }
 }
