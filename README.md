@@ -219,17 +219,13 @@ enum Game {
 
 
 
-### 이번 프로젝트를 수행함에 있어 꼭 읽고 참고해야 하는 문서
-- [Git Commit](https://camp.yagom-academy.kr/camp/61d414e5e4081120ba7884d2/articles/623d20cc0983dd14920a3e5a)
-- Swift Playground 앱의 [코딩배우기 II] 끝까지 마치기
-- [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/) - 특히 Naming 파트
-- [Swift Language Guide - Control Flow](https://docs.swift.org/swift-book/LanguageGuide/ControlFlow.html)
-- [Swift Language Guide - Functions](https://docs.swift.org/swift-book/LanguageGuide/Functions.html)
-- [Swift Language Guide - Enumerations](https://docs.swift.org/swift-book/LanguageGuide/Enumerations.html)
-- [Swift Language Guide - Properties](https://docs.swift.org/swift-book/LanguageGuide/Properties.html)
-- [Swift Language Guide - Methods](https://docs.swift.org/swift-book/LanguageGuide/Methods.html)
-- 추가) [Swift Language Guide - Generics](https://docs.swift.org/swift-book/LanguageGuide/Generics.html)
-
+### 이번 프로젝트 동안 학습한 키워드
+- Enumerations
+- Overloading
+- Struct
+- Optional
+- Switch-Case
+- Recursive
 
 ---
 
