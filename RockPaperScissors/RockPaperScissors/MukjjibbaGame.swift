@@ -1,16 +1,48 @@
 class MukjjibbaGame: RockPaperScissorsGame {
-    var currentTurn: String = ""
-    
     private var muk: String = Mukjjibba.muk.theNumberOfCase
     private var jji: String = Mukjjibba.jji.theNumberOfCase
     private var bba: String = Mukjjibba.bba.theNumberOfCase
     private var endGame: String = Mukjjibba.end.theNumberOfCase
     
-    func checkTurn() {
-        if gameResult == "이겼습니다." {
-            self.currentTurn = "사용자"
-        } else {
-            self.currentTurn = "컴퓨터"
+    var currentTurn: String {
+        switch gameResult {
+        case "이겼습니다.":
+            return "사용자"
+        case "졌습니다.":
+            return "컴퓨터"
+        default:
+            return ""
+        }
+    }
+    
+    override func startGame() {
+        super.startGame()
+
+        while true {
+            print("[\(currentTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
+            inputUserNumber()
+            choiceRockPaperScissors()
+            checkRockPaperScissorsRule(from: userNumber)
+            
+            if userNumber == endGame {
+                break
+            }
+
+            if resultOfCheck {
+                print("잘못된 입력입니다. 다시 시도해 주세요.")
+                gameResult = "졌습니다."
+                continue
+            }
+            
+            let endGame = setMukjjibbaRule(userInput: userNumber, randomNumber: computerNumber)
+            
+            if endGame {
+                print("\(currentTurn)의 승리!")
+                print("게임 종료")
+                break
+            } else {
+                print("\(currentTurn)의 턴입니다.")
+            }
         }
     }
     
@@ -19,7 +51,6 @@ class MukjjibbaGame: RockPaperScissorsGame {
            return true
         } else {
             getTurn(userInput, with: randomNumber)
-            checkTurn()
             return false
         }
     }
@@ -36,35 +67,6 @@ class MukjjibbaGame: RockPaperScissorsGame {
                 self.gameResult = "졌습니다."
             } else {
                 self.gameResult = "이겼습니다."
-            }
-        }
-    }
-    
-    override func startGame() {
-        super.startGame()
-        checkTurn()
-        
-        while true {
-            print("[\(currentTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
-            inputUserNumber()
-            choiceRockPaperScissors()
-            checkRockPaperScissorsRule(from: userNumber)
-            
-            if userNumber == endGame {
-                break
-            }
-
-            if resultOfCheck {
-                print("잘못된 입력입니다. 다시 시도해 주세요.")
-                self.currentTurn = "컴퓨터"
-                continue
-            }
-            
-            let endGame = setMukjjibbaRule(userInput: userNumber, randomNumber: computerNumber)
-            
-            if endGame {
-                print("\(currentTurn)의 승리...!")
-                break
             }
         }
     }
