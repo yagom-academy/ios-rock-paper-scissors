@@ -10,7 +10,7 @@ enum ResultMessage {
     static let lose = "졌습니다!"
 }
 
-enum InformationMessage {
+enum GameGuideMessage {
     static let startGame = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     static let endGame = "게임 종료"
     static let inputError = "잘못된 입력입니다. 다시 시도해주세요."
@@ -24,7 +24,7 @@ enum Winner {
 }
 
 func startGame() {
-    print(InformationMessage.startGame, terminator: "")
+    print(GameGuideMessage.startGame, terminator: "")
     if let choicedMenu = readLine() {
         playGame(number: choicedMenu)
     }
@@ -32,7 +32,7 @@ func startGame() {
 
 func playGame(number: String) {
     guard number != "0" else {
-        print(InformationMessage.endGame)
+        print(GameGuideMessage.endGame)
         return
     }
     
@@ -57,14 +57,14 @@ func obtainUserHandDesign(number: String) -> RPS? {
     case "3":
         return RPS.paper
     default:
-        print(InformationMessage.inputError)
+        print(GameGuideMessage.inputError)
         return nil
     }
 }
 
 func obtainComputerHandDesign() -> RPS? {
     guard let computerHandDesign: RPS = RPS(rawValue: Int.random(in: 1...3)) else {
-        print(InformationMessage.computerHandDesignError)
+        print(GameGuideMessage.computerHandDesignError)
         return nil
     }
     return computerHandDesign
@@ -86,7 +86,7 @@ func compare(myHandDesign: RPS, computerHandDesign: RPS) {
 }
 
 func startMukChiBaGame(winner: String) {
-    print("[\(winner) 턴] \(InformationMessage.startMukChiBaGame)", terminator: "")
+    print("[\(winner) 턴] \(GameGuideMessage.startMukChiBaGame)", terminator: "")
     if let choicedMenu = readLine() {
         playMukChiBaGame(number: choicedMenu, winner: winner)
     }
@@ -94,7 +94,7 @@ func startMukChiBaGame(winner: String) {
 
 func playMukChiBaGame(number: String, winner: String){
     guard number != "0" else {
-        print(InformationMessage.endGame)
+        print(GameGuideMessage.endGame)
         return
     }
     
