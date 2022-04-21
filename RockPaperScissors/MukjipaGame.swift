@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct mukJiPaGame: Game {
+struct MukJiPaGame: Game {
     
     //MARK: - 프린트 함수 모음
         
