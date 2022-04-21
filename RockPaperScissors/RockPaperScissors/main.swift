@@ -34,7 +34,7 @@ private func printGameMenu(game: String) {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         playRockPaperScissors()
     case "mookjjibba":
-        print("[\(turn.winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ")
+        print("[\(turn.winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         playMookjjibba()
     default:
         break
@@ -83,7 +83,6 @@ private func printResultAndGameMenu(gameResult: GameResult, winner: String = "")
         turn.inputWinner(winner: winner)
         printResult(gameResult: gameResult)
         printGameMenu(game: "mookjjibba")
-        playMookjjibba()
     } else {
         printResult(gameResult: gameResult)
         printGameMenu(game: "rockpaperscissors")
@@ -135,7 +134,6 @@ private func comparePlayerAndComputerMookjjibba(userHand: Hand?, computerHand: H
 private func changeTurn(winner: String) {
     turn.inputWinner(winner: winner)
     printGameMenu(game: "mookjjibba")
-    playMookjjibba()
 }
 
 printGameMenu(game: "rockpaperscissors")
