@@ -8,7 +8,8 @@
 struct Game {
     private var userChoice: GameRockPaperScissorsChoice?
     private var computerChoice: GameRockPaperScissorsChoice?
-    private var isSatisfying = (userTurn: false, sameChoice: false)
+    private var isUserTurn = false
+    private var isSameChoice = false
     
     mutating func execute() {
         GameStatus.rockPaperScissorsMenu.printMessage()
@@ -54,11 +55,11 @@ struct Game {
             execute()
         case .win:
             GameStatus.win.printMessage()
-            isSatisfying.userTurn = true
+            isUserTurn = true
             executeMukChiBa()
         case .lose:
             GameStatus.lose.printMessage()
-            isSatisfying.userTurn = false
+            isUserTurn = false
             executeMukChiBa()
         }
     }
@@ -93,7 +94,7 @@ struct Game {
         return computerChoice == .scissors ? .win : .lose
     }
     
-    func changeToGameChoice(from number: Int?) -> GameRockPaperScissorsChoice {
+    private func changeToGameChoice(from number: Int?) -> GameRockPaperScissorsChoice {
         switch number {
         case GameRockPaperScissorsChoice.end.number:
             return .end
@@ -140,29 +141,29 @@ extension Game {
         }
     }
     
-    mutating func executeMukChiBa() {
+    private mutating func executeMukChiBa() {
         printMukChiBaMenu()
         inputUserSelect()
         
         if verifyUserSelection() == true {
             decideMukChiBaStart()
         } else {
-            isSatisfying.userTurn = false
+            isUserTurn = false
             
             GameStatus.error.printMessage()
             executeMukChiBa()
         }
     }
     
-    func printMukChiBaMenu() {
-        if isSatisfying.userTurn == true {
+    private func printMukChiBaMenu() {
+        if isUserTurn == true {
             GameStatus.userTurnMukChibaMenu.printMessage()
         } else {
             GameStatus.computerTurnMukChibaMenu.printMessage()
         }
     }
     
-    mutating func decideMukChiBaStart() {
+    private mutating func decideMukChiBaStart() {
         if userMukChiBaChoice == .end {
             GameStatus.end.printMessage()
         } else {
@@ -171,23 +172,23 @@ extension Game {
         }
     }
     
-    mutating func decideTurn() {
-        isSatisfying.userTurn = isSatisfying.userTurn == true ? false : true
+    private mutating func decideTurn() {
+        isUserTurn = isUserTurn == true ? false : true
     }
     
-    mutating func decideSameChoice() {
+    private mutating func decideSameChoice() {
         let computerChoiceNumber = Int.random(in: GameRockPaperScissorsChoice.scissors.number...GameRockPaperScissorsChoice.paper.number)
         computerChoice = changeToGameChoice(from: computerChoiceNumber)
         
         if userMukChiBaChoice == computerMukChiBaChoice {
-            isSatisfying.sameChoice = true
+            isSameChoice = true
         } else {
-            isSatisfying.sameChoice = false
+            isSameChoice = false
         }
     }
     
-    mutating func printMukChiBaResult() {
-        switch isSatisfying {
+    private mutating func printMukChiBaResult() {
+        switch (isUserTurn, isSameChoice) {
         case (true, true):
             GameStatus.userWin.printMessage()
             GameStatus.end.printMessage()
