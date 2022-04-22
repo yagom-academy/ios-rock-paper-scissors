@@ -12,10 +12,7 @@ enum GameChoice: Int {
     case paper = 3
     
     var number: Int {
-        get {
-            return self.rawValue
-        }
-        
+        return self.rawValue
     }
     
     func changeMukChiBa() -> GameChoice {
