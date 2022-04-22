@@ -65,6 +65,7 @@ struct MukJjiPpa {
             printResult(basedOnMukJjiPpa: gameResult)
             
             quitIfTie(judgingBy: gameResult)
+            restartIfNotTie(judgingBy: gameResult)
         default:
             print(InputOfMukJjiPpa.error.message)
             attacker = GameResult.computersVictory.rawValue
@@ -108,8 +109,12 @@ struct MukJjiPpa {
     private mutating func quitIfTie(judgingBy gameResult: GameResult) {
         if gameResult == .tie {
             print("게임 종료")
-        } else {
+        }
+    }
+    private mutating func restartIfNotTie(judgingBy gameResult: GameResult) {
+        if gameResult != .tie {
             start(MukJjiPpaLedBy: attacker)
         }
     }
 }
+
