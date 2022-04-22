@@ -61,10 +61,12 @@ struct Game {
             GameStatus.lose.printMessage()
             isUserTurn = false
             executeMukChiBa()
+        default:
+            break
         }
     }
     
-    private mutating func compareChoice() -> GameResult {
+    private mutating func compareChoice() -> GameResult? {
         let computerChoiceNumber = Int.random(in: GameRockPaperScissorsChoice.scissors.number...GameRockPaperScissorsChoice.paper.number)
         computerChoice = changeToGameChoice(from: computerChoiceNumber)
         
@@ -78,7 +80,7 @@ struct Game {
         case .rock:
             return compareRockOfUser(with: computerChoice)
         default:
-            return .draw
+            return nil
         }
     }
     
@@ -94,7 +96,7 @@ struct Game {
         return computerChoice == .scissors ? .win : .lose
     }
     
-    private func changeToGameChoice(from number: Int?) -> GameRockPaperScissorsChoice {
+    private func changeToGameChoice(from number: Int?) -> GameRockPaperScissorsChoice? {
         switch number {
         case GameRockPaperScissorsChoice.end.number:
             return .end
@@ -105,13 +107,13 @@ struct Game {
         case GameRockPaperScissorsChoice.rock.number:
             return .rock
         default:
-            return .error
+            return nil
         }
     }
 }
 
 extension Game {
-    private var userMukChiBaChoice: GameMukChiBaChoice {
+    private var userMukChiBaChoice: GameMukChiBaChoice? {
         switch userChoice?.number {
         case GameRockPaperScissorsChoice.end.number:
             return .end
@@ -122,11 +124,11 @@ extension Game {
         case GameRockPaperScissorsChoice.paper.number:
             return .ba
         default:
-            return .error
+            return nil
         }
     }
     
-    private var computerMukChiBaChoice: GameMukChiBaChoice {
+    private var computerMukChiBaChoice: GameMukChiBaChoice? {
         switch computerChoice?.number {
         case GameRockPaperScissorsChoice.end.number:
             return .end
@@ -137,7 +139,7 @@ extension Game {
         case GameRockPaperScissorsChoice.paper.number:
             return .ba
         default:
-            return .error
+            return nil
         }
     }
     

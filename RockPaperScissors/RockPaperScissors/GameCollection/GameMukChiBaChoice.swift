@@ -10,7 +10,6 @@ enum GameMukChiBaChoice: Int {
     case muk = 1
     case chi = 2
     case ba = 3
-    case error
     
     var number: Int {
         get {

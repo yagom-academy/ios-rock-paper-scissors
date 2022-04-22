@@ -10,7 +10,6 @@ enum GameRockPaperScissorsChoice: Int {
     case scissors = 1
     case rock = 2
     case paper = 3
-    case error
     
     var number: Int {
         get {
