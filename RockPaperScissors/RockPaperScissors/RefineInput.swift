@@ -6,7 +6,7 @@
 
 import Foundation
 
-struct Input {
+struct RefineInput {
     static func requestUserInput() -> String {
         return readLine()?.trimmingCharacters(in: .whitespaces) ?? ""
     }

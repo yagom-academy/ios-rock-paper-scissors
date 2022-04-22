@@ -4,37 +4,42 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-class MukchibaGame {
+struct MukchibaGame {
     func startMukchibaGame() {
-        
-        if gameTurn.isEmpty { return }
-        
         printStartWhosTurn()
-        let secondSelectedNumber = Input.requestUserInput()
+        
+        let secondSelectedNumber = RefineInput.requestUserInput()
         
         if secondSelectedNumber == "0" { return }
         
-        if Input.verifyUserInput(of: secondSelectedNumber) {
-            let secondRandomCard = generateComputerMukchiba()
-            let secondSeletedCard = convertNumberToMukchiba(of: secondSelectedNumber)
-            
-            if secondSeletedCard == secondRandomCard {
-                printWhosVictory()
-            } else {
-                judgeMatchResult(inputUserNumber: secondSeletedCard,
-                                 inputcomputerNumber: secondRandomCard)
-                printWhosTurn()
-                return startMukchibaGame()
-            }
+        if RefineInput.verifyUserInput(of: secondSelectedNumber) {
+            judgeMatch(of: secondSelectedNumber)
         } else {
-            Output.printWrongInput()
-            
-            if gameTurn == "컴퓨터" {
-                startMukchibaGame()
-            } else {
-                gameTurn = "컴퓨터"
-                startMukchibaGame()
-            }
+            EditionOfOutput.printWrongInput()
+            startReMatch()
+        }
+    }
+    
+    private func judgeMatch(of userSecondCard: String) {
+        let secondRandomCard = generateComputerMukchiba()
+        let secondSeletedCard = convertNumberToMukchiba(of: userSecondCard)
+        
+        if secondSeletedCard == secondRandomCard {
+            printWhosVictory()
+        } else {
+            judgeMatchResult(inputUserNumber: secondSeletedCard,
+                             inputcomputerNumber: secondRandomCard)
+            printWhosTurn()
+            return startMukchibaGame()
+        }
+    }
+    
+    private func startReMatch() {
+        if gameTurn == "컴퓨터" {
+            startMukchibaGame()
+        } else {
+            gameTurn = "컴퓨터"
+            startMukchibaGame()
         }
     }
     
@@ -68,16 +73,11 @@ class MukchibaGame {
     }
     
     private func judgeMatchResult(inputUserNumber: Mukchiba, inputcomputerNumber: Mukchiba) {
-        
         if inputUserNumber == .chi {
             inputcomputerNumber == .ba ? (gameTurn = "사용자") : (gameTurn = "컴퓨터")
-        }
-        
-        if inputUserNumber == .ba {
+        } else if inputUserNumber == .ba {
             inputcomputerNumber == .muk ? (gameTurn = "사용자") : (gameTurn = "컴퓨터")
-        }
-        
-        if inputUserNumber == .muk {
+        } else {
             inputcomputerNumber == .chi ? (gameTurn = "사용자") : (gameTurn = "컴퓨터")
         }
     }

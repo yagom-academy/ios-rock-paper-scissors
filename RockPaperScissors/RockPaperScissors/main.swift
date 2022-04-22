@@ -13,7 +13,7 @@ func startGame() {
     
     if RockPaperScissorsGame.startRockPaperScissorsGame() != .tie {
         MukchibaGame.startMukchibaGame()
-        Output.printGameOver()
+        EditionOfOutput.printGameOver()
     } else {
         startGame()
     }

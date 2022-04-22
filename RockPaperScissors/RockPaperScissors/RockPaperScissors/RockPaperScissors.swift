@@ -4,14 +4,14 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-class RockPaperScissorsGame {
+struct RockPaperScissorsGame {
     func startRockPaperScissorsGame() -> RockPaperScissorsResult {
         printUserInterface()
-        let userSelectedCard = Input.requestUserInput()
+        let userSelectedCard = RefineInput.requestUserInput()
         
         if userSelectedCard == "0" {
             return .none
-        } else if Input.verifyUserInput(of: userSelectedCard) {
+        } else if RefineInput.verifyUserInput(of: userSelectedCard) {
             let targetNumber = convertNumberToGameCard(of: userSelectedCard)
             let computerRandomNumber = generateComputerNumber()
             let gameResult = judgeMatchResult(inputUserNumber: targetNumber,
@@ -19,7 +19,7 @@ class RockPaperScissorsGame {
             printMatchResult(matchResult: gameResult)
             return gameResult
         } else {
-            Output.printWrongInput()
+            EditionOfOutput.printWrongInput()
             return startRockPaperScissorsGame()
         }
     }
