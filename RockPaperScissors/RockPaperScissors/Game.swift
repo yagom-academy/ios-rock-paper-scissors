@@ -40,9 +40,11 @@ struct Game {
 
 extension Game {
     private mutating func inputUserSelect() {
-        if let userChoiceNumber = Int(readLine() ?? "") {
-            userChoice = GameChoice.init(rawValue: userChoiceNumber)
+        guard let userChoiceNumber = Int(readLine() ?? "") else {
+            userChoice = nil
+            return
         }
+        userChoice = GameChoice.init(rawValue: userChoiceNumber)
     }
     
     private func verifyUserSelection() -> Bool {
@@ -114,7 +116,6 @@ extension Game {
     private func compareRockOfUser(with computerChoice: GameChoice?) -> GameResult {
         return computerChoice == .scissors ? .win : .lose
     }
-    
 }
 
 extension Game {
@@ -152,16 +153,40 @@ extension Game {
             GameStatus.userWin.printMessage()
             GameStatus.end.printMessage()
         case (true, false):
-            isUserTurn.toggle()
-            GameStatus.computerTurn.printMessage()
+            printTurn()
             executeMukChiBa()
         case (false, true):
             GameStatus.computerWin.printMessage()
             GameStatus.end.printMessage()
         case (false, false):
+            printTurn()
+            executeMukChiBa()
+        }
+    }
+    
+    private mutating func printTurn() {
+        switch decideTurn() {
+        case .win:
             isUserTurn.toggle()
             GameStatus.userTurn.printMessage()
-            executeMukChiBa()
+        case .lose:
+            isUserTurn.toggle()
+            GameStatus.computerTurn.printMessage()
+        default:
+            break
+        }
+    }
+    
+    private func decideTurn() -> GameResult? {
+        switch userChoice?.changeMukChiBa() {
+        case .scissors:
+            return compareScissorsOfUser(with: computerChoice?.changeMukChiBa())
+        case .paper:
+            return comparePaperOfUser(with: computerChoice?.changeMukChiBa())
+        case .rock:
+            return compareRockOfUser(with: computerChoice?.changeMukChiBa())
+        default:
+            return nil
         }
     }
 }
