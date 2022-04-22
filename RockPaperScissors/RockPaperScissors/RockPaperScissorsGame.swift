@@ -1,42 +1,39 @@
-//
-//  functions.swift
-//  RockPaperScissors
-//
-//  Created by dhoney96 on 2022/04/18.
-//
+import Foundation
+
 class RockPaperScissorsGame {
     var userNumber: String = ""
     var computerNumber: String = ""
-    var resultOfCheck: Bool = true
     var gameResult: String = ""
-    
-    private var scissors: String = RockPaperScissors.scissors.theNumberOfCase
-    private var paper: String = RockPaperScissors.paper.theNumberOfCase
-    private var rock: String = RockPaperScissors.rock.theNumberOfCase
-    private var endGame: String = RockPaperScissors.end.theNumberOfCase
+
+    let endGame: String = GameCondition.end.functionSelection
+
+    let draw: String = GameResult.draw.result
+    let win: String = GameResult.win.result
+    let lose: String = GameResult.lose.result
+
+    private var rock: String = RockPaperScissors.rock.hand
+    private var paper: String = RockPaperScissors.paper.hand
+    private var scissors: String = RockPaperScissors.scissors.hand
     
     func startGame() {
         while true {
             print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
             inputUserNumber()
-            choiceRockPaperScissors()
+            selectRockPaperScissors()
             setRockPaperScissorsRule(userNumber, with: computerNumber)
-            checkRockPaperScissorsRule(from: userNumber)
             
             if userNumber == endGame {
                 break
             }
             
-            if resultOfCheck {
+            if isFitNumber(from: userNumber) {
                 print("잘못된 입력입니다. 다시 시도해 주세요.")
                 continue
             }
             
             print(gameResult)
             
-            if gameResult == "이겼습니다." {
-                break
-            } else if gameResult == "졌습니다." {
+            if gameResult == win || gameResult == lose {
                 break
             }
         }
@@ -47,36 +44,57 @@ class RockPaperScissorsGame {
         self.userNumber = userInput
     }
     
-    func choiceRockPaperScissors() {
-        let numberList: [String] = ["1", "2", "3"]
+    func selectRockPaperScissors() {
+        let numberOfCase: [String] = ["1", "2", "3"]
         
-        guard let choicedCase = numberList.randomElement() else { return }
-        self.computerNumber = choicedCase
+        guard let choiceCase = numberOfCase.randomElement() else { return }
+        self.computerNumber = choiceCase
     }
     
+//    func setRockPaperScissorsRule(_ userInput: String, with randomNumber: String) {
+//        if userInput == paper && randomNumber == scissors {
+//            self.gameResult = lose
+//        } else if userInput == scissors && randomNumber == paper {
+//            self.gameResult = win
+//        } else {
+//            if userInput == randomNumber {
+//                self.gameResult = draw
+//            } else if userInput < randomNumber {
+//                self.gameResult = lose
+//            } else {
+//                self.gameResult = win
+//            }
+//        }
+//    }
+    
     func setRockPaperScissorsRule(_ userInput: String, with randomNumber: String) {
-        if userInput == paper && randomNumber == scissors {
-            self.gameResult = "졌습니다."
-        } else if userInput == scissors && randomNumber == paper {
-            self.gameResult = "이겼습니다."
-        } else {
-            if userInput == randomNumber {
-                self.gameResult = "비겼습니다."
-            } else if userInput < randomNumber {
-                self.gameResult = "졌습니다."
-            } else {
-                self.gameResult = "이겼습니다."
-            }
+        if userInput == randomNumber {
+            gameResult = draw
+            
+        } else if userInput == rock {
+            
+        } else if userInput == paper {
+            
+        } else if userInput == scissors {
+            
+        }
+        
+        switch {
+            
+        case scissors:
+            gameResult = lose
+            break
+        
         }
     }
     
-    func checkRockPaperScissorsRule(from inputData: String) {
-        let allright: [String] = ["1", "2", "3", "0"]
+    func isFitNumber(from inputData: String) -> Bool {
+        let fitNumber: [String] = ["1", "2", "3", "0"]
         
-        if allright.contains(inputData) {
-            self.resultOfCheck = false
+        if fitNumber.contains(inputData) {
+            return false
         } else {
-            self.resultOfCheck = true
+            return true
         }
     }
 }

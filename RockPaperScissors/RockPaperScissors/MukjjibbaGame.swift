@@ -1,15 +1,18 @@
+import Darwin
 class MukjjibbaGame: RockPaperScissorsGame {
-    private var muk: String = Mukjjibba.muk.theNumberOfCase
-    private var jji: String = Mukjjibba.jji.theNumberOfCase
-    private var bba: String = Mukjjibba.bba.theNumberOfCase
-    private var endGame: String = Mukjjibba.end.theNumberOfCase
+    private let user: String = Player.user.selection
+    private let computer: String = Player.computer.selection
+    
+    private var muk: String = Mukjjibba.muk.hand
+    private var jji: String = Mukjjibba.jji.hand
+    private var bba: String = Mukjjibba.bba.hand
     
     var currentTurn: String {
         switch gameResult {
-        case "이겼습니다.":
-            return "사용자"
-        case "졌습니다.":
-            return "컴퓨터"
+        case win:
+            return user
+        case lose:
+            return computer
         default:
             return ""
         }
@@ -21,20 +24,21 @@ class MukjjibbaGame: RockPaperScissorsGame {
         while true {
             print("[\(currentTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
             inputUserNumber()
-            choiceRockPaperScissors()
-            checkRockPaperScissorsRule(from: userNumber)
+            selectRockPaperScissors()
             
             if userNumber == endGame {
                 break
             }
 
-            if resultOfCheck {
+            if isRockPaperScissorsRule(from: userNumber) {
                 print("잘못된 입력입니다. 다시 시도해 주세요.")
-                gameResult = "졌습니다."
+                gameResult = lose
                 continue
             }
             
-            let mukjjibbaResult = setMukjjibbaRule(userInput: userNumber, randomNumber: computerNumber)
+            let mukjjibbaResult = isMukjjibbaRule(userInput: userNumber, randomNumber: computerNumber)
+            
+            print(userNumber, computerNumber)
             
             if mukjjibbaResult {
                 print("\(currentTurn)의 승리!")
@@ -46,7 +50,7 @@ class MukjjibbaGame: RockPaperScissorsGame {
         }
     }
     
-    func setMukjjibbaRule(userInput: String, randomNumber: String) -> Bool {
+    func isMukjjibbaRule(userInput: String, randomNumber: String) -> Bool {
         if userInput == randomNumber {
            return true
         } else {
@@ -57,16 +61,16 @@ class MukjjibbaGame: RockPaperScissorsGame {
     
     func getTurn(_ userInput: String, with randomNumber: String) {
         if userInput == bba && randomNumber == muk  {
-            self.gameResult = "이겼습니다."
+            self.gameResult = win
         } else if userInput == muk  && randomNumber == bba  {
-            self.gameResult = "졌습니다."
+            self.gameResult = lose
         } else {
             if userInput == randomNumber {
-                self.gameResult = "비겼습니다."
+                self.gameResult = draw
             } else if userInput > randomNumber {
-                self.gameResult = "졌습니다."
+                self.gameResult = lose
             } else {
-                self.gameResult = "이겼습니다."
+                self.gameResult = win
             }
         }
     }
