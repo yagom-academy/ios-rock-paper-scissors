@@ -1,6 +1,6 @@
 # 가위바위보 게임
 > 프로젝트 기간 2022.04.18~2022.04.22 
-> 팀원: @Groot-94(starting1231@naver.com), @yeton(lyeeun37@naver.com)
+> 팀원: @Groot-94(https://github.com/Groot-94), @yeton(https://github.com/yeeton37)
 > 리뷰어: @Red
 
 ## step1 기능 구현
