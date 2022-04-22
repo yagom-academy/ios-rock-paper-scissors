@@ -113,36 +113,6 @@ struct Game {
 }
 
 extension Game {
-    private var userMukChiBaChoice: GameMukChiBaChoice? {
-        switch userChoice?.number {
-        case GameRockPaperScissorsChoice.end.number:
-            return .end
-        case GameRockPaperScissorsChoice.scissors.number:
-            return .muk
-        case GameRockPaperScissorsChoice.rock.number:
-            return .chi
-        case GameRockPaperScissorsChoice.paper.number:
-            return .ba
-        default:
-            return nil
-        }
-    }
-    
-    private var computerMukChiBaChoice: GameMukChiBaChoice? {
-        switch computerChoice?.number {
-        case GameRockPaperScissorsChoice.end.number:
-            return .end
-        case GameRockPaperScissorsChoice.scissors.number:
-            return .muk
-        case GameRockPaperScissorsChoice.rock.number:
-            return .chi
-        case GameRockPaperScissorsChoice.paper.number:
-            return .ba
-        default:
-            return nil
-        }
-    }
-    
     private mutating func executeMukChiBa() {
         printMukChiBaMenu()
         inputUserSelect()
@@ -166,7 +136,7 @@ extension Game {
     }
     
     private mutating func decideMukChiBaStart() {
-        if userMukChiBaChoice == .end {
+        if userChoice?.changeMukChiBa() == .end {
             GameStatus.end.printMessage()
         } else {
             decideSameChoice()
@@ -182,7 +152,7 @@ extension Game {
         let computerChoiceNumber = Int.random(in: GameRockPaperScissorsChoice.scissors.number...GameRockPaperScissorsChoice.paper.number)
         computerChoice = changeToGameChoice(from: computerChoiceNumber)
         
-        if userMukChiBaChoice == computerMukChiBaChoice {
+        if userChoice?.changeMukChiBa() == computerChoice?.changeMukChiBa() {
             isSameChoice = true
         } else {
             isSameChoice = false

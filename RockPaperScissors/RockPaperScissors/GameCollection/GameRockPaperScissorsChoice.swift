@@ -16,5 +16,18 @@ enum GameRockPaperScissorsChoice: Int {
             return self.rawValue
         }
     }
+    
+    func changeMukChiBa() -> GameMukChiBaChoice {
+        switch self {
+        case .end:
+            return .end
+        case .scissors:
+            return .muk
+        case .rock:
+            return .chi
+        case .paper:
+            return .ba
+        }
+    }
 }
 
