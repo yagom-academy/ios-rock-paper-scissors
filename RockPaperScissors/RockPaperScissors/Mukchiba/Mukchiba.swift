@@ -7,13 +7,12 @@
 struct MukchibaGame {
     func startMukchibaGame() {
         printStartWhosTurn()
+        let mukchibaSelectedCard = RefineInput.requestUserInput()
         
-        let secondSelectedNumber = RefineInput.requestUserInput()
+        if mukchibaSelectedCard == "0" { return }
         
-        if secondSelectedNumber == "0" { return }
-        
-        if RefineInput.verifyUserInput(of: secondSelectedNumber) {
-            judgeMatch(of: secondSelectedNumber)
+        if RefineInput.verifyUserInput(of: mukchibaSelectedCard) {
+            judgeMatch(of: mukchibaSelectedCard)
         } else {
             EditionOfOutput.printWrongInput()
             startReMatch()
@@ -35,23 +34,20 @@ struct MukchibaGame {
     }
     
     private func startReMatch() {
-        if gameTurn == "컴퓨터" {
-            startMukchibaGame()
-        } else {
-            gameTurn = "컴퓨터"
-            startMukchibaGame()
-        }
+        gameTurn = .computer
+        startMukchibaGame()
     }
     
     private func printStartWhosTurn() {
-        print("[\(gameTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        print("[\(gameTurn.gameTurnType) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
     
     private func printWhosTurn() {
-        print("\(gameTurn)의 턴입니다")
+        print("\(gameTurn.gameTurnType)의 턴입니다")
     }
     
     private func generateComputerMukchiba() -> Mukchiba {
+        let randomNumberRange: ClosedRange<Int> = 1...3
         return Mukchiba(rawValue: Int.random(in: randomNumberRange)) ?? .wrong
     }
     
@@ -69,16 +65,24 @@ struct MukchibaGame {
     }
     
     private func printWhosVictory() {
-        print("\(gameTurn)의 승리!")
+        print("\(gameTurn.gameTurnType)의 승리!")
     }
     
     private func judgeMatchResult(inputUserNumber: Mukchiba, inputcomputerNumber: Mukchiba) {
+        
         if inputUserNumber == .chi {
-            inputcomputerNumber == .ba ? (gameTurn = "사용자") : (gameTurn = "컴퓨터")
-        } else if inputUserNumber == .ba {
-            inputcomputerNumber == .muk ? (gameTurn = "사용자") : (gameTurn = "컴퓨터")
-        } else {
-            inputcomputerNumber == .chi ? (gameTurn = "사용자") : (gameTurn = "컴퓨터")
+            inputcomputerNumber == .ba ? (gameTurn = .user) : (gameTurn = .computer)
+            return
+        }
+        
+        if inputUserNumber == .ba {
+            inputcomputerNumber == .muk ? (gameTurn = .user) : (gameTurn = .computer)
+            return
+        }
+        
+        if inputUserNumber == .muk {
+            inputcomputerNumber == .chi ? (gameTurn = .user) : (gameTurn = .computer)
+            return
         }
     }
 }

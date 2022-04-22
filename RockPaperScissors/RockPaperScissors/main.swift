@@ -4,8 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-let randomNumberRange: ClosedRange<Int> = 1...3
-var gameTurn: String = ""
+var gameTurn: GameTurn = .user
 
 func startGame() {
     let RockPaperScissorsGame = RockPaperScissorsGame()

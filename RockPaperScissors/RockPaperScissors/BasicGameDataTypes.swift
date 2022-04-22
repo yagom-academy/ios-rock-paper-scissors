@@ -24,3 +24,17 @@ enum RockPaperScissorsResult {
     case tie
     case none
 }
+
+enum GameTurn {
+    case user
+    case computer
+    
+    var gameTurnType: String {
+        switch self {
+        case .user:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        }
+    }
+}

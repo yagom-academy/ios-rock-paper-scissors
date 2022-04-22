@@ -63,6 +63,7 @@ struct RockPaperScissorsGame {
     }
     
     private func generateComputerNumber() -> RockPaperScissors {
+        let randomNumberRange: ClosedRange<Int> = 1...3
         return RockPaperScissors(rawValue: Int.random(in: randomNumberRange)) ?? .wrong
     }
     
@@ -70,10 +71,10 @@ struct RockPaperScissorsGame {
         switch matchResult {
         case .win:
             print("이겼습니다!")
-            gameTurn = "사용자"
+            gameTurn = .user
         case .lose:
             print("졌습니다!")
-            gameTurn = "컴퓨터"
+            gameTurn = .computer
         case .tie:
             print("비겼습니다!")
         case .none:
