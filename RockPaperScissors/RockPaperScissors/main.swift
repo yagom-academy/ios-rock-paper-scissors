@@ -1,1 +1,1 @@
-printGameMenu(game: "rockpaperscissors")
+printGameMenu(game: Game.rockPaperScissors)

@@ -1,20 +1,23 @@
 func playMookjjibba() {
     let userHand = inputUserHand()
     switch userHand {
-    case 1, 2, 3 :
-        comparePlayerAndComputerMookjjibba(userHand: convertUserInputToHand(input: userHand), computerHand: convertComputerNumberToHand())
-    case 0 :
+    case .rock, .scissors, .paper :
+        comparePlayerAndComputerMookjjibba(userHand: userHand, computerHand: convertComputerNumberToHand())
+    case .exit :
         printExitMessage()
     default :
         print("잘못된 입력입니다. 다시 시도해주세요.")
         turn.inputWinner(winner: "컴퓨터")
-        printGameMenu(game: "mookjjibba")
+        printGameMenu(game: Game.mookjjibba)
     }
 }
 
 func comparePlayerAndComputerMookjjibba(userHand: Hand?, computerHand: Hand?) {
-    if computerHand == .rock && userHand == .scissors || computerHand == .scissors && userHand == .paper ||
-        computerHand == .paper && userHand == .rock {
+    var isWin: Bool {
+        return computerHand == .rock && userHand == .scissors || computerHand == .scissors && userHand == .paper ||
+        computerHand == .paper && userHand == .rock
+    }
+    if isWin {
         print("사용자의 턴입니다")
         changeTurn(winner: "사용자")
     } else if computerHand == userHand {
@@ -27,5 +30,5 @@ func comparePlayerAndComputerMookjjibba(userHand: Hand?, computerHand: Hand?) {
 
 func changeTurn(winner: String) {
     turn.inputWinner(winner: winner)
-    printGameMenu(game: "mookjjibba")
+    printGameMenu(game: Game.mookjjibba)
 }

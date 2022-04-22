@@ -1,5 +1,7 @@
 enum Hand: Int {
-    case scissors = 1
+    case exit
+    case scissors
     case rock
     case paper
+    case invalidInput
 }

@@ -1,23 +1,24 @@
-func printGameMenu(game: String) {
+enum Game: String{
+    case rockPaperScissors
+    case mookjjibba
+}
+
+func printGameMenu(game: Game) {
     switch game {
-    case "rockpaperscissors":
+    case .rockPaperScissors:
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         playRockPaperScissors()
-    case "mookjjibba":
+    case .mookjjibba:
         print("[\(turn.winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         playMookjjibba()
-    default:
-        break
     }
 }
 
-func inputUserHand() -> Int {
-    guard let convertedInput = Int(readLine() ?? "") else { return 4 }
-    return convertedInput
-}
-
-func convertUserInputToHand(input: Int) -> Hand? {
-    return Hand(rawValue: input)
+func inputUserHand() -> Hand? {
+    if let convertedInput = Int(readLine() ?? "") {
+        return Hand(rawValue: convertedInput)
+    }
+    return Hand.invalidInput
 }
 
 func convertComputerNumberToHand() -> Hand? {
