@@ -6,8 +6,8 @@
 //
 
 struct Game {
-    private var userChoice: GameRockPaperScissorsChoice?
-    private var computerChoice: GameRockPaperScissorsChoice?
+    private var userChoice: GameChoice?
+    private var computerChoice: GameChoice?
     private var isUserTurn = false
     private var isSameChoice = false
     
@@ -40,8 +40,9 @@ struct Game {
 
 extension Game {
     private mutating func inputUserSelect() {
-        let userChoiceNumber = Int(readLine() ?? "")
-        userChoice = changeToGameChoice(from: userChoiceNumber)
+        if let userChoiceNumber = Int(readLine() ?? "") {
+            userChoice = GameChoice.init(rawValue: userChoiceNumber)
+        }
     }
     
     private func verifyUserSelection() -> Bool {
@@ -85,8 +86,8 @@ extension Game {
     }
     
     private mutating func compareChoice() -> GameResult? {
-        let computerChoiceNumber = Int.random(in: GameRockPaperScissorsChoice.scissors.number...GameRockPaperScissorsChoice.paper.number)
-        computerChoice = changeToGameChoice(from: computerChoiceNumber)
+        let computerChoiceNumber = Int.random(in: GameChoice.scissors.number...GameChoice.paper.number)
+        computerChoice = GameChoice.init(rawValue: computerChoiceNumber)
         
         switch userChoice {
         case computerChoice:
@@ -102,30 +103,15 @@ extension Game {
         }
     }
     
-    private func changeToGameChoice(from number: Int?) -> GameRockPaperScissorsChoice? {
-        switch number {
-        case GameRockPaperScissorsChoice.end.number:
-            return .end
-        case GameRockPaperScissorsChoice.scissors.number:
-            return .scissors
-        case GameRockPaperScissorsChoice.paper.number:
-            return .paper
-        case GameRockPaperScissorsChoice.rock.number:
-            return .rock
-        default:
-            return nil
-        }
-    }
-    
-    private func compareScissorsOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
+    private func compareScissorsOfUser(with computerChoice: GameChoice?) -> GameResult {
         return computerChoice == .paper ? .win : .lose
     }
     
-    private func comparePaperOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
+    private func comparePaperOfUser(with computerChoice: GameChoice?) -> GameResult {
         return computerChoice == .rock ? .win : .lose
     }
     
-    private func compareRockOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
+    private func compareRockOfUser(with computerChoice: GameChoice?) -> GameResult {
         return computerChoice == .scissors ? .win : .lose
     }
     
@@ -150,8 +136,8 @@ extension Game {
     }
     
     private mutating func decideSameChoice() {
-        let computerChoiceNumber = Int.random(in: GameRockPaperScissorsChoice.scissors.number...GameRockPaperScissorsChoice.paper.number)
-        computerChoice = changeToGameChoice(from: computerChoiceNumber)
+        let computerChoiceNumber = Int.random(in: GameChoice.scissors.number...GameChoice.paper.number)
+        computerChoice = GameChoice.init(rawValue: computerChoiceNumber)
         
         if userChoice?.changeMukChiBa() == computerChoice?.changeMukChiBa() {
             isSameChoice = true
