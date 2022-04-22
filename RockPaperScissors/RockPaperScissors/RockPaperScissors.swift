@@ -1,5 +1,6 @@
 func playRockPaperScissors() {
-    switch inputUserHand() {
+    let userHand = inputUserHand()
+    switch userHand {
     case .rock, .scissors, .paper :
         comparePlayerAndComputerRockPaperScissors(userHand: userHand, computerHand: convertComputerNumberToHand())
     case .exit :
@@ -10,9 +11,9 @@ func playRockPaperScissors() {
     }
 }
 
-func comparePlayerAndComputerRockPaperScissors(userHand: Hand?, computerHand: Hand?) {
+func comparePlayerAndComputerRockPaperScissors(userHand: Hand, computerHand: Hand) {
     var isWin: Bool {
-        computerHand == .scissors && userHand == .rock || computerHand == .rock && userHand == .paper ||
+        return computerHand == .scissors && userHand == .rock || computerHand == .rock && userHand == .paper ||
         computerHand == .paper && userHand == .scissors
     }
     if isWin {

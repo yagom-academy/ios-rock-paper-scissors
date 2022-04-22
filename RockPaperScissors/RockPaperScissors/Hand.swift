@@ -1,4 +1,4 @@
-enum Hand: Int {
+enum Hand: Int, CaseIterable {
     case exit
     case scissors
     case rock

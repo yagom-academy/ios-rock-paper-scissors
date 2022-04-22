@@ -1,8 +1,4 @@
-enum Game: String{
-    case rockPaperScissors
-    case mookjjibba
-}
-
+import CoreGraphics
 func startGame(game: Game) {
     switch game {
     case .rockPaperScissors:
@@ -14,15 +10,14 @@ func startGame(game: Game) {
     }
 }
 
-func inputUserHand() -> Hand? {
-    if let convertedInput = Int(readLine() ?? "") {
-        return Hand(rawValue: convertedInput)
-    }
-    return Hand.invalidInput
+func inputUserHand() -> Hand {
+    guard let convertedInput = Int(readLine() ?? "") else { return Hand.invalidInput }
+    guard convertedInput < 5 && convertedInput >= 0 else { return Hand.invalidInput }
+    return Hand.allCases[convertedInput]
 }
 
-func convertComputerNumberToHand() -> Hand? {
-    return Hand(rawValue: Int.random(in: 1...3))
+func convertComputerNumberToHand() -> Hand {
+    return Hand.allCases[Int.random(in: 1...3)]
 }
 
 func printRockPaperScissorsResult(gameResult: RockPaperScissorsResult) {

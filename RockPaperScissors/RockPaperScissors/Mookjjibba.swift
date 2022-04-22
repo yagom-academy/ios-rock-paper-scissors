@@ -12,7 +12,7 @@ func playMookjjibba() {
     }
 }
 
-func comparePlayerAndComputerMookjjibba(userHand: Hand?, computerHand: Hand?) {
+func comparePlayerAndComputerMookjjibba(userHand: Hand, computerHand: Hand) {
     var isWin: Bool {
         return computerHand == .rock && userHand == .scissors || computerHand == .scissors && userHand == .paper ||
         computerHand == .paper && userHand == .rock
