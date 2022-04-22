@@ -6,5 +6,5 @@
 
 import Foundation
 
-var game = Game()
+var game = RockPaperScissors()
 game.start()
