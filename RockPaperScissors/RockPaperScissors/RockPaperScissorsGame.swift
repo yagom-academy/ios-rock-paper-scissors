@@ -16,7 +16,7 @@ class RockPaperScissorsGame {
     private var scissors: String = RockPaperScissors.scissors.hand
     
     func startGame() {
-        while true {
+        while gameResult != win && gameResult != lose {
             print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
             inputUserNumber()
             selectRockPaperScissors()
@@ -32,10 +32,6 @@ class RockPaperScissorsGame {
             }
             
             print(gameResult)
-            
-            if gameResult == win || gameResult == lose {
-                break
-            }
         }
     }
     
@@ -51,40 +47,33 @@ class RockPaperScissorsGame {
         self.computerNumber = choiceCase
     }
     
-//    func setRockPaperScissorsRule(_ userInput: String, with randomNumber: String) {
-//        if userInput == paper && randomNumber == scissors {
-//            self.gameResult = lose
-//        } else if userInput == scissors && randomNumber == paper {
-//            self.gameResult = win
-//        } else {
-//            if userInput == randomNumber {
-//                self.gameResult = draw
-//            } else if userInput < randomNumber {
-//                self.gameResult = lose
-//            } else {
-//                self.gameResult = win
-//            }
-//        }
-//    }
-    
     func setRockPaperScissorsRule(_ userInput: String, with randomNumber: String) {
         if userInput == randomNumber {
             gameResult = draw
-            
-        } else if userInput == rock {
-            
-        } else if userInput == paper {
-            
-        } else if userInput == scissors {
-            
+            return
         }
         
-        switch {
-            
+        switch userInput {
         case scissors:
-            gameResult = lose
+            if randomNumber == rock {
+                gameResult = lose
+            } else if randomNumber == paper {
+                gameResult = win
+            }
+        case rock:
+            if randomNumber == paper {
+                gameResult = lose
+            } else if randomNumber == scissors {
+                gameResult = win
+            }
+        case paper:
+            if randomNumber == scissors {
+                gameResult = lose
+            } else if randomNumber == rock {
+                gameResult = win
+            }
+        default:
             break
-        
         }
     }
     

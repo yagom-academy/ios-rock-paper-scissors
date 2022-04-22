@@ -7,22 +7,22 @@ class MukjjibbaGame: RockPaperScissorsGame {
     private var jji: String = Mukjjibba.jji.hand
     private var bba: String = Mukjjibba.bba.hand
     
-    var currentTurn: String {
+    var currentTurn: String? {
         switch gameResult {
         case win:
             return user
         case lose:
             return computer
         default:
-            return ""
+            return nil
         }
     }
     
     override func startGame() {
         super.startGame()
 
-        while true {
-            print("[\(currentTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
+        while userNumber != endGame {
+            print("[\(unwrapOptional(currentTurn)) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
             inputUserNumber()
             selectRockPaperScissors()
             
@@ -30,48 +30,64 @@ class MukjjibbaGame: RockPaperScissorsGame {
                 break
             }
 
-            if isRockPaperScissorsRule(from: userNumber) {
+            if isFitNumber(from: userNumber) {
                 print("잘못된 입력입니다. 다시 시도해 주세요.")
                 gameResult = lose
                 continue
             }
             
-            let mukjjibbaResult = isMukjjibbaRule(userInput: userNumber, randomNumber: computerNumber)
-            
-            print(userNumber, computerNumber)
+            let mukjjibbaResult = isMukjjibbaResult(userInput: userNumber, randomNumber: computerNumber)
             
             if mukjjibbaResult {
-                print("\(currentTurn)의 승리!")
+                print("\(unwrapOptional(currentTurn))의 승리!")
                 print("게임 종료")
                 break
             } else {
-                print("\(currentTurn)의 턴입니다.")
+                print("\(unwrapOptional(currentTurn))의 턴입니다.")
             }
         }
     }
     
-    func isMukjjibbaRule(userInput: String, randomNumber: String) -> Bool {
+    func isMukjjibbaResult(userInput: String, randomNumber: String) -> Bool {
         if userInput == randomNumber {
            return true
         } else {
-            getTurn(userInput, with: randomNumber)
+            setMukjjibbaRule(userInput, with: randomNumber)
             return false
         }
     }
     
-    func getTurn(_ userInput: String, with randomNumber: String) {
-        if userInput == bba && randomNumber == muk  {
-            self.gameResult = win
-        } else if userInput == muk  && randomNumber == bba  {
-            self.gameResult = lose
-        } else {
-            if userInput == randomNumber {
-                self.gameResult = draw
-            } else if userInput > randomNumber {
-                self.gameResult = lose
-            } else {
-                self.gameResult = win
+    func setMukjjibbaRule(_ userInput: String, with randomNumber: String) {
+        switch userInput {
+        case jji:
+            if randomNumber == muk {
+                gameResult = lose
+            } else if randomNumber == bba {
+                gameResult = win
             }
+        case muk:
+            if randomNumber == bba {
+                gameResult = lose
+            } else if randomNumber == jji {
+                gameResult = win
+            }
+        case bba:
+            if randomNumber == jji {
+                gameResult = lose
+            } else if randomNumber == muk {
+                gameResult = win
+            }
+        default:
+            break
         }
+    }
+    
+    func unwrapOptional(_ inputString: String?) -> String {
+        var outputString: String = ""
+        
+        if let str = inputString {
+            outputString = str
+        }
+        return outputString
     }
 }
