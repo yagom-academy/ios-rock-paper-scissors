@@ -4,7 +4,10 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
+let mukJiPa = MukJiPaGame()
+mukJiPa.startGame()
 
-let game = RockScissorsPaperGame()
-game.startGame()
+
+
+
 
