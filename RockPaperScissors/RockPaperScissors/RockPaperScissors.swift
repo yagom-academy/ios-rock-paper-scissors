@@ -33,7 +33,7 @@ struct RockPaperScissors {
         case tie
     }
     
-    let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    private let menu: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     static var attacker: String = ""
     
     mutating func start() {
@@ -41,8 +41,7 @@ struct RockPaperScissors {
         decideProcessBy(userMenuChoice)
     }
     
-    
-    func selectMenuByInput(_ menu: String) -> InputOfRockPaperScissors {
+    private func selectMenuByInput(_ menu: String) -> InputOfRockPaperScissors {
         print(menu, terminator: "")
         guard let userInput = readLine() else {
             return .error
@@ -54,8 +53,7 @@ struct RockPaperScissors {
         return InputOfRockPaperScissors(rawValue: numberChoice) ?? .error
     }
     
-    
-    mutating func decideProcessBy(_ menuChoice: InputOfRockPaperScissors) {
+    private mutating func decideProcessBy(_ menuChoice: InputOfRockPaperScissors) {
         switch menuChoice {
         case .quit:
             print(InputOfRockPaperScissors.quit.message)
@@ -71,14 +69,14 @@ struct RockPaperScissors {
         }
     }
     
-    func play(by menuChoice: InputOfRockPaperScissors) -> (InputOfRockPaperScissors, InputOfRockPaperScissors) {
+    private func play(by menuChoice: InputOfRockPaperScissors) -> (InputOfRockPaperScissors, InputOfRockPaperScissors) {
         let myPick = menuChoice
         guard let computerPick = InputOfRockPaperScissors(rawValue: Int.random(in: InputOfRockPaperScissors.scissors.rawValue...InputOfRockPaperScissors.paper.rawValue)) else { return (.quit, .quit) }
         
         return (myPick, computerPick)
     }
     
-    func pickOutWinner(from pickOf: (user: InputOfRockPaperScissors, computer: InputOfRockPaperScissors)) -> GameResult {
+    private func pickOutWinner(from pickOf: (user: InputOfRockPaperScissors, computer: InputOfRockPaperScissors)) -> GameResult {
         if pickOf.computer == pickOf.user {
             return .tie
         }
@@ -91,7 +89,7 @@ struct RockPaperScissors {
         }
     }
     
-    mutating func printResult(basedOnRockPaperScissors gameResult: GameResult) {
+    private mutating func printResult(basedOnRockPaperScissors gameResult: GameResult) {
         switch gameResult {
         case .usersVictory:
             print("이겼습니다!")
@@ -104,7 +102,7 @@ struct RockPaperScissors {
         }
     }
     
-    mutating func restartIfTie(judgingBy gameResult: GameResult) {
+    private mutating func restartIfTie(judgingBy gameResult: GameResult) {
         if gameResult == .tie {
             start()
         } else {

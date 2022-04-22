@@ -9,7 +9,6 @@ import Foundation
 
 
 struct MukJjiPpa {
-    
     enum InputOfMukJjiPpa: Int {
         case quit, muk, jji, ppa, error
         
@@ -113,6 +112,4 @@ struct MukJjiPpa {
             start(MukJjiPpaLedBy: attacker)
         }
     }
-    
-    
 }
