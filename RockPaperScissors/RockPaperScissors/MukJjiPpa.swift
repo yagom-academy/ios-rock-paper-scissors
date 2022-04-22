@@ -76,7 +76,6 @@ struct MukJjiPpa {
     private func play(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
         let myPick = menuChoice
         guard let computerPick = InputOfMukJjiPpa(rawValue: Int.random(in: InputOfMukJjiPpa.muk.rawValue...InputOfMukJjiPpa.ppa.rawValue)) else { return (.quit, .quit) }
-        print("사용자: \(myPick), 컴퓨터: \(computerPick)")
         return (myPick, computerPick)
     }
     
