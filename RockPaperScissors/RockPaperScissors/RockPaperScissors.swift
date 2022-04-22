@@ -63,6 +63,7 @@ struct RockPaperScissors {
             printResult(basedOnRockPaperScissors: gameResult)
             
             restartIfTie(judgingBy: gameResult)
+            startMukJjiPpaIfNotTie(judgingBy: gameResult)
         default:
             print(InputOfRockPaperScissors.error.message)
             start()
@@ -105,7 +106,11 @@ struct RockPaperScissors {
     private mutating func restartIfTie(judgingBy gameResult: GameResult) {
         if gameResult == .tie {
             start()
-        } else {
+        }
+    }
+    
+    private mutating func startMukJjiPpaIfNotTie(judgingBy gameResult: GameResult) {
+        if gameResult != .tie {
             var mukJjiPpa = MukJjiPpa()
             mukJjiPpa.start(MukJjiPpaLedBy: RockPaperScissors.attacker)
         }
