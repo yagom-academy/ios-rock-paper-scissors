@@ -1,4 +1,3 @@
-import CoreGraphics
 func startGame(game: Game) {
     switch game {
     case .rockPaperScissors:
@@ -32,5 +31,5 @@ func printRockPaperScissorsResult(gameResult: RockPaperScissorsResult) {
 }
 
 func printExitMessage() {
-    print("게임 종료")
+    print(Message.exitGame.rawValue)
 }

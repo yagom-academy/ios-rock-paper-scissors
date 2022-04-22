@@ -6,8 +6,8 @@ func playMookjjibba() {
     case .exit :
         printExitMessage()
     default :
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        turn.inputWinner(winner: "컴퓨터")
+        print(Message.invalidInput.rawValue)
+        turn.inputWinner(winner: Player.computer.rawValue)
         startGame(game: Game.mookjjibba)
     }
 }
@@ -18,17 +18,16 @@ func comparePlayerAndComputerMookjjibba(userHand: Hand, computerHand: Hand) {
         computerHand == .paper && userHand == .rock
     }
     if isWin {
-        print("사용자의 턴입니다")
-        changeTurn(winner: "사용자")
+        printAndChangeTurn(winner: Player.user.rawValue, message: Message.userTurn.rawValue)
     } else if computerHand == userHand {
         print("\(turn.winner)의 승리!")
     } else {
-        print("컴퓨터의 턴입니다")
-        changeTurn(winner: "컴퓨터")
+        printAndChangeTurn(winner: Player.computer.rawValue, message: Message.computerTurn.rawValue)
     }
 }
 
-func changeTurn(winner: String) {
+func printAndChangeTurn(winner: String, message: String) {
+    print(message)
     turn.inputWinner(winner: winner)
     startGame(game: Game.mookjjibba)
 }

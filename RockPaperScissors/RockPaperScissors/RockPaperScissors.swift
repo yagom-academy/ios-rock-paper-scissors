@@ -6,7 +6,7 @@ func playRockPaperScissors() {
     case .exit :
         printExitMessage()
     default :
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        print(Message.invalidInput.rawValue)
         startGame(game: Game.rockPaperScissors)
     }
 }
@@ -17,21 +17,24 @@ func comparePlayerAndComputerRockPaperScissors(userHand: Hand, computerHand: Han
         computerHand == .paper && userHand == .scissors
     }
     if isWin {
-        printResultAndGameMenu(gameResult: RockPaperScissorsResult.win, winner: "사용자")
+        verifyGameResult(gameResult: RockPaperScissorsResult.win, winner: Player.user.rawValue)
     } else if computerHand == userHand {
-        printResultAndGameMenu(gameResult: RockPaperScissorsResult.draw)
+        verifyGameResult(gameResult: RockPaperScissorsResult.draw)
     } else {
-        printResultAndGameMenu(gameResult: RockPaperScissorsResult.lose, winner: "컴퓨터")
+        verifyGameResult(gameResult: RockPaperScissorsResult.lose, winner: Player.computer.rawValue)
     }
 }
 
-func printResultAndGameMenu(gameResult: RockPaperScissorsResult, winner: String = "") {
+func verifyGameResult(gameResult: RockPaperScissorsResult, winner: String = "") {
     if gameResult == RockPaperScissorsResult.win || gameResult == RockPaperScissorsResult.lose {
         turn.inputWinner(winner: winner)
-        printRockPaperScissorsResult(gameResult: gameResult)
-        startGame(game: Game.mookjjibba)
+        printResultAndstartGame(gameResult: gameResult, game: Game.mookjjibba)
     } else {
-        printRockPaperScissorsResult(gameResult: gameResult)
-        startGame(game: Game.rockPaperScissors)
+        printResultAndstartGame(gameResult: gameResult, game: Game.rockPaperScissors)
     }
+}
+
+func printResultAndstartGame (gameResult: RockPaperScissorsResult, game: Game) {
+    printRockPaperScissorsResult(gameResult: gameResult)
+    startGame(game: game)
 }
