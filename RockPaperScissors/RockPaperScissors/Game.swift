@@ -23,6 +23,22 @@ struct Game {
         }
     }
     
+    private mutating func executeMukChiBa() {
+        printMukChiBaMenu()
+        inputUserSelect()
+        
+        if verifyUserSelection() == true {
+            decideMukChiBaStart()
+        } else {
+            isUserTurn = false
+            
+            GameStatus.error.printMessage()
+            executeMukChiBa()
+        }
+    }
+}
+
+extension Game {
     private mutating func inputUserSelect() {
         let userChoiceNumber = Int(readLine() ?? "")
         userChoice = changeToGameChoice(from: userChoiceNumber)
@@ -31,15 +47,17 @@ struct Game {
     private func verifyUserSelection() -> Bool {
         switch userChoice {
         case .end,
-            .scissors,
-            .rock,
-            .paper:
+                .scissors,
+                .rock,
+                .paper:
             return true
         default:
             return false
         }
     }
-    
+}
+
+extension Game {
     private mutating func decideGameStart() {
         if userChoice == .end {
             GameStatus.end.printMessage()
@@ -84,18 +102,6 @@ struct Game {
         }
     }
     
-    private func compareScissorsOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
-        return computerChoice == .paper ? .win : .lose
-    }
-    
-    private func comparePaperOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
-        return computerChoice == .rock ? .win : .lose
-    }
-    
-    private func compareRockOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
-        return computerChoice == .scissors ? .win : .lose
-    }
-    
     private func changeToGameChoice(from number: Int?) -> GameRockPaperScissorsChoice? {
         switch number {
         case GameRockPaperScissorsChoice.end.number:
@@ -110,23 +116,22 @@ struct Game {
             return nil
         }
     }
+    
+    private func compareScissorsOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
+        return computerChoice == .paper ? .win : .lose
+    }
+    
+    private func comparePaperOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
+        return computerChoice == .rock ? .win : .lose
+    }
+    
+    private func compareRockOfUser(with computerChoice: GameRockPaperScissorsChoice?) -> GameResult {
+        return computerChoice == .scissors ? .win : .lose
+    }
+    
 }
 
 extension Game {
-    private mutating func executeMukChiBa() {
-        printMukChiBaMenu()
-        inputUserSelect()
-        
-        if verifyUserSelection() == true {
-            decideMukChiBaStart()
-        } else {
-            isUserTurn = false
-            
-            GameStatus.error.printMessage()
-            executeMukChiBa()
-        }
-    }
-    
     private func printMukChiBaMenu() {
         if isUserTurn == true {
             GameStatus.userTurnMukChibaMenu.printMessage()
@@ -143,7 +148,7 @@ extension Game {
             printMukChiBaResult()
         }
     }
-
+    
     private mutating func decideSameChoice() {
         let computerChoiceNumber = Int.random(in: GameRockPaperScissorsChoice.scissors.number...GameRockPaperScissorsChoice.paper.number)
         computerChoice = changeToGameChoice(from: computerChoiceNumber)
