@@ -1,1 +1,1 @@
-printGameMenu(game: Game.rockPaperScissors)
+startGame(game: Game.rockPaperScissors)

@@ -8,7 +8,7 @@ func playMookjjibba() {
     default :
         print("잘못된 입력입니다. 다시 시도해주세요.")
         turn.inputWinner(winner: "컴퓨터")
-        printGameMenu(game: Game.mookjjibba)
+        startGame(game: Game.mookjjibba)
     }
 }
 
@@ -30,5 +30,5 @@ func comparePlayerAndComputerMookjjibba(userHand: Hand?, computerHand: Hand?) {
 
 func changeTurn(winner: String) {
     turn.inputWinner(winner: winner)
-    printGameMenu(game: Game.mookjjibba)
+    startGame(game: Game.mookjjibba)
 }

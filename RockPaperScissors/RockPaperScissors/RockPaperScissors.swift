@@ -1,19 +1,21 @@
 func playRockPaperScissors() {
-    let userHand = inputUserHand()
-    switch userHand {
+    switch inputUserHand() {
     case .rock, .scissors, .paper :
         comparePlayerAndComputerRockPaperScissors(userHand: userHand, computerHand: convertComputerNumberToHand())
     case .exit :
         printExitMessage()
     default :
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        printGameMenu(game: Game.rockPaperScissors)
+        startGame(game: Game.rockPaperScissors)
     }
 }
 
 func comparePlayerAndComputerRockPaperScissors(userHand: Hand?, computerHand: Hand?) {
-    if computerHand == .scissors && userHand == .rock || computerHand == .rock && userHand == .paper ||
-        computerHand == .paper && userHand == .scissors {
+    var isWin: Bool {
+        computerHand == .scissors && userHand == .rock || computerHand == .rock && userHand == .paper ||
+        computerHand == .paper && userHand == .scissors
+    }
+    if isWin {
         printResultAndGameMenu(gameResult: RockPaperScissorsResult.win, winner: "사용자")
     } else if computerHand == userHand {
         printResultAndGameMenu(gameResult: RockPaperScissorsResult.draw)
@@ -26,9 +28,9 @@ func printResultAndGameMenu(gameResult: RockPaperScissorsResult, winner: String 
     if gameResult == RockPaperScissorsResult.win || gameResult == RockPaperScissorsResult.lose {
         turn.inputWinner(winner: winner)
         printRockPaperScissorsResult(gameResult: gameResult)
-        printGameMenu(game: Game.mookjjibba)
+        startGame(game: Game.mookjjibba)
     } else {
         printRockPaperScissorsResult(gameResult: gameResult)
-        printGameMenu(game: Game.rockPaperScissors)
+        startGame(game: Game.rockPaperScissors)
     }
 }
