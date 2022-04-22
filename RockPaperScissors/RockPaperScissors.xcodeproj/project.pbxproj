@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20CF230C280D73F000EB25AC /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF230B280D73F000EB25AC /* Game.swift */; };
+		20CF230C280D73F000EB25AC /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CF230B280D73F000EB25AC /* RockPaperScissors.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
+		FD008B69281252E800427A9C /* MukJjiPpa.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD008B68281252E800427A9C /* MukJjiPpa.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,9 +25,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		20CF230B280D73F000EB25AC /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		20CF230B280D73F000EB25AC /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		FD008B68281252E800427A9C /* MukJjiPpa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukJjiPpa.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
-				20CF230B280D73F000EB25AC /* Game.swift */,
+				FD008B68281252E800427A9C /* MukJjiPpa.swift */,
+				20CF230B280D73F000EB25AC /* RockPaperScissors.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -122,8 +125,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD008B69281252E800427A9C /* MukJjiPpa.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
-				20CF230C280D73F000EB25AC /* Game.swift in Sources */,
+				20CF230C280D73F000EB25AC /* RockPaperScissors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
