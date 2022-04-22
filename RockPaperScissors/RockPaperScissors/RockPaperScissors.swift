@@ -60,7 +60,7 @@ struct RockPaperScissors {
         case .quit:
             print(InputOfRockPaperScissors.quit.message)
         case .scissors, .rock, .paper:
-            let eachPick: (InputOfRockPaperScissors, InputOfRockPaperScissors) = playGame(by: menuChoice)
+            let eachPick: (InputOfRockPaperScissors, InputOfRockPaperScissors) = play(by: menuChoice)
             let gameResult = pickOutWinner(from: eachPick)
             printResult(basedOnRockPaperScissors: gameResult)
             
@@ -71,7 +71,7 @@ struct RockPaperScissors {
         }
     }
     
-    func playGame(by menuChoice: InputOfRockPaperScissors) -> (InputOfRockPaperScissors, InputOfRockPaperScissors) {
+    func play(by menuChoice: InputOfRockPaperScissors) -> (InputOfRockPaperScissors, InputOfRockPaperScissors) {
         let myPick = menuChoice
         guard let computerPick = InputOfRockPaperScissors(rawValue: Int.random(in: InputOfRockPaperScissors.scissors.rawValue...InputOfRockPaperScissors.paper.rawValue)) else { return (.quit, .quit) }
         

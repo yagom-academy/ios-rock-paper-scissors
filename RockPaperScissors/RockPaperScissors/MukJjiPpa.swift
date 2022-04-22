@@ -60,7 +60,7 @@ struct MukJjiPpa {
         case .quit:
             print(InputOfMukJjiPpa.quit.message)
         case .muk, .jji, .ppa:
-            let eachPick: (InputOfMukJjiPpa, InputOfMukJjiPpa) = playGame(by: menuChoice)
+            let eachPick: (InputOfMukJjiPpa, InputOfMukJjiPpa) = play(by: menuChoice)
             let gameResult = pickOutWinner(from: eachPick)
             
             printResult(basedOnMukJjiPpa: gameResult)
@@ -73,7 +73,7 @@ struct MukJjiPpa {
         }
     }
     
-    func playGame(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
+    func play(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
         let myPick = menuChoice
         guard let computerPick = InputOfMukJjiPpa(rawValue: Int.random(in: InputOfMukJjiPpa.muk.rawValue...InputOfMukJjiPpa.ppa.rawValue)) else { return (.quit, .quit) }
         print("사용자: \(myPick), 컴퓨터: \(computerPick)")
