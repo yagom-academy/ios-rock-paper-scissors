@@ -8,10 +8,10 @@
 struct MukChiBaGame {
     private var userChoice: GameChoice?
     private var computerChoice: GameChoice?
-    private var isUserTurn = false
-    private var isSameChoice = false
+    var isUserTurn: Bool?
+    private var isSameChoice: Bool?
     
-    private mutating func executeMukChiBa() {
+    mutating func executeMukChiBa() {
         printMukChiBaMenu()
         inputUserSelect()
         
@@ -99,16 +99,18 @@ struct MukChiBaGame {
         case (false, false):
             printTurn()
             executeMukChiBa()
+        default:
+            break
         }
     }
     
     private mutating func printTurn() {
         switch decideTurn() {
         case .win:
-            isUserTurn.toggle()
+            isUserTurn = true
             GameStatus.userTurn.printMessage()
         case .lose:
-            isUserTurn.toggle()
+            isUserTurn = false
             GameStatus.computerTurn.printMessage()
         default:
             break
