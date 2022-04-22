@@ -15,4 +15,9 @@ extension String {
     func printSelf() {
         print(self, terminator: " ")
     }
+    
+    func chooseValue() -> Int? {
+        let value: String = readLine()?.replacingOccurrences(of: " ", with: "") ?? "4"
+        return value.convertAsInt()
+    }
 }
