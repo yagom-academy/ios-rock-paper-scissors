@@ -143,11 +143,7 @@ extension Game {
             printMukChiBaResult()
         }
     }
-    
-    private mutating func changeTurn() {
-        isUserTurn = isUserTurn ? false : true
-    }
-    
+
     private mutating func decideSameChoice() {
         let computerChoiceNumber = Int.random(in: GameRockPaperScissorsChoice.scissors.number...GameRockPaperScissorsChoice.paper.number)
         computerChoice = changeToGameChoice(from: computerChoiceNumber)
@@ -165,14 +161,14 @@ extension Game {
             GameStatus.userWin.printMessage()
             GameStatus.end.printMessage()
         case (true, false):
-            changeTurn()
+            isUserTurn.toggle()
             GameStatus.computerTurn.printMessage()
             executeMukChiBa()
         case (false, true):
             GameStatus.computerWin.printMessage()
             GameStatus.end.printMessage()
         case (false, false):
-            changeTurn()
+            isUserTurn.toggle()
             GameStatus.userTurn.printMessage()
             executeMukChiBa()
         }
