@@ -35,7 +35,7 @@ struct MukJjiPpa {
         case tie
     }
     
-    var attacker = RockPaperScissors.attacker
+    private var attacker = RockPaperScissors.attacker
     
     mutating func start(MukJjiPpaLedBy attacker: String) {
         let menu = "[\(attacker) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : "
@@ -43,7 +43,7 @@ struct MukJjiPpa {
         decideProcessBy(userMenuChoice)
     }
     
-    func selectMenuByInput(OfMukJjiPpa menu: String) -> InputOfMukJjiPpa {
+    private func selectMenuByInput(OfMukJjiPpa menu: String) -> InputOfMukJjiPpa {
         print(menu, terminator: "")
         guard let userInput = readLine() else {
             return .error
@@ -55,7 +55,7 @@ struct MukJjiPpa {
         return InputOfMukJjiPpa(rawValue: numberChoice) ?? .error
     }
     
-    mutating func decideProcessBy(_ menuChoice: InputOfMukJjiPpa) {
+    private mutating func decideProcessBy(_ menuChoice: InputOfMukJjiPpa) {
         switch menuChoice {
         case .quit:
             print(InputOfMukJjiPpa.quit.message)
@@ -73,14 +73,14 @@ struct MukJjiPpa {
         }
     }
     
-    func play(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
+    private func play(by menuChoice: InputOfMukJjiPpa) -> (InputOfMukJjiPpa, InputOfMukJjiPpa) {
         let myPick = menuChoice
         guard let computerPick = InputOfMukJjiPpa(rawValue: Int.random(in: InputOfMukJjiPpa.muk.rawValue...InputOfMukJjiPpa.ppa.rawValue)) else { return (.quit, .quit) }
         print("사용자: \(myPick), 컴퓨터: \(computerPick)")
         return (myPick, computerPick)
     }
     
-    func pickOutWinner(from pickOf: (user: InputOfMukJjiPpa, computer: InputOfMukJjiPpa)) -> GameResult {
+    private func pickOutWinner(from pickOf: (user: InputOfMukJjiPpa, computer: InputOfMukJjiPpa)) -> GameResult {
         if pickOf.computer == pickOf.user {
             return .tie
         }
@@ -93,7 +93,7 @@ struct MukJjiPpa {
         }
     }
     
-    mutating func printResult(basedOnMukJjiPpa gameResult: GameResult) {
+    private mutating func printResult(basedOnMukJjiPpa gameResult: GameResult) {
         switch gameResult {
         case .usersVictory:
             attacker = GameResult.usersVictory.rawValue
@@ -106,7 +106,7 @@ struct MukJjiPpa {
         }
     }
     
-    mutating func quitIfTie(judgingBy gameResult: GameResult) {
+    private mutating func quitIfTie(judgingBy gameResult: GameResult) {
         if gameResult == .tie {
             print("게임 종료")
         } else {
