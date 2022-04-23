@@ -4,14 +4,15 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-var gameTurn: GameTurn = .user
+
 
 func startGame() {
+    var gameTurn: GameTurn = .user
     let RockPaperScissorsGame = RockPaperScissorsGame()
     let MukchibaGame = MukchibaGame()
     
-    if RockPaperScissorsGame.startRockPaperScissorsGame() != .tie {
-        MukchibaGame.startMukchibaGame()
+    if RockPaperScissorsGame.startRockPaperScissorsGame(gameTurn: &gameTurn) != .tie {
+        MukchibaGame.startMukchibaGame(gameTurn: &gameTurn)
         EditionOfOutput.printGameOver()
     } else {
         startGame()

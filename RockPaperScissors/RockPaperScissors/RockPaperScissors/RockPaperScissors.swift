@@ -5,7 +5,8 @@
 //
 
 struct RockPaperScissorsGame {
-    func startRockPaperScissorsGame() -> RockPaperScissorsResult {
+    func startRockPaperScissorsGame( gameTurn: inout GameTurn) -> RockPaperScissorsResult {
+        
         printUserInterface()
         let userSelectedCard = RefineInput.requestUserInput()
         
@@ -16,11 +17,11 @@ struct RockPaperScissorsGame {
             let computerRandomNumber = generateComputerNumber()
             let gameResult = judgeMatchResult(inputUserNumber: targetNumber,
                              inputcomputerNumber: computerRandomNumber)
-            printMatchResult(matchResult: gameResult)
+            printMatchResult(matchResult: gameResult, changeTurn: &gameTurn)
             return gameResult
         } else {
             EditionOfOutput.printWrongInput()
-            return startRockPaperScissorsGame()
+            return startRockPaperScissorsGame(gameTurn: &gameTurn)
         }
     }
     
@@ -67,14 +68,15 @@ struct RockPaperScissorsGame {
         return RockPaperScissors(rawValue: Int.random(in: randomNumberRange)) ?? .wrong
     }
     
-    private func printMatchResult(matchResult: RockPaperScissorsResult) {
+    private func printMatchResult(matchResult: RockPaperScissorsResult,
+                                  changeTurn: inout GameTurn) {
         switch matchResult {
         case .win:
             print("이겼습니다!")
-            gameTurn = .user
+            changeTurn = .user
         case .lose:
             print("졌습니다!")
-            gameTurn = .computer
+            changeTurn = .computer
         case .tie:
             print("비겼습니다!")
         case .none:

@@ -5,44 +5,44 @@
 //
 
 struct MukchibaGame {
-    func startMukchibaGame() {
-        printStartWhosTurn()
+    func startMukchibaGame(gameTurn: inout GameTurn) {
+        printStartWhosTurn(gameTurn: &gameTurn)
         let mukchibaSelectedCard = RefineInput.requestUserInput()
         
         if mukchibaSelectedCard == "0" { return }
         
         if RefineInput.verifyUserInput(of: mukchibaSelectedCard) {
-            judgeMatch(of: mukchibaSelectedCard)
+            judgeMatch(of: mukchibaSelectedCard, gameTurn: &gameTurn)
         } else {
             EditionOfOutput.printWrongInput()
-            startReMatch()
+            startReMatch(gameTurn: &gameTurn)
         }
     }
     
-    private func judgeMatch(of userSecondCard: String) {
+    private func judgeMatch(of userSecondCard: String, gameTurn: inout GameTurn) {
         let secondRandomCard = generateComputerMukchiba()
         let secondSeletedCard = convertNumberToMukchiba(of: userSecondCard)
         
         if secondSeletedCard == secondRandomCard {
-            printWhosVictory()
+            printWhosVictory(gameTurn: &gameTurn)
         } else {
             judgeMatchResult(inputUserNumber: secondSeletedCard,
-                             inputcomputerNumber: secondRandomCard)
-            printWhosTurn()
-            return startMukchibaGame()
+                             inputcomputerNumber: secondRandomCard, gameTurn: &gameTurn)
+            printWhosTurn(gameTurn: &gameTurn)
+            return startMukchibaGame(gameTurn: &gameTurn)
         }
     }
     
-    private func startReMatch() {
+    private func startReMatch(gameTurn: inout GameTurn) {
         gameTurn = .computer
-        startMukchibaGame()
+        startMukchibaGame(gameTurn: &gameTurn)
     }
     
-    private func printStartWhosTurn() {
+    private func printStartWhosTurn(gameTurn: inout GameTurn) {
         print("[\(gameTurn.gameTurnType) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
     
-    private func printWhosTurn() {
+    private func printWhosTurn(gameTurn: inout GameTurn) {
         print("\(gameTurn.gameTurnType)의 턴입니다")
     }
     
@@ -64,11 +64,12 @@ struct MukchibaGame {
         }
     }
     
-    private func printWhosVictory() {
+    private func printWhosVictory(gameTurn: inout GameTurn) {
         print("\(gameTurn.gameTurnType)의 승리!")
     }
     
-    private func judgeMatchResult(inputUserNumber: Mukchiba, inputcomputerNumber: Mukchiba) {
+    private func judgeMatchResult(inputUserNumber: Mukchiba, inputcomputerNumber: Mukchiba,
+                                  gameTurn: inout GameTurn) {
         
         if inputUserNumber == .chi {
             inputcomputerNumber == .ba ? (gameTurn = .user) : (gameTurn = .computer)
