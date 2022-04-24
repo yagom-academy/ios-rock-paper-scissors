@@ -7,18 +7,11 @@
 
 import Foundation
 
-protocol RockPaperScissorsRunnable {
-    func start() -> Bool
-    func compare(of computer: RockPaperScissors?, and user: RockPaperScissors?) -> GameResult
-}
-
-final class RockPaperScissorsGameModel: RockPaperScissorsRunnable {
-    private var mukjjiba = Mukjjipa()
-}
-
-extension RockPaperScissorsGameModel {
+final class RockPaperScissorsGameModel: Runnable {
+    private var player: Player?
+    
     @discardableResult
-    func start() -> Bool {
+    func start() -> Player? {
         let selectionList: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
         selectionList.printSelf()
         
@@ -27,9 +20,11 @@ extension RockPaperScissorsGameModel {
         switch user {
         case .scissors, .rock, .paper:
             let result = compare(of: createComputerValue(), and: user)
-            return judge(result)
+            judge(result)
+            return player ?? .user
         case .none:
-            return judge()
+            judge()
+            return player ?? Player.none
         }
     }
     
@@ -37,10 +32,10 @@ extension RockPaperScissorsGameModel {
     func compare(of computer: RockPaperScissors?, and user: RockPaperScissors?) -> GameResult {
         switch (computer, user) {
         case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
-            mukjjiba = Mukjjipa(order: .computer, userValue: user?.convert(), computerValue: computer?.convert())
+            player = .computer
             return .lose
         case (.paper, .scissors), (.rock, .paper), (.scissors, .rock):
-            mukjjiba = Mukjjipa(order: .user, userValue: user?.convert(), computerValue: computer?.convert())
+            player = .user
             return .win
         default:
             return .draw
@@ -58,6 +53,7 @@ private extension RockPaperScissorsGameModel {
         return user
     }
     
+    @discardableResult
     func judge(_ result: GameResult = .none) -> Bool {
         if result == .win
             || result == .lose {

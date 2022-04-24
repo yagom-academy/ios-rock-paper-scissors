@@ -7,26 +7,14 @@
 
 import Foundation
 
-enum MukjjipaType: Int {
+enum Mukjjipa: Int {
     case none = 0
     case rock = 1
     case scissors = 2
     case paper = 3
 }
 
-struct Mukjjipa {
-    var order: Player?
-    var userValue: MukjjipaType?
-    var computerValue: MukjjipaType?
-    
-    init(order: Player? = .user, userValue: MukjjipaType? = MukjjipaType.none, computerValue: MukjjipaType? = MukjjipaType.none) {
-        self.order = order
-        self.userValue = userValue
-        self.computerValue = computerValue
-    }
-}
-
-extension MukjjipaType {
+extension Mukjjipa {
     var value: Int {
         switch self {
         case .none:

@@ -8,28 +8,33 @@
 import Foundation
 
 final class MukjipaGameModel {
-    private var mukjjiba = Mukjjipa()
     private var rockPaperSicissors = RockPaperScissorsGameModel()
+    private var player: Player?
+    private var result: Bool = true
+    
+    init(player: Player) {
+        self.player = player
+    }
 }
 
 extension MukjipaGameModel {
     func start() {
-        var result: Bool = true
+        
         
         while result {
-            let selectionList: String = "[\(mukjjiba.order?.rawValue ?? "") 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
+            let selectionList: String = "[\(player?.rawValue ?? "") 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
             selectionList.printSelf()
             
-            let user: MukjjipaType = conveyType(from: selectionList.chooseValue() ?? 0)
+            let user: Mukjjipa = conveyType(from: selectionList.chooseValue() ?? 0)
             result = compare(of: createComputerValue(), and: user)
         }
     }
 }
 
 private extension MukjipaGameModel {
-    func conveyType(from value: Int) -> MukjjipaType {
-        guard let mukjipaType = MukjjipaType(rawValue: value) else {
-            mukjjiba.order = .computer
+    func conveyType(from value: Int) -> Mukjjipa {
+        guard let mukjipaType = Mukjjipa(rawValue: value) else {
+            player = .computer
             restart(as: "잘못된 입력입니다. 다시 시도해주세요.")
             return .none
         }
@@ -41,18 +46,18 @@ private extension MukjipaGameModel {
         start()
     }
     
-    func createComputerValue() -> MukjjipaType {
-        let computer = MukjjipaType(rawValue: Int.random(in: 1...3)) ?? .none
+    func createComputerValue() -> Mukjjipa {
+        let computer = Mukjjipa(rawValue: Int.random(in: 1...3)) ?? .none
         return computer
     }
     
-    func compare(of computer: MukjjipaType?, and user: MukjjipaType?) -> Bool {
+    func compare(of computer: Mukjjipa?, and user: Mukjjipa?) -> Bool {
         if computer == user {
-            print("\(mukjjiba.order?.rawValue ?? "" )의 승리!")
+            print("\(player?.rawValue ?? "")의 승리!")
             print("게임종료")
             return false
         } else {
-            print("\(mukjjiba.order?.rawValue ?? "")의 턴입니다.")
+            print("\(player?.rawValue ?? "")의 턴입니다.")
             rockPaperSicissors.compare(of: computer?.convert(), and: user?.convert())
             return true
         }

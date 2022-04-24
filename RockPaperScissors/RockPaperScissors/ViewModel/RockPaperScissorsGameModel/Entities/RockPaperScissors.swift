@@ -28,7 +28,7 @@ extension RockPaperScissors {
         }
     }
     
-    func convert() -> MukjjipaType {
-        return MukjjipaType(rawValue: self.value) ?? .none
+    func convert() -> Mukjjipa {
+        return Mukjjipa(rawValue: self.value) ?? .none
     }
 }

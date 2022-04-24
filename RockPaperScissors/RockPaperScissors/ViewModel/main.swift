@@ -6,10 +6,11 @@
 
 import Foundation
 
-let rockPaperScissorsGame = RockPaperScissorsGameModel()
-let mukjjibar = MukjipaGameModel()
+let rockPaperScissorsGame: Runnable = RockPaperScissorsGameModel()
 
-if rockPaperScissorsGame.start() {
+
+if let player = rockPaperScissorsGame.start() {
+    let mukjjibar = MukjipaGameModel(player: player)
     mukjjibar.start()
 }
     
