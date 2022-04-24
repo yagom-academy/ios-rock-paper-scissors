@@ -12,22 +12,21 @@ struct MukChiBaGame {
     private var isSameChoice: Bool?
     private var rockPaperScissorsGame = RockPaperScissorsGame()
     
-    mutating func executeMukChiBa() {
-        rockPaperScissorsGame.executeRockPaperScissors()
+    mutating func excuteRockPaperScissors() {
+        rockPaperScissorsGame.excute()
         isUserTurn = rockPaperScissorsGame.deliverGameResult() == true ? true: false
+    }
+    
+    mutating func execute() {
+        printMukChiBaMenu()
+        inputUserSelect()
         
-        while true {
-            printMukChiBaMenu()
-            inputUserSelect()
-            
-            if verifyUserSelection() == true {
-                decideMukChiBaStart()
-                break
-            } else {
-                isUserTurn = false
-                
-                GameStatus.error.printMessage()
-            }
+        if verifyUserSelection() == true {
+            decideMukChiBaStart()
+        } else {
+            isUserTurn = false
+            GameStatus.error.printMessage()
+            execute()
         }
     }
     
@@ -83,13 +82,13 @@ struct MukChiBaGame {
             GameStatus.end.printMessage()
         case (true, false):
             printTurn()
-            executeMukChiBa()
+            execute()
         case (false, true):
             GameStatus.computerWin.printMessage()
             GameStatus.end.printMessage()
         case (false, false):
             printTurn()
-            executeMukChiBa()
+            execute()
         default:
             break
         }

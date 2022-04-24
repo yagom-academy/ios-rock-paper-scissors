@@ -10,7 +10,7 @@ struct RockPaperScissorsGame {
     private var computerChoice: GameChoice?
     private var gameResult = false
     
-    mutating func executeRockPaperScissors() {
+    mutating func excute() {
         GameStatus.rockPaperScissorsMenu.printMessage()
         inputUserSelect()
         
@@ -18,7 +18,7 @@ struct RockPaperScissorsGame {
             decideGameStart()
         } else {
             GameStatus.error.printMessage()
-            executeRockPaperScissors()
+            excute()
         }
     }
     
@@ -46,7 +46,7 @@ struct RockPaperScissorsGame {
         switch compareChoice() {
         case .draw:
             GameStatus.draw.printMessage()
-            executeRockPaperScissors()
+            excute()
         case .win:
             GameStatus.win.printMessage()
             gameResult = true
