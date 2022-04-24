@@ -18,8 +18,7 @@ struct MukChiBaGame {
     }
     
     mutating func execute() {
-        isUserTurn == true ? GameStatus.userTurnMukChibaMenu.printMessage() :  GameStatus.computerTurnMukChibaMenu.printMessage()
-        
+        printMukChiBaMenu()
         inputUserSelect()
         
         if verifyUserSelection() == true {
