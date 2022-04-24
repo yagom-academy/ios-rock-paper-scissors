@@ -8,9 +8,9 @@
 struct RockPaperScissorsGame {
     private var userChoice: GameChoice?
     private var computerChoice: GameChoice?
-    private var mukChiBaGame = MukChiBaGame()
+    private var gameResult = false
     
-    mutating func execute() {
+    mutating func executeRockPaperScissors() {
         GameStatus.rockPaperScissorsMenu.printMessage()
         inputUserSelect()
         
@@ -18,7 +18,7 @@ struct RockPaperScissorsGame {
             decideGameStart()
         } else {
             GameStatus.error.printMessage()
-            execute()
+            executeRockPaperScissors()
         }
     }
     
@@ -31,15 +31,7 @@ struct RockPaperScissorsGame {
     }
     
     private func verifyUserSelection() -> Bool {
-        switch userChoice {
-        case .end,
-                .scissors,
-                .rock,
-                .paper:
-            return true
-        default:
-            return false
-        }
+        return userChoice != nil ? true : false
     }
 
     private mutating func decideGameStart() {
@@ -54,15 +46,13 @@ struct RockPaperScissorsGame {
         switch compareChoice() {
         case .draw:
             GameStatus.draw.printMessage()
-            execute()
+            executeRockPaperScissors()
         case .win:
             GameStatus.win.printMessage()
-            mukChiBaGame.isUserTurn = true
-            mukChiBaGame.executeMukChiBa()
+            gameResult = true
         case .lose:
             GameStatus.lose.printMessage()
-            mukChiBaGame.isUserTurn = false
-            mukChiBaGame.executeMukChiBa()
+            gameResult = false
         default:
             break
         }
@@ -96,5 +86,9 @@ struct RockPaperScissorsGame {
     
     private func compareRockOfUser(with computerChoice: GameChoice?) -> GameResult {
         return computerChoice == .scissors ? .win : .lose
+    }
+    
+    func deliverGameResult() -> Bool {
+        return gameResult
     }
 }

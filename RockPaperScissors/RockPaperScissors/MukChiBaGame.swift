@@ -8,20 +8,26 @@
 struct MukChiBaGame {
     private var userChoice: GameChoice?
     private var computerChoice: GameChoice?
-    var isUserTurn: Bool?
+    private var isUserTurn: Bool?
     private var isSameChoice: Bool?
+    private var rockPaperScissorsGame = RockPaperScissorsGame()
     
     mutating func executeMukChiBa() {
-        printMukChiBaMenu()
-        inputUserSelect()
+        rockPaperScissorsGame.executeRockPaperScissors()
+        isUserTurn = rockPaperScissorsGame.deliverGameResult() == true ? true: false
         
-        if verifyUserSelection() == true {
-            decideMukChiBaStart()
-        } else {
-            isUserTurn = false
+        while true {
+            printMukChiBaMenu()
+            inputUserSelect()
             
-            GameStatus.error.printMessage()
-            executeMukChiBa()
+            if verifyUserSelection() == true {
+                decideMukChiBaStart()
+                break
+            } else {
+                isUserTurn = false
+                
+                GameStatus.error.printMessage()
+            }
         }
     }
     
@@ -34,27 +40,7 @@ struct MukChiBaGame {
     }
     
     private func verifyUserSelection() -> Bool {
-        switch userChoice {
-        case .end,
-                .scissors,
-                .rock,
-                .paper:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    private func compareScissorsOfUser(with computerChoice: GameChoice?) -> GameResult {
-        return computerChoice == .paper ? .win : .lose
-    }
-    
-    private func comparePaperOfUser(with computerChoice: GameChoice?) -> GameResult {
-        return computerChoice == .rock ? .win : .lose
-    }
-    
-    private func compareRockOfUser(with computerChoice: GameChoice?) -> GameResult {
-        return computerChoice == .scissors ? .win : .lose
+        return userChoice != nil ? true : false
     }
     
     private func printMukChiBaMenu() {
@@ -66,7 +52,7 @@ struct MukChiBaGame {
     }
     
     private mutating func decideMukChiBaStart() {
-        if userChoice?.changeMukChiBa() == .end {
+        if userChoice == .end {
             GameStatus.end.printMessage()
         } else {
             decideSameChoice()
@@ -77,12 +63,17 @@ struct MukChiBaGame {
     private mutating func decideSameChoice() {
         let computerChoiceNumber = Int.random(in: GameChoice.scissors.number...GameChoice.paper.number)
         computerChoice = GameChoice.init(rawValue: computerChoiceNumber)
-        
-        if userChoice?.changeMukChiBa() == computerChoice?.changeMukChiBa() {
+        convertChoiceToMukChiBa()
+        if userChoice == computerChoice {
             isSameChoice = true
         } else {
             isSameChoice = false
         }
+    }
+    
+    private mutating func convertChoiceToMukChiBa() {
+        userChoice = userChoice?.changeMukChiBa()
+        computerChoice = computerChoice?.changeMukChiBa()
     }
     
     private mutating func printMukChiBaResult() {
@@ -118,15 +109,27 @@ struct MukChiBaGame {
     }
     
     private func decideTurn() -> GameResult? {
-        switch userChoice?.changeMukChiBa() {
+        switch userChoice {
         case .scissors:
-            return compareScissorsOfUser(with: computerChoice?.changeMukChiBa())
+            return compareScissorsOfUser(with: computerChoice)
         case .paper:
-            return comparePaperOfUser(with: computerChoice?.changeMukChiBa())
+            return comparePaperOfUser(with: computerChoice)
         case .rock:
-            return compareRockOfUser(with: computerChoice?.changeMukChiBa())
+            return compareRockOfUser(with: computerChoice)
         default:
             return nil
         }
+    }
+    
+    private func compareScissorsOfUser(with computerChoice: GameChoice?) -> GameResult {
+        return computerChoice == .paper ? .win : .lose
+    }
+    
+    private func comparePaperOfUser(with computerChoice: GameChoice?) -> GameResult {
+        return computerChoice == .rock ? .win : .lose
+    }
+    
+    private func compareRockOfUser(with computerChoice: GameChoice?) -> GameResult {
+        return computerChoice == .scissors ? .win : .lose
     }
 }
