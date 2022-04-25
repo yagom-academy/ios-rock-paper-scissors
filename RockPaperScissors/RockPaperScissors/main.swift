@@ -4,5 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-var rockPaperScissors = RockPaperScissors()
-rockPaperScissors.executeGame()
+var mukChiBagame = MukChiBaGame()
+var rockPaperScissorsGame = RockPaperScissorsGame()
+
+mukChiBagame.excuteRockPaperScissors()
+mukChiBagame.execute()
