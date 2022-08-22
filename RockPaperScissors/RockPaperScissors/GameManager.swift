@@ -5,37 +5,26 @@
 //
 
 struct GameManager {
-    var computerHandShape: HandShape? {
-        get {
-            HandShape.init(rawValue: Int.random(in: 1...3))
-        }
-    }
-    
     mutating func startRockPaperScissorsGame() {
         guard let userHandShape = receiveHandShapeFromUser() else {
             print("게임 종료")
             return
         }
-        do {
-            let gameResult = try fetchGameResult(of: userHandShape)
-            switch gameResult {
-            case .win:
-                print("이겼습니다!")
-                return
-            case .lose:
-                print("졌습니다!")
-                return
-            case .draw:
-                print("비겼습니다!")
-                startRockPaperScissorsGame()
-            }
-        } catch {
-            print(error)
+        let gameResult = fetchGameResult(of: userHandShape)
+        
+        switch gameResult {
+        case .win:
+            print("이겼습니다!")
+            return
+        case .lose:
+            print("졌습니다!")
+            return
+        case .draw:
+            print("비겼습니다!")
             startRockPaperScissorsGame()
         }
-        
     }
-        
+    
     func receiveHandShapeFromUser() -> HandShape? {
         printRockPaperScissorsManual()
         let userInput = receiveInputFromUser()
@@ -64,8 +53,8 @@ struct GameManager {
         return input
     }
     
-    func fetchGameResult(of userHandShape: HandShape) throws -> GameResult {
-        guard let computerHandShape = self.computerHandShape else { throw GameError.isEmptyComputerHandShape }
+    func fetchGameResult(of userHandShape: HandShape) -> GameResult {
+        let computerHandShape = generateRandomHandShape()
         
         if userHandShape == computerHandShape {
             return .draw
@@ -74,5 +63,10 @@ struct GameManager {
         } else {
             return .lose
         }
+    }
+    
+    func generateRandomHandShape() -> HandShape {
+        guard let handShape = HandShape.init(rawValue: Int.random(in: 1...3)) else { return generateRandomHandShape() }
+        return handShape
     }
 }
