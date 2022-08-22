@@ -39,4 +39,17 @@ struct GameManager {
         guard let input = readLine() else { return "" }
         return input
     }
+    
+    func checkGameResult() throws -> GameResult {
+        guard let computerHandShape = self.computerHandShape else { throw GameError.isEmptyComputerHandShape }
+        guard let userHandShape = self.userHandShape else { throw GameError.isEmptyUserHandShape }
+        
+        if userHandShape == computerHandShape {
+            return .draw
+        } else if userHandShape.isWin(comparing: computerHandShape) {
+            return .win
+        } else {
+            return .lose
+        }
+    }
 }
