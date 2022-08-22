@@ -12,46 +12,72 @@ class RockPaperScissorsGame {
     var computerNumber: Int = 0
     var result: Int = 0
 
-    func showMenu(_ computerNumber: Int) {
+    func showMenu() {
         print("가위(\(RPS.scissors.rawValue)),",
               "바위(\(RPS.rock.rawValue)),",
               "보(\(RPS.paper.rawValue))! <종료 : 0>: ", terminator: "")
     }
     
-    func inputUserNumber() -> String {
+    func inputUserNumber() -> Int? {
         guard let inputUserNumber = readLine(), inputUserNumber.isEmpty == false else {
-            return "입력된 값이 없습니다."
+            print("입력된 값이 없습니다.")
+            return nil
         }
-        userNumber = Int(inputUserNumber) ?? 4
+        let inputUserNumberToInt = Int(inputUserNumber)
+        return inputUserNumberToInt
         
-        return inputUserNumber
     }
     
     func isValidateUserNumber() -> Bool {
-        if userNumber == 0 {
-            print("게임 종료")
-            return false
-        } else if userNumber <= 4 {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return true
+        while true {
+            let number = inputUserNumber()
+            switch number {
+            case 0:
+                print("게임종료")
+                return false
+            case 1:
+                userNumber = number ?? 4
+                return true
+            case 2:
+                userNumber = number ?? 4
+                return true
+            case 3:
+                userNumber = number ?? 4
+                return true
+            default:
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                return true
+            }
         }
-        return true
     }
     
     func generateRandomNumber() {
         computerNumber = Int.random(in: 1...3)
     }
     
-    func judgeWinOrLose() {
-        switch userNumber - computerNumber {
-        case -1, 2:
-            result = 1
-        case -2, 1:
-            result = 2
-        case 0:
-            result = 0
-        default:
-            result = -1
+    func judgeWinOrLose(_ runningTheGame: Bool) {
+        if runningTheGame == true {
+            switch userNumber - computerNumber {
+            case -1, 2:
+                result = 1
+            case -2, 1:
+                result = 2
+            case 0:
+                result = 0
+            default:
+                result = -1
+            }
+        }
+    }
+    
+    func playGame() {
+        var flag: Bool = true
+        
+        while flag {
+            showMenu()
+            inputUserNumber()
+            generateRandomNumber()
+            judgeWinOrLose(isValidateUserNumber())
         }
     }
 }

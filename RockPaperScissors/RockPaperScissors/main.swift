@@ -7,3 +7,5 @@
 import Foundation
 
 
+let game = RockPaperScissorsGame()
+game.playGame()
