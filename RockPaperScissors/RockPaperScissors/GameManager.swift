@@ -5,8 +5,7 @@ struct GameManager {
         let userRPS = generateUserRPS()
         let computerRPS = generateComputerRPS()
         let userGameResult = decideUserVictory(userRPS, vs: computerRPS)
-        print(userRPS, computerRPS, userGameResult)
-        
+        printResult(of: userGameResult)
     }
     
     func printMenu() {
@@ -92,4 +91,18 @@ struct GameManager {
         
         return gameResult
     }
+    
+    func printResult(of result: GameResult) {
+        switch result {
+        case .win:
+            print("이겼습니다!")
+        case .lose:
+            print("졌습니다!")
+        case .draw:
+            print("비겼습니다!")
+            startRPSGame()
+        }
+    }
 }
+
+
