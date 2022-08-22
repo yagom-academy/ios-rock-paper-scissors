@@ -23,8 +23,12 @@ STEP 1
 
 func startGame() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    takeUserNumber()
-    playGame()
+    guard let userNumber: Int = Int(takeUserInput()) else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        startGame()
+        return
+    }
+    playGame(userNumber)
 }
 
 func makeComputerNumber() -> Int {
@@ -32,18 +36,22 @@ func makeComputerNumber() -> Int {
     return computerNumber
 }
 
-func takeUserNumber() -> Int {
+func takeUserInput() -> String {
     guard let userInput = readLine() else {
-        return 0
+        return takeUserInput()
     }
-    guard let userNumber = Int(userInput) else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        startGame()
-        return 0
-    }
-    return userNumber
+    return userInput
 }
 
-func playGame() {
-    
+func playGame(_ userNumber: Int) {
+    switch userNumber {
+    case 0:
+        print("게임 종료")
+    case 1, 2, 3:
+//        compareNumber()
+        print(userNumber)
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        startGame()
+    }
 }
