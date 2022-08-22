@@ -1,11 +1,10 @@
 //
-//  Player.swift
-//  RockPaperScissors
-//
-//  Created by 김인호 on 2022/08/22.
+//  RockPaperScissors - Player.swift
+//  Created by yagom.
+//  Copyright © yagom academy. All rights reserved.
 //
 
 struct Player {
     let name: String
-    var handShape: RockPaperScissors
+    var handShape: HandShape
 }
