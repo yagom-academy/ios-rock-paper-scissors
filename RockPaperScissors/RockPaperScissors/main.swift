@@ -1,4 +1,5 @@
 import Foundation
 
-let gameManager = GameManager()
-gameManager.startRPSGame()
+let gameMachine = RPSGameMachine()
+
+gameMachine.startRPSGame()

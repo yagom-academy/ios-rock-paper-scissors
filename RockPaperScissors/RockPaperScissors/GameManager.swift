@@ -1,10 +1,15 @@
 import Foundation
 
-struct GameManager {
+struct RPSGameMachine {
     func startRPSGame() {
-        let userRPS = generateUserRPS()
+        guard let userRPS = generateUserRPS() else {
+            print("게임 종료")
+            return
+        }
+        
         let computerRPS = generateComputerRPS()
         let userGameResult = decideUserVictory(userRPS, vs: computerRPS)
+        
         printResult(of: userGameResult)
     }
     
@@ -13,9 +18,7 @@ struct GameManager {
     }
     
     func fetchUserInput() -> Int? {
-        let userInput = readLine()
-        
-        guard let userInput = userInput else {
+        guard let userInput = readLine() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return nil
         }
@@ -23,15 +26,20 @@ struct GameManager {
         return Int(userInput)
     }
     
-    func generateUserRPS() -> RPS {
+    func generateUserRPS() -> RPS? {
         printMenu()
-        let userInput = fetchUserInput()
-        guard let userInput = userInput else {
+        
+        guard let userInput = fetchUserInput() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return generateUserRPS()
         }
         
+        guard userInput != 0 else {
+            return nil
+        }
+        
         let userRPS: RPS
+        
         switch userInput {
         case 1:
             userRPS = .scissors
@@ -52,10 +60,14 @@ struct GameManager {
             let RPSNumber = Int.random(in: 1...3)
             
             switch RPSNumber {
-            case 1: return .scissors
-            case 2: return .rock
-            case 3: return .paper
-            default : return generateComputerRPS()
+            case 1:
+                return .scissors
+            case 2:
+                return .rock
+            case 3:
+                return .paper
+            default :
+                return generateComputerRPS()
             }
         }
         
@@ -64,6 +76,7 @@ struct GameManager {
     
     func decideUserVictory(_ userRPS: RPS, vs computerRPS: RPS) -> GameResult {
         var gameResult: GameResult = .draw
+        
         if userRPS == computerRPS {
             return gameResult
         }
