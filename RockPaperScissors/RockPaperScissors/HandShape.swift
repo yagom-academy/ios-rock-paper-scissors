@@ -5,5 +5,5 @@
 //
 
 enum HandShape: Int {
-    case rock = 1, paper, scissors
+    case scissors = 1, rock, paper
 }
