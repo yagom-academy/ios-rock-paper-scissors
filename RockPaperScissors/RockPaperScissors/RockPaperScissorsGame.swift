@@ -37,6 +37,10 @@ class RockPaperScissorsGame {
         return true
     }
     
+    func generateRandomNumber() {
+        computerNumber = Int.random(in: 1...3)
+    }
+    
     func judgeWinOrLose() -> String {
         switch userNumber - computerNumber {
         case -1, 2:
