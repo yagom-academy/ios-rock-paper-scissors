@@ -48,10 +48,23 @@ func playGame(_ userNumber: Int) {
     case 0:
         print("게임 종료")
     case 1, 2, 3:
-//        compareNumber()
+//        compareNumbers(userNumber)
         print(userNumber)
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
+        startGame()
+    }
+}
+
+func compareNumbers(computerGameNumber: Int, userGameNumber: Int) {
+    let differenceNumber: Int = computerGameNumber - userGameNumber
+    switch differenceNumber {
+    case -2, 1:
+        print("이겼습니다!")
+    case -1, 2:
+        print("졌습니다!")
+    default:
+        print("비겼습니다!")
         startGame()
     }
 }
