@@ -3,6 +3,7 @@ import Foundation
 struct GameManager {
     func startRPSGame() {
         let userRPS = generateUserRPS()
+        let computerRPS = generateComputerRPS()
     }
     
     func printMenu() {
@@ -43,6 +44,19 @@ struct GameManager {
         
         return userRPS
     }
+    
+    func generateComputerRPS() -> RPS {
+        var computerRPS: RPS {
+            let RPSNumber = Int.random(in: 1...3)
+            
+            switch RPSNumber {
+            case 1: return .scissors
+            case 2: return .rock
+            case 3: return .paper
+            default : return generateComputerRPS()
+            }
+        }
+        
+        return computerRPS
+    }
 }
-
-
