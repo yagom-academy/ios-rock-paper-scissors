@@ -14,4 +14,9 @@ struct GameManager {
     func printRockPaperScissorsManual() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
+    
+    func recieveInputFromUser() -> String {
+        guard let input = readLine() else { return "" }
+        return input
+    }
 }
