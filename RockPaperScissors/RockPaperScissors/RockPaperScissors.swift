@@ -23,6 +23,7 @@ STEP 1
 
 func startGame() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    takeUserNumber()
     playGame()
 }
 
@@ -31,4 +32,18 @@ func makeComputerNumber() -> Int {
     return computerNumber
 }
 
+func takeUserNumber() -> Int {
+    guard let userInput = readLine() else {
+        return 0
+    }
+    guard let userNumber = Int(userInput) else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        startGame()
+        return 0
+    }
+    return userNumber
+}
 
+func playGame() {
+    
+}
