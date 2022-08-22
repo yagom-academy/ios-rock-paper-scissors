@@ -21,7 +21,14 @@ STEP 1
 0~3이 아닌 값을 입력받은 경우 : “잘못된 입력입니다. 다시 시도해주세요.” 출력 후 최초 실행 상태로 복귀
 */
 
+func startGame() {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    playGame()
+}
+
 func makeComputerNumber() -> Int {
     let computerNumber: Int = Int.random(in: 1...3)
     return computerNumber
 }
+
+
