@@ -38,7 +38,7 @@ struct GameManager {
             return HandShape.init(rawValue: convertedInput)
         case 0:
             return nil
-        default :
+        default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return receiveHandShapeFromUser()
         }
