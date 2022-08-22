@@ -4,15 +4,18 @@ struct GameManager {
     func startRPSGame() {
         let userRPS = generateUserRPS()
         let computerRPS = generateComputerRPS()
+        let userGameResult = decideUserVictory(userRPS, vs: computerRPS)
+        print(userRPS, computerRPS, userGameResult)
+        
     }
     
     func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
-
+    
     func fetchUserInput() -> Int? {
         let userInput = readLine()
-
+        
         guard let userInput = userInput else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return nil
@@ -58,5 +61,35 @@ struct GameManager {
         }
         
         return computerRPS
+    }
+    
+    func decideUserVictory(_ userRPS: RPS, vs computerRPS: RPS) -> GameResult {
+        var gameResult: GameResult = .draw
+        if userRPS == computerRPS {
+            return gameResult
+        }
+        
+        switch userRPS {
+        case .rock:
+            if computerRPS == .scissors {
+                gameResult = .win
+            } else if computerRPS == .paper {
+                gameResult = .lose
+            }
+        case .paper:
+            if computerRPS == .rock {
+                gameResult = .win
+            } else if computerRPS == .scissors {
+                gameResult = .lose
+            }
+        case .scissors:
+            if computerRPS == .paper {
+                gameResult = .win
+            } else if computerRPS == .rock {
+                gameResult = .lose
+            }
+        }
+        
+        return gameResult
     }
 }
