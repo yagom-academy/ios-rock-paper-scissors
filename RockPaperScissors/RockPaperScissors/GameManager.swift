@@ -10,7 +10,31 @@ struct GameManager {
             HandShape.init(rawValue: Int.random(in: 1...3))
         }
     }
-    var userHandShape: HandShape?
+    
+    mutating func startRockPaperScissorsGame() {
+        guard let userHandShape = receiveHandShapeFromUser() else {
+            print("게임 종료")
+            return
+        }
+        do {
+            let gameResult = try fetchGameResult(of: userHandShape)
+            switch gameResult {
+            case .win:
+                print("이겼습니다!")
+                return
+            case .lose:
+                print("졌습니다!")
+                return
+            case .draw:
+                print("비겼습니다!")
+                startRockPaperScissorsGame()
+            }
+        } catch {
+            print(error)
+            startRockPaperScissorsGame()
+        }
+        
+    }
         
     func receiveHandShapeFromUser() -> HandShape? {
         printRockPaperScissorsManual()
@@ -40,9 +64,8 @@ struct GameManager {
         return input
     }
     
-    func checkGameResult() throws -> GameResult {
+    func fetchGameResult(of userHandShape: HandShape) throws -> GameResult {
         guard let computerHandShape = self.computerHandShape else { throw GameError.isEmptyComputerHandShape }
-        guard let userHandShape = self.userHandShape else { throw GameError.isEmptyUserHandShape }
         
         if userHandShape == computerHandShape {
             return .draw
