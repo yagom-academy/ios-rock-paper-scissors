@@ -11,26 +11,22 @@ struct GameManager {
         self.players = players
     }
         
-    func recieveHandShapeFromUser() -> HandShape? {
-        while true {
-            printRockPaperScissorsManual()
-            let userInput = recieveInputFromUser()
-            guard let convertedInput = Int(userInput) else {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-                continue
-            }
-            switch convertedInput {
-            case 1:
-                return HandShape.rock
-            case 2:
-                return HandShape.paper
-            case 3:
-                return HandShape.scissors
-            case 0:
-                return nil
-            default :
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-            }
+    func receiveHandShapeFromUser() -> HandShape? {
+        printRockPaperScissorsManual()
+        let userInput = receiveInputFromUser()
+        guard let convertedInput = Int(userInput) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return receiveHandShapeFromUser()
+        }
+        
+        switch convertedInput {
+        case 1...3:
+            return HandShape.init(rawValue: convertedInput)
+        case 0:
+            return nil
+        default :
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return receiveHandShapeFromUser()
         }
     }
     
@@ -38,7 +34,7 @@ struct GameManager {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
     
-    func recieveInputFromUser() -> String {
+    func receiveInputFromUser() -> String {
         guard let input = readLine() else { return "" }
         return input
     }
