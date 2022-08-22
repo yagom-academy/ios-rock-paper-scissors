@@ -5,7 +5,11 @@
 //
 
 struct GameManager {
-    var computerHandShape: HandShape?
+    var computerHandShape: HandShape? {
+        get {
+            HandShape.init(rawValue: Int.random(in: 1...3))
+        }
+    }
     var userHandShape: HandShape?
         
     func receiveHandShapeFromUser() -> HandShape? {
