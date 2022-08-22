@@ -5,11 +5,8 @@
 //
 
 struct GameManager {
-    var players: [Player]
-    
-    init(_ players: Player...) {
-        self.players = players
-    }
+    var computerHandShape: HandShape?
+    var userHandShape: HandShape?
         
     func receiveHandShapeFromUser() -> HandShape? {
         printRockPaperScissorsManual()
