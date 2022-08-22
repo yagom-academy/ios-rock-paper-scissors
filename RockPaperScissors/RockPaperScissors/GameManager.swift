@@ -5,7 +5,7 @@
 //
 
 struct GameManager {
-    mutating func startRockPaperScissorsGame() {
+    func startRockPaperScissorsGame() {
         guard let userHandShape = receiveHandShapeFromUser() else {
             print("게임 종료")
             return
@@ -25,7 +25,7 @@ struct GameManager {
         }
     }
     
-    func receiveHandShapeFromUser() -> HandShape? {
+    private func receiveHandShapeFromUser() -> HandShape? {
         printRockPaperScissorsManual()
         let userInput = receiveInputFromUser()
         guard let convertedInput = Int(userInput) else {
@@ -44,16 +44,16 @@ struct GameManager {
         }
     }
     
-    func printRockPaperScissorsManual() {
+    private func printRockPaperScissorsManual() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
     
-    func receiveInputFromUser() -> String {
+    private func receiveInputFromUser() -> String {
         guard let input = readLine() else { return "" }
         return input
     }
     
-    func fetchGameResult(of userHandShape: HandShape) -> GameResult {
+    private func fetchGameResult(of userHandShape: HandShape) -> GameResult {
         let computerHandShape = generateRandomHandShape()
         
         if userHandShape == computerHandShape {
@@ -65,7 +65,7 @@ struct GameManager {
         }
     }
     
-    func generateRandomHandShape() -> HandShape {
+    private func generateRandomHandShape() -> HandShape {
         guard let handShape = HandShape.init(rawValue: Int.random(in: 1...3)) else { return generateRandomHandShape() }
         return handShape
     }
