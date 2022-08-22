@@ -3,4 +3,3 @@ enum GameResult {
     case lose
     case draw
 }
-

@@ -1,5 +1,3 @@
-import Foundation
-
 struct RPSGameMachine {
     func startRPSGame() {
         guard let userRPS = generateUserRPS() else {
@@ -11,19 +9,6 @@ struct RPSGameMachine {
         let userGameResult = decideUserVictory(userRPS, vs: computerRPS)
         
         printResult(of: userGameResult)
-    }
-    
-    func printMenu() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-    }
-    
-    func fetchUserInput() -> Int? {
-        guard let userInput = readLine() else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return nil
-        }
-        
-        return Int(userInput)
     }
     
     func generateUserRPS() -> RPS? {
@@ -53,6 +38,19 @@ struct RPSGameMachine {
         }
         
         return userRPS
+    }
+    
+    func printMenu() {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+    }
+    
+    func fetchUserInput() -> Int? {
+        guard let userInput = readLine() else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return nil
+        }
+        
+        return Int(userInput)
     }
     
     func generateComputerRPS() -> RPS {
