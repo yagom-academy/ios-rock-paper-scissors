@@ -80,6 +80,17 @@ struct RockPaperScissorsGame {
         }
         return gameResult
     }
+    
+    func showResult(_ result: GameResult) {
+        switch result {
+        case .win:
+            print("이겼습니다!")
+        case .lose:
+            print("졌습니다!")
+        case .draw:
+            print("비겼습니다!")
+        }
+    }
 }
 
 
