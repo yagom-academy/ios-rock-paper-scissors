@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RockPaperScissorsGame {
+struct RockPaperScissorsGame {
     var userNumber: Int = 0
     var computerNumber: Int = 0
     var result: GameResult
@@ -32,7 +32,7 @@ class RockPaperScissorsGame {
         showMenu()
         
         guard let userNumber = inputUserNumber() else {
-            return generateRandomNumber()
+            return generateUserRPS()
         }
         
         guard userNumber != 0 else {
@@ -41,15 +41,21 @@ class RockPaperScissorsGame {
         
         guard let userRPS: RPS = .init(rawValue: userNumber) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return generateRandomNumber()
+            return generateUserRPS()
         }
+        return userRPS
     }
     
-    func generateRandomNumber() {
-        computerNumber = Int.random(in: 1...3)
+    func generateComputerRandomRPS() -> RPS {
+        let computerNumber = Int.random(in: 1...3)
+        
+        guard let computerRPS: RPS = .init(rawValue: computerNumber) else {
+            return generateComputerRandomRPS()
+        }
+        return computerRPS
     }
     
-    func judgeWinOrLose(_ runningTheGame: Bool) {
+    mutating func judgeWinOrLose(_ runningTheGame: Bool) {
         if runningTheGame == true {
             switch userNumber - computerNumber {
             case -1, 2:
@@ -61,16 +67,6 @@ class RockPaperScissorsGame {
             default:
                 result = GameResult.none
             }
-        }
-    }
-    
-    func playGame() {
-        var flag: Bool = true
-        
-        while flag {
-            showMenu()
-            generateRandomNumber()
-            judgeWinOrLose(isValidateUserNumber())
         }
     }
 }
