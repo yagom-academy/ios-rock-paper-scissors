@@ -15,7 +15,7 @@ func startGame() {
         return
     }
     guard let hands = setHandType(userHandNumber) else { return }
-    compareHands(from: hands)
+    compareHandsForRSP(from: hands)
 }
 
 func playMGP(turn: Turn) {

@@ -42,7 +42,7 @@ func setHandType(_ userHandNumber: Int) -> (HandType, HandType)? {
     return (userHand, computerHand)
 }
 
-func compareHands(from hands: (HandType, HandType)) {
+func compareHandsForRSP(from hands: (HandType, HandType)) {
     switch hands {
     case let (user, computer) where user == computer:
         print("비겼습니다!")
