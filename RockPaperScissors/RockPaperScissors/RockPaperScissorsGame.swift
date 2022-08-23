@@ -8,19 +8,14 @@
 struct RockPaperScissorsGame {
     func startGame() {
         let selectedUserMenu: Int = getSelectedUserMenu()
-        switch selectedUserMenu {
-        case 1...3:
-            let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu) ?? .rock
+       
+        if let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu) {
             let computerHand: RockPaperScissors = getComputerHand()
             let gameResult: WinLoseDraw = compareUserHandWithComputerHand(userHand: userHand, computerHand: computerHand)
             gameResult.printResult()
             if gameResult == .draw {
                 startGame()
-            } else {
-                return
             }
-        default:
-            return
         }
     }
     
@@ -77,6 +72,4 @@ struct RockPaperScissorsGame {
             }
         }
     }
-    
-
 }
