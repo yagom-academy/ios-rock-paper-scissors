@@ -53,6 +53,11 @@ func gameStart() {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         }
-        checkResult(computerHand: randomComputerHand, userHand: makeUserHand(of: inputNumber))
+        if inputNumber == 0 {
+            print("게임 종료")
+            gameStopCheck = false
+        } else {
+            checkResult(computerHand: randomComputerHand, userHand: makeUserHand(of: inputNumber))
+        }
     }
 }
