@@ -30,14 +30,17 @@ func startRockScissorsPaperGame() {
 
 func showGameResult(computerPick: Int, userPick: Int) -> Bool {
     var exit: Bool = false
+    
+    if computerPick == userPick {
+        print("비겼습니다!")
+    }
+    
     switch userPick {
     case 0:
         print("게임 종료")
         exit = true
     case 1:
-        if computerPick == 1 {
-            print("비겼습니다!")
-        } else if computerPick == 2 {
+        if computerPick == 2 {
             print("졌습니다!")
             exit = true
         } else if computerPick == 3 {
@@ -48,8 +51,6 @@ func showGameResult(computerPick: Int, userPick: Int) -> Bool {
         if computerPick == 1 {
             print("이겼습니다!")
             exit = true
-        } else if computerPick == 2 {
-            print("비겼습니다!")
         } else if computerPick == 3 {
             print("졌습니다!")
             exit = true
@@ -61,8 +62,6 @@ func showGameResult(computerPick: Int, userPick: Int) -> Bool {
         } else if computerPick == 2 {
             print("이겼습니다!")
             exit = true
-        } else if computerPick == 3 {
-            print("비겼습니다!")
         }
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
