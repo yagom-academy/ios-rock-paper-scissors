@@ -6,7 +6,8 @@ class RockPaperScissorsLibrary {
     }
 
     private func inputUserSelction() -> Int? {
-        guard let userInput = readLine(), let userSelection = Int(userInput) else {
+        guard let userInput = readLine(),
+              let userSelection = Int(userInput) else {
             return nil
         }
         
@@ -44,7 +45,11 @@ class RockPaperScissorsLibrary {
         }
     }
 
-    private func judgeWin(userHand: RockPaperScissorCase, computerHand: RockPaperScissorCase) -> WinLoseDrawCase {
+    private func judgeWin(
+        userHand: RockPaperScissorCase,
+        computerHand: RockPaperScissorCase
+    ) -> WinLoseDrawCase
+    {
         if userHand == computerHand {
             return .draw
         } else if userHand == .scissor && computerHand == .paper {
@@ -57,10 +62,8 @@ class RockPaperScissorsLibrary {
             return .lose
         }
     }
-}
-
-extension RockPaperScissorsLibrary: RockPaperScissorsLibraryProtocol {
-    func startGame() {
+    
+    private func startGame() {
         displayGameMessege()
         
         guard let userInput = judgeValidInput(userInput: inputUserSelction()) else {
@@ -71,18 +74,25 @@ extension RockPaperScissorsLibrary: RockPaperScissorsLibraryProtocol {
             return
         }
         
-        let result: WinLoseDrawCase = judgeWin(userHand: userInput, computerHand: generateRandomComputerHand())
+        let result: WinLoseDrawCase = judgeWin(
+            userHand: userInput,
+            computerHand: generateRandomComputerHand()
+        )
         
         switch result {
         case .lose:
             print("졌습니다!")
-            return
         case .win:
             print("이겼습니다!")
-            return
         case .draw:
             print("비겼습니다!")
-            return startGame()
+            startGame()
         }
+    }
+}
+
+extension RockPaperScissorsLibrary: RockPaperScissorsLibraryProtocol {
+    func callStartGame() {
+        startGame()
     }
 }

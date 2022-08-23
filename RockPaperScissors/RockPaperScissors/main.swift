@@ -2,4 +2,4 @@
 
 let RockPaperScissors: RockPaperScissorsLibraryProtocol = RockPaperScissorsLibrary()
 
-RockPaperScissors.startGame()
+RockPaperScissors.callStartGame()
