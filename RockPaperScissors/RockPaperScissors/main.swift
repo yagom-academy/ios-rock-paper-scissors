@@ -45,6 +45,12 @@ func compareUserWithComputer(_ user: Int, _ computer: Int) {
 func main() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     let userNumber = userInput()
+    
+    if userNumber == 0 {
+        print("종료")
+        return
+    }
+    
     let computerNumber = createComputerInput()
     compareUserWithComputer(userNumber, computerNumber)
 }
