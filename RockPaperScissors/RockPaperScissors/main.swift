@@ -7,12 +7,15 @@
 import Foundation
 
 func startGame() {
+    RCPgame()
+}
+
+func RCPgame() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     guard let input = readLine(), input.count == 1, let userNumber = Int(input) else { return }
-    let computerNumber = Int.random(in: 1...3)
     switch userNumber {
     case 1, 2, 3:
-        judgeWinner(userNumber, computerNumber)
+        judgeWinner(userNumber, generateRandomComputerNumber())
     case 0:
         print("게임 종료")
         return
@@ -37,6 +40,10 @@ func judgeWinner(_ userNumber: Int, _ computerNumber: Int) {
     default:
         return
     }
+}
+
+func generateRandomComputerNumber() -> Int {
+    return Int.random(in: 1...3)
 }
 
 startGame()
