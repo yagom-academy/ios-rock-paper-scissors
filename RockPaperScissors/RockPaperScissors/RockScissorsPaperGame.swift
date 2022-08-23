@@ -7,7 +7,11 @@
 
 import Foundation
 
-let rockScissorsPaper: [Int:String] = [1:"가위", 2:"바위", 3:"보"]
+enum RockScissorsPaper: Int {
+    case 가위 = 1
+    case 바위 = 2
+    case 보 = 3
+}
 
 func startRockScissorsPaperGame() {
     var computerNumber: Int
@@ -33,8 +37,8 @@ func startRockScissorsPaperGame() {
 func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
     var exit: Bool = true
     let selectMenu = userChoice
-    let computerPick = rockScissorsPaper[computerChoice]
-    let userPick = rockScissorsPaper[userChoice]
+    let computerPick = RockScissorsPaper(rawValue: computerChoice)
+    let userPick = RockScissorsPaper(rawValue: userChoice)
     let compareTwoThings = (컴퓨터가낸것: computerPick, 유저가낸것: userPick)
     
     if selectMenu == 0 {
@@ -47,13 +51,13 @@ func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
     }
     
     switch compareTwoThings {
-    case (컴퓨터가낸것: "가위", 유저가낸것: "바위"),
-        (컴퓨터가낸것: "바위", 유저가낸것: "보"),
-        (컴퓨터가낸것: "보", 유저가낸것: "가위"):
+    case (컴퓨터가낸것: .가위, 유저가낸것: .바위),
+        (컴퓨터가낸것: .바위, 유저가낸것: .보),
+        (컴퓨터가낸것: .보, 유저가낸것: .가위):
         print("이겼습니다!")
-    case (컴퓨터가낸것: "가위", 유저가낸것: "보"),
-        (컴퓨터가낸것: "바위", 유저가낸것: "가위"),
-        (컴퓨터가낸것: "보", 유저가낸것: "바위"):
+    case (컴퓨터가낸것: .가위, 유저가낸것: .보),
+        (컴퓨터가낸것: .바위, 유저가낸것: .가위),
+        (컴퓨터가낸것: .보, 유저가낸것: .바위):
         print("졌습니다!")
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
