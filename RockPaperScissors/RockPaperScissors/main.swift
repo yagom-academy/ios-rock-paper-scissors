@@ -12,6 +12,11 @@ enum HandType: Int {
     case paper = 3
 }
 
+enum Turn: String {
+    case user = "사용자"
+    case computer = "컴퓨터"
+}
+
 func printRockScissorPaper() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 }
@@ -41,9 +46,16 @@ func compareHands(userHand: HandType, computerHand: HandType) {
         playRockScissorPaper()
     case (.scissor, .paper), (.paper, .rock), (.rock, .scissor) :
         print("이겼습니다!")
+        playMGP(turn: .user)
     default:
         print("졌습니다!")
+        playMGP(turn: .computer)
     }
+}
+
+func playMGP(turn: Turn) {
+    print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " ")
+    let userHand = getUserHandNumber()
 }
 
 func playRockScissorPaper() {
