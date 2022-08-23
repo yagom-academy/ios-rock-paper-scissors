@@ -13,13 +13,13 @@ struct RockPaperScissorsGame {
         showResult(userGameResult)
     }
     
-    func showMenu() {
+    private func showMenu() {
         print("가위(\(RockPaperScissors.scissors.rawValue)),",
               "바위(\(RockPaperScissors.rock.rawValue)),",
               "보(\(RockPaperScissors.paper.rawValue))! <종료 : 0>: ", terminator: "")
     }
     
-    func inputUserNumber() -> Int? {
+    private func inputUserNumber() -> Int? {
         guard let inputUserNumber = readLine(), inputUserNumber.isEmpty == false else {
             print("입력된 값이 없습니다.")
             return inputUserNumber()
@@ -28,7 +28,7 @@ struct RockPaperScissorsGame {
         return inputUserNumberToInt
     }
     
-    func generateUserRPS() -> RockPaperScissors? {
+    private func generateUserRPS() -> RockPaperScissors? {
         showMenu()
         
         guard let userNumber = inputUserNumber() else {
@@ -47,7 +47,7 @@ struct RockPaperScissorsGame {
         return userRPS
     }
     
-    func generateComputerRandomRPS() -> RockPaperScissors {
+    private func generateComputerRandomRPS() -> RockPaperScissors {
         let computerNumber = Int.random(in: 1...3)
         
         guard let computerRPS: RockPaperScissors = .init(rawValue: computerNumber) else {
@@ -56,7 +56,10 @@ struct RockPaperScissorsGame {
         return computerRPS
     }
     
-    func judgeWinOrLose(_ userRPS: RockPaperScissors, _ computerRPS: RockPaperScissors) -> GameResult {
+    private func judgeWinOrLose(
+        _ userRPS: RockPaperScissors,
+        _ computerRPS: RockPaperScissors)
+    -> GameResult {
         var gameResult: GameResult = .draw
         
         if userRPS == computerRPS {
@@ -86,7 +89,7 @@ struct RockPaperScissorsGame {
         return gameResult
     }
     
-    func showResult(_ result: GameResult) {
+    private func showResult(_ result: GameResult) {
         switch result {
         case .win:
             print("이겼습니다!")
