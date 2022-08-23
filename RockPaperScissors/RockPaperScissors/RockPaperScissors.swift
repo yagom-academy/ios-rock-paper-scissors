@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Hand: Int, CaseIterable {
-    case scissor = 1
-    case rock = 2
-    case paper = 3
+enum Hand: CaseIterable {
+    case scissor
+    case rock
+    case paper
 }
 
 var gameStopCheck: Bool = true
