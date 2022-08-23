@@ -31,10 +31,14 @@ func compareHand(computerHand: Hand, userHand: Hand) -> Result {
     }
 }
 
+func displayResult(of Result: Result) {
+    print(Result.rawValue)
+}
+
 func gameStart() {
     let randomComputerHand: Hand = Hand.allCases.randomElement().unsafelyUnwrapped
     
-    while   {
+    while true {
         print(randomComputerHand)
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
         guard let inputNumberString = readLine(), let inputNumber = Int(inputNumberString),
@@ -45,7 +49,7 @@ func gameStart() {
         if inputNumber == 0 {
             print("게임 종료")
         } else {
-            checkResult(computerHand: randomComputerHand, userHand: makeUserHand(of: inputNumber))
+            displayResult(of: compareHand(computerHand: randomComputerHand, userHand: makeUserHand(of: inputNumber)))
         }
     }
 }
