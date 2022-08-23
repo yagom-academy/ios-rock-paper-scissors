@@ -8,6 +8,18 @@
 import Foundation
 
 struct RockPaperScissorsGame {
+    func play() {
+        guard let userRPS = generateUserRPS() else {
+            print("게임 종료")
+            return
+        }
+        
+        let computerRPS = generateComputerRandomRPS()
+        let userGameResult = judgeWinOrLose(userRPS, computerRPS)
+        
+        showResult(userGameResult)
+    }
+    
     func showMenu() {
         print("가위(\(RPS.scissors.rawValue)),",
               "바위(\(RPS.rock.rawValue)),",

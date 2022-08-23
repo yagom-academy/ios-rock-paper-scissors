@@ -8,4 +8,4 @@ import Foundation
 
 
 let game = RockPaperScissorsGame()
-game.playGame()
+game.play()
