@@ -16,16 +16,21 @@ func printRockScissorPaper() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 }
 
-func getUserNumberWithValidation() -> Int? {
-    guard let input = readLine(),
-          let userNumber = Int(input),
-          userNumber >= 0,
-          userNumber <= 3
+func getUserHandNumber() -> Int? {
+    let input = readLine()
+    return validateUserHandNumber(input: input)
+}
+
+func validateUserHandNumber(input: String?) -> Int? {
+    guard let input = input,
+          let userHandNumber = Int(input),
+          userHandNumber <= 3,
+          userHandNumber >= 0
     else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        print("잘못된 입력입니다. 다시 시도해 주세요")
         return nil
     }
-    return userNumber
+    return userHandNumber
 }
 
 func compareHands(userHand: HandType, computerHand: HandType) {
@@ -50,11 +55,11 @@ func compareHands(userHand: HandType, computerHand: HandType) {
 
 func playRockScissorPaper() {
     printRockScissorPaper()
-    guard let userNumber = getUserNumberWithValidation() else {
+    guard let userHandNumber = getUserHandNumber() else {
         playRockScissorPaper()
         return
     }
-    guard let userHand = HandType(rawValue: userNumber) else {
+    guard let userHand = HandType(rawValue: userHandNumber) else {
         print("게임 종료")
         return
     }
