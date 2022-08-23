@@ -8,8 +8,6 @@
 import Foundation
 
 struct RockPaperScissorsGame {
-    var result: GameResult
-
     func showMenu() {
         print("가위(\(RPS.scissors.rawValue)),",
               "바위(\(RPS.rock.rawValue)),",
@@ -53,19 +51,34 @@ struct RockPaperScissorsGame {
         return computerRPS
     }
     
-    mutating func judgeWinOrLose(_ runningTheGame: Bool) {
-        if runningTheGame == true {
-            switch userNumber - computerNumber {
-            case -1, 2:
-                result = .win
-            case -2, 1:
-                result = .lose
-            case 0:
-                result = .draw
-            default:
-                result = .none
+    func judgeWinOrLose(_ userRPS: RPS, _ computerRPS: RPS) -> GameResult {
+        var gameResult: GameResult = .draw
+        
+        if userRPS == computerRPS {
+            return gameResult
+        }
+        
+        switch userRPS {
+        case .scissors:
+            if computerRPS == .paper {
+                gameResult = .win
+            } else if computerRPS == .rock {
+                gameResult = .lose
+            }
+        case .rock:
+            if computerRPS == .scissors {
+                gameResult = .win
+            } else if computerRPS == .paper {
+                gameResult = .lose
+            }
+        case .paper:
+            if computerRPS == .rock {
+                gameResult = .win
+            } else if computerRPS == .scissors {
+                gameResult = .lose
             }
         }
+        return gameResult
     }
 }
 
