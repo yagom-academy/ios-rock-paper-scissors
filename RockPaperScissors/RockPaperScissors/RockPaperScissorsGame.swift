@@ -2,7 +2,14 @@
 
 struct RockPaperScissorsGame {
     func play() {
-        guard let userRPS = generateUserRPS() else {
+        let userNumber = validateUserNumber()
+        
+        if checkEndGame(userNumber) {
+            print(GameComment.gameOver.rawValue)
+            return
+        }
+        
+        guard let userRPS = generateUserRPS(userNumber) else {
             print(GameComment.gameOver.rawValue)
             return
         }
@@ -28,19 +35,25 @@ struct RockPaperScissorsGame {
         return inputUserNumberToInt
     }
     
-    private func generateUserRPS() -> RockPaperScissors? {
+    private func validateUserNumber() -> Int {
         guard let userNumber = inputUserNumber() else {
             print(GameComment.retry.rawValue)
-            return generateUserRPS()
+            return validateUserNumber()
         }
-        
-        guard userNumber != 0 else {
-            return nil
+        return userNumber
+    }
+    
+    private func checkEndGame(_ userNumber: Int?) -> Bool {
+        if userNumber != 0 {
+            return false
         }
-        
-        guard let userRPS: RockPaperScissors = .init(rawValue: userNumber) else {
+        return true
+    }
+    
+    private func generateUserRPS(_ verifiedUserNumber: Int) -> RockPaperScissors? {
+        guard let userRPS: RockPaperScissors = .init(rawValue: verifiedUserNumber) else {
             print(GameComment.retry.rawValue)
-            return generateUserRPS()
+            return generateUserRPS(validateUserNumber())
         }
         return userRPS
     }
