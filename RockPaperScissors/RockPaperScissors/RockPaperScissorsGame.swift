@@ -1,7 +1,5 @@
 //  Created by 감자 and som on 2022/08/22.
 
-import Foundation
-
 struct RockPaperScissorsGame {
     func play() {
         guard let userRPS = generateUserRPS() else {
@@ -16,9 +14,9 @@ struct RockPaperScissorsGame {
     }
     
     func showMenu() {
-        print("가위(\(RPS.scissors.rawValue)),",
-              "바위(\(RPS.rock.rawValue)),",
-              "보(\(RPS.paper.rawValue))! <종료 : 0>: ", terminator: "")
+        print("가위(\(RockPaperScissors.scissors.rawValue)),",
+              "바위(\(RockPaperScissors.rock.rawValue)),",
+              "보(\(RockPaperScissors.paper.rawValue))! <종료 : 0>: ", terminator: "")
     }
     
     func inputUserNumber() -> Int? {
@@ -30,7 +28,7 @@ struct RockPaperScissorsGame {
         return inputUserNumberToInt
     }
     
-    func generateUserRPS() -> RPS? {
+    func generateUserRPS() -> RockPaperScissors? {
         showMenu()
         
         guard let userNumber = inputUserNumber() else {
@@ -42,23 +40,23 @@ struct RockPaperScissorsGame {
             return nil
         }
         
-        guard let userRPS: RPS = .init(rawValue: userNumber) else {
+        guard let userRPS: RockPaperScissors = .init(rawValue: userNumber) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return generateUserRPS()
         }
         return userRPS
     }
     
-    func generateComputerRandomRPS() -> RPS {
+    func generateComputerRandomRPS() -> RockPaperScissors {
         let computerNumber = Int.random(in: 1...3)
         
-        guard let computerRPS: RPS = .init(rawValue: computerNumber) else {
+        guard let computerRPS: RockPaperScissors = .init(rawValue: computerNumber) else {
             return generateComputerRandomRPS()
         }
         return computerRPS
     }
     
-    func judgeWinOrLose(_ userRPS: RPS, _ computerRPS: RPS) -> GameResult {
+    func judgeWinOrLose(_ userRPS: RockPaperScissors, _ computerRPS: RockPaperScissors) -> GameResult {
         var gameResult: GameResult = .draw
         
         if userRPS == computerRPS {
