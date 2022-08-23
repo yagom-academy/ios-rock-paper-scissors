@@ -26,15 +26,15 @@ func startRockScissorsPaperGame() {
             continue
         }
 
-        exitGame = showGameResult(computerNumber: computerNumber, userNumber: userNumber)
+        exitGame = showGameResult(by : computerNumber, and : userNumber)
     }
 }
 
-func showGameResult(computerNumber: Int, userNumber: Int) -> Bool {
+func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
     var exit: Bool = true
-    let selectMenu = userNumber
-    let computerPick = rockScissorsPaper[computerNumber]
-    let userPick = rockScissorsPaper[userNumber]
+    let selectMenu = userChoice
+    let computerPick = rockScissorsPaper[computerChoice]
+    let userPick = rockScissorsPaper[userChoice]
     let compareTwoThings = (컴퓨터가낸것: computerPick, 유저가낸것: userPick)
     
     if selectMenu == 0 {
