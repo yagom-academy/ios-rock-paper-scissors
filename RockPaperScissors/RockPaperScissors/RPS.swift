@@ -1,10 +1,4 @@
-//
-//  RPS.swift
-//  RockPaperScissors
-//
-//  Created by 정정수 on 2022/08/22.
-//
-
+//  Created by 감자 and som on 2022/08/22.
 
 enum RPS: Int {
     case scissors = 1

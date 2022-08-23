@@ -1,9 +1,4 @@
-//
-//  RockPaperScissorsGame.swift
-//  RockPaperScissors
-//
-//  Created by 정정수 on 2022/08/22.
-//
+//  Created by 감자 and som on 2022/08/22.
 
 import Foundation
 
@@ -33,13 +28,13 @@ struct RockPaperScissorsGame {
         }
         let inputUserNumberToInt = Int(inputUserNumber)
         return inputUserNumberToInt
-        
     }
     
     func generateUserRPS() -> RPS? {
         showMenu()
         
         guard let userNumber = inputUserNumber() else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
             return generateUserRPS()
         }
         
@@ -101,6 +96,7 @@ struct RockPaperScissorsGame {
             print("졌습니다!")
         case .draw:
             print("비겼습니다!")
+            play()
         }
     }
 }

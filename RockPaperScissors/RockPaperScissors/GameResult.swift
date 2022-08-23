@@ -1,11 +1,4 @@
-//
-//  GameResult.swift
-//  RockPaperScissors
-//
-//  Created by 정선아 on 2022/08/23.
-//
-
-import Foundation
+//  Created by 감자 and som on 2022/08/22.
 
 enum GameResult {
     case win
