@@ -10,8 +10,8 @@ struct GameManager {
         static let winningMessage = "이겼습니다!"
         static let losingMessage = "졌습니다!"
         static let drawMessage = "비겼습니다!"
-        static let invalidHandShapeInput = "잘못된 입력입니다. 다시 시도해주세요."
-        static let rockPaperScissorsManual = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+        static let invalidHandShapeRawValue = "잘못된 입력입니다. 다시 시도해주세요."
+        static let userInputManual = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     }
     
     func startRockPaperScissorsGame() {
@@ -35,31 +35,30 @@ struct GameManager {
     }
     
     private func receiveHandShapeFromUser() -> HandShape? {
-        printRockPaperScissorsManual()
-        let userInput = receiveInputFromUser()
-        guard let convertedInput = Int(userInput) else {
-            print(GameMessage.invalidHandShapeInput)
-            return receiveHandShapeFromUser()
-        }
+        let userHandShapeRawValue = receiveHandShapeRawValueFromUser()
         
-        switch convertedInput {
+        switch userHandShapeRawValue {
         case 1...3:
-            return HandShape.init(rawValue: convertedInput)
+            return HandShape.init(rawValue: userHandShapeRawValue)
         case 0:
             return nil
         default:
-            print(GameMessage.invalidHandShapeInput)
+            print(GameMessage.invalidHandShapeRawValue)
             return receiveHandShapeFromUser()
         }
     }
     
-    private func printRockPaperScissorsManual() {
-        print(GameMessage.rockPaperScissorsManual, terminator: "")
-    }
-    
-    private func receiveInputFromUser() -> String {
-        guard let input = readLine() else { return "" }
-        return input
+    private func receiveHandShapeRawValueFromUser() -> Int {
+        print(GameMessage.userInputManual, terminator: "")
+        guard let input = readLine(),
+              let HandShapeRawValue = Int(input),
+              HandShapeRawValue >= 0,
+              HandShapeRawValue <= 3 else {
+            print(GameMessage.invalidHandShapeRawValue)
+            return receiveHandShapeRawValueFromUser()
+        }
+        
+        return HandShapeRawValue
     }
     
     private func fetchGameResult(of userHandShape: HandShape) -> GameResult {
