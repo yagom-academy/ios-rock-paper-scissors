@@ -7,8 +7,9 @@
 
 import Foundation
 
-enum Hand: CaseIterable {
-    case scissor
-    case rock
-    case paper
+enum Hand: Int, CaseIterable {
+    case scissor = 1
+    case rock = 2
+    case paper = 3
+    case none = 4
 }
