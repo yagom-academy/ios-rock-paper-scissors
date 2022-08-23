@@ -14,6 +14,17 @@ enum WinLoseDraw {
     case win
     case lose
     case draw
+    
+    func printResult() {
+        switch self {
+        case .win:
+            print("이겼습니다!")
+        case .lose:
+            print("졌습니다!")
+        case .draw:
+            print("비겼습니다!")
+        }
+    }
 }
 
 struct RockPaperScissorsGame {
@@ -23,7 +34,9 @@ struct RockPaperScissorsGame {
         case 1...3:
             let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu) ?? .rock
             let computerHand: RockPaperScissors = getComputerHand()
-            if compareUserHandWithComputerHand(userHand: userHand, computerHand: computerHand) == .draw {
+            let gameResult: WinLoseDraw = compareUserHandWithComputerHand(userHand: userHand, computerHand: computerHand)
+            gameResult.printResult()
+            if gameResult == .draw {
                 startGame()
             } else {
                 return
@@ -33,7 +46,7 @@ struct RockPaperScissorsGame {
         }
     }
     
-    func getSelectedUserMenu() -> Int {
+    private func getSelectedUserMenu() -> Int {
         printMenu()
         guard let selectedUserMenu: Int = Int(readLine() ?? ""),
               isCorrectUserMenu(selectedUserMenu) else {
@@ -43,11 +56,11 @@ struct RockPaperScissorsGame {
         return selectedUserMenu
     }
     
-    func printMenu() {
+    private func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
 
-    func isCorrectUserMenu(_ userMenu: Int) -> Bool {
+    private func isCorrectUserMenu(_ userMenu: Int) -> Bool {
         switch userMenu {
         case 0...3:
             return true
@@ -56,11 +69,11 @@ struct RockPaperScissorsGame {
         }
     }
     
-    func getComputerHand() -> RockPaperScissors {
+    private func getComputerHand() -> RockPaperScissors {
         return RockPaperScissors.allCases.randomElement() ?? .rock
     }
     
-    func compareUserHandWithComputerHand(userHand: RockPaperScissors, computerHand: RockPaperScissors) -> WinLoseDraw {
+    private func compareUserHandWithComputerHand(userHand: RockPaperScissors, computerHand: RockPaperScissors) -> WinLoseDraw {
         guard userHand != computerHand else {
             return .draw
         }
@@ -68,32 +81,27 @@ struct RockPaperScissorsGame {
         switch userHand {
         case .rock:
             if computerHand == .scissors {
-                print("이겼습니다!")
                 return .win
             } else {
-                print("졌습니다!")
                 return .lose
             }
         case .paper:
             if computerHand == .rock {
-                print("이겼습니다!")
                 return .win
             } else {
-                print("졌습니다!")
                 return .lose
             }
         case .scissors:
             if computerHand == .paper {
-                print("이겼습니다!")
                 return .win
             } else {
-                print("졌습니다!")
                 return .lose
             }
         }
     }
+    
+
 }
 
 var game = RockPaperScissorsGame()
 game.startGame()
-
