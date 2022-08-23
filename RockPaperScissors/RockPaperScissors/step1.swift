@@ -35,6 +35,7 @@ func showGameResult(computerNumber: Int, userNumber: Int) -> Bool {
     let selectMenu = userNumber
     let computerPick = rockScissorsPaper[computerNumber]
     let userPick = rockScissorsPaper[userNumber]
+    let compareTwoThings = (컴퓨터가낸것: computerPick, 유저가낸것: userPick)
     
     if selectMenu == 0 {
         print("게임 종료")
@@ -42,27 +43,18 @@ func showGameResult(computerNumber: Int, userNumber: Int) -> Bool {
     } else if computerPick == userPick {
         print("비겼습니다!")
         exit = false
+        return exit
     }
     
-    switch userPick {
-    case "가위":
-        if computerPick == "바위" {
-            print("졌습니다!")
-        } else if computerPick == "보" {
-            print("이겼습니다!")
-        }
-    case "바위":
-        if computerPick == "가위" {
-            print("이겼습니다!")
-        } else if computerPick == "보" {
-            print("졌습니다!")
-        }
-    case "보":
-        if computerPick == "가위" {
-            print("졌습니다!")
-        } else if computerPick == "바위" {
-            print("이겼습니다!")
-        }
+    switch compareTwoThings {
+    case (컴퓨터가낸것: "가위", 유저가낸것: "바위"),
+        (컴퓨터가낸것: "바위", 유저가낸것: "보"),
+        (컴퓨터가낸것: "보", 유저가낸것: "가위"):
+        print("이겼습니다!")
+    case (컴퓨터가낸것: "가위", 유저가낸것: "보"),
+        (컴퓨터가낸것: "바위", 유저가낸것: "가위"),
+        (컴퓨터가낸것: "보", 유저가낸것: "바위"):
+        print("졌습니다!")
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         exit = false
