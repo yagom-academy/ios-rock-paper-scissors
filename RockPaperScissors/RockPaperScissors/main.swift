@@ -6,4 +6,8 @@
 
 import Foundation
 
-gameStart()
+print(makeUserHand(of: 1))
+print(makeUserHand(of: 2))
+print(makeUserHand(of: 3))
+print(makeUserHand(of: 0))
+
