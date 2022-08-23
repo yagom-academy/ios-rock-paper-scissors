@@ -52,6 +52,19 @@ func compareHands(from hands: (HandType, HandType)) {
     }
 }
 
+func compareHandsForMGP(from hands: (HandType, HandType), with turn: Turn) {
+    switch hands {
+    case let (user, computer) where user == computer:
+        print("\(turn.rawValue)의 승리!")
+    case (.scissor, .paper), (.paper, .rock), (.rock, .scissor) :
+        print("사용자의 턴입니다.")
+        playMGP(turn: .user)
+    default:
+        print("컴퓨터의 턴입니다.")
+        playMGP(turn: .computer)
+    }
+}
+
 func setHandType(_ userHandNumber: Int) -> (HandType, HandType)? {
     guard let userHand = HandType(rawValue: userHandNumber),
           let computerHand = HandType(rawValue: Int.random(in: 1...3))
@@ -64,7 +77,12 @@ func setHandType(_ userHandNumber: Int) -> (HandType, HandType)? {
 
 func playMGP(turn: Turn) {
     print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " ")
-    let userHandNumber = getUserHandNumber()
+    guard let userHandNumber = getUserHandNumber() else {
+        playMGP(turn: Turn.computer)
+        return
+    }
+    guard let hands = setHandType(userHandNumber) else { return }
+    compareHandsForMGP(from: hands, with: turn)
 }
 
 func playRockScissorPaper() {
