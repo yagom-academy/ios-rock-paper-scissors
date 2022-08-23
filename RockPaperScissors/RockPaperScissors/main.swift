@@ -7,14 +7,12 @@
 import Foundation
 
 func startGame() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ")
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     guard let input = readLine(), input.count == 1, let userNumber = Int(input) else { return }
     let computerNumber = Int.random(in: 1...3)
-    var compareUserToComputer: Int = userNumber - computerNumber
-    
     switch userNumber {
     case 1, 2, 3:
-        return
+        judgeWinner(userNumber, computerNumber)
     case 0:
         print("게임 종료")
         return
@@ -23,3 +21,22 @@ func startGame() {
         startGame()
     }
 }
+
+func judgeWinner(_ userNumber: Int, _ computerNumber: Int) {
+    let criterionNumber = userNumber - computerNumber
+    switch criterionNumber {
+    case -1, 2 :
+        print("이겼습니다!")
+        return
+    case 1, -2 :
+        print("졌습니다!")
+        return
+    case 0 :
+        print("비겼습니다!")
+        startGame()
+    default:
+        return
+    }
+}
+
+startGame()
