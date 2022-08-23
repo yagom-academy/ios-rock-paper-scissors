@@ -7,11 +7,6 @@
 
 import Foundation
 
-
-
-var gameStopCheck: Bool = true
-let randomComputerHand: Hand = Hand.allCases.randomElement().unsafelyUnwrapped
-
 func makeUserHand(of inputNumber: Int) -> Hand {
     if inputNumber == 1 {
         return Hand.scissor
@@ -27,21 +22,19 @@ func checkResult(computerHand: Hand, userHand: Hand) {
         print("비겼습니다!")
     } else if computerHand == Hand.scissor && userHand == Hand.rock {
         print("이겼습니다!")
-        gameStopCheck = false
     } else if computerHand == Hand.rock && userHand == Hand.paper {
         print("이겼습니다!")
-        gameStopCheck = false
     } else if computerHand == Hand.paper && userHand == Hand.scissor {
         print("이겼습니다!")
-        gameStopCheck = false
     } else {
         print("졌습니다!")
-        gameStopCheck = false
     }
 }
 
 func gameStart() {
-    while gameStopCheck {
+    let randomComputerHand: Hand = Hand.allCases.randomElement().unsafelyUnwrapped
+    
+    while   {
         print(randomComputerHand)
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
         guard let inputNumberString = readLine(), let inputNumber = Int(inputNumberString),
@@ -51,7 +44,6 @@ func gameStart() {
         }
         if inputNumber == 0 {
             print("게임 종료")
-            gameStopCheck = false
         } else {
             checkResult(computerHand: randomComputerHand, userHand: makeUserHand(of: inputNumber))
         }

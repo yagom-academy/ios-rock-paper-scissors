@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		868EE1F428B3BE50001F389E /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868EE1F328B3BE50001F389E /* RockPaperScissors.swift */; };
+		868EE1F628B506A1001F389E /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868EE1F528B506A1001F389E /* Result.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 		D2CB093F28B504CF00D0DD7E /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CB093E28B504CF00D0DD7E /* Hand.swift */; };
 /* End PBXBuildFile section */
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		868EE1F328B3BE50001F389E /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
+		868EE1F528B506A1001F389E /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D2CB093E28B504CF00D0DD7E /* Hand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				868EE1F328B3BE50001F389E /* RockPaperScissors.swift */,
 				D2CB093E28B504CF00D0DD7E /* Hand.swift */,
+				868EE1F528B506A1001F389E /* Result.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -127,6 +130,7 @@
 			files = (
 				868EE1F428B3BE50001F389E /* RockPaperScissors.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				868EE1F628B506A1001F389E /* Result.swift in Sources */,
 				D2CB093F28B504CF00D0DD7E /* Hand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
