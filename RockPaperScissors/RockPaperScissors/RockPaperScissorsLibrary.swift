@@ -33,17 +33,17 @@ class RockPaperScissorsLibrary {
         return Int.random(in: 1...3)
     }
 
-    private func judgeWin(userInput: Int, computerHand: Int) -> Int {
-        if userInput == computerHand {
-            return 2
-        } else if userInput == 1 && computerHand == 3 {
-            return 1
-        } else if userInput == 2 && computerHand == 1 {
-            return 1
-        } else if userInput == 3 && computerHand == 2 {
-            return 1
+    private func judgeWin(userHand: Int, computerHand: Int) -> WinLoseDrawCase {
+        if userHand == computerHand {
+            return .draw
+        } else if userHand == 1 && computerHand == 3 {
+            return .win
+        } else if userHand == 2 && computerHand == 1 {
+            return .win
+        } else if userHand == 3 && computerHand == 2 {
+            return .win
         } else {
-            return 0
+            return .lose
         }
     }
 }
@@ -60,20 +60,18 @@ extension RockPaperScissorsLibrary: RockPaperScissorsLibraryProtocol {
             return
         }
         
-        let result = judgeWin(userInput: userInput, computerHand: generateRandomComputerHand())
+        let result: WinLoseDrawCase = judgeWin(userHand: userInput, computerHand: generateRandomComputerHand())
         
         switch result {
-        case 0:
+        case .lose:
             print("졌습니다!")
             return
-        case 1:
+        case .win:
             print("이겼습니다!")
             return
-        case 2:
+        case .draw:
             print("비겼습니다!")
             return startGame()
-        default:
-            return
         }
     }
 }
