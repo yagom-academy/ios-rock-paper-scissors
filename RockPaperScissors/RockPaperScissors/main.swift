@@ -8,4 +8,8 @@ import Foundation
 
 let rockPaperScissorsGame: RockPaperScissors = .init()
 
-rockPaperScissorsGame.
+//rockPaperScissorsGame.startGame()
+
+let mukChibaGame: MukChiba = .init()
+
+mukChibaGame.startGame()
