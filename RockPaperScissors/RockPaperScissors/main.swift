@@ -38,8 +38,7 @@ func validateUserHandNumber(input: String?) -> Int? {
     return userHandNumber
 }
 
-func compareHands(userHand: HandType, computerHand: HandType) {
-    let hands = (userHand, computerHand)
+func compareHands(from hands: (HandType, HandType)) {
     switch hands {
     case let (user, computer) where user == computer:
         print("비겼습니다!")
@@ -53,9 +52,19 @@ func compareHands(userHand: HandType, computerHand: HandType) {
     }
 }
 
+func setHandType(_ userHandNumber: Int) -> (HandType, HandType)? {
+    guard let userHand = HandType(rawValue: userHandNumber),
+          let computerHand = HandType(rawValue: Int.random(in: 1...3))
+    else {
+        print("게임 종료")
+        return nil
+    }
+    return (userHand, computerHand)
+}
+
 func playMGP(turn: Turn) {
     print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " ")
-    let userHand = getUserHandNumber()
+    let userHandNumber = getUserHandNumber()
 }
 
 func playRockScissorPaper() {
@@ -64,13 +73,8 @@ func playRockScissorPaper() {
         playRockScissorPaper()
         return
     }
-    guard let userHand = HandType(rawValue: userHandNumber),
-          let computerHand = HandType(rawValue: Int.random(in: 1...3))
-    else {
-        print("게임 종료")
-        return
-    }
-    compareHands(userHand: userHand, computerHand: computerHand)
+    guard let hands = setHandType(userHandNumber) else { return }
+    compareHands(from: hands)
 }
 
 playRockScissorPaper()
