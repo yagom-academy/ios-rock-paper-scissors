@@ -57,13 +57,28 @@ class RockPaperScissors {
 }
 
 class MukChiba: RockPaperScissors {
+    override fileprivate func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int) {
+        let differenceNumber: Int = computerGameNumber - userGameNumber
+        switch differenceNumber {
+        case -2, 1:
+            print("이겼습니다!")
+            startMukChiba(attackTurn: true)
+        case -1, 2:
+            print("졌습니다!")
+            startMukChiba(attackTurn: false)
+        default:
+            print("비겼습니다!")
+            startGame()
+        }
+    }
+    
     fileprivate func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int, _ turn: Bool) {
         let differenceNumber: Int = computerGameNumber - userGameNumber
         switch differenceNumber {
         case -2, 1:
-            startMukChiba(true)
+            startMukChiba(attackTurn: true)
         case -1, 2:
-            startMukChiba(false)
+            startMukChiba(attackTurn: false)
         default:
             if turn == true {
                 print("사용자의 승리!")
@@ -73,7 +88,7 @@ class MukChiba: RockPaperScissors {
         }
     }
     
-    fileprivate func startMukChiba(_ attackTurn: Bool) {
+    fileprivate func startMukChiba(attackTurn: Bool) {
         let turn: String
         if attackTurn == true {
             turn = "[사용자 턴]"
@@ -83,9 +98,21 @@ class MukChiba: RockPaperScissors {
         print("\(turn) 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         guard let inputedUserNumber: Int = Int(bindUserInput()) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            startMukChiba(false)
+            startMukChiba(attackTurn: false)
             return
         }
-//        playMukChiba()
+        playMukChiba(inputedUserNumber, attackTurn)
+    }
+    
+    fileprivate func playMukChiba(_ userNumber: Int, _ attackTurn: Bool) {
+        switch userNumber {
+        case 0:
+            print("게임 종료")
+        case 1, 2, 3:
+            compareNumbers(makeComputerNumber(), userNumber, attackTurn)
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            startMukChiba(attackTurn: false)
+        }
     }
 }

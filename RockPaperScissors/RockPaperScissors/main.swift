@@ -8,7 +8,7 @@ import Foundation
 
 let rockPaperScissorsGame: RockPaperScissors = .init()
 
-//rockPaperScissorsGame.startGame()
+rockPaperScissorsGame.startGame()
 
 let mukChibaGame: MukChiba = .init()
 
