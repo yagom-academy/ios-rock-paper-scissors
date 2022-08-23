@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-func userInput() -> Int { // 함수명 변경
+func userInput() -> Int {
     while true {
         let userInput = readLine()
         
@@ -16,10 +16,10 @@ func userInput() -> Int { // 함수명 변경
     }
 }
 
-func isCorrectUserInput(_ userInput: String?) -> Int? { // 컨벤션
+func isCorrectUserInput(_ userInput: String?) -> Int? {
     guard let userInput = userInput else { return nil }
     guard let userInput = Int(userInput) else { return nil }
-    if userInput < 0 || userInput >= 4 { // 범위 설정 수정
+    if userInput < 0 || userInput >= 4 {
         return nil
     }
     return userInput
@@ -32,16 +32,13 @@ func createComputerInput() -> Int {
 }
 
 func compareUserWithComputer(_ user: Int, _ computer: Int) {
-    if user == computer {
+    switch (user, computer) {
+    case (1, 2), (2, 3), (3, 1) :
+        print("졌습니다!")
+    case (1, 1), (2, 2), (3, 3) :
         print("비겼습니다!")
-    } else if user == 1, computer == 2 {
-        print("컴퓨터 승리")
-    } else if user == 2, computer == 3 {
-        print("컴퓨터 승리")
-    } else if user == 3, computer == 1 {
-        print("컴퓨터 승리")
-    } else {
-        print("유저 승리")
+    default :
+        print("이겼습니다!")
     }
 }
 
