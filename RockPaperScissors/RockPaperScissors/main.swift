@@ -34,23 +34,16 @@ func validateUserHandNumber(input: String?) -> Int? {
 }
 
 func compareHands(userHand: HandType, computerHand: HandType) {
-    if userHand == computerHand {
-        print("비겼습니다!")
-        playRockScissorPaper()
-        return
-    } else if userHand == .scissor && computerHand == .paper {
-        print("이겼습니다!")
-        return
-    } else if userHand == .paper && computerHand == .scissor {
-        print("졌습니다!")
-        return
-    }
-    
-    if userHand.rawValue > computerHand.rawValue {
-        print("이겼습니다!")
-    } else {
-        print("졌습니다!")
-    }
+    let hands = (userHand, computerHand)
+        switch hands {
+        case let (user, computer) where user == computer:
+            print("비겼습니다!")
+            playRockScissorPaper()
+        case (.scissor, .paper), (.paper, .rock), (.rock, .scissor) :
+            print("이겼습니다!")
+        default:
+            print("졌습니다!")
+        }
 }
 
 func playRockScissorPaper() {
