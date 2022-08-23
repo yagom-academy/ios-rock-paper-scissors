@@ -22,53 +22,52 @@ func startRockScissorsPaperGame() {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         }
-        showGameResult(computerPick: computerPick, userPick: userPick, exitGame: &exitGame)
+        
+        exitGame = showGameResult(computerPick: computerPick, userPick: userPick)
     }
 }
 
-func showGameResult(computerPick: Int, userPick: Int, exitGame: inout Bool) {
+func showGameResult(computerPick: Int, userPick: Int) -> Bool {
+    var exit: Bool = false
     switch userPick {
     case 0:
         print("게임 종료")
-        exitGame = true
-        break
+        exit = true
     case 1:
         if computerPick == 1 {
             print("비겼습니다!")
         } else if computerPick == 2 {
             print("졌습니다!")
-            exitGame = true
+            exit = true
         } else if computerPick == 3 {
             print("이겼습니다!")
-            exitGame = true
+            exit = true
         }
-        break
     case 2:
         if computerPick == 1 {
             print("이겼습니다!")
-            exitGame = true
+            exit = true
         } else if computerPick == 2 {
             print("비겼습니다!")
         } else if computerPick == 3 {
             print("졌습니다!")
-            exitGame = true
+            exit = true
         }
-        break
     case 3:
         if computerPick == 1 {
             print("졌습니다!")
-            exitGame = true
+            exit = true
         } else if computerPick == 2 {
             print("이겼습니다!")
-            exitGame = true
+            exit = true
         } else if computerPick == 3 {
             print("비겼습니다!")
         }
-        break
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        break
     }
+    
+    return exit
 }
 
 startRockScissorsPaperGame()
