@@ -23,5 +23,3 @@ func startGame() {
         startGame()
     }
 }
-
-startGame()
