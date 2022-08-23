@@ -7,11 +7,7 @@
 
 import Foundation
 
-enum Hand: CaseIterable {
-    case scissor
-    case rock
-    case paper
-}
+
 
 var gameStopCheck: Bool = true
 let randomComputerHand: Hand = Hand.allCases.randomElement().unsafelyUnwrapped
