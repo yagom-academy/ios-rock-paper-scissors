@@ -39,3 +39,15 @@ func compareUserWithComputer(_ user: Int, _ computer: Int) {
         print("유저 승리")
     }
 }
+
+func main() {
+    if let userInput = gameStart() {
+        if isCorrectUserInput(userInput) {
+            let computerInput = createComputerInput()
+            print(computerInput)
+            compareUserWithComputer(userInput, computerInput)
+        }
+    }
+}
+
+main()
