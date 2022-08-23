@@ -8,8 +8,6 @@
 import Foundation
 
 struct RockPaperScissorsGame {
-    var userNumber: Int = 0
-    var computerNumber: Int = 0
     var result: GameResult
 
     func showMenu() {
@@ -59,13 +57,13 @@ struct RockPaperScissorsGame {
         if runningTheGame == true {
             switch userNumber - computerNumber {
             case -1, 2:
-                result = GameResult.win
+                result = .win
             case -2, 1:
-                result = GameResult.lose
+                result = .lose
             case 0:
-                result = GameResult.draw
+                result = .draw
             default:
-                result = GameResult.none
+                result = .none
             }
         }
     }
