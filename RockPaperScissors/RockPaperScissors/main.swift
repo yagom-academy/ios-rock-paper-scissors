@@ -52,11 +52,12 @@ func playRockScissorPaper() {
         playRockScissorPaper()
         return
     }
-    guard let userHand = HandType(rawValue: userHandNumber) else {
+    guard let userHand = HandType(rawValue: userHandNumber),
+          let computerHand = HandType(rawValue: Int.random(in: 1...3))
+    else {
         print("게임 종료")
         return
     }
-    guard let computerHand = HandType(rawValue: Int.random(in: 1...3)) else { return }
     compareHands(userHand: userHand, computerHand: computerHand)
 }
 
