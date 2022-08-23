@@ -13,34 +13,45 @@ class RockPaperScissorsLibrary {
         return userSelection
     }
 
-    private func judgeValidInput(userInput: Int?) -> Int? {
+    private func judgeValidInput(userInput: Int?) -> RockPaperScissorCase? {
         switch userInput {
         case 0:
-            return 0
+            return .end
         case 1:
-            return 1
+            return .scissor
         case 2:
-            return 2
+            return .rock
         case 3:
-            return 3
+            return .paper
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return nil
         }
     }
 
-    private func generateRandomComputerHand() -> Int {
-        return Int.random(in: 1...3)
+    private func generateRandomComputerHand() -> RockPaperScissorCase {
+        let computerHand = Int.random(in: 1...3)
+        
+        switch computerHand {
+        case 1:
+            return .scissor
+        case 2:
+            return .rock
+        case 3:
+            return .paper
+        default:
+            return .end
+        }
     }
 
-    private func judgeWin(userHand: Int, computerHand: Int) -> WinLoseDrawCase {
+    private func judgeWin(userHand: RockPaperScissorCase, computerHand: RockPaperScissorCase) -> WinLoseDrawCase {
         if userHand == computerHand {
             return .draw
-        } else if userHand == 1 && computerHand == 3 {
+        } else if userHand == .scissor && computerHand == .paper {
             return .win
-        } else if userHand == 2 && computerHand == 1 {
+        } else if userHand == .rock && computerHand == .scissor {
             return .win
-        } else if userHand == 3 && computerHand == 2 {
+        } else if userHand == .paper && computerHand == .rock {
             return .win
         } else {
             return .lose
@@ -56,7 +67,7 @@ extension RockPaperScissorsLibrary: RockPaperScissorsLibraryProtocol {
             return startGame()
         }
         
-        if userInput == 0 {
+        if userInput == .end {
             return
         }
         
