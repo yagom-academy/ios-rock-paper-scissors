@@ -10,7 +10,7 @@ import Foundation
 class RockPaperScissorsGame {
     var userNumber: Int = 0
     var computerNumber: Int = 0
-    var result: Int = 0
+    var result: GameResult
 
     func showMenu() {
         print("가위(\(RPS.scissors.rawValue)),",
@@ -53,13 +53,13 @@ class RockPaperScissorsGame {
         if runningTheGame == true {
             switch userNumber - computerNumber {
             case -1, 2:
-                result = 1
+                result = GameResult.win
             case -2, 1:
-                result = 2
+                result = GameResult.lose
             case 0:
-                result = 0
+                result = GameResult.draw
             default:
-                result = -1
+                result = GameResult.none
             }
         }
     }
