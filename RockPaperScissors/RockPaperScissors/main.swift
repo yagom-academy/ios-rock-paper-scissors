@@ -12,7 +12,9 @@ func startRockScissorsPaperGame() {
     
     while exitGame == false {
         computerPick = Int.random(in: 1...3)
+        
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+        
         guard let input = readLine() else {
             continue
         }
