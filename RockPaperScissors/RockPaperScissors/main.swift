@@ -25,3 +25,17 @@ func createComputerInput() -> Int {
     
     return computerInput
 }
+
+func compareUserWithComputer(_ user: Int, _ computer: Int) {
+    if user == computer {
+        print("비겼습니다!")
+    } else if user == 1, computer == 2 {
+        print("컴퓨터 승리")
+    } else if user == 2, computer == 3 {
+        print("컴퓨터 승리")
+    } else if user == 3, computer == 1 {
+        print("컴퓨터 승리")
+    } else {
+        print("유저 승리")
+    }
+}
