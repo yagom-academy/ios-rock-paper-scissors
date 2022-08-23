@@ -20,11 +20,11 @@ func startRockScissorsPaperGame() {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         }
-        judgeWhoWins(computerPick: computerPick, userPick: userPick, exitGame: &exitGame)
+        showGameResult(computerPick: computerPick, userPick: userPick, exitGame: &exitGame)
     }
 }
 
-func judgeWhoWins(computerPick: Int, userPick: Int, exitGame: inout Bool) {
+func showGameResult(computerPick: Int, userPick: Int, exitGame: inout Bool) {
     switch userPick {
     case 0:
         print("게임 종료")
