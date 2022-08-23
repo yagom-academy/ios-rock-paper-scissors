@@ -59,27 +59,26 @@ struct RockPaperScissorsGame {
         return computerRPS
     }
     
-    func decideGameResult(of userRPS: RPS) -> GameResult {
+    func decideGameResult(of userRPS: RPS) -> Result<GameResult, GameError> {
         let computerRPS = generateComputerRPS()
         
         switch (userRPS, computerRPS) {
         case (.rock, .scissors): fallthrough
         case (.paper, .rock): fallthrough
         case (.scissors, .paper):
-            return .win
+            return .success(.win)
             
         case (.rock, .paper): fallthrough
         case (.scissors, .rock): fallthrough
         case (.paper, .scissors):
-            return .lose
+            return .success(.lose)
             
         case (.rock, .rock): fallthrough
         case (.paper, .paper): fallthrough
         case (.scissors, .scissors):
-            return .draw
-            
+            return .success(.draw)
         default:
-            return .draw
+            return .failure(.GameResultError)
         }
     }
     
