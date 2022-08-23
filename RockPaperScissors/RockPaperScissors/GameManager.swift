@@ -57,7 +57,7 @@ struct GameManager {
     }
     
     private func fetchGameResult(of userHandShape: HandShape) -> GameResult {
-        let computerHandShape = generateRandomHandShape()
+        let computerHandShape = generateComputerHandShape()
         let rawValueDifference = computerHandShape.rawValue - userHandShape.rawValue
         
         if rawValueDifference == 0 {
@@ -69,8 +69,8 @@ struct GameManager {
         }
     }
     
-    private func generateRandomHandShape() -> HandShape {
-        guard let handShape = HandShape.init(rawValue: Int.random(in: 1...3)) else { return generateRandomHandShape() }
-        return handShape
+    private func generateComputerHandShape() -> HandShape {
+        guard let computerHandShape = HandShape.init(rawValue: Int.random(in: 1...3)) else { return generateComputerHandShape() }
+        return computerHandShape
     }
 }
