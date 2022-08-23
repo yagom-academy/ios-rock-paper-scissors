@@ -18,36 +18,30 @@ class RockPaperScissorsGame {
               "보(\(RPS.paper.rawValue))! <종료 : 0>: ", terminator: "")
     }
     
-    func inputUserNumber() -> Int {
+    func inputUserNumber() -> Int? {
         guard let inputUserNumber = readLine(), inputUserNumber.isEmpty == false else {
             print("입력된 값이 없습니다.")
-            return 4
+            return inputUserNumber()
         }
-        let inputUserNumberToInt = Int(inputUserNumber) ?? 4
+        let inputUserNumberToInt = Int(inputUserNumber)
         return inputUserNumberToInt
         
     }
     
-    func isValidateUserNumber() -> Bool {
-        while true {
-            let number = inputUserNumber()
-            switch number {
-            case 0:
-                print("게임종료")
-                return false
-            case 1:
-                userNumber = number
-                return true
-            case 2:
-                userNumber = number
-                return true
-            case 3:
-                userNumber = number
-                return true
-            default:
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-                return true
-            }
+    func generateUserRPS() -> RPS? {
+        showMenu()
+        
+        guard let userNumber = inputUserNumber() else {
+            return generateRandomNumber()
+        }
+        
+        guard userNumber != 0 else {
+            return nil
+        }
+        
+        guard let userRPS: RPS = .init(rawValue: userNumber) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return generateRandomNumber()
         }
     }
     
