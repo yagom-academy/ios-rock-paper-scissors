@@ -35,10 +35,11 @@ func compareUserWithComputer(_ user: Int, _ computer: Int) {
     switch (user, computer) {
     case (1, 2), (2, 3), (3, 1) :
         print("졌습니다!")
-    case (1, 1), (2, 2), (3, 3) :
-        print("비겼습니다!")
-    default :
+    case (2, 1), (3, 2), (1, 3) :
         print("이겼습니다!")
+    default :
+        print("비겼습니다!")
+        gameStart()
     }
 }
 
