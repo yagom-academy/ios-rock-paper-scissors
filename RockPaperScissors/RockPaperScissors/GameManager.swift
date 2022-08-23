@@ -37,15 +37,10 @@ struct GameManager {
     private func receiveHandShapeFromUser() -> HandShape? {
         let userHandShapeRawValue = receiveHandShapeRawValueFromUser()
         
-        switch userHandShapeRawValue {
-        case 1...3:
-            return HandShape.init(rawValue: userHandShapeRawValue)
-        case 0:
+        if userHandShapeRawValue == 0 {
             return nil
-        default:
-            print(GameMessage.invalidHandShapeRawValue)
-            return receiveHandShapeFromUser()
         }
+        return HandShape.init(rawValue: userHandShapeRawValue)
     }
     
     private func receiveHandShapeRawValueFromUser() -> Int {
