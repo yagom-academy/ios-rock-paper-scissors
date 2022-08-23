@@ -4,11 +4,12 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-func userInput() -> Int {
+func validUserNumber() -> Int {
     while true {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         let userInput = readLine()
         
-        if let userNumber = isCorrectUserInput(userInput) {
+        if let userNumber = checkUserInput(userInput) {
             return userNumber
         } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -16,18 +17,17 @@ func userInput() -> Int {
     }
 }
 
-func isCorrectUserInput(_ userInput: String?) -> Int? {
+func checkUserInput(_ userInput: String?) -> Int? {
     guard let userInput = userInput else { return nil }
-    guard let userInput = Int(userInput) else { return nil }
-    if userInput < 0 || userInput >= 4 {
+    guard let userNumber = Int(userInput) else { return nil }
+    if userNumber < 0 || userNumber >= 4 {
         return nil
     }
-    return userInput
+    return userNumber
 }
 
-func createComputerInput() -> Int {
+func createRandomNumber() -> Int {
     let computerInput = Int.random(in: 1...3)
-    
     return computerInput
 }
 
@@ -42,17 +42,15 @@ func compareUserWithComputer(_ user: Int, _ computer: Int) {
     }
 }
 
-func main() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    let userNumber = userInput()
-    
+func gameStart() {
+    let userNumber = validUserNumber()
+
     if userNumber == 0 {
-        print("종료")
+        print("게임 종료")
         return
     }
-    
-    let computerNumber = createComputerInput()
+    let computerNumber = createRandomNumber()
     compareUserWithComputer(userNumber, computerNumber)
 }
 
-main()
+gameStart()
