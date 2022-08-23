@@ -1,9 +1,20 @@
 import Foundation
 
 enum InputError: Error {
-    case nilError(message: String)
     case numberError(message: String)
     case rangeError(message: String)
+}
+
+enum InputOption: Int, CaseIterable {
+    case gameExit = 0
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+}
+
+func generateComputerInput() -> InputOption {
+    let computerInput = InputOption.allCases.filter { $0 != .gameExit }.randomElement() ?? .scissors
+    return computerInput
 }
 
 func bringUserInput() -> String? {
@@ -11,44 +22,51 @@ func bringUserInput() -> String? {
     return input
 }
 
-func checkUserInput(input: String?) throws -> Int {
+func checkUserInput(input: String?) throws -> Bool {
     let errorSentence: String = "잘못된 입력입니다. 다시 시도해주세요."
 
-    guard let input = input else { throw InputError.nilError(message: errorSentence) }
-    guard let userInput = Int(input) else { throw InputError.numberError(message: errorSentence) }
-
-    if userInput == 0 {
-        return 0
+    guard let input = Int(input ?? "") else {
+        throw InputError.numberError(message: errorSentence)
     }
 
-    if !(1...3 ~= userInput) {
+    if 0...3 ~= input {
+        return true
+    } else {
         throw InputError.rangeError(message: errorSentence)
     }
-    return userInput
 }
 
-func handlingInputError(input: String?) -> (Bool, Int) {
-    var checkNumber = -1
+func castingUserInput(input: String?) -> InputOption {
+    guard let input = Int(input ?? "") else { return .gameExit }
+    
+    switch input {
+    case InputOption.gameExit.rawValue:
+        return .gameExit
+    case InputOption.scissors.rawValue:
+        return .scissors
+    case InputOption.rock.rawValue:
+        return .rock
+    case InputOption.paper.rawValue:
+        return .paper
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return .gameExit
+    }
+}
+
+func handlingInputError(input: String?) -> Bool {
     do {
-        checkNumber = try checkUserInput(input: input)
-    } catch InputError.nilError(let message) {
-        print(message)
-        return (false, checkNumber)
+        let isCheck = try checkUserInput(input: input)
+        return isCheck
     } catch InputError.numberError(let message) {
         print(message)
-        return (false, checkNumber)
+        return false
     } catch InputError.rangeError(let message) {
         print(message)
-        return (false, checkNumber)
+        return false
     } catch {
-        return (false, checkNumber)
+        return false
     }
-    return (true, checkNumber)
-}
-
-func generateComputerInput() -> Int {
-    let computerInput = Int.random(in: 1...3)
-    return computerInput
 }
 
 func playRPS() {
@@ -58,24 +76,28 @@ func playRPS() {
         print("가위(1), 바위(2), 보(3)! <종료: 0> : ", terminator: "")
 
         let userInput: String? = bringUserInput()
-        let isValidNumber: (isValid: Bool, userNumber: Int) = handlingInputError(input: userInput)
-
-        if isValidNumber.isValid == false && isValidNumber.userNumber == 0 {
+        var userHands: InputOption
+        
+        if handlingInputError(input: userInput) == false {
+            continue
+        } else {
+            userHands = castingUserInput(input: userInput)
+        }
+        
+        if userHands == .gameExit {
             print("게임 종료")
             return
-        } else if isValidNumber.isValid == false && isValidNumber.userNumber != 0 {
-            continue
         }
-
-        let computerInput = generateComputerInput()
-        isGaming = decideWinLose(isValidNumber.userNumber, computerInput)
+        
+        let computerHands = generateComputerInput()
+        isGaming = decideWinLose(userHands, computerHands)
     }
 }
 
-func decideWinLose(_ userInput: Int, _ computerInput: Int) -> Bool {
+func decideWinLose(_ userHands: InputOption, _ computerHands: InputOption) -> Bool {
     let winNumbers = [1, -2]
     let drawNumber = 0
-    let checkNumber = userInput - computerInput
+    let checkNumber = userHands.rawValue - computerHands.rawValue
 
     if checkNumber == drawNumber {
         print("비겼습니다!")
