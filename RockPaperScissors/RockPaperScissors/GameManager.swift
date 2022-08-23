@@ -5,22 +5,31 @@
 //
 
 struct GameManager {
+    enum GameMessage {
+        static let endingMessage = "게임 종료"
+        static let winningMessage = "이겼습니다!"
+        static let losingMessage = "졌습니다!"
+        static let drawMessage = "비겼습니다!"
+        static let invalidHandShapeInput = "잘못된 입력입니다. 다시 시도해주세요."
+        static let rockPaperScissorsManual = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    }
+    
     func startRockPaperScissorsGame() {
         guard let userHandShape = receiveHandShapeFromUser() else {
-            print("게임 종료")
+            print(GameMessage.endingMessage)
             return
         }
         let gameResult = fetchGameResult(of: userHandShape)
         
         switch gameResult {
         case .win:
-            print("이겼습니다!")
+            print(GameMessage.winningMessage)
             return
         case .lose:
-            print("졌습니다!")
+            print(GameMessage.losingMessage)
             return
         case .draw:
-            print("비겼습니다!")
+            print(GameMessage.drawMessage)
             startRockPaperScissorsGame()
         }
     }
@@ -29,7 +38,7 @@ struct GameManager {
         printRockPaperScissorsManual()
         let userInput = receiveInputFromUser()
         guard let convertedInput = Int(userInput) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(GameMessage.invalidHandShapeInput)
             return receiveHandShapeFromUser()
         }
         
@@ -39,13 +48,13 @@ struct GameManager {
         case 0:
             return nil
         default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(GameMessage.invalidHandShapeInput)
             return receiveHandShapeFromUser()
         }
     }
     
     private func printRockPaperScissorsManual() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        print(GameMessage.rockPaperScissorsManual, terminator: "")
     }
     
     private func receiveInputFromUser() -> String {
