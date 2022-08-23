@@ -1,32 +1,31 @@
 struct RockPaperScissorsGame {
     func startRPSGame() {
-        guard let userRPS = generateUserRPS() else {
-            print("게임 종료")
+        printMenu()
+        
+        guard let userInput = fetchUserInput() else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            startRPSGame()
             return
         }
         
-        let userGameResult = decideGameResult(of: userRPS)
+        if userInput == 0 {
+            print("게임종료")
+            return
+        }
         
-        printResult(of: userGameResult)
+        let computerRPSNumber = Int.random(in: 1...3)
+        
+        guard let userRPS = convertRPS(from: userInput),
+              let computerRPS = convertRPS(from: computerRPSNumber) else {
+            startRPSGame()
+            return
+        }
+        
+        let gameResult = judgeUserGameResultIn(userRPS, computerRPS)
+        
+        printResult(of: gameResult)
     }
     
-    func generateUserRPS() -> RPS? {
-        printMenu()
-        
-        guard let userInput = fetchUserInput(),
-                let userRPS = RPS(rawValue: userInput) else {
-            
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return generateUserRPS()
-        }
-        
-        guard userInput != 0 else {
-            return nil
-        }
-        
-        return userRPS
-    }
-        
     func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
@@ -40,45 +39,25 @@ struct RockPaperScissorsGame {
         return Int(userInput)
     }
     
-    func generateComputerRPS() -> RPS {
-        var computerRPS: RPS {
-            let RPSNumber = Int.random(in: 1...3)
-            
-            switch RPSNumber {
-            case 1:
-                return .scissors
-            case 2:
-                return .rock
-            case 3:
-                return .paper
-            default :
-                return generateComputerRPS()
-            }
+    func convertRPS(from input: Int) -> RPS? {
+        guard let convertedRPS = RPS(rawValue: input) else {
+            print("다시 시도 해주세요.")
+            return nil
         }
         
-        return computerRPS
+        return convertedRPS
     }
-    
-    func decideGameResult(of userRPS: RPS) -> Result<GameResult, GameError> {
-        let computerRPS = generateComputerRPS()
-        
+
+    func judgeUserGameResultIn(_ userRPS: RPS, _ computerRPS: RPS ) -> GameResult {
         switch (userRPS, computerRPS) {
-        case (.rock, .scissors): fallthrough
-        case (.paper, .rock): fallthrough
-        case (.scissors, .paper):
-            return .success(.win)
+        case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
+            return .win
             
-        case (.rock, .paper): fallthrough
-        case (.scissors, .rock): fallthrough
-        case (.paper, .scissors):
-            return .success(.lose)
+        case (.rock, .paper), (.scissors, .rock), (.paper, .scissors):
+            return .lose
             
-        case (.rock, .rock): fallthrough
-        case (.paper, .paper): fallthrough
-        case (.scissors, .scissors):
-            return .success(.draw)
-        default:
-            return .failure(.GameResultError)
+        case (.rock, .rock), (.paper, .paper), (.scissors, .scissors):
+            return .draw
         }
     }
     
@@ -94,7 +73,3 @@ struct RockPaperScissorsGame {
         }
     }
 }
-    
-    
-
-

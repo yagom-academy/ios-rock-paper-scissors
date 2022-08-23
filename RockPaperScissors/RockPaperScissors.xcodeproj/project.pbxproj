@@ -11,7 +11,6 @@
 		41A5860F28B39B3700C1A229 /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A5860E28B39B3700C1A229 /* RockPaperScissorsGame.swift */; };
 		41A5861128B39FDF00C1A229 /* RPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A5861028B39FDF00C1A229 /* RPS.swift */; };
 		41A5861328B3B45B00C1A229 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A5861228B3B45B00C1A229 /* GameResult.swift */; };
-		AC792CF028B4DFBF000707DE /* GameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC792CEF28B4DFBF000707DE /* GameError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,7 +30,6 @@
 		41A5860E28B39B3700C1A229 /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
 		41A5861028B39FDF00C1A229 /* RPS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPS.swift; sourceTree = "<group>"; };
 		41A5861228B3B45B00C1A229 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
-		AC792CEF28B4DFBF000707DE /* GameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameError.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -53,7 +51,6 @@
 				41A5860E28B39B3700C1A229 /* RockPaperScissorsGame.swift */,
 				41A5861028B39FDF00C1A229 /* RPS.swift */,
 				41A5861228B3B45B00C1A229 /* GameResult.swift */,
-				AC792CEF28B4DFBF000707DE /* GameError.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -134,7 +131,6 @@
 				41A5861328B3B45B00C1A229 /* GameResult.swift in Sources */,
 				41A5860D28B38B6B00C1A229 /* main.swift in Sources */,
 				41A5860F28B39B3700C1A229 /* RockPaperScissorsGame.swift in Sources */,
-				AC792CF028B4DFBF000707DE /* GameError.swift in Sources */,
 				41A5861128B39FDF00C1A229 /* RPS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
