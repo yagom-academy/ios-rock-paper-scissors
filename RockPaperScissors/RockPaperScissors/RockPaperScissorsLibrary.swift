@@ -26,7 +26,7 @@ class RockPaperScissorsLibrary {
     }
 
     private func generateRandomComputerHand() -> Int {
-        return (1...3).shuffled()[0]
+        return Int.random(in: 1...3)
     }
 
     private func judgeWin(userInput: Int, computerHand: Int) -> Int {
