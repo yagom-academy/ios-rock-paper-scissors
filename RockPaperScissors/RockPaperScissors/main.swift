@@ -9,19 +9,27 @@ struct RockPaperScissors {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
     
-    func getUserHand() -> String? {
-        guard let userHand: String = readLine() else {
-            return nil
+    func getUserHand() -> String {
+        printMenu()
+        guard let userHand: String = readLine(),
+              isCorrectUserHand(userHand) else {
+            return getUserHand()
         }
         return userHand
     }
     
+    func isCorrectUserHand(_ userHand: String) -> Bool {
+        switch userHand {
+        case "0","1","2","3":
+            return true
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return false
+        }
+    }
+    
     func startGame() {
-        var userHand: String?
-        repeat {
-            printMenu()
-            userHand = getUserHand()
-        } while userHand != "0"
+        //var userHand: String = getUserHand()
     }
 }
 
