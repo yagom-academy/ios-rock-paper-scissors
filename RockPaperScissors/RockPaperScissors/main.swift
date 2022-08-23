@@ -2,40 +2,43 @@
 //  RockPaperScissors - main.swift
 //  Created by LJ, 준호.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
-struct RockPaperScissors {
+enum RockPaperScissors: Int, CaseIterable {
+    case rock = 1
+    case scissors = 2
+    case paper = 3
+}
+
+struct RockPaperScissorsGame {
     func startGame() {
-        var userHand: Int = getUserHand()
-        let computerHand: Int = getComputerHand()
-        switch userHand {
-        case 1:
-            break
-        case 2:
-            break
-        case 3:
+        var selectedUserMenu: Int = getSelectedUserMenu()
+        switch selectedUserMenu {
+        case 1...3:
+            let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu) ?? .rock
+            let computerHand: RockPaperScissors = getComputerHand()
             break
         default:
             return
         }
     }
     
-    func getUserHand() -> Int {
+    func getSelectedUserMenu() -> Int {
         printMenu()
-        guard let userHand: Int = Int(readLine() ?? ""),
-              isCorrectUserHand(userHand) else {
+        guard let selectedUserMenu: Int = Int(readLine() ?? ""),
+              isCorrectUserMenu(selectedUserMenu) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return getUserHand()
+            return getSelectedUserMenu()
         }
-        return userHand
+        return selectedUserMenu
     }
     
     func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
 
-    func isCorrectUserHand(_ userHand: Int) -> Bool {
-        switch userHand {
+    func isCorrectUserMenu(_ userMenu: Int) -> Bool {
+        switch userMenu {
         case 0...3:
             return true
         default:
@@ -43,10 +46,11 @@ struct RockPaperScissors {
         }
     }
     
-    func getComputerHand() -> Int {
-        return Int.random(in: 1...3)
+    func getComputerHand() -> RockPaperScissors {
+        return RockPaperScissors.allCases.randomElement() ?? .rock
     }
 }
 
-var game = RockPaperScissors()
+var game = RockPaperScissorsGame()
 game.startGame()
+
