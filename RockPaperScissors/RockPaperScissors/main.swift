@@ -5,31 +5,46 @@
 // 
 
 struct RockPaperScissors {
-    func printMenu() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    func startGame() {
+        var userHand: Int = getUserHand()
+        let computerHand: Int = getComputerHand()
+        switch userHand {
+        case 1:
+            break
+        case 2:
+            break
+        case 3:
+            break
+        default:
+            return
+        }
     }
     
-    func getUserHand() -> String {
+    func getUserHand() -> Int {
         printMenu()
-        guard let userHand: String = readLine(),
+        guard let userHand: Int = Int(readLine() ?? ""),
               isCorrectUserHand(userHand) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
             return getUserHand()
         }
         return userHand
     }
     
-    func isCorrectUserHand(_ userHand: String) -> Bool {
+    func printMenu() {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    }
+
+    func isCorrectUserHand(_ userHand: Int) -> Bool {
         switch userHand {
-        case "0","1","2","3":
+        case 0...3:
             return true
         default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
             return false
         }
     }
     
-    func startGame() {
-        //var userHand: String = getUserHand()
+    func getComputerHand() -> Int {
+        return Int.random(in: 1...3)
     }
 }
 
