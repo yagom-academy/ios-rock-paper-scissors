@@ -17,17 +17,17 @@ func makeUserHand(of inputNumber: Int) -> Hand {
     }
 }
 
-func checkResult(computerHand: Hand, userHand: Hand) {
+func compareHand(computerHand: Hand, userHand: Hand) -> Result {
     if computerHand == userHand {
-        print("비겼습니다!")
+        return Result.draw
     } else if computerHand == Hand.scissor && userHand == Hand.rock {
-        print("이겼습니다!")
+        return Result.win
     } else if computerHand == Hand.rock && userHand == Hand.paper {
-        print("이겼습니다!")
+        return Result.win
     } else if computerHand == Hand.paper && userHand == Hand.scissor {
-        print("이겼습니다!")
+        return Result.win
     } else {
-        print("졌습니다!")
+        return Result.lose
     }
 }
 
