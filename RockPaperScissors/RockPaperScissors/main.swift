@@ -18,13 +18,12 @@ func startRockPaperScissor() {
         judgeWinner(userNumber, generateRandomComputerNumber())
     case 0:
         print("게임 종료")
-        return
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startGame()
     }
 }
-
+     
 func generateRandomComputerNumber() -> Int {
     return Int.random(in: 1...3)
 }
@@ -34,15 +33,11 @@ func judgeWinner(_ userNumber: Int, _ computerNumber: Int) {
     switch criterionNumber {
     case -1, 2 :
         print("이겼습니다!")
-        return
     case 1, -2 :
         print("졌습니다!")
-        return
-    case 0 :
+    default:
         print("비겼습니다!")
         startGame()
-    default:
-        return
     }
 }
 
