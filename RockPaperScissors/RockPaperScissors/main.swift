@@ -8,8 +8,8 @@ func userInput() -> Int {
     while true {
         let userInput = readLine()
         
-        if let userNum = isCorrectUserInput(userInput) {
-            return userNum
+        if let userNumber = isCorrectUserInput(userInput) {
+            return userNumber
         } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
@@ -44,11 +44,9 @@ func compareUserWithComputer(_ user: Int, _ computer: Int) {
 
 func main() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    if let userInput = userInput() {
-        if isCorrectUserInput(userInput) {
-            let computerInput = createComputerInput()
-            print(computerInput)
-            compareUserWithComputer(userInput, computerInput)
-        }
-    }
+    let userNumber = userInput()
+    let computerNumber = createComputerInput()
+    compareUserWithComputer(userNumber, computerNumber)
 }
+
+main()
