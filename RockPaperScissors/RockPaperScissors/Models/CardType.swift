@@ -1,16 +1,14 @@
 //
 //  RockScisserPaper.swift
-//  RockPaperScissors
+//  Created by Wonbi, 미니
 //
-//  Created by Wonbi on 2022/08/23.
-//
-
-import Foundation
 
 enum CardType: Int {
-    case scisser = 1
+	case none = 0
+	case scisser = 1
     case rock = 2
     case paper = 3
+	
     
     func compare(to computerCard: CardType) -> GameState {
         let userNumber = self.rawValue
@@ -32,4 +30,15 @@ enum GameState {
     case win
     case lose
     case draw
+	
+	var description: String {
+		switch self {
+		case .win:
+			return "이겼습니다!"
+		case .lose:
+			return "졌습니다!"
+		case .draw:
+			return "비겼습니다!"
+		}
+	}
 }
