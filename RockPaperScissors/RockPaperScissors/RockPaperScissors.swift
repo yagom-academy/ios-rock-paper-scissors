@@ -13,7 +13,19 @@ enum Hand: Int, CaseIterable {
     case paper = 3
 }
 
+var gameStopCheck: Bool = true
 
+func gameStart() {
+    while gameStopCheck {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+        guard let inputNumberString = readLine(), let inputNumber = Int(inputNumberString),
+                inputNumber >= 0, inputNumber < 4
+        else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            continue
+        }
+    }
+}
 
 //콘솔을 통해 게임을 진행합니다.
 //최초 실행 시 출력
