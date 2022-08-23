@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C84B74028B4B410003916CF /* HandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C84B73F28B4B410003916CF /* HandType.swift */; };
+		3C84B74228B4B41E003916CF /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C84B74128B4B41E003916CF /* Turn.swift */; };
+		3C84B74428B4B4D6003916CF /* RocksScissorPaperFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C84B74328B4B4D6003916CF /* RocksScissorPaperFunc.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +26,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3C84B73F28B4B410003916CF /* HandType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandType.swift; sourceTree = "<group>"; };
+		3C84B74128B4B41E003916CF /* Turn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
+		3C84B74328B4B4D6003916CF /* RocksScissorPaperFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocksScissorPaperFunc.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				3C84B74328B4B4D6003916CF /* RocksScissorPaperFunc.swift */,
+				3C84B73F28B4B410003916CF /* HandType.swift */,
+				3C84B74128B4B41E003916CF /* Turn.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -119,6 +128,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C84B74028B4B410003916CF /* HandType.swift in Sources */,
+				3C84B74228B4B41E003916CF /* Turn.swift in Sources */,
+				3C84B74428B4B4D6003916CF /* RocksScissorPaperFunc.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
