@@ -4,7 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
+let gameManager = GameManager()
 
-print("Hello, World!")
-
+gameManager.startRockPaperScissorsGame()
