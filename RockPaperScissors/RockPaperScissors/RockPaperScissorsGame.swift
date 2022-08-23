@@ -20,6 +20,8 @@ struct RockPaperScissorsGame {
     }
     
     private func inputUserNumber() -> Int? {
+        showMenu()
+        
         guard let inputUserNumber = readLine(), inputUserNumber.isEmpty == false else {
             print("입력된 값이 없습니다.")
             return inputUserNumber()
@@ -29,8 +31,6 @@ struct RockPaperScissorsGame {
     }
     
     private func generateUserRPS() -> RockPaperScissors? {
-        showMenu()
-        
         guard let userNumber = inputUserNumber() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return generateUserRPS()
