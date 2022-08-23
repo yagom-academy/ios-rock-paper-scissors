@@ -4,20 +4,25 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-func gameStart() -> Int? {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    let userInput = readLine()
-    guard let userInput = userInput else { return nil }
-    
-    return Int(userInput)
+func userInput() -> Int { // 함수명 변경
+    while true {
+        let userInput = readLine()
+        
+        if let userNum = isCorrectUserInput(userInput) {
+            return userNum
+        } else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        }
+    }
 }
 
-func isCorrectUserInput(_ userInput:Int) -> Bool {
-    if userInput < 0, userInput >= 4 {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return false
+func isCorrectUserInput(_ userInput: String?) -> Int? { // 컨벤션
+    guard let userInput = userInput else { return nil }
+    guard let userInput = Int(userInput) else { return nil }
+    if userInput < 0 || userInput >= 4 { // 범위 설정 수정
+        return nil
     }
-    return true
+    return userInput
 }
 
 func createComputerInput() -> Int {
@@ -41,7 +46,8 @@ func compareUserWithComputer(_ user: Int, _ computer: Int) {
 }
 
 func main() {
-    if let userInput = gameStart() {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    if let userInput = userInput() {
         if isCorrectUserInput(userInput) {
             let computerInput = createComputerInput()
             print(computerInput)
@@ -49,5 +55,3 @@ func main() {
         }
     }
 }
-
-main()
