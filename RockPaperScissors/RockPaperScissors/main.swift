@@ -20,3 +20,8 @@ func isCorrectUserInput(_ userInput:Int) -> Bool {
     return true
 }
 
+func createComputerInput() -> Int {
+    let computerInput = Int.random(in: 1...3)
+    
+    return computerInput
+}
