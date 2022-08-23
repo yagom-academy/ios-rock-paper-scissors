@@ -5,19 +5,23 @@ class RockPaperScissorsLibrary {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
     }
 
-    private func inputUserSelction() -> String? {
-        return readLine()
+    private func inputUserSelction() -> Int? {
+        guard let userInput = readLine(), let userSelection = Int(userInput) else {
+            return nil
+        }
+        
+        return userSelection
     }
 
-    private func judgeValidInput(userInput: String?) -> Int? {
+    private func judgeValidInput(userInput: Int?) -> Int? {
         switch userInput {
-        case "0":
+        case 0:
             return 0
-        case "1":
+        case 1:
             return 1
-        case "2":
+        case 2:
             return 2
-        case "3":
+        case 3:
             return 3
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
