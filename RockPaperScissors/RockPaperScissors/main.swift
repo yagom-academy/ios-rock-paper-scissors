@@ -12,3 +12,11 @@ func gameStart() -> Int? {
     return Int(userInput)
 }
 
+func isCorrectUserInput(_ userInput:Int) -> Bool {
+    if userInput < 0, userInput >= 4 {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return false
+    }
+    return true
+}
+
