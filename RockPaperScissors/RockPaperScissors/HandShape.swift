@@ -5,9 +5,5 @@
 //
 
 enum HandShape: Int {
-    case scissors = 1, rock, paper
-    
-    func isWin(comparing another: HandShape) -> Bool {
-        return abs(self.rawValue - another.rawValue) == 1 ? self.rawValue > another.rawValue : self.rawValue < another.rawValue
-    }
+    case scissors = 1, rock = 2, paper = 3
 }

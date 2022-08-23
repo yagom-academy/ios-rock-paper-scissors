@@ -58,10 +58,11 @@ struct GameManager {
     
     private func fetchGameResult(of userHandShape: HandShape) -> GameResult {
         let computerHandShape = generateRandomHandShape()
+        let rawValueDifference = computerHandShape.rawValue - userHandShape.rawValue
         
-        if userHandShape == computerHandShape {
+        if rawValueDifference == 0 {
             return .draw
-        } else if userHandShape.isWin(comparing: computerHandShape) {
+        } else if rawValueDifference == -1 || rawValueDifference == 2 {
             return .win
         } else {
             return .lose
