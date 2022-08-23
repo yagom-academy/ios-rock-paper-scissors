@@ -3,7 +3,7 @@
 struct RockPaperScissorsGame {
     func play() {
         guard let userRPS = generateUserRPS() else {
-            print("게임 종료")
+            print(GameComment.gameOver.rawValue)
             return
         }
         
@@ -14,16 +14,14 @@ struct RockPaperScissorsGame {
     }
     
     private func showMenu() {
-        print("가위(\(RockPaperScissors.scissors.rawValue)),",
-              "바위(\(RockPaperScissors.rock.rawValue)),",
-              "보(\(RockPaperScissors.paper.rawValue))! <종료 : 0>: ", terminator: "")
+        print(GameComment.gameMenu.rawValue, terminator: "")
     }
     
     private func inputUserNumber() -> Int? {
         showMenu()
         
         guard let inputUserNumber = readLine(), inputUserNumber.isEmpty == false else {
-            print("입력된 값이 없습니다.")
+            print(GameComment.none.rawValue)
             return inputUserNumber()
         }
         let inputUserNumberToInt = Int(inputUserNumber)
@@ -32,7 +30,7 @@ struct RockPaperScissorsGame {
     
     private func generateUserRPS() -> RockPaperScissors? {
         guard let userNumber = inputUserNumber() else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(GameComment.retry.rawValue)
             return generateUserRPS()
         }
         
@@ -41,7 +39,7 @@ struct RockPaperScissorsGame {
         }
         
         guard let userRPS: RockPaperScissors = .init(rawValue: userNumber) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(GameComment.retry.rawValue)
             return generateUserRPS()
         }
         return userRPS
@@ -92,11 +90,11 @@ struct RockPaperScissorsGame {
     private func showResult(_ result: GameResult) {
         switch result {
         case .win:
-            print("이겼습니다!")
+            print(GameComment.gameWin.rawValue)
         case .lose:
-            print("졌습니다!")
+            print(GameComment.gameLose.rawValue)
         case .draw:
-            print("비겼습니다!")
+            print(GameComment.gameDraw.rawValue)
             play()
         }
     }
