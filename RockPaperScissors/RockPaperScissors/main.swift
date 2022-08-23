@@ -1,3 +1,3 @@
-let gameMachine = RPSGameMachine()
+let rockPaperScissorsGame = RockPaperScissorsGame()
 
-gameMachine.startRPSGame()
+rockPaperScissorsGame.startRPSGame()

@@ -1,12 +1,11 @@
-struct RPSGameMachine {
+struct RockPaperScissorsGame {
     func startRPSGame() {
         guard let userRPS = generateUserRPS() else {
             print("게임 종료")
             return
         }
         
-        let computerRPS = generateComputerRPS()
-        let userGameResult = decideUserVictory(userRPS, vs: computerRPS)
+        let userGameResult = decideGameResult(of: userRPS)
         
         printResult(of: userGameResult)
     }
@@ -14,7 +13,9 @@ struct RPSGameMachine {
     func generateUserRPS() -> RPS? {
         printMenu()
         
-        guard let userInput = fetchUserInput() else {
+        guard let userInput = fetchUserInput(),
+                let userRPS = RPS(rawValue: userInput) else {
+            
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return generateUserRPS()
         }
@@ -23,23 +24,9 @@ struct RPSGameMachine {
             return nil
         }
         
-        let userRPS: RPS
-        
-        switch userInput {
-        case 1:
-            userRPS = .scissors
-        case 2:
-            userRPS = .rock
-        case 3:
-            userRPS = .paper
-        default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return generateUserRPS()
-        }
-        
         return userRPS
     }
-    
+        
     func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
@@ -72,35 +59,28 @@ struct RPSGameMachine {
         return computerRPS
     }
     
-    func decideUserVictory(_ userRPS: RPS, vs computerRPS: RPS) -> GameResult {
-        var gameResult: GameResult = .draw
+    func decideGameResult(of userRPS: RPS) -> GameResult {
+        let computerRPS = generateComputerRPS()
         
-        if userRPS == computerRPS {
-            return gameResult
+        switch (userRPS, computerRPS) {
+        case (.rock, .scissors): fallthrough
+        case (.paper, .rock): fallthrough
+        case (.scissors, .paper):
+            return .win
+            
+        case (.rock, .paper): fallthrough
+        case (.scissors, .rock): fallthrough
+        case (.paper, .scissors):
+            return .lose
+            
+        case (.rock, .rock): fallthrough
+        case (.paper, .paper): fallthrough
+        case (.scissors, .scissors):
+            return .draw
+            
+        default:
+            return .draw
         }
-        
-        switch userRPS {
-        case .rock:
-            if computerRPS == .scissors {
-                gameResult = .win
-            } else if computerRPS == .paper {
-                gameResult = .lose
-            }
-        case .paper:
-            if computerRPS == .rock {
-                gameResult = .win
-            } else if computerRPS == .scissors {
-                gameResult = .lose
-            }
-        case .scissors:
-            if computerRPS == .paper {
-                gameResult = .win
-            } else if computerRPS == .rock {
-                gameResult = .lose
-            }
-        }
-        
-        return gameResult
     }
     
     func printResult(of result: GameResult) {
@@ -115,5 +95,7 @@ struct RPSGameMachine {
         }
     }
 }
+    
+    
 
 

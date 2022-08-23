@@ -1,5 +1,4 @@
-enum RPS {
-    case rock
-    case paper
-    case scissors
+enum RPS: Int {
+    case none = 0
+    case scissors = 1, rock = 2, paper = 3
 }
