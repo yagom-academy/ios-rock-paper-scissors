@@ -33,21 +33,31 @@ func displayResult(of Result: Result) {
 }
 
 func gameStart() {
-    while true {
-        let randomComputerHand: Hand = Hand(rawValue: Int.random(in: 1...3)).unsafelyUnwrapped
+    
+    let randomComputerHand: Hand = Hand(rawValue: Int.random(in: 1...3)).unsafelyUnwrapped
+    
+    print("computerHand : \(randomComputerHand)")
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+    
+    guard let inputNumberString = readLine(), let inputNumber = Int(inputNumberString) else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return gameStart()
+    }
+    
+    switch inputNumber {
+    case 0:
+        print("게임종료")
+    case 1...3:
+        let gameResult: Result = compareHand(computerHand: randomComputerHand, userHand: makeUserHand(of: inputNumber))
+        displayResult(of: gameResult)
         
-        print(randomComputerHand)
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-        
-        guard let inputNumberString = readLine(), let inputNumber = Int(inputNumberString),
-              inputNumber >= 0, inputNumber < 4 else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            continue
+        if gameResult == Result.draw {
+            gameStart()
         }
-        if inputNumber == 0 {
-            print("게임 종료")
-        } else {
-            displayResult(of: compareHand(computerHand: randomComputerHand, userHand: makeUserHand(of: inputNumber))) // 만약, computerHand를 rawValue 값인 Int로 받는다면?,
-        }
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        gameStart()
     }
 }
+
+
