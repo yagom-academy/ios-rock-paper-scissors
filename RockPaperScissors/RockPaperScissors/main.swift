@@ -5,19 +5,29 @@
 //
 
 enum RockPaperScissors: Int, CaseIterable {
-    case rock = 1
-    case scissors = 2
+    case scissors = 1
+    case rock = 2
     case paper = 3
+}
+
+enum WinLoseDraw {
+    case win
+    case lose
+    case draw
 }
 
 struct RockPaperScissorsGame {
     func startGame() {
-        var selectedUserMenu: Int = getSelectedUserMenu()
+        let selectedUserMenu: Int = getSelectedUserMenu()
         switch selectedUserMenu {
         case 1...3:
             let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu) ?? .rock
             let computerHand: RockPaperScissors = getComputerHand()
-            break
+            if compareUserHandWithComputerHand(userHand: userHand, computerHand: computerHand) == .draw {
+                startGame()
+            } else {
+                return
+            }
         default:
             return
         }
@@ -48,6 +58,39 @@ struct RockPaperScissorsGame {
     
     func getComputerHand() -> RockPaperScissors {
         return RockPaperScissors.allCases.randomElement() ?? .rock
+    }
+    
+    func compareUserHandWithComputerHand(userHand: RockPaperScissors, computerHand: RockPaperScissors) -> WinLoseDraw {
+        guard userHand != computerHand else {
+            return .draw
+        }
+        
+        switch userHand {
+        case .rock:
+            if computerHand == .scissors {
+                print("이겼습니다!")
+                return .win
+            } else {
+                print("졌습니다!")
+                return .lose
+            }
+        case .paper:
+            if computerHand == .rock {
+                print("이겼습니다!")
+                return .win
+            } else {
+                print("졌습니다!")
+                return .lose
+            }
+        case .scissors:
+            if computerHand == .paper {
+                print("이겼습니다!")
+                return .win
+            } else {
+                print("졌습니다!")
+                return .lose
+            }
+        }
     }
 }
 
