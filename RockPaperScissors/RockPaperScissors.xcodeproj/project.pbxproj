@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1ACBB02A28B496D3000C99FB /* RockPaperScissorCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACBB02928B496D3000C99FB /* RockPaperScissorCase.swift */; };
+		1ACBB02C28B497E5000C99FB /* WinLoseDrawCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ACBB02B28B497E5000C99FB /* WinLoseDrawCase.swift */; };
+		B475666E28B391370027AE7F /* RockPaperScissorsLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B475666D28B391370027AE7F /* RockPaperScissorsLibrary.swift */; };
+		B475667028B3916B0027AE7F /* RockPaperScissorsLibraryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B475666F28B3916B0027AE7F /* RockPaperScissorsLibraryProtocol.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +27,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1ACBB02928B496D3000C99FB /* RockPaperScissorCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorCase.swift; sourceTree = "<group>"; };
+		1ACBB02B28B497E5000C99FB /* WinLoseDrawCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinLoseDrawCase.swift; sourceTree = "<group>"; };
+		B475666D28B391370027AE7F /* RockPaperScissorsLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsLibrary.swift; sourceTree = "<group>"; };
+		B475666F28B3916B0027AE7F /* RockPaperScissorsLibraryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsLibraryProtocol.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				B475666D28B391370027AE7F /* RockPaperScissorsLibrary.swift */,
+				B475666F28B3916B0027AE7F /* RockPaperScissorsLibraryProtocol.swift */,
+				1ACBB02928B496D3000C99FB /* RockPaperScissorCase.swift */,
+				1ACBB02B28B497E5000C99FB /* WinLoseDrawCase.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -89,7 +101,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					C7ABA0DC254EA63000B2367D = {
 						CreatedOnToolsVersion = 12.1;
@@ -119,7 +131,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ACBB02C28B497E5000C99FB /* WinLoseDrawCase.swift in Sources */,
+				B475666E28B391370027AE7F /* RockPaperScissorsLibrary.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				1ACBB02A28B496D3000C99FB /* RockPaperScissorCase.swift in Sources */,
+				B475667028B3916B0027AE7F /* RockPaperScissorsLibraryProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +260,7 @@
 		C7ABA0E5254EA63000B2367D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -253,6 +270,7 @@
 		C7ABA0E6254EA63000B2367D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

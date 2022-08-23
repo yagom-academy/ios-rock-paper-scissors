@@ -1,10 +1,5 @@
-//
-//  RockPaperScissors - main.swift
-//  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
-// 
+//  Created by rhovin and zhilly on 2022/08/22.
 
-import Foundation
+let RockPaperScissors: RockPaperScissorsLibraryProtocol = RockPaperScissorsLibrary()
 
-print("Hello, World!")
-
+RockPaperScissors.callStartGame()
