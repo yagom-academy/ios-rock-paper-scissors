@@ -1,6 +1,6 @@
 func playMCBGame(gameResult: GameResult) {
     let isUserTurn: Bool = gameResult == .win ? true : false
-    let randomComputerNumber = 2
+    let randomComputerNumber = Int.random(in: 1...3)
     print("[\(isUserTurn ? "사용자" : "컴퓨터") 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     
     guard let userNumber = fetchUserInput(),
