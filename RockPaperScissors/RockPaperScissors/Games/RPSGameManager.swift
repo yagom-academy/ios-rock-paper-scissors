@@ -30,7 +30,6 @@ struct RPSGameManager {
 		}
 	}
 
-	@discardableResult
 	func startGame() -> GameState {
 		let userCard = fetchUserInput()
 		let result = checkValidity(of: userCard)

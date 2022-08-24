@@ -3,7 +3,7 @@
 //  Created by Wonbi, 미니
 //
 
-class GameManager {
+struct GameManager {
 	private let rpsGame = RPSGameManager()
 
 	func startConsole() {
@@ -12,9 +12,7 @@ class GameManager {
 		print(result.description)
 
 		switch result {
-		case .draw:
-			startConsole()
-		case .error:
+        case .draw, .error:
 			startConsole()
 		case .exit:
 			return
