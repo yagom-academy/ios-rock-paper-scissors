@@ -1,3 +1,4 @@
-let rockPaperScissorsGame = RockPaperScissorsGame()
+let rockPaperScissorsGame = MukJjiPpaGame()
 
-rockPaperScissorsGame.startRPSGame()
+rockPaperScissorsGame.startMJPGame()
+

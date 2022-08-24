@@ -1,4 +1,6 @@
 class RockPaperScissorsGame {
+    var RPSWinner = ""
+    
     func startRPSGame() {
         printMenu()
         
@@ -24,11 +26,16 @@ class RockPaperScissorsGame {
         
         printResult(of: gameResult)
         
-        if gameResult != .draw {
+        switch gameResult {
+        case .win:
+            RPSWinner = "유저"
             return
+        case .lose:
+            RPSWinner = "컴퓨터"
+            return
+        case .draw:
+            startRPSGame()
         }
-        
-        startRPSGame()
     }
     
     func printMenu() {
