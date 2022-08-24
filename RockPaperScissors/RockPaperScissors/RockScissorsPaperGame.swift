@@ -102,16 +102,16 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
             continue
         }
         
-        var exitOrTurnChange = (나가기: exit, 유저이겼나체크: takeUserWin)
+        var exitOrTurnChange = (종료하기: exit, 유저이겼나체크: takeUserWin)
         exitOrTurnChange = startMukChiBbaGame(computerNumber: computerNumber, userNumber: userNumber, takeUserWin: takeUserWin)
         
         switch exitOrTurnChange {
-        case (true, _):
+        case (종료하기: true, _):
             exit = true
-        case (false, false):
+        case (종료하기: false, 유저이겼나체크: false):
             takeUserWin = false
             continue
-        case (false, true):
+        case (종료하기: false, 유저이겼나체크: true):
             takeUserWin = true
             continue
         }
