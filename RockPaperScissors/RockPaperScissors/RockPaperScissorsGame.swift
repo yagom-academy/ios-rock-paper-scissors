@@ -9,10 +9,9 @@ struct RockPaperScissorsGame {
     func startGame() {
         let selectedUserMenu: Int = getSelectedUserMenu()
        
-        if let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu) {
-            let computerHand: RockPaperScissors = getComputerHand()
-            let gameResult: WinLoseDraw = compareUserHandWithComputerHand(userHand: userHand, computerHand: computerHand)
-            gameResult.printResult()
+        if let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu),
+           let gameResult: gameResult = compareComputerHand(with: userHand) {
+            print(gameResult.result)
             if gameResult == .draw {
                 startGame()
             }
@@ -20,7 +19,7 @@ struct RockPaperScissorsGame {
     }
     
     private func getSelectedUserMenu() -> Int {
-        printMenu()
+        printUserMenu()
         guard let selectedUserMenu: Int = Int(readLine() ?? ""),
               isCorrectUserMenu(selectedUserMenu) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -29,7 +28,9 @@ struct RockPaperScissorsGame {
         return selectedUserMenu
     }
     
-    private func printMenu() {
+    
+    
+    private func printUserMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     }
 
@@ -42,11 +43,14 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func getComputerHand() -> RockPaperScissors {
-        return RockPaperScissors.allCases.randomElement() ?? .rock
+    private func getComputerHand() -> RockPaperScissors? {
+        return RockPaperScissors.allCases.randomElement()
     }
     
-    private func compareUserHandWithComputerHand(userHand: RockPaperScissors, computerHand: RockPaperScissors) -> WinLoseDraw {
+    private func compareComputerHand(with userHand: RockPaperScissors) -> gameResult? {
+        guard let computerHand: RockPaperScissors = getComputerHand() else {
+            return nil
+        }
         guard userHand != computerHand else {
             return .draw
         }

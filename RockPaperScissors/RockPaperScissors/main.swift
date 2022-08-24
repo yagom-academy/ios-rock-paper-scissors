@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-let rockPaperScissorsGame = RockPaperScissorsGame()
+private let rockPaperScissorsGame: RockPaperScissorsGame = RockPaperScissorsGame()
 rockPaperScissorsGame.startGame()
