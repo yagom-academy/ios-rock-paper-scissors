@@ -44,11 +44,7 @@ struct RockPaperScissorsGame {
     }
     
     func convertRPS(from input: Int) -> RPS? {
-        guard let convertedRPS = RPS(rawValue: input) else {
-            return nil
-        }
-        
-        return convertedRPS
+        return RPS(rawValue: input)
     }
 
     func judgeUserGameResultIn(_ userRPS: RPS, _ computerRPS: RPS ) -> GameResult {
