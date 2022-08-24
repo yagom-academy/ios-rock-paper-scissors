@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CB8195A28B5F0130090F624 /* InputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB8195928B5F0130090F624 /* InputError.swift */; };
+		3CB8195C28B5F0280090F624 /* RockScissorsPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB8195B28B5F0280090F624 /* RockScissorsPaper.swift */; };
+		3CB8195E28B601BE0090F624 /* MukZiBa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB8195D28B601BE0090F624 /* MukZiBa.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +26,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3CB8195928B5F0130090F624 /* InputError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputError.swift; sourceTree = "<group>"; };
+		3CB8195B28B5F0280090F624 /* RockScissorsPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorsPaper.swift; sourceTree = "<group>"; };
+		3CB8195D28B601BE0090F624 /* MukZiBa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukZiBa.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				3CB8195928B5F0130090F624 /* InputError.swift */,
+				3CB8195B28B5F0280090F624 /* RockScissorsPaper.swift */,
+				3CB8195D28B601BE0090F624 /* MukZiBa.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -120,6 +129,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				3CB8195A28B5F0130090F624 /* InputError.swift in Sources */,
+				3CB8195C28B5F0280090F624 /* RockScissorsPaper.swift in Sources */,
+				3CB8195E28B601BE0090F624 /* MukZiBa.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
