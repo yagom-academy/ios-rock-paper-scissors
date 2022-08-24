@@ -106,33 +106,17 @@ class MukChiba: RockPaperScissors {
         switch differenceNumber {
         case .win:
             print(WinLoseDraw.win.rawValue)
-            startMukChiba(attackTurn: true)
+            startMukChiBa(attackTurn: true)
         case .lose:
             print(WinLoseDraw.lose.rawValue)
-            startMukChiba(attackTurn: false)
+            startMukChiBa(attackTurn: false)
         default:
             print(WinLoseDraw.draw.rawValue)
             startGame()
         }
     }
     
-    fileprivate func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int, _ turn: Bool) {
-        let differenceNumber: WinLoseDraw = makeResult(computerGameNumber - userGameNumber)
-        switch differenceNumber {
-        case .win:
-            startMukChiba(attackTurn: true)
-        case .lose:
-            startMukChiba(attackTurn: false)
-        default:
-            if turn == true {
-                print(GameOver.userWin.rawValue)
-            } else {
-                print(GameOver.computerWin.rawValue)
-            }
-        }
-    }
-    
-    fileprivate func startMukChiba(attackTurn: Bool) {
+    fileprivate func startMukChiBa(attackTurn: Bool) {
         let turn: String
         if attackTurn == true {
             turn = "[사용자 턴]"
@@ -142,7 +126,7 @@ class MukChiba: RockPaperScissors {
         print("\(turn) \(startText)", terminator: "")
         guard let inputedUserNumber: Int = Int(bindUserInput()) else {
             print(cautionText)
-            startMukChiba(attackTurn: false)
+            startMukChiBa(attackTurn: false)
             return
         }
         playMukChiba(inputedUserNumber, attackTurn)
@@ -156,7 +140,23 @@ class MukChiba: RockPaperScissors {
             compareNumbers(makeComputerNumber(), userNumber, attackTurn)
         default:
             print(cautionText)
-            startMukChiba(attackTurn: false)
+            startMukChiBa(attackTurn: false)
+        }
+    }
+    
+    fileprivate func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int, _ turn: Bool) {
+        let differenceNumber: WinLoseDraw = makeResult(computerGameNumber - userGameNumber)
+        switch differenceNumber {
+        case .win:
+            startMukChiBa(attackTurn: true)
+        case .lose:
+            startMukChiBa(attackTurn: false)
+        default:
+            if turn == true {
+                print(GameOver.userWin.rawValue)
+            } else {
+                print(GameOver.computerWin.rawValue)
+            }
         }
     }
 }
