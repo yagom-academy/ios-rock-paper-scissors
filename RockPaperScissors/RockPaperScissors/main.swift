@@ -15,8 +15,10 @@ func createUserNumber() -> Int? {
 }
 
 func checkUserInput(_ userInput: String?) -> Int? {
-    guard let userInput = userInput,
-            let userNumber = Int(userInput) else { return nil }
+    guard let userInput = userInput else { return nil }
+    let trimedUserInput = userInput.split(separator: " ").joined()
+    
+    guard let userNumber = Int(trimedUserInput) else { return nil }
     return userNumber
 }
 
@@ -25,11 +27,20 @@ func createRandomNumber() -> Int {
     return computerInput
 }
 
-func compareTwoInput(_ user: Int, _ computer: Int) {
+enum RockScissorsPaper: Int {
+    case scissors = 1
+    case rock
+    case paper
+}
+
+func compareTwoInput(_ userNumber: Int, _ computerNumber: Int) {
+    let user = RockScissorsPaper(rawValue: userNumber)
+    let computer = RockScissorsPaper(rawValue: userNumber)
+    
     switch (user, computer) {
-    case (1, 2), (2, 3), (3, 1) :
+    case (.scissors, .rock), (.rock, .paper), (.paper, .scissors) :
         print("졌습니다!")
-    case (2, 1), (3, 2), (1, 3) :
+    case (.rock, .scissors), (.paper, .rock), (.scissors, .paper) :
         print("이겼습니다!")
     default :
         print("비겼습니다!")
