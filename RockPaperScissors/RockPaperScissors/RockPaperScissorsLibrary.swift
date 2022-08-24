@@ -89,6 +89,37 @@ class RockPaperScissorsLibrary {
             startGame()
         }
     }
+    
+    private func mukChiBba(turn: TurnCase) {
+       switch turn {
+        case .UserTurn:
+            print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>")
+        case .ComputerTurn:
+            print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>")
+        }
+        
+        guard let userInput = judgeValidInput(userInput: inputUserSelction()) else {
+            return mukChiBba(turn: .ComputerTurn)
+        }
+        
+        if userInput == .end {
+            return
+        }
+        
+        let result: WinLoseDrawCase = judgeWin(
+            userHand: userInput,
+            computerHand: generateRandomComputerHand()
+        )
+        
+        switch result {
+        case .lose:
+            return
+        case .win:
+            return
+        case .draw:
+            return
+        }
+    }
 }
 
 extension RockPaperScissorsLibrary: RockPaperScissorsLibraryProtocol {
