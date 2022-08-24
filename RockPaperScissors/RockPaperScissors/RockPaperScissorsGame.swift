@@ -1,9 +1,7 @@
-
-
 func startGame() {
-    var isRunning = true
+    var isRunning = GameResult.draw
     
-    while isRunning {
+    while isRunning == .draw {
         let randomComputerNumber = Int.random(in: 1...3)
         
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -25,38 +23,39 @@ func startGame() {
         isRunning = checkGameResult(computerChoice: computerChoice, userChoice: userChoice)
     }
     print("게임 종료")
+    playGame(gameResult: isRunning)
 }
 
 func printUserInputError() {
     print("잘못된 입력입니다. 다시 시도해주세요")
 }
 
-func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperScissors) -> Bool {
+func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperScissors) -> GameResult {
     if computerChoice == userChoice {
         print("비겼습니다")
-        return true
+        return .draw
     }
     
     switch userChoice {
     case .scissors:
         if computerChoice == .rock {
             print("졌습니다!")
-            return false
+            return .lose
         }
     case .rock:
         if computerChoice == .paper {
             print("졌습니다!")
-            return false
+            return .lose
         }
     case .paper:
         if computerChoice == .scissors {
             print("졌습니다!")
-            return false
+            return .lose
         }
     }
     
     print("이겼습니다!")
-    return false
+    return .win
 }
 
 func fetchUserInput() -> Int? {
