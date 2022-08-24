@@ -20,9 +20,7 @@ class RPSGameManager {
 			  let inputNumber = Int(inputValue),
 			  0...3 ~= inputNumber else { return .failure(.invalidNumber) }
 		
-		if inputNumber == 0 {
-			return .failure(.exitGame)
-		} else if let inputCard = RPS(rawValue: inputNumber) {
+		if let inputCard = RPS(rawValue: inputNumber) {
 			return .success(inputCard)
 		} else {
 			return .failure(.invalidNumber)
@@ -33,17 +31,15 @@ class RPSGameManager {
 		switch userInputResult {
 		case .success(let inputCard):
 			return inputCard.generateGameResult()
-			
-		case .failure(let error):
-			handleInputError(error)
-			return .draw
+		case .failure:
+            return .error
 		}
 	}
 
-	private func handleInputError(_ error: InputError) {
-		print(error.description)
-		if error == .invalidNumber {
-			startGame()
-		}
-	}
+//	private func handleInputError(_ error: InputError) {
+//		print(error.description)
+//		if error == .invalidNumber {
+//			startGame()
+//		}
+//	}
 }

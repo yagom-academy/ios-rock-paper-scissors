@@ -3,7 +3,6 @@
 //  Created by Wonbi, 미니
 //
 
-
 class GameManager {
 	private let rpsGame = RPSGameManager()
 	private let mukjipaGame = MukjipaGameManager()
@@ -16,6 +15,10 @@ class GameManager {
 		switch result {
 		case .draw:
 			startConsole()
+        case .error:
+            startConsole()
+        case .exit:
+            return
 		default:
 			print("묵찌빠 행이다.")
 		}
