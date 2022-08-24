@@ -1,10 +1,3 @@
-//
-//  RockPaperScissors - main.swift
-//  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
-// 
-
-import Foundation
 
 func startGame() {
     startRockPaperScissor()
@@ -34,8 +27,10 @@ func generateRandomComputerNumber() -> Int {
 }
 
 func judgeWinner(with userNumber: Int, and computerNumber: Int) {
-    let signsToJudge =
-    translateNumbersToHandSigns(userNumber: userNumber, computerNumber: computerNumber)
+    let userHandSign = translateNumbersToHandSigns(of: userNumber)
+    let computerHandSign = translateNumbersToHandSigns(of: computerNumber)
+    let signsToJudge = (userHandSign, computerHandSign)
+    
     switch signsToJudge {
     case (.scissors, .paper), (.paper, .rock), (.rock, .scissors) :
         print("이겼습니다!")
@@ -47,15 +42,8 @@ func judgeWinner(with userNumber: Int, and computerNumber: Int) {
     }
 }
 
-func translateNumbersToHandSigns(userNumber: Int, computerNumber: Int) -> (HandSigns, HandSigns) {
-    var userHandSign: HandSigns = .rock
-    var computerHandSign: HandSigns = .rock
-    if let user = HandSigns(rawValue: userNumber),
-       let computer = HandSigns(rawValue: computerNumber) {
-        userHandSign = user
-        computerHandSign = computer
-    }
-    return (userHandSign, computerHandSign)
+func translateNumbersToHandSigns(of input: Int) -> HandSigns? {
+    return HandSigns(rawValue: input)
 }
 
 startGame()
