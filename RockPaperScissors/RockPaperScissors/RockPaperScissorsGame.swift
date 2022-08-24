@@ -1,4 +1,4 @@
-struct RockPaperScissorsGame {
+class RockPaperScissorsGame {
     func startRPSGame() {
         printMenu()
         
