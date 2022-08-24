@@ -4,7 +4,7 @@ class RockPaperScissorsLibrary {
     private func displayGameMessege() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
     }
-
+    
     private func inputUserSelction() -> Int? {
         guard let userInput = readLine(),
               let userSelection = Int(userInput) else {
@@ -13,7 +13,7 @@ class RockPaperScissorsLibrary {
         
         return userSelection
     }
-
+    
     private func judgeValidInput(userInput: Int?) -> RockPaperScissorCase? {
         switch userInput {
         case 0:
@@ -29,7 +29,7 @@ class RockPaperScissorsLibrary {
             return nil
         }
     }
-
+    
     private func generateRandomComputerHand() -> RockPaperScissorCase {
         let computerHand = Int.random(in: 1...3)
         
@@ -44,7 +44,7 @@ class RockPaperScissorsLibrary {
             return .end
         }
     }
-
+    
     private func judgeWin(
         userHand: RockPaperScissorCase,
         computerHand: RockPaperScissorCase
@@ -92,17 +92,12 @@ class RockPaperScissorsLibrary {
         }
     }
     
+    private func displayTurnMenu(turn: TurnCase) {
+        print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    }
+    
     private func mukChiBba(turn: TurnCase) {
-        var nowTurn: String = ""
-        
-        switch turn {
-        case .UserTurn:
-            nowTurn = "사용자"
-            print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
-        case .ComputerTurn:
-            nowTurn = "컴퓨터"
-            print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: " ")
-        }
+        displayTurnMenu(turn: turn)
         
         guard let userInput = judgeValidInput(userInput: inputUserSelction()) else {
             return mukChiBba(turn: .ComputerTurn)
@@ -125,7 +120,7 @@ class RockPaperScissorsLibrary {
             print("사용자의 턴입니다.")
             mukChiBba(turn: .UserTurn)
         case .draw:
-            print("\(nowTurn)의 승리!")
+            print("\(turn.rawValue)의 승리!")
         }
     }
 }
