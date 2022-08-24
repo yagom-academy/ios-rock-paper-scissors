@@ -14,7 +14,7 @@ func startRockPaperScissor() {
     let userNumber = getUserInput()
     switch userNumber {
     case 1, 2, 3:
-        judgeWinner(userNumber, generateRandomComputerNumber())
+        judgeWinner(with: userNumber, and: generateRandomComputerNumber())
     case 0:
         print("게임 종료")
     default:
@@ -27,7 +27,7 @@ func generateRandomComputerNumber() -> Int {
     return Int.random(in: 1...3)
 }
 
-func judgeWinner(_ userNumber: Int, _ computerNumber: Int) {
+func judgeWinner(with userNumber: Int, and computerNumber: Int) {
     let criterionNumber = userNumber - computerNumber
     switch criterionNumber {
     case -1, 2 :
