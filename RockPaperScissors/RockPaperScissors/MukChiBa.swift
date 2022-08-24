@@ -36,7 +36,7 @@ class MukChiba: RockPaperScissors {
     fileprivate func playMukChiba(_ userNumber: Int, _ attackTurn: Turn) {
         switch selectOption(userNumber) {
         case .exit:
-            print(GameOver.exit.rawValue)
+            print(GameOver.exit.message)
         case .play:
             compareNumbers(makeComputerNumber(), userNumber, attackTurn)
         default:
@@ -54,9 +54,9 @@ class MukChiba: RockPaperScissors {
             startMukChiBa(attackTurn: .computer)
         default:
             if turn == .user {
-                print(GameOver.userWin.rawValue)
+                print(GameOver.userWin.message)
             } else {
-                print(GameOver.computerWin.rawValue)
+                print(GameOver.computerWin.message)
             }
         }
     }

@@ -27,7 +27,7 @@ class RockPaperScissors {
     func playRockPaperScissors(_ userNumber: Int) {
         switch selectOption(userNumber) {
         case .exit:
-            print(GameOver.exit.rawValue)
+            print(GameOver.exit.message)
         case .play:
             compareNumbers(makeComputerNumber(), userNumber)
         default:
