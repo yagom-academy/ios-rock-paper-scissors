@@ -19,6 +19,12 @@ enum WinLoseDecision: String {
     case draw = "비겼습니다!"
 }
 
+enum UserSelect {
+    case exit
+    case play
+    case error
+}
+
 class RockPaperScissors {
     let startText: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
     let cautionText: String = "잘못된 입력입니다. 다시 시도해주세요."
@@ -41,14 +47,25 @@ class RockPaperScissors {
     }
     
     fileprivate func playRockPaperScissors(_ userNumber: Int) {
-        switch userNumber {
-        case 0:
-            print()
-        case 1, 2, 3:
+        switch selectOption(userNumber) {
+        case .exit:
+            print(GameOver.exit.rawValue)
+        case .play:
             compareNumbers(makeComputerNumber(), userNumber)
         default:
             print(cautionText)
             startGame()
+        }
+    }
+    
+    fileprivate func selectOption(_ userNumber: Int) -> UserSelect {
+        switch userNumber {
+        case 0:
+            return .exit
+        case 1, 2, 3:
+            return .play
+        default:
+            return .error
         }
     }
     
