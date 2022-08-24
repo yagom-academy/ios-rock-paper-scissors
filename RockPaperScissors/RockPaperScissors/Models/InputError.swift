@@ -1,6 +1,6 @@
 //
 //  InputError.swift
-//  RockPaperScissors
+//  Created by Wonbi, 미니
 //
 
 enum InputError: Error {
