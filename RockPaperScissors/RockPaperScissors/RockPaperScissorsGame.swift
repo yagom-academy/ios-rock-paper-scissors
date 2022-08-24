@@ -21,11 +21,11 @@ struct RockPaperScissorsGame {
             return startRPSGame()
         }
         
-        let gameResult = GameResult.judgeUserGameResultIn(userRPS, computerRPS)
+        let gameRPSResult = GameResult.judgeUserGameResultIn(userRPS, computerRPS)
         
-        printResult(of: gameResult)
+        printResult(of: gameRPSResult)
         
-        switch gameResult {
+        switch gameRPSResult {
         case .win:
             RPSWinner = "사용자"
             return
