@@ -4,6 +4,8 @@
 
 - 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
 
-###### 220823 - [Step1] 플로우차트 추가
+###### 220824 - 플로우차트 추가
 
-![묵찌빠게임](https://user-images.githubusercontent.com/102534252/186052330-f512a49b-5f9e-4171-aa2a-81fade88091e.jpg)
+![제목 없는 다이어그램 drawio-3](https://user-images.githubusercontent.com/77507952/186378600-c46d554b-9790-4e05-91ae-43b90e578da7.png)
+
+
