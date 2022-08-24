@@ -5,8 +5,6 @@
 //  Created by LJ, 준호.
 //
 
-import Foundation
-
 enum MukChiBa: Int, CaseIterable {
     case muk = 1
     case chi = 2
