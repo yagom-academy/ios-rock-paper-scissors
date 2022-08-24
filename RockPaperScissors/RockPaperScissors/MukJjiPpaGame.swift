@@ -1,17 +1,18 @@
 struct MukJjiPpaGame {
-    var currentTurn: String = ""
-    var RPSGame = RockPaperScissorsGame()
+    private var currentTurn: Player = .none
     
     mutating func startMJPGame() {
+        var RPSGame = RockPaperScissorsGame()
+
         RPSGame.startRPSGame()
-        self.currentTurn = RPSGame.RPSWinner
+        currentTurn = RPSGame.RPSWinner
         
         var isPlayPossible = true
         while isPlayPossible {
             printMJPMenu()
             guard let userMJPNumber = RPSGame.fetchUserNumber() else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
-                currentTurn = "컴퓨터"
+                currentTurn = .computer
                 continue
             }
             
@@ -32,19 +33,19 @@ struct MukJjiPpaGame {
             
             switch gameMJPResult {
             case .win:
-                currentTurn = "사용자"
-                print("\(currentTurn)의 턴입니다.")
+                currentTurn = .user
+                print("\(currentTurn.rawValue)의 턴입니다.")
             case .lose:
-                currentTurn = "컴퓨터"
-                print("\(currentTurn)의 턴입니다.")
+                currentTurn = .computer
+                print("\(currentTurn.rawValue)의 턴입니다.")
             case .draw:
-                print("\(currentTurn)의 승리!")
+                print("\(currentTurn.rawValue)의 승리!")
                 isPlayPossible = false
             }
         }
     }
     
-    func printMJPMenu() {
-        print("[\(currentTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+    private func printMJPMenu() {
+        print("[\(currentTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
     }
 }
