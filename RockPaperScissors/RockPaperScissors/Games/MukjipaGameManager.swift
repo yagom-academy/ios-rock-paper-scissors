@@ -3,7 +3,7 @@
 //  Created by Wonbi, 미니
 //
 
-struct MukjipaGameManager {
+struct MukjipaGameManager: Gameable {
     var isUserTurn: Bool = true
     var attacker: String {
         isUserTurn ? "사용자" : "컴퓨터"
@@ -13,7 +13,7 @@ struct MukjipaGameManager {
         isUserTurn = (result == .userWin)
     }
     
-    private func fetchUserInput() -> Result<Mukjipa, InputError> {
+    func fetchUserInput() -> Result<Mukjipa, InputError> {
 		print("[\(attacker) 턴]", GameMessage.mukjipaGame, separator: " ", terminator: " : ")
 		
         guard let inputValue = readLine(),
@@ -27,7 +27,7 @@ struct MukjipaGameManager {
         }
     }
 	
-	private func checkValidity(of userInputResult: Result<Mukjipa, InputError>) -> GameState {
+	func checkValidity(of userInputResult: Result<Mukjipa, InputError>) -> GameState {
 		switch userInputResult {
 		case .success(let inputCard):
 			return inputCard.generateGameResult()

@@ -3,8 +3,8 @@
 //  Created by Wonbi, 미니
 //
 
-struct RPSGameManager {
-	private func fetchUserInput() -> Result<RPS, InputError> {
+struct RPSGameManager: Gameable {
+	func fetchUserInput() -> Result<RPS, InputError> {
 		print(GameMessage.rpsGame, terminator: " : ")
 
 		guard let inputValue = readLine(),
@@ -21,7 +21,7 @@ struct RPSGameManager {
 		}
 	}
 
-	private func checkValidity(of userInputResult: Result<RPS, InputError>) -> GameState {
+	func checkValidity(of userInputResult: Result<RPS, InputError>) -> GameState {
 		switch userInputResult {
 		case .success(let inputCard):
 			return inputCard.generateGameResult()
