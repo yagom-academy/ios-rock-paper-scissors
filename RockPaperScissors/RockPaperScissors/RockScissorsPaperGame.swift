@@ -19,6 +19,16 @@ enum MukChiBba: Int {
     case 빠 = 3
 }
 
+func filterUserInput() -> Int? {
+    if let input = readLine(),
+       let userNumber = Int(input.replacingOccurrences(of: " ", with: "")),
+       0...3 ~= userNumber {
+        return userNumber
+    }
+    print("잘못된 입력입니다. 다시 시도해주세요.")
+    return nil
+}
+
 func readyRockScissorsPaperGame() {
     var computerNumber: Int
     var exitGame: Bool = false
@@ -28,8 +38,7 @@ func readyRockScissorsPaperGame() {
 
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
-        guard let input = readLine(),
-            let userNumber = Int(input.replacingOccurrences(of: " ", with: ""))else {
+        guard let userNumber = filterUserInput() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         }
@@ -39,7 +48,6 @@ func readyRockScissorsPaperGame() {
 }
 
 func startRockScissorsPaperGame(by computerChoice: Int, and userChoice: Int) -> Bool {
-    var exit: Bool = false
     var userWin: Bool
     let selectMenu = userChoice
     let computerPick = RockScissorsPaper(rawValue: computerChoice)
@@ -48,11 +56,10 @@ func startRockScissorsPaperGame(by computerChoice: Int, and userChoice: Int) -> 
     
     if selectMenu == 0 {
         print("게임 종료")
-        exit = true
-        return exit
+        return true
     } else if computerPick == userPick {
         print("비겼습니다!")
-        return exit
+        return false
     }
     
     switch compareTwoThings {
@@ -62,21 +69,13 @@ func startRockScissorsPaperGame(by computerChoice: Int, and userChoice: Int) -> 
         print("이겼습니다!")
         userWin = true
         readyMukChiBbaGame(takeUserWin: userWin)
-        exit = true
-        return exit
-    case (컴퓨터가낸것: .가위, 유저가낸것: .보),
-        (컴퓨터가낸것: .바위, 유저가낸것: .가위),
-        (컴퓨터가낸것: .보, 유저가낸것: .바위):
+        return true
+    default:
         print("졌습니다!")
         userWin = false
         readyMukChiBbaGame(takeUserWin: userWin)
-        exit = true
-        return exit
-    default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return true
     }
-
-    return exit
 }
 
 func readyMukChiBbaGame(takeUserWin: Bool) {
@@ -85,7 +84,10 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
     var computerNumber: Int
     var roundOneWinner: String {
         get {
-            if takeUserWin == true { return "사용자" } else { return "컴퓨터" }
+            if takeUserWin == true {
+                return "사용자"
+            } else {
+                return "컴퓨터" }
         }
     }
     
@@ -93,17 +95,12 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
         computerNumber = Int.random(in: 1...3)
         print("[\(roundOneWinner) 턴] (묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         
-        guard let input = readLine(),
-              let userNumber = Int(input.replacingOccurrences(of: " ", with: "")),
-              0...3 ~= userNumber
-        else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+        guard let userNumber = filterUserInput() else {
             if takeUserWin == true {
                 takeUserWin = !takeUserWin
             }
             continue
         }
-        print(computerNumber)
         
         var exitOrTurnChange = (나가기: exit, 유저이겼나체크: takeUserWin)
         exitOrTurnChange = startMukChiBbaGame(computerNumber: computerNumber, userNumber: userNumber, takeUserWin: takeUserWin)
@@ -112,6 +109,7 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
         case (true, _):
             exit = true
         case (false, false):
+            takeUserWin = false
             continue
         case (false, true):
             takeUserWin = true
@@ -142,9 +140,8 @@ func startMukChiBbaGame(computerNumber: Int, userNumber: Int, takeUserWin: Bool)
         (컴퓨터가낸것: .찌, 유저가낸것: .묵),
         (컴퓨터가낸것: .빠, 유저가낸것: .찌):
         takeUserWin = true
-        return (false,takeUserWin)
     default:
         takeUserWin = false
-        return (false,takeUserWin)
     }
+    return (false,takeUserWin)
 }
