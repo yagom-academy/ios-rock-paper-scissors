@@ -7,87 +7,67 @@
 
 import Foundation
 
-enum GameOver: String {
-    case exit = "게임 종료"
-    case userWin = "사용자의 승리!"
-    case computerWin = "컴퓨터의 승리!"
-}
-
-enum WinLoseDraw: String {
-    case win = "이겼습니다!"
-    case lose = "졌습니다!"
-    case draw = "비겼습니다!"
-}
-
-enum UserSelect {
-    case exit
-    case play
-    case error
-}
-
 class RockPaperScissors {
-    let startText: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
-    let cautionText: String = "잘못된 입력입니다. 다시 시도해주세요."
     
     func startGame() {
-        print(startText, terminator: "")
-        guard let inputedUserNumber: Int = Int(bindUserInput()) else {
-            print(cautionText)
+        print(GameText.start.rawValue, terminator: "")
+        guard let inputtedUserNumber: Int = Int(bindUserInput()) else {
+            print(GameText.caution.rawValue)
             startGame()
             return
         }
-        playRockPaperScissors(inputedUserNumber)
+        playRockPaperScissors(inputtedUserNumber)
     }
     
-    fileprivate func bindUserInput() -> String {
+    func bindUserInput() -> String {
         guard let userInput = readLine() else {
             return bindUserInput()
         }
         return userInput
     }
     
-    fileprivate func playRockPaperScissors(_ userNumber: Int) {
+    func playRockPaperScissors(_ userNumber: Int) {
         switch selectOption(userNumber) {
         case .exit:
             print(GameOver.exit.rawValue)
         case .play:
             compareNumbers(makeComputerNumber(), userNumber)
         default:
-            print(cautionText)
+            print(GameText.caution)
             startGame()
         }
     }
     
-    fileprivate func selectOption(_ userNumber: Int) -> UserSelect {
+    func selectOption(_ userNumber: Int) -> UserSelect {
         switch userNumber {
         case 0:
             return .exit
         case 1, 2, 3:
             return .play
         default:
-            return .error
+            return .wrong
         }
     }
     
-    fileprivate func makeComputerNumber() -> Int {
+    func makeComputerNumber() -> Int {
         let computerNumber: Int = Int.random(in: 1...3)
         return computerNumber
     }
     
-    fileprivate func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int) {
-        let differenceNumber: WinLoseDraw = makeResult(computerGameNumber - userGameNumber)
+    func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int) {
+        let differenceNumber: GameJudgment = makeResult(computerGameNumber - userGameNumber)
         switch differenceNumber {
         case .win:
-            print(WinLoseDraw.win.rawValue)
+            print(GameJudgment.win.rawValue)
         case .lose:
-            print(WinLoseDraw.lose.rawValue)
+            print(GameJudgment.lose.rawValue)
         default:
-            print(WinLoseDraw.draw.rawValue)
+            print(GameJudgment.draw.rawValue)
             startGame()
         }
     }
     
-    fileprivate func makeResult(_ differenceNumber: Int) -> WinLoseDraw {
+    func makeResult(_ differenceNumber: Int) -> GameJudgment {
         switch differenceNumber {
         case -2, 1:
             return .win
@@ -95,68 +75,6 @@ class RockPaperScissors {
             return .lose
         default:
             return .draw
-        }
-    }
-    
-}
-
-class MukChiba: RockPaperScissors {
-    override fileprivate func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int) {
-        let differenceNumber: WinLoseDraw = makeResult(computerGameNumber - userGameNumber)
-        switch differenceNumber {
-        case .win:
-            print(WinLoseDraw.win.rawValue)
-            startMukChiBa(attackTurn: true)
-        case .lose:
-            print(WinLoseDraw.lose.rawValue)
-            startMukChiBa(attackTurn: false)
-        default:
-            print(WinLoseDraw.draw.rawValue)
-            startGame()
-        }
-    }
-    
-    fileprivate func startMukChiBa(attackTurn: Bool) {
-        let turn: String
-        if attackTurn == true {
-            turn = "[사용자 턴]"
-        } else {
-            turn = "[컴퓨터 턴]"
-        }
-        print("\(turn) \(startText)", terminator: "")
-        guard let inputedUserNumber: Int = Int(bindUserInput()) else {
-            print(cautionText)
-            startMukChiBa(attackTurn: false)
-            return
-        }
-        playMukChiba(inputedUserNumber, attackTurn)
-    }
-    
-    fileprivate func playMukChiba(_ userNumber: Int, _ attackTurn: Bool) {
-        switch selectOption(userNumber) {
-        case .exit:
-            print(GameOver.exit.rawValue)
-        case .play:
-            compareNumbers(makeComputerNumber(), userNumber, attackTurn)
-        default:
-            print(cautionText)
-            startMukChiBa(attackTurn: false)
-        }
-    }
-    
-    fileprivate func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int, _ turn: Bool) {
-        let differenceNumber: WinLoseDraw = makeResult(computerGameNumber - userGameNumber)
-        switch differenceNumber {
-        case .win:
-            startMukChiBa(attackTurn: true)
-        case .lose:
-            startMukChiBa(attackTurn: false)
-        default:
-            if turn == true {
-                print(GameOver.userWin.rawValue)
-            } else {
-                print(GameOver.computerWin.rawValue)
-            }
         }
     }
 }
