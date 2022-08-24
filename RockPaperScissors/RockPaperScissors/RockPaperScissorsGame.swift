@@ -10,7 +10,7 @@ struct RockPaperScissorsGame {
         let selectedUserMenu: Int = getSelectedUserMenu()
        
         if let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu),
-           let gameResult: gameResult = compareComputerHand(with: userHand) {
+           let gameResult: GameResult = compareComputerHand(with: userHand) {
             print(gameResult.result)
             if gameResult == .draw {
                 startGame()
@@ -55,7 +55,7 @@ struct RockPaperScissorsGame {
         return RockPaperScissors.allCases.randomElement()
     }
     
-    private func compareComputerHand(with userHand: RockPaperScissors) -> gameResult? {
+    private func compareComputerHand(with userHand: RockPaperScissors) -> GameResult? {
         guard let computerHand: RockPaperScissors = getComputerHand() else {
             return nil
         }

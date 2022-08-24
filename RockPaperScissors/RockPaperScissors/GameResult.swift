@@ -5,7 +5,7 @@
 //  Created by LJ, 준호 on 2022/08/23.
 //
 
-enum gameResult {
+enum GameResult {
     case win
     case lose
     case draw
