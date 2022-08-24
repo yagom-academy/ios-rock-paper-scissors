@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
+		EB8FFFA928B4A12D00A88C88 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8FFFA828B4A12D00A88C88 /* RockPaperScissors.swift */; };
+		EB8FFFAB28B4A13600A88C88 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8FFFAA28B4A13600A88C88 /* GameResult.swift */; };
+		EB8FFFAD28B4A14400A88C88 /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8FFFAC28B4A14400A88C88 /* RockPaperScissorsGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		EB8FFFA828B4A12D00A88C88 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
+		EB8FFFAA28B4A13600A88C88 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		EB8FFFAC28B4A14400A88C88 /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				EB8FFFAC28B4A14400A88C88 /* RockPaperScissorsGame.swift */,
+				EB8FFFAA28B4A13600A88C88 /* GameResult.swift */,
+				EB8FFFA828B4A12D00A88C88 /* RockPaperScissors.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -89,7 +98,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					C7ABA0DC254EA63000B2367D = {
 						CreatedOnToolsVersion = 12.1;
@@ -119,7 +128,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB8FFFAD28B4A14400A88C88 /* RockPaperScissorsGame.swift in Sources */,
+				EB8FFFA928B4A12D00A88C88 /* RockPaperScissors.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				EB8FFFAB28B4A13600A88C88 /* GameResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +256,7 @@
 		C7ABA0E5254EA63000B2367D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -253,6 +266,7 @@
 		C7ABA0E6254EA63000B2367D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
