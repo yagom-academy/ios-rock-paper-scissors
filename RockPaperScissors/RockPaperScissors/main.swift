@@ -5,19 +5,22 @@
 
 struct GameManager {
 	private let rpsGame = RPSGameManager()
-
+	private let mukjipaGame = MukjipaGameManager()
+	
 	func startConsole() {
 		let result = rpsGame.startGame()
-
+		
 		print(result.description)
-
+		
 		switch result {
-        case .draw, .error:
+		case .draw:
 			startConsole()
-		case .exit:
-			return
+        case .error:
+            startConsole()
+        case .exit:
+            return
 		default:
-			print(GameMessage.goMukjipa)
+			print("묵찌빠 행이다.")
 		}
 	}
 }

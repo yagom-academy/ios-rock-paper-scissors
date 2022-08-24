@@ -21,6 +21,8 @@ struct RPSGameManager {
 		}
 	}
 
+
+
 	private func checkValidity(of userInputResult: Result<RPS, InputError>) -> GameState {
 		switch userInputResult {
 		case .success(let inputCard):
