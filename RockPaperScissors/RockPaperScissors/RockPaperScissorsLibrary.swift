@@ -63,6 +63,20 @@ class RockPaperScissorsLibrary {
         }
     }
     
+    private func startMukChiBba(_ result: WinLoseDrawCase) {
+        switch result {
+        case .lose:
+            print("졌습니다!")
+            mukChiBba(turn: .ComputerTurn)
+        case .win:
+            print("이겼습니다!")
+            mukChiBba(turn: .UserTurn)
+        case .draw:
+            print("비겼습니다!")
+            startGame()
+        }
+    }
+    
     private func startGame() {
         displayGameMessege()
         
@@ -79,21 +93,24 @@ class RockPaperScissorsLibrary {
             computerHand: generateRandomComputerHand()
         )
         
-        switch result {
-        case .lose:
-            print("졌습니다!")
-            mukChiBba(turn: .ComputerTurn)
-        case .win:
-            print("이겼습니다!")
-            mukChiBba(turn: .UserTurn)
-        case .draw:
-            print("비겼습니다!")
-            startGame()
-        }
+        startMukChiBba(result)
     }
     
     private func displayTurnMenu(turn: TurnCase) {
         print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    }
+    
+    private func passTurn(_ turn: TurnCase, _ result: WinLoseDrawCase) {
+        switch result {
+        case .lose:
+            print("컴퓨터의 턴입니다.")
+            mukChiBba(turn: .ComputerTurn)
+        case .win:
+            print("사용자의 턴입니다.")
+            mukChiBba(turn: .UserTurn)
+        case .draw:
+            print("\(turn.rawValue)의 승리!")
+        }
     }
     
     private func mukChiBba(turn: TurnCase) {
@@ -112,16 +129,7 @@ class RockPaperScissorsLibrary {
             computerHand: generateRandomComputerHand()
         )
         
-        switch result {
-        case .lose:
-            print("컴퓨터의 턴입니다.")
-            mukChiBba(turn: .ComputerTurn)
-        case .win:
-            print("사용자의 턴입니다.")
-            mukChiBba(turn: .UserTurn)
-        case .draw:
-            print("\(turn.rawValue)의 승리!")
-        }
+        passTurn(turn, result)
     }
 }
 
