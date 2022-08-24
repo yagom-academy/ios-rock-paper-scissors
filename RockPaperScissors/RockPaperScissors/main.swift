@@ -85,28 +85,31 @@ func excuteRockScissorsPaper(_ whoIsWin: String) -> String {
             continue
         }
         let result = showResult(userNumber)
-        
-        if result != "무승부" {
-            return result
-        }
+        return result
     }
 }
 
 func startGame() {
     var winner = excuteScissorsRockPaper()
     
-    if winner != "종료" {
-        var gameResult = excuteRockScissorsPaper(winner)
-        
-        if gameResult == "무승부" {
-            print("\(gameResult)의 승리")
+    if winner == "종료" {
+        return
+    }
+    var gameResult = excuteRockScissorsPaper(winner)
+    
+    while true {
+        switch gameResult {
+        case "무승부" :
+            print("\(winner)의 승리")
             return
-        } else if gameResult == "사용자" {
+        case "사용자" :
             winner = "사용자"
             gameResult = excuteRockScissorsPaper(winner)
-        } else if gameResult == "컴퓨터" {
+        case "컴퓨터" :
             winner = "컴퓨터"
             gameResult = excuteRockScissorsPaper(winner)
+        default :
+            return
         }
     }
 }
