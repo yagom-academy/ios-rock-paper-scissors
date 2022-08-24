@@ -13,6 +13,11 @@ enum RockScissorsPaper: Int {
     case 보 = 3
 }
 
+// readyRound1
+// startRound1
+// readyRound2
+// startRound2
+
 func startRockScissorsPaperGame() {
     var computerNumber: Int
     var exitGame: Bool = false
@@ -22,10 +27,8 @@ func startRockScissorsPaperGame() {
 
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
-        guard let input = readLine() else {
-            continue
-        }
-        guard let userNumber = Int(input.replacingOccurrences(of: " ", with: "")) else {
+        guard let input = readLine(),
+            let userNumber = Int(input.replacingOccurrences(of: " ", with: ""))else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         }
@@ -73,6 +76,7 @@ func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
 
 func startMukChiBbaGame(takeUserWin: Bool) -> Bool {
     var exit: Bool = false
+    var takeUserWin = takeUserWin
     var computerNumber: Int
     var roundOneWinner: String {
         get {
@@ -80,18 +84,18 @@ func startMukChiBbaGame(takeUserWin: Bool) -> Bool {
         }
     }
     
-    computerNumber = Int.random(in: 1...3)
-    
     while exit == false {
+        computerNumber = Int.random(in: 1...3)
         print("[\(roundOneWinner) 턴] (묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
-        // ---
-        guard let input = readLine() else {
-            continue
-        }
-        guard let userNumber = Int(input.replacingOccurrences(of: " ", with: "")) else {
+        
+        guard let input = readLine() ,
+              let userNumber = Int(input.replacingOccurrences(of: " ", with: ""))
+        else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
+            takeUserWin = !takeUserWin
             continue
         }
+        
         let computerPick = RockScissorsPaper(rawValue: computerNumber)
         let userPick = RockScissorsPaper(rawValue: userNumber)
         let compareTwoThings = (컴퓨터가낸것: computerPick, 유저가낸것: userPick)
