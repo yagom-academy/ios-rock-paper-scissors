@@ -14,6 +14,11 @@ struct MukJjiPpaGame {
                 continue
             }
             
+            if userMJPNumber == 0 {
+                print("게임종료")
+                break
+            }
+            
             let computerMJPNumber = Int.random(in: 1...3)
             
             guard let userMJP = RPS.convertRPS(from: userMJPNumber),
@@ -21,8 +26,6 @@ struct MukJjiPpaGame {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 continue
             }
-            
-            print("돌고있음")
         }
     }
     
