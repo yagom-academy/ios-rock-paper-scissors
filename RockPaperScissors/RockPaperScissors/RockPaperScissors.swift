@@ -22,17 +22,9 @@ func display(of result: Result) {
     print(result.rawValue)
 }
 
-func compareMukJjiPpa(with computer: MukJjiPpa, and user: MukJjiPpa) -> Result {
-    switch (computer, user) {
-    case (.rock, .paper), (.paper, .scissor), (.scissor, .rock):
-        return .win
-    case (.rock, .scissor), (.paper, .rock), (.scissor, .paper):
-        return .lose
-    default:
-        return .draw
-    }
+func compareMukJjiPpa(with computer: MukJjiPpa, and user: MukJjiPpa) -> MukJjiPpaResult {
+    
 }
-
 
 func playMukJjiPpaGame() {
     let randomComputerMukJjiPpa: MukJjiPpa = MukJjiPpa(rawValue: Int.random(in: 1...3)).unsafelyUnwrapped
@@ -47,7 +39,10 @@ func playMukJjiPpaGame() {
         return // 턴을바꾼다.
     
 }
-
+    let mukJjiPpaResult: MukJjiPpaResult = compareMukJjiPpa(with: randomComputerMukJjiPpa, and: result)
+    
+    
+    
 //[*** 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :
 //[*** 턴] 위치에는 현재 누구의 턴인지 표시합니다.
 //가위, 바위, 보 게임 혹은 지난 턴에서 이긴 사람이 턴을 쥡니다.
