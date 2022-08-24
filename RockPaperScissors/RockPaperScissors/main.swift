@@ -15,28 +15,28 @@ func createUserNumber() -> Int? {
 }
 
 func checkUserInput(_ userInput: String?) -> Int? {
-    guard let userInput = userInput else { return nil }
+    guard let userInput = userInput else {
+        return nil
+    }
     let trimedUserInput = userInput.split(separator: " ").joined()
-    guard let userNumber = Int(trimedUserInput) else { return nil }
+    guard let userNumber = Int(trimedUserInput) else {
+        return nil
+    }
     
     if userNumber < 0 || userNumber >= 4 {
         return nil
     }
+    
     return userNumber
 }
 
 func createRandomNumber() -> Int {
     let computerInput = Int.random(in: 1...3)
+    
     return computerInput
 }
 
-enum RockScissorsPaper: Int {
-    case scissors = 1
-    case rock
-    case paper
-}
-
-func compareTwoInput(_ userNumber: Int, _ computerNumber: Int) -> String {
+func compareTwoInput(_ userNumber: Int, with computerNumber: Int) -> String {
     let user = RockScissorsPaper(rawValue: userNumber)
     let computer = RockScissorsPaper(rawValue: computerNumber)
     
@@ -52,19 +52,18 @@ func compareTwoInput(_ userNumber: Int, _ computerNumber: Int) -> String {
 
 func showResult(_ userNumber: Int) -> String {
     let computerNumber = createRandomNumber()
-    print("컴퓨터값 : \(computerNumber)")
+
     switch userNumber {
     case 1, 2, 3 :
-        return compareTwoInput(userNumber, computerNumber)
+        return compareTwoInput(userNumber, with: computerNumber)
     default :
         return "종료"
     }
 }
 
-func excuteScissorsRockPaper() -> String {
+func excuteSRP() -> String {
     while true {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        
         guard let userNumber = createUserNumber() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
@@ -77,25 +76,26 @@ func excuteScissorsRockPaper() -> String {
     }
 }
 
-func excuteRockScissorsPaper(_ whoIsWin: String) -> String {
+func excuteMJB(_ winner: String) -> String {
     while true {
-        print("[\(whoIsWin)의 턴입니다] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
-        
+        print("[\(winner)의 턴입니다] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         guard let userNumber = createUserNumber() else {
             continue
         }
         let result = showResult(userNumber)
+        
         return result
     }
 }
 
 func startGame() {
-    var winner = excuteScissorsRockPaper()
+    var winner = excuteSRP()
     
     if winner == "종료" {
         return
     }
-    var gameResult = excuteRockScissorsPaper(winner)
+    
+    var gameResult = excuteMJB(winner)
     
     while true {
         switch gameResult {
@@ -104,10 +104,10 @@ func startGame() {
             return
         case "사용자" :
             winner = "사용자"
-            gameResult = excuteRockScissorsPaper(winner)
+            gameResult = excuteMJB(winner)
         case "컴퓨터" :
             winner = "컴퓨터"
-            gameResult = excuteRockScissorsPaper(winner)
+            gameResult = excuteMJB(winner)
         default :
             return
         }
