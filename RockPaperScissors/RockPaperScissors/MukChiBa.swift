@@ -5,7 +5,7 @@
 //  Created by Gundy, Bella
 //
 
-class MukChiba: RockPaperScissors {
+final class MukChiba: RockPaperScissors {
 
     override func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int) {
         let differenceNumber: GameJudgment = makeResult(computerGameNumber - userGameNumber)
@@ -22,7 +22,7 @@ class MukChiba: RockPaperScissors {
         }
     }
     
-    fileprivate func startMukChiBa(attackTurn: Turn) {
+    private func startMukChiBa(attackTurn: Turn) {
         attackTurn.displayTurn()
         GameText.start.displayMessage()
         guard let inputtedUserNumber: Int = Int(bindUserInput()) else {
@@ -33,7 +33,7 @@ class MukChiba: RockPaperScissors {
         playMukChiba(inputtedUserNumber, attackTurn)
     }
     
-    fileprivate func playMukChiba(_ userNumber: Int, _ attackTurn: Turn) {
+    private func playMukChiba(_ userNumber: Int, _ attackTurn: Turn) {
         switch selectOption(userNumber) {
         case .exit:
             print(GameOver.exit.message)
@@ -45,7 +45,7 @@ class MukChiba: RockPaperScissors {
         }
     }
     
-    fileprivate func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int, _ turn: Turn) {
+    private func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int, _ turn: Turn) {
         let differenceNumber: GameJudgment = makeResult(computerGameNumber - userGameNumber)
         switch differenceNumber {
         case .win:

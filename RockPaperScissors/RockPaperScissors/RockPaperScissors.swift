@@ -24,7 +24,7 @@ class RockPaperScissors {
         return userInput
     }
     
-    func playRockPaperScissors(_ userNumber: Int) {
+    private func playRockPaperScissors(_ userNumber: Int) {
         switch selectOption(userNumber) {
         case .exit:
             print(GameOver.exit.message)
