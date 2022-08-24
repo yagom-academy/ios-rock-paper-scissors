@@ -11,7 +11,7 @@
 		41A5860F28B39B3700C1A229 /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A5860E28B39B3700C1A229 /* RockPaperScissorsGame.swift */; };
 		41A5861128B39FDF00C1A229 /* RPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A5861028B39FDF00C1A229 /* RPS.swift */; };
 		41A5861328B3B45B00C1A229 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A5861228B3B45B00C1A229 /* GameResult.swift */; };
-		41FD92F628B607D1004F8D3E /* MukJjiPpaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FD92F528B607D1004F8D3E /* MukJjiPpaGame.swift */; };
+		41FD92F828B63D7C004F8D3E /* MukJjiPpaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FD92F528B607D1004F8D3E /* MukJjiPpaGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -135,7 +135,7 @@
 				41A5860D28B38B6B00C1A229 /* main.swift in Sources */,
 				41A5860F28B39B3700C1A229 /* RockPaperScissorsGame.swift in Sources */,
 				41A5861128B39FDF00C1A229 /* RPS.swift in Sources */,
-				41FD92F628B607D1004F8D3E /* MukJjiPpaGame.swift in Sources */,
+				41FD92F828B63D7C004F8D3E /* MukJjiPpaGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
