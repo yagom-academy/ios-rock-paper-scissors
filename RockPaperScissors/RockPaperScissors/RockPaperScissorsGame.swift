@@ -10,7 +10,7 @@ struct RockPaperScissorsGame {
         let selectedUserMenu: Int = getSelectedUserMenu()
        
         guard let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu),
-           let gameResult: gameResult = compareComputerHand(with: userHand) else {
+           let gameResult: GameResult = compareComputerHand(with: userHand) else {
             return nil
         }
         print(gameResult.result)
@@ -24,19 +24,25 @@ struct RockPaperScissorsGame {
         }
     }
     
-    
-    
     private func getSelectedUserMenu() -> Int {
         printUserMenu()
-        guard let selectedUserMenu: Int = Int(readLine() ?? ""),
-              isCorrectUserMenu(selectedUserMenu) else {
+        guard let selectedUserMenu: Int = userInput() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return getSelectedUserMenu()
         }
-        return selectedUserMenu
+        
+        if isCorrectUserMenu(selectedUserMenu) {
+            return selectedUserMenu
+        } else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return getSelectedUserMenu()
+        }
     }
     
-    
+    private func userInput() -> Int? {
+        let userInput: Int? = Int(readLine() ?? "")
+        return userInput
+    }
     
     private func printUserMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -55,7 +61,7 @@ struct RockPaperScissorsGame {
         return RockPaperScissors.allCases.randomElement()
     }
     
-    private func compareComputerHand(with userHand: RockPaperScissors) -> gameResult? {
+    private func compareComputerHand(with userHand: RockPaperScissors) -> GameResult? {
         guard let computerHand: RockPaperScissors = getComputerHand() else {
             return nil
         }
