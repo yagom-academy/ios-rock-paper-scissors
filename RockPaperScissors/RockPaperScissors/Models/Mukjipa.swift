@@ -21,15 +21,16 @@ enum Mukjipa: Int, CaseIterable {
     
     func compare(to computerCard: Self) -> GameState {
         guard self != .none else { return .exit }
+	
         let userNumber = self.rawValue
         let computerNumber = computerCard.rawValue
         let comparedResultNumber = userNumber - computerNumber
-        
+
         switch comparedResultNumber {
         case -2, 1:
-            return .win
+			return .userWin
         case -1, 2:
-            return .lose
+			return .computerWin
         default:
             return .draw
         }

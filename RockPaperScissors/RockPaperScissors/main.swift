@@ -5,9 +5,9 @@
 
 struct GameManager {
 	private let rpsGame = RPSGameManager()
-	private let mukjipaGame = MukjipaGameManager()
+	private var mukjipaGame = MukjipaGameManager()
 	
-	func startConsole() {
+	mutating func startConsole() {
 		let result = rpsGame.startGame()
 		
 		print(result.description)
@@ -20,17 +20,33 @@ struct GameManager {
         case .exit:
             return
 		default:
-			print("묵찌빠 행이다.")
+			startMukjipa(result)
 		}
+	}
+	
+	mutating func startMukjipa(_ result: GameState) {
+		let result = mukjipaGame.startGame(from: result)
+		
+		switch result {
+		case .draw:
+			printResultOfMukjipaGame()
+			return
+		case .exit:
+			print(result.description)
+			return
+		case .error:
+			print(result.description)
+			startMukjipa(result)
+		default:
+			startMukjipa(result)
+		}
+	}
+	
+	mutating func printResultOfMukjipaGame() {
+		print(mukjipaGame.attacker + "의 승리입니다.")
 	}
 }
 
-let game = GameManager()
+var game = GameManager()
 game.startConsole()
 
-// 1. 가위바위보 후 결과에 따라서 게임 진행
-// 2. 선공을 결정
-// 3. 사용자의 입력을 받는다.
-// 4. 컴퓨터패 생성
-// 5. 두개를 비교 후, 결과값을 판단 한다.
-// 6. 같다면, 선공자 승리 아닐 경우, 게임을 다시 진행 (선공을 결정)

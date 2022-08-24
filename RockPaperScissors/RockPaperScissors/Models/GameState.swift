@@ -4,18 +4,18 @@
 //
 
 enum GameState {
-    case win
-	case lose
+	case userWin
+	case computerWin
 	case draw
 	case error
 	case exit
 
 	var description: String {
 		switch self {
-		case .win:
+		case .userWin:
 			return GameMessage.win
 			
-		case .lose:
+		case .computerWin:
 			return GameMessage.lose
 			
 		case .draw:

@@ -27,9 +27,9 @@ enum RPS: Int, CaseIterable {
 
 		switch comparedResultNumber {
 		case -2, 1:
-			return .win
+			return .userWin
 		case -1, 2:
-			return .lose
+			return .computerWin
 		default:
 			return .draw
 		}
