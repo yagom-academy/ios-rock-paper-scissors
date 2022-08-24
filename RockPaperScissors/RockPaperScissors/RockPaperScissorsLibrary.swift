@@ -82,8 +82,10 @@ class RockPaperScissorsLibrary {
         switch result {
         case .lose:
             print("졌습니다!")
+            mukChiBba(turn: .ComputerTurn)
         case .win:
             print("이겼습니다!")
+            mukChiBba(turn: .UserTurn)
         case .draw:
             print("비겼습니다!")
             startGame()
@@ -91,11 +93,15 @@ class RockPaperScissorsLibrary {
     }
     
     private func mukChiBba(turn: TurnCase) {
-       switch turn {
+        var nowTurn: String = ""
+        
+        switch turn {
         case .UserTurn:
-            print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>")
+            nowTurn = "사용자"
+            print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         case .ComputerTurn:
-            print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>")
+            nowTurn = "컴퓨터"
+            print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: " ")
         }
         
         guard let userInput = judgeValidInput(userInput: inputUserSelction()) else {
@@ -113,11 +119,13 @@ class RockPaperScissorsLibrary {
         
         switch result {
         case .lose:
-            return
+            print("컴퓨터의 턴입니다.")
+            mukChiBba(turn: .ComputerTurn)
         case .win:
-            return
+            print("사용자의 턴입니다.")
+            mukChiBba(turn: .UserTurn)
         case .draw:
-            return
+            print("\(nowTurn)의 승리!")
         }
     }
 }
