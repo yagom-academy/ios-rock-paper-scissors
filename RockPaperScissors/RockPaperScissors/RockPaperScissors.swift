@@ -7,11 +7,26 @@
 
 import Foundation
 
+enum GameOver: String {
+    case exit = "게임 종료"
+    case userWin = "사용자의 승리!"
+    case computerWin = "컴퓨터의 승리!"
+}
+
+enum WinLoseDecision: String {
+    case win = "이겼습니다!"
+    case lose = "졌습니다!"
+    case draw = "비겼습니다!"
+}
+
 class RockPaperScissors {
+    let startText: String = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    let cautionText: String = "잘못된 입력입니다. 다시 시도해주세요."
+    
     func startGame() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        print(startText, terminator: "")
         guard let inputedUserNumber: Int = Int(bindUserInput()) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(cautionText)
             startGame()
             return
         }
@@ -28,11 +43,11 @@ class RockPaperScissors {
     fileprivate func playRockPaperScissors(_ userNumber: Int) {
         switch userNumber {
         case 0:
-            print("게임 종료")
+            print()
         case 1, 2, 3:
             compareNumbers(makeComputerNumber(), userNumber)
         default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(cautionText)
             startGame()
         }
     }
@@ -45,12 +60,12 @@ class RockPaperScissors {
     fileprivate func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int) {
         let differenceNumber: Int = computerGameNumber - userGameNumber
         switch differenceNumber {
-        case -2, 1:
-            print("이겼습니다!")
+        case -2, 1 :
+            print(WinLoseDecision.win.rawValue)
         case -1, 2:
-            print("졌습니다!")
+            print(WinLoseDecision.lose.rawValue)
         default:
-            print("비겼습니다!")
+            print(WinLoseDecision.draw.rawValue)
             startGame()
         }
     }
@@ -61,13 +76,13 @@ class MukChiba: RockPaperScissors {
         let differenceNumber: Int = computerGameNumber - userGameNumber
         switch differenceNumber {
         case -2, 1:
-            print("이겼습니다!")
+            print(WinLoseDecision.win.rawValue)
             startMukChiba(attackTurn: true)
         case -1, 2:
-            print("졌습니다!")
+            print(WinLoseDecision.lose.rawValue)
             startMukChiba(attackTurn: false)
         default:
-            print("비겼습니다!")
+            print(WinLoseDecision.draw.rawValue)
             startGame()
         }
     }
@@ -81,9 +96,9 @@ class MukChiba: RockPaperScissors {
             startMukChiba(attackTurn: false)
         default:
             if turn == true {
-                print("사용자의 승리!")
+                print(GameOver.userWin.rawValue)
             } else {
-                print("컴퓨터의 승리!")
+                print(GameOver.computerWin.rawValue)
             }
         }
     }
@@ -95,9 +110,9 @@ class MukChiba: RockPaperScissors {
         } else {
             turn = "[컴퓨터 턴]"
         }
-        print("\(turn) 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        print("\(turn) \(startText)", terminator: "")
         guard let inputedUserNumber: Int = Int(bindUserInput()) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(cautionText)
             startMukChiba(attackTurn: false)
             return
         }
@@ -107,11 +122,11 @@ class MukChiba: RockPaperScissors {
     fileprivate func playMukChiba(_ userNumber: Int, _ attackTurn: Bool) {
         switch userNumber {
         case 0:
-            print("게임 종료")
+            print(GameOver.exit)
         case 1, 2, 3:
             compareNumbers(makeComputerNumber(), userNumber, attackTurn)
         default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(cautionText)
             startMukChiba(attackTurn: false)
         }
     }
