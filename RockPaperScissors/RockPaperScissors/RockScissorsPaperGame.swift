@@ -13,11 +13,6 @@ enum RockScissorsPaper: Int {
     case 보 = 3
 }
 
-// readyRound1
-// startRound1
-// readyRound2
-// startRound2
-
 func startRockScissorsPaperGame() {
     var computerNumber: Int
     var exitGame: Bool = false
@@ -61,12 +56,16 @@ func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
         print("이겼습니다!")
         userWin = true
         startMukChiBbaGame(takeUserWin: userWin)
+        exit = true
+        return exit
     case (컴퓨터가낸것: .가위, 유저가낸것: .보),
         (컴퓨터가낸것: .바위, 유저가낸것: .가위),
         (컴퓨터가낸것: .보, 유저가낸것: .바위):
         print("졌습니다!")
         userWin = false
         startMukChiBbaGame(takeUserWin: userWin)
+        exit = true
+        return exit
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
@@ -74,7 +73,7 @@ func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
     return exit
 }
 
-func startMukChiBbaGame(takeUserWin: Bool) -> Bool {
+func startMukChiBbaGame(takeUserWin: Bool) {
     var exit: Bool = false
     var takeUserWin = takeUserWin
     var computerNumber: Int
@@ -88,11 +87,14 @@ func startMukChiBbaGame(takeUserWin: Bool) -> Bool {
         computerNumber = Int.random(in: 1...3)
         print("[\(roundOneWinner) 턴] (묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         
-        guard let input = readLine() ,
-              let userNumber = Int(input.replacingOccurrences(of: " ", with: ""))
+        guard let input = readLine(),
+              let userNumber = Int(input.replacingOccurrences(of: " ", with: "")),
+              0...3 ~= userNumber
         else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            takeUserWin = !takeUserWin
+            if takeUserWin == true {
+                takeUserWin = !takeUserWin
+            }
             continue
         }
         
@@ -102,16 +104,27 @@ func startMukChiBbaGame(takeUserWin: Bool) -> Bool {
         
         if userNumber == 0 {
             print("게임 종료")
-            exit = true
-            return exit
+            return exit = true
         } else if computerPick == userPick && takeUserWin == true {
             print("사용자의 승리!")
             exit = true
-            return exit
+            return
         } else if computerPick == userPick && takeUserWin == false {
             print("컴퓨터의 승리!")
             exit = true
-            return exit
+            return
+        }
+        
+        switch compareTwoThings {
+        case (컴퓨터가낸것: .가위, 유저가낸것: .바위),
+            (컴퓨터가낸것: .바위, 유저가낸것: .보),
+            (컴퓨터가낸것: .보, 유저가낸것: .가위):
+            takeUserWin = true
+            continue
+        default:
+            takeUserWin = false
+            continue
         }
     }
 }
+
