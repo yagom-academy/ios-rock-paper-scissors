@@ -8,8 +8,10 @@ struct MukJjiPpaGame {
         currentTurn = RPSGame.RPSWinner
         
         var isPlayPossible = true
+        
         while isPlayPossible {
             printMJPMenu()
+            
             guard let userMJPNumber = RPSGame.fetchUserNumber() else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 currentTurn = .computer
@@ -32,17 +34,23 @@ struct MukJjiPpaGame {
             let gameMJPResult = GameResult.judgeUserGameResultIn(userMJPNumber, computerMJPNumber)
             
             switch gameMJPResult {
-            case .win:
-                currentTurn = .user
-                print("\(currentTurn.rawValue)의 턴입니다.")
-            case .lose:
-                currentTurn = .computer
-                print("\(currentTurn.rawValue)의 턴입니다.")
             case .draw:
                 print("\(currentTurn.rawValue)의 승리!")
                 isPlayPossible = false
+            default:
+                changeTurn(gameMJPResult)
             }
         }
+    }
+    
+    private mutating func changeTurn(_ result: GameResult) {
+        if result == .win {
+            self.currentTurn = .user
+        } else if result == .lose {
+            self.currentTurn = .computer
+        }
+        
+        print("\(currentTurn.rawValue)의 턴입니다.")
     }
     
     private func printMJPMenu() {
