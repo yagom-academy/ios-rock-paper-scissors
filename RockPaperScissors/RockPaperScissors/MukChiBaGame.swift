@@ -11,7 +11,7 @@ func playMCBGame(gameResult: GameResult) {
         return playMCBGame(gameResult: .lose)
     }
     
-    let gameResult = checkMCB(computerChoice: computerChoice, userChoice: userChoice)
+    let gameResult = checkMCBGameResult(computerChoice: computerChoice, userChoice: userChoice)
     
     switch gameResult {
     case .win:
@@ -27,7 +27,7 @@ func playMCBGame(gameResult: GameResult) {
     }
 }
 
-func checkMCB(computerChoice: MukChiBa, userChoice: MukChiBa) -> GameResult {
+func checkMCBGameResult(computerChoice: MukChiBa, userChoice: MukChiBa) -> GameResult {
     if userChoice == computerChoice { return .exit }
     
     switch userChoice {

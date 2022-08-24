@@ -10,7 +10,7 @@ func startGame() {
         return startGame()
     }
     
-    let gameResult = checkGameResult(computerChoice: computerChoice, userChoice: userChoice)
+    let gameResult = checkRPSGameResult(computerChoice: computerChoice, userChoice: userChoice)
     
     switch gameResult {
     case .win:
@@ -32,7 +32,7 @@ func printUserInputError() {
     print("잘못된 입력입니다. 다시 시도해주세요")
 }
 
-func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperScissors) -> GameResult {
+func checkRPSGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperScissors) -> GameResult {
     if computerChoice == userChoice { return .draw }
     
     switch userChoice {
