@@ -10,6 +10,7 @@
 		9052E2DB28B5E1C600BA32BB /* participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9052E2DA28B5E1C600BA32BB /* participant.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 		EB6E354128B5E0AD0011269C /* MukChiBa.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E354028B5E0AD0011269C /* MukChiBa.swift */; };
+		EB6E354328B5E2D30011269C /* MukChiBaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E354228B5E2D30011269C /* MukChiBaGame.swift */; };
 		EB8FFFA928B4A12D00A88C88 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8FFFA828B4A12D00A88C88 /* RockPaperScissors.swift */; };
 		EB8FFFAB28B4A13600A88C88 /* gameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8FFFAA28B4A13600A88C88 /* gameResult.swift */; };
 		EB8FFFAD28B4A14400A88C88 /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8FFFAC28B4A14400A88C88 /* RockPaperScissorsGame.swift */; };
@@ -32,6 +33,7 @@
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		EB6E354028B5E0AD0011269C /* MukChiBa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukChiBa.swift; sourceTree = "<group>"; };
+		EB6E354228B5E2D30011269C /* MukChiBaGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukChiBaGame.swift; sourceTree = "<group>"; };
 		EB8FFFA828B4A12D00A88C88 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		EB8FFFAA28B4A13600A88C88 /* gameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameResult.swift; sourceTree = "<group>"; };
 		EB8FFFAC28B4A14400A88C88 /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				9052E2DA28B5E1C600BA32BB /* participant.swift */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				EB6E354028B5E0AD0011269C /* MukChiBa.swift */,
+				EB6E354228B5E2D30011269C /* MukChiBaGame.swift */,
 				EB8FFFAC28B4A14400A88C88 /* RockPaperScissorsGame.swift */,
 				EB8FFFAA28B4A13600A88C88 /* gameResult.swift */,
 				EB8FFFA828B4A12D00A88C88 /* RockPaperScissors.swift */,
@@ -139,6 +142,7 @@
 				EB6E354128B5E0AD0011269C /* MukChiBa.swift in Sources */,
 				9052E2DB28B5E1C600BA32BB /* participant.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				EB6E354328B5E2D30011269C /* MukChiBaGame.swift in Sources */,
 				EB8FFFAB28B4A13600A88C88 /* gameResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
