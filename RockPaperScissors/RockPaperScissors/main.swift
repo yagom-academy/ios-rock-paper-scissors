@@ -1,10 +1,80 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by Baem, Dragon
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
+func createUserNumber() -> Int? {
+    let userInput = readLine()
+    
+    if let userNumber = checkUserInput(userInput) {
+        return userNumber
+    } else {
+        return nil
+    }
+}
 
-print("Hello, World!")
+func checkUserInput(_ userInput: String?) -> Int? {
+    guard let userInput = userInput else { return nil }
+    let trimedUserInput = userInput.split(separator: " ").joined()
+    guard let userNumber = Int(trimedUserInput) else { return nil }
+    
+    if userNumber < 0 || userNumber >= 4 {
+        return nil
+    }
+    return userNumber
+}
 
+func createRandomNumber() -> Int {
+    let computerInput = Int.random(in: 1...3)
+    return computerInput
+}
+
+enum RockScissorsPaper: Int {
+    case scissors = 1
+    case rock
+    case paper
+}
+
+func compareTwoInput(_ userNumber: Int, _ computerNumber: Int) {
+    let user = RockScissorsPaper(rawValue: userNumber)
+    let computer = RockScissorsPaper(rawValue: computerNumber)
+    
+    switch (user, computer) {
+    case (.scissors, .rock), (.rock, .paper), (.paper, .scissors) :
+        print("졌습니다!")
+    case (.rock, .scissors), (.paper, .rock), (.scissors, .paper) :
+        print("이겼습니다!")
+    default :
+        print("비겼습니다!")
+        excuteRockScissorsPaper()
+    }
+}
+
+func showResult(_ userNumber: Int) {
+    let computerNumber = createRandomNumber()
+    
+    switch userNumber {
+    case 1, 2, 3 :
+        compareTwoInput(userNumber, computerNumber)
+        return
+    default :
+        print("종료")
+        return
+    }
+}
+
+func excuteRockScissorsPaper() {
+    while true {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        
+        if let userNumber = createUserNumber() {
+            showResult(userNumber)
+            return
+        } else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        }
+    }
+}
+
+excuteRockScissorsPaper()
