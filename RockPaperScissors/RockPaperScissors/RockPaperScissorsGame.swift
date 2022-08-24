@@ -9,12 +9,8 @@ struct RockPaperScissorsGame {
             return
         }
         
-        guard let userRPS = generateUserRPS(userNumber) else {
-            print(GameComment.gameOver.rawValue)
-            return
-        }
-        
-        let computerRPS = generateComputerRandomRPS()
+        let userRPS = convertRPS(inputNumber: userNumber)
+        let computerRPS = convertRPS(inputNumber: Int.random(in: 1...3))
         let userGameResult = judgeWinOrLose(userRPS, computerRPS)
         
         showResult(userGameResult)
@@ -43,28 +39,19 @@ struct RockPaperScissorsGame {
         return userNumber
     }
     
-    private func checkEndGame(_ userNumber: Int?) -> Bool {
+    private func checkEndGame(_ userNumber: Int) -> Bool {
         if userNumber != 0 {
             return false
         }
         return true
     }
     
-    private func generateUserRPS(_ verifiedUserNumber: Int) -> RockPaperScissors? {
-        guard let userRPS: RockPaperScissors = .init(rawValue: verifiedUserNumber) else {
+    private func convertRPS(inputNumber: Int) -> RockPaperScissors {
+        guard let numberToRPS: RockPaperScissors = .init(rawValue: inputNumber) else {
             print(GameComment.retry.rawValue)
-            return generateUserRPS(validateUserNumber())
+            return convertRPS(inputNumber: validateUserNumber())
         }
-        return userRPS
-    }
-    
-    private func generateComputerRandomRPS() -> RockPaperScissors {
-        let computerNumber = Int.random(in: 1...3)
-        
-        guard let computerRPS: RockPaperScissors = .init(rawValue: computerNumber) else {
-            return generateComputerRandomRPS()
-        }
-        return computerRPS
+        return numberToRPS
     }
     
     private func judgeWinOrLose(
