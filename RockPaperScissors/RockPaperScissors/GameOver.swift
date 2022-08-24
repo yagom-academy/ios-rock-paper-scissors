@@ -5,8 +5,6 @@
 //  Created by Gundy, Bella
 //
 
-import Foundation
-
 enum GameOver: String {
     case exit = "게임 종료"
     case userWin = "사용자의 승리!"

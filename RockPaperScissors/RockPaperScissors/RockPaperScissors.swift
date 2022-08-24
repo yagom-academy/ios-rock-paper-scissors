@@ -5,8 +5,6 @@
 //  Created by Gundy, Bella
 //
 
-import Foundation
-
 class RockPaperScissors {
     
     func startGame() {

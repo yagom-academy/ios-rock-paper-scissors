@@ -5,9 +5,8 @@
 //  Created by Gundy, Bella
 //
 
-import Foundation
-
 class MukChiba: RockPaperScissors {
+
     override func compareNumbers(_ computerGameNumber: Int, _ userGameNumber: Int) {
         let differenceNumber: GameJudgment = makeResult(computerGameNumber - userGameNumber)
         switch differenceNumber {
@@ -24,8 +23,8 @@ class MukChiba: RockPaperScissors {
     }
     
     fileprivate func startMukChiBa(attackTurn: Turn) {
-        let turn: String = attackTurn == .user ? "[사용자 턴]" : "[컴퓨터 턴]"
-        print("\(turn) \(GameText.start.rawValue)", terminator: "")
+//        let turn: String = attackTurn == .user ? "[사용자 턴]" : "[컴퓨터 턴]"
+        print("\(attackTurn) \(GameText.start.rawValue)", terminator: "")
         guard let inputtedUserNumber: Int = Int(bindUserInput()) else {
             print(GameText.caution.rawValue)
             startMukChiBa(attackTurn: .computer)

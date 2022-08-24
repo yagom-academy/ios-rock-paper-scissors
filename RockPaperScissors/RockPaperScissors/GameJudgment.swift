@@ -5,8 +5,6 @@
 //  Created by Gundy, Bella
 //
 
-import Foundation
-
 enum GameJudgment: String {
     case win = "이겼습니다!"
     case lose = "졌습니다!"
