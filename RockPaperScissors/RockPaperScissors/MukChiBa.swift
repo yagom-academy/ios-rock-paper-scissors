@@ -1,5 +1,6 @@
 enum MukChiBa: Int {
-    case muk = 1
+    case none
+    case muk
     case chi
     case ba
 }

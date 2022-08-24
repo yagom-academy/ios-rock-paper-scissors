@@ -1,24 +1,32 @@
 func startGame() {
-    var isRunning = GameResult.draw
+    let randomComputerNumber = Int.random(in: 1...3)
     
-    while isRunning == .draw {
-        let randomComputerNumber = Int.random(in: 1...3)
-        
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        
-        guard let userNumber = fetchUserInput(),
-              let userChoice = RockPaperScissors.init(rawValue: userNumber),
-              let computerChoice = RockPaperScissors.init(rawValue: randomComputerNumber),
-              0...3 ~= userNumber else {
-            printUserInputError()
-            continue
-        }
-        
-        if userNumber == 0 { break }
-        
-        isRunning = checkGameResult(computerChoice: computerChoice, userChoice: userChoice)
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    
+    guard let userNumber = fetchUserInput(),
+          let userChoice = RockPaperScissors.init(rawValue: userNumber),
+          let computerChoice = RockPaperScissors.init(rawValue: randomComputerNumber),
+          0...3 ~= userNumber else {
+        printUserInputError()
+        return startGame()
     }
-    playGame(gameResult: isRunning)
+    
+    let gameResult = checkGameResult(computerChoice: computerChoice, userChoice: userChoice)
+    
+    switch gameResult {
+    case .win:
+        print("이겼습니다!")
+        playMCBGame(gameResult: .win)
+    case .lose:
+        print("졌습니다!")
+        playMCBGame(gameResult: .lose)
+    case .draw:
+        print("비겼습니다")
+        startGame()
+    case .exit:
+        print("게임 종료")
+        break
+    }
 }
 
 func printUserInputError() {
@@ -27,29 +35,26 @@ func printUserInputError() {
 
 func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperScissors) -> GameResult {
     if computerChoice == userChoice {
-        print("비겼습니다")
         return .draw
     }
     
     switch userChoice {
     case .scissors:
         if computerChoice == .rock {
-            print("졌습니다!")
             return .lose
         }
     case .rock:
         if computerChoice == .paper {
-            print("졌습니다!")
             return .lose
         }
     case .paper:
         if computerChoice == .scissors {
-            print("졌습니다!")
             return .lose
         }
+    case .none:
+        return .exit
     }
     
-    print("이겼습니다!")
     return .win
 }
 

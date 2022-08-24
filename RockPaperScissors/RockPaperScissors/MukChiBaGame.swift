@@ -1,29 +1,38 @@
-func playGame(gameResult: GameResult) {
-    
-    let isTurn: Bool = gameResult == .win ? true : false
+func playMCBGame(gameResult: GameResult) {
+    let isUserTurn: Bool = gameResult == .win ? true : false
     let randomComputerNumber = Int.random(in: 1...3)
-    print(randomComputerNumber)
-    print("[\(isTurn ? "사용자" : "컴퓨터")]턴 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+
+    print("[\(isUserTurn ? "사용자" : "컴퓨터")]턴 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     
     guard let userNumber = fetchUserInput(),
           let userChoice = MukChiBa.init(rawValue: userNumber),
           let computerChoice = MukChiBa.init(rawValue: randomComputerNumber),
           0...3 ~= userNumber else {
         printUserInputError()
-        return playGame(gameResult: .lose)
+        return playMCBGame(gameResult: .lose)
     }
     
-    if userNumber == 0 { print("게임종료") }
+    let gameResult = checkMCB(computerChoice: computerChoice, userChoice: userChoice)
     
-    if userChoice == computerChoice {
-        print("\(isTurn ? "사용자" : "컴퓨터" )의 승리!")
-        return
+    switch gameResult {
+    case .win:
+        playMCBGame(gameResult: .win)
+    case .lose:
+        playMCBGame(gameResult: .lose)
+    case .draw:
+        print("\(isUserTurn ? "사용자" : "컴퓨터" )의 승리!")
+        break
+    case .exit:
+        print("게임 종료")
+        break
     }
-    
-    return playGame(gameResult: checkMGB(computerChoice: computerChoice, userChoice: userChoice))
 }
 
-func checkMGB(computerChoice: MukChiBa, userChoice: MukChiBa) -> GameResult {
+func checkMCB(computerChoice: MukChiBa, userChoice: MukChiBa) -> GameResult {
+    if userChoice == computerChoice {
+        return .exit
+    }
+    
     switch userChoice {
     case .muk:
         if computerChoice == .ba {
@@ -37,6 +46,9 @@ func checkMGB(computerChoice: MukChiBa, userChoice: MukChiBa) -> GameResult {
         if computerChoice == .chi {
             return .lose
         }
+    case .none:
+        return .exit
     }
+    
     return .win
 }

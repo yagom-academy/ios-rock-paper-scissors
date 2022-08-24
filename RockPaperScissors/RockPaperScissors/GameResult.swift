@@ -1,3 +1,3 @@
 enum GameResult {
-    case win, lose, draw
+    case win, lose, draw, exit
 }

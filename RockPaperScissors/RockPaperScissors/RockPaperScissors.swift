@@ -1,5 +1,6 @@
 enum RockPaperScissors: Int {
-    case scissors = 1
+    case none
+    case scissors
     case rock
     case paper
 }
