@@ -19,7 +19,7 @@ class GameManager {
 		case .exit:
 			return
 		default:
-			print("묵찌빠 행이다.")
+			print(GameMessage.goMukjipa)
 		}
 	}
 }

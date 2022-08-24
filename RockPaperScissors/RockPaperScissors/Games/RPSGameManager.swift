@@ -5,7 +5,7 @@
 
 class RPSGameManager {
 	private func fetchUserInput() -> Result<RPS, InputError> {
-		print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+		print(GameMessage.RPSGame, terminator: "")
 
 		guard let inputValue = readLine(),
 			  let inputNumber = Int(inputValue),
@@ -21,7 +21,7 @@ class RPSGameManager {
 		}
 	}
 
-	private func checkValidable(of userInputResult: Result<RPS, InputError>) -> GameState {
+	private func checkValidity(of userInputResult: Result<RPS, InputError>) -> GameState {
 		switch userInputResult {
 		case .success(let inputCard):
 			return inputCard.generateGameResult()
@@ -33,7 +33,7 @@ class RPSGameManager {
 	@discardableResult
 	func startGame() -> GameState {
 		let userCard = fetchUserInput()
-		let result = checkValidable(of: userCard)
+		let result = checkValidity(of: userCard)
 
 		return result
 	}
