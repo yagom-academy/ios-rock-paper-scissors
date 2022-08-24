@@ -7,6 +7,8 @@ func startGame() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         guard let userNumber = fetchUserInput(),
+              let userChoice = RockPaperScissors.init(rawValue: userNumber),
+              let computerChoice = RockPaperScissors.init(rawValue: randomComputerNumber),
               0...3 ~= userNumber else {
             printUserInputError()
             continue
@@ -14,15 +16,8 @@ func startGame() {
         
         if userNumber == 0 { break }
         
-        guard let userChoice = RockPaperScissors.init(rawValue: userNumber),
-              let computerChoice = RockPaperScissors.init(rawValue: randomComputerNumber) else {
-            printUserInputError()
-            continue
-        }
-        
         isRunning = checkGameResult(computerChoice: computerChoice, userChoice: userChoice)
     }
-    print("게임 종료")
     playGame(gameResult: isRunning)
 }
 
