@@ -13,7 +13,13 @@ enum RockScissorsPaper: Int {
     case 보 = 3
 }
 
-func startRockScissorsPaperGame() {
+enum MukChiBba: Int {
+    case 묵 = 1
+    case 찌 = 2
+    case 빠 = 3
+}
+
+func readyRockScissorsPaperGame() {
     var computerNumber: Int
     var exitGame: Bool = false
 
@@ -28,11 +34,11 @@ func startRockScissorsPaperGame() {
             continue
         }
 
-        exitGame = showGameResult(by : computerNumber, and : userNumber)
+        exitGame = startRockScissorsPaperGame(by : computerNumber, and : userNumber)
     }
 }
 
-func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
+func startRockScissorsPaperGame(by computerChoice: Int, and userChoice: Int) -> Bool {
     var exit: Bool = false
     var userWin: Bool
     let selectMenu = userChoice
@@ -55,7 +61,7 @@ func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
         (컴퓨터가낸것: .보, 유저가낸것: .가위):
         print("이겼습니다!")
         userWin = true
-        startMukChiBbaGame(takeUserWin: userWin)
+        readyMukChiBbaGame(takeUserWin: userWin)
         exit = true
         return exit
     case (컴퓨터가낸것: .가위, 유저가낸것: .보),
@@ -63,7 +69,7 @@ func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
         (컴퓨터가낸것: .보, 유저가낸것: .바위):
         print("졌습니다!")
         userWin = false
-        startMukChiBbaGame(takeUserWin: userWin)
+        readyMukChiBbaGame(takeUserWin: userWin)
         exit = true
         return exit
     default:
@@ -73,7 +79,7 @@ func showGameResult(by computerChoice: Int, and userChoice: Int) -> Bool {
     return exit
 }
 
-func startMukChiBbaGame(takeUserWin: Bool) {
+func readyMukChiBbaGame(takeUserWin: Bool) {
     var exit: Bool = false
     var takeUserWin = takeUserWin
     var computerNumber: Int
@@ -97,34 +103,48 @@ func startMukChiBbaGame(takeUserWin: Bool) {
             }
             continue
         }
+        print(computerNumber)
         
-        let computerPick = RockScissorsPaper(rawValue: computerNumber)
-        let userPick = RockScissorsPaper(rawValue: userNumber)
-        let compareTwoThings = (컴퓨터가낸것: computerPick, 유저가낸것: userPick)
+        var exitOrTurnChange = (나가기: exit, 유저이겼나체크: takeUserWin)
+        exitOrTurnChange = startMukChiBbaGame(computerNumber: computerNumber, userNumber: userNumber, takeUserWin: takeUserWin)
         
-        if userNumber == 0 {
-            print("게임 종료")
-            return exit = true
-        } else if computerPick == userPick && takeUserWin == true {
-            print("사용자의 승리!")
+        switch exitOrTurnChange {
+        case (true, _):
             exit = true
-            return
-        } else if computerPick == userPick && takeUserWin == false {
-            print("컴퓨터의 승리!")
-            exit = true
-            return
-        }
-        
-        switch compareTwoThings {
-        case (컴퓨터가낸것: .가위, 유저가낸것: .바위),
-            (컴퓨터가낸것: .바위, 유저가낸것: .보),
-            (컴퓨터가낸것: .보, 유저가낸것: .가위):
-            takeUserWin = true
+        case (false, false):
             continue
-        default:
-            takeUserWin = false
+        case (false, true):
+            takeUserWin = true
             continue
         }
     }
 }
 
+func startMukChiBbaGame(computerNumber: Int, userNumber: Int, takeUserWin: Bool) -> (Bool,Bool) {
+    var takeUserWin = takeUserWin
+    let computerPick = MukChiBba(rawValue: computerNumber)
+    let userPick = MukChiBba(rawValue: userNumber)
+    let compareTwoThings = (컴퓨터가낸것: computerPick, 유저가낸것: userPick)
+    
+    if userNumber == 0 {
+        print("게임 종료")
+        return (true,takeUserWin)
+    } else if computerPick == userPick && takeUserWin == true {
+        print("사용자의 승리!")
+        return (true,takeUserWin)
+    } else if computerPick == userPick && takeUserWin == false {
+        print("컴퓨터의 승리!")
+        return (true,takeUserWin)
+    }
+    
+    switch compareTwoThings {
+    case (컴퓨터가낸것: .묵, 유저가낸것: .빠),
+        (컴퓨터가낸것: .찌, 유저가낸것: .묵),
+        (컴퓨터가낸것: .빠, 유저가낸것: .찌):
+        takeUserWin = true
+        return (false,takeUserWin)
+    default:
+        takeUserWin = false
+        return (false,takeUserWin)
+    }
+}
