@@ -11,13 +11,13 @@ class MukChiba: RockPaperScissors {
         let differenceNumber: GameJudgment = makeResult(computerGameNumber - userGameNumber)
         switch differenceNumber {
         case .win:
-            print(GameJudgment.win.rawValue)
+            print(GameJudgment.win.message)
             startMukChiBa(attackTurn: .user)
         case .lose:
-            print(GameJudgment.lose.rawValue)
+            print(GameJudgment.lose.message)
             startMukChiBa(attackTurn: .computer)
         default:
-            print(GameJudgment.draw.rawValue)
+            print(GameJudgment.draw.message)
             startGame()
         }
     }

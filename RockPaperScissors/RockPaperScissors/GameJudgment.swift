@@ -6,7 +6,19 @@
 //
 
 enum GameJudgment: String {
-    case win = "이겼습니다!"
-    case lose = "졌습니다!"
-    case draw = "비겼습니다!"
+    case win
+    case lose
+    case draw
+    
+    var message: String {
+        switch self {
+        case .win:
+            return "이겼습니다!"
+        case .lose:
+            return "졌습니다!"
+        default:
+            return "비겼습니다!"
+        }
+    }
+    
 }

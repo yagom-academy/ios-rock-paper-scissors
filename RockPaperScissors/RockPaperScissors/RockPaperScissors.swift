@@ -56,11 +56,11 @@ class RockPaperScissors {
         let differenceNumber: GameJudgment = makeResult(computerGameNumber - userGameNumber)
         switch differenceNumber {
         case .win:
-            print(GameJudgment.win.rawValue)
+            print(GameJudgment.win.message)
         case .lose:
-            print(GameJudgment.lose.rawValue)
+            print(GameJudgment.lose.message)
         default:
-            print(GameJudgment.draw.rawValue)
+            print(GameJudgment.draw.message)
             startGame()
         }
     }
