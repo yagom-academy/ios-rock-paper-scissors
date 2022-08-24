@@ -54,7 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				181B38DB28B4B16900664D6F /* RPSGameManager.swift */,
-				18214AE228B5EB3000BEBD8B /* MukjipaGameManager.swift */,
+        18214AE228B5EB3000BEBD8B /* MukjipaGameManager.swift */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -66,6 +66,8 @@
 				E3B3329828B5F2BE00E9EC5C /* Mukjipa.swift */,
 				E3B3329628B5F28400E9EC5C /* GameState.swift */,
 				181B38D828B4B03100664D6F /* InputError.swift */,
+				18214AE428B5FE6500BEBD8B /* GameState.swift */,
+				18214AE628B604E800BEBD8B /* GameMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

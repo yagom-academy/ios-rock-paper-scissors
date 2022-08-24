@@ -3,7 +3,7 @@
 //  Created by Wonbi, 미니
 //
 
-class GameManager {
+struct GameManager {
 	private let rpsGame = RPSGameManager()
 	private let mukjipaGame = MukjipaGameManager()
 	
@@ -34,4 +34,3 @@ game.startConsole()
 // 4. 컴퓨터패 생성
 // 5. 두개를 비교 후, 결과값을 판단 한다.
 // 6. 같다면, 선공자 승리 아닐 경우, 게임을 다시 진행 (선공을 결정)
- 
