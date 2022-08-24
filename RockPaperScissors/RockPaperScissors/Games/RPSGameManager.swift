@@ -3,7 +3,7 @@
 //  Created by Wonbi, 미니
 //
 
-class RPSGameManager {
+struct RPSGameManager {
 	private func fetchUserInput() -> Result<RPS, InputError> {
 		print(GameMessage.RPSGame, terminator: "")
 
