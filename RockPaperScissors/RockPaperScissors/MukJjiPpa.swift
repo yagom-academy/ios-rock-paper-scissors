@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+enum MukJjiPpa: Int {
+    case none = 0
+    case muk = 1
+    case jji = 2
+    case ppa = 3
+}
