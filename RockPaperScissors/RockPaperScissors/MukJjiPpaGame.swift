@@ -25,8 +25,8 @@ struct MukJjiPpaGame {
             
             let computerMJPNumber = Int.random(in: 1...3)
             
-            guard let userMJPNumber = RPS.convertRPS(from: userMJPNumber),
-                  let computerMJPNumber = RPS.convertRPS(from: computerMJPNumber) else {
+            guard let userMJPNumber = RPS.convertMJP(from: userMJPNumber),
+                  let computerMJPNumber = RPS.convertMJP(from: computerMJPNumber) else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 continue
             }
