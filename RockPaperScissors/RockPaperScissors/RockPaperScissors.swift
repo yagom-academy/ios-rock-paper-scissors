@@ -9,8 +9,6 @@ import Foundation
 
 func compareHand(with computer: Hand, and user: Hand) -> Result {
     switch (computer, user) {
-    case (.rock, .rock), (.paper, .paper), (.scissor, .scissor):
-        return .draw
     case (.rock, .paper), (.paper, .scissor), (.scissor, .rock):
         return .win
     case (.rock, .scissor), (.paper, .rock), (.scissor, .paper):
@@ -20,11 +18,11 @@ func compareHand(with computer: Hand, and user: Hand) -> Result {
     }
 }
 
-func displayResult(of Result: Result) {
-    print(Result.rawValue)
+func display(of result: Result) {
+    print(result.rawValue)
 }
 
-func gameStart() {
+func startGame() {
     let randomComputerHand: Hand = Hand(rawValue: Int.random(in: 1...3)).unsafelyUnwrapped
     
     print("computerHand : \(randomComputerHand)")
@@ -35,17 +33,18 @@ func gameStart() {
           let result = Hand(rawValue: inputNumber) else {
         
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        return gameStart()
+        return startGame()
     }
+    
     switch result {
     case .none:
         print("게임종료")
     case .rock, .scissor, .paper:
         let gameResult: Result = compareHand(with: randomComputerHand, and: result)
-        displayResult(of: gameResult)
+        display(of: gameResult)
         
         if gameResult == Result.draw {
-            gameStart()
+            startGame()
         }
     }
 }
