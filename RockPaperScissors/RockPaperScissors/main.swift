@@ -1,3 +1,3 @@
-let rockPaperScissorsGame = RockPaperScissorsGame()
+var MJPGame = MukJjiPpaGame()
 
-rockPaperScissorsGame.startRPSGame()
+MJPGame.startMJPGame()

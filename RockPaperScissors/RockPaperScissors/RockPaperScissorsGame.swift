@@ -1,41 +1,48 @@
 struct RockPaperScissorsGame {
-    func startRPSGame() {
-        printMenu()
+    internal var RPSWinner: Player = .none
+    
+    mutating func startRPSGame() {
+        printRPGMenu()
         
-        guard let userNumber = fetchUserNumber() else {
+        guard let userRPSNumber = fetchUserNumber() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return startRPSGame()
         }
         
-        if userNumber == 0 {
+        if userRPSNumber == 0 {
             print("게임종료")
             return
         }
         
         let computerRPSNumber = Int.random(in: 1...3)
         
-        guard let userRPS = convertRPS(from: userNumber),
-              let computerRPS = convertRPS(from: computerRPSNumber) else {
+        guard let userRPS = RPS.convertRPS(from: userRPSNumber),
+              let computerRPS = RPS.convertRPS(from: computerRPSNumber) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return startRPSGame()
         }
         
-        let gameResult = judgeUserGameResultIn(userRPS, computerRPS)
+        let gameRPSResult = GameResult.judgeUserGameResultIn(userRPS, computerRPS)
         
-        printResult(of: gameResult)
+        printResult(of: gameRPSResult)
         
-        if gameResult != .draw {
+        switch gameRPSResult {
+        case .win:
+            RPSWinner = .user
             return
+        case .lose:
+            RPSWinner = .computer
+            return
+        case .draw:
+            startRPSGame()
         }
-        
-        startRPSGame()
     }
-    
-    func printMenu() {
+
+    private func printRPGMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
     
-    func fetchUserNumber() -> Int? {
+    internal func fetchUserNumber() -> Int? {
         guard let userInput = readLine() else {
             return nil
         }
@@ -43,22 +50,7 @@ struct RockPaperScissorsGame {
         return Int(userInput)
     }
     
-    func convertRPS(from input: Int) -> RPS? {
-        return RPS(rawValue: input)
-    }
-
-    func judgeUserGameResultIn(_ userRPS: RPS, _ computerRPS: RPS ) -> GameResult {
-        switch (userRPS, computerRPS) {
-        case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
-            return .win
-        case (.rock, .paper), (.scissors, .rock), (.paper, .scissors):
-            return .lose
-        case (.rock, .rock), (.paper, .paper), (.scissors, .scissors):
-            return .draw
-        }
-    }
-    
-    func printResult(of result: GameResult) {
+    private func printResult(of result: GameResult) {
         switch result {
         case .win:
             print("이겼습니다!")
