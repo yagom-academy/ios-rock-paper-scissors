@@ -24,9 +24,10 @@ class MukChiba: RockPaperScissors {
     
     fileprivate func startMukChiBa(attackTurn: Turn) {
 //        let turn: String = attackTurn == .user ? "[사용자 턴]" : "[컴퓨터 턴]"
-        print("\(attackTurn) \(GameText.start.rawValue)", terminator: "")
+        print(attackTurn, terminator: " ")
+        GameText.start.displayMessage()
         guard let inputtedUserNumber: Int = Int(bindUserInput()) else {
-            print(GameText.caution.rawValue)
+            GameText.caution.displayMessage()
             startMukChiBa(attackTurn: .computer)
             return
         }
@@ -40,7 +41,7 @@ class MukChiba: RockPaperScissors {
         case .play:
             compareNumbers(makeComputerNumber(), userNumber, attackTurn)
         default:
-            print(GameText.caution.rawValue)
+            GameText.caution.displayMessage()
             startMukChiBa(attackTurn: .computer)
         }
     }

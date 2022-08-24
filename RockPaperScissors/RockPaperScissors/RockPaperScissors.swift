@@ -8,9 +8,9 @@
 class RockPaperScissors {
     
     func startGame() {
-        print(GameText.start.rawValue, terminator: "")
+        GameText.start.displayMessage()
         guard let inputtedUserNumber: Int = Int(bindUserInput()) else {
-            print(GameText.caution.rawValue)
+            GameText.caution.displayMessage()
             startGame()
             return
         }
@@ -31,7 +31,7 @@ class RockPaperScissors {
         case .play:
             compareNumbers(makeComputerNumber(), userNumber)
         default:
-            print(GameText.caution)
+            GameText.caution.displayMessage()
             startGame()
         }
     }
