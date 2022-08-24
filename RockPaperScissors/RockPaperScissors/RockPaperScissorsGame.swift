@@ -6,17 +6,25 @@
 //
 
 struct RockPaperScissorsGame {
-    func startGame() {
+    func startGame() -> Participant? {
         let selectedUserMenu: Int = getSelectedUserMenu()
        
-        if let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu),
-           let gameResult: gameResult = compareComputerHand(with: userHand) {
-            print(gameResult.result)
-            if gameResult == .draw {
-                startGame()
-            }
+        guard let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu),
+           let gameResult: gameResult = compareComputerHand(with: userHand) else {
+            return nil
+        }
+        print(gameResult.result)
+        if gameResult == .draw {
+            return startGame()
+        }
+        if gameResult == .win {
+            return .user
+        } else {
+            return .computer
         }
     }
+    
+    
     
     private func getSelectedUserMenu() -> Int {
         printUserMenu()
