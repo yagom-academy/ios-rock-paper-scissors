@@ -11,8 +11,7 @@ func startGame() {
 }
 
 func startRockPaperScissor() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    guard let input = readLine(), input.count == 1, let userNumber = Int(input) else { return }
+    let userNumber = getUserInput()
     switch userNumber {
     case 1, 2, 3:
         judgeWinner(userNumber, generateRandomComputerNumber())
@@ -39,6 +38,12 @@ func judgeWinner(_ userNumber: Int, _ computerNumber: Int) {
         print("비겼습니다!")
         startGame()
     }
+}
+
+func getUserInput() -> Int {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    guard let input = readLine(), input.count == 1, let userNumber = Int(input) else { return 4 }
+    return userNumber
 }
 
 startGame()
