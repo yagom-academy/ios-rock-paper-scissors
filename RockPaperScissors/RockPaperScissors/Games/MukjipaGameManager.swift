@@ -3,9 +3,9 @@
 //  Created by Wonbi, 미니
 //
 
-
-class MukjipaGameManager {
+struct MukjipaGameManager {
     var isUserTurn: Bool = true
+    
     private var attacker: String {
         isUserTurn ? "사용자" : "컴퓨터"
     }

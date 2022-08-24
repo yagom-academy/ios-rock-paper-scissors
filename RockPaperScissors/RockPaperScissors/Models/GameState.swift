@@ -4,7 +4,7 @@
 //
 
 enum GameState {
-case win
+    case win
 	case lose
 	case draw
 	case error
