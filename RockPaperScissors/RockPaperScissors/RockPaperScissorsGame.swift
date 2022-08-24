@@ -5,8 +5,7 @@ func startGame() {
     
     guard let userNumber = fetchUserInput(),
           let userChoice = RockPaperScissors.init(rawValue: userNumber),
-          let computerChoice = RockPaperScissors.init(rawValue: randomComputerNumber),
-          0...3 ~= userNumber else {
+          let computerChoice = RockPaperScissors.init(rawValue: randomComputerNumber) else {
         printUserInputError()
         return startGame()
     }
@@ -34,23 +33,15 @@ func printUserInputError() {
 }
 
 func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperScissors) -> GameResult {
-    if computerChoice == userChoice {
-        return .draw
-    }
+    if computerChoice == userChoice { return .draw }
     
     switch userChoice {
     case .scissors:
-        if computerChoice == .rock {
-            return .lose
-        }
+        if computerChoice == .rock { return .lose }
     case .rock:
-        if computerChoice == .paper {
-            return .lose
-        }
+        if computerChoice == .paper { return .lose }
     case .paper:
-        if computerChoice == .scissors {
-            return .lose
-        }
+        if computerChoice == .scissors { return .lose }
     case .none:
         return .exit
     }
