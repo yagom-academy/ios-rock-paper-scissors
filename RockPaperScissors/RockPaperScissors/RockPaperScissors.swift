@@ -76,7 +76,6 @@ func playMukJjiPpaGame() {
     }
 }
 
-
 func startGame() {
     let randomComputerHand: Hand = Hand(rawValue: Int.random(in: 1...3)).unsafelyUnwrapped
     

@@ -10,5 +10,5 @@ import Foundation
 enum MukJjiPpaResult: String {
     case win = "사용자의 턴입니다."
     case lose = "컴퓨터의 턴입니다."
-    case draw = "***의 승리!"
+    case draw = ""
 }
