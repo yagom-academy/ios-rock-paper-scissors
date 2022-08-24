@@ -80,7 +80,7 @@ func excuteMJB(_ winner: String) -> String {
     while true {
         print("[\(winner)의 턴입니다] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         guard let userNumber = createUserNumber() else {
-            continue
+            return "컴퓨터"
         }
         let result = showResult(userNumber)
         
