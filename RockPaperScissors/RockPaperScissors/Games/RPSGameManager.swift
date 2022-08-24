@@ -5,7 +5,7 @@
 
 struct RPSGameManager {
 	private func fetchUserInput() -> Result<RPS, InputError> {
-		print(GameMessage.RPSGame, terminator: " : ")
+		print(GameMessage.rpsGame, terminator: " : ")
 
 		guard let inputValue = readLine(),
 			  let inputNumber = Int(inputValue),

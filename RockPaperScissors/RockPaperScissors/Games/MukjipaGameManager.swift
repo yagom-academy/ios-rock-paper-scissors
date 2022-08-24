@@ -3,25 +3,14 @@
 //  Created by Wonbi, 미니
 //
 
-// 1. 가위바위보 후 결과에 따라서 게임 진행
-// 2. 선공을 결정
-// 3. 사용자의 입력을 받는다.
-// 4. 컴퓨터패 생성
-// 5. 두개를 비교 후, 결과값을 판단 한다.
-// 6. 같다면, 선공자 승리 아닐 경우, 게임을 다시 진행 (선공을 결정)
-
 struct MukjipaGameManager {
     var isUserTurn: Bool = true
     var attacker: String {
-        (isUserTurn ? "사용자" : "컴퓨터")
+        isUserTurn ? "사용자" : "컴퓨터"
     }
     
-	mutating func selectTurn(from result: GameState) {
-		if result == .userWin {
-			isUserTurn = true
-		} else if result == .computerWin {
-			isUserTurn = false
-		}
+	mutating func decideTurn(from result: GameState) {
+        isUserTurn = (result == .userWin)
     }
     
     private func fetchUserInput() -> Result<Mukjipa, InputError> {
@@ -46,17 +35,28 @@ struct MukjipaGameManager {
 			return .error
 		}
 	}
+    
+    mutating func printTurn(to result: GameState) {
+        if result == .userWin || result == .computerWin {
+            decideTurn(from: result)
+            print(attacker + "의 턴입니다.")
+        }
+    }
+    
+    mutating func printWinner(from result: GameState) {
+        if result == .draw {
+            print(attacker + "의 승리!")
+        }
+    }
 	
 	mutating func startGame(from result: GameState) -> GameState {
-		selectTurn(from: result)
+        decideTurn(from: result)
 		let userCard = fetchUserInput()
 		let result = checkValidity(of: userCard)
-		
-		if result == .computerWin || result == .userWin {
-			selectTurn(from: result)
-			print(attacker + "의 턴입니다.")
-		}
-		
+        
+        printTurn(to: result)
+        printWinner(from: result)
+    
 		return result
 	}
 }

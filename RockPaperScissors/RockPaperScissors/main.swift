@@ -7,16 +7,14 @@ struct GameManager {
 	private let rpsGame = RPSGameManager()
 	private var mukjipaGame = MukjipaGameManager()
 	
-	mutating func startConsole() {
+	mutating func startRPS() {
 		let result = rpsGame.startGame()
 		
 		print(result.description)
 		
 		switch result {
-		case .draw:
-			startConsole()
-        case .error:
-            startConsole()
+        case .draw, .error:
+			startRPS()
         case .exit:
             return
 		default:
@@ -29,7 +27,6 @@ struct GameManager {
 		
 		switch result {
 		case .draw:
-			printResultOfMukjipaGame()
 			return
 		case .exit:
 			print(result.description)
@@ -41,12 +38,8 @@ struct GameManager {
 			startMukjipa(result)
 		}
 	}
-	
-	mutating func printResultOfMukjipaGame() {
-		print(mukjipaGame.attacker + "의 승리입니다.")
-	}
 }
 
 var game = GameManager()
-game.startConsole()
+game.startRPS()
 
