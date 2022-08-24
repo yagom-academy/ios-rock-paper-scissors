@@ -22,17 +22,24 @@ func startRockPaperScissor() {
         startGame()
     }
 }
-     
+
+func getUserInput() -> Int {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    guard let input = readLine(), input.count == 1, let userNumber = Int(input) else { return 4 }
+    return userNumber
+}
+
 func generateRandomComputerNumber() -> Int {
     return Int.random(in: 1...3)
 }
 
 func judgeWinner(with userNumber: Int, and computerNumber: Int) {
-    let criterionNumber = userNumber - computerNumber
-    switch criterionNumber {
-    case -1, 2 :
+    let signsToJudge =
+    translateNumbersToHandSigns(userNumber: userNumber, computerNumber: computerNumber)
+    switch signsToJudge {
+    case (.scissors, .paper), (.paper, .rock), (.rock, .scissors) :
         print("이겼습니다!")
-    case 1, -2 :
+    case (.scissors, .rock), (.paper, .scissors), (.rock, .paper) :
         print("졌습니다!")
     default:
         print("비겼습니다!")
@@ -40,10 +47,15 @@ func judgeWinner(with userNumber: Int, and computerNumber: Int) {
     }
 }
 
-func getUserInput() -> Int {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-    guard let input = readLine(), input.count == 1, let userNumber = Int(input) else { return 4 }
-    return userNumber
+func translateNumbersToHandSigns(userNumber: Int, computerNumber: Int) -> (HandSigns, HandSigns) {
+    var userHandSign: HandSigns = .rock
+    var computerHandSign: HandSigns = .rock
+    if let user = HandSigns(rawValue: userNumber),
+       let computer = HandSigns(rawValue: computerNumber) {
+        userHandSign = user
+        computerHandSign = computer
+    }
+    return (userHandSign, computerHandSign)
 }
 
 startGame()
