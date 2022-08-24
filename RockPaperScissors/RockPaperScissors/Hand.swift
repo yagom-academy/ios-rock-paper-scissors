@@ -8,6 +8,7 @@
 import Foundation
 
 enum Hand: Int, CaseIterable {
+    case none = 0
     case scissor = 1
     case rock = 2
     case paper = 3
