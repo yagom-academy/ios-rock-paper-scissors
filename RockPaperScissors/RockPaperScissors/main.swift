@@ -2,7 +2,7 @@
 //  RockPaperScissors - main.swift
 //  Created by Baem, Dragon
 //  Copyright © yagom academy. All rights reserved.
-// 
+//
 
 func createUserNumber() -> Int? {
     let userInput = readLine()
@@ -36,45 +36,79 @@ enum RockScissorsPaper: Int {
     case paper
 }
 
-func compareTwoInput(_ userNumber: Int, _ computerNumber: Int) {
+func compareTwoInput(_ userNumber: Int, _ computerNumber: Int) -> String {
     let user = RockScissorsPaper(rawValue: userNumber)
     let computer = RockScissorsPaper(rawValue: computerNumber)
     
     switch (user, computer) {
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors) :
-        print("졌습니다!")
+        return "컴퓨터"
     case (.rock, .scissors), (.paper, .rock), (.scissors, .paper) :
-        print("이겼습니다!")
+        return "사용자"
     default :
-        print("비겼습니다!")
-        excuteRockScissorsPaper()
+        return "무승부"
     }
 }
 
-func showResult(_ userNumber: Int) {
+func showResult(_ userNumber: Int) -> String {
     let computerNumber = createRandomNumber()
-    
+    print("컴퓨터값 : \(computerNumber)")
     switch userNumber {
     case 1, 2, 3 :
-        compareTwoInput(userNumber, computerNumber)
-        return
+        return compareTwoInput(userNumber, computerNumber)
     default :
-        print("종료")
-        return
+        return "종료"
     }
 }
 
-func excuteRockScissorsPaper() {
+func excuteScissorsRockPaper() -> String {
     while true {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
-        if let userNumber = createUserNumber() {
-            showResult(userNumber)
-            return
-        } else {
+        guard let userNumber = createUserNumber() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
+            continue
+        }
+        let result = showResult(userNumber)
+        
+        if result != "무승부" {
+            return result
         }
     }
 }
 
-excuteRockScissorsPaper()
+func excuteRockScissorsPaper(_ whoIsWin: String) -> String {
+    while true {
+        print("[\(whoIsWin)의 턴입니다] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        
+        guard let userNumber = createUserNumber() else {
+            continue
+        }
+        let result = showResult(userNumber)
+        
+        if result != "무승부" {
+            return result
+        }
+    }
+}
+
+func startGame() {
+    var winner = excuteScissorsRockPaper()
+    
+    if winner != "종료" {
+        var gameResult = excuteRockScissorsPaper(winner)
+        
+        if gameResult == "무승부" {
+            print("\(gameResult)의 승리")
+            return
+        } else if gameResult == "사용자" {
+            winner = "사용자"
+            gameResult = excuteRockScissorsPaper(winner)
+        } else if gameResult == "컴퓨터" {
+            winner = "컴퓨터"
+            gameResult = excuteRockScissorsPaper(winner)
+        }
+    }
+}
+
+startGame()
