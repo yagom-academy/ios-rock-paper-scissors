@@ -15,8 +15,8 @@ func createUserNumber() -> Int? {
 }
 
 func checkUserInput(_ userInput: String?) -> Int? {
-    guard let userInput = userInput else { return nil }
-    guard let userNumber = Int(userInput) else { return nil }
+    guard let userInput = userInput,
+            let userNumber = Int(userInput) else { return nil }
     return userNumber
 }
 
@@ -25,7 +25,7 @@ func createRandomNumber() -> Int {
     return computerInput
 }
 
-func compareUserWithComputer(_ user: Int, _ computer: Int) {
+func compareTwoInput(_ user: Int, _ computer: Int) {
     switch (user, computer) {
     case (1, 2), (2, 3), (3, 1) :
         print("졌습니다!")
@@ -33,11 +33,11 @@ func compareUserWithComputer(_ user: Int, _ computer: Int) {
         print("이겼습니다!")
     default :
         print("비겼습니다!")
-        gameStart()
+        excuteRockScissorsPaper()
     }
 }
 
-func gameStart() {
+func excuteRockScissorsPaper() {
     while true {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         guard let userNumber = createUserNumber() else { continue }
@@ -45,7 +45,7 @@ func gameStart() {
         switch userNumber {
         case 1, 2, 3 :
             let computerNumber = createRandomNumber()
-            compareUserWithComputer(userNumber, computerNumber)
+            compareTwoInput(userNumber, computerNumber)
             return
         case 0 :
             print("종료")
@@ -56,4 +56,4 @@ func gameStart() {
     }
 }
 
-gameStart()
+excuteRockScissorsPaper()
