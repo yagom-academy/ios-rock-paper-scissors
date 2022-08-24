@@ -20,15 +20,23 @@ struct RockPaperScissorsGame {
     
     private func getSelectedUserMenu() -> Int {
         printUserMenu()
-        guard let selectedUserMenu: Int = Int(readLine() ?? ""),
-              isCorrectUserMenu(selectedUserMenu) else {
+        guard let selectedUserMenu: Int = userInput() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return getSelectedUserMenu()
         }
-        return selectedUserMenu
+        
+        if isCorrectUserMenu(selectedUserMenu) {
+            return selectedUserMenu
+        } else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return getSelectedUserMenu()
+        }
     }
     
-    
+    private func userInput() -> Int? {
+        let userInput: Int? = Int(readLine() ?? "")
+        return userInput
+    }
     
     private func printUserMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
