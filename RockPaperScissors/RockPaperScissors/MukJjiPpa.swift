@@ -2,7 +2,7 @@
 //  MukJjiPpa.swift
 //  RockPaperScissors
 //
-//  Created by smfc on 24/8/2022.
+//  Created by woong, mene on 24/8/2022.
 //
 
 import Foundation

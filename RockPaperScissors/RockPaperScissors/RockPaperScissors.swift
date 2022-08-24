@@ -23,7 +23,14 @@ func display(of result: Result) {
 }
 
 func compareMukJjiPpa(with computer: MukJjiPpa, and user: MukJjiPpa) -> MukJjiPpaResult {
-    
+    switch (computer, user) {
+    case (.muk, .ppa), (.jji, .muk), (.ppa, .jji):
+        return MukJjiPpaResult.win
+    case (.muk, .jji), (.jji, .ppa), (.ppa, .muk):
+        return MukJjiPpaResult.lose
+    default:
+        return MukJjiPpaResult.draw
+    }
 }
 
 func playMukJjiPpaGame() {
