@@ -23,8 +23,7 @@ class MukChiba: RockPaperScissors {
     }
     
     fileprivate func startMukChiBa(attackTurn: Turn) {
-//        let turn: String = attackTurn == .user ? "[사용자 턴]" : "[컴퓨터 턴]"
-        print(attackTurn, terminator: " ")
+        attackTurn.displayTurn()
         GameText.start.displayMessage()
         guard let inputtedUserNumber: Int = Int(bindUserInput()) else {
             GameText.caution.displayMessage()
