@@ -50,7 +50,7 @@ func compareTwoInput(_ userNumber: Int, with computerNumber: Int) -> String {
     }
 }
 
-func showResult(_ userNumber: Int) -> String {
+func checkResult(to userNumber: Int) -> String {
     let computerNumber = createRandomNumber()
 
     switch userNumber {
@@ -68,7 +68,7 @@ func excuteSRP() -> String {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         }
-        let result = showResult(userNumber)
+        let result = checkResult(to: userNumber)
         
         if result != "무승부" {
             return result
@@ -82,7 +82,7 @@ func excuteMJB(_ winner: String) -> String {
         guard let userNumber = createUserNumber() else {
             return "컴퓨터"
         }
-        let result = showResult(userNumber)
+        let result = checkResult(to: userNumber)
         
         return result
     }
