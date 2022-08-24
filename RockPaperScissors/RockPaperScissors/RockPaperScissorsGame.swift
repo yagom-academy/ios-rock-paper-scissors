@@ -27,7 +27,7 @@ struct RockPaperScissorsGame {
         
         switch gameResult {
         case .win:
-            RPSWinner = "유저"
+            RPSWinner = "사용자"
             return
         case .lose:
             RPSWinner = "컴퓨터"
