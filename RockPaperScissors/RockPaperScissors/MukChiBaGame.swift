@@ -14,6 +14,8 @@ struct MukChiBaGame {
             return
         }
         self.turnOwner = turnOwner
+        
+        doMukChiBaGameRoutine()
     }
     
     mutating private func getSelectedUserMenu() -> Int {
@@ -88,7 +90,7 @@ struct MukChiBaGame {
         }
     }
     
-    mutating private func isTurnOwnerWin(gameResult: GameResult) -> Bool {
+    mutating private func isTurnOwnerMukChiBaGameWin(gameResult: GameResult) -> Bool {
         switch gameResult {
         case .draw:
             return true
@@ -106,5 +108,30 @@ struct MukChiBaGame {
         } else {
             turnOwner = .user
         }
+    }
+    
+    mutating private func doMukChiBaGameRoutine() {
+        var finalGameResult: GameResult
+        repeat {
+            let selectedUserMenu: Int = getSelectedUserMenu()
+            guard let userHand: MukChiBa = MukChiBa.init(rawValue: selectedUserMenu),
+                  let gameResult: GameResult = compareComputerHand(with: userHand) else {
+                return
+            }
+            finalGameResult = gameResult
+            
+            guard let turnOwnerName = turnOwner?.name else {
+                return
+            }
+
+            switch isTurnOwnerMukChiBaGameWin(gameResult: gameResult) {
+            case true:
+                print("\(turnOwnerName)의 승리!")
+                break
+            case false:
+                continue
+            }
+            
+        } while finalGameResult != .draw
     }
 }
