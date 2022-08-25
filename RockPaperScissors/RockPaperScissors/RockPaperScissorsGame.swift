@@ -24,7 +24,11 @@ struct RockPaperScissorsGame {
     }
     
     private func showMenu() {
-        print(GameComment.gameMenu.rawValue, terminator: "")
+        print(GameComment.gameRPSMenu.rawValue, terminator: "")
+    }
+    
+    private func showMCBMenu(turn: Turn) {
+        print("[\(turn.rawValue) 턴] \(GameComment.gameMCBMenu.rawValue)", terminator: "")
     }
     
     private func inputUserNumber() -> Int? {
