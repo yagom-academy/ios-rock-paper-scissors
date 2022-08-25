@@ -2,5 +2,4 @@
 // Ash, Jeremy - RockPaperScissors
 // 
 
-
 startGame()

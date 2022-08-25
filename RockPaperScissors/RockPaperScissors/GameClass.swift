@@ -54,8 +54,6 @@ class RockPaperScissors: Game {
 }
 
 class mukjjippa: Game {
-    
-    
     override func judgeWinner(with userNumber: Int, and computerNumber: Int) {
         let userHandSign = translateNumbersToHandSigns(of: userNumber)
         let computerHandSign = translateNumbersToHandSigns(of: computerNumber)

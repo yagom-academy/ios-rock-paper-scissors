@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		262DE92928B707F5003984B8 /* GameClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262DE92828B707F5003984B8 /* GameClass.swift */; };
+		262DE92B28B7080F003984B8 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262DE92A28B7080F003984B8 /* Function.swift */; };
 		265A11A528B5C6C700F8070B /* HandSigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265A11A428B5C6C700F8070B /* HandSigns.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
@@ -24,6 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		262DE92828B707F5003984B8 /* GameClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameClass.swift; sourceTree = "<group>"; };
+		262DE92A28B7080F003984B8 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		265A11A428B5C6C700F8070B /* HandSigns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandSigns.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -61,6 +65,8 @@
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				265A11A428B5C6C700F8070B /* HandSigns.swift */,
+				262DE92A28B7080F003984B8 /* Function.swift */,
+				262DE92828B707F5003984B8 /* GameClass.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -122,8 +128,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				262DE92928B707F5003984B8 /* GameClass.swift in Sources */,
 				265A11A528B5C6C700F8070B /* HandSigns.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				262DE92B28B7080F003984B8 /* Function.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
