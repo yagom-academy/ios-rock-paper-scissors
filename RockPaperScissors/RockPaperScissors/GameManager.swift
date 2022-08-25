@@ -77,5 +77,14 @@ struct GameManager {
         let turnInfomation = "[\(turnPlayer) 턴]"
         print(turnInfomation, ManualMessage.mukJjiBbaManual)
         
+        guard let menuNumber = receiveMenuNumber() else {
+            print(ErrorMessage.invalidMenuNumber)
+            return startMukJjiBbaGame(from: Player.computer)
+        }
+        
+        guard let userHandShape = HandShape.init(rawValue: menuNumber, isMukJjiBba: true) else {
+            print(ManualMessage.ending)
+            return
+        }
     }
 }
