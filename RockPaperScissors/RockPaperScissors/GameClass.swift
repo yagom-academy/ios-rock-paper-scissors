@@ -12,9 +12,10 @@ class Game {
         return 0
     }
     
-    func switchMenu(userNumber: Int, computerNumber: Int) {
+    func switchMenu(userNumber: Int) {
         switch userNumber {
         case 1, 2, 3:
+            let computerNumber = generateRandomComputerNumber()
             judgeWinner(with: userNumber, and: computerNumber)
         case 0:
             print("게임 종료")
@@ -27,6 +28,11 @@ class Game {
 
 class RockPaperScissors: Game {
     var mukchiba: Mukchiba = Mukchiba()
+    
+    func startRockPaperScissors() {
+        let userNumber = self.getUserInput()
+        self.switchMenu(userNumber: userNumber)
+    }
     
     override func judgeWinner(with userNumber: Int, and computerNumber: Int) {
         let userHandSign = translateNumbersToHandSigns(of: userNumber)
@@ -53,19 +59,12 @@ class RockPaperScissors: Game {
         guard let input = readLine(), input.count == 1, let userNumber = Int(input) else { return 4 }
         return userNumber
     }
-    
-    func startRockPaperScissors() {
-        let userNumber = self.getUserInput()
-        let computerNumber = self.generateRandomComputerNumber()
-        self.switchMenu(userNumber: userNumber, computerNumber: computerNumber)
-    }
 }
 
 class Mukchiba: Game {
     func startMukchiba() {
         let userNumber = getUserInput()
-        let computerNumber = generateRandomComputerNumber()
-        switchMenu(userNumber: userNumber, computerNumber: computerNumber)
+        switchMenu(userNumber: userNumber)
     }
     
     override func judgeWinner(with userNumber: Int, and computerNumber: Int) {
@@ -93,9 +92,10 @@ class Mukchiba: Game {
         return userNumber
     }
     
-    override func switchMenu(userNumber: Int, computerNumber: Int) {
+    override func switchMenu(userNumber: Int) {
         switch userNumber {
         case 1, 2, 3:
+            let computerNumber = generateRandomComputerNumber()
             judgeWinner(with: userNumber, and: computerNumber)
         case 0:
             print("게임 종료")
