@@ -1,7 +1,11 @@
-var offensivePlayer: String = ""
-
 class Game {
-    func judgeWinner(with userNumber: Int, and computerNumber: Int) {
+    static var offensivePlayer: String = ""
+    
+    func intToHandSigns(with userNumber: Int, and computerNumber: Int) -> (HandSigns?, HandSigns?) {
+        let userHandSign = translateNumbersToHandSigns(of: userNumber)
+        let computerHandSign = translateNumbersToHandSigns(of: computerNumber)
+        
+        return (userHandSign, computerHandSign)
     }
     
     func generateRandomComputerNumber() -> Int {
@@ -12,17 +16,21 @@ class Game {
         return 0
     }
     
-    func switchMenu(userNumber: Int) {
+    func switchMenu(with userNumber: Int, before judgingWinner: (Int, Int) -> Void) {
         switch userNumber {
         case 1, 2, 3:
             let computerNumber = generateRandomComputerNumber()
-            judgeWinner(with: userNumber, and: computerNumber)
+            judgingWinner(userNumber, computerNumber)
         case 0:
             print("게임 종료")
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             startGame()
         }
+    }
+    
+    func translateNumbersToHandSigns(of input: Int) -> HandSigns? {
+        return HandSigns(rawValue: input)
     }
 }
 
@@ -31,23 +39,21 @@ class RockPaperScissors: Game {
     
     func startRockPaperScissors() {
         let userNumber = self.getUserInput()
-        self.switchMenu(userNumber: userNumber)
+        self.switchMenu(with: userNumber, before: judgeWinner(with:and:))
     }
     
-    override func judgeWinner(with userNumber: Int, and computerNumber: Int) {
-        let userHandSign = translateNumbersToHandSigns(of: userNumber)
-        let computerHandSign = translateNumbersToHandSigns(of: computerNumber)
-         
+    func judgeWinner(with userNumber: Int, and computerNumber: Int) {
+        let (userHandSign, computerHandSign) = super.intToHandSigns(with: userNumber, and: computerNumber)
+        
         switch (userHandSign, computerHandSign) {
         case (.scissors, .paper), (.paper, .rock), (.rock, .scissors) :
             print("이겼습니다!")
-            offensivePlayer = "사용자"
+            Game.offensivePlayer = "사용자"
             mukchiba.startMukchiba()
         case (.scissors, .rock), (.paper, .scissors), (.rock, .paper) :
             print("졌습니다!")
-            offensivePlayer = "컴퓨터"
+            Game.offensivePlayer = "컴퓨터"
             mukchiba.startMukchiba()
-
         default:
             print("비겼습니다!")
             self.startRockPaperScissors()
@@ -64,35 +70,33 @@ class RockPaperScissors: Game {
 class Mukchiba: Game {
     func startMukchiba() {
         let userNumber = getUserInput()
-        switchMenu(userNumber: userNumber)
+        switchMenu(with: userNumber, before: judgeWinner(with:and:))
     }
     
-    override func judgeWinner(with userNumber: Int, and computerNumber: Int) {
-        let userHandSign = translateNumbersToHandSigns(of: userNumber)
-        let computerHandSign = translateNumbersToHandSigns(of: computerNumber)
-        let signsToJudge = (userHandSign, computerHandSign)
+    func judgeWinner(with userNumber: Int, and computerNumber: Int) {
+        let signsToJudge = super.intToHandSigns(with: userNumber, and: computerNumber)
         
         switch signsToJudge {
         case (.scissors, .scissors), (.paper, .paper), (.rock, .rock) :
-            print("\(offensivePlayer)의 승리!")
+            print("\(Game.offensivePlayer)의 승리!")
         case (.scissors, .rock), (.paper, .scissors), (.rock, .paper) :
             print("컴퓨터의 턴입니다.")
-            offensivePlayer = "컴퓨터"
+            Game.offensivePlayer = "컴퓨터"
             startMukchiba()
         default:
             print("사용자의 턴입니다.")
-            offensivePlayer = "사용자"
+            Game.offensivePlayer = "사용자"
             startMukchiba()
         }
     }
     
     override func getUserInput() -> Int {
-        print("[\(offensivePlayer) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        print("[\(Game.offensivePlayer) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         guard let input = readLine(), input.count == 1, let userNumber = Int(input) else { return 4 }
         return userNumber
     }
     
-    override func switchMenu(userNumber: Int) {
+    override func switchMenu(with userNumber: Int, before judgingWinner: (Int, Int) -> Void) {
         switch userNumber {
         case 1, 2, 3:
             let computerNumber = generateRandomComputerNumber()
@@ -101,8 +105,8 @@ class Mukchiba: Game {
             print("게임 종료")
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            if offensivePlayer == "사용자" {
-                offensivePlayer = "컴퓨터"
+            if Game.offensivePlayer == "사용자" {
+                Game.offensivePlayer = "컴퓨터"
                 startMukchiba()
             } else {
                 startMukchiba()
