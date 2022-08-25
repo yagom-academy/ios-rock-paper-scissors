@@ -10,6 +10,7 @@ import Foundation
 var isUserTurn: Bool = true
 
 func compareHand(with computer: Hand, and user: Hand) -> Result {
+    
     switch (computer, user) {
     case (.rock, .paper), (.paper, .scissor), (.scissor, .rock):
         return .win
@@ -25,6 +26,7 @@ func display(of result: Result) {
 }
 
 func compareMukJjiPpa(with computer: MukJjiPpa, and user: MukJjiPpa) -> MukJjiPpaResult {
+    
     switch (computer, user) {
     case (.muk, .ppa), (.jji, .muk), (.ppa, .jji):
         return MukJjiPpaResult.win
