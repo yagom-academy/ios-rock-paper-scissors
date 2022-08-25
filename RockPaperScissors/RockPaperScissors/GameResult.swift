@@ -10,5 +10,5 @@ enum RockPaperScissorsGameResult {
 
 enum MukJjiBbaGameResult {
     case win
-    case lose(RockPaperScissorsGameResult)
+    case reMatch(RockPaperScissorsGameResult)
 }

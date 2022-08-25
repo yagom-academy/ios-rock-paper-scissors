@@ -72,14 +72,14 @@ struct GameManager {
         return computerHandShape
     }
     
-    private func startMukJjiBbaGame(from winner: String) {
-        var turnPlayer = winner
+    private func startMukJjiBbaGame(_ turnPlayer: String) {
+        var turnPlayer = turnPlayer
         let turnInfomation = "[\(turnPlayer) 턴]"
         print(turnInfomation, ManualMessage.mukJjiBbaManual, terminator: "")
         
         guard let menuNumber = receiveMenuNumber() else {
             print(ErrorMessage.invalidMenuNumber)
-            return startMukJjiBbaGame(from: Player.computer)
+            return startMukJjiBbaGame(Player.computer)
         }
         
         guard let userHandShape = HandShape.init(rawValue: menuNumber, isMukJjiBba: true) else {
@@ -90,6 +90,22 @@ struct GameManager {
         let computerHandShape = generateComputerHandShape()
         
         let gameResult = fetchGameResult(comparing: userHandShape, and: computerHandShape)
+        
+        switch gameResult {
+        case .win:
+            let winningMessage = "\(turnPlayer)의 승리!"
+            print(winningMessage)
+            return
+        case .reMatch(let rockPaperScissorsGameResult):
+            if rockPaperScissorsGameResult == .win {
+                turnPlayer = Player.user
+            } else {
+                turnPlayer = Player.computer
+            }
+            let reMatchMessage = "\(turnPlayer)턴 입니다."
+            print(reMatchMessage)
+            return startMukJjiBbaGame(turnPlayer)
+        }
     }
 
     private func fetchGameResult(comparing userHandShape: HandShape, and computerHandShape: HandShape) -> MukJjiBbaGameResult {
@@ -97,11 +113,11 @@ struct GameManager {
         case (HandShape.rock , HandShape.scissors),
             (HandShape.paper , HandShape.rock),
             (HandShape.scissors , HandShape.paper):
-            return .lose(RockPaperScissorsGameResult.win)
+            return .reMatch(RockPaperScissorsGameResult.win)
         case (HandShape.scissors , HandShape.rock),
             (HandShape.rock , HandShape.paper),
             (HandShape.paper , HandShape.scissors):
-            return .lose(RockPaperScissorsGameResult.lose)
+            return .reMatch(RockPaperScissorsGameResult.lose)
         default:
             return .win
         }
