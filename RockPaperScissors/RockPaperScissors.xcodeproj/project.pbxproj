@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181B38D928B4B03100664D6F /* InputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181B38D828B4B03100664D6F /* InputError.swift */; };
+		181B38DC28B4B16900664D6F /* RPSGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181B38DB28B4B16900664D6F /* RPSGameManager.swift */; };
+		18214AE328B5EB3000BEBD8B /* MukjipaGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18214AE228B5EB3000BEBD8B /* MukjipaGameManager.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
+		E3B3329528B4730A00E9EC5C /* RPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B3329428B4730A00E9EC5C /* RPS.swift */; };
+		E3B3329728B5F28400E9EC5C /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B3329628B5F28400E9EC5C /* GameState.swift */; };
+		E3B3329928B5F2BE00E9EC5C /* Mukjipa.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B3329828B5F2BE00E9EC5C /* Mukjipa.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +29,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		181B38D828B4B03100664D6F /* InputError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputError.swift; sourceTree = "<group>"; };
+		181B38DB28B4B16900664D6F /* RPSGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPSGameManager.swift; sourceTree = "<group>"; };
+		18214AE228B5EB3000BEBD8B /* MukjipaGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukjipaGameManager.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		E3B3329428B4730A00E9EC5C /* RPS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPS.swift; sourceTree = "<group>"; };
+		E3B3329628B5F28400E9EC5C /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		E3B3329828B5F2BE00E9EC5C /* Mukjipa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mukjipa.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +50,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		181B38DA28B4B15900664D6F /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				181B38DB28B4B16900664D6F /* RPSGameManager.swift */,
+        18214AE228B5EB3000BEBD8B /* MukjipaGameManager.swift */,
+			);
+			path = Games;
+			sourceTree = "<group>";
+		};
+		181B38DD28B4B21F00664D6F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E3B3329428B4730A00E9EC5C /* RPS.swift */,
+				E3B3329828B5F2BE00E9EC5C /* Mukjipa.swift */,
+				E3B3329628B5F28400E9EC5C /* GameState.swift */,
+				181B38D828B4B03100664D6F /* InputError.swift */,
+				18214AE428B5FE6500BEBD8B /* GameState.swift */,
+				18214AE628B604E800BEBD8B /* GameMessage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		C7ABA0D4254EA63000B2367D = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +91,8 @@
 		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
 			isa = PBXGroup;
 			children = (
+				181B38DD28B4B21F00664D6F /* Models */,
+				181B38DA28B4B15900664D6F /* Games */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 			);
 			path = RockPaperScissors;
@@ -119,6 +155,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3B3329528B4730A00E9EC5C /* RPS.swift in Sources */,
+				181B38D928B4B03100664D6F /* InputError.swift in Sources */,
+				181B38DC28B4B16900664D6F /* RPSGameManager.swift in Sources */,
+				E3B3329728B5F28400E9EC5C /* GameState.swift in Sources */,
+				18214AE328B5EB3000BEBD8B /* MukjipaGameManager.swift in Sources */,
+				E3B3329928B5F2BE00E9EC5C /* Mukjipa.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
