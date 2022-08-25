@@ -36,17 +36,16 @@ func startGame() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
         guard let userNumber = filterUserInput() else { continue }
-        isExitGame = decideWhoStartsFirstTurn(with : userNumber)
+        isExitGame = decideWhoStartsFirstTurn(with: userNumber)
     }
 }
 
 func decideWhoStartsFirstTurn(with userChoice: Int) -> Bool {
-    let selectMenu = userChoice
     let computerPick = RockScissorsPaper.allCases.randomElement()
     let userPick = RockScissorsPaper(rawValue: userChoice)
-    let compareTwoThings = (computerPick, userPick)
+    let comparisonOfTwoThings = (computerPick, userPick)
     
-    if selectMenu == 0 {
+    if userChoice == 0 {
         print("게임 종료")
         return true
     } else if computerPick == userPick {
@@ -54,14 +53,13 @@ func decideWhoStartsFirstTurn(with userChoice: Int) -> Bool {
         return false
     }
     
-    switch compareTwoThings {
+    switch comparisonOfTwoThings {
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
         print("이겼습니다!")
         startMukChiBbaGame(takeUserWin: true)
-        return true
     default:
         print("졌습니다!")
         startMukChiBbaGame(takeUserWin: false)
-        return true
     }
+    return true
 }
