@@ -7,8 +7,6 @@
 
 import Foundation
 
-var isUserTurn: Bool = true
-
 func compareHand(with computer: Hand, and user: Hand) -> Result {
     
     switch (computer, user) {
@@ -37,23 +35,19 @@ func compareMukJjiPpa(with computer: MukJjiPpa, and user: MukJjiPpa) -> MukJjiPp
     }
 }
 
-func playMukJjiPpaGame() {
+func playMukJjiPpaGame(turn: Player) {
     let randomComputerMukJjiPpa: MukJjiPpa = MukJjiPpa(rawValue: Int.random(in: 1...3)).unsafelyUnwrapped
     print("computerMukJjiPpa : \(randomComputerMukJjiPpa)")
     
-    if isUserTurn {
-        print("[\(Player.user.rawValue)", GameMessages.mukJjiPpaGameMemu, terminator: " ")
-    } else {
-        print("[\(Player.computer.rawValue)", GameMessages.mukJjiPpaGameMemu, terminator: " ")
-    }
+    turn == .user ? print("[\(Player.user.rawValue)", GameMessages.mukJjiPpaGameMemu, terminator: " ") :
+    print("[\(Player.computer.rawValue)", GameMessages.mukJjiPpaGameMemu, terminator: " ")
     
     guard let inputNumberString = readLine(),
           let inputNumber = Int(inputNumberString),
           let result = MukJjiPpa(rawValue: inputNumber) else {
         
         print(GameMessages.inputWrong)
-        isUserTurn = false
-        return playMukJjiPpaGame()
+        return playMukJjiPpaGame(turn: .computer)
     }
     switch result {
     case .none:
@@ -61,24 +55,23 @@ func playMukJjiPpaGame() {
     case .muk, .jji, .ppa:
         let mukJjiPpaResult: MukJjiPpaResult = compareMukJjiPpa(with: randomComputerMukJjiPpa, and: result)
         
-        switch (isUserTurn, mukJjiPpaResult) {
-        case (true, .draw):
+        switch (turn, mukJjiPpaResult) {
+        case (.user, .draw):
             print(Player.user.rawValue + GameMessages.victory)
-        case (false, .draw):
+        case (.computer, .draw):
             print(Player.computer.rawValue + GameMessages.victory)
-        case (true, .win),(false, .win):
+        case (.user, .win),(.computer, .win):
             print(mukJjiPpaResult.rawValue)
-            isUserTurn = true
-            playMukJjiPpaGame()
-        case (true, .lose),(false, .lose):
+            playMukJjiPpaGame(turn: .user)
+        case (.user, .lose),(.computer, .lose):
             print(mukJjiPpaResult.rawValue)
-            isUserTurn = false
-            playMukJjiPpaGame()
+            playMukJjiPpaGame(turn: .computer)
         }
     }
 }
 
 func startGame() {
+    
     let randomComputerHand: Hand = Hand(rawValue: Int.random(in: 1...3)).unsafelyUnwrapped
     
     print("computerHand : \(randomComputerHand)")
@@ -103,11 +96,9 @@ func startGame() {
         if gameResult == Result.draw {
             startGame()
         } else if gameResult == Result.win {
-            isUserTurn = true
-            playMukJjiPpaGame()
+            playMukJjiPpaGame(turn: .user)
         } else {
-            isUserTurn = false
-            playMukJjiPpaGame()
+            playMukJjiPpaGame(turn: .computer)
         }
     }
 }
