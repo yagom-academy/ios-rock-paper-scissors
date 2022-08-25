@@ -7,11 +7,11 @@
 
 import Foundation
 
-func printRockScissorPaper() {
+func printRockScissorPaperMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 }
 
-func printMGP(turn: Turn) {
+func printMukZiPaMenu(turn: Turn) {
     print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " ")
 }
 
@@ -36,7 +36,6 @@ func setHandType(_ userHandNumber: Int) -> (HandType, HandType)? {
     guard let userHand = HandType(rawValue: userHandNumber),
           let computerHand = HandType(rawValue: Int.random(in: 1...3))
     else {
-        print("게임 종료")
         return nil
     }
     return (userHand, computerHand)
@@ -47,7 +46,7 @@ func compareHandsForRSP(from hands: (HandType, HandType)) {
     case let (user, computer) where user == computer:
         print("비겼습니다!")
         startGame()
-    case (.scissor, .paper), (.paper, .rock), (.rock, .scissor) :
+    case (.scissor, .paper), (.paper, .rock), (.rock, .scissor):
         print("이겼습니다!")
         playMGP(turn: .user)
     default:
@@ -60,7 +59,7 @@ func compareHandsForMGP(from hands: (HandType, HandType), with turn: Turn) {
     switch hands {
     case let (user, computer) where user == computer:
         print("\(turn.rawValue)의 승리!")
-    case (.scissor, .paper), (.paper, .rock), (.rock, .scissor) :
+    case (.scissor, .paper), (.paper, .rock), (.rock, .scissor):
         print("사용자의 턴입니다.")
         playMGP(turn: .user)
     default:

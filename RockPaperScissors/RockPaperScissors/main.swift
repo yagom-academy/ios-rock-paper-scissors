@@ -9,17 +9,20 @@ import Foundation
 startGame()
 
 func startGame() {
-    printRockScissorPaper()
+    printRockScissorPaperMenu()
     guard let userHandNumber = getUserHandNumber() else {
         startGame()
         return
     }
-    guard let hands = setHandType(userHandNumber) else { return }
+    
+    guard let hands = setHandType(userHandNumber) else {
+        return
+    }
     compareHandsForRSP(from: hands)
 }
 
 func playMGP(turn: Turn) {
-    printMGP(turn: turn)
+    printMukZiPaMenu(turn: turn)
     guard let userHandNumber = getUserHandNumber() else {
         playMGP(turn: Turn.computer)
         return
