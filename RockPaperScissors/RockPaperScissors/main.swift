@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-private let mukChiBaGame: MukChiBaGame = MukChiBaGame()
+private var mukChiBaGame: MukChiBaGame = MukChiBaGame()
 mukChiBaGame.startGame()

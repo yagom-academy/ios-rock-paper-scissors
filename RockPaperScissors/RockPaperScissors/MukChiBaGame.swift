@@ -6,30 +6,38 @@
 //
 
 struct MukChiBaGame {
-    func startGame() {
+    private var turnOwner: Participant?
+    
+    mutating func startGame() {
         let rockPaperScissorsGame: RockPaperScissorsGame = RockPaperScissorsGame()
         guard let turnOwner: Participant = rockPaperScissorsGame.startGame() else {
             return
         }
+        self.turnOwner = turnOwner
     }
     
-    private func getSelectedUserMenu(turnOwner: Participant) -> Int {
-        printUserMenu(turnOwner: turnOwner)
+    mutating private func getSelectedUserMenu() -> Int {
+        printUserMenu()
         guard let selectedUserMenu: Int = userInput() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return getSelectedUserMenu(turnOwner: .computer)
+            turnOwner = .computer
+            return getSelectedUserMenu()
         }
         
         if isCorrectUserMenu(selectedUserMenu) {
             return selectedUserMenu
         } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return getSelectedUserMenu(turnOwner: .computer)
+            turnOwner = .computer
+            return getSelectedUserMenu()
         }
     }
     
-    func printUserMenu(turnOwner: Participant) {
-        print("[\(turnOwner.name) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    private func printUserMenu() {
+        guard let turnOwnerName = turnOwner?.name else {
+            return
+        }
+        print("[\(turnOwnerName) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
     
     private func userInput() -> Int? {
@@ -79,5 +87,24 @@ struct MukChiBaGame {
             }
         }
     }
-
+    
+    mutating private func isTurnOwnerWin(gameResult: GameResult) -> Bool {
+        switch gameResult {
+        case .draw:
+            return true
+        case .win:
+            return false
+        case .lose:
+            toggleTurnOwner()
+            return false
+        }
+    }
+    
+    mutating private func toggleTurnOwner() {
+        if turnOwner == .user {
+            turnOwner = .computer
+        } else {
+            turnOwner = .user
+        }
+    }
 }
