@@ -2,16 +2,23 @@
 
 struct RockPaperScissorsGame {
     func play() {
-        let userNumber = validateUserNumber()
+        guard let userNumber = inputUserNumber() else {
+            print(GameComment.retry.rawValue)
+            play()
+            return
+        }
         
         if checkEndGame(userNumber) {
             print(GameComment.gameOver.rawValue)
             return
         }
         
-        let userRPS = convertRPS(inputNumber: userNumber)
-        let computerRPS = convertRPS(inputNumber: Int.random(in: 1...3))
-        let userGameResult = judgeWinOrLose(userRPS, computerRPS)
+        guard let compareRPS =  convertRPS(inputNumber: userNumber) else {
+            play()
+            return
+        }
+        
+        let userGameResult = judgeWinOrLoseAtRPS(RPS: compareRPS)
         
         showResult(userGameResult)
     }
@@ -31,14 +38,6 @@ struct RockPaperScissorsGame {
         return inputUserNumberToInt
     }
     
-    private func validateUserNumber() -> Int {
-        guard let userNumber = inputUserNumber() else {
-            print(GameComment.retry.rawValue)
-            return validateUserNumber()
-        }
-        return userNumber
-    }
-    
     private func checkEndGame(_ userNumber: Int) -> Bool {
         if userNumber != 0 {
             return false
@@ -46,43 +45,25 @@ struct RockPaperScissorsGame {
         return true
     }
     
-    private func convertRPS(inputNumber: Int) -> RockPaperScissors {
-        guard let numberToRPS: RockPaperScissors = .init(rawValue: inputNumber) else {
+    private func convertRPS(inputNumber: Int) -> (RockPaperScissors, RockPaperScissors)? {
+        guard let numberToRPS: RockPaperScissors = .init(rawValue: inputNumber),
+              let computerRPS: RockPaperScissors = .init(rawValue: Int.random(in: 1...3)) else {
             print(GameComment.retry.rawValue)
-            return convertRPS(inputNumber: validateUserNumber())
+            return nil
         }
-        return numberToRPS
+        return (numberToRPS, computerRPS)
     }
     
-    private func judgeWinOrLose(
-        _ userRPS: RockPaperScissors,
-        _ computerRPS: RockPaperScissors)
-    -> GameResult {
-        var gameResult: GameResult = .draw
+    private func judgeWinOrLoseAtRPS(RPS: (RockPaperScissors, RockPaperScissors)) -> GameResult {
+        let gameResult: GameResult
         
-        if userRPS == computerRPS {
-            return gameResult
-        }
-        
-        switch userRPS {
-        case .scissors:
-            if computerRPS == .paper {
-                gameResult = .win
-            } else if computerRPS == .rock {
-                gameResult = .lose
-            }
-        case .rock:
-            if computerRPS == .scissors {
-                gameResult = .win
-            } else if computerRPS == .paper {
-                gameResult = .lose
-            }
-        case .paper:
-            if computerRPS == .rock {
-                gameResult = .win
-            } else if computerRPS == .scissors {
-                gameResult = .lose
-            }
+        switch RPS {
+        case let (userRPS, computerRPS) where userRPS == computerRPS:
+            gameResult = .draw
+        case (.scissors, .paper), (.paper, .rock), (.rock, .scissors) :
+            gameResult = .win
+        default:
+            gameResult = .lose
         }
         return gameResult
     }
