@@ -120,15 +120,17 @@ struct MukChiBaGame {
             }
             finalGameResult = gameResult
             
+            let isTurnOwnerMukChiBaGameWin: Bool = isTurnOwnerMukChiBaGameWin(gameResult: gameResult)
             guard let turnOwnerName = turnOwner?.name else {
                 return
             }
 
-            switch isTurnOwnerMukChiBaGameWin(gameResult: gameResult) {
+            switch isTurnOwnerMukChiBaGameWin {
             case true:
                 print("\(turnOwnerName)의 승리!")
                 break
             case false:
+                print("\(turnOwnerName)의 턴입니다.")
                 continue
             }
             
