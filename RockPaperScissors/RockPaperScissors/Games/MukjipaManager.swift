@@ -3,18 +3,16 @@
 //  Created by Wonbi, 미니
 //
 
-struct MukjipaGameManager: Gameable {
-    var isUserTurn: Bool = true
-    var attacker: String {
+struct MukjipaManager: Gameable {
+	typealias GameType = Mukjipa
+	
+    private var isUserTurn: Bool = true
+    private var currentTurn: String {
         isUserTurn ? "사용자" : "컴퓨터"
     }
-    
-	mutating func decideTurn(from result: GameState) {
-        isUserTurn = (result == .userWin)
-    }
-    
+	
     func fetchUserInput() -> Result<Mukjipa, InputError> {
-		print("[\(attacker) 턴]", GameMessage.mukjipaGame, separator: " ", terminator: " : ")
+		print("[\(currentTurn) 턴]", GameMessage.mukjipaGame, separator: " ", terminator: " : ")
 		
         guard let inputValue = readLine(),
               let inputNumber = Int(inputValue),
@@ -35,17 +33,21 @@ struct MukjipaGameManager: Gameable {
 			return .error
 		}
 	}
+	
+	private mutating func decideTurn(from result: GameState) {
+		isUserTurn = (result == .userWin)
+	}
     
-    mutating func printTurn(to result: GameState) {
+    private mutating func printTurn(to result: GameState) {
         if result == .userWin || result == .computerWin {
             decideTurn(from: result)
-            print(attacker + "의 턴입니다.")
+            print(currentTurn + "의 턴입니다.")
         }
     }
     
-    mutating func printWinner(from result: GameState) {
+    private mutating func printWinner(from result: GameState) {
         if result == .draw {
-            print(attacker + "의 승리!")
+            print(currentTurn + "의 승리!")
         }
     }
 	

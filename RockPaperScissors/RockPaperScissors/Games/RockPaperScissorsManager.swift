@@ -3,8 +3,10 @@
 //  Created by Wonbi, 미니
 //
 
-struct RPSGameManager: Gameable {
-	func fetchUserInput() -> Result<RPS, InputError> {
+struct RockPaperScissorsManager: Gameable {
+	typealias GameType = RockPaperScissors
+	
+	func fetchUserInput() -> Result<RockPaperScissors, InputError> {
 		print(GameMessage.rpsGame, terminator: " : ")
 
 		guard let inputValue = readLine(),
@@ -14,14 +16,14 @@ struct RPSGameManager: Gameable {
 			return .failure(.invalidNumber)
 		}
 
-		if let inputCard = RPS(rawValue: inputNumber) {
+		if let inputCard = RockPaperScissors(rawValue: inputNumber) {
 			return .success(inputCard)
 		} else {
 			return .failure(.invalidNumber)
 		}
 	}
 
-	func checkValidity(of userInputResult: Result<RPS, InputError>) -> GameState {
+	func checkValidity(of userInputResult: Result<RockPaperScissors, InputError>) -> GameState {
 		switch userInputResult {
 		case .success(let inputCard):
 			return inputCard.generateGameResult()

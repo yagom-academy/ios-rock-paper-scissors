@@ -4,10 +4,10 @@
 //
 
 struct GameManager {
-	private let rpsGame: RPSGameManager
-	private var mukjipaGame: MukjipaGameManager
+	private let rpsGame: RockPaperScissorsManager
+	private var mukjipaGame: MukjipaManager
 	
-	init(_ rpsGame: RPSGameManager, _ mukjipaGame: MukjipaGameManager) {
+	init(_ rpsGame: RockPaperScissorsManager, _ mukjipaGame: MukjipaManager) {
 		self.rpsGame = rpsGame
 		self.mukjipaGame = mukjipaGame
 	}
@@ -27,7 +27,7 @@ struct GameManager {
 		}
 	}
 	
-	mutating func startMukjipa(_ result: GameState) {
+	private mutating func startMukjipa(_ result: GameState) {
 		let result = mukjipaGame.startGame(from: result)
 		
 		switch result {
@@ -45,6 +45,6 @@ struct GameManager {
 	}
 }
 
-var game = GameManager(RPSGameManager(), MukjipaGameManager())
+var game = GameManager(RockPaperScissorsManager(), MukjipaManager())
 game.startRPS()
 

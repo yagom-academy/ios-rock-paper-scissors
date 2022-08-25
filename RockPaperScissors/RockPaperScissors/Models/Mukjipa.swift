@@ -3,8 +3,6 @@
 //  Created by Wonbi, 미니
 //
 
-
-
 enum Mukjipa: Int, CaseIterable, GameElement {
     case none = 0
     case muk = 1
@@ -14,11 +12,6 @@ enum Mukjipa: Int, CaseIterable, GameElement {
 	func generateComputerCard() -> Self {
 		let computerCard = Self.allCases[Int.random(in: 1...3)]
 		return computerCard
-	}
-	
-	func generateGameResult() -> GameState {
-		let computerCard = generateComputerCard()
-		return self.compare(to: computerCard)
 	}
 	
 	func compare(to computerCard: Self) -> GameState {
@@ -36,5 +29,10 @@ enum Mukjipa: Int, CaseIterable, GameElement {
 		default:
 			return .draw
 		}
+	}
+	
+	func generateGameResult() -> GameState {
+		let computerCard = generateComputerCard()
+		return self.compare(to: computerCard)
 	}
 }

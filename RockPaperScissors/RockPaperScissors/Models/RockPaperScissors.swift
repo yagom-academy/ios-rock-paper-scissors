@@ -3,7 +3,7 @@
 //  Created by Wonbi, 미니
 //
 
-enum RPS: Int, CaseIterable, GameElement {
+enum RockPaperScissors: Int, CaseIterable, GameElement {
 	case none = 0
 	case scisser = 1
 	case rock = 2
