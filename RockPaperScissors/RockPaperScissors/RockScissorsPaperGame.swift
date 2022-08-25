@@ -13,7 +13,7 @@ enum RockScissorsPaper: Int, CaseIterable {
     case paper = 3
 }
 
-enum MukChiBba: Int {
+enum MukChiBba: Int, CaseIterable {
     case muk = 1
     case chi = 2
     case bba = 3

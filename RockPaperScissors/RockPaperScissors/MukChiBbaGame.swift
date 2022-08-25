@@ -8,7 +8,6 @@
 func readyMukChiBbaGame(takeUserWin: Bool) {
     var exit: Bool = false
     var isUserWin = takeUserWin
-    var computerNumber: Int
     var roundOneWinner: String {
         get {
             if isUserWin == true {
@@ -19,7 +18,6 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
     }
     
     while exit == false {
-        computerNumber = Int.random(in: 1...3)
         print("[\(roundOneWinner) 턴] (묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         
         guard let userNumber = filterUserInput() else {
@@ -30,7 +28,7 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
         }
         
         var exitOrTurnChange = (canExit: exit, checkUserWin: isUserWin)
-        exitOrTurnChange = startMukChiBbaGame(computerNumber: computerNumber, userNumber: userNumber, takeUserWin: isUserWin)
+        exitOrTurnChange = startMukChiBbaGame(userNumber: userNumber, takeUserWin: isUserWin)
         
         switch exitOrTurnChange {
         case (canExit: true, _):
@@ -45,9 +43,9 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
     }
 }
 
-func startMukChiBbaGame(computerNumber: Int, userNumber: Int, takeUserWin: Bool) -> (Bool,Bool) {
+func startMukChiBbaGame(userNumber: Int, takeUserWin: Bool) -> (Bool,Bool) {
     var takeUserWin = takeUserWin
-    let computerPick = MukChiBba(rawValue: computerNumber)
+    let computerPick = MukChiBba.allCases.randomElement()
     let userPick = MukChiBba(rawValue: userNumber)
     let compareTwoThings = (computerPick, userPick)
     
