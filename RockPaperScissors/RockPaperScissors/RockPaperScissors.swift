@@ -20,6 +20,7 @@ func compareHand(with computer: Hand, and user: Hand) -> Result {
 }
 
 func display(of result: Result) {
+    
     print(result.rawValue)
 }
 
@@ -36,6 +37,7 @@ func compareMukJjiPpa(with computer: MukJjiPpa, and user: MukJjiPpa) -> MukJjiPp
 }
 
 func playMukJjiPpaGame(turn: Player) {
+    
     let randomComputerMukJjiPpa: MukJjiPpa = MukJjiPpa(rawValue: Int.random(in: 1...3)).unsafelyUnwrapped
     print("computerMukJjiPpa : \(randomComputerMukJjiPpa)")
     
@@ -44,16 +46,21 @@ func playMukJjiPpaGame(turn: Player) {
     
     guard let inputNumberString = readLine(),
           let inputNumber = Int(inputNumberString),
-          let result = MukJjiPpa(rawValue: inputNumber) else {
+          let userMukJjiPpa = MukJjiPpa(rawValue: inputNumber) else {
         
         print(GameMessages.inputWrong)
         return playMukJjiPpaGame(turn: .computer)
     }
-    switch result {
+    displayMukJjiPpaResult(randomComputerMukJjiPpa, userMukJjiPpa, turn)
+}
+
+func displayMukJjiPpaResult(_ computer: MukJjiPpa, _ user: MukJjiPpa, _ turn: Player) {
+    
+    switch user {
     case .none:
         print(GameMessages.endGame)
     case .muk, .jji, .ppa:
-        let mukJjiPpaResult: MukJjiPpaResult = compareMukJjiPpa(with: randomComputerMukJjiPpa, and: result)
+        let mukJjiPpaResult: MukJjiPpaResult = compareMukJjiPpa(with: computer, and: user)
         
         switch (turn, mukJjiPpaResult) {
         case (.user, .draw):
