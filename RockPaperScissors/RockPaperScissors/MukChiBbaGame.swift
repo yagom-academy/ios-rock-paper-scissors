@@ -6,7 +6,7 @@
 //
 
 func readyMukChiBbaGame(takeUserWin: Bool) {
-    var exit: Bool = false
+    var isExitGame: Bool = false
     var isUserWin = takeUserWin
     var roundOneWinner: String {
         get {
@@ -17,7 +17,7 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
         }
     }
     
-    while exit == false {
+    while isExitGame == false {
         print("[\(roundOneWinner) 턴] (묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         
         guard let userNumber = filterUserInput() else {
@@ -27,12 +27,12 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
             continue
         }
         
-        var exitOrTurnChange = (canExit: exit, checkUserWin: isUserWin)
+        var exitOrTurnChange = (canExit: isExitGame, checkUserWin: isUserWin)
         exitOrTurnChange = startMukChiBbaGame(userNumber: userNumber, takeUserWin: isUserWin)
         
         switch exitOrTurnChange {
         case (canExit: true, _):
-            exit = true
+            isExitGame = true
         case (canExit: false, checkUserWin: false):
             isUserWin = false
             continue

@@ -30,13 +30,13 @@ func filterUserInput() -> Int? {
 }
 
 func readyRockScissorsPaperGame() {
-    var exitGame: Bool = false
+    var isExitGame: Bool = false
 
-    while exitGame == false {
+    while isExitGame == false {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
         guard let userNumber = filterUserInput() else { continue }
-        exitGame = startRockScissorsPaperGame(and : userNumber)
+        isExitGame = startRockScissorsPaperGame(and : userNumber)
     }
 }
 
