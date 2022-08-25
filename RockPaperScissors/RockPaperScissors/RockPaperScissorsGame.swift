@@ -6,22 +6,24 @@
 //
 
 struct RockPaperScissorsGame {
-    func startGame() -> Participant? {
+    var winner: Participant?
+    
+    mutating func startGame() {
         let selectedUserMenu: Int = getSelectedUserMenu()
        
         guard let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu),
            let gameResult: GameResult = compareComputerHand(with: userHand) else {
-            return nil
+            return
         }
         print(gameResult.result)
         
         switch gameResult {
         case .draw:
-            return startGame()
+            startGame()
         case .win:
-            return .user
+            winner = .user
         case .lose:
-            return .computer
+            winner = .computer
         }
     }
     

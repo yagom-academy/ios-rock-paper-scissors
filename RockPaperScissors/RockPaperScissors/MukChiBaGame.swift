@@ -9,8 +9,9 @@ struct MukChiBaGame {
     private var turnOwner: Participant?
     
     mutating func startGame() {
-        let rockPaperScissorsGame: RockPaperScissorsGame = RockPaperScissorsGame()
-        guard let turnOwner: Participant = rockPaperScissorsGame.startGame() else {
+        var rockPaperScissorsGame: RockPaperScissorsGame = RockPaperScissorsGame()
+        rockPaperScissorsGame.startGame()
+        guard let turnOwner: Participant = rockPaperScissorsGame.winner else {
             return
         }
         self.turnOwner = turnOwner
