@@ -56,7 +56,7 @@ final class PlayGame: HandlingInput {
         }
         
         while (true) {
-            print("[\(currentTurn.rawValue)턴] 묵(1), 찌(2), 빠(3)!<종료: 0>: ", terminator: "")
+            print("[\(currentTurn.rawValue)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
             let userInput: String? = bringUserInput()
             var userHands: MukZiBa?
             let computerHands = MukZiBa(rawValue: generateComputerInput())
