@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11E5B95D28B7035B0052DCE4 /* Turn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E5B95C28B7035B0052DCE4 /* Turn.swift */; };
+		11E5B95F28B706630052DCE4 /* PlayGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E5B95E28B706630052DCE4 /* PlayGame.swift */; };
+		11E5B96128B708C80052DCE4 /* HandlingInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E5B96028B708C80052DCE4 /* HandlingInput.swift */; };
 		3CB8195A28B5F0130090F624 /* InputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB8195928B5F0130090F624 /* InputError.swift */; };
 		3CB8195C28B5F0280090F624 /* RockScissorsPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB8195B28B5F0280090F624 /* RockScissorsPaper.swift */; };
 		3CB8195E28B601BE0090F624 /* MukZiBa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB8195D28B601BE0090F624 /* MukZiBa.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		11E5B95C28B7035B0052DCE4 /* Turn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Turn.swift; sourceTree = "<group>"; };
+		11E5B95E28B706630052DCE4 /* PlayGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayGame.swift; sourceTree = "<group>"; };
+		11E5B96028B708C80052DCE4 /* HandlingInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlingInput.swift; sourceTree = "<group>"; };
 		3CB8195928B5F0130090F624 /* InputError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputError.swift; sourceTree = "<group>"; };
 		3CB8195B28B5F0280090F624 /* RockScissorsPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorsPaper.swift; sourceTree = "<group>"; };
 		3CB8195D28B601BE0090F624 /* MukZiBa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukZiBa.swift; sourceTree = "<group>"; };
@@ -44,6 +50,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11E5B96228B709DB0052DCE4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3CB8195B28B5F0280090F624 /* RockScissorsPaper.swift */,
+				3CB8195D28B601BE0090F624 /* MukZiBa.swift */,
+				3CB8195928B5F0130090F624 /* InputError.swift */,
+				11E5B95C28B7035B0052DCE4 /* Turn.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C7ABA0D4254EA63000B2367D = {
 			isa = PBXGroup;
 			children = (
@@ -63,10 +80,10 @@
 		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
 			isa = PBXGroup;
 			children = (
+				11E5B96228B709DB0052DCE4 /* Model */,
+				11E5B95E28B706630052DCE4 /* PlayGame.swift */,
+				11E5B96028B708C80052DCE4 /* HandlingInput.swift */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
-				3CB8195928B5F0130090F624 /* InputError.swift */,
-				3CB8195B28B5F0280090F624 /* RockScissorsPaper.swift */,
-				3CB8195D28B601BE0090F624 /* MukZiBa.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -128,6 +145,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11E5B95D28B7035B0052DCE4 /* Turn.swift in Sources */,
+				11E5B96128B708C80052DCE4 /* HandlingInput.swift in Sources */,
+				11E5B95F28B706630052DCE4 /* PlayGame.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				3CB8195A28B5F0130090F624 /* InputError.swift in Sources */,
 				3CB8195C28B5F0280090F624 /* RockScissorsPaper.swift in Sources */,
