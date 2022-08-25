@@ -4,8 +4,8 @@
 //
 
 protocol Gameable {
-	associatedtype GameType
-	
-	func fetchUserInput() -> Result<GameType, InputError>
-	func checkValidity(of userInputResult: Result<GameType, InputError>) -> GameState
+    associatedtype GameType
+    
+    func fetchUserInput() -> Result<GameType, InputError>
+    func checkValidity(of userInputResult: Result<GameType, InputError>) -> GameState
 }

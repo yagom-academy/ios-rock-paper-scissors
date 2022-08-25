@@ -4,9 +4,9 @@
 //
 
 protocol GameElement {
-	associatedtype Element
-	
-	func generateComputerCard() -> Element
-	func generateGameResult() -> GameState
-	func compare(to computerCard: Element) -> GameState
+    associatedtype Element
+    
+    func generateComputerCard() -> Element
+    func generateGameResult() -> GameState
+    func compare(to computerCard: Element) -> GameState
 }
