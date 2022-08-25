@@ -1,11 +1,12 @@
 //  Created by 감자 and som on 2022/08/22.
 
-struct RockPaperScissorsGame {
+struct MukChiBbaGame {
     func play() {
+        showRockPaperScissorsMenu()
+        
         guard let userNumber = inputUserNumber() else {
             print(GameComment.retry.rawValue)
-            play()
-            return
+            return play()
         }
         
         if checkEndGame(userNumber) {
@@ -13,23 +14,22 @@ struct RockPaperScissorsGame {
             return
         }
         
-        guard let compareRPS =  convertRPS(inputNumber: userNumber) else {
-            play()
-            return
+        guard let tupleRockPaperScissors =  convertRockPaperScissors(inputNumber: userNumber) else {
+            return play()
         }
         
-        let userGameResult = judgeWinOrLoseAtRPS(RPS: compareRPS)
+        let userGameResult = judgeWinOrLoseAtRockPaperScissors(RockPaperScissors:
+        tupleRockPaperScissors)
         
         showResult(userGameResult)
     }
     
-    func playMCB(turn: Turn) {
-        showMCBMenu(turn: turn)
+    private func playMukChiBba(turn: Turn) {
+        showMukChiBbaMenu(turn: turn)
         
         guard let userNumber = inputUserNumber() else {
             print(GameComment.retry.rawValue)
-            playMCB(turn: .computer)
-            return
+            return playMukChiBba(turn: .computer)
         }
         
         if checkEndGame(userNumber) {
@@ -37,28 +37,25 @@ struct RockPaperScissorsGame {
             return
         }
         
-        guard let compareMCB = convertMCB(inputNumber: userNumber) else {
-            playMCB(turn: .computer)
-            return
+        guard let tupleMukChiBba = convertMukChiBba(inputNumber: userNumber) else {
+            return playMukChiBba(turn: .computer)
         }
         
-        judgeWinOrLoseAtMCB(MCB: (userMCB, computerMCB), to: turn)
+        judgeWinOrLoseAtMukChiBba(MukChiBba: tupleMukChiBba, to: turn)
     }
     
-    private func showMenu() {
-        print(GameComment.gameRPSMenu.rawValue, terminator: "")
+    private func showRockPaperScissorsMenu() {
+        print(GameComment.gameRockPaperScissorsMenu.rawValue, terminator: "")
     }
     
-    private func showMCBMenu(turn: Turn) {
-        print("[\(turn.rawValue) 턴] \(GameComment.gameMCBMenu.rawValue)", terminator: "")
+    private func showMukChiBbaMenu(turn: Turn) {
+        print("[\(turn.rawValue) 턴] \(GameComment.gameMukChiBbaMenu.rawValue)", terminator: "")
     }
     
     private func inputUserNumber() -> Int? {
-        showMenu()
-        
         guard let inputUserNumber = readLine(), inputUserNumber.isEmpty == false else {
             print(GameComment.none.rawValue)
-            return inputUserNumber()
+            return nil
         }
         let inputUserNumberToInt = Int(inputUserNumber)
         return inputUserNumberToInt
@@ -71,7 +68,8 @@ struct RockPaperScissorsGame {
         return true
     }
     
-    private func convertRPS(inputNumber: Int) -> (RockPaperScissors, RockPaperScissors)? {
+    private func convertRockPaperScissors(inputNumber: Int)
+    -> (RockPaperScissors, RockPaperScissors)? {
         guard let numberToRPS: RockPaperScissors = .init(rawValue: inputNumber),
               let computerRPS: RockPaperScissors = .init(rawValue: Int.random(in: 1...3)) else {
             print(GameComment.retry.rawValue)
@@ -80,7 +78,7 @@ struct RockPaperScissorsGame {
         return (numberToRPS, computerRPS)
     }
     
-    private func convertMCB(inputNumber: Int) -> (MukChiBba, MukChiBba)? {
+    private func convertMukChiBba(inputNumber: Int) -> (MukChiBba, MukChiBba)? {
         guard let userNumberMCB: MukChiBba = .init(rawValue: inputNumber),
               let computerMCB: MukChiBba = .init(rawValue: Int.random(in: 1...3)) else {
             print(GameComment.retry.rawValue)
@@ -89,10 +87,12 @@ struct RockPaperScissorsGame {
         return (userNumberMCB, computerMCB)
     }
     
-    private func judgeWinOrLoseAtRPS(RPS: (RockPaperScissors, RockPaperScissors)) -> GameResult {
+    private func judgeWinOrLoseAtRockPaperScissors(
+        RockPaperScissors: (RockPaperScissors, RockPaperScissors)
+    ) -> GameResult {
         let gameResult: GameResult
         
-        switch RPS {
+        switch RockPaperScissors {
         case let (userRPS, computerRPS) where userRPS == computerRPS:
             gameResult = .draw
         case (.scissors, .paper), (.paper, .rock), (.rock, .scissors) :
@@ -103,16 +103,16 @@ struct RockPaperScissorsGame {
         return gameResult
     }
     
-    private func judgeWinOrLoseAtMCB(MCB: (MukChiBba, MukChiBba), to turn: Turn) {
-        switch MCB {
+    private func judgeWinOrLoseAtMukChiBba(MukChiBba: (MukChiBba, MukChiBba), to turn: Turn) {
+        switch MukChiBba {
         case let (userMCB, computerMCB) where userMCB == computerMCB:
             print("\(turn.rawValue)의 승리!")
         case (.chi, .bba), (.bba, .muk), (.muk, .chi) :
             print("사용자의 턴입니다.")
-            playMCB(turn: .user)
+            playMukChiBba(turn: .user)
         default:
             print("컴퓨터의 턴입니다.")
-            playMCB(turn: .computer)
+            playMukChiBba(turn: .computer)
         }
     }
     
@@ -120,10 +120,10 @@ struct RockPaperScissorsGame {
         switch result {
         case .win:
             print(GameComment.gameWin.rawValue)
-            playMCB(turn: .user)
+            playMukChiBba(turn: .user)
         case .lose:
             print(GameComment.gameLose.rawValue)
-            playMCB(turn: .computer)
+            playMukChiBba(turn: .computer)
         case .draw:
             print(GameComment.gameDraw.rawValue)
             play()
