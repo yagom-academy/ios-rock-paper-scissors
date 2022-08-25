@@ -12,7 +12,8 @@ struct GameManager {
             print(ErrorMessage.invalidMenuNumber)
             return startRockPaperScissorsGame()
         }
-        guard let userHandShape = receiveHandShapeFromUser() else {
+        
+        guard let userHandShape = receiveHandShape(of: menuNumber) else {
             print(ManualMessage.ending)
             return
         }
@@ -31,13 +32,9 @@ struct GameManager {
         }
     }
     
-    private func receiveHandShapeFromUser() -> HandShape? {
-        let userHandShapeRawValue = receiveHandShapeRawValueFromUser()
-        
-        if userHandShapeRawValue == 0 {
-            return nil
-        }
-        return HandShape.init(rawValue: userHandShapeRawValue)
+    private func receiveHandShape(of menuNumber: Int) -> HandShape? {
+        let handShape = HandShape.init(rawValue: menuNumber)
+        return handShape
     }
     
     private func receiveMenuNumber() -> Int? {
