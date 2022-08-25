@@ -4,6 +4,11 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-enum GameResult {
+enum RockPaperScissorsGameResult {
     case win, lose, draw
+}
+
+enum MukJjiBbaGameResult {
+    case win
+    case reMatch(RockPaperScissorsGameResult)
 }
