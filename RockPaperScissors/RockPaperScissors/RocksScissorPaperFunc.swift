@@ -15,21 +15,25 @@ func printMukZiPaMenu(turn: Turn) {
     print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " ")
 }
 
-func getUserHandNumber() -> Int? {
+func getUserInput() -> String? {
     let input = readLine()
-    return validateUserHandNumber(input: input)
+    return input
 }
 
-func validateUserHandNumber(input: String?) -> Int? {
+func validateUserInputNumber(input: String?) -> Bool {
     guard let input = input,
-          let userHandNumber = Int(input),
-          userHandNumber <= 3,
-          userHandNumber >= 0
+          let userInputNumber = Int(input),
+          userInputNumber <= 3,
+          userInputNumber >= 0
     else {
-        print("잘못된 입력입니다. 다시 시도해 주세요")
-        return nil
+        return false
     }
-    return userHandNumber
+    return true
+}
+
+func makeStringToInt(_ input: String?) -> Int? {
+    guard let input = input else { return nil }
+    return Int(input)
 }
 
 func setHandType(_ userHandNumber: Int) -> (HandType, HandType)? {

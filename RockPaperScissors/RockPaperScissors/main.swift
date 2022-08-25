@@ -10,12 +10,14 @@ startGame()
 
 func startGame() {
     printRockScissorPaperMenu()
-    guard let userHandNumber = getUserHandNumber() else {
+    let userInput = getUserInput()
+    guard validateUserInputNumber(input: userInput) else {
+        print("잘못된 입력입니다. 다시 시도해 주세요")
         startGame()
         return
     }
-    
-    guard let hands = setHandType(userHandNumber) else {
+    guard let userInputNumber = makeStringToInt(userInput) else { return }
+    guard let hands = setHandType(userInputNumber) else {
         return
     }
     compareHandsForRSP(from: hands)
@@ -23,10 +25,13 @@ func startGame() {
 
 func playMGP(turn: Turn) {
     printMukZiPaMenu(turn: turn)
-    guard let userHandNumber = getUserHandNumber() else {
+    let userInput = getUserInput()
+    guard validateUserInputNumber(input: userInput) else {
+        print("잘못된 입력입니다. 다시 시도해 주세요")
         playMGP(turn: Turn.computer)
         return
     }
-    guard let hands = setHandType(userHandNumber) else { return }
+    guard let userInputNumber = makeStringToInt(userInput) else { return }
+    guard let hands = setHandType(userInputNumber) else { return }
     compareHandsForMGP(from: hands, with: turn)
 }
