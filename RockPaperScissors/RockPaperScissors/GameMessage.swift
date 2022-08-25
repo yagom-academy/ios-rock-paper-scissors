@@ -15,6 +15,12 @@ enum ErrorMessage {
 }
 
 enum ManualMessage {
-    static let userInputManual = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    static let rockPaperScissorsManual = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
+    static let mukJjiBbaManual = "묵(1), 찌(2), 빠(3)! <종료 : 0> : "
     static let ending = "게임 종료"
+}
+
+enum Player {
+    static let computer = "컴퓨터"
+    static let user = "사용자"
 }

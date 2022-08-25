@@ -4,10 +4,12 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+import CoreGraphics
+
 struct GameManager {
     
     func startRockPaperScissorsGame() {
-        print(ManualMessage.userInputManual, terminator: "")
+        print(ManualMessage.rockPaperScissorsManual, terminator: "")
         guard let menuNumber = receiveMenuNumber() else {
             print(ErrorMessage.invalidMenuNumber)
             return startRockPaperScissorsGame()
@@ -68,5 +70,12 @@ struct GameManager {
     private func generateComputerHandShape() -> HandShape {
         guard let computerHandShape = HandShape.init(rawValue: Int.random(in: 1...3)) else { return generateComputerHandShape() }
         return computerHandShape
+    }
+    
+    private func startMukJjiBbaGame(from winner: String) {
+        var turnPlayer = winner
+        let turnInfomation = "[\(turnPlayer) 턴]"
+        print(turnInfomation, ManualMessage.mukJjiBbaManual)
+        
     }
 }
