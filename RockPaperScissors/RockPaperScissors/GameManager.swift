@@ -82,7 +82,7 @@ struct GameManager {
             return startMukJjiBbaGame(Player.computer)
         }
         
-        guard let userHandShape = HandShape.init(rawValue: menuNumber, isMukJjiBba: true) else {
+        guard let userHandShape = HandShape.init(rawValue: menuNumber, option: .mukJjiBba) else {
             print(ManualMessage.ending)
             return
         }
