@@ -58,6 +58,15 @@ struct RockPaperScissorsGame {
         return (numberToRPS, computerRPS)
     }
     
+    private func convertMCB(inputNumber: Int) -> (MukChiBba, MukChiBba)? {
+        guard let userNumberMCB: MukChiBba = .init(rawValue: inputNumber),
+              let computerMCB: MukChiBba = .init(rawValue: Int.random(in: 1...3)) else {
+            print(GameComment.retry.rawValue)
+            return nil
+        }
+        return (userNumberMCB, computerMCB)
+    }
+    
     private func judgeWinOrLoseAtRPS(RPS: (RockPaperScissors, RockPaperScissors)) -> GameResult {
         let gameResult: GameResult
         
