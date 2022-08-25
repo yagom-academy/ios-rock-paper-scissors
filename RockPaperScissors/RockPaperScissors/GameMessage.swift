@@ -11,7 +11,7 @@ enum GameResultMessage {
 }
 
 enum ErrorMessage {
-    static let invalidHandShapeRawValue = "잘못된 입력입니다. 다시 시도해주세요."
+    static let invalidMenuNumber = "잘못된 입력입니다. 다시 시도해주세요."
 }
 
 enum ManualMessage {
