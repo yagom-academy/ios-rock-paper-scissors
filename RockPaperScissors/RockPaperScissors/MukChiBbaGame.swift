@@ -9,11 +9,11 @@ import Foundation
 
 func readyMukChiBbaGame(takeUserWin: Bool) {
     var exit: Bool = false
-    var takeUserWin = takeUserWin
+    var isUserWin = takeUserWin
     var computerNumber: Int
     var roundOneWinner: String {
         get {
-            if takeUserWin == true {
+            if isUserWin == true {
                 return "사용자"
             } else {
                 return "컴퓨터" }
@@ -25,23 +25,23 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
         print("[\(roundOneWinner) 턴] (묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         
         guard let userNumber = filterUserInput() else {
-            if takeUserWin == true {
-                takeUserWin = !takeUserWin
+            if isUserWin == true {
+                isUserWin = !isUserWin
             }
             continue
         }
         
-        var exitOrTurnChange = (종료하기: exit, 유저이겼나체크: takeUserWin)
-        exitOrTurnChange = startMukChiBbaGame(computerNumber: computerNumber, userNumber: userNumber, takeUserWin: takeUserWin)
+        var exitOrTurnChange = (canExit: exit, checkUserWin: isUserWin)
+        exitOrTurnChange = startMukChiBbaGame(computerNumber: computerNumber, userNumber: userNumber, takeUserWin: isUserWin)
         
         switch exitOrTurnChange {
-        case (종료하기: true, _):
+        case (canExit: true, _):
             exit = true
-        case (종료하기: false, 유저이겼나체크: false):
-            takeUserWin = false
+        case (canExit: false, checkUserWin: false):
+            isUserWin = false
             continue
-        case (종료하기: false, 유저이겼나체크: true):
-            takeUserWin = true
+        case (canExit: false, checkUserWin: true):
+            isUserWin = true
             continue
         }
     }
@@ -51,7 +51,7 @@ func startMukChiBbaGame(computerNumber: Int, userNumber: Int, takeUserWin: Bool)
     var takeUserWin = takeUserWin
     let computerPick = MukChiBba(rawValue: computerNumber)
     let userPick = MukChiBba(rawValue: userNumber)
-    let compareTwoThings = (컴퓨터가낸것: computerPick, 유저가낸것: userPick)
+    let compareTwoThings = (computerPick, userPick)
     
     if userNumber == 0 {
         print("게임 종료")
@@ -65,9 +65,7 @@ func startMukChiBbaGame(computerNumber: Int, userNumber: Int, takeUserWin: Bool)
     }
     
     switch compareTwoThings {
-    case (컴퓨터가낸것: .묵, 유저가낸것: .빠),
-        (컴퓨터가낸것: .찌, 유저가낸것: .묵),
-        (컴퓨터가낸것: .빠, 유저가낸것: .찌):
+    case (.muk, .bba), (.chi, .muk), (.bba, .chi):
         takeUserWin = true
     default:
         takeUserWin = false

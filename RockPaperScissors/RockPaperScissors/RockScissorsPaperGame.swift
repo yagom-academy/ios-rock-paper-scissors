@@ -8,15 +8,15 @@
 import Foundation
 
 enum RockScissorsPaper: Int {
-    case 가위 = 1
-    case 바위 = 2
-    case 보 = 3
+    case scissors = 1
+    case rock = 2
+    case paper = 3
 }
 
 enum MukChiBba: Int {
-    case 묵 = 1
-    case 찌 = 2
-    case 빠 = 3
+    case muk = 1
+    case chi = 2
+    case bba = 3
 }
 
 func filterUserInput() -> Int? {
@@ -38,21 +38,17 @@ func readyRockScissorsPaperGame() {
 
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
-        guard let userNumber = filterUserInput() else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            continue
-        }
+        guard let userNumber = filterUserInput() else { continue }
 
         exitGame = startRockScissorsPaperGame(by : computerNumber, and : userNumber)
     }
 }
 
 func startRockScissorsPaperGame(by computerChoice: Int, and userChoice: Int) -> Bool {
-    var userWin: Bool
     let selectMenu = userChoice
     let computerPick = RockScissorsPaper(rawValue: computerChoice)
     let userPick = RockScissorsPaper(rawValue: userChoice)
-    let compareTwoThings = (컴퓨터가낸것: computerPick, 유저가낸것: userPick)
+    let compareTwoThings = (computerPick, userPick)
     
     if selectMenu == 0 {
         print("게임 종료")
@@ -63,17 +59,13 @@ func startRockScissorsPaperGame(by computerChoice: Int, and userChoice: Int) -> 
     }
     
     switch compareTwoThings {
-    case (컴퓨터가낸것: .가위, 유저가낸것: .바위),
-        (컴퓨터가낸것: .바위, 유저가낸것: .보),
-        (컴퓨터가낸것: .보, 유저가낸것: .가위):
+    case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
         print("이겼습니다!")
-        userWin = true
-        readyMukChiBbaGame(takeUserWin: userWin)
+        readyMukChiBbaGame(takeUserWin: true)
         return true
     default:
         print("졌습니다!")
-        userWin = false
-        readyMukChiBbaGame(takeUserWin: userWin)
+        readyMukChiBbaGame(takeUserWin: false)
         return true
     }
 }
