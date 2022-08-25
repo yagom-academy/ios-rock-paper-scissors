@@ -50,7 +50,7 @@ struct GameManager {
         return HandShapeRawValue
     }
     
-    private func fetchGameResult(of userHandShape: HandShape) -> GameResult {
+    private func fetchGameResult(of userHandShape: HandShape) -> RockPaperScissorsGameResult {
         let computerHandShape = generateComputerHandShape()
 
         switch (userHandShape, computerHandShape) {
@@ -75,7 +75,7 @@ struct GameManager {
     private func startMukJjiBbaGame(from winner: String) {
         var turnPlayer = winner
         let turnInfomation = "[\(turnPlayer) 턴]"
-        print(turnInfomation, ManualMessage.mukJjiBbaManual)
+        print(turnInfomation, ManualMessage.mukJjiBbaManual, terminator: "")
         
         guard let menuNumber = receiveMenuNumber() else {
             print(ErrorMessage.invalidMenuNumber)
