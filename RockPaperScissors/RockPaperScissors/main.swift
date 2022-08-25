@@ -61,7 +61,7 @@ func checkResult(to userNumber: Int) -> String {
     }
 }
 
-func excuteSRP() -> String {
+func excuteScissorsRockPaper() -> String {
     while true {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         guard let userNumber = createUserNumber() else {
@@ -76,9 +76,9 @@ func excuteSRP() -> String {
     }
 }
 
-func excuteMJB(_ winner: String) -> String {
+func excuteMukChiBa(from scissorsRockPaperWinner: String) -> String {
     while true {
-        print("[\(winner)의 턴입니다] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        print("[\(scissorsRockPaperWinner)의 턴입니다] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         guard let userNumber = createUserNumber() else {
             return "컴퓨터"
         }
@@ -89,13 +89,13 @@ func excuteMJB(_ winner: String) -> String {
 }
 
 func startGame() {
-    var winner = excuteSRP()
+    var winner = excuteScissorsRockPaper()
     
     if winner == "종료" {
         return
     }
     
-    var gameResult = excuteMJB(winner)
+    var gameResult = excuteMukChiBa(from: winner)
     
     while true {
         switch gameResult {
@@ -104,10 +104,10 @@ func startGame() {
             return
         case "사용자" :
             winner = "사용자"
-            gameResult = excuteMJB(winner)
+            gameResult = excuteMukChiBa(from: winner)
         case "컴퓨터" :
             winner = "컴퓨터"
-            gameResult = excuteMJB(winner)
+            gameResult = excuteMukChiBa(from: winner)
         default :
             return
         }
