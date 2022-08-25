@@ -17,14 +17,14 @@ struct MukChiBaGame {
         printUserMenu(turnOwner: turnOwner)
         guard let selectedUserMenu: Int = userInput() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return getSelectedUserMenu(turnOwner: turnOwner)
+            return getSelectedUserMenu(turnOwner: .computer)
         }
         
         if isCorrectUserMenu(selectedUserMenu) {
             return selectedUserMenu
         } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return getSelectedUserMenu(turnOwner: turnOwner)
+            return getSelectedUserMenu(turnOwner: .computer)
         }
     }
     
@@ -46,5 +46,38 @@ struct MukChiBaGame {
         }
     }
     
+    private func getComputerHand() -> MukChiBa? {
+        return MukChiBa.allCases.randomElement()
+    }
+    
+    private func compareComputerHand(with userHand: MukChiBa) -> GameResult? {
+        guard let computerHand: MukChiBa = getComputerHand() else {
+            return nil
+        }
+        guard userHand != computerHand else {
+            return .draw
+        }
+        
+        switch userHand {
+        case .muk:
+            if computerHand == .chi {
+                return .win
+            } else {
+                return .lose
+            }
+        case .chi:
+            if computerHand == .ba {
+                return .win
+            } else {
+                return .lose
+            }
+        case .ba:
+            if computerHand == .muk {
+                return .win
+            } else {
+                return .lose
+            }
+        }
+    }
 
 }
