@@ -23,6 +23,28 @@ struct RockPaperScissorsGame {
         showResult(userGameResult)
     }
     
+    func playMCB(turn: Turn) {
+        showMCBMenu(turn: turn)
+        
+        guard let userNumber = inputUserNumber() else {
+            print(GameComment.retry.rawValue)
+            playMCB(turn: .computer)
+            return
+        }
+        
+        if checkEndGame(userNumber) {
+            print(GameComment.gameOver.rawValue)
+            return
+        }
+        
+        guard let compareMCB = convertMCB(inputNumber: userNumber) else {
+            playMCB(turn: .computer)
+            return
+        }
+        
+        judgeWinOrLoseAtMCB(MCB: (userMCB, computerMCB), to: turn)
+    }
+    
     private func showMenu() {
         print(GameComment.gameRPSMenu.rawValue, terminator: "")
     }
@@ -87,8 +109,10 @@ struct RockPaperScissorsGame {
             print("\(turn.rawValue)의 승리!")
         case (.chi, .bba), (.bba, .muk), (.muk, .chi) :
             print("사용자의 턴입니다.")
+            playMCB(turn: .user)
         default:
             print("컴퓨터의 턴입니다.")
+            playMCB(turn: .computer)
         }
     }
     
@@ -96,8 +120,10 @@ struct RockPaperScissorsGame {
         switch result {
         case .win:
             print(GameComment.gameWin.rawValue)
+            playMCB(turn: .user)
         case .lose:
             print(GameComment.gameLose.rawValue)
+            playMCB(turn: .computer)
         case .draw:
             print(GameComment.gameDraw.rawValue)
             play()
