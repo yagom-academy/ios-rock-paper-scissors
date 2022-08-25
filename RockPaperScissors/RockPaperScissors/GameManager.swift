@@ -86,5 +86,24 @@ struct GameManager {
             print(ManualMessage.ending)
             return
         }
+        
+        let computerHandShape = generateComputerHandShape()
+        
+        let gameResult = fetchGameResult(comparing: userHandShape, and: computerHandShape)
+    }
+
+    private func fetchGameResult(comparing userHandShape: HandShape, and computerHandShape: HandShape) -> MukJjiBbaGameResult {
+        switch (userHandShape, computerHandShape) {
+        case (HandShape.rock , HandShape.scissors),
+            (HandShape.paper , HandShape.rock),
+            (HandShape.scissors , HandShape.paper):
+            return .lose(RockPaperScissorsGameResult.win)
+        case (HandShape.scissors , HandShape.rock),
+            (HandShape.rock , HandShape.paper),
+            (HandShape.paper , HandShape.scissors):
+            return .lose(RockPaperScissorsGameResult.lose)
+        default:
+            return .win
+        }
     }
 }
