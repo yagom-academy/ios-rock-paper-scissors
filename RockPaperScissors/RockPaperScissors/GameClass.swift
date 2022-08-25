@@ -26,21 +26,21 @@ class Game {
 }
 
 class RockPaperScissors: Game {
-    var mujjippa: mukjjippa = mukjjippa()
+    var mukchiba: Mukchiba = Mukchiba()
     
     override func judgeWinner(with userNumber: Int, and computerNumber: Int) {
         let userHandSign = translateNumbersToHandSigns(of: userNumber)
         let computerHandSign = translateNumbersToHandSigns(of: computerNumber)
-        
+         
         switch (userHandSign, computerHandSign) {
         case (.scissors, .paper), (.paper, .rock), (.rock, .scissors) :
             print("이겼습니다!")
             offensivePlayer = "사용자"
-            mujjippa.startMukjjippa(with: offensivePlayer)
+            mukchiba.startMukchiba()
         case (.scissors, .rock), (.paper, .scissors), (.rock, .paper) :
             print("졌습니다!")
             offensivePlayer = "컴퓨터"
-            mujjippa.startMukjjippa(with: offensivePlayer)
+            mukchiba.startMukchiba()
 
         default:
             print("비겼습니다!")
@@ -61,8 +61,8 @@ class RockPaperScissors: Game {
     }
 }
 
-class mukjjippa: Game {
-    func startMukjjippa(with offensivePlayer: String) {
+class Mukchiba: Game {
+    func startMukchiba() {
         let userNumber = getUserInput()
         let computerNumber = generateRandomComputerNumber()
         switchMenu(userNumber: userNumber, computerNumber: computerNumber)
@@ -79,11 +79,11 @@ class mukjjippa: Game {
         case (.scissors, .rock), (.paper, .scissors), (.rock, .paper) :
             print("컴퓨터의 턴입니다.")
             offensivePlayer = "컴퓨터"
-            startMukjjippa(with: offensivePlayer)
+            startMukchiba()
         default:
             print("사용자의 턴입니다.")
             offensivePlayer = "사용자"
-            startMukjjippa(with: offensivePlayer)
+            startMukchiba()
         }
     }
     
@@ -103,9 +103,9 @@ class mukjjippa: Game {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             if offensivePlayer == "사용자" {
                 offensivePlayer = "컴퓨터"
-                startMukjjippa(with: offensivePlayer)
+                startMukchiba()
             } else {
-                startMukjjippa(with: offensivePlayer)
+                startMukchiba()
             }
         }
     }
