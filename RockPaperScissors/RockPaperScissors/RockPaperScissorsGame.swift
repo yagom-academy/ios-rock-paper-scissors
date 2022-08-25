@@ -68,6 +68,17 @@ struct RockPaperScissorsGame {
         return gameResult
     }
     
+    private func judgeWinOrLoseAtMCB(MCB: (MukChiBba, MukChiBba), to turn: Turn) {
+        switch MCB {
+        case let (userMCB, computerMCB) where userMCB == computerMCB:
+            print("\(turn.rawValue)의 승리!")
+        case (.chi, .bba), (.bba, .muk), (.muk, .chi) :
+            print("사용자의 턴입니다.")
+        default:
+            print("컴퓨터의 턴입니다.")
+        }
+    }
+    
     private func showResult(_ result: GameResult) {
         switch result {
         case .win:
