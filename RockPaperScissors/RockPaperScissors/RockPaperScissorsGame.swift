@@ -14,12 +14,13 @@ struct RockPaperScissorsGame {
             return nil
         }
         print(gameResult.result)
-        if gameResult == .draw {
+        
+        switch gameResult {
+        case .draw:
             return startGame()
-        }
-        if gameResult == .win {
+        case .win:
             return .user
-        } else {
+        case .lose:
             return .computer
         }
     }
