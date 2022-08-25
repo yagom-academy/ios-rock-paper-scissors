@@ -2,7 +2,7 @@
 //  Player.File.swift
 //  RockPaperScissors
 //
-//  Created by 서현웅 on 2022/08/25.
+//  Created by woong, mene on 2022/08/25.
 //
 
 import Foundation

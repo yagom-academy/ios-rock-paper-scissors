@@ -2,7 +2,7 @@
 //  GameMessages.swift
 //  RockPaperScissors
 //
-//  Created by smfc on 25/8/2022.
+//  Created by woong, mene on 25/8/2022.
 //
 
 import Foundation
