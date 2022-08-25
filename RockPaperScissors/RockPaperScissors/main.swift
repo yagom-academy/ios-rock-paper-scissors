@@ -4,8 +4,4 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-//readyRockScissorsPaperGame()
-
-print(RockScissorsPaper.allCases.randomElement()?.rawValue ?? 0)
-print(RockScissorsPaper.allCases.randomElement()?.rawValue ?? 0)
-print(RockScissorsPaper.allCases.randomElement()?.rawValue ?? 0)
+startGame()

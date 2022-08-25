@@ -5,7 +5,7 @@
 //  Created by 애종, Mangdi.
 //
 
-func readyMukChiBbaGame(takeUserWin: Bool) {
+func startMukChiBbaGame(takeUserWin: Bool) {
     var isExitGame: Bool = false
     var isUserWin = takeUserWin
     var roundOneWinner: String {
@@ -27,23 +27,23 @@ func readyMukChiBbaGame(takeUserWin: Bool) {
             continue
         }
         
-        var exitOrTurnChange = (canExit: isExitGame, checkUserWin: isUserWin)
-        exitOrTurnChange = startMukChiBbaGame(userNumber: userNumber, takeUserWin: isUserWin)
+        var exitOrTurnChange = (canExit: isExitGame, checkUserTurn: isUserWin)
+        exitOrTurnChange = decideWhoWins(userNumber: userNumber, takeUserWin: isUserWin)
         
         switch exitOrTurnChange {
         case (canExit: true, _):
             isExitGame = true
-        case (canExit: false, checkUserWin: false):
+        case (canExit: false, checkUserTurn: false):
             isUserWin = false
             continue
-        case (canExit: false, checkUserWin: true):
+        case (canExit: false, checkUserTurn: true):
             isUserWin = true
             continue
         }
     }
 }
 
-func startMukChiBbaGame(userNumber: Int, takeUserWin: Bool) -> (Bool,Bool) {
+func decideWhoWins(userNumber: Int, takeUserWin: Bool) -> (Bool,Bool) {
     var takeUserWin = takeUserWin
     let computerPick = MukChiBba.allCases.randomElement()
     let userPick = MukChiBba(rawValue: userNumber)

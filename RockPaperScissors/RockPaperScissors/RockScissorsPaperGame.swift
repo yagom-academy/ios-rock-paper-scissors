@@ -29,18 +29,18 @@ func filterUserInput() -> Int? {
     return nil
 }
 
-func readyRockScissorsPaperGame() {
+func startGame() {
     var isExitGame: Bool = false
 
     while isExitGame == false {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
         guard let userNumber = filterUserInput() else { continue }
-        isExitGame = startRockScissorsPaperGame(and : userNumber)
+        isExitGame = decideWhoStartsFirstTurn(with : userNumber)
     }
 }
 
-func startRockScissorsPaperGame(and userChoice: Int) -> Bool {
+func decideWhoStartsFirstTurn(with userChoice: Int) -> Bool {
     let selectMenu = userChoice
     let computerPick = RockScissorsPaper.allCases.randomElement()
     let userPick = RockScissorsPaper(rawValue: userChoice)
@@ -57,11 +57,11 @@ func startRockScissorsPaperGame(and userChoice: Int) -> Bool {
     switch compareTwoThings {
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
         print("이겼습니다!")
-        readyMukChiBbaGame(takeUserWin: true)
+        startMukChiBbaGame(takeUserWin: true)
         return true
     default:
         print("졌습니다!")
-        readyMukChiBbaGame(takeUserWin: false)
+        startMukChiBbaGame(takeUserWin: false)
         return true
     }
 }
