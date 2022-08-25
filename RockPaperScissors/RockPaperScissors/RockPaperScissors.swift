@@ -42,30 +42,30 @@ func playMukJjiPpaGame() {
     print("computerMukJjiPpa : \(randomComputerMukJjiPpa)")
     
     if isUserTurn {
-        print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+        print("[\(Player.user.rawValue)", GameMessages.mukJjiPpaGameMemu, terminator: " ")
     } else {
-        print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+        print("[\(Player.computer.rawValue)", GameMessages.mukJjiPpaGameMemu, terminator: " ")
     }
     
     guard let inputNumberString = readLine(),
           let inputNumber = Int(inputNumberString),
           let result = MukJjiPpa(rawValue: inputNumber) else {
         
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        print(GameMessages.inputWrong)
         isUserTurn = false
         return playMukJjiPpaGame()
     }
     switch result {
     case .none:
-        print("게임종료")
+        print(GameMessages.endGame)
     case .muk, .jji, .ppa:
         let mukJjiPpaResult: MukJjiPpaResult = compareMukJjiPpa(with: randomComputerMukJjiPpa, and: result)
         
         switch (isUserTurn, mukJjiPpaResult) {
         case (true, .draw):
-            print("사용자의 승리!")
+            print(Player.user.rawValue + GameMessages.victory)
         case (false, .draw):
-            print("컴퓨터의 승리!")
+            print(Player.computer.rawValue + GameMessages.victory)
         case (true, .win),(false, .win):
             print(mukJjiPpaResult.rawValue)
             isUserTurn = true
@@ -82,19 +82,19 @@ func startGame() {
     let randomComputerHand: Hand = Hand(rawValue: Int.random(in: 1...3)).unsafelyUnwrapped
     
     print("computerHand : \(randomComputerHand)")
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+    print(GameMessages.rockPaperScissorGameMenu, terminator: " ")
     
     guard let inputNumberString = readLine(),
           let inputNumber = Int(inputNumberString),
           let result = Hand(rawValue: inputNumber) else {
         
-        print("잘못된 입력입니다. 다시 시도해주세요.")
+        print(GameMessages.inputWrong)
         return startGame()
     }
     
     switch result {
     case .none:
-        print("게임종료")
+        print(GameMessages.endGame)
     case .rock, .scissor, .paper:
         let gameResult: Result = compareHand(with: randomComputerHand, and: result)
         
