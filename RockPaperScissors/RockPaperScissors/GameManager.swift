@@ -24,10 +24,10 @@ struct GameManager {
         switch gameResult {
         case .win:
             print(GameResultMessage.winning)
-            return
+            startMukJjiBbaGame(Player.user)
         case .lose:
             print(GameResultMessage.losing)
-            return
+            startMukJjiBbaGame(Player.computer)
         case .draw:
             print(GameResultMessage.draw)
             startRockPaperScissorsGame()
@@ -88,7 +88,7 @@ struct GameManager {
         }
         
         let computerHandShape = generateComputerHandShape()
-        
+
         let gameResult = fetchGameResult(comparing: userHandShape, and: computerHandShape)
         
         switch gameResult {
@@ -102,7 +102,7 @@ struct GameManager {
             } else {
                 turnPlayer = Player.computer
             }
-            let reMatchMessage = "\(turnPlayer)턴 입니다."
+            let reMatchMessage = "\(turnPlayer)의 턴입니다."
             print(reMatchMessage)
             return startMukJjiBbaGame(turnPlayer)
         }
