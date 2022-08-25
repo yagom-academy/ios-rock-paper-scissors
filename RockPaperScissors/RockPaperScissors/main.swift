@@ -4,8 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
+let mukChibaGame: MukChiba = .init()
 
-let rockPaperScissorsGame: RockPaperScissors = .init()
-
-rockPaperScissorsGame.startGame()
+mukChibaGame.startGame()
