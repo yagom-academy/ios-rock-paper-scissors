@@ -26,6 +26,8 @@ class Game {
 }
 
 class RockPaperScissors: Game {
+    var mujjippa: mukjjippa = mukjjippa()
+    
     override func judgeWinner(with userNumber: Int, and computerNumber: Int) {
         let userHandSign = translateNumbersToHandSigns(of: userNumber)
         let computerHandSign = translateNumbersToHandSigns(of: computerNumber)
@@ -34,15 +36,15 @@ class RockPaperScissors: Game {
         case (.scissors, .paper), (.paper, .rock), (.rock, .scissors) :
             print("이겼습니다!")
             offensivePlayer = "사용자"
-            startMukjjippa(with: offensivePlayer)
+            mujjippa.startMukjjippa(with: offensivePlayer)
         case (.scissors, .rock), (.paper, .scissors), (.rock, .paper) :
             print("졌습니다!")
             offensivePlayer = "컴퓨터"
-            startMukjjippa(with: offensivePlayer)
+            mujjippa.startMukjjippa(with: offensivePlayer)
 
         default:
             print("비겼습니다!")
-            startGame()
+            self.startRockPaperScissors()
         }
     }
     
@@ -51,9 +53,21 @@ class RockPaperScissors: Game {
         guard let input = readLine(), input.count == 1, let userNumber = Int(input) else { return 4 }
         return userNumber
     }
+    
+    func startRockPaperScissors() {
+        let userNumber = self.getUserInput()
+        let computerNumber = self.generateRandomComputerNumber()
+        self.switchMenu(userNumber: userNumber, computerNumber: computerNumber)
+    }
 }
 
 class mukjjippa: Game {
+    func startMukjjippa(with offensivePlayer: String) {
+        let userNumber = getUserInput()
+        let computerNumber = generateRandomComputerNumber()
+        switchMenu(userNumber: userNumber, computerNumber: computerNumber)
+    }
+    
     override func judgeWinner(with userNumber: Int, and computerNumber: Int) {
         let userHandSign = translateNumbersToHandSigns(of: userNumber)
         let computerHandSign = translateNumbersToHandSigns(of: computerNumber)
