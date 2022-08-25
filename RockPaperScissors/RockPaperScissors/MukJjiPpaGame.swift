@@ -43,6 +43,10 @@ struct MukJjiPpaGame {
         }
     }
     
+    private func printMJPMenu() {
+        print("[\(currentTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+    }
+    
     private mutating func changeTurn(_ result: GameResult) {
         if result == .win {
             self.currentTurn = .user
@@ -51,9 +55,5 @@ struct MukJjiPpaGame {
         }
         
         print("\(currentTurn.rawValue)의 턴입니다.")
-    }
-    
-    private func printMJPMenu() {
-        print("[\(currentTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
     }
 }

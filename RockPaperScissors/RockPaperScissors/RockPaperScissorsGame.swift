@@ -2,7 +2,7 @@ struct RockPaperScissorsGame {
     internal var RPSWinner: Player = .none
     
     mutating func startRPSGame() {
-        printRPGMenu()
+        printRPSMenu()
         
         guard let userRPSNumber = fetchUserNumber() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -38,7 +38,7 @@ struct RockPaperScissorsGame {
         }
     }
 
-    private func printRPGMenu() {
+    private func printRPSMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
     
