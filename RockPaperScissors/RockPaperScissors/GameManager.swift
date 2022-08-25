@@ -4,8 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-import CoreGraphics
-
 struct GameManager {
     
     func startRockPaperScissorsGame() {
