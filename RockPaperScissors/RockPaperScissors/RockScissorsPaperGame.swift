@@ -2,12 +2,12 @@
 //  step1.swift
 //  RockPaperScissors
 //
-//  Created by Victor on 2022/08/23.
+//  Created by 애종, Mangdi.
 //
 
 import Foundation
 
-enum RockScissorsPaper: Int {
+enum RockScissorsPaper: Int, CaseIterable {
     case scissors = 1
     case rock = 2
     case paper = 3
@@ -30,23 +30,19 @@ func filterUserInput() -> Int? {
 }
 
 func readyRockScissorsPaperGame() {
-    var computerNumber: Int
     var exitGame: Bool = false
 
     while exitGame == false {
-        computerNumber = Int.random(in: 1...3)
-
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
         guard let userNumber = filterUserInput() else { continue }
-
-        exitGame = startRockScissorsPaperGame(by : computerNumber, and : userNumber)
+        exitGame = startRockScissorsPaperGame(and : userNumber)
     }
 }
 
-func startRockScissorsPaperGame(by computerChoice: Int, and userChoice: Int) -> Bool {
+func startRockScissorsPaperGame(and userChoice: Int) -> Bool {
     let selectMenu = userChoice
-    let computerPick = RockScissorsPaper(rawValue: computerChoice)
+    let computerPick = RockScissorsPaper.allCases.randomElement()
     let userPick = RockScissorsPaper(rawValue: userChoice)
     let compareTwoThings = (computerPick, userPick)
     

@@ -2,10 +2,8 @@
 //  MukChiBbaGame.swift
 //  RockPaperScissors
 //
-//  Created by Victor on 2022/08/24.
+//  Created by 애종, Mangdi.
 //
-
-import Foundation
 
 func readyMukChiBbaGame(takeUserWin: Bool) {
     var exit: Bool = false
