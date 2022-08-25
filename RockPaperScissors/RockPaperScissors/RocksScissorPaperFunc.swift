@@ -45,17 +45,17 @@ func setHandType(_ userHandNumber: Int) -> (HandType, HandType)? {
     return (userHand, computerHand)
 }
 
-func compareHandsForRSP(from hands: (HandType, HandType)) {
+func compareHandsForRockScissorPaper(from hands: (HandType, HandType)) {
     switch hands {
     case let (user, computer) where user == computer:
         print("비겼습니다!")
         startGame()
     case (.scissor, .paper), (.paper, .rock), (.rock, .scissor):
         print("이겼습니다!")
-        playMGP(turn: .user)
+        playMukZiPa(turn: .user)
     default:
         print("졌습니다!")
-        playMGP(turn: .computer)
+        playMukZiPa(turn: .computer)
     }
 }
 
@@ -65,9 +65,9 @@ func compareHandsForMGP(from hands: (HandType, HandType), with turn: Turn) {
         print("\(turn.rawValue)의 승리!")
     case (.scissor, .paper), (.paper, .rock), (.rock, .scissor):
         print("사용자의 턴입니다.")
-        playMGP(turn: .user)
+        playMukZiPa(turn: .user)
     default:
         print("컴퓨터의 턴입니다.")
-        playMGP(turn: .computer)
+        playMukZiPa(turn: .computer)
     }
 }
