@@ -59,7 +59,7 @@ func compareHandsForRockScissorPaper(from hands: (HandType, HandType)) {
     }
 }
 
-func compareHandsForMGP(from hands: (HandType, HandType), with turn: Turn) {
+func compareHandsForMukZiPa(from hands: (HandType, HandType), with turn: Turn) {
     switch hands {
     case let (user, computer) where user == computer:
         print("\(turn.rawValue)의 승리!")

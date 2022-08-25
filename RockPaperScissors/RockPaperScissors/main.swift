@@ -34,5 +34,5 @@ func playMukZiPa(turn: Turn) {
     }
     guard let userInputNumber = makeStringToInt(userInput) else { return }
     guard let hands = setHandType(userInputNumber) else { return }
-    compareHandsForMGP(from: hands, with: turn)
+    compareHandsForMukZiPa(from: hands, with: turn)
 }
