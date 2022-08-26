@@ -1,5 +1,4 @@
-struct MCHGameManager {
-    
+struct MCBGameManager {
     func startGame(gameResult: GameResult) {
         let isUserTurn: Bool = gameResult == .win ? true : false
         let randomComputerNumber = Int.random(in: 1...3)

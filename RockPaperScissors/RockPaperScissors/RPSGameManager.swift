@@ -1,5 +1,4 @@
 struct RPSGameManager {
-    
     func startGame() {
         let randomComputerNumber = Int.random(in: 1...3)
         
@@ -18,15 +17,15 @@ struct RPSGameManager {
     }
     
     private func handleGameResult(gameResult: GameResult) {
-        let mchGameManager = MCHGameManager.init()
+        let mcbGameManager = MCBGameManager.init()
         
         switch gameResult {
         case .win:
             print("이겼습니다!")
-            mchGameManager.startGame(gameResult: .win)
+            mcbGameManager.startGame(gameResult: .win)
         case .lose:
             print("졌습니다!")
-            mchGameManager.startGame(gameResult: .lose)
+            mcbGameManager.startGame(gameResult: .lose)
         case .draw:
             print("비겼습니다")
             startGame()
@@ -53,7 +52,6 @@ struct RPSGameManager {
         return .win
     }
 }
-
 
 func printUserInputError() {
     print("잘못된 입력입니다. 다시 시도해주세요")

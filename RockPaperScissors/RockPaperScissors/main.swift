@@ -1,6 +1,6 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom.
+//  Created by stone, SummerCat
 //  Copyright © yagom academy. All rights reserved.
 //
 
