@@ -33,4 +33,22 @@ enum RockPaperScissorsGameResult {
 enum MukJjiBbaGameResult {
     case win
     case reMatch(RockPaperScissorsGameResult)
+    
+    var shouldReMatch: Bool {
+        switch self {
+        case .win:
+            return false
+        case .reMatch:
+            return true
+        }
+    }
+    
+    var nextTurnPlayer: String? {
+        switch self {
+        case .win:
+            return nil
+        case .reMatch(let rockPaperScissorsGameResult):
+            return rockPaperScissorsGameResult.winner
+        }
+    }
 }
