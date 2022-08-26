@@ -97,11 +97,7 @@ struct GameManager {
             print(winningMessage)
             return
         case .reMatch(let rockPaperScissorsGameResult):
-            if rockPaperScissorsGameResult == .win {
-                turnPlayer = Player.user
-            } else {
-                turnPlayer = Player.computer
-            }
+            turnPlayer = obtainWinner(of: rockPaperScissorsGameResult)
             let reMatchMessage = "\(turnPlayer)의 턴입니다."
             print(reMatchMessage)
             return startMukJjiBbaGame(turnPlayer)
@@ -121,5 +117,17 @@ struct GameManager {
         default:
             return .win
         }
+    }
+    
+    private func obtainWinner(of rockPaperScissorsGameResult: RockPaperScissorsGameResult) -> String {
+        let winner: String
+        
+        if rockPaperScissorsGameResult == .win {
+            winner = Player.user
+        } else {
+            winner = Player.computer
+        }
+        
+        return winner
     }
 }
