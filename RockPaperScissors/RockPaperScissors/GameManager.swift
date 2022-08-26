@@ -70,7 +70,7 @@ struct GameManager {
     }
     
     private func startMukJjiBbaGame(_ turnPlayer: String) {
-        var turnPlayer = turnPlayer
+        let turnPlayer = turnPlayer
         let turnInfomation = "[\(turnPlayer) 턴]"
         print(turnInfomation, ManualMessage.mukJjiBbaManual, terminator: "")
         
@@ -91,17 +91,7 @@ struct GameManager {
 
         let gameResult = fetchMukJjiBbaGameResult(comparing: userHandShape, and: computerHandShape)
         
-        switch gameResult {
-        case .win:
-            let winningMessage = "\(turnPlayer)의 승리!"
-            print(winningMessage)
-            return
-        case .reMatch(let rockPaperScissorsGameResult):
-            turnPlayer = obtainWinner(of: rockPaperScissorsGameResult)
-            let reMatchMessage = "\(turnPlayer)의 턴입니다."
-            print(reMatchMessage)
-            return startMukJjiBbaGame(turnPlayer)
-        }
+        printMessage(of: gameResult, turnPlayer)
     }
 
     private func fetchMukJjiBbaGameResult(comparing userHandShape: HandShape, and computerHandShape: HandShape) -> MukJjiBbaGameResult {
@@ -129,5 +119,19 @@ struct GameManager {
         }
         
         return winner
+    }
+    
+    private func printMessage(of gameResult: MukJjiBbaGameResult, _ turnPlayer: String) {
+        switch gameResult {
+        case .win:
+            let winningMessage = "\(turnPlayer)의 승리!"
+            print(winningMessage)
+            return
+        case .reMatch(let rockPaperScissorsGameResult):
+            let rockPaperScissorsWinner = obtainWinner(of: rockPaperScissorsGameResult)
+            let reMatchMessage = "\(rockPaperScissorsWinner)의 턴입니다."
+            print(reMatchMessage)
+            return startMukJjiBbaGame(rockPaperScissorsWinner)
+        }
     }
 }
