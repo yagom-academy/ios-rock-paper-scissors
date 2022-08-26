@@ -14,8 +14,7 @@ struct RockPaperScissorsGame {
             return
         }
         
-        //let computerRPSNumber = Int.random(in: 1...3)
-        let computerRPSNumber = 1
+        let computerRPSNumber = Int.random(in: 1...3)
         
         guard let userRPS = RPS.convertRPS(from: userRPSNumber),
               let computerRPS = RPS.convertRPS(from: computerRPSNumber) else {
@@ -40,7 +39,7 @@ struct RockPaperScissorsGame {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
     
-    func fetchUserNumber() -> Int? {
+    private func fetchUserNumber() -> Int? {
         guard let userInput = readLine() else {
             return nil
         }

@@ -1,5 +1,5 @@
 struct MukJjiPpaGame {
-    var rpsGame = RockPaperScissorsGame()
+    private var rpsGame = RockPaperScissorsGame()
 
     mutating func startMJPGame() {
         rpsGame.startRPSGame()
@@ -24,7 +24,7 @@ struct MukJjiPpaGame {
 
             printMJPMenu(winnerTurn.rawValue)
 
-            guard let userMJPNumber = rpsGame.fetchUserNumber() else {
+            guard let userMJPNumber = fetchUserNumber() else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 gameResult = .lose
                 continue
@@ -54,5 +54,13 @@ struct MukJjiPpaGame {
 
     private func printMJPMenu(_ winner: String) {
         print("[\(winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+    }
+    
+    private func fetchUserNumber() -> Int? {
+        guard let userInput = readLine() else {
+            return nil
+        }
+        
+        return Int(userInput)
     }
 }
