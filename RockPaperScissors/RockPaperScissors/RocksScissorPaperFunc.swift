@@ -34,12 +34,15 @@ func makeStringToInt(_ input: String?) -> Int? {
     return Int(input)
 }
 
-func setHandType(_ userHandNumber: Int) -> (HandType, HandType)? {
-    guard let userHand = HandType(rawValue: userHandNumber),
-          let computerHand = HandType(rawValue: Int.random(in: 1...3))
-    else {
-        return nil
-    }
+func setHandTypeForRockScissorPaper(_ userHandNumber: Int) -> (HandType, HandType) {
+    let userHand = HandType.setRockScissorPaperHand(from: userHandNumber)
+    let computerHand = HandType.setRockScissorPaperHand(from: Int.random(in: 1...3))
+    return (userHand, computerHand)
+}
+
+func setHandTypeForMukZiPa(_ userHandNumber: Int) -> (HandType, HandType) {
+    let userHand = HandType.setMukZiPpaHand(from: userHandNumber)
+    let computerHand = HandType.setMukZiPpaHand(from: Int.random(in: 1...3))
     return (userHand, computerHand)
 }
 

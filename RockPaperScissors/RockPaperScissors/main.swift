@@ -15,10 +15,11 @@ func startGame() {
         return
     }
     guard let userInputNumber = makeStringToInt(userInput) else { return }
-    guard let hands = setHandType(userInputNumber) else {
+    if userInputNumber == 0 {
         print("게임 종료")
         return
     }
+    let hands = setHandTypeForRockScissorPaper(userInputNumber)
     compareHandsForRockScissorPaper(from: hands)
 }
 
@@ -31,6 +32,10 @@ func playMukZiPa(turn: Turn) {
         return
     }
     guard let userInputNumber = makeStringToInt(userInput) else { return }
-    guard let hands = setHandType(userInputNumber) else { return }
+    if userInputNumber == 0 {
+        print("게임 종료")
+        return
+    }
+    let hands = setHandTypeForMukZiPa(userInputNumber)
     compareHandsForMukZiPa(from: hands, with: turn)
 }
