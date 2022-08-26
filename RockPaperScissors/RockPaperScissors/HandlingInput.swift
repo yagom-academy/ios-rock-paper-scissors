@@ -32,14 +32,8 @@ class HandlingInput {
 
     func castingUserInput(input: String?) -> Int {
         guard let input = Int(input ?? "") else { return 0 }
-
-        switch input {
-        case 0...3:
-            return input
-        default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return 0
-        }
+        
+        return input
     }
 
     func handlingInputError(input: String?) -> Bool {

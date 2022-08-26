@@ -36,7 +36,7 @@ final class PlayGame: HandlingInput {
                 continue
             }
             
-            if decideWinLose(gameName, userHands?.rawValue, computerHands?.rawValue) {
+            if decideWin(gameName, userHands?.rawValue, computerHands?.rawValue) {
                 print("이겼습니다!")
                 currentTurn = .userTurn
                 return currentTurn
@@ -77,7 +77,7 @@ final class PlayGame: HandlingInput {
                 break
             }
             
-            if decideWinLose(gameName, userHands?.rawValue, computerHands?.rawValue) {
+            if decideWin(gameName, userHands?.rawValue, computerHands?.rawValue) {
                 currentTurn = .userTurn
             } else {
                 currentTurn = .computerTurn
@@ -94,8 +94,7 @@ final class PlayGame: HandlingInput {
         return checkNumber == drawNumber ? true : false
     }
     
-    func decideWinLose(_ gameName: String, _ userHands: Int?, _ computerHands: Int?) -> Bool {
-        
+    func decideWin(_ gameName: String, _ userHands: Int?, _ computerHands: Int?) -> Bool {
         var winNumbers: [Int]
         
         switch gameName {
