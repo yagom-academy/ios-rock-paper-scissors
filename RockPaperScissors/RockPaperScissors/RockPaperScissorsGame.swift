@@ -10,9 +10,8 @@ struct RockPaperScissorsGame {
     
     mutating func startGame() {
         let selectedUserMenu: Int = getSelectedUserMenu()
-       
         guard let userHand: RockPaperScissors = RockPaperScissors.init(rawValue: selectedUserMenu),
-           let gameResult: GameResult = compareComputerHand(with: userHand) else {
+              let gameResult: GameResult = compareComputerHand(with: userHand) else {
             return
         }
         print(gameResult.result)
@@ -31,19 +30,21 @@ struct RockPaperScissorsGame {
         printUserMenu()
         guard let selectedUserMenu: Int = userInput() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
+            
             return getSelectedUserMenu()
         }
-        
         if isCorrectUserMenu(selectedUserMenu) {
             return selectedUserMenu
         } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
+            
             return getSelectedUserMenu()
         }
     }
     
     private func userInput() -> Int? {
         let userInput: Int? = Int(readLine() ?? "")
+        
         return userInput
     }
     
@@ -71,7 +72,6 @@ struct RockPaperScissorsGame {
         guard userHand != computerHand else {
             return .draw
         }
-        
         switch userHand {
         case .rock:
             if computerHand == .scissors {

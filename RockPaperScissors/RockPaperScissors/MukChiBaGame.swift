@@ -15,11 +15,10 @@ struct MukChiBaGame {
             return
         }
         self.turnOwner = turnOwner
-        
-        doMukChiBaGameRoutine()
+        startMukChiBaGameRoutine()
     }
     
-    mutating private func doMukChiBaGameRoutine() {
+    mutating private func startMukChiBaGameRoutine() {
         var isTurnOwnerWin: Bool
         repeat {
             let selectedUserMenu: Int = getSelectedUserMenu()
@@ -31,36 +30,47 @@ struct MukChiBaGame {
             }
             isTurnOwnerWin = isTurnOwnerMukChiBaGameWin(gameResult: gameResult)
             printMukChiBaGameResult(isTurnOwnerWin)
-        } while !isTurnOwnerWin
+        } while isTurnOwnerWin == false
     }
     
     mutating private func getSelectedUserMenu() -> Int {
         printUserMenu()
         guard let selectedUserMenu: Int = userInput() else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            printWrongInputMessage()
             turnOwner = .computer
+            
             return getSelectedUserMenu()
         }
-        
-        if isCorrectUserMenu(selectedUserMenu) {
-            return selectedUserMenu
-        } else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            turnOwner = .computer
-            return getSelectedUserMenu()
-        }
-    }
     
+        return getCorrectUserMenu(selectedUserMenu)
+    }
+        
     private func printUserMenu() {
-        guard let turnOwnerName = turnOwner?.name else {
+        guard let nameToPrint = turnOwner?.name else {
             return
         }
-        print("[\(turnOwnerName) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        print("[\(nameToPrint) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
     
     private func userInput() -> Int? {
         let userInput: Int? = Int(readLine() ?? "")
+        
         return userInput
+    }
+    
+    private func printWrongInputMessage() {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+    
+    mutating private func getCorrectUserMenu(_ selectedUserMenu: Int) -> Int {
+        guard isCorrectUserMenu(selectedUserMenu) else{
+            printWrongInputMessage()
+            turnOwner = .computer
+            
+            return getSelectedUserMenu()
+        }
+        
+        return selectedUserMenu
     }
     
     private func isCorrectUserMenu(_ userMenu: Int) -> Bool {
@@ -79,7 +89,6 @@ struct MukChiBaGame {
         guard userHand != computerHand else {
             return .draw
         }
-        
         switch userHand {
         case .muk:
             if computerHand == .chi {
@@ -114,6 +123,7 @@ struct MukChiBaGame {
             return false
         case .lose:
             toggleTurnOwner()
+            
             return false
         }
     }
@@ -121,9 +131,8 @@ struct MukChiBaGame {
     mutating private func toggleTurnOwner() {
         if turnOwner == .user {
             turnOwner = .computer
-        } else {
-            turnOwner = .user
         }
+        turnOwner = .user
     }
     
     private func printMukChiBaGameResult(_ isTurnOwnerWin: Bool) {
