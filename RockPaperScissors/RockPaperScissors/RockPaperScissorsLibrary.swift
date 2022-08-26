@@ -1,21 +1,18 @@
 //  Created by rhovin and zhilly on 2022/08/22.
 
 class RockPaperScissorsLibrary {
-    private func displayGameMessege() {
+    private func displayRockPaperScissorsInterface() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ",terminator: "")
     }
     
     private func inputUserSelction() -> Int? {
-        guard let userInput = readLine(),
-              let userSelection = Int(userInput) else {
-            return nil
-        }
+        guard let userInput = readLine() else { return nil }
         
-        return userSelection
+        return Int(userInput)
     }
     
-    private func judgeValidInput(userInput: Int?) -> RockPaperScissorCase? {
-        switch userInput {
+    private func judgeValidInput(userEnter: Int?) -> RockPaperScissorCase? {
+        switch userEnter {
         case 0:
             return .end
         case 1:
@@ -50,27 +47,30 @@ class RockPaperScissorsLibrary {
         computerHand: RockPaperScissorCase
     ) -> WinLoseDrawCase
     {
-        if userHand == computerHand {
+        let bothHands = (userHand, computerHand)
+        
+        switch bothHands {
+        case let (userHand, computerHand) where userHand == computerHand:
             return .draw
-        } else if userHand == .scissor && computerHand == .paper {
+        case (.scissor, .paper):
             return .win
-        } else if userHand == .rock && computerHand == .scissor {
+        case (.rock, .scissor):
             return .win
-        } else if userHand == .paper && computerHand == .rock {
+        case (.paper, .rock):
             return .win
-        } else {
+        default:
             return .lose
         }
     }
     
-    private func startMukChiBba(_ result: WinLoseDrawCase) {
-        switch result {
+    private func injectTurnToMukChiBba(_ rockPaperScissorsResult: WinLoseDrawCase) {
+        switch rockPaperScissorsResult {
         case .lose:
             print("졌습니다!")
-            mukChiBba(turn: .ComputerTurn)
+            startMukChiBba(turn: .ComputerTurn)
         case .win:
             print("이겼습니다!")
-            mukChiBba(turn: .UserTurn)
+            startMukChiBba(turn: .UserTurn)
         case .draw:
             print("비겼습니다!")
             startGame()
@@ -78,9 +78,9 @@ class RockPaperScissorsLibrary {
     }
     
     private func startGame() {
-        displayGameMessege()
+        displayRockPaperScissorsInterface()
         
-        guard let userInput = judgeValidInput(userInput: inputUserSelction()) else {
+        guard let userInput = judgeValidInput(userEnter: inputUserSelction()) else {
             return startGame()
         }
         
@@ -88,48 +88,48 @@ class RockPaperScissorsLibrary {
             return
         }
         
-        let result: WinLoseDrawCase = judgeWin(
+        let rockPaperScissorsResult: WinLoseDrawCase = judgeWin(
             userHand: userInput,
             computerHand: generateRandomComputerHand()
         )
         
-        startMukChiBba(result)
+        injectTurnToMukChiBba(rockPaperScissorsResult)
     }
     
-    private func displayTurnMenu(turn: TurnCase) {
+    private func displayMukChiBbaInterface(turn: TurnCase) {
         print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
     
-    private func passTurn(_ turn: TurnCase, _ result: WinLoseDrawCase) {
-        switch result {
+    private func judgeNextTurn(by mukChiBbaResult: WinLoseDrawCase, currentTurn: TurnCase) {
+        switch mukChiBbaResult {
         case .lose:
             print("컴퓨터의 턴입니다.")
-            mukChiBba(turn: .ComputerTurn)
+            startMukChiBba(turn: .ComputerTurn)
         case .win:
             print("사용자의 턴입니다.")
-            mukChiBba(turn: .UserTurn)
+            startMukChiBba(turn: .UserTurn)
         case .draw:
-            print("\(turn.rawValue)의 승리!")
+            print("\(currentTurn.rawValue)의 승리!")
         }
     }
     
-    private func mukChiBba(turn: TurnCase) {
-        displayTurnMenu(turn: turn)
+    private func startMukChiBba(turn: TurnCase) {
+        displayMukChiBbaInterface(turn: turn)
         
-        guard let userInput = judgeValidInput(userInput: inputUserSelction()) else {
-            return mukChiBba(turn: .ComputerTurn)
+        guard let userInput = judgeValidInput(userEnter: inputUserSelction()) else {
+            return startMukChiBba(turn: .ComputerTurn)
         }
         
         if userInput == .end {
             return
         }
         
-        let result: WinLoseDrawCase = judgeWin(
+        let mukChiBbaResult: WinLoseDrawCase = judgeWin(
             userHand: userInput,
             computerHand: generateRandomComputerHand()
         )
         
-        passTurn(turn, result)
+        judgeNextTurn(by: mukChiBbaResult, currentTurn: turn)
     }
 }
 
