@@ -24,18 +24,12 @@ struct GameManager {
         }
         
         let gameResult = fetchRockPaperScissorsGameResult(comparing: userHandShape, and: computerHandShape)
+        gameResult.printMessage()
         
-        switch gameResult {
-        case .win:
-            print(GameResultMessage.winning)
-            startMukJjiBbaGame(Player.user)
-        case .lose:
-            print(GameResultMessage.losing)
-            startMukJjiBbaGame(Player.computer)
-        case .draw:
-            print(GameResultMessage.draw)
-            startRockPaperScissorsGame()
+        guard let winner = gameResult.winner else {
+            return startRockPaperScissorsGame()
         }
+        startMukJjiBbaGame(winner)
     }
     
     private func receiveHandShape(of menuNumber: Int = Int.random(in: 1...3), handShapeType: HandShape.Option) -> HandShape? {
