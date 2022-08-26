@@ -9,8 +9,13 @@ enum Mukjipa: Int, CaseIterable, GameElement {
     case ji = 2
     case pa = 3
     
+    func chooseComputerNumber(between min: Int, and max: Int) -> Int {
+        let choiceNumber = Int.random(in: min...max)
+        return choiceNumber
+    }
+    
     func generateComputerCard() -> Self {
-        let computerCard = Self.allCases[Int.random(in: 1...3)]
+        let computerCard = Self.allCases[chooseComputerNumber(between: 1, and: 3)]
         return computerCard
     }
     

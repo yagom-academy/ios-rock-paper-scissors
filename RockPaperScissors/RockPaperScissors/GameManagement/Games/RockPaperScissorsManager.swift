@@ -6,23 +6,27 @@
 struct RockPaperScissorsManager: Gameable {
     typealias GameType = RockPaperScissors
     
-    func fetchUserInput() -> Result<RockPaperScissors, InputError> {
-        print(GameMessage.rpsGame, terminator: " : ")
+    func fetchUserInput() -> Int? {
+        print(GameMessage.rockPaperScissors, terminator: " : ")
         
         guard let inputValue = readLine(),
               let inputNumber = Int(inputValue),
               0...3 ~= inputNumber
         else {
-            return .failure(.invalidNumber)
+            return nil
         }
-        
-        if let inputCard = RockPaperScissors(rawValue: inputNumber) {
-            return .success(inputCard)
-        } else {
-            return .failure(.invalidNumber)
-        }
+        return inputNumber
     }
     
+    func convertUserInput(number: Int?) -> Result<RockPaperScissors, InputError> {
+        guard let number = number,
+              let inputCard = RockPaperScissors(rawValue: number)
+        else {
+            return .failure(.invalidNumber)
+        }
+        return .success(inputCard)
+    }
+
     func checkValidity(of userInputResult: Result<RockPaperScissors, InputError>) -> GameState {
         switch userInputResult {
         case .success(let inputCard):
@@ -33,7 +37,8 @@ struct RockPaperScissorsManager: Gameable {
     }
     
     func startGame() -> GameState {
-        let userCard = fetchUserInput()
+        let userNumber = fetchUserInput()
+        let userCard = convertUserInput(number: userNumber)
         let result = checkValidity(of: userCard)
         
         return result

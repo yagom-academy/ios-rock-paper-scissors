@@ -6,6 +6,7 @@
 protocol Gameable {
     associatedtype GameType
     
-    func fetchUserInput() -> Result<GameType, InputError>
+    func fetchUserInput() -> Int?
+    func convertUserInput(number: Int?) -> Result<GameType, InputError>
     func checkValidity(of userInputResult: Result<GameType, InputError>) -> GameState
 }

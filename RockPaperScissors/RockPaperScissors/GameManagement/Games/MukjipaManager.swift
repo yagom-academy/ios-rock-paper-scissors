@@ -11,18 +11,25 @@ struct MukjipaManager: Gameable {
         isUserTurn ? "사용자" : "컴퓨터"
     }
     
-    func fetchUserInput() -> Result<Mukjipa, InputError> {
-        print("[\(currentTurn) 턴]", GameMessage.mukjipaGame, separator: " ", terminator: " : ")
+    func fetchUserInput() -> Int? {
+        print("[\(currentTurn) 턴]", GameMessage.mukjipa, separator: " ", terminator: " : ")
         
         guard let inputValue = readLine(),
               let inputNumber = Int(inputValue),
-              0...3 ~= inputNumber else { return .failure(.invalidNumber) }
-        
-        if let inputCard = Mukjipa(rawValue: inputNumber) {
-            return .success(inputCard)
-        } else {
+              0...3 ~= inputNumber
+        else {
+            return nil
+        }
+        return inputNumber
+    }
+    
+    func convertUserInput(number: Int?) -> Result<Mukjipa, InputError> {
+        guard let number = number,
+              let inputCard = Mukjipa(rawValue: number)
+        else {
             return .failure(.invalidNumber)
         }
+        return .success(inputCard)
     }
     
     func checkValidity(of userInputResult: Result<Mukjipa, InputError>) -> GameState {
@@ -35,7 +42,11 @@ struct MukjipaManager: Gameable {
     }
     
     private mutating func decideTurn(from result: GameState) {
-        isUserTurn = (result == .userWin)
+        if result == .userWin {
+            isUserTurn = true
+        } else {
+            isUserTurn = false
+        }
     }
     
     private mutating func printTurn(to result: GameState) {
@@ -53,7 +64,8 @@ struct MukjipaManager: Gameable {
     
     mutating func startGame(from result: GameState) -> GameState {
         decideTurn(from: result)
-        let userCard = fetchUserInput()
+        let userNumber = fetchUserInput()
+        let userCard = convertUserInput(number: userNumber)
         let result = checkValidity(of: userCard)
         
         printTurn(to: result)
