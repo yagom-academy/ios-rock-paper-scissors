@@ -37,8 +37,8 @@ struct MukJjiPpaGame {
 
             let computerMJPNumber = Int.random(in: 1...3)
 
-            guard let userMJPNumber = RPS.convertMJP(from: userMJPNumber),
-                  let computerMJPNumber = RPS.convertMJP(from: computerMJPNumber) else {
+            guard let userMJPNumber = HandShape.convertHandShape(from: userMJPNumber, type: .mjp),
+                  let computerMJPNumber = HandShape.convertHandShape(from: computerMJPNumber, type: .mjp) else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 gameResult = .lose
                 continue

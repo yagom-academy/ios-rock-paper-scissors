@@ -16,8 +16,8 @@ struct RockPaperScissorsGame {
         
         let computerRPSNumber = Int.random(in: 1...3)
         
-        guard let userRPS = RPS.convertRPS(from: userRPSNumber),
-              let computerRPS = RPS.convertRPS(from: computerRPSNumber) else {
+        guard let userRPS = HandShape.convertHandShape(from: userRPSNumber, type: .rps),
+              let computerRPS = HandShape.convertHandShape(from: computerRPSNumber, type: .rps) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return startRPSGame()
         }
