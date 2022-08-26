@@ -1,53 +1,51 @@
 struct MukJjiPpaGame {
-    private var RPSGame = RockPaperScissorsGame()
-    
+    var rpsGame = RockPaperScissorsGame()
+
     mutating func startMJPGame() {
-        var winnerTurn: Player = .user {
-            didSet {
-                print("\(winnerTurn.rawValue)의 턴입니다.")
+        rpsGame.startRPSGame()
+        var gameResult = rpsGame.fetchRPSGameResult()
+        
+        var winnerTurn: Player? {
+            if gameResult == .win {
+                print("\(Player.user.rawValue)의 턴입니다")
+                return .user
+            } else if gameResult == .lose {
+                print("\(Player.computer.rawValue)의 턴입니다")
+                return .computer
+            } else {
+                return nil
             }
         }
-        
-        RPSGame.startRPSGame()
-        
-        var gameResult = RPSGame.fetchRPSGameResult() {
-            didSet {
-                if gameResult == .win {
-                    winnerTurn = .user
-                } else if gameResult == .lose {
-                    winnerTurn = .computer
-                }
-            }
-        }
-        
-        if RPSGame.gameResult == .end {
-            return
-        }
-        
+
         while gameResult != .draw {
+            guard let winnerTurn = winnerTurn else {
+                break
+            }
+
             printMJPMenu(winnerTurn.rawValue)
-            
-            guard let userMJPNumber = RPSGame.fetchUserNumber() else {
+
+            guard let userMJPNumber = rpsGame.fetchUserNumber() else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
-                winnerTurn = .computer
+                gameResult = .lose
                 continue
             }
-            
+
             if userMJPNumber == 0 {
                 print("게임 종료")
                 break
             }
-            
+
             let computerMJPNumber = Int.random(in: 1...3)
-            
+
             guard let userMJPNumber = RPS.convertMJP(from: userMJPNumber),
                   let computerMJPNumber = RPS.convertMJP(from: computerMJPNumber) else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
+                gameResult = .lose
                 continue
             }
-            
+
             gameResult = GameResult.judgeUserGameResultIn(userMJPNumber, computerMJPNumber)
-            
+
             if gameResult == .draw {
                 print("\(winnerTurn.rawValue)의 승리입니다.")
             }

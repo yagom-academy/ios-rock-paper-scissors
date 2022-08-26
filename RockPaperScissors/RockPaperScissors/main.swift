@@ -1,3 +1,3 @@
-var MJPGame = MukJjiPpaGame()
+var mjpGame = MukJjiPpaGame()
 
-MJPGame.startMJPGame()
+mjpGame.startMJPGame()

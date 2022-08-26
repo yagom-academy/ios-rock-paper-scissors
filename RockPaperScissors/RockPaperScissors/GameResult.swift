@@ -2,7 +2,6 @@ enum GameResult {
     case win
     case lose
     case draw
-    case end
     
     static func judgeUserGameResultIn(_ userRPS: RPS, _ computerRPS: RPS ) -> GameResult {
         switch (userRPS, computerRPS) {
