@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RockScissorsPaperGame: MukChiBbaGame {
+class RockScissorsPaperGame: CommonFunctions {
     enum RockScissorsPaper: Int, CaseIterable {
         case scissors = 1
         case rock = 2
@@ -29,6 +29,7 @@ class RockScissorsPaperGame: MukChiBbaGame {
         let computerPick = RockScissorsPaper.allCases.randomElement()
         let userPick = RockScissorsPaper(rawValue: userChoice)
         let comparisonOfTwoThings = (computerPick, userPick)
+        let mcbGame = MukChiBbaGame()
         
         if userChoice == 0 {
             print("게임 종료")
@@ -41,10 +42,10 @@ class RockScissorsPaperGame: MukChiBbaGame {
         switch comparisonOfTwoThings {
         case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
             print("이겼습니다!")
-            startMukChiBbaGame(isUserTurn: true)
+            mcbGame.startMukChiBbaGame(isUserTurn: true)
         default:
             print("졌습니다!")
-            startMukChiBbaGame(isUserTurn: false)
+            mcbGame.startMukChiBbaGame(isUserTurn: false)
         }
         return true
     }
