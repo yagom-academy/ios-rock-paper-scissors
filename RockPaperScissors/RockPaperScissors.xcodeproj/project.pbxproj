@@ -48,6 +48,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1ACDE7EC28B864C100BADD63 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				B475666D28B391370027AE7F /* RockPaperScissorsLibrary.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		1ACDE7ED28B864D000BADD63 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				B475666F28B3916B0027AE7F /* RockPaperScissorsLibraryProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		1ACDE7EE28B864D700BADD63 /* Case */ = {
+			isa = PBXGroup;
+			children = (
+				1ACBB02928B496D3000C99FB /* RockPaperScissorCase.swift */,
+				1ACBB02B28B497E5000C99FB /* WinLoseDrawCase.swift */,
+				B458242728B5B678007895D6 /* TurnCase.swift */,
+			);
+			path = Case;
+			sourceTree = "<group>";
+		};
 		C7ABA0D4254EA63000B2367D = {
 			isa = PBXGroup;
 			children = (
@@ -67,12 +93,10 @@
 		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
 			isa = PBXGroup;
 			children = (
+				1ACDE7EE28B864D700BADD63 /* Case */,
+				1ACDE7ED28B864D000BADD63 /* Protocol */,
+				1ACDE7EC28B864C100BADD63 /* Library */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
-				B475666D28B391370027AE7F /* RockPaperScissorsLibrary.swift */,
-				B475666F28B3916B0027AE7F /* RockPaperScissorsLibraryProtocol.swift */,
-				1ACBB02928B496D3000C99FB /* RockPaperScissorCase.swift */,
-				1ACBB02B28B497E5000C99FB /* WinLoseDrawCase.swift */,
-				B458242728B5B678007895D6 /* TurnCase.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
