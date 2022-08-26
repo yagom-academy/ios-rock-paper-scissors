@@ -5,12 +5,12 @@
 //  Created by 애종, Mangdi.
 //
 
-func startMukChiBbaGame(takeUserWin: Bool) {
+func startMukChiBbaGame(isUserTurn: Bool) {
     var isExitGame: Bool = false
-    var isUserWin = takeUserWin
+    var isUserTurn = isUserTurn
     var roundOneWinner: String {
         get {
-            if isUserWin == true {
+            if isUserTurn == true {
                 return "사용자"
             } else {
                 return "컴퓨터" }
@@ -21,30 +21,27 @@ func startMukChiBbaGame(takeUserWin: Bool) {
         print("[\(roundOneWinner) 턴] (묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         
         guard let userNumber = filterUserInput() else {
-            if isUserWin == true {
-                isUserWin = !isUserWin
+            if isUserTurn == true {
+                isUserTurn = !isUserTurn
             }
             continue
         }
         
-        var exitOrTurnChange = (canExit: isExitGame, checkUserTurn: isUserWin)
-        exitOrTurnChange = decideWhoWins(userNumber: userNumber, takeUserWin: isUserWin)
+        var exitOrTurnChange = (canExit: isExitGame, checkUserTurn: isUserTurn)
+        exitOrTurnChange = decideWhoWins(userNumber: userNumber, takeUserWin: isUserTurn)
         
         switch exitOrTurnChange {
         case (canExit: true, _):
             isExitGame = true
         case (canExit: false, checkUserTurn: false):
-            isUserWin = false
-            continue
+            isUserTurn = false
         case (canExit: false, checkUserTurn: true):
-            isUserWin = true
-            continue
+            isUserTurn = true
         }
     }
 }
 
 func decideWhoWins(userNumber: Int, takeUserWin: Bool) -> (Bool,Bool) {
-    var takeUserWin = takeUserWin
     let computerPick = MukChiBba.allCases.randomElement()
     let userPick = MukChiBba(rawValue: userNumber)
     let compareTwoThings = (computerPick, userPick)
@@ -62,9 +59,8 @@ func decideWhoWins(userNumber: Int, takeUserWin: Bool) -> (Bool,Bool) {
     
     switch compareTwoThings {
     case (.muk, .bba), (.chi, .muk), (.bba, .chi):
-        takeUserWin = true
+        return (false,true)
     default:
-        takeUserWin = false
+        return (false,false)
     }
-    return (false,takeUserWin)
 }

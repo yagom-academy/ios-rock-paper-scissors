@@ -56,10 +56,10 @@ func decideWhoStartsFirstTurn(with userChoice: Int) -> Bool {
     switch comparisonOfTwoThings {
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
         print("이겼습니다!")
-        startMukChiBbaGame(takeUserWin: true)
+        startMukChiBbaGame(isUserTurn: true)
     default:
         print("졌습니다!")
-        startMukChiBbaGame(takeUserWin: false)
+        startMukChiBbaGame(isUserTurn: false)
     }
     return true
 }
