@@ -17,6 +17,17 @@ enum RockPaperScissorsGameResult {
             return ""
         }
     }
+    
+    func printMessage() {
+        switch self {
+        case .win:
+            print(GameResultMessage.winning)
+        case .lose:
+            print(GameResultMessage.losing)
+        case .draw:
+            print(GameResultMessage.draw)
+        }
+    }
 }
 
 enum MukJjiBbaGameResult {
