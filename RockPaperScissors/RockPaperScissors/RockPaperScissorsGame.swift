@@ -10,7 +10,8 @@ struct RockPaperScissorsGame {
         }
         
         if userRPSNumber == 0 {
-            print("게임종료")
+            gameResult = .end
+            printResult(of: gameResult)
             return
         }
         
@@ -28,12 +29,10 @@ struct RockPaperScissorsGame {
         printResult(of: gameRPSResult)
         
         switch gameRPSResult {
-        case .win:
-            return
-        case .lose:
-            return
         case .draw:
             startRPSGame()
+        default:
+            return
         }
     }
     
@@ -57,6 +56,8 @@ struct RockPaperScissorsGame {
             print("졌습니다!")
         case .draw:
             print("비겼습니다!")
+        case .end:
+            print("게임 종료")
         }
     }
     

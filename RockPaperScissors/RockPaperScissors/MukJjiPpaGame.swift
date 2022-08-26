@@ -1,7 +1,11 @@
 struct MukJjiPpaGame {
+    private var RPSGame = RockPaperScissorsGame()
+    
     mutating func startMJPGame() {
-        var RPSGame = RockPaperScissorsGame()
         var winnerTurn: Player = .user
+        
+        RPSGame.startRPSGame()
+        
         var gameResult = RPSGame.fetchRPSGameResult() {
             didSet {
                 if gameResult == .win {
@@ -12,7 +16,9 @@ struct MukJjiPpaGame {
             }
         }
         
-        RPSGame.startRPSGame()
+        if RPSGame.gameResult == .end {
+            return
+        }
         
         while gameResult != .draw {
             printMJPMenu(winnerTurn.rawValue)
@@ -24,7 +30,7 @@ struct MukJjiPpaGame {
             }
             
             if userMJPNumber == 0 {
-                print("게임종료")
+                print("게임 종료")
                 break
             }
             
