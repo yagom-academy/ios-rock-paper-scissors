@@ -55,7 +55,7 @@ default:
 }
 ```
 - 구현 도중 이 알고리즘을 모르는 사람이 본다면, 이 코드가 무엇을 처리하는지 이해하기 어려울 것이라고 판단했습니다. 그래서 가위/바위/보의 원시값인 Int value의 연산으로 승/무/패를 처리하지 않고, 가위/바위/보 케이스 이름을 직접 사용하여 승/무/패 처리를 하도록 아래와 같이 작성했습니다.
-```swift=
+```swift
 func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperScissors) {
     if computerChoice == userChoice {
         print("비겼습니다")
@@ -106,7 +106,7 @@ func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperSci
 - 위와 같은 오류를 해결하기 위해 `checkGameResult` 함수가 게임의 승/패/무승부/입력오류를 반환하는 `enum` 타입의 `GameResult`를 반환하도록 변경한 후,
 `startGame` 함수 내에서 위 `GameResult`값을 받아 받아온 값으로 `switch`문을 사용해 묵찌빠 게임을 실행할 것인지(승/패의 경우) / 게임의 시작으로 돌아가서 사용자 입력을 다시 받을 것인지 (무승부) / 게임을 종료할 것인지 결정하도록 했습니다.
 
-```swift=
+```swift
 func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperScissors) -> GameResult {
     if computerChoice == userChoice { return .draw }
     
@@ -125,7 +125,7 @@ func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperSci
 }
 
 ```
-```swift=
+```swift
 let gameResult = checkGameResult(computerChoice: computerChoice, userChoice: userChoice)
     
     switch gameResult {
