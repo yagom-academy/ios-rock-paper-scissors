@@ -8,6 +8,7 @@
 - [타임라인](#타임라인)
 - [키워드](#키워드)
 - [그라운드 룰](#그라운드-룰)
+- [순서도](#순서도)
 - [실행 화면](#실행-화면)
 - [트러블 슈팅](#트러블-슈팅)
 
@@ -43,7 +44,7 @@ Mangdi : 보통 언제든 가능 (오후 9 ~ 10시 전까지만!)
 
 
 ## 순서도
-![step0_flowchart](https://user-images.githubusercontent.com/59204352/185026725-9ae94505-86b0-4786-bc5b-30406be1cc5e.svg)
+![MukChiBbaGame](https://user-images.githubusercontent.com/49121469/186857774-dd5a4b6a-391e-4b0e-a27e-731b9ec8d055.png)
 
 ## 실행 화면
 ![RockScissorsPaperGame_DemonstrationGIF](https://user-images.githubusercontent.com/49121469/186836536-9b273734-ed38-4332-b1f5-f0185e6565d5.gif)
