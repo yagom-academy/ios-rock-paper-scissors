@@ -11,6 +11,10 @@ func playMCBGame(gameResult: GameResult) {
     }
     
     let gameResult = checkMCBGameResult(computerChoice: computerChoice, userChoice: userChoice)
+    runGameResult(gameResult: gameResult, isUserTurn: isUserTurn)
+}
+
+func runGameResult(gameResult: GameResult, isUserTurn: Bool) {
     switch gameResult {
     case .win:
         print("사용자의 턴입니다.")
@@ -19,7 +23,7 @@ func playMCBGame(gameResult: GameResult) {
         print("컴퓨터의 턴입니다.")
         playMCBGame(gameResult: .lose)
     case .draw:
-        print("\(isUserTurn ? "사용자" : "컴퓨터" )의 승리!")
+        print("\(isUserTurn ? "사용자" : "컴퓨터") 의 승리!")
         break
     case .exit:
         print("게임 종료")

@@ -11,7 +11,11 @@ func startGame() {
     }
     
     let gameResult = checkRPSGameResult(computerChoice: computerChoice, userChoice: userChoice)
+    gResult(gameResult: gameResult)
     
+}
+
+func gResult(gameResult: GameResult) {
     switch gameResult {
     case .win:
         print("이겼습니다!")
