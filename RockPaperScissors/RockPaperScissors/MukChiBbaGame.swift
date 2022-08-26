@@ -14,11 +14,11 @@ struct MukChiBbaGame {
             return
         }
         
-        guard let tupleRockPaperScissors =  convertRockPaperScissors(inputNumber: userNumber) else {
+        guard let tupleRockPaperScissors =  convertRockPaperScissors(to: userNumber) else {
             return play()
         }
         
-        let userGameResult = judgeWinOrLoseAtRockPaperScissors(RockPaperScissors:
+        let userGameResult = judgeWinOrLoseAtRockPaperScissors(RPS:
         tupleRockPaperScissors)
         
         showResult(userGameResult)
@@ -37,11 +37,11 @@ struct MukChiBbaGame {
             return
         }
         
-        guard let tupleMukChiBba = convertMukChiBba(inputNumber: userNumber) else {
+        guard let tupleMukChiBba = convertMukChiBba(to: userNumber) else {
             return playMukChiBba(turn: .computer)
         }
         
-        judgeWinOrLoseAtMukChiBba(MukChiBba: tupleMukChiBba, to: turn)
+        judgeWinOrLoseAtMukChiBba(MCB: tupleMukChiBba, to: turn)
     }
     
     private func showRockPaperScissorsMenu() {
@@ -68,7 +68,7 @@ struct MukChiBbaGame {
         return true
     }
     
-    private func convertRockPaperScissors(inputNumber: Int)
+    private func convertRockPaperScissors(to inputNumber: Int)
     -> (RockPaperScissors, RockPaperScissors)? {
         guard let numberToRPS: RockPaperScissors = .init(rawValue: inputNumber),
               let computerRPS: RockPaperScissors = .init(rawValue: Int.random(in: 1...3)) else {
@@ -78,7 +78,7 @@ struct MukChiBbaGame {
         return (numberToRPS, computerRPS)
     }
     
-    private func convertMukChiBba(inputNumber: Int) -> (MukChiBba, MukChiBba)? {
+    private func convertMukChiBba(to inputNumber: Int) -> (MukChiBba, MukChiBba)? {
         guard let userNumberMCB: MukChiBba = .init(rawValue: inputNumber),
               let computerMCB: MukChiBba = .init(rawValue: Int.random(in: 1...3)) else {
             print(GameComment.retry.rawValue)
@@ -87,15 +87,14 @@ struct MukChiBbaGame {
         return (userNumberMCB, computerMCB)
     }
     
-    private func judgeWinOrLoseAtRockPaperScissors(
-        RockPaperScissors: (RockPaperScissors, RockPaperScissors)
-    ) -> GameResult {
+    private func judgeWinOrLoseAtRockPaperScissors(RPS: (RockPaperScissors, RockPaperScissors))
+    -> GameResult {
         let gameResult: GameResult
         
-        switch RockPaperScissors {
+        switch RPS {
         case let (userRPS, computerRPS) where userRPS == computerRPS:
             gameResult = .draw
-        case (.scissors, .paper), (.paper, .rock), (.rock, .scissors) :
+        case (.scissors, .paper), (.paper, .rock), (.rock, .scissors):
             gameResult = .win
         default:
             gameResult = .lose
@@ -103,11 +102,11 @@ struct MukChiBbaGame {
         return gameResult
     }
     
-    private func judgeWinOrLoseAtMukChiBba(MukChiBba: (MukChiBba, MukChiBba), to turn: Turn) {
-        switch MukChiBba {
+    private func judgeWinOrLoseAtMukChiBba(MCB: (MukChiBba, MukChiBba), to turn: Turn) {
+        switch MCB {
         case let (userMCB, computerMCB) where userMCB == computerMCB:
             print("\(turn.rawValue)의 승리!")
-        case (.chi, .bba), (.bba, .muk), (.muk, .chi) :
+        case (.chi, .bba), (.bba, .muk), (.muk, .chi):
             print("사용자의 턴입니다.")
             playMukChiBba(turn: .user)
         default:
