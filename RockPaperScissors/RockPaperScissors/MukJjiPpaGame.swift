@@ -2,7 +2,11 @@ struct MukJjiPpaGame {
     private var RPSGame = RockPaperScissorsGame()
     
     mutating func startMJPGame() {
-        var winnerTurn: Player = .user
+        var winnerTurn: Player = .user {
+            didSet {
+                print("\(winnerTurn.rawValue)의 턴입니다.")
+            }
+        }
         
         RPSGame.startRPSGame()
         
