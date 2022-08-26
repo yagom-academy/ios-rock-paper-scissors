@@ -13,7 +13,7 @@ struct GameManager {
             return startRockPaperScissorsGame()
         }
         
-        guard let userHandShape = receiveHandShape(of: menuNumber) else {
+        guard let userHandShape = receiveHandShape(of: menuNumber, handShapeType: .rockPaperScissors) else {
             print(ManualMessage.ending)
             return
         }
@@ -32,8 +32,8 @@ struct GameManager {
         }
     }
     
-    private func receiveHandShape(of menuNumber: Int) -> HandShape? {
-        let handShape = HandShape.init(rawValue: menuNumber)
+    private func receiveHandShape(of menuNumber: Int = Int.random(in: 1...3), handShapeType: HandShape.Option) -> HandShape? {
+        let handShape = HandShape.init(rawValue: menuNumber, option: handShapeType)
         return handShape
     }
     
@@ -80,7 +80,7 @@ struct GameManager {
             return startMukJjiBbaGame(Player.computer)
         }
         
-        guard let userHandShape = HandShape.init(rawValue: menuNumber, option: .mukJjiBba) else {
+        guard let userHandShape = receiveHandShape(of: menuNumber, handShapeType: .mukJjiBba) else {
             print(ManualMessage.ending)
             return
         }
