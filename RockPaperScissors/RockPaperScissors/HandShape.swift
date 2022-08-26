@@ -4,14 +4,14 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+enum HandShapeType {
+    case rockPaperScissors, mukJjiBba
+}
+
 enum HandShape: Int {
-    enum Option {
-        case rockPaperScissors, mukJjiBba
-    }
-    
     case scissors = 1, rock = 2, paper = 3
     
-    init?(rawValue: Int, option: HandShape.Option) {
+    init?(rawValue: Int, option: HandShapeType) {
         if option == .mukJjiBba {
             switch rawValue {
             case 1:

@@ -32,7 +32,7 @@ struct GameManager {
         startMukJjiBbaGame(winner)
     }
     
-    private func receiveHandShape(of menuNumber: Int = Int.random(in: 1...3), handShapeType: HandShape.Option) -> HandShape? {
+    private func receiveHandShape(of menuNumber: Int = Int.random(in: 1...3), handShapeType: HandShapeType) -> HandShape? {
         let handShape = HandShape.init(rawValue: menuNumber, option: handShapeType)
         return handShape
     }
