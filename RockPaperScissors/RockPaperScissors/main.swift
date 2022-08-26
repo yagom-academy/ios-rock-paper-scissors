@@ -5,4 +5,3 @@
 
 var game = GameManager(RockPaperScissorsManager(), MukjipaManager())
 game.startRockPaperScissors()
-
