@@ -52,7 +52,7 @@ enum MukJjiBbaGameResult {
         }
     }
     
-    func printMessage( turnPlayer: String) {
+    func printMessage(_ turnPlayer: String) {
         switch self {
         case .win:
             let winningMessage = "\(turnPlayer)의 승리!"
