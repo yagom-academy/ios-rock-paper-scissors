@@ -10,10 +10,7 @@ func startMukChiBbaGame(isUserTurn: Bool) {
     var isUserTurn = isUserTurn
     var roundOneWinner: String {
         get {
-            if isUserTurn == true {
-                return "사용자"
-            } else {
-                return "컴퓨터" }
+            isUserTurn ? "사용자" : "컴퓨터"
         }
     }
     
@@ -21,9 +18,7 @@ func startMukChiBbaGame(isUserTurn: Bool) {
         print("[\(roundOneWinner) 턴] (묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         
         guard let userNumber = filterUserInput() else {
-            if isUserTurn == true {
-                isUserTurn = !isUserTurn
-            }
+            isUserTurn = false
             continue
         }
         
