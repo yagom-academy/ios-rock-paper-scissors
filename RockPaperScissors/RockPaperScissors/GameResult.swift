@@ -51,4 +51,19 @@ enum MukJjiBbaGameResult {
             return rockPaperScissorsGameResult.winner
         }
     }
+    
+    func printMessage( turnPlayer: String) {
+        switch self {
+        case .win:
+            let winningMessage = "\(turnPlayer)의 승리!"
+            print(winningMessage)
+        case .reMatch(_):
+            guard let nextTurnPlayer = self.nextTurnPlayer else {
+                print(ErrorMessage.emptyNextTurnPlayer)
+                return
+            }
+            let reMatchMessage = "\(nextTurnPlayer)의 턴입니다."
+            print(reMatchMessage)
+        }
+    }
 }
