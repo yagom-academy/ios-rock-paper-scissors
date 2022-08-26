@@ -6,6 +6,17 @@
 
 enum RockPaperScissorsGameResult {
     case win, lose, draw
+    
+    var winner: String {
+        switch self {
+        case .win:
+            return Player.user
+        case .lose:
+            return Player.computer
+        case .draw:
+            return ""
+        }
+    }
 }
 
 enum MukJjiBbaGameResult {
