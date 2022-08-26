@@ -69,20 +69,20 @@ struct MukChiBbaGame {
     
     private func convertRockPaperScissors(to inputNumber: Int)
     -> (RockPaperScissors, RockPaperScissors)? {
-        guard let numberToRPS: RockPaperScissors = .init(rawValue: inputNumber),
-              let computerRPS: RockPaperScissors = .init(rawValue: Int.random(in: 1...3)) else {
+        guard let numberToRPS: RockPaperScissors = .init(rawValue: inputNumber) else {
             print(GameComment.retry.rawValue)
             return nil
         }
+        let computerRPS = RockPaperScissors.random()
         return (numberToRPS, computerRPS)
     }
     
     private func convertMukChiBba(to inputNumber: Int) -> (MukChiBba, MukChiBba)? {
-        guard let userNumberMCB: MukChiBba = .init(rawValue: inputNumber),
-              let computerMCB: MukChiBba = .init(rawValue: Int.random(in: 1...3)) else {
+        guard let userNumberMCB: MukChiBba = .init(rawValue: inputNumber) else {
             print(GameComment.retry.rawValue)
             return nil
         }
+        let computerMCB = MukChiBba.random()
         return (userNumberMCB, computerMCB)
     }
     
