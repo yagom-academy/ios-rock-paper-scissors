@@ -21,6 +21,12 @@ class RockScissorsPaperGame: CommonFunctions {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
             guard let userInput = filterUserInput() else { continue }
+            
+            if userInput == 0 {
+                print("게임 종료")
+                return
+            }
+            
             isExitGame = decideWhoStartsFirstTurn(with: userInput)
         }
     }
@@ -31,10 +37,7 @@ class RockScissorsPaperGame: CommonFunctions {
         let comparisonOfTwoThings = (computerPick, userPick)
         let mcbGame = MukChiBbaGame()
         
-        if userChoice == 0 {
-            print("게임 종료")
-            return true
-        } else if computerPick == userPick {
+        if computerPick == userPick {
             print("비겼습니다!")
             return false
         }

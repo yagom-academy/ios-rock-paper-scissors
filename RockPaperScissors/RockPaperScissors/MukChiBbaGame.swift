@@ -30,8 +30,13 @@ class MukChiBbaGame: CommonFunctions {
                 isUserTurn = false
                 continue
             }
+            if userInput == 0 {
+                print("게임 종료")
+                return
+            }
             
-            let isExitOrWhoseTurn: (canExit: Bool, checkUserTurn: Bool) = decideWhoWins(userInput: userInput, isUserTurn: isUserTurn)
+            let isExitOrWhoseTurn: (canExit: Bool, checkUserTurn: Bool)
+            = decideWhoWins(userInput: userInput, isUserTurn: isUserTurn)
             
             switch isExitOrWhoseTurn {
             case (canExit: true, _):
@@ -44,22 +49,24 @@ class MukChiBbaGame: CommonFunctions {
         }
     }
 
-    func decideWhoWins(userInput: Int, isUserTurn: Bool) -> (Bool,Bool) {
-        let computerPick = MukChiBba.allCases.randomElement()
-        let userPick = MukChiBba(rawValue: userInput)
-        let comparisonOfTwoThings = (computerPick, userPick)
+    func decideWhoWins(userInput: Int, isUserTurn: Bool) -> (Bool, Bool) {
+        guard let computerPick = MukChiBba.allCases.randomElement(),
+              let userPick = MukChiBba(rawValue: userInput) else {
+            return (true, true)
+        }
         
-        if userInput == 0 {
-            print("게임 종료")
-            return (true, isUserTurn)
-        } else if computerPick == userPick && isUserTurn == true {
+        if computerPick == userPick && isUserTurn == true {
             print("사용자의 승리!")
             return (true, isUserTurn)
         } else if computerPick == userPick && isUserTurn == false {
             print("컴퓨터의 승리!")
             return (true, isUserTurn)
+        } else {
+            return decideWhoseTurn((computerPick, userPick))
         }
-        
+    }
+    
+    func decideWhoseTurn(_ comparisonOfTwoThings: (MukChiBba, MukChiBba)) -> (Bool, Bool) {
         switch comparisonOfTwoThings {
         case (.muk, .bba), (.chi, .muk), (.bba, .chi):
             return (false, true)
