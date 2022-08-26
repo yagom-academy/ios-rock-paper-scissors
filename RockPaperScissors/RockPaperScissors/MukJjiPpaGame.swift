@@ -1,20 +1,25 @@
 struct MukJjiPpaGame {
-    private var currentTurn: Player = .none
-    
     mutating func startMJPGame() {
         var RPSGame = RockPaperScissorsGame()
-
+        var winnerTurn: Player = .user
+        var gameResult = RPSGame.fetchRPSGameResult() {
+            didSet {
+                if gameResult == .win {
+                    winnerTurn = .user
+                } else if gameResult == .lose {
+                    winnerTurn = .computer
+                }
+            }
+        }
+        
         RPSGame.startRPSGame()
-        currentTurn = RPSGame.RPSWinner
         
-        var isPlayPossible = true
-        
-        while isPlayPossible {
-            printMJPMenu()
+        while gameResult != .draw {
+            printMJPMenu(winnerTurn.rawValue)
             
             guard let userMJPNumber = RPSGame.fetchUserNumber() else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
-                currentTurn = .computer
+                winnerTurn = .computer
                 continue
             }
             
@@ -31,29 +36,15 @@ struct MukJjiPpaGame {
                 continue
             }
             
-            let gameMJPResult = GameResult.judgeUserGameResultIn(userMJPNumber, computerMJPNumber)
+            gameResult = GameResult.judgeUserGameResultIn(userMJPNumber, computerMJPNumber)
             
-            switch gameMJPResult {
-            case .draw:
-                print("\(currentTurn.rawValue)의 승리!")
-                isPlayPossible = false
-            default:
-                changeTurn(gameMJPResult)
+            if gameResult == .draw {
+                print("\(winnerTurn.rawValue)의 승리입니다.")
             }
         }
     }
-    
-    private func printMJPMenu() {
-        print("[\(currentTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
-    }
-    
-    private mutating func changeTurn(_ result: GameResult) {
-        if result == .win {
-            self.currentTurn = .user
-        } else if result == .lose {
-            self.currentTurn = .computer
-        }
-        
-        print("\(currentTurn.rawValue)의 턴입니다.")
+
+    private func printMJPMenu(_ winner: String) {
+        print("[\(winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
     }
 }

@@ -1,5 +1,5 @@
 struct RockPaperScissorsGame {
-    internal var RPSWinner: Player = .none
+    var gameResult: GameResult = .draw
     
     mutating func startRPSGame() {
         printRPSMenu()
@@ -24,20 +24,19 @@ struct RockPaperScissorsGame {
         
         let gameRPSResult = GameResult.judgeUserGameResultIn(userRPS, computerRPS)
         
+        gameResult = gameRPSResult
         printResult(of: gameRPSResult)
         
         switch gameRPSResult {
         case .win:
-            RPSWinner = .user
             return
         case .lose:
-            RPSWinner = .computer
             return
         case .draw:
             startRPSGame()
         }
     }
-
+    
     private func printRPSMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
@@ -59,5 +58,9 @@ struct RockPaperScissorsGame {
         case .draw:
             print("비겼습니다!")
         }
+    }
+    
+    func fetchRPSGameResult() -> GameResult {
+        return self.gameResult
     }
 }
