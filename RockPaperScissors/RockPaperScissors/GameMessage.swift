@@ -12,6 +12,7 @@ enum GameResultMessage {
 
 enum ErrorMessage {
     static let invalidMenuNumber = "잘못된 입력입니다. 다시 시도해주세요."
+    static let emptyComputerHandShape = "컴퓨터의 패가 비어있습니다."
 }
 
 enum ManualMessage {

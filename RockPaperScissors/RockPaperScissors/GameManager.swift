@@ -17,6 +17,12 @@ struct GameManager {
             print(ManualMessage.ending)
             return
         }
+        
+        guard let computerHandShape = receiveHandShape(handShapeType: .rockPaperScissors) else {
+            print(ErrorMessage.emptyComputerHandShape)
+            return startRockPaperScissorsGame()
+        }
+        
         let gameResult = fetchGameResult(of: userHandShape)
         
         switch gameResult {
@@ -49,7 +55,6 @@ struct GameManager {
     }
     
     private func fetchGameResult(of userHandShape: HandShape) -> RockPaperScissorsGameResult {
-        let computerHandShape = generateComputerHandShape()
 
         switch (userHandShape, computerHandShape) {
         case (HandShape.rock , HandShape.scissors),
@@ -63,11 +68,6 @@ struct GameManager {
         default:
             return .draw
         }
-    }
-    
-    private func generateComputerHandShape() -> HandShape {
-        guard let computerHandShape = HandShape.init(rawValue: Int.random(in: 1...3)) else { return generateComputerHandShape() }
-        return computerHandShape
     }
     
     private func startMukJjiBbaGame(_ turnPlayer: String) {
@@ -85,7 +85,10 @@ struct GameManager {
             return
         }
         
-        let computerHandShape = generateComputerHandShape()
+        guard let computerHandShape = receiveHandShape(handShapeType: .mukJjiBba) else {
+            print(ErrorMessage.emptyComputerHandShape)
+            return startRockPaperScissorsGame()
+        }
 
         let gameResult = fetchGameResult(comparing: userHandShape, and: computerHandShape)
         
