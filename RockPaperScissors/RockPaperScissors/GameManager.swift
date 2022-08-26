@@ -89,7 +89,7 @@ struct GameManager {
             return startRockPaperScissorsGame()
         }
 
-        let gameResult = fetchGameResult(comparing: userHandShape, and: computerHandShape)
+        let gameResult = fetchMukJjiBbaGameResult(comparing: userHandShape, and: computerHandShape)
         
         switch gameResult {
         case .win:
@@ -108,7 +108,7 @@ struct GameManager {
         }
     }
 
-    private func fetchGameResult(comparing userHandShape: HandShape, and computerHandShape: HandShape) -> MukJjiBbaGameResult {
+    private func fetchMukJjiBbaGameResult(comparing userHandShape: HandShape, and computerHandShape: HandShape) -> MukJjiBbaGameResult {
         switch (userHandShape, computerHandShape) {
         case (HandShape.rock , HandShape.scissors),
             (HandShape.paper , HandShape.rock),
