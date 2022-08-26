@@ -3,7 +3,7 @@ enum GameResult {
     case lose
     case draw
     
-    static func judgeUserGameResultIn(_ userRPS: RPS, _ computerRPS: RPS ) -> GameResult {
+    static func judgeUserGameResultIn(_ userRPS: HandShape, _ computerRPS: HandShape) -> GameResult {
         switch (userRPS, computerRPS) {
         case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
             return .win
@@ -14,3 +14,4 @@ enum GameResult {
         }
     }
 }
+

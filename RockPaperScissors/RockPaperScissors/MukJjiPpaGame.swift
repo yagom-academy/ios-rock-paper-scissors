@@ -1,59 +1,66 @@
 struct MukJjiPpaGame {
-    private var currentTurn: Player = .none
-    
-    mutating func startMJPGame() {
-        var RPSGame = RockPaperScissorsGame()
+    private var rpsGame = RockPaperScissorsGame()
 
-        RPSGame.startRPSGame()
-        currentTurn = RPSGame.RPSWinner
+    mutating func startMJPGame() {
+        rpsGame.startRPSGame()
+        var gameResult = rpsGame.fetchRPSGameResult()
         
-        var isPlayPossible = true
-        
-        while isPlayPossible {
-            printMJPMenu()
-            
-            guard let userMJPNumber = RPSGame.fetchUserNumber() else {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-                currentTurn = .computer
-                continue
+        var winnerTurn: Player? {
+            if gameResult == .win {
+                print("\(Player.user.rawValue)의 턴입니다")
+                return .user
+            } else if gameResult == .lose {
+                print("\(Player.computer.rawValue)의 턴입니다")
+                return .computer
+            } else {
+                return nil
             }
-            
-            if userMJPNumber == 0 {
-                print("게임종료")
+        }
+
+        while gameResult != .draw {
+            guard let winnerTurn = winnerTurn else {
                 break
             }
-            
-            let computerMJPNumber = Int.random(in: 1...3)
-            
-            guard let userMJPNumber = RPS.convertMJP(from: userMJPNumber),
-                  let computerMJPNumber = RPS.convertMJP(from: computerMJPNumber) else {
+
+            printMJPMenu(winnerTurn.rawValue)
+
+            guard let userMJPNumber = fetchUserNumber() else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
+                gameResult = .lose
                 continue
             }
-            
-            let gameMJPResult = GameResult.judgeUserGameResultIn(userMJPNumber, computerMJPNumber)
-            
-            switch gameMJPResult {
-            case .draw:
-                print("\(currentTurn.rawValue)의 승리!")
-                isPlayPossible = false
-            default:
-                changeTurn(gameMJPResult)
+
+            if userMJPNumber == 0 {
+                print("게임 종료")
+                break
+            }
+
+            let computerMJPNumber = Int.random(in: 1...3)
+
+            guard let userMJPNumber = HandShape.convertHandShape(from: userMJPNumber, type: .mjp),
+                  let computerMJPNumber = HandShape.convertHandShape(from: computerMJPNumber, type: .mjp) else {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                gameResult = .lose
+                continue
+            }
+
+            gameResult = GameResult.judgeUserGameResultIn(userMJPNumber, computerMJPNumber)
+
+            if gameResult == .draw {
+                print("\(winnerTurn.rawValue)의 승리입니다.")
             }
         }
     }
-    
-    private func printMJPMenu() {
-        print("[\(currentTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+
+    private func printMJPMenu(_ winner: String) {
+        print("[\(winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
     }
     
-    private mutating func changeTurn(_ result: GameResult) {
-        if result == .win {
-            self.currentTurn = .user
-        } else if result == .lose {
-            self.currentTurn = .computer
+    private func fetchUserNumber() -> Int? {
+        guard let userInput = readLine() else {
+            return nil
         }
         
-        print("\(currentTurn.rawValue)의 턴입니다.")
+        return Int(userInput)
     }
 }
