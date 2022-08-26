@@ -5,8 +5,6 @@
 //  Created by Kyo,Aaron on 2022/08/24.
 //
 
-import Foundation
-
 enum Turn: String {
     case userTurn = "사용자"
     case computerTurn = "컴퓨터"

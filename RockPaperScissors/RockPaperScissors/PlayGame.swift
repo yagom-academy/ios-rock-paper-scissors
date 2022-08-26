@@ -5,8 +5,6 @@
 //  Created by Kyo,Aaron on 2022/08/24.
 //
 
-import Foundation
-
 final class PlayGame: HandlingInput {
     func playRPS() -> Turn {
         let gameName = "RPS"
@@ -25,7 +23,7 @@ final class PlayGame: HandlingInput {
                 userHands = RockScissorsPaper(rawValue: castingUserInput(input: userInput))
             }
             
-            if userHands == RockScissorsPaper.none {
+            if userHands == RockScissorsPaper.exit {
                 print("게임 종료")
                 currentTurn = .undecidedTurn
                 return currentTurn
@@ -67,7 +65,7 @@ final class PlayGame: HandlingInput {
                 userHands = MukZiBa(rawValue: castingUserInput(input: userInput))
             }
             
-            if userHands == MukZiBa.none {
+            if userHands == MukZiBa.exit {
                 print("게임 종료")
                 return
             }

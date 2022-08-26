@@ -5,8 +5,6 @@
 //  Created by Kyo,Aaron on 2022/08/24.
 //
 
-import Foundation
-
 class HandlingInput {
     func generateComputerInput() -> Int {
         let computerInput = Int.random(in: 1...3)
