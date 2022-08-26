@@ -5,6 +5,8 @@ enum GameComment: String {
     case gameWin = "이겼습니다!"
     case gameLose = "졌습니다!"
     case gameDraw = "비겼습니다!"
+    case userTurn = "사용자의 턴입니다."
+    case computerTurn = "컴퓨터의 턴입니다."
     case gameRockPaperScissorsMenu = "가위(1), 바위(2), 보(3)! <종료 : 0>: "
     case gameMukChiBbaMenu = "묵(1), 찌(2), 빠(3)! <종료 : 0> : "
     case none = "입력된 값이 없습니다."

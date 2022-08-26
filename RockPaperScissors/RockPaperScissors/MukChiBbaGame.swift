@@ -101,15 +101,15 @@ struct MukChiBbaGame {
         return gameResult
     }
     
-    private func judgeWinOrLoseAtMukChiBba(MCB: (MukChiBba, MukChiBba), to turn: Turn) {
+    func judgeWinOrLoseAtMukChiBba(MCB: (MukChiBba, MukChiBba), to turn: Turn) {
         switch MCB {
         case let (userMCB, computerMCB) where userMCB == computerMCB:
             print("\(turn.rawValue)의 승리!")
         case (.chi, .bba), (.bba, .muk), (.muk, .chi):
-            print("사용자의 턴입니다.")
+            print(GameComment.userTurn.rawValue)
             playMukChiBba(turn: .user)
         default:
-            print("컴퓨터의 턴입니다.")
+            print(GameComment.computerTurn.rawValue)
             playMukChiBba(turn: .computer)
         }
     }
