@@ -44,7 +44,6 @@ struct GameManager {
               HandShapeRawValue <= 3 else {
             return nil
         }
-        
         return HandShapeRawValue
     }
     
@@ -65,8 +64,8 @@ struct GameManager {
     
     private func startMukJjiBbaGame(_ turnPlayer: String) {
         let turnPlayer = turnPlayer
-        let turnInfomation = "[\(turnPlayer) 턴]"
-        print(turnInfomation, ManualMessage.mukJjiBbaManual, terminator: "")
+        let turnInformation = "[\(turnPlayer) 턴]"
+        print(turnInformation, ManualMessage.mukJjiBbaManual, terminator: "")
         
         guard let menuNumber = receiveMenuNumber() else {
             print(ErrorMessage.invalidMenuNumber)
