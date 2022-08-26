@@ -14,12 +14,11 @@ struct MukChiBbaGame {
             return
         }
         
-        guard let tupleRockPaperScissors =  convertRockPaperScissors(to: userNumber) else {
+        guard let (userRPS, computerRPS) =  convertRockPaperScissors(to: userNumber) else {
             return play()
         }
         
-        let userGameResult = judgeWinOrLoseAtRockPaperScissors(RPS:
-        tupleRockPaperScissors)
+        let userGameResult = judgeWinOrLoseAtRockPaperScissors(RPS: (userRPS, computerRPS))
         
         showResult(userGameResult)
     }
@@ -37,11 +36,11 @@ struct MukChiBbaGame {
             return
         }
         
-        guard let tupleMukChiBba = convertMukChiBba(to: userNumber) else {
+        guard let (userMCB, computerMCB) = convertMukChiBba(to: userNumber) else {
             return playMukChiBba(turn: .computer)
         }
         
-        judgeWinOrLoseAtMukChiBba(MCB: tupleMukChiBba, to: turn)
+        judgeWinOrLoseAtMukChiBba(MCB: (userMCB, computerMCB), to: turn)
     }
     
     private func showRockPaperScissorsMenu() {
