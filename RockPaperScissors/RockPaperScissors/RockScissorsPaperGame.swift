@@ -20,8 +20,8 @@ class RockScissorsPaperGame: CommonFunctions {
         while isExitGame == false {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
-            guard let userNumber = filterUserInput() else { continue }
-            isExitGame = decideWhoStartsFirstTurn(with: userNumber)
+            guard let userInput = filterUserInput() else { continue }
+            isExitGame = decideWhoStartsFirstTurn(with: userInput)
         }
     }
 

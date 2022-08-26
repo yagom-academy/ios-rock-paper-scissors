@@ -5,6 +5,8 @@
 //  Created by 애종, Mangdi.
 //
 
+import Foundation
+
 class MukChiBbaGame: CommonFunctions {
     enum MukChiBba: Int, CaseIterable {
         case muk = 1
@@ -24,15 +26,14 @@ class MukChiBbaGame: CommonFunctions {
         while isExitGame == false {
             print("[\(mukChiBbaAttacker) 턴] (묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
             
-            guard let userNumber = filterUserInput() else {
+            guard let userInput = filterUserInput() else {
                 isUserTurn = false
                 continue
             }
             
-            var exitOrTurnChange = (canExit: isExitGame, checkUserTurn: isUserTurn)
-            exitOrTurnChange = decideWhoWins(userNumber: userNumber, takeUserWin: isUserTurn)
+            let isExitOrWhoseTurn: (canExit: Bool, checkUserTurn: Bool) = decideWhoWins(userInput: userInput, isUserTurn: isUserTurn)
             
-            switch exitOrTurnChange {
+            switch isExitOrWhoseTurn {
             case (canExit: true, _):
                 isExitGame = true
             case (canExit: false, checkUserTurn: false):
@@ -43,27 +44,27 @@ class MukChiBbaGame: CommonFunctions {
         }
     }
 
-    func decideWhoWins(userNumber: Int, takeUserWin: Bool) -> (Bool,Bool) {
+    func decideWhoWins(userInput: Int, isUserTurn: Bool) -> (Bool,Bool) {
         let computerPick = MukChiBba.allCases.randomElement()
-        let userPick = MukChiBba(rawValue: userNumber)
-        let compareTwoThings = (computerPick, userPick)
+        let userPick = MukChiBba(rawValue: userInput)
+        let comparisonOfTwoThings = (computerPick, userPick)
         
-        if userNumber == 0 {
+        if userInput == 0 {
             print("게임 종료")
-            return (true,takeUserWin)
-        } else if computerPick == userPick && takeUserWin == true {
+            return (true, isUserTurn)
+        } else if computerPick == userPick && isUserTurn == true {
             print("사용자의 승리!")
-            return (true,takeUserWin)
-        } else if computerPick == userPick && takeUserWin == false {
+            return (true, isUserTurn)
+        } else if computerPick == userPick && isUserTurn == false {
             print("컴퓨터의 승리!")
-            return (true,takeUserWin)
+            return (true, isUserTurn)
         }
         
-        switch compareTwoThings {
+        switch comparisonOfTwoThings {
         case (.muk, .bba), (.chi, .muk), (.bba, .chi):
-            return (false,true)
+            return (false, true)
         default:
-            return (false,false)
+            return (false, false)
         }
     }
 }
