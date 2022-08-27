@@ -69,19 +69,16 @@
 ---
 
 # Flow chart
-STEP 1
-<img src="https://i.imgur.com/FGcKtEl.png" width=500>
-
-# 
-
-STEP 2
-<img src="https://i.imgur.com/fth5dz0.png" width=500>
+| STEP 1 | STEP 2 |
+|:------------------------------------:|:------:|
+|![](https://i.imgur.com/JeAbkhs.png)| ![](https://i.imgur.com/tenhtAe.png)| 
 
 
 ---
-
 # 실행 화면
-<img src="https://i.imgur.com/wOKYgpX.png" width=500>
+|                STEP 1                | STEP 2 |
+|:------------------------------------:|:------:|
+|![](https://i.imgur.com/8ptw9HI.gif)| ![](https://i.imgur.com/3xH0SuE.gif)| 
 
 ---
 
@@ -130,7 +127,7 @@ STEP 2
 ### 배운개념
 - git branch 생성, merge 하는방법
 - 열거형에서 랜덤 요소 가져오는 함수
-~~~swift
+```swift
     /// A type that provides a collection of all of its values.
     ///
     /// Types that conform to the `CaseIterable` protocol are typically
@@ -142,7 +139,7 @@ STEP 2
     열거형: CaseIterable // CaseIterable 프로토콜 추가
 
     열거형.allCases.randomElement() // 반환 타입은 옵셔널
-~~~
+```
 
 ---
 
@@ -166,7 +163,7 @@ struct RockPaperScissorsGame {
 ```
 ---
 - 묵찌빠 게임에서 먼저 가위바위보 게임이 끝나고 승리자가 결정된 후 묵찌빠 게임을 진행하는 부분은 startMukChiBaGameRoutine() 메서드로 분리했습니다.
-~~~swift
+```swift
     mutating func startGame() {
         var rockPaperScissorsGame: RockPaperScissorsGame = RockPaperScissorsGame()
         rockPaperScissorsGame.startGame()
@@ -191,7 +188,7 @@ struct RockPaperScissorsGame {
             printMukChiBaGameResult(isTurnOwnerWin)
         } while isTurnOwnerWin == false
     }
-~~~
+```
 ### 배운개념
 - self property 
 - private
