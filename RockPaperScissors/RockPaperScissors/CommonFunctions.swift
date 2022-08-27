@@ -6,6 +6,11 @@
 //
 
 class CommonFunctions {
+    enum Player: String {
+        case computer = "컴퓨터"
+        case user = "사용자"
+    }
+    
     func filterUserInput() -> Int? {
         if let input = readLine(),
            let userNumber = Int(input.replacingOccurrences(of: " ", with: "")),
