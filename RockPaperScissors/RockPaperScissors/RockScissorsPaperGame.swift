@@ -8,13 +8,13 @@
 import Foundation
 
 class RockScissorsPaperGame: CommonFunctions {
-    var isGameOver: Bool = false
-    
     enum RockScissorsPaper: Int, CaseIterable {
         case scissors = 1
         case rock = 2
         case paper = 3
     }
+    
+    var isGameOver: Bool = false
 
     func startGame() {
         while isGameOver == false {
@@ -45,10 +45,10 @@ class RockScissorsPaperGame: CommonFunctions {
         switch comparisonOfTwoPicks {
         case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
             print("이겼습니다!")
-            mcbGame.startMukChiBbaGame(isUserTurn: true)
+            mcbGame.startMukChiBbaGame(turn: Player.user)
         default:
             print("졌습니다!")
-            mcbGame.startMukChiBbaGame(isUserTurn: false)
+            mcbGame.startMukChiBbaGame(turn: Player.computer)
         }
         isGameOver = true
     }
