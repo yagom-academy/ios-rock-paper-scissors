@@ -1,19 +1,19 @@
 //
-//  Mukjipa.swift
+//  RockPaperScissors.swift
 //  Created by Wonbi, 미니
 //
 
-enum Mukjipa: Int, CaseIterable, GameElement {
+enum RockPaperScissors: Int, CaseIterable, GameElement {
     case none = 0
-    case muk = 1
-    case ji = 2
-    case pa = 3
+    case scissors = 1
+    case rock = 2
+    case paper = 3
     
     func chooseComputerNumber(between min: Int, and max: Int) -> Int {
         let choiceNumber = Int.random(in: min...max)
         return choiceNumber
     }
-    
+        
     func generateComputerCard() -> Self {
         let computerCard = Self.allCases[chooseComputerNumber(between: 1, and: 3)]
         return computerCard

@@ -4,5 +4,5 @@
 //
 
 enum InputError: Error {
-	case invalidNumber
+    case invalidNumber
 }
