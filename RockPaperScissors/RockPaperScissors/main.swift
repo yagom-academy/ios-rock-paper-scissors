@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-let rpsGameManager = RPSGameManager.init()
+let rpsGameManager = RPSGameManager()
 
 rpsGameManager.startGame()
 

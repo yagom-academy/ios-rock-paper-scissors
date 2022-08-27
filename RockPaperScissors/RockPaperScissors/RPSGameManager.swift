@@ -1,12 +1,10 @@
 struct RPSGameManager {
     func startGame() {
-        let randomComputerNumber = Int.random(in: 1...3)
-        
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         guard let userNumber = fetchUserInput(),
               let userChoice = RockPaperScissors.init(rawValue: userNumber),
-              let computerChoice = RockPaperScissors.init(rawValue: randomComputerNumber) else {
+              let computerChoice = RockPaperScissors.init(rawValue: Int.random(in: 1...3)) else {
             printUserInputError()
             return startGame()
         }
@@ -17,15 +15,13 @@ struct RPSGameManager {
     }
     
     private func handleGameResult(gameResult: GameResult) {
-        let mcbGameManager = MCBGameManager.init()
-        
         switch gameResult {
         case .win:
             print("이겼습니다!")
-            mcbGameManager.startGame(gameResult: .win)
+            MCBGameManager().startGame(gameResult: .win)
         case .lose:
             print("졌습니다!")
-            mcbGameManager.startGame(gameResult: .lose)
+            MCBGameManager().startGame(gameResult: .lose)
         case .draw:
             print("비겼습니다")
             startGame()
@@ -38,18 +34,18 @@ struct RPSGameManager {
     private func checkGameResult(computerChoice: RockPaperScissors, userChoice: RockPaperScissors) -> GameResult {
         if computerChoice == userChoice { return .draw }
         
-        switch userChoice {
-        case .scissors:
-            if computerChoice == .rock { return .lose }
-        case .rock:
-            if computerChoice == .paper { return .lose }
-        case .paper:
-            if computerChoice == .scissors { return .lose }
-        case .none:
+        switch (userChoice, computerChoice) {
+        case (.scissors, .paper):
+            return .win
+        case (.rock, .scissors):
+            return .win
+        case (.paper, .rock):
+            return .win
+        case (.exit, _):
             return .exit
+        default:
+            return .win
         }
-        
-        return .win
     }
 }
 

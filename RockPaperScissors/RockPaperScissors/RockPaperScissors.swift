@@ -1,3 +1,3 @@
 enum RockPaperScissors: Int {
-    case none, scissors, rock, paper
+    case exit, scissors, rock, paper
 }
