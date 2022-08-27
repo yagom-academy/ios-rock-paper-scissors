@@ -66,8 +66,8 @@ class MukChiBbaGame: CommonFunctions {
         }
     }
     
-    func decideWhoseTurn(_ comparisonOfTwoThings: (MukChiBba, MukChiBba)) -> (Bool, Bool) {
-        switch comparisonOfTwoThings {
+    func decideWhoseTurn(_ comparisonOfTwoPicks: (MukChiBba, MukChiBba)) -> (Bool, Bool) {
+        switch comparisonOfTwoPicks {
         case (.muk, .bba), (.chi, .muk), (.bba, .chi):
             return (false, true)
         default:
