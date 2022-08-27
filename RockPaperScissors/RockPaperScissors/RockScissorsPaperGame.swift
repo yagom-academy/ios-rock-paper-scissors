@@ -1,5 +1,5 @@
 //
-//  step1.swift
+//  RockScissorsPaperGame.swift
 //  RockPaperScissors
 //
 //  Created by 애종, Mangdi.
