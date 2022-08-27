@@ -33,19 +33,16 @@ class MukChiBbaGame: CommonFunctions {
                 return
             }
             
-            decideWhoWins(userInput: userInput, turn: attacker)
+            decideWinner(userInput: userInput, turn: attacker)
         }
     }
-
-    func decideWhoWins(userInput: Int, turn: Player) {
+    
+    func decideWinner(userInput: Int, turn: Player) {
         guard let computerPick = MukChiBba.allCases.randomElement(),
               let userPick = MukChiBba(rawValue: userInput) else { return }
         
-        if computerPick == userPick && turn == Player.user {
-            print("사용자의 승리!")
-            isGameOver = true
-        } else if computerPick == userPick && turn == Player.computer {
-            print("컴퓨터의 승리!")
+        if computerPick == userPick {
+            print("\(turn.rawValue)의 승리!")
             isGameOver = true
         } else {
             decideWhoseTurn((computerPick, userPick))
@@ -59,5 +56,6 @@ class MukChiBbaGame: CommonFunctions {
         default:
             attacker = Player.computer
         }
+        print("\(attacker.rawValue)의 턴입니다")
     }
 }

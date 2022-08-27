@@ -21,4 +21,3 @@ class CommonFunctions {
         return nil
     }
 }
-

@@ -26,6 +26,7 @@ class RockScissorsPaperGame: CommonFunctions {
                 print("게임 종료")
                 return
             }
+            
             decideWhoStartsFirstTurn(with: userInput)
         }
     }
