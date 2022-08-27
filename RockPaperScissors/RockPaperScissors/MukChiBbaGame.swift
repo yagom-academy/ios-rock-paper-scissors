@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MukChiBbaGame: CommonFunctions {
+class MukChiBbaGame: InputFilterable {
     enum MukChiBba: Int, CaseIterable {
         case muk = 1
         case chi = 2

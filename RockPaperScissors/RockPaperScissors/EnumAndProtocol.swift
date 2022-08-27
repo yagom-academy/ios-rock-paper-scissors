@@ -10,11 +10,11 @@ enum Player: String {
     case user = "사용자"
 }
 
-protocol CommonFunctions {
+protocol InputFilterable {
     func filterUserInput() -> Int?
 }
 
-extension CommonFunctions {
+extension InputFilterable {
     func filterUserInput() -> Int? {
         if let input = readLine(),
            let userNumber = Int(input.replacingOccurrences(of: " ", with: "")),

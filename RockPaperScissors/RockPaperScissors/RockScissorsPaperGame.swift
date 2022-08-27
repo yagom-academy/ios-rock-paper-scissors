@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RockScissorsPaperGame: CommonFunctions {
+class RockScissorsPaperGame: InputFilterable {
     enum RockScissorsPaper: Int, CaseIterable {
         case scissors = 1
         case rock = 2
