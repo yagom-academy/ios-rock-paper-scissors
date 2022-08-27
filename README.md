@@ -4,15 +4,19 @@
 
 # 목차
 - [프로젝트 소개](#프로젝트-소개)
-    - [Step1](##Step1)
-    - [Step2](##Step2)
-- [코딩 컨벤션](##코딩-컨벤션)
-- [STEP 1](#STEP-1)
-   - [고민한 점](#고민한-점)
-   - [배운 개념](#배운개념)
-- [STEP 2](#STEP-2)
-   - [고민한 점](#고민한-점)
-   - [배운 개념](#배운개념)
+- [개발환경 및 라이브러리](#개발환경-및-라이브러리)
+- [타임라인](#타임라인)
+- [Flow chart](#Flowchart)
+- [실행 화면](#실행-화면)
+- [코딩 컨벤션](#코딩-컨벤션)
+- [트러블 슈팅](#트러블-슈팅)
+    - [STEP 1](##STEP-1)
+       - [고민한 점](###고민한-점)
+       - [배운 개념](###배운개념)
+    - [STEP 2](##STEP-2)
+       - [고민한 점](###고민한-점)
+       - [배운 개념](###배운개념)
+- [🔗 참고 링크](##🔗-참고-링크)
 
 ---
 
@@ -23,27 +27,75 @@
 [![swift](https://img.shields.io/badge/swift-5.6-orange)]()
 [![xcode](https://img.shields.io/badge/Xcode-13.4-blue)]()
 
+# 타임라인
+- 2022/08/23
+    - STEP 1
+        - 가위바위보 메뉴 출력 함수, 사용자 패 입력 함수 추가
+        - 사용자의 입력값 검증 함수 추가
+        - 함수 추가, 메서드 순서 수정, 반환타입 변경
+        - 가위바위보 열거형 추가, 반환타입과 메소드 리팩토링
+        - 승패 판단 함수 추가, 승무패 열거형 추가
+        - 기존 결과출력문을 열거형 `WinLoseDraw`에 메소드로 추가하여 대체, `startGame`메소드를 제외한 나머지 메소드를 은닉화
+        - 파일 분리(열거형타입, 구조체타입, 실행문)
+        - README 파일 작성, flow chart 추가
+        - [STEP 1  PR ](https://github.com/yagom-academy/ios-rock-paper-scissors/pull/162)
+        - git branch 정리
+- 2022/08/24
+    - STEP 1 리뷰 수정내용 반영
+        - 열거형,메서드이름 수정, 반환타입 optional로 변경, 타입명시 통일
+    - STEP 1 PR Merge 완료 
+    - STEP 2 
+        - flow chart 작성
+        - 묵찌빠 열거형 추가
+        - 참가자 열거형 추가
+        - 묵찌빠 구조체 추가, 참가자 열거형 수정
+        - 가위바위보게임 종료시 승리자 반환하도록 기능 수정
+- 2022/08/25
+    - STEP 2
+        - 입력값검증 후 잘못입력 시 에러메세지 출력, 정상입력 시 입력값 반환 메서드 `getSelectedUserMenu` 추가
+        - 승패를 결정하는 메서드 `compareComputerHand` 추가
+        - 메서드에서 사용하는 `turnOwner` 파라미터를 묵찌빠게임 구조체 `turnOwner`프로퍼티로 선언하여 사용
+        - 턴오너를 교체하는 메서드 `toggleTurnOwner`, 턴오너가 이겼는지 판단하는 메서드 `isTurnOwnerWin` 추가
+        - 묵찌빠 게임 실행하는 `startMukChiBaGameRoutine` 메서드 추가
+        - 메서드 배치 호출순으로 변경
+        - 가위바위보 게임 `startGame` 메서드에서 승자`Participant`를 직접 반환하지 않고 `winner`프로퍼티 값을 바꿔주도록 수정
+        - [STEP 2  PR 작성](https://github.com/yagom-academy/ios-rock-paper-scissors/pull/175)
+        - flow chart 수정
+- 2022/08/26
+    - STEP 2 리뷰 수정내용 반영
+        - 메서드명 변경, 개행방식 통일, 불필요한 else문 제거
+    - README 작성
+
 ---
 
-# 시각화된 프로젝트 구조(다이어그램 등)
-<img src="https://media.discordapp.net/attachments/1011075486962679979/1011441282595442768/-STEP_1.drawio.png?width=675&height=920">
+# Flow chart
+| STEP 1 | STEP 2 |
+|:------------------------------------:|:------:|
+|![](https://i.imgur.com/JeAbkhs.png)| ![](https://i.imgur.com/tenhtAe.png)| 
+
+
+---
+# 실행 화면
+|                STEP 1                | STEP 2 |
+|:------------------------------------:|:------:|
+|![](https://i.imgur.com/8ptw9HI.gif)| ![](https://i.imgur.com/3xH0SuE.gif)| 
 
 ---
 
-## 코딩 컨벤션
+# 코딩 컨벤션
 - 변수명 정할 때 단어 축약하지 않기
 - 상수로 선언해줄 수 있는 부분은 최대한 상수로 구현
 - 전역변수는 최대한 지양
 - 타입 명시는 통일
 - 메서드 내부는 메서드명과 메서드의 목적에 맞게 구현
 - 타입(구조체, 열거형, 클래스)별로 파일 분리
+- return문 윗줄 개행기준 : 코드블럭 내부 return문외에 다른실행문도 있으면 윗줄 개행하여 비워두기
 
 ---
-
-# [STEP 1]
-
-## 고민한 점
-- 사용자 입력값과 컴퓨터 임의의 패를 비교할 때, 비교조건 내용을 고민하였습니다.
+# 트러블 슈팅
+## [STEP 1]
+### 고민한 점
+-용자 입력값과 컴퓨터 임의의 패를 비교할 때, 비교조건 내용을 고민하였습니다.
 > 예: 사용자 입력값이 가위일 경우
 > 방법(1) 1. 컴퓨터의 패와 같은지?(True/False) -> 2. 컴퓨터의 패가 바위인가?(True/False)
  방법(2) 1. 컴퓨터의 패가 바위인가?(True/False) -> 2. 컴퓨터의 패가 보인가?(True/False)
@@ -72,10 +124,10 @@
 
 ---
 
-## 배운개념
+### 배운개념
 - git branch 생성, merge 하는방법
 - 열거형에서 랜덤 요소 가져오는 함수
-~~~swift
+```swift
     /// A type that provides a collection of all of its values.
     ///
     /// Types that conform to the `CaseIterable` protocol are typically
@@ -87,19 +139,64 @@
     열거형: CaseIterable // CaseIterable 프로토콜 추가
 
     열거형.allCases.randomElement() // 반환 타입은 옵셔널
-~~~
+```
 
-- 
+---
 
-# [STEP 2]
+## [STEP 2]
 
-## 고민한 점
-- 
-## 배운개념
-
-- 
-
+### 고민했던 점
+- 가위바위보 게임의 startGame 메서드명은 게임을 시작한다는 의미인데 반환값이 있다는 것이 어색했습니다.
+- 해결방법 ➡️ winner 프로퍼티를 추가해서 가위바위보 게임이 끝나면 승자를 winner 프로퍼티에 설정하여 묵찌빠게임에서 쓸 수 있도록 했습니다.
+- 수정 전
+```swift
+struct RockPaperScissorsGame {
+    func startGame() -> Participant? {
+        
+```
+- 수정 후
+```swift
+struct RockPaperScissorsGame {
+    var winner: Participant?
+    
+    mutating func startGame() {
+```
+---
+- 묵찌빠 게임에서 먼저 가위바위보 게임이 끝나고 승리자가 결정된 후 묵찌빠 게임을 진행하는 부분은 startMukChiBaGameRoutine() 메서드로 분리했습니다.
+```swift
+    mutating func startGame() {
+        var rockPaperScissorsGame: RockPaperScissorsGame = RockPaperScissorsGame()
+        rockPaperScissorsGame.startGame()
+        guard let turnOwner: Participant = rockPaperScissorsGame.winner else {
+            return
+        }
+        self.turnOwner = turnOwner
+        startMukChiBaGameRoutine()
+    }
+    
+    mutating private func startMukChiBaGameRoutine() {
+        var isTurnOwnerWin: Bool
+        repeat {
+            let selectedUserMenu: Int = getSelectedUserMenu()
+            guard let userHand: MukChiBa = MukChiBa.init(rawValue: selectedUserMenu) else {
+                return
+            }
+            guard let gameResult: GameResult = compareComputerHand(with: userHand) else {
+                return
+            }
+            isTurnOwnerWin = isTurnOwnerMukChiBaGameWin(gameResult: gameResult)
+            printMukChiBaGameResult(isTurnOwnerWin)
+        } while isTurnOwnerWin == false
+    }
+```
+### 배운개념
+- self property 
+- private
+- 재귀함수
 
 
 ## 🔗 참고 링크
 - [Swift API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/)
+- [CaseIterable](https://developer.apple.com/documentation/swift/caseiterable)
+- [randomElement](https://developer.apple.com/documentation/swift/array/randomelement())
+

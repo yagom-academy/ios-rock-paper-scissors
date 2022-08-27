@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-private let rockPaperScissorsGame: RockPaperScissorsGame = RockPaperScissorsGame()
-rockPaperScissorsGame.startGame()
+private var mukChiBaGame: MukChiBaGame = MukChiBaGame()
+mukChiBaGame.startGame()
