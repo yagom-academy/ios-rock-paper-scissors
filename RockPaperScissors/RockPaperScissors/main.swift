@@ -12,3 +12,10 @@ func choiceRockPaperScissors() {
         return
     }
 }
+
+func makeRandomRockPaperScissors() {
+    let computerRandomNumber: Int
+    
+    computerRandomNumber = Int.random(in: 1...3)
+    print(computerRandomNumber)
+}
