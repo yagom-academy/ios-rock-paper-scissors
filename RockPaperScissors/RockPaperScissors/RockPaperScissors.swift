@@ -2,19 +2,18 @@
 //  RockPaperScissors.swift
 //  RockPaperScissors
 //
-//  Created by 강민수 on 2022/12/26.
+//  Created by 레옹아범, Rhode, Rowan on 2022/12/26.
 //
 
 import Foundation
 
 class RockPaperScissors {
-    
-    func displayMenu() {
+    private func displayMenu() {
         let menuMessage = "가위(1), 바위(2), 보(3)! <종료: 0> :"
         print(menuMessage, terminator: "")
     }
     
-    func readInput() -> Result<Int, InputError> {
+    private func readInput() -> Result<Int, InputError> {
         guard let value = readLine() else {
             return .failure(.invalidInput)
         }
@@ -30,11 +29,11 @@ class RockPaperScissors {
         }
     }
     
-    func generateRockPaperScissors() -> Int {
+    private func generateRockPaperScissors() -> Int {
         return Int.random(in: 1...3)
     }
     
-    func decideWinner(user: Int, computer: Int) -> String {
+    private func decideWinner(user: Int, computer: Int) -> String {
         if user > computer {
             if user == 3 && computer == 1 {
                 return "컴퓨터"
@@ -55,7 +54,7 @@ class RockPaperScissors {
     func startGame() {
         displayMenu()
         
-        var userChoice = readInput()
+        let userChoice = readInput()
         let computerChoice = generateRockPaperScissors()
         var winner: String = ""
         

@@ -2,7 +2,7 @@
 //  InputError.swift
 //  RockPaperScissors
 //
-//  Created by 강민수 on 2022/12/26.
+//  Created by 레옹아범, Rhode, Rowan on 2022/12/26.
 //
 
 enum InputError: String, Error {
