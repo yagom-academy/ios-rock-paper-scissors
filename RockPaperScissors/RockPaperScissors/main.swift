@@ -7,7 +7,7 @@
 import Foundation
 
 enum InputError: Error {
-    case invalidInput
+    case invalidInput = "잘못된 입력입니다. 다시 시도해주세요"
 }
 
 func displayMenu() {
@@ -30,7 +30,7 @@ func readInput() -> Result<Int, InputError> {
     }
 }
 
-func generateRockScissorsPaper() -> Int {
+func generateRockPaperScissors() -> Int {
     return Int.random(in: 1...3)
 }
 
