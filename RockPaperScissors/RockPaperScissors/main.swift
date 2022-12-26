@@ -6,9 +6,28 @@
 
 import Foundation
 
+enum InputError: Error {
+    case invalidInput
+}
+
 func displayMenu() {
     let menuMessage = "가위(1), 바위(2), 보(3)! <종료: 0> :"
     print(menuMessage, terminator: "")
+}
+
+func readInput() -> Result<Int, InputError> {
+    var result: Result<Int, InputError>
+    
+    guard let value = Int(readLine()) else {
+        return result.failure(.invalidInput)
+    }
+    
+    switch value {
+    case 0...3:
+        return result.success(value)
+    default:
+        return result.failure(.invalidInput)
+    }
 }
 
 func generateRockScissorsPaper() -> Int {
