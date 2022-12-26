@@ -10,10 +10,12 @@ func choiceRockPaperScissors() -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     
     guard let rockPaperScissors = readLine(), rockPaperScissors != "" else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
         return choiceRockPaperScissors()
     }
 
-    guard let rockPaperScissorsNumber = Int(rockPaperScissors) else {
+    guard let rockPaperScissorsNumber = Int(rockPaperScissors), rockPaperScissorsNumber >= 0, rockPaperScissorsNumber <= 3 else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
         return choiceRockPaperScissors()
     }
     
@@ -28,19 +30,18 @@ func makeRandomRockPaperScissors() -> Int {
 }
 
 func playRockPaperScissors() {
-    var computerNumber: Int = makeRandomRockPaperScissors()
-    var userNumber: Int = choiceRockPaperScissors()
-    var computerUserNumber: (Int, Int) = (computerNumber, userNumber)
+    let computerUserNumber: (Int, Int) = (makeRandomRockPaperScissors(), choiceRockPaperScissors())
     
     switch computerUserNumber {
     case (1, 1), (2, 2), (3, 3):
         print("비겼습니다!")
+        playRockPaperScissors()
     case (1, 2), (2, 3), (3, 1):
         print("이겼습니다!")
     case (2, 1), (3, 2), (1, 3):
         print("졌습니다!")
     default:
-       print("아무것도 아닙니다..")
+        print("게임 종료")
     }
 }
 
