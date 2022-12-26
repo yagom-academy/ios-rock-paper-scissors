@@ -6,7 +6,7 @@
 
 import Foundation
 
-enum InputError: Error {
+enum InputError: String, Error {
     case invalidInput = "잘못된 입력입니다. 다시 시도해주세요"
 }
 
@@ -18,15 +18,19 @@ func displayMenu() {
 func readInput() -> Result<Int, InputError> {
     var result: Result<Int, InputError>
     
-    guard let value = Int(readLine()) else {
-        return result.failure(.invalidInput)
+    guard let value = readLine() else {
+        return .failure(.invalidInput)
+    }
+    guard let intValue = Int(value) else {
+        return .failure(.invalidInput)
     }
     
-    switch value {
+    switch intValue {
     case 0...3:
-        return result.success(value)
+        return .success(intValue)
     default:
-        return result.failure(.invalidInput)
+        return .failure(.invalidInput)
+        readInput()
     }
 }
 
@@ -50,4 +54,30 @@ func decideWinner(user: Int, computer: Int) -> String {
     }
     
     return winner
+}
+
+func startGame() {
+    displayMenu()
+    
+//    var userChoice = try readInput().get()
+    let userChoice = readInput()
+    var computerChoice = generateRockPaperScissors()
+    var winner: String = ""
+    
+    switch userChoice {
+    case .success(let intValue):
+        winner = decideWinner(user: intValue, computer: computerChoice)
+    case .failure(let error):
+        print(error.rawValue)
+    }
+    
+    if winner == "사용자" {
+        print("이겼습니다!")
+    } else if winner == "컴퓨터" {
+        print("졌습니다!")
+    } else {
+        print("비겼습니다!")
+        startGame()
+    }
+    
 }
