@@ -18,6 +18,11 @@ func inputUserHand() -> String {
     return userHand
 }
 
+func inspectUserNumber(userNumber: Int) -> Bool {
+    let numberRange = 0...3
+    return numberRange.contains(userNumber)
+}
+
 // 승부를 결정 짓다
 func compareHand(computerHand: Int, userHand: Int) -> String {
     let result: Int = userHand - computerHand
