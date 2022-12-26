@@ -23,6 +23,14 @@ enum GameResult: String {
     case lose = "졌습니다!"
 }
 
+func randomComputerHand() -> RPS {
+    guard let computerHand = RPS(rawValue: Int.random(in: 1...3)) else {
+        return randomComputerHand()
+    }
+    
+    return computerHand
+}
+
 func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
@@ -43,18 +51,33 @@ func printGameResult(gameResult: GameResult) {
     print(gameResult.rawValue)
 }
 
+func judgeGameResult(myChoice: RPS, computerChoice: RPS) {
+    if myChoice == computerChoice {
+        printGameResult(gameResult: .draw)
+        play()
+    } else if myChoice == .scissors && computerChoice == .paper {
+        printGameResult(gameResult: .win)
+    } else if myChoice == .rock && computerChoice == .scissors {
+        printGameResult(gameResult: .win)
+    } else if myChoice == .paper && computerChoice == .rock {
+        printGameResult(gameResult: .win)
+    } else {
+        printGameResult(gameResult: .lose)
+    }
+}
+
 func play() {
     do {
         printMenu()
         switch RPS(rawValue: try receiveUserInput()) {
         case .exit:
-            print("종료")
+            return
         case .scissors:
-            print("종료")
+            judgeGameResult(myChoice: .scissors, computerChoice: randomComputerHand())
         case .rock:
-            print("종료")
+            judgeGameResult(myChoice: .rock, computerChoice: randomComputerHand())
         case .paper:
-            print("종료")
+            judgeGameResult(myChoice: .paper, computerChoice: randomComputerHand())
         default:
             throw InputError.invalidNumber
         }
@@ -65,3 +88,5 @@ func play() {
         print(error)
     }
 }
+
+play()
