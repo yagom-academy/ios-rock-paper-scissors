@@ -1,9 +1,7 @@
 //
 //  RockPaperScissors - main.swift
 //  Created by 혜모리, 무리 on 2022.12.26
-// 
-
-import Foundation
+//
 
 func choiceRockPaperScissors() -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
