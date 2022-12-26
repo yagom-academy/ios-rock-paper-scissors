@@ -1,36 +1,21 @@
 //  RockPaperScissors - main.swift
 //  Created by vetto, songjun on 2022.12.26
 
-import Foundation
-
-
 func makeRandomComputerHand() -> Int {
     return Int.random(in: 1...3)
 }
 
-func inputUserHand() -> String {
+func inputUserHand() -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-    guard let userInput readLine() else {
+    guard let userInput = readLine() else {
+        print("sdf")
         return inputUserHand()
     }
-   
+    guard let userHand = Int(userInput) else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return inputUserHand()
+    }
     return userHand
-}
-
-func checkValidHand(userHand: String) -> Bool {
-    guard let userHand = Int(userHand) else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return false
-    }
-    
-    let numberRange = 0...3
-    if numberRange.contains(userHand) {
-        return true
-    } else {
-        //MARK: 프린트문 처리 어디다 할지 정하기
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return false
-    }
 }
 
 func compareHand(computerHand: Int, userHand: Int) -> String {
@@ -49,6 +34,18 @@ func compareHand(computerHand: Int, userHand: Int) -> String {
 }
 
 func startGame() {
-    let computerHand = makeRandomComputerHand()
-    inputUserHand()
+    loop: while true {
+        let userInput = inputUserHand()
+        switch userInput {
+        case 0:
+            print("게임 종료")
+            break loop
+        case 1,2,3:
+            print(compareHand(computerHand: makeRandomComputerHand(), userHand: userInput))
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+        }
+    }
 }
+
+startGame()
