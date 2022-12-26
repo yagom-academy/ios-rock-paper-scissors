@@ -4,37 +4,51 @@
 import Foundation
 
 
-func makeRandomComputerHand() -> String {
-    return String(Int.random(in: 1...3))
+func makeRandomComputerHand() -> Int {
+    return Int.random(in: 1...3)
 }
 
 func inputUserHand() -> String {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-    
-    guard let userHand = readLine() else {
-        return ""
+    guard let userInput readLine() else {
+        return inputUserHand()
     }
-    
+   
     return userHand
 }
 
-func inspectUserNumber(userNumber: Int) -> Bool {
+func checkValidHand(userHand: String) -> Bool {
+    guard let userHand = Int(userHand) else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return false
+    }
+    
     let numberRange = 0...3
-    return numberRange.contains(userNumber)
+    if numberRange.contains(userHand) {
+        return true
+    } else {
+        //MARK: 프린트문 처리 어디다 할지 정하기
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return false
+    }
 }
 
-// 승부를 결정 짓다
 func compareHand(computerHand: Int, userHand: Int) -> String {
     let result: Int = userHand - computerHand
     let status: String
     
     if result == 0 {
-        status = "Draw"
+        status = "비겼습니다!"
     } else if result == -2 || result == 1 {
-        status = "Win"
+        status = "이겼습니다!"
     } else {
-        status = "Lose"
+        status = "졌습니다!"
     }
     
     return status
+}
+
+func startGame() {
+    let computerHand = makeRandomComputerHand()
+    inputUserHand()
 }
