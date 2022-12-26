@@ -10,49 +10,68 @@ func getRandomNumber() {
     computerNumber = Int.random(in: 1...3)
 }
 
-func startGame() {
-
+func userMakeNumber() -> Int {
     showMenuMessage()
     
-    if let userInput = Int(readLine()!) {
-        switch userInput {
-        case 0:
-            print("게임종료")
-        case 1...3:
-            compareNumber(number: userInput)
-        default:
+    if let userInput = readLine() {
+        if let intUserInput = Int(userInput) {
+            return intUserInput
+        } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
+            return userMakeNumber()
+        }
+    } else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return userMakeNumber()
+    }
+}
+
+func startGame() {
+    let userInput = userMakeNumber()
+    
+    switch userInput {
+    case 0:
+        print("게임종료")
+    case 1...3:
+        let gameResult = compareNumber(number: userInput)
+        
+        if gameResult == .computerWin {
+            print("졌습니다")
+        } else if gameResult == .userWin {
+            print("이겼습니다")
+        } else {
+            print("비겼습니다")
             startGame()
         }
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        startGame()
     }
 }
 
 func showMenuMessage() {
     let menuMessage = "가위(1), 바위(2), 보(3)! <종료: 0> :"
-        
+    
     print(menuMessage, terminator: " ")
 }
 
-func compareNumber(number: Int) {
+func compareNumber(number: Int) -> GameResult {
     getRandomNumber()
-    
-    if number == computerNumber {
-        print("비겼습니다!")
-        startGame()
-    }
-    
+
     if number == 1 && computerNumber == 2 {
-        print("졌습니다!")
+        return GameResult.computerWin
     } else if number == 1 && computerNumber == 3 {
-        print("이겼습니다!")
+        return GameResult.userWin
     } else if number == 2 && computerNumber == 3 {
-        print("졌습니다!")
+        return GameResult.computerWin
     } else if number == 2 && computerNumber == 1 {
-        print("이겼습니다!")
+        return GameResult.userWin
     } else if number == 3 && computerNumber == 1 {
-        print("졌습니다!")
+        return GameResult.computerWin
     } else if number == 3 && computerNumber == 2 {
-        print("이겼습니다!")
+        return GameResult.userWin
+    } else {
+        return GameResult.draw
     }
 }
 
