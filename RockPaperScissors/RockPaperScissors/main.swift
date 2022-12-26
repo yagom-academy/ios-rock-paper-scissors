@@ -6,7 +6,11 @@
 
 import Foundation
 
-enum RSP: Int {
+enum InputError: Error {
+    case invalidNumber
+}
+
+enum RPS: Int {
     case exit
     case scissors
     case rock
@@ -23,9 +27,16 @@ func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
-func receiveUserInput() -> String {
-    guard let input = readLine() else { return "" }
-    return input
+func receiveUserInput() throws -> Int {
+    guard let input = readLine() else {
+        throw InputError.invalidNumber
+    }
+    
+    guard let inputNumber = Int(input) else {
+        throw InputError.invalidNumber
+    }
+    
+    return inputNumber
 }
 
 func printGameResult(gameResult: GameResult) {
@@ -33,5 +44,24 @@ func printGameResult(gameResult: GameResult) {
 }
 
 func play() {
-    printMenu()
+    do {
+        printMenu()
+        switch RPS(rawValue: try receiveUserInput()) {
+        case .exit:
+            print("종료")
+        case .scissors:
+            print("종료")
+        case .rock:
+            print("종료")
+        case .paper:
+            print("종료")
+        default:
+            throw InputError.invalidNumber
+        }
+    } catch InputError.invalidNumber {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        play()
+    } catch {
+        print(error)
+    }
 }
