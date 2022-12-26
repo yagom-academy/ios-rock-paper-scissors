@@ -8,40 +8,45 @@
 import Foundation
 
 class RockPaperScissors {
+    let end = 0
+    let scissors = 1
+    let rock = 2
+    let paper = 3
+    
     private func displayMenu() {
         let menuMessage = "가위(1), 바위(2), 보(3)! <종료: 0> :"
-        print(menuMessage, terminator: "")
+        print(menuMessage, terminator: " ")
     }
     
     private func readInput() -> Result<Int, InputError> {
-        guard let value = readLine() else {
+        guard let input = readLine() else {
             return .failure(.invalidInput)
         }
-        guard let intValue = Int(value) else {
+        guard let number = Int(input) else {
             return .failure(.invalidInput)
         }
         
-        switch intValue {
-        case 0...3:
-            return .success(intValue)
+        switch number {
+        case end...paper:
+            return .success(number)
         default:
             return .failure(.invalidInput)
         }
     }
     
     private func generateRockPaperScissors() -> Int {
-        return Int.random(in: 1...3)
+        return Int.random(in: scissors...paper)
     }
     
     private func decideWinner(user: Int, computer: Int) -> String {
         if user > computer {
-            if user == 3 && computer == 1 {
+            if user == paper && computer == scissors {
                 return "컴퓨터"
             } else {
                 return "사용자"
             }
         } else if user < computer {
-            if user == 1 && computer == 3 {
+            if user == scissors && computer == paper {
                 return "사용자"
             } else {
                 return "컴퓨터"
@@ -59,8 +64,8 @@ class RockPaperScissors {
         var winner: String = ""
         
         switch userChoice {
-        case .success(let intValue):
-            winner = decideWinner(user: intValue, computer: computerChoice)
+        case .success(let selectedUserNumber):
+            winner = decideWinner(user: selectedUserNumber, computer: computerChoice)
         case .failure(let error):
             print(error.rawValue)
             startGame()
