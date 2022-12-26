@@ -6,5 +6,6 @@
 
 import Foundation
 
-print("Hello, World!")
-
+func generateRockScissorsPaper() -> Int {
+    return Int.random(in: 1...3)
+}
