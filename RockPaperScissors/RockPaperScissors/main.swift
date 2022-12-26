@@ -1,6 +1,6 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by 레옹아범, Rhode, Rowan
 //  Copyright © yagom academy. All rights reserved.
 // 
 
@@ -34,6 +34,20 @@ func generateRockPaperScissors() -> Int {
     return Int.random(in: 1...3)
 }
 
-func decideWinner() -> String {
+func decideWinner(user: Int, computer: Int) -> String {
+    var winner: String = ""
     
+    if user > computer {
+        if user == 3 && computer == 1 {
+            winner = "컴퓨터"
+        }
+        winner = "사용자"
+    } else if user < computer {
+        if user == 1 && computer == 3 {
+            winner = "사용자"
+        }
+        winner = "컴퓨터"
+    }
+    
+    return winner
 }
