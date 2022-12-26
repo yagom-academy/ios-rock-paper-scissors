@@ -3,33 +3,32 @@
 //  Created by 혜모리, 무리 on 2022.12.26
 //
 
-func choiceRockPaperScissors() -> Int {
+func choiceNumber() -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     
-    guard let rockPaperScissors = readLine(), rockPaperScissors != "" else {
+    guard let userInput = readLine(), userInput != "" else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        return choiceRockPaperScissors()
+        return choiceNumber()
     }
 
-    guard let rockPaperScissorsNumber = Int(rockPaperScissors), rockPaperScissorsNumber >= 0, rockPaperScissorsNumber <= 3 else {
+    guard let convertToInt = Int(userInput), convertToInt >= 0, convertToInt <= 3 else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        return choiceRockPaperScissors()
+        return choiceNumber()
     }
     
-    return rockPaperScissorsNumber
+    return convertToInt
 }
 
-func makeRandomRockPaperScissors() -> Int {
-    let computerRandomNumber: Int
-    computerRandomNumber = Int.random(in: 1...3)
+func createComputerNumber() -> Int {
+    let computerNumber = Int.random(in: 1...3)
     
-    return computerRandomNumber
+    return computerNumber
 }
 
 func playRockPaperScissors() {
-    let computerUserNumber: (Int, Int) = (makeRandomRockPaperScissors(), choiceRockPaperScissors())
+    let compareNumbers: (Int, Int) = (createComputerNumber(), choiceNumber())
     
-    switch computerUserNumber {
+    switch compareNumbers {
     case (1, 1), (2, 2), (3, 3):
         print("비겼습니다!")
         playRockPaperScissors()
