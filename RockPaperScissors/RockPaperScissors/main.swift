@@ -16,8 +16,6 @@ func displayMenu() {
 }
 
 func readInput() -> Result<Int, InputError> {
-    var result: Result<Int, InputError>
-    
     guard let value = readLine() else {
         return .failure(.invalidInput)
     }
@@ -30,7 +28,6 @@ func readInput() -> Result<Int, InputError> {
         return .success(intValue)
     default:
         return .failure(.invalidInput)
-        readInput()
     }
 }
 
@@ -44,13 +41,15 @@ func decideWinner(user: Int, computer: Int) -> String {
     if user > computer {
         if user == 3 && computer == 1 {
             winner = "컴퓨터"
+        } else {
+            winner = "사용자"
         }
-        winner = "사용자"
     } else if user < computer {
         if user == 1 && computer == 3 {
             winner = "사용자"
+        } else {
+            winner = "컴퓨터"
         }
-        winner = "컴퓨터"
     }
     
     return winner
@@ -59,25 +58,27 @@ func decideWinner(user: Int, computer: Int) -> String {
 func startGame() {
     displayMenu()
     
-//    var userChoice = try readInput().get()
-    let userChoice = readInput()
-    var computerChoice = generateRockPaperScissors()
-    var winner: String = ""
+    var userChoice = readInput()
+    let computerChoice = generateRockPaperScissors()
+    var winner: String = "-1"
     
     switch userChoice {
     case .success(let intValue):
         winner = decideWinner(user: intValue, computer: computerChoice)
     case .failure(let error):
         print(error.rawValue)
+        startGame()
     }
     
     if winner == "사용자" {
         print("이겼습니다!")
     } else if winner == "컴퓨터" {
         print("졌습니다!")
-    } else {
+    } else if winner == ""{
         print("비겼습니다!")
         startGame()
     }
-    
 }
+
+
+startGame()
