@@ -32,8 +32,36 @@ func validationUserInput(userInput: String?) -> Result<Int, InputError> {
     return .success(number)
 }
 
-let a = readUserInput()
-let b = validationUserInput(userInput: a)
-print(a)
-print(b)
+//let a = readUserInput()
+//let b = validationUserInput(userInput: a)
+//print(a)
+//print(b)
+
+func generateComputerHand() -> RockPaperScissors? {
+    let computerNumber = Int.random(in: 1...3)
+    guard let computerHand = RockPaperScissors.init(rawValue: computerNumber) else {
+        return nil
+    }
+    print(computerHand)
+    
+    return computerHand
+}
+
+func generateUserHand(validationResult: Result<Int, InputError>) -> RockPaperScissors? {
+    let result = validationResult
+    var userNumber = 0
+    
+    switch result {
+    case .success(let number):
+        userNumber = number
+    case .failure(.invalidInput):
+        print("잘못된 입력입니다. 다시 시도해주세요")
+    }
+    
+    guard let userHand = RockPaperScissors.init(rawValue: userNumber) else {
+        return nil
+    }
+    
+    return userHand
+}
 
