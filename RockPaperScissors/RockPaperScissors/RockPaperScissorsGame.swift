@@ -1,18 +1,12 @@
 //  RockPaperScissors - RockPaperScissorsGame.swift
 //  Created by vetto, songjun on 2022.12.27
 
-enum ScissorsRockPaper: Int { //MARK
-    case scissors = 1
-    case rock = 2
-    case paper = 3
-    case wrongHand
-}
-
 func makeRandomComputerNumber() -> Int {
     return Int.random(in: 1...3)
 }
 
 func inputUserNumber() -> Int {
+    printMenu()
     guard let userInput = readLine() else {
         return inputUserNumber()
     }
@@ -44,46 +38,43 @@ func decideWinner(userHand: ScissorsRockPaper, computerHand: ScissorsRockPaper) 
         winner = "컴퓨터"
     case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
         winner = "무승부"
-    default: print("잘못된 결과입니다.")
+    default:
+        print("잘못된 결과입니다.")
+        winner = ""
     }
     return winner
 }
 
 func printGameResult(winner: String) {
-    if winner = "사용자" {
+    if winner == "사용자" {
         print("이겼습니다.")
-    } else if winner = "컴퓨터" {
+    } else if winner == "컴퓨터" {
         print("졌습니다.")
-    } else if winner = "무승부" {
+    } else if winner == "무승부" {
         print("비겼습니다.")
     }
 }
 
-
 func startGame() {
-    while true {
-        printMenu()
-        let userInput = inputUserNumber()
-        switch userInput {
-        case 0:
-            print("게임 종료")
-            return
-        case 1,2,3:
-            print(compareHand(computerHand: makeRandomComputerNumber(), userHand: userInput))
-        default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+    let inputtedNumber = inputUserNumber()
+    
+    switch inputtedNumber {
+    case 0:
+        print("게임 종료")
+    case 1,2,3:
+        let userHand = convertNumberToHand(number: inputtedNumber)
+        let computerHand = convertNumberToHand(number: makeRandomComputerNumber())
+        let winner = decideWinner(userHand: userHand, computerHand: computerHand)
+        
+        if winner == "무승부" {
+            printGameResult(winner: winner)
+            startGame()
+        } else {
+            printGameResult(winner: winner)
         }
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        startGame()
     }
 }
-
-
-
-//switch userNumber {
-//case 1:
-//    userHand = a.scissors
-//case 2:
-//    userHand = a.rock
-//case 3:
-//    userHand = a.paper
-//}
 
