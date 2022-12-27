@@ -10,6 +10,11 @@ enum RockScissorPaper: String,CaseIterable {
     case scissor = "1"
     case rock = "2"
     case paper = "3"
+    case endGame = "0"
+}
+
+enum GameResult {
+    case win, draw, lose
 }
 
 enum RockScissorPaperGameError : Error {
@@ -17,11 +22,13 @@ enum RockScissorPaperGameError : Error {
 }
 
 func startGame() {
-    printGameMenu()
-    let userInput = checkAvailability(input: getUserInput())
-    let userHandMotion = handleGameError(userInput: userInput)
-    let computerHandMotion = makeRandomHandMotion()
-    compare(userHandMotion, with: computerHandMotion)
+    while true{
+        printGameMenu()
+        let userInput = checkAvailability(input: getUserInput())
+        let userHandMotion = handleGameError(userInput: userInput)
+        let computerHandMotion = makeRandomHandMotion()
+        compare(userHandMotion, with: computerHandMotion)
+    }
 }
 
 func printGameMenu() {
@@ -58,20 +65,18 @@ func makeRandomHandMotion() -> RockScissorPaper? {
 }
 
 func compare(_ userInput: RockScissorPaper?, with computerInput: RockScissorPaper?) {
-    
-    if computerInput == userInput {
-        print("비겼습니다!")
-        startGame()
-    } else if (computerInput == .scissor && userInput == .rock) ||
-                (computerInput == .rock && userInput == .paper) ||
-                (computerInput == .paper && userInput == .scissor) {
-        print("이겼습니다!")
-    } else if (computerInput == .scissor && userInput == .paper) ||
-                (computerInput == .rock && userInput == .scissor) ||
-                (computerInput == .paper && userInput == .rock) {
-        print("졌습니다!")
+    guard let user = userInput, let computer = computerInput else {
+        return
     }
     
+    switch (user, computer) {
+    case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) : print("")
+    case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) : print("")
+    default : print("")
+    }
+    
+    
 }
+
 
 startGame()
