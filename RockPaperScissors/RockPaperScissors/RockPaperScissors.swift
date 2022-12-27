@@ -8,7 +8,7 @@
 import Foundation
 
 class RockPaperScissors {
-    enum Menu: Int {
+    enum Menu: Int, CaseIterable {
         case end = 0
         case scissors = 1
         case rock = 2
@@ -66,9 +66,11 @@ class RockPaperScissors {
             return .failure(.invalidInput)
         }
     }
-    
-    private func generateRockPaperScissors() -> Int {
-        return Int.random(in: scissors...paper)
+        
+    private func generateRockPaperScissors() -> Menu {
+        let result = Menu.allCases[Int.random(in: 1...3)]
+        
+        return result
     }
     
     private func decideWinner(user: Int, computer: Int) -> String {
