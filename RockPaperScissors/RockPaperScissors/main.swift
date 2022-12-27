@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
+//import Foundation
 
 enum RockScissorPaper: String,CaseIterable {
     case scissor = "1"
@@ -17,7 +17,11 @@ enum RockScissorPaperGameError : Error {
 }
 
 func startGame() {
-    compare(<#T##userInput: RockScissorPaper?##RockScissorPaper?#>, computer: <#T##RockScissorPaper?#>)
+    printGameMenu()
+    let userInput = checkAvailability(input: getUserInput())
+    let userHandMotion = handleGameError(userInput: userInput)
+    let computerHandMotion = makeRandomHandMotion()
+    compare(userHandMotion, with: computerHandMotion)
 }
 
 func printGameMenu() {
@@ -31,7 +35,7 @@ func getUserInput() -> String? {
 
 func checkAvailability(input: String?) -> Result<RockScissorPaper, RockScissorPaperGameError> {
     guard let userInput = input,
-    let userHandMotion = RockScissorPaper(rawValue: userInput)
+          let userHandMotion = RockScissorPaper(rawValue: userInput)
     else {
         return .failure(.invalidInput)
     }
@@ -41,6 +45,7 @@ func checkAvailability(input: String?) -> Result<RockScissorPaper, RockScissorPa
 func handleGameError(userInput: Result<RockScissorPaper, RockScissorPaperGameError>) -> RockScissorPaper? {
     switch userInput {
     case .failure(_):
+        print("잘못된 입력입니다. 다시 시도해주세요")
         return nil
     case .success(let handMotion):
         return handMotion
@@ -52,14 +57,14 @@ func makeRandomHandMotion() -> RockScissorPaper? {
     return computerHandMotion
 }
 
-func compare(_ userInput: RockScissorPaper?, computer computerInput: RockScissorPaper?) {
+func compare(_ userInput: RockScissorPaper?, with computerInput: RockScissorPaper?) {
     
     if computerInput == userInput {
         print("비겼습니다!")
         startGame()
     } else if (computerInput == .scissor && userInput == .rock) ||
                 (computerInput == .rock && userInput == .paper) ||
-                computerInput == .paper && userInput == .scissor {
+                (computerInput == .paper && userInput == .scissor) {
         print("이겼습니다!")
     } else if (computerInput == .scissor && userInput == .paper) ||
                 (computerInput == .rock && userInput == .scissor) ||
