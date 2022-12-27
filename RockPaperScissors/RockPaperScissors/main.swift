@@ -1,6 +1,8 @@
 import Foundation
 
 let end = 0, scissors = 1, rock = 2, paper = 3
+let computer = "컴퓨터"
+let user = "사용자"
 var winner: String = ""
 var currentGame: CurrentGame = .rockPaperScissors
 
@@ -37,10 +39,12 @@ func inputUserNumber() -> Int {
           let intUserInput = Int(userInput),
           intUserInput >= end && intUserInput <= paper else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        winner = "컴퓨터"
+        
+        if currentGame == .mukChiba {
+            winner = computer
+        }
         return inputUserNumber()
     }
-
     return intUserInput
 }
 
@@ -69,23 +73,40 @@ func startRockPaperScissors() {
         switch gameResult {
         case .computerWin:
             print("졌습니다")
-            winner = "컴퓨터"
-            mukChiBa()
+            winner = computer
+            startMukChiBa()
         case .draw:
             print("비겼습니다")
             startRockPaperScissors()
         case .userWin:
             print("이겼습니다")
-            winner = "사용자"
-            mukChiBa()
+            winner = user
+            startMukChiBa()
         }
     }
 }
 
-func mukChiBa() {
+func startMukChiBa() {
     currentGame = .mukChiba
-    
     let userInput = inputUserNumber()
+    
+    if userInput == 0 {
+        print("게임종료")
+    } else {
+        let gameResult = compareNumber(number: userInput)
+        
+        switch gameResult {
+        case .computerWin:
+            winner = computer
+            print("\(winner)의 턴입니다")
+            startMukChiBa()
+        case .draw:
+            print("\(winner)의 승리!")
+        case .userWin:
+            winner = user
+            print("\(winner)의 턴입니다")
+            startMukChiBa()
+        }
+    }
 }
-
 startRockPaperScissors()
