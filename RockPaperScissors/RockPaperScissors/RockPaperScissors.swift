@@ -14,7 +14,7 @@ class RockPaperScissors {
     let paper = 3
     
     func startGame() {
-        displayMenu()
+        displayRockPaperScissors()
         
         let userChoice = readInput()
         let computerChoice = generateRockPaperScissors()
@@ -38,8 +38,13 @@ class RockPaperScissors {
         }
     }
     
-    private func displayMenu() {
+    private func displayRockPaperScissors() {
         let menuMessage = "가위(1), 바위(2), 보(3)! <종료: 0> :"
+        print(menuMessage, terminator: " ")
+    }
+    
+    private func displayMookZziPpa(winner: String) {
+        let menuMessage = "[\(winner)턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :"
         print(menuMessage, terminator: " ")
     }
     
