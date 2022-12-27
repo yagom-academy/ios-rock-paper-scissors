@@ -11,11 +11,27 @@ enum RockScissorsPaperError: Error {
     case invalidMukjippa
 }
 
+enum RockScissorsPaperType: Int, CaseIterable {
+    case rock = 1
+    case scissors
+    case paper
+}
+
+var computerChoice: RockScissorsPaperType?
+
+func createRandomRockScissorsPaper() -> RockScissorsPaperType? {
+    let choice = RockScissorsPaperType(rawValue: Int.random(in: 1...3))
+    guard let randomChoice = choice else {
+        return nil
+    }
+    return randomChoice
+}
+
 func printRockScissorsPaper() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: " ")
 }
 
-func choiceRockSissorsPaper() -> Result<Int, RockScissorsPaperError> {
+func choiceRockScissorsPaper() -> Result<Int, RockScissorsPaperError> {
     let input: String? = readLine()
     guard let choice = input else {
         return .failure(RockScissorsPaperError.invalidRockScissorsPaper)
