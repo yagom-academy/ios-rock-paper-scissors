@@ -25,7 +25,7 @@ func validationUserInput(userInput: String?) -> Result<Int, InputError> {
     guard let number = Int(userInput) else {
         return .failure(.invalidInput)
     }
-    guard number >= 0, number <= 3 else {
+    guard number > 0, number <= 3 else {
         return .failure(.invalidInput)
     }
 
@@ -42,7 +42,6 @@ func generateComputerHand() -> RockPaperScissors? {
     guard let computerHand = RockPaperScissors.init(rawValue: computerNumber) else {
         return nil
     }
-    print(computerHand)
     
     return computerHand
 }
@@ -65,3 +64,19 @@ func generateUserHand(validationResult: Result<Int, InputError>) -> RockPaperSci
     return userHand
 }
 
+func compareHand(computerHand: RockPaperScissors?, userHand: RockPaperScissors?) -> MatchResult? {
+    guard let computerHand = computerHand, let userHand = userHand else {
+        return nil
+    }
+    var matchResult: MatchResult? = nil
+    
+    if computerHand.rawValue == 1 && userHand.rawValue == 3 || computerHand.rawValue == 2 && userHand.rawValue == 1 || computerHand.rawValue == 3 && userHand.rawValue == 2  {
+        matchResult = MatchResult.lose
+    } else if computerHand.rawValue == userHand.rawValue {
+        matchResult = MatchResult.draw
+    } else {
+        matchResult = MatchResult.win
+    }
+    
+    return matchResult
+}
