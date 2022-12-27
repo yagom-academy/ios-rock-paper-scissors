@@ -8,10 +8,12 @@
 import Foundation
 
 class RockPaperScissors {
-    let end = 0
-    let scissors = 1
-    let rock = 2
-    let paper = 3
+    enum Menu: Int {
+        case end = 0
+        case scissors = 1
+        case rock = 2
+        case paper = 3
+    }
     
     func startGame() {
         displayMenu()
@@ -43,7 +45,7 @@ class RockPaperScissors {
         print(menuMessage, terminator: " ")
     }
     
-    private func readInput() -> Result<Int, InputError> {
+    private func readInput() -> Result<Menu, InputError> {
         guard let input = readLine() else {
             return .failure(.invalidInput)
         }
@@ -52,8 +54,14 @@ class RockPaperScissors {
         }
         
         switch number {
-        case end...paper:
-            return .success(number)
+        case Menu.end.rawValue:
+            return .success(.end)
+        case Menu.scissors.rawValue:
+            return .success(.scissors)
+        case Menu.rock.rawValue:
+            return .success(.rock)
+        case Menu.paper.rawValue:
+            return .success(.paper)
         default:
             return .failure(.invalidInput)
         }
