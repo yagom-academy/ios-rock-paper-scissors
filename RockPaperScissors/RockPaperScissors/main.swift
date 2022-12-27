@@ -1,83 +1,69 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by sehong, kaki.
 //  Copyright © yagom academy. All rights reserved.
-// 
-
-import Foundation
-
+//
 enum InputError: Error {
     case invalidNumber
 }
 
-enum RPS: Int {
+enum RockScissorsPaper: Int {
     case exit
     case scissors
     case rock
     case paper
 }
 
-enum GameResult: String {
-    case draw = "비겼습니다!"
-    case win = "이겼습니다!"
-    case lose = "졌습니다!"
+enum GameMessage {
+    static let rockScissorsPaper = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
 }
 
-func randomComputerHand() -> RPS {
-    guard let computerHand = RPS(rawValue: Int.random(in: 1...3)) else {
-        return randomComputerHand()
+func createComputerSelect() -> RockScissorsPaper {
+    guard let computerHand = RockScissorsPaper(rawValue: Int.random(in: 1...3)) else {
+        return createComputerSelect()
     }
     
     return computerHand
 }
 
 func printMenu() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    print(GameMessage.rockScissorsPaper, terminator: "")
 }
 
 func receiveUserInput() throws -> Int {
-    guard let input = readLine() else {
-        throw InputError.invalidNumber
-    }
-    
-    guard let inputNumber = Int(input) else {
+    guard let input = readLine(), let inputNumber = Int(input) else {
         throw InputError.invalidNumber
     }
     
     return inputNumber
 }
 
-func printGameResult(gameResult: GameResult) {
-    print(gameResult.rawValue)
-}
-
-func judgeGameResult(myChoice: RPS, computerChoice: RPS) {
-    if myChoice == computerChoice {
-        printGameResult(gameResult: .draw)
+func judgeGameResult(comparing userHand: RockScissorsPaper, and computerHand: RockScissorsPaper) {
+    switch (userHand, computerHand) {
+    case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
+        print("이겼습니다!")
+    case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
+        print("졌습니다!")
+    case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
+        print("비겼습니다!")
         play()
-    } else if myChoice == .scissors && computerChoice == .paper {
-        printGameResult(gameResult: .win)
-    } else if myChoice == .rock && computerChoice == .scissors {
-        printGameResult(gameResult: .win)
-    } else if myChoice == .paper && computerChoice == .rock {
-        printGameResult(gameResult: .win)
-    } else {
-        printGameResult(gameResult: .lose)
+    default:
+        print("에러")
     }
 }
 
 func play() {
     do {
         printMenu()
-        switch RPS(rawValue: try receiveUserInput()) {
+        switch RockScissorsPaper(rawValue: try receiveUserInput()) {
         case .exit:
-            return
+            print("게임종료")
         case .scissors:
-            judgeGameResult(myChoice: .scissors, computerChoice: randomComputerHand())
+            judgeGameResult(comparing: .scissors, and: createComputerSelect())
         case .rock:
-            judgeGameResult(myChoice: .rock, computerChoice: randomComputerHand())
+            judgeGameResult(comparing: .rock, and: createComputerSelect())
         case .paper:
-            judgeGameResult(myChoice: .paper, computerChoice: randomComputerHand())
+            judgeGameResult(comparing: .paper, and: createComputerSelect())
         default:
             throw InputError.invalidNumber
         }
