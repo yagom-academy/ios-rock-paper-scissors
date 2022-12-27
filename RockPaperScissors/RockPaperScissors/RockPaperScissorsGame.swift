@@ -8,7 +8,6 @@ enum ScissorsRockPaper: Int { //MARK
     case wrongHand
 }
 
-
 func makeRandomComputerNumber() -> Int {
     return Int.random(in: 1...3)
 }
@@ -25,38 +24,33 @@ func inputUserNumber() -> Int {
 }
 
 func printMenu() {
-    print("")
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 }
 
-func convertNumberToHand(userNumber: Int, computerNumber: Int) -> (ScissorsRockPaper, ScissorsRockPaper) {
-    guard let userHand = ScissorsRockPaper(rawValue: userNumber) else {
-        return (ScissorsRockPaper.wrongHand, ScissorsRockPaper.wrongHand)
+func convertNumberToHand(number: Int) -> ScissorsRockPaper {
+    guard let hand = ScissorsRockPaper(rawValue: number) else {
+        return ScissorsRockPaper.wrongHand
     }
-    guard let computerHand = ScissorsRockPaper(rawValue: computerNumber) else {
-        return (ScissorsRockPaper.wrongHand, ScissorsRockPaper.wrongHand)
-    }
-    return (userHand, computerHand)
+    return hand
 }
 
-func compareHand(computerHand: Int, userHand: Int) -> String {
-    let result: String
+func decideWinner(userHand: ScissorsRockPaper, computerHand: ScissorsRockPaper) -> String {
+    let winner: String
     
-  // 변경
-    if userHand - computerHand == 0 {
-        result = "비겼습니다!"
-    } else if userHand - computerHand == -2 || userHand - computerHand == 1 {
-        result = "이겼습니다!"
-    } else {
-        result = "졌습니다!"
+    switch (userHand, computerHand) {
+    case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
+        winner = "사용자"
+    case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
+        winner = "컴퓨터"
+    case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
+        winner = "무승부"
+    default: print("잘못된 결과입니다.")
     }
-    
-    return result
+    return winner
 }
 
 
 func startGame() {
-    
     while true {
         printMenu()
         let userInput = inputUserNumber()
@@ -65,7 +59,6 @@ func startGame() {
             print("게임 종료")
             return
         case 1,2,3:
-            
             print(compareHand(computerHand: makeRandomComputerNumber(), userHand: userInput))
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
