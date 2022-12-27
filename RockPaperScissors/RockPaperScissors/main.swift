@@ -8,15 +8,12 @@ enum InputError: Error {
 }
 
 enum GameOptions {
-    case exit
     case scissors
     case rock
     case paper
     
     init?(rawValue: Int) {
           switch rawValue {
-          case 0:
-              self = .exit
           case 1:
               self = .scissors
           case 2:
@@ -26,6 +23,23 @@ enum GameOptions {
           default:
               return nil
           }
+    }
+}
+
+enum GameResult {
+    case win
+    case lose
+    case draw
+    
+    var message: String {
+        switch self {
+        case .win:
+            return "이겼습니다!"
+        case .lose:
+            return "졌습니다!"
+        case .draw:
+            return "비겼습니다!"
+        }
     }
 }
 
@@ -56,23 +70,24 @@ func receiveUserInput() throws -> Int {
 func judgeGameResult(comparing userHand: GameOptions, and computerHand: GameOptions) {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
-        print("이겼습니다!")
+        print(GameResult.win.message)
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        print("졌습니다!")
+        print(GameResult.lose.message)
     case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
-        print("비겼습니다!")
+        print(GameResult.draw.message)
         play()
-    default:
-        print("에러")
     }
 }
 
 func play() {
     do {
         printMenu()
-        switch GameOptions(rawValue: try receiveUserInput()) {
-        case .exit:
+        let userInput = try receiveUserInput()
+        guard userInput != 0 else {
             print("게임종료")
+            return
+        }
+        switch GameOptions(rawValue: userInput) {
         case .scissors:
             judgeGameResult(comparing: .scissors, and: createComputerSelect())
         case .rock:
