@@ -31,7 +31,7 @@ func printRockScissorsPaper() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: " ")
 }
 
-func choiceRockScissorsPaper() -> Result<Int, RockScissorsPaperError> {
+func choiceRockScissorsPaper() -> Result<RockScissorsPaperType?, RockScissorsPaperError> {
     let input: String? = readLine()
     guard let choice = input else {
         return .failure(RockScissorsPaperError.invalidRockScissorsPaper)
@@ -40,6 +40,6 @@ func choiceRockScissorsPaper() -> Result<Int, RockScissorsPaperError> {
     guard let userChoice = Int(choice), (0...3) ~= userChoice else {
         return .failure(RockScissorsPaperError.invalidRockScissorsPaper)
     }
-    return .success(userChoice)
+    return .success(RockScissorsPaperType(rawValue: userChoice))
 }
 
