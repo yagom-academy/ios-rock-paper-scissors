@@ -28,7 +28,7 @@ func playRockPaperScissors() {
     }
     
     guard let computerRockPaperScissors = convertEnumType(computerNumber),
-    let userRockPaperScissors = convertEnumType(userNumber) else {
+          let userRockPaperScissors = convertEnumType(userNumber) else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return playRockPaperScissors()
     }
@@ -37,5 +37,15 @@ func playRockPaperScissors() {
     
     if gameResult == .draw {
         playRockPaperScissors()
+    } else {
+        mookJjiBba(result: gameResult)
+    }
+}
+
+func mookJjiBba(result: GameResult) {
+    if result == .win {
+        print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    } else {
+        print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
     }
 }

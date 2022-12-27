@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4BEA4F2B295AA9FA00780EFC /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA4F2A295AA9FA00780EFC /* RockPaperScissors.swift */; };
-		4BEA4F2D295AAB0E00780EFC /* ResultOfRockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA4F2C295AAB0E00780EFC /* ResultOfRockPaperScissors.swift */; };
-		4BEA4F2F295AAC8200780EFC /* ChoiceOfRockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA4F2E295AAC8200780EFC /* ChoiceOfRockPaperScissors.swift */; };
+		4BEA4F2B295AA9FA00780EFC /* HandSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA4F2A295AA9FA00780EFC /* HandSign.swift */; };
 		BF4E7196295ACE09003F9BB0 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7195295ACE09003F9BB0 /* GameResult.swift */; };
+		BF4E7198295B1359003F9BB0 /* HandSignGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7197295B1359003F9BB0 /* HandSignGame.swift */; };
+		BF4E719A295B1397003F9BB0 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */; };
+		BF4E719C295B13A4003F9BB0 /* MookJjiBba.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,10 +28,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4BEA4F2A295AA9FA00780EFC /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
-		4BEA4F2C295AAB0E00780EFC /* ResultOfRockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultOfRockPaperScissors.swift; sourceTree = "<group>"; };
-		4BEA4F2E295AAC8200780EFC /* ChoiceOfRockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceOfRockPaperScissors.swift; sourceTree = "<group>"; };
+		4BEA4F2A295AA9FA00780EFC /* HandSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandSign.swift; sourceTree = "<group>"; };
 		BF4E7195295ACE09003F9BB0 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		BF4E7197295B1359003F9BB0 /* HandSignGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandSignGame.swift; sourceTree = "<group>"; };
+		BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
+		BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MookJjiBba.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -66,10 +68,11 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
-				4BEA4F2A295AA9FA00780EFC /* RockPaperScissors.swift */,
+				4BEA4F2A295AA9FA00780EFC /* HandSign.swift */,
 				BF4E7195295ACE09003F9BB0 /* GameResult.swift */,
-				4BEA4F2E295AAC8200780EFC /* ChoiceOfRockPaperScissors.swift */,
-				4BEA4F2C295AAB0E00780EFC /* ResultOfRockPaperScissors.swift */,
+				BF4E7197295B1359003F9BB0 /* HandSignGame.swift */,
+				BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */,
+				BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -131,9 +134,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BEA4F2D295AAB0E00780EFC /* ResultOfRockPaperScissors.swift in Sources */,
-				4BEA4F2B295AA9FA00780EFC /* RockPaperScissors.swift in Sources */,
-				4BEA4F2F295AAC8200780EFC /* ChoiceOfRockPaperScissors.swift in Sources */,
+				4BEA4F2B295AA9FA00780EFC /* HandSign.swift in Sources */,
+				BF4E719A295B1397003F9BB0 /* RockPaperScissors.swift in Sources */,
+				BF4E719C295B13A4003F9BB0 /* MookJjiBba.swift in Sources */,
+				BF4E7198295B1359003F9BB0 /* HandSignGame.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				BF4E7196295ACE09003F9BB0 /* GameResult.swift in Sources */,
 			);
