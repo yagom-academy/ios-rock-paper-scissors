@@ -1,51 +1,45 @@
 import Foundation
 
-var computerNumber: Int = 0
+let end = 0, scissors = 1, rock = 2, paper = 3
 
 enum GameResult {
     case computerWin, draw, userWin
 }
 
-func getRandomNumber() {
-    computerNumber = Int.random(in: 1...3)
+func getRandomNumber() -> Int {
+    return Int.random(in: scissors...paper)
 }
 
-func userMakeNumber() -> Int {
+func inputUserNumber() -> Int {
     showMenuMessage()
-    
-    if let userInput = readLine() {
-        if let intUserInput = Int(userInput) {
-            return intUserInput
-        } else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return userMakeNumber()
-        }
-    } else {
+        
+    guard let userInput = readLine(),
+            let intUserInput = Int(userInput),
+          intUserInput >= end && intUserInput <= paper else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        return userMakeNumber()
+        return inputUserNumber()
     }
+
+    return intUserInput
 }
 
-func startGame() {
-    let userInput = userMakeNumber()
+func startRockPaperScissors() {
+    let userInput = inputUserNumber()
     
-    switch userInput {
-    case 0:
+    if userInput == 0 {
         print("게임종료")
-    case 1...3:
+    } else {
         let gameResult = compareNumber(number: userInput)
         
-        if gameResult == .computerWin {
+        switch gameResult {
+        case .computerWin:
             print("졌습니다")
-        } else if gameResult == .userWin {
-            print("이겼습니다")
-        } else {
+        case .draw:
             print("비겼습니다")
-            startGame()
+            startRockPaperScissors()
+        case .userWin:
+            print("이겼습니다")
         }
-    default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        startGame()
     }
 }
 
@@ -56,23 +50,17 @@ func showMenuMessage() {
 }
 
 func compareNumber(number: Int) -> GameResult {
-    getRandomNumber()
-
-    if number == 1 && computerNumber == 2 {
+    let computerNumber = getRandomNumber()
+    let compareNumbers = (user: number, computer: computerNumber)
+    
+    switch compareNumbers {
+    case (scissors, rock), (rock, paper), (paper, scissors):
         return GameResult.computerWin
-    } else if number == 1 && computerNumber == 3 {
+    case (rock, scissors), (paper, rock), (scissors, paper):
         return GameResult.userWin
-    } else if number == 2 && computerNumber == 3 {
-        return GameResult.computerWin
-    } else if number == 2 && computerNumber == 1 {
-        return GameResult.userWin
-    } else if number == 3 && computerNumber == 1 {
-        return GameResult.computerWin
-    } else if number == 3 && computerNumber == 2 {
-        return GameResult.userWin
-    } else {
+    default:
         return GameResult.draw
     }
 }
 
-startGame()
+startRockPaperScissors()
