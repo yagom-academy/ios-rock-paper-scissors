@@ -20,15 +20,10 @@ class RockPaperScissors {
         
         let userChoice = readInput()
         let computerChoice = generateRockPaperScissors()
-        var winner: String = ""
-        
-        switch userChoice {
-        case .success(let selectedUserNumber):
-            winner = decideWinner(user: selectedUserNumber, computer: computerChoice)
-        case .failure(let error):
-            print(error.rawValue)
-            startGame()
+        guard let winner = compare(userChoice, and: computerChoice) else {
+            return startGame()
         }
+
         
         if winner == "사용자" {
             print("이겼습니다!")
@@ -40,13 +35,26 @@ class RockPaperScissors {
         }
     }
     
+    func compare(_ userChoice: Result<Menu, InputError>, and computerChoice: Menu) -> String? {
+        switch userChoice {
+        case .success(let userMenu):
+            let winner = decideWinner(user: userMenu, computer: computerChoice)
+            return winner
+        case .failure(let error):
+            print(error.rawValue)
+            return nil
+        }
+    }
+    
     private func displayMenu() {
         let menuMessage = "가위(1), 바위(2), 보(3)! <종료: 0> :"
         print(menuMessage, terminator: " ")
     }
     
     private func readInput() -> Result<Menu, InputError> {
-        guard let input = readLine(), let number = Int(input), let menu = Menu(rawValue: number) else {
+        guard let input = readLine(),
+              let number = Int(input),
+              let menu = Menu(rawValue: number) else {
             return .failure(.invalidInput)
         }
         
