@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2645EC6B29598CB4006BCAA3 /* InputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2645EC6A29598CB4006BCAA3 /* InputError.swift */; };
+		2645EC6D29598D47006BCAA3 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2645EC6C29598D47006BCAA3 /* RockPaperScissors.swift */; };
+		2645EC71295AFC54006BCAA3 /* WinnerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2645EC70295AFC54006BCAA3 /* WinnerResult.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +26,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2645EC6A29598CB4006BCAA3 /* InputError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputError.swift; sourceTree = "<group>"; };
+		2645EC6C29598D47006BCAA3 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
+		2645EC70295AFC54006BCAA3 /* WinnerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerResult.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				2645EC6A29598CB4006BCAA3 /* InputError.swift */,
+				2645EC6C29598D47006BCAA3 /* RockPaperScissors.swift */,
+				2645EC70295AFC54006BCAA3 /* WinnerResult.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -120,6 +129,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				2645EC6B29598CB4006BCAA3 /* InputError.swift in Sources */,
+				2645EC6D29598D47006BCAA3 /* RockPaperScissors.swift in Sources */,
+				2645EC71295AFC54006BCAA3 /* WinnerResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
