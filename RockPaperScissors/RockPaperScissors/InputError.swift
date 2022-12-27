@@ -6,5 +6,6 @@
 //
 
 enum InputError: Error {
+    
     case invalidInput
 }
