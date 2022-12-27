@@ -46,21 +46,13 @@ class RockPaperScissors {
     }
     
     private func readInput() -> Result<Menu, InputError> {
-        guard let input = readLine(), let number = Int(input) else {
+        guard let input = readLine(), let number = Int(input), let menu = Menu(rawValue: number) else {
             return .failure(.invalidInput)
         }
         
-        switch number {
-        case Menu.end.rawValue:
-            return .success(.end)
-        case Menu.scissors.rawValue:
-            return .success(.scissors)
-        case Menu.rock.rawValue:
-            return .success(.rock)
-        case Menu.paper.rawValue:
-            return .success(.paper)
-        default:
-            return .failure(.invalidInput)
+        switch menu {
+        case .end, .scissors, .rock, .paper:
+            return .success(menu)
         }
     }
         
