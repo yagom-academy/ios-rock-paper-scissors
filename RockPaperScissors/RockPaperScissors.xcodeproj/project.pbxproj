@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4ABE1503295A785F000DF8C6 /* InputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABE1502295A785F000DF8C6 /* InputError.swift */; };
+		4AFCC611295A8CDF00BE1F40 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCC610295A8CDF00BE1F40 /* RockPaperScissors.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		4ABE1502295A785F000DF8C6 /* InputError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputError.swift; sourceTree = "<group>"; };
+		4AFCC610295A8CDF00BE1F40 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,6 +63,7 @@
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				4ABE1502295A785F000DF8C6 /* InputError.swift */,
+				4AFCC610295A8CDF00BE1F40 /* RockPaperScissors.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -92,7 +95,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					C7ABA0DC254EA63000B2367D = {
 						CreatedOnToolsVersion = 12.1;
@@ -124,6 +127,7 @@
 			files = (
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				4ABE1503295A785F000DF8C6 /* InputError.swift in Sources */,
+				4AFCC611295A8CDF00BE1F40 /* RockPaperScissors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +168,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -225,6 +230,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -248,7 +254,9 @@
 		C7ABA0E5254EA63000B2367D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -257,7 +265,9 @@
 		C7ABA0E6254EA63000B2367D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
