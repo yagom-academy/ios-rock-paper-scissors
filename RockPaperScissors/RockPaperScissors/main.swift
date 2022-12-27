@@ -39,6 +39,20 @@ func checkAvailability(input: String?) -> Result<RockScissorPaper, RockScissorPa
     return .success(userHandMotion)
 }
 
+func handleGameError(userInput: Result<RockScissorPaper, RockScissorPaperGameError>) -> RockScissorPaper? {
+    switch userInput {
+    case .failure(_):
+        return nil
+    case .success(let handMotion):
+        return handMotion
+    }
+}
+
+func makeRandomHandMotion() -> RockScissorPaper? {
+    let computerHandMotion = RockScissorPaper.allCases.randomElement()
+    return computerHandMotion
+}
+
 func compare(userInput: Int) {
     let computerInput = Int.random(in: 1...3)
     print(computerInput)
