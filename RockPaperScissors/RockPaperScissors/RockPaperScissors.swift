@@ -13,16 +13,28 @@ class RockPaperScissors {
     let rock = 2
     let paper = 3
     
+    var winner = ""
+    var isFirst = true
+    
+    func verifyUserChoice(userChoice: Result<Int, InputError>, computerChoice: Int) {
+        switch userChoice {
+        case .success(let selectedUserNumber):
+            self.winner = decideWinner(user: selectedUserNumber, computer: computerChoice)
+        case .failure(let error):
+            print(error.rawValue)
+            startGame()
+        }
+    }
+    
     func startGame() {
         displayRockPaperScissors()
         
         let userChoice = readInput()
         let computerChoice = generateRockPaperScissors()
-        var winner: String = ""
         
         switch userChoice {
         case .success(let selectedUserNumber):
-            winner = decideWinner(user: selectedUserNumber, computer: computerChoice)
+            self.winner = decideWinner(user: selectedUserNumber, computer: computerChoice)
         case .failure(let error):
             print(error.rawValue)
             startGame()
@@ -36,6 +48,12 @@ class RockPaperScissors {
             print("비겼습니다!")
             startGame()
         }
+        
+        calculateTurn(winner: winner)
+        
+        displayMookZziPpa(winner: winner)
+        
+        
     }
     
     private func displayRockPaperScissors() {
@@ -85,4 +103,14 @@ class RockPaperScissors {
         
         return "무승부"
     }
+    
+    func calculateTurn(winner: String) {
+        if isFirst {
+            isFirst = false
+        } else {
+            print("\(winner)의 턴입니다.")
+        }
+        self.winner = winner
+    }
+    
 }
