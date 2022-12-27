@@ -7,19 +7,34 @@ enum InputError: Error {
     case invalidNumber
 }
 
-enum RockScissorsPaper: Int {
+enum GameOptions {
     case exit
     case scissors
     case rock
     case paper
+    
+    init?(rawValue: Int) {
+          switch rawValue {
+          case 0:
+              self = .exit
+          case 1:
+              self = .scissors
+          case 2:
+              self = .rock
+          case 3:
+              self = .paper
+          default:
+              return nil
+          }
+    }
 }
 
 enum GameMessage {
     static let rockScissorsPaper = "가위(1), 바위(2), 보(3)! <종료 : 0> : "
 }
 
-func createComputerSelect() -> RockScissorsPaper {
-    guard let computerHand = RockScissorsPaper(rawValue: Int.random(in: 1...3)) else {
+func createComputerSelect() -> GameOptions {
+    guard let computerHand = GameOptions(rawValue: Int.random(in: 1...3)) else {
         return createComputerSelect()
     }
     
@@ -38,7 +53,7 @@ func receiveUserInput() throws -> Int {
     return inputNumber
 }
 
-func judgeGameResult(comparing userHand: RockScissorsPaper, and computerHand: RockScissorsPaper) {
+func judgeGameResult(comparing userHand: GameOptions, and computerHand: GameOptions) {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
         print("이겼습니다!")
@@ -55,7 +70,7 @@ func judgeGameResult(comparing userHand: RockScissorsPaper, and computerHand: Ro
 func play() {
     do {
         printMenu()
-        switch RockScissorsPaper(rawValue: try receiveUserInput()) {
+        switch GameOptions(rawValue: try receiveUserInput()) {
         case .exit:
             print("게임종료")
         case .scissors:
