@@ -1,10 +1,6 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
-//  Copyright © yagom academy. All rights reserved.
-// 
+//  Created by 혜모리, 무리 on 2022.12.26
+//
 
-import Foundation
-
-print("Hello, World!")
-
+playRockPaperScissors()
