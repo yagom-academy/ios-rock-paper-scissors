@@ -32,27 +32,18 @@ func validationUserInput(userInput: String) throws -> Int {
     return number
 }
 
-func generateComputerHand() -> RockPaperScissors? {
-    let computerNumber = Int.random(in: 1...3)
-    guard let computerHand = RockPaperScissors.init(rawValue: computerNumber) else {
+func generateComputerHand() -> HandShape? {
+    guard let computerHand = HandShape.allCases.randomElement() else {
         return nil
     }
     
     return computerHand
 }
 
-func generateUserHand(validationResult: Result<Int, InputError>) -> RockPaperScissors? {
-    let result = validationResult
-    var userNumber = 0
+func generateUserHand(validationResult: Int) -> HandShape? {
+    let handShapeList: [HandShape?] = HandShape.allCases
     
-    switch result {
-    case .success(let number):
-        userNumber = number
-    case .failure(.invalidInput):
-        print("잘못된 입력입니다. 다시 시도해주세요")
-    }
-    
-    guard let userHand = RockPaperScissors.init(rawValue: userNumber) else {
+    guard let userHand = handShapeList[validationResult - 1]  else {
         return nil
     }
     

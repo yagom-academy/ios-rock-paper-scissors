@@ -5,7 +5,7 @@
 //  Created by Harry, Andrew on 2022/12/27.
 //
 
-enum HandShape {
+enum HandShape: CaseIterable {
     
     case rock
     case paper
