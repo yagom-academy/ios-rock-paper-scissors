@@ -1,12 +1,12 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by Riji,Rilla.
 //  Copyright © yagom academy. All rights reserved.
 // 
 
 import Foundation
 
-enum rockScissorPaper: Int,CaseIterable {
+enum RockScissorPaper: Int,CaseIterable {
     case scissor = 1
     case rock = 2
     case paper = 3
