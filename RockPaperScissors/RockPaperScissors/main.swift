@@ -18,14 +18,10 @@ func readUserInput() -> String {
     return userInput
 }
 
-func validationUserInput(userInput: String) throws -> Int {
-    guard userInput != "" else {
-        throw InputError.invalidInput
-    }
-    guard let number = Int(userInput) else {
-        throw InputError.invalidInput
-    }
-    guard number >= 0, number <= 3 else {
+func validateUserInput(userInput: String) throws -> Int {
+    guard userInput != "",
+          let number = Int(userInput),
+          number >= 0, number <= 3 else {
         throw InputError.invalidInput
     }
 
