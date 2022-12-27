@@ -4,12 +4,12 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-//import Foundation
 
-enum RockScissorPaper: String,CaseIterable {
+enum GameMenu: String {
     case scissor = "1"
     case rock = "2"
     case paper = "3"
+    case endGame = "0"
 }
 
 enum GameResult {
@@ -18,7 +18,6 @@ enum GameResult {
 
 enum RockScissorPaperGameError : Error {
     case invalidInput
-    case endGame
 }
 
 func startGame() {
@@ -38,39 +37,36 @@ func getUserInput() -> String? {
     return input
 }
 
-func checkAvailability(input: String?) -> Result<RockScissorPaper, RockScissorPaperGameError> {
-    if input == "0" {
-        return .failure(.endGame)
-    }
+func checkAvailability(input: String?) -> Result<GameMenu, RockScissorPaperGameError> {
+    
     guard let userInput = input,
-          let userHandMotion = RockScissorPaper(rawValue: userInput)
+          let userHandMotion = GameMenu(rawValue: userInput)
     else { return .failure(.invalidInput) }
     return .success(userHandMotion)
 }
 
-func handleGameError(userInput: Result<RockScissorPaper, RockScissorPaperGameError>) -> RockScissorPaper? {
+func handleGameError(userInput: Result<GameMenu, RockScissorPaperGameError>) -> GameMenu? {
     switch userInput {
-    case .failure(let error):
-        switch error {
-        case.invalidInput:
-            print("잘못된 입력입니다. 다시 시도해주세요")
-            startGame()
-        case .endGame:
-            print("게임을 종료합니다.")
-        }
+    case .failure(_):
+        print("잘못된 입력입니다. 다시 시도해주세요")
+        startGame()
         return nil
     case .success(let handMotion):
+        if handMotion == .endGame {
+            print("게임종료")
+            return nil
+        }
         return handMotion
     }
 }
 
-func makeRandomHandMotion() -> RockScissorPaper? {
+func makeRandomHandMotion() -> GameMenu? {
     guard let computerRandomNumber = ["1", "2", "3"].randomElement() else { return nil }
-    let computerHandMotion = RockScissorPaper(rawValue: computerRandomNumber)
+    let computerHandMotion = GameMenu(rawValue: computerRandomNumber)
     return computerHandMotion
 }
 
-func compare(_ userInput: RockScissorPaper?, with computerInput: RockScissorPaper?) {
+func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) {
     guard let user = userInput, let computer = computerInput else { return }
     
     switch (user, computer) {
