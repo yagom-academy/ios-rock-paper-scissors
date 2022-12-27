@@ -50,20 +50,23 @@ func generateUserHand(validationResult: Int) -> HandShape? {
     return userHand
 }
 
-func compareHand(computerHand: RockPaperScissors?, userHand: RockPaperScissors?) -> MatchResult? {
+func compareHandShape(computerHand: HandShape?, userHand: HandShape?) -> MatchResult? {
     guard let computerHand = computerHand, let userHand = userHand else {
         return nil
     }
     var matchResult: MatchResult? = nil
     
-    if computerHand.rawValue == 1 && userHand.rawValue == 3
-        || computerHand.rawValue == 2 && userHand.rawValue == 1
-        || computerHand.rawValue == 3 && userHand.rawValue == 2  {
-        matchResult = MatchResult.lose
-    } else if computerHand.rawValue == userHand.rawValue {
-        matchResult = MatchResult.draw
-    } else {
-        matchResult = MatchResult.win
+    switch (computerHand, userHand) {
+    case (HandShape.rock, HandShape.scissors),
+        (HandShape.scissors, HandShape.paper),
+        (HandShape.paper, HandShape.rock):
+        return .lose
+    case (HandShape.scissors, HandShape.rock),
+        (HandShape.paper, HandShape.scissors),
+        (HandShape.rock, HandShape.paper):
+        return .win
+    default:
+        return .draw
     }
     
     return matchResult
