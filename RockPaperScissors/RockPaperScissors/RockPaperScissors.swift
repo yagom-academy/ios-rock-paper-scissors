@@ -46,10 +46,7 @@ class RockPaperScissors {
     }
     
     private func readInput() -> Result<Menu, InputError> {
-        guard let input = readLine() else {
-            return .failure(.invalidInput)
-        }
-        guard let number = Int(input) else {
+        guard let input = readLine(), let number = Int(input) else {
             return .failure(.invalidInput)
         }
         
@@ -73,21 +70,14 @@ class RockPaperScissors {
         return result
     }
     
-    private func decideWinner(user: Int, computer: Int) -> String {
-        if user > computer {
-            if user == paper && computer == scissors {
-                return "컴퓨터"
-            } else {
-                return "사용자"
-            }
-        } else if user < computer {
-            if user == scissors && computer == paper {
-                return "사용자"
-            } else {
-                return "컴퓨터"
-            }
+    private func decideWinner(user: Menu, computer: Menu) -> String {
+        switch (user, computer) {
+        case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
+            return "사용자"
+        case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
+            return "컴퓨터"
+        default:
+            return "무승부"
         }
-        
-        return "무승부"
     }
 }
