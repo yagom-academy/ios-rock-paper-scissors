@@ -82,8 +82,10 @@ class RockPaperScissors {
             return "사용자"
         case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
             return "컴퓨터"
-        default:
+        case (.rock, .rock), (.scissors, .scissors), (.paper, .paper):
             return "무승부"
+        default:
+            return ""
         }
     }
 }
