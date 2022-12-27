@@ -8,3 +8,4 @@ enum RockPaperScissors: Int {
     case rock = 2
     case paper = 3
 }
+

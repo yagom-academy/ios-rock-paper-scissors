@@ -22,8 +22,15 @@ func checkRockPaperScissors(number: Int?) -> Int {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return checkRockPaperScissors(number: choiceRockPaperScissors())
     }
-    
+
     return rockPaperScissorsNumber
+}
+
+func createUserRockPaperScissors() -> Int {
+    let userRockPaperScissors = choiceRockPaperScissors()
+    let userRockPaperScissorsNumber = checkRockPaperScissors(number: userRockPaperScissors)
+    
+    return userRockPaperScissorsNumber
 }
 
 func createComputerRockPaperScissors() -> Int {
@@ -31,3 +38,10 @@ func createComputerRockPaperScissors() -> Int {
     
     return computerNumber
 }
+
+func convertEnumType(_ rockPaperScissorsNumber: Int) -> RockPaperScissors? {
+    
+    return RockPaperScissors(rawValue: rockPaperScissorsNumber)
+}
+
+
