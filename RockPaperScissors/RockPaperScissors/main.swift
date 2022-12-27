@@ -4,8 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
 enum RockScissorsPaperError: Error {
     case invalidRockScissorsPaper
     case invalidMukjippa
@@ -24,6 +22,7 @@ enum RockScissorsPaperScenario {
 }
 
 var computerChoice: RockScissorsPaperType?
+var endFlag = false
 
 func createRandomRockScissorsPaper() -> RockScissorsPaperType? {
     let choice = RockScissorsPaperType(rawValue: Int.random(in: 1...3))
@@ -77,3 +76,31 @@ func printResult(_ scenario: RockScissorsPaperScenario) {
     }
 }
 
+func playRockScissorsPaper() {
+    computerChoice = createRandomRockScissorsPaper()
+    printRockScissorsPaper()
+    let rockScissorsPaperResult = choiceRockScissorsPaper()
+    switch rockScissorsPaperResult {
+    case .success(let userChoice):
+        checkGameResult(userChoice: userChoice, with: computerChoice)
+    case .failure(_):
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+}
+
+func checkGameResult(userChoice: Int, with computerChoice: RockScissorsPaperType?) {
+    guard userChoice != 0 else {
+        print("게임 종료")
+        endFlag = true
+        return
+    }
+    let userScenario = compare(userChoice: RockScissorsPaperType(rawValue: userChoice), with: computerChoice)
+    printResult(userScenario)
+    if (userScenario == .userWin) || (userScenario == .userLose) {
+        endFlag = true
+    }
+}
+
+while !endFlag {
+    playRockScissorsPaper()
+}
