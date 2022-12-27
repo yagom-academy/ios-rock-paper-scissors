@@ -17,8 +17,7 @@ enum RockScissorPaperGameError : Error {
 }
 
 func startGame() {
-    
- 
+    compare(<#T##userInput: RockScissorPaper?##RockScissorPaper?#>, computer: <#T##RockScissorPaper?#>)
 }
 
 func printGameMenu() {
@@ -53,24 +52,18 @@ func makeRandomHandMotion() -> RockScissorPaper? {
     return computerHandMotion
 }
 
-func compare(userInput: Int) {
-    let computerInput = Int.random(in: 1...3)
-    print(computerInput)
+func compare(_ userInput: RockScissorPaper?, computer computerInput: RockScissorPaper?) {
     
     if computerInput == userInput {
         print("비겼습니다!")
         startGame()
-    }
-    
-    if (computerInput == 1 && userInput == 2) ||
-       (computerInput == 2 && userInput == 3) ||
-       computerInput == 3 && userInput == 1 {
+    } else if (computerInput == .scissor && userInput == .rock) ||
+                (computerInput == .rock && userInput == .paper) ||
+                computerInput == .paper && userInput == .scissor {
         print("이겼습니다!")
-    }
-    
-    if (computerInput == 1 && userInput == 3) ||
-       (computerInput == 2 && userInput == 1) ||
-       (computerInput == 3 && userInput == 2) {
+    } else if (computerInput == .scissor && userInput == .paper) ||
+                (computerInput == .rock && userInput == .scissor) ||
+                (computerInput == .paper && userInput == .rock) {
         print("졌습니다!")
     }
     
