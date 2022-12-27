@@ -63,11 +63,11 @@ class RockPaperScissors {
     private func decideWinner(user: Menu, computer: Menu) -> String {
         switch (user, computer) {
         case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
-            return "사용자"
+            return WinnerResult.user
         case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-            return "컴퓨터"
+            return WinnerResult.computer
         case (.rock, .rock), (.scissors, .scissors), (.paper, .paper):
-            return "무승부"
+            return WinnerResult.noWinner
         default:
             return ""
         }
@@ -75,11 +75,11 @@ class RockPaperScissors {
     
     private func printResult(winner: String) {
         switch winner {
-        case "사용자":
+        case WinnerResult.user:
             print("이겼습니다!")
-        case "컴퓨터":
+        case WinnerResult.computer:
             print("졌습니다!")
-        case "무승부":
+        case WinnerResult.noWinner:
             print("비겼습니다!")
             startGame()
         default:
