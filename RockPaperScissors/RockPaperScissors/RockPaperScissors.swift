@@ -42,18 +42,40 @@ class RockPaperScissors {
         
         if winner == "사용자" {
             print("이겼습니다!")
+            startMookZziPpa()
         } else if winner == "컴퓨터" {
             print("졌습니다!")
+            startMookZziPpa()
         } else if winner == "무승부"{
             print("비겼습니다!")
             startGame()
         }
-        
+    }
+    
+    func startMookZziPpa() {
         calculateTurn(winner: winner)
         
-        displayMookZziPpa(winner: winner)
+        let userChoice = readInput()
+        let computerChoice = generateRockPaperScissors()
+        var mookZziPpaWinner = ""
         
+        switch userChoice {
+        case .success(let selectedUserNumber):
+            mookZziPpaWinner = decideWinner(user: selectedUserNumber, computer: computerChoice)
+        case .failure(let error):
+            print(error.rawValue)
+            startMookZziPpa()
+        }
         
+        if mookZziPpaWinner == "사용자" {
+            self.winner = mookZziPpaWinner
+            startMookZziPpa()
+        } else if mookZziPpaWinner == "컴퓨터" {
+            self.winner = mookZziPpaWinner
+            startMookZziPpa()
+        } else if mookZziPpaWinner == "무승부"{
+            print("\(winner)의 승리!")
+        }
     }
     
     private func displayRockPaperScissors() {
@@ -110,7 +132,7 @@ class RockPaperScissors {
         } else {
             print("\(winner)의 턴입니다.")
         }
-        self.winner = winner
+        displayMookZziPpa(winner: winner)
     }
     
 }
