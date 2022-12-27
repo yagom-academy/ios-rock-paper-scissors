@@ -1,10 +1,8 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by Harry, Andrew. 
 //  Copyright © yagom academy. All rights reserved.
 // 
 
 import Foundation
-
-print("Hello, World!")
 
