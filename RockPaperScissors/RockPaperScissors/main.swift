@@ -8,15 +8,12 @@ enum InputError: Error {
 }
 
 enum GameOptions {
-    case exit
     case scissors
     case rock
     case paper
     
     init?(rockScissorsPaper: Int) {
           switch rockScissorsPaper {
-          case 0:
-              self = .exit
           case 1:
               self = .scissors
           case 2:
@@ -30,8 +27,6 @@ enum GameOptions {
     
     init?(mukJjiBba: Int) {
         switch mukJjiBba {
-        case 0:
-            self = .exit
         case 1:
             self = .rock
         case 2:
@@ -42,6 +37,27 @@ enum GameOptions {
             return nil
         }
     }
+}
+
+enum GameResult {
+    case win
+    case lose
+    case draw
+    
+    var message: String {
+        switch self {
+        case .win:
+            return "이겼습니다!"
+        case .lose:
+            return "졌습니다!"
+        case .draw:
+            return "비겼습니다!"
+        }
+    }
+}
+enum Player {
+    static let user = "사용자"
+    static let computer = "컴퓨터"
 }
 
 enum GameMessage {
@@ -74,27 +90,31 @@ func receiveUserInput() throws -> Int {
 func judgeRockScissorsPaperGameResult(comparing userHand: GameOptions, and computerHand: GameOptions?) {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
-        print("이겼습니다!")
-        turn = "사용자"
+        print(GameResult.win.message)
+        turn = Player.user
+        startMukJjiBbaGame()
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        print("졌습니다!")
-        turn = "컴퓨터"
+        print(GameResult.lose.message)
+        turn = Player.computer
+        startMukJjiBbaGame()
     case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
-        print("비겼습니다!")
+        print(GameResult.draw.message)
         startGame()
     default:
-        print("에러")
+        print("에러 발생")
     }
 }
 
 func judgeMukJjiBbaGameResult(comparing userHand: GameOptions, and computerHand: GameOptions?) {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
-        turn = "사용자"
+        turn = Player.user
         print("\(turn)의 턴입니다.")
+        startMukJjiBbaGame()
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        turn = "컴퓨터"
+        turn = Player.computer
         print("\(turn)의 턴입니다.")
+        startMukJjiBbaGame()
     case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
         print("\(turn)의 승리!")
     default:
@@ -102,12 +122,43 @@ func judgeMukJjiBbaGameResult(comparing userHand: GameOptions, and computerHand:
     }
 }
 
+func startMukJjiBbaGame() {
+    do {
+        printMukJjiBbaMenu()
+        let userInput = try receiveUserInput()
+        guard userInput != 0 else {
+            print("게임종료")
+            return
+        }
+        switch GameOptions(mukJjiBba: userInput) {
+        case .rock:
+            judgeMukJjiBbaGameResult(comparing: .rock, and: GameOptions(mukJjiBba: createComputerSelect()))
+        case .scissors:
+            judgeMukJjiBbaGameResult(comparing: .scissors, and: GameOptions(mukJjiBba: createComputerSelect()))
+        case .paper:
+            judgeMukJjiBbaGameResult(comparing: .paper, and: GameOptions(mukJjiBba: createComputerSelect()))
+        default:
+            throw InputError.invalidNumber
+        }
+    }
+    catch InputError.invalidNumber {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        startMukJjiBbaGame()
+    }
+    catch {
+        print(error)
+    }
+}
+
 func startGame() {
     do {
         printRockScissorsPaperMenu()
-        switch GameOptions(rockScissorsPaper: try receiveUserInput()) {
-        case .exit:
+        let userInput = try receiveUserInput()
+        guard userInput != 0 else {
             print("게임종료")
+            return
+        }
+        switch GameOptions(rockScissorsPaper: userInput) {
         case .scissors:
             judgeRockScissorsPaperGameResult(comparing: .scissors, and: GameOptions(rockScissorsPaper: createComputerSelect()))
         case .rock:
