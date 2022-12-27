@@ -1,5 +1,5 @@
-//  ScissorsRockPaper.swift
-//  Created by vetto, songjun on 2022.12.27.
+//  RockPaperScissors - ScissorsRockPaper.swift
+//  Created by vetto, songjun on 2022.12.27
 
 enum ScissorsRockPaper: Int {
     case scissors = 1
