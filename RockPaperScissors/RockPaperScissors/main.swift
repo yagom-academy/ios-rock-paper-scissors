@@ -14,7 +14,23 @@ func readUserInput() -> Result<String, InputError> {
     guard let userInput = readLine() else {
         return .failure(.invalidInput)
     }
+    guard userInput != "" else {
+        return .failure(.invalidInput)
+    }
     
     return .success(userInput)
 }
 
+func validationUserInput() throws -> Result<Int, InputError> {
+    guard let result = try? readUserInput().get() else {
+        return .failure(.invalidInput)
+    }
+    guard let number = Int(result) else {
+        return .failure(.invalidInput)
+    }
+    guard number >= 0, number <= 3 else {
+        return .failure(.invalidInput)
+    }
+        
+    return .success(number)
+}
