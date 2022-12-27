@@ -17,6 +17,12 @@ enum RockScissorsPaperType: Int, CaseIterable {
     case paper
 }
 
+enum RockScissorsPaperScenario {
+    case userWin
+    case userLose
+    case draw
+}
+
 var computerChoice: RockScissorsPaperType?
 
 func createRandomRockScissorsPaper() -> RockScissorsPaperType? {
@@ -41,5 +47,21 @@ func choiceRockScissorsPaper() -> Result<RockScissorsPaperType?, RockScissorsPap
         return .failure(RockScissorsPaperError.invalidRockScissorsPaper)
     }
     return .success(RockScissorsPaperType(rawValue: userChoice))
+}
+
+func compare(_ userChoice: RockScissorsPaperType?, with computerChoice: RockScissorsPaperType?) -> RockScissorsPaperScenario {
+    if userChoice == computerChoice {
+        return .draw
+    }
+    return isUserWin(userChoice, with: computerChoice) ? .userWin : .userLose
+}
+
+func isUserWin(_ userChoice: RockScissorsPaperType?, with computerChoice: RockScissorsPaperType?) -> Bool {
+    if (userChoice == .rock && computerChoice == .scissors) ||
+        (userChoice == .paper && computerChoice == .rock) ||
+        (userChoice == .scissors && computerChoice == .paper) {
+        return true
+    }
+    return false
 }
 
