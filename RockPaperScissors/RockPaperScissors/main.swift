@@ -54,7 +54,6 @@ func compareHandShape(computerHand: HandShape?, userHand: HandShape?) -> MatchRe
     guard let computerHand = computerHand, let userHand = userHand else {
         return nil
     }
-    var matchResult: MatchResult? = nil
     
     switch (computerHand, userHand) {
     case (HandShape.rock, HandShape.scissors),
@@ -68,8 +67,6 @@ func compareHandShape(computerHand: HandShape?, userHand: HandShape?) -> MatchRe
     default:
         return .draw
     }
-    
-    return matchResult
 }
 
 func startGame() {
@@ -79,24 +76,28 @@ func startGame() {
         printMenu()
         
         let input = readUserInput()
-        let userNumber = validationUserInput(userInput: input)
-        if userNumber == .success(0){
-            print("게임 종료")
-            selectGameEnd.toggle()
-            continue
-        }
-        let userHand = generateUserHand(validationResult: userNumber)
-        let computerHand = generateComputerHand()
-        
-        if let matchResult = compareHand(computerHand: computerHand, userHand: userHand) {
-            switch matchResult {
-            case .win:
-                print("이겼습니다!")
-            case .draw:
-                print("비겼습니다!")
-            case .lose:
-                print("졌습니다!")
+        do {
+            let userNumber = try validationUserInput(userInput: input)
+            if userNumber == 0 {
+                print("게임 종료")
+                selectGameEnd.toggle()
+                continue
             }
+            let userHand = generateUserHand(validationResult: userNumber)
+            let computerHand = generateComputerHand()
+            
+            if let matchResult = compareHandShape(computerHand: computerHand, userHand: userHand) {
+                switch matchResult {
+                case .win:
+                    print("이겼습니다!")
+                case .draw:
+                    print("비겼습니다!")
+                case .lose:
+                    print("졌습니다!")
+                }
+            }
+        }catch {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
         }
     }
 }
