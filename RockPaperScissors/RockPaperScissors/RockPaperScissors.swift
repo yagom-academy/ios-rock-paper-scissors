@@ -23,15 +23,21 @@ class RockPaperScissors {
         guard let winner = compare(userChoice, and: computerChoice) else {
             return startGame()
         }
-
-        
-        if winner == "사용자" {
+    
+        printResult(winner: winner)
+    }
+    
+    func printResult(winner: String) {
+        switch winner {
+        case "사용자":
             print("이겼습니다!")
-        } else if winner == "컴퓨터" {
+        case "컴퓨터":
             print("졌습니다!")
-        } else if winner == "무승부"{
+        case "무승부":
             print("비겼습니다!")
             startGame()
+        default:
+            print("게임종료")
         }
     }
     
