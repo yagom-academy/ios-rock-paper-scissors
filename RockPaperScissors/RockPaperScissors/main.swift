@@ -10,32 +10,27 @@ func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료: 0>", terminator: ": ")
 }
 
-func readUserInput() -> String? {
+func readUserInput() -> String {
     guard let userInput = readLine() else {
-        return nil
+        return ""
     }
     
     return userInput
 }
 
-func validationUserInput(userInput: String?) -> Result<Int, InputError> {
-    guard let userInput = userInput else {
+func validationUserInput(userInput: String) -> Result<Int, InputError> {
+    guard userInput != "" else {
         return .failure(.invalidInput)
     }
     guard let number = Int(userInput) else {
         return .failure(.invalidInput)
     }
-    guard number > 0, number <= 3 else {
+    guard number >= 0, number <= 3 else {
         return .failure(.invalidInput)
     }
 
     return .success(number)
 }
-
-//let a = readUserInput()
-//let b = validationUserInput(userInput: a)
-//print(a)
-//print(b)
 
 func generateComputerHand() -> RockPaperScissors? {
     let computerNumber = Int.random(in: 1...3)
@@ -70,7 +65,9 @@ func compareHand(computerHand: RockPaperScissors?, userHand: RockPaperScissors?)
     }
     var matchResult: MatchResult? = nil
     
-    if computerHand.rawValue == 1 && userHand.rawValue == 3 || computerHand.rawValue == 2 && userHand.rawValue == 1 || computerHand.rawValue == 3 && userHand.rawValue == 2  {
+    if computerHand.rawValue == 1 && userHand.rawValue == 3
+        || computerHand.rawValue == 2 && userHand.rawValue == 1
+        || computerHand.rawValue == 3 && userHand.rawValue == 2  {
         matchResult = MatchResult.lose
     } else if computerHand.rawValue == userHand.rawValue {
         matchResult = MatchResult.draw
@@ -80,3 +77,34 @@ func compareHand(computerHand: RockPaperScissors?, userHand: RockPaperScissors?)
     
     return matchResult
 }
+
+func startGame() {
+    var selectGameEnd: Bool = false
+    
+    while !selectGameEnd {
+        printMenu()
+        
+        let input = readUserInput()
+        let userNumber = validationUserInput(userInput: input)
+        if userNumber == .success(0){
+            print("게임 종료")
+            selectGameEnd.toggle()
+            continue
+        }
+        let userHand = generateUserHand(validationResult: userNumber)
+        let computerHand = generateComputerHand()
+        
+        if let matchResult = compareHand(computerHand: computerHand, userHand: userHand) {
+            switch matchResult {
+            case .win:
+                print("이겼습니다!")
+            case .draw:
+                print("비겼습니다!")
+            case .lose:
+                print("졌습니다!")
+            }
+        }
+    }
+}
+
+startGame()
