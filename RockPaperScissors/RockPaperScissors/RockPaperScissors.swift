@@ -5,10 +5,8 @@
 //  Created by 레옹아범, Rhode, Rowan on 2022/12/26.
 //
 
-import Foundation
-
 class RockPaperScissors {
-    enum Menu: Int, CaseIterable {
+    private enum Menu: Int, CaseIterable {
         case end = 0
         case scissors = 1
         case rock = 2
@@ -25,31 +23,6 @@ class RockPaperScissors {
         }
     
         printResult(winner: winner)
-    }
-    
-    func printResult(winner: String) {
-        switch winner {
-        case "사용자":
-            print("이겼습니다!")
-        case "컴퓨터":
-            print("졌습니다!")
-        case "무승부":
-            print("비겼습니다!")
-            startGame()
-        default:
-            print("게임종료")
-        }
-    }
-    
-    func compare(_ userChoice: Result<Menu, InputError>, and computerChoice: Menu) -> String? {
-        switch userChoice {
-        case .success(let userMenu):
-            let winner = decideWinner(user: userMenu, computer: computerChoice)
-            return winner
-        case .failure(let error):
-            print(error.rawValue)
-            return nil
-        }
     }
     
     private func displayMenu() {
@@ -69,11 +42,22 @@ class RockPaperScissors {
             return .success(menu)
         }
     }
-        
+    
     private func generateRockPaperScissors() -> Menu {
         let result = Menu.allCases[Int.random(in: 1...3)]
         
         return result
+    }
+    
+    private func compare(_ userChoice: Result<Menu, InputError>, and computerChoice: Menu) -> String? {
+        switch userChoice {
+        case .success(let userMenu):
+            let winner = decideWinner(user: userMenu, computer: computerChoice)
+            return winner
+        case .failure(let error):
+            print(error.rawValue)
+            return nil
+        }
     }
     
     private func decideWinner(user: Menu, computer: Menu) -> String {
@@ -86,6 +70,20 @@ class RockPaperScissors {
             return "무승부"
         default:
             return ""
+        }
+    }
+    
+    private func printResult(winner: String) {
+        switch winner {
+        case "사용자":
+            print("이겼습니다!")
+        case "컴퓨터":
+            print("졌습니다!")
+        case "무승부":
+            print("비겼습니다!")
+            startGame()
+        default:
+            print("게임종료")
         }
     }
 }
