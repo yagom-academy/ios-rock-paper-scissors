@@ -10,7 +10,6 @@ enum RockScissorPaper: String,CaseIterable {
     case scissor = "1"
     case rock = "2"
     case paper = "3"
-    case endGame = "0"
 }
 
 enum GameResult {
@@ -19,16 +18,15 @@ enum GameResult {
 
 enum RockScissorPaperGameError : Error {
     case invalidInput
+    case endGame
 }
 
 func startGame() {
-    while true{
-        printGameMenu()
-        let userInput = checkAvailability(input: getUserInput())
-        let userHandMotion = handleGameError(userInput: userInput)
-        let computerHandMotion = makeRandomHandMotion()
-        compare(userHandMotion, with: computerHandMotion)
-    }
+    printGameMenu()
+    let userInput = checkAvailability(input: getUserInput())
+    let userHandMotion = handleGameError(userInput: userInput)
+    let computerHandMotion = makeRandomHandMotion()
+    compare(userHandMotion, with: computerHandMotion)
 }
 
 func printGameMenu() {
@@ -41,6 +39,9 @@ func getUserInput() -> String? {
 }
 
 func checkAvailability(input: String?) -> Result<RockScissorPaper, RockScissorPaperGameError> {
+    if input == "0" {
+        return .failure(.endGame)
+    }
     guard let userInput = input,
           let userHandMotion = RockScissorPaper(rawValue: userInput)
     else {
@@ -51,8 +52,14 @@ func checkAvailability(input: String?) -> Result<RockScissorPaper, RockScissorPa
 
 func handleGameError(userInput: Result<RockScissorPaper, RockScissorPaperGameError>) -> RockScissorPaper? {
     switch userInput {
-    case .failure(_):
-        print("잘못된 입력입니다. 다시 시도해주세요")
+    case .failure(let error):
+        switch error {
+        case.invalidInput:
+            print("잘못된 입력입니다. 다시 시도해주세요")
+            startGame()
+        case .endGame:
+            print("게임을 종료합니다.")
+        }
         return nil
     case .success(let handMotion):
         return handMotion
@@ -60,7 +67,10 @@ func handleGameError(userInput: Result<RockScissorPaper, RockScissorPaperGameErr
 }
 
 func makeRandomHandMotion() -> RockScissorPaper? {
-    let computerHandMotion = RockScissorPaper.allCases.randomElement()
+    guard let computerRandomNumber = ["1", "2", "3"].randomElement() else{
+        return nil
+    }
+    let computerHandMotion = RockScissorPaper(rawValue: computerRandomNumber)
     return computerHandMotion
 }
 
@@ -70,13 +80,22 @@ func compare(_ userInput: RockScissorPaper?, with computerInput: RockScissorPape
     }
     
     switch (user, computer) {
-    case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) : print("")
-    case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) : print("")
-    default : print("")
+    case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) : printGameResult(gameReulst: .win)
+    case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) : printGameResult(gameReulst: .lose)
+    default : printGameResult(gameReulst: .draw)
     }
-    
-    
 }
 
+func printGameResult(gameReulst: GameResult) {
+    switch gameReulst {
+    case .win:
+        print("이겼습니다!")
+    case .lose:
+        print("졌습니다!")
+    case .draw:
+        print("비겼습니다!")
+        startGame()
+    }
+}
 
 startGame()
