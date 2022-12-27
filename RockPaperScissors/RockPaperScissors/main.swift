@@ -6,28 +6,37 @@
 
 import Foundation
 
-enum RockScissorPaper: Int,CaseIterable {
-    case scissor = 1
-    case rock = 2
-    case paper = 3
+enum RockScissorPaper: String,CaseIterable {
+    case scissor = "1"
+    case rock = "2"
+    case paper = "3"
+}
+
+enum RockScissorPaperGameError : Error {
+    case invalidInput
 }
 
 func startGame() {
+    
+ 
+}
+
+func printGameMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: " ")
-    
+}
+
+func getUserInput() -> String? {
     let input: String? = readLine()
-    guard let inputValue = input, let inputNumber = Int(inputValue) else {
-        return
+    return input
+}
+
+func checkAvailability(input: String?) -> Result<RockScissorPaper, RockScissorPaperGameError> {
+    guard let userInput = input,
+    let userHandMotion = RockScissorPaper(rawValue: userInput)
+    else {
+        return .failure(.invalidInput)
     }
-    
-    switch inputNumber {
-    case 1,2,3: compare(userInput: inputNumber)
-    case 0 :
-        print("게임을 종료합니다.")
-        return
-    default :
-        print("잘못입력하셨습니다.")
-    }
+    return .success(userHandMotion)
 }
 
 func compare(userInput: Int) {
