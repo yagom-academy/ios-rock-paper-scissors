@@ -49,6 +49,16 @@ func decideWinner(userHand: ScissorsRockPaper, computerHand: ScissorsRockPaper) 
     return winner
 }
 
+func printGameResult(winner: String) {
+    if winner = "사용자" {
+        print("이겼습니다.")
+    } else if winner = "컴퓨터" {
+        print("졌습니다.")
+    } else if winner = "무승부" {
+        print("비겼습니다.")
+    }
+}
+
 
 func startGame() {
     while true {
