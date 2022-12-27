@@ -37,7 +37,7 @@ func printRockScissorsPaper() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: " ")
 }
 
-func choiceRockScissorsPaper() -> Result<RockScissorsPaperType?, RockScissorsPaperError> {
+func choiceRockScissorsPaper() -> Result<Int, RockScissorsPaperError> {
     let input: String? = readLine()
     guard let choice = input else {
         return .failure(RockScissorsPaperError.invalidRockScissorsPaper)
@@ -46,22 +46,34 @@ func choiceRockScissorsPaper() -> Result<RockScissorsPaperType?, RockScissorsPap
     guard let userChoice = Int(choice), (0...3) ~= userChoice else {
         return .failure(RockScissorsPaperError.invalidRockScissorsPaper)
     }
-    return .success(RockScissorsPaperType(rawValue: userChoice))
+    
+    return .success(userChoice)
 }
 
-func compare(_ userChoice: RockScissorsPaperType?, with computerChoice: RockScissorsPaperType?) -> RockScissorsPaperScenario {
+func compare(userChoice: RockScissorsPaperType?, with computerChoice: RockScissorsPaperType?) -> RockScissorsPaperScenario {
     if userChoice == computerChoice {
         return .draw
     }
-    return isUserWin(userChoice, with: computerChoice) ? .userWin : .userLose
+    return isUserWin(userChoice: userChoice, with: computerChoice) ? .userWin : .userLose
 }
 
-func isUserWin(_ userChoice: RockScissorsPaperType?, with computerChoice: RockScissorsPaperType?) -> Bool {
+func isUserWin(userChoice: RockScissorsPaperType?, with computerChoice: RockScissorsPaperType?) -> Bool {
     if (userChoice == .rock && computerChoice == .scissors) ||
         (userChoice == .paper && computerChoice == .rock) ||
         (userChoice == .scissors && computerChoice == .paper) {
         return true
     }
     return false
+}
+
+func printResult(_ scenario: RockScissorsPaperScenario) {
+    switch scenario {
+    case .userWin:
+        print("이겼습니다.")
+    case .userLose:
+        print("졌습니다.")
+    case .draw:
+        print("비겼습니다.")
+    }
 }
 
