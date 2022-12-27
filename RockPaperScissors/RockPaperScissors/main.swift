@@ -52,13 +52,13 @@ func compareHandShape(computerHand: HandShape?, userHand: HandShape?) -> MatchRe
     }
     
     switch (computerHand, userHand) {
-    case (HandShape.rock, HandShape.scissors),
-        (HandShape.scissors, HandShape.paper),
-        (HandShape.paper, HandShape.rock):
+    case (.rock, .scissors),
+        (.scissors, .paper),
+        (.paper, .rock):
         return .lose
-    case (HandShape.scissors, HandShape.rock),
-        (HandShape.paper, HandShape.scissors),
-        (HandShape.rock, HandShape.paper):
+    case (.scissors, .rock),
+        (.paper, .scissors),
+        (.rock, .paper):
         return .win
     default:
         return .draw
@@ -73,7 +73,7 @@ func startGame() {
         
         let input = readUserInput()
         do {
-            let userNumber = try validationUserInput(userInput: input)
+            let userNumber = try validateUserInput(userInput: input)
             if userNumber == 0 {
                 print("게임 종료")
                 selectGameEnd.toggle()
