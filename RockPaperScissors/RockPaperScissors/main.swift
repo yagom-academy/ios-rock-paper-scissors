@@ -18,18 +18,18 @@ func readUserInput() -> String {
     return userInput
 }
 
-func validationUserInput(userInput: String) -> Result<Int, InputError> {
+func validationUserInput(userInput: String) throws -> Int {
     guard userInput != "" else {
-        return .failure(.invalidInput)
+        throw InputError.invalidInput
     }
     guard let number = Int(userInput) else {
-        return .failure(.invalidInput)
+        throw InputError.invalidInput
     }
     guard number >= 0, number <= 3 else {
-        return .failure(.invalidInput)
+        throw InputError.invalidInput
     }
 
-    return .success(number)
+    return number
 }
 
 func generateComputerHand() -> RockPaperScissors? {
