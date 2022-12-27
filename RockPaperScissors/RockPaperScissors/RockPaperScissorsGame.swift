@@ -21,19 +21,20 @@ func printMenu() {
 }
 
 func compareHand(computerHand: Int, userHand: Int) -> String {
-    let result: Int = userHand - computerHand
-    let status: String
+    let result: String
     
-    if result == 0 {
-        status = "비겼습니다!"
-    } else if result == -2 || result == 1 {
-        status = "이겼습니다!"
+  // 변경
+    if userHand - computerHand == 0 {
+        result = "비겼습니다!"
+    } else if userHand - computerHand == -2 || userHand - computerHand == 1 {
+        result = "이겼습니다!"
     } else {
-        status = "졌습니다!"
+        result = "졌습니다!"
     }
     
-    return status
+    return result
 }
+
 
 func startGame() {
     while true {
