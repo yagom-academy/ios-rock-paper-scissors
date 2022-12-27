@@ -9,3 +9,5 @@ STEP1. 순서도
 
 STEP2. 순서도
 ![step2 순서도](https://raw.githubusercontent.com/Rhode-park/ios-rock-paper-scissors/step01/image/묵찌빠게임.jpg)
+
+step2 진행
