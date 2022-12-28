@@ -7,7 +7,11 @@
 import Foundation
 
 class RockScissorsPaperGameManager {
-    let gameType: GameType = GameType.rockScissorsPaper
+    let gameType: GameType
+    
+    init(gameType: GameType = .rockScissorsPaper) {
+        self.gameType = gameType
+    }
     
     func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료: 0>", terminator: ": ")
@@ -27,7 +31,7 @@ class RockScissorsPaperGameManager {
               number >= 0, number <= 3 else {
             throw InputError.invalidInput
         }
-
+        
         return number
     }
     
@@ -64,8 +68,12 @@ class RockScissorsPaperGameManager {
             (.rock, .paper):
             return .win
         default:
-            return .draw
+            return .same
         }
+    }
+    
+    func sendWhosTurn(whosTurn: String) -> String {
+        return whosTurn
     }
     
     func informMatchResult(matchResult: MatchResult?) {
@@ -73,7 +81,7 @@ class RockScissorsPaperGameManager {
             switch matchResult {
             case .win:
                 print("이겼습니다!")
-            case .draw:
+            case .same:
                 print("비겼습니다!")
             case .lose:
                 print("졌습니다!")
@@ -113,16 +121,10 @@ class RockScissorsPaperGameManager {
         var gameFlow: GameFlow = .keepPlaying
         
         while gameFlow == .keepPlaying {
-
+            
             gameFlow = playRockPaperScissors()
         }
     }
     
     
 }
-
-// TODO: 묵지빠게임 클래스 작성
-class MukJiPPaGameManager: RockScissorsPaperGameManager {
-    
-}
-
