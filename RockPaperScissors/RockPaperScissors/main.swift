@@ -5,6 +5,7 @@
 // 
 
 
+
 enum GameMenu: String {
     case scissor = "1"
     case rock = "2"
@@ -72,8 +73,10 @@ func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) {
     switch (user, computer) {
     case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
         printGameResult(gameResult: .win)
+        isUserWin = true
     case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) :
         printGameResult(gameResult: .lose)
+        isUserWin = false
     default : printGameResult(gameResult: .draw)
     }
 }
