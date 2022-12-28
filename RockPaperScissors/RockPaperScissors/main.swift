@@ -47,22 +47,22 @@ func playRockScissorsPaper() {
             print("게임 종료")
             return
         }
-        let userScenario = checkRockScissorsPaperResult(userNumber: userNumber, with: computerChoice)
-        playMukjippa(userScenario: userScenario)
+        let (userChoice, computerChoice) = checkRockScissorsPaperResult(userNumber: userNumber, with: computerChoice)
+        playMukjippa(userChoice, with: computerChoice)
     case .failure(_):
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }
 
-func playMukjippa(userScenario: RockScissorsPaperScenario) {
-    printMukjippa(userScenario: userScenario)
+func playMukjippa(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) {
+    printMukjippa(userChoice, with: computerChoice)
     let mukjippaResult = choiceRockScissorsPaper(errorType: .invalidMukjippa)
 }
 
-func printMukjippa(userScenario: RockScissorsPaperScenario) {
-    if userScenario == .userWin {
+func printMukjippa(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) {
+    if isUserWin(userChoice, with: computerChoice) {
         print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ")
-    } else if userScenario == .userLose {
+    } else {
         print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ")
     }
 }

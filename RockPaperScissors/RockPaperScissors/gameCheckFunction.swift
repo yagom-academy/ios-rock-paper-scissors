@@ -5,17 +5,17 @@
 //  Created by 천승현 on 2022/12/27.
 //
 
-func checkRockScissorsPaperResult(userNumber: Int, with computerChoice: RockScissorsPaperType) -> RockScissorsPaperScenario {
+func checkRockScissorsPaperResult(userNumber: Int, with computerChoice: RockScissorsPaperType) -> (RockScissorsPaperType, RockScissorsPaperType) {
     let userChoice = convertChoiceToRockScissorsPaper(userChoice: userNumber)
     let userScenario = compare(userChoice: userChoice, with: computerChoice)
     printResult(userScenario)
-    return userScenario
+    return (userChoice, computerChoice)
 }
 
 func convertChoiceToRockScissorsPaper(userChoice: Int) -> RockScissorsPaperType {
     switch userChoice {
     case 1:
-        return RockScissorsPaperType.scissors
+        return RockScissorsPaperType.rock
     case 2:
         return RockScissorsPaperType.scissors
     default:
@@ -27,12 +27,12 @@ func compare(userChoice: RockScissorsPaperType, with computerChoice: RockScissor
     if userChoice == computerChoice {
         return .draw
     }
-    return isUserWin(userChoice: userChoice, with: computerChoice) ? .userWin : .userLose
+    return isUserWin(userChoice, with: computerChoice) ? .userWin : .userLose
 }
 
-func isUserWin(userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) -> Bool {
-    if (userChoice == .scissors && computerChoice == .scissors) ||
-        (userChoice == .paper && computerChoice == .scissors) ||
+func isUserWin(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) -> Bool {
+    if (userChoice == .rock && computerChoice == .scissors) ||
+        (userChoice == .paper && computerChoice == .rock) ||
         (userChoice == .scissors && computerChoice == .paper) {
         return true
     }
