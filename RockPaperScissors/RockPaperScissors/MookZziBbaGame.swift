@@ -50,9 +50,9 @@ func startMookZziBbaGame(turn: Winner) {
             
             switch (result, turn) {
             case (.user, .user):
-                print("사용자 승리")
+                print("\(turn.rawValue)의 승리!")
             case (.computer, .computer):
-                print("컴퓨터 승리")
+                print("\(turn.rawValue)의 승리!")
             case (.draw, .user):
                 print("\(turn.rawValue)의 턴입니다.")
                 startMookZziBbaGame(turn: .user)
