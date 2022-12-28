@@ -9,47 +9,38 @@ class MookJjiBba: HandSignGame {
         return super.choiceUserNumber()
     }
     
-    func compareMookJjiBba(computers: HandSign, users: HandSign) -> GameResult {
-        let computerUserMookJjiBba: (HandSign, HandSign) = (computers, users)
-        
-        switch computerUserMookJjiBba {
-        case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
-            print(GameResult.draw.description)
-            return .draw
-        case (.scissor, .rock), (.rock, .paper), (.paper, .scissor):
-            print(GameResult.win.description)
-            return .win
-        case (.rock, .scissor), (.paper, .rock), (.scissor, .paper):
-            print(GameResult.lose.description)
-            return .lose
-        }
-    }
-    
     func playMookJjiBba() {
         let computerNumber = createComputerNumber()
         let userNumber = createUserNumber()
         
         guard userNumber != 0 else {
+            print("게임 종료")
             return
         }
         
-        guard let computerMookJjiBba = convertEnumType(computerNumber),
-              let userMookJjiBba = convertEnumType(userNumber) else {
+        guard let computerMookJjiBba = HandSign.convertHandSignType(computerNumber, gameType: .mookJjiBba),
+              let userMookJjiBba = HandSign.convertHandSignType(userNumber, gameType: .mookJjiBba) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return playMookJjiBba()
         }
         
-        let gameResult = compareMookJjiBba(computers: computerMookJjiBba, users: userMookJjiBba)
+        let gameResult = GameResult.compareHandSigns(computers: computerMookJjiBba, users: userMookJjiBba)
         
         if gameResult == .draw {
-            print("비김")
-            playMookJjiBba()
+            judgeWinPlayer()
         } else if gameResult == .win {
-            print("이김")
+            turnOwner = "사용자"
+            print("\(turnOwner)의 턴입니다.")
             playMookJjiBba()
         } else if gameResult == .lose {
-            print("짐")
+            turnOwner = "컴퓨터"
+            print("\(turnOwner)의 턴입니다.")
             playMookJjiBba()
         }
+    }
+    
+    func judgeWinPlayer() {
+        let winner = turnOwner == "사용자" ? "사용자의 승리!" : "컴퓨터의 승리!"
+        print(winner)
     }
 }

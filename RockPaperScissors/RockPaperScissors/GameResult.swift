@@ -4,18 +4,19 @@
 //
 
 enum GameResult {
-    case win
-    case lose
-    case draw
+    case win, draw, lose
     
-    var description: String {
-        switch self {
-        case .win:
-            return "이겼습니다!"
-        case .lose:
-            return "졌습니다!"
-        case .draw:
-            return "비겼습니다!"
+    static func compareHandSigns(computers: HandSign, users: HandSign) -> GameResult {
+        let computerUserNumber: (HandSign, HandSign) = (computers, users)
+        
+        switch computerUserNumber {
+        case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
+            return .draw
+        case (.scissor, .rock), (.rock, .paper), (.paper, .scissor):
+            return .win
+        case (.rock, .scissor), (.paper, .rock), (.scissor, .paper):
+            return .lose
         }
     }
+
 }

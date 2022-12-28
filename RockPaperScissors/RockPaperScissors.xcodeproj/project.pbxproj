@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4BEA4F2B295AA9FA00780EFC /* HandSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA4F2A295AA9FA00780EFC /* HandSign.swift */; };
+		4BEA4F31295BD1BD00780EFC /* HandSignGameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA4F30295BD1BD00780EFC /* HandSignGameType.swift */; };
 		BF4E7196295ACE09003F9BB0 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7195295ACE09003F9BB0 /* GameResult.swift */; };
 		BF4E7198295B1359003F9BB0 /* HandSignGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7197295B1359003F9BB0 /* HandSignGame.swift */; };
 		BF4E719A295B1397003F9BB0 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		4BEA4F2A295AA9FA00780EFC /* HandSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandSign.swift; sourceTree = "<group>"; };
+		4BEA4F30295BD1BD00780EFC /* HandSignGameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandSignGameType.swift; sourceTree = "<group>"; };
 		BF4E7195295ACE09003F9BB0 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		BF4E7197295B1359003F9BB0 /* HandSignGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandSignGame.swift; sourceTree = "<group>"; };
 		BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				BF4E7197295B1359003F9BB0 /* HandSignGame.swift */,
 				BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */,
 				BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */,
+				4BEA4F30295BD1BD00780EFC /* HandSignGameType.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 				4BEA4F2B295AA9FA00780EFC /* HandSign.swift in Sources */,
 				BF4E719A295B1397003F9BB0 /* RockPaperScissors.swift in Sources */,
 				BF4E719C295B13A4003F9BB0 /* MookJjiBba.swift in Sources */,
+				4BEA4F31295BD1BD00780EFC /* HandSignGameType.swift in Sources */,
 				BF4E7198295B1359003F9BB0 /* HandSignGame.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				BF4E7196295ACE09003F9BB0 /* GameResult.swift in Sources */,

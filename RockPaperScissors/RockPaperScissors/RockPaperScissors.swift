@@ -11,44 +11,32 @@ class RockPaperScissors: HandSignGame {
         return super.choiceUserNumber()
     }
     
-    func compareRockPaperScissors(computers: HandSign, users: HandSign) -> GameResult {
-        let computerUserRockPaperScissors: (HandSign, HandSign) = (computers, users)
-        
-        switch computerUserRockPaperScissors {
-        case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
-            print(GameResult.draw.description)
-            return .draw
-        case (.scissor, .rock), (.rock, .paper), (.paper, .scissor):
-            print(GameResult.win.description)
-            return .win
-        case (.rock, .scissor), (.paper, .rock), (.scissor, .paper):
-            print(GameResult.lose.description)
-            return .lose
-        }
-    }
-    
     func playRockPaperScissors() {
         let computerNumber = createComputerNumber()
         let userNumber = createUserNumber()
         
         guard userNumber != 0 else {
+            print("게임 종료")
             return
         }
         
-        guard let computerRockPaperScissors = convertEnumType(computerNumber),
-              let userRockPaperScissors = convertEnumType(userNumber) else {
+        guard let computerRockPaperScissors = HandSign.convertHandSignType(computerNumber, gameType: .rockPaperScissors),
+              let userRockPaperScissors = HandSign.convertHandSignType(userNumber, gameType: .rockPaperScissors) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return playRockPaperScissors()
         }
         
-        let gameResult = compareRockPaperScissors(computers: computerRockPaperScissors, users: userRockPaperScissors)
+        let gameResult = GameResult.compareHandSigns(computers: computerRockPaperScissors, users: userRockPaperScissors)
         
         if gameResult == .draw {
+            print("비겼습니다!")
             playRockPaperScissors()
         } else if gameResult == .win {
+            print("이겼습니다!")
             mookJjiBba.turnOwner = "사용자"
             mookJjiBba.playMookJjiBba()
-        } else {
+        } else if gameResult == .lose {
+            print("졌습니다")
             mookJjiBba.turnOwner = "컴퓨터"
             mookJjiBba.playMookJjiBba()
         }

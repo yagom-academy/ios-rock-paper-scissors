@@ -36,9 +36,4 @@ class HandSignGame {
         
         return userNumberCheck
     }
-    
-    func convertEnumType(_ number: Int) -> HandSign? {
-        return HandSign(rawValue: number)
-    }
-
 }
