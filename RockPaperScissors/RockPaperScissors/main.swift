@@ -21,7 +21,7 @@ enum RockScissorsPaperScenario {
     case draw
 }
 
-var endFlag = false
+var isGameEnd = false
 
 func printRockScissorsPaper() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: " ")
@@ -36,23 +36,29 @@ func createRandomRockScissorsPaper() -> RockScissorsPaperType {
 }
 
 func playRockScissorsPaper() {
-    var computerChoice = createRandomRockScissorsPaper()
-    printRockScissorsPaper()
-    
-    let rockScissorsPaperResult = choiceRockScissorsPaper(errorType: .invalidRockScissorsPaper)
-    switch rockScissorsPaperResult {
-    case .success(let userNumber):
-        if isGameEnd(userNumber: userNumber) {
-            print("게임 종료")
-            return
+    while !isGameEnd {
+        var computerChoice = createRandomRockScissorsPaper()
+        printRockScissorsPaper()
+        
+        let rockScissorsPaperResult = choiceRockScissorsPaper(errorType: .invalidRockScissorsPaper)
+        switch rockScissorsPaperResult {
+        case .success(let userNumber):
+            if isGameEnd(userNumber: userNumber) {
+                print("게임 종료")
+                isGameEnd = true
+                break
+            }
+            var userChoice = convertChoiceToRockScissorsPaper(userChoice: userNumber)
+            let userScenario = checkRockScissorsPaperResult(userChoice: userChoice, with: computerChoice)
+            if userScenario == .draw {
+                break
+            }
+            while true {
+                playMukjippa(&userChoice, with: &computerChoice)
+            }
+        case .failure(_):
+            print("잘못된 입력입니다. 다시 시도해주세요.")
         }
-        var userChoice = convertChoiceToRockScissorsPaper(userChoice: userNumber)
-        checkRockScissorsPaperResult(userChoice: userChoice, with: computerChoice)
-        while true {
-            playMukjippa(&userChoice, with: &computerChoice)
-        }
-    case .failure(_):
-        print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }
 
@@ -86,9 +92,9 @@ func checkMukjippaResult(userChoice: RockScissorsPaperType, computerChoice: Rock
 
 func printMukjippa(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) {
     if isUserWin(userChoice, with: computerChoice) {
-        print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ")
+        print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: " ")
     } else {
-        print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ")
+        print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: " ")
     }
 }
 
@@ -96,6 +102,4 @@ func isGameEnd(userNumber: Int) -> Bool {
     return userNumber == 0 ? true : false
 }
 
-while !endFlag {
-    playRockScissorsPaper()
-}
+playRockScissorsPaper()

@@ -5,9 +5,10 @@
 //  Created by 천승현 on 2022/12/27.
 //
 
-func checkRockScissorsPaperResult(userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) {
+func checkRockScissorsPaperResult(userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) -> RockScissorsPaperScenario {
     let userScenario = compare(userChoice: userChoice, with: computerChoice)
     printResult(userScenario)
+    return userScenario
 }
 
 func convertChoiceToRockScissorsPaper(userChoice: Int) -> RockScissorsPaperType {
