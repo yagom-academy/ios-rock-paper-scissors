@@ -10,8 +10,8 @@ enum RockScissorsPaperError: Error {
 }
 
 enum RockScissorsPaperType: Int {
-    case rock = 1
-    case scissors
+    case scissors = 1
+    case rock
     case paper
 }
 

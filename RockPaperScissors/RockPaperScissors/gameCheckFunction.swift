@@ -15,7 +15,7 @@ func checkRockScissorsPaperResult(userNumber: Int, with computerChoice: RockScis
 func convertChoiceToRockScissorsPaper(userChoice: Int) -> RockScissorsPaperType {
     switch userChoice {
     case 1:
-        return RockScissorsPaperType.rock
+        return RockScissorsPaperType.scissors
     case 2:
         return RockScissorsPaperType.scissors
     default:
@@ -31,8 +31,8 @@ func compare(userChoice: RockScissorsPaperType, with computerChoice: RockScissor
 }
 
 func isUserWin(userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) -> Bool {
-    if (userChoice == .rock && computerChoice == .scissors) ||
-        (userChoice == .paper && computerChoice == .rock) ||
+    if (userChoice == .scissors && computerChoice == .scissors) ||
+        (userChoice == .paper && computerChoice == .scissors) ||
         (userChoice == .scissors && computerChoice == .paper) {
         return true
     }
