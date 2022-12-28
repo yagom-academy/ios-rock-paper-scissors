@@ -6,6 +6,8 @@
 //
 
 class RockScissorPaper: CommonGameWorks, Game {
+    let mukjjibba = Mukjjibba()
+    
     func startGame() {
         printGameMenu()
         let userInput = checkAvailability(input: getUserInput())
@@ -22,7 +24,7 @@ class RockScissorPaper: CommonGameWorks, Game {
         switch userInput {
         case .failure(_):
             print("잘못된 입력입니다. 다시 시도해주세요")
-            startRockScissorPaper()
+            startGame()
             return nil
         case .success(let handMotion):
             if handMotion == .endGame {
@@ -38,12 +40,12 @@ class RockScissorPaper: CommonGameWorks, Game {
         
         switch (user, computer) {
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
-            printRockScissorPaperGameResult(gameResult: .win)
+            printGameResult(gameResult: .win)
             isUserWin = true
         case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) :
-            printRockScissorPaperGameResult(gameResult: .lose)
+            printGameResult(gameResult: .lose)
             isUserWin = false
-        default : printRockScissorPaperGameResult(gameResult: .draw)
+        default : printGameResult(gameResult: .draw)
         }
     }
     
@@ -51,11 +53,15 @@ class RockScissorPaper: CommonGameWorks, Game {
         switch gameResult {
         case .win:
             print("이겼습니다!")
+            isUserWin = true
+            mukjjibba.startGame()
         case .lose:
             print("졌습니다!")
+            isUserWin = false
+            mukjjibba.startGame()
         case .draw:
             print("비겼습니다!")
-            startRockScissorPaper()
+            startGame()
         }
     }
 }

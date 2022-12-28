@@ -5,15 +5,13 @@
 //  Created by Riji, Rilla on 2022/12/28.
 //
 
-
-
-var isUserWin = false
-var mukjjibbaMode = false
-
-
 class Mukjjibba: CommonGameWorks, Game {
     func startGame() {
-        print("")
+        printGameMenu()
+        let userInput = checkAvailability(input: getUserInput())
+        let userHandMotion = handleGameError(userInput: userInput)
+        let computerHandMotion = makeRandomHandMotion()
+        compare(userHandMotion, with: computerHandMotion)
     }
     
     
@@ -35,7 +33,7 @@ class Mukjjibba: CommonGameWorks, Game {
         case .failure(_):
             print("잘못된 입력입니다. 다시 시도해주세요")
             isUserWin = false
-            startMukjjibbaGame()
+            startGame()
             return nil
         case .success(let handMotion):
             if handMotion == .endGame {
@@ -54,8 +52,10 @@ class Mukjjibba: CommonGameWorks, Game {
             checkMukjjibbaResult()
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
             isUserWin = true
+            startGame()
         case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) :
             isUserWin = false
+            startGame()
         default :
             return
         }
@@ -74,9 +74,9 @@ class Mukjjibba: CommonGameWorks, Game {
     
     func checkMukjjibbaResult() {
         if isUserWin {
-            printMukjjibbaGameResult(gameResult: .win)
+            printGameResult(gameResult: .win)
         } else {
-            printMukjjibbaGameResult(gameResult: .lose)
+            printGameResult(gameResult: .lose)
         }
     }
 }

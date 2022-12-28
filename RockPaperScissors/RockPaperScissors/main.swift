@@ -20,3 +20,8 @@ enum GameError : Error {
     case invalidInput
 }
 
+var isUserWin = false
+
+let game = RockScissorPaper()
+
+game.startGame()
