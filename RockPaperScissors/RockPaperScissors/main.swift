@@ -55,6 +55,7 @@ enum GameResult {
         }
     }
 }
+
 enum Player {
     static let user = "사용자"
     static let computer = "컴퓨터"
@@ -137,12 +138,13 @@ func startMukJjiBbaGame() {
             judgeMukJjiBbaGameResult(comparing: .scissors, and: GameOptions(mukJjiBba: createComputerSelect()))
         case .paper:
             judgeMukJjiBbaGameResult(comparing: .paper, and: GameOptions(mukJjiBba: createComputerSelect()))
-        default:
+        case .none:
             throw InputError.invalidNumber
         }
     }
     catch InputError.invalidNumber {
         print("잘못된 입력입니다. 다시 시도해주세요.")
+        turn = Player.computer
         startMukJjiBbaGame()
     }
     catch {
@@ -165,7 +167,7 @@ func startGame() {
             judgeRockScissorsPaperGameResult(comparing: .rock, and: GameOptions(rockScissorsPaper: createComputerSelect()))
         case .paper:
             judgeRockScissorsPaperGameResult(comparing: .paper, and: GameOptions(rockScissorsPaper: createComputerSelect()))
-        default:
+        case .none:
             throw InputError.invalidNumber
         }
     } catch InputError.invalidNumber {
