@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4AA44E39295C367300CA0558 /* GameFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA44E38295C367300CA0558 /* GameFlow.swift */; };
+		4ABE1503295A785F000DF8C6 /* InputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABE1502295A785F000DF8C6 /* InputError.swift */; };
+		71B8EDA4295A9C8100DD4DD1 /* MatchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B8EDA3295A9C8100DD4DD1 /* MatchResult.swift */; };
+		71FB9121295AEB5800A2DB61 /* HandShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FB9120295AEB5800A2DB61 /* HandShape.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +27,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4AA44E38295C367300CA0558 /* GameFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFlow.swift; sourceTree = "<group>"; };
+		4ABE1502295A785F000DF8C6 /* InputError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputError.swift; sourceTree = "<group>"; };
+		71B8EDA3295A9C8100DD4DD1 /* MatchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchResult.swift; sourceTree = "<group>"; };
+		71FB9120295AEB5800A2DB61 /* HandShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandShape.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				4ABE1502295A785F000DF8C6 /* InputError.swift */,
+				71B8EDA3295A9C8100DD4DD1 /* MatchResult.swift */,
+				71FB9120295AEB5800A2DB61 /* HandShape.swift */,
+				4AA44E38295C367300CA0558 /* GameFlow.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -89,7 +101,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					C7ABA0DC254EA63000B2367D = {
 						CreatedOnToolsVersion = 12.1;
@@ -119,7 +131,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71B8EDA4295A9C8100DD4DD1 /* MatchResult.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				71FB9121295AEB5800A2DB61 /* HandShape.swift in Sources */,
+				4AA44E39295C367300CA0558 /* GameFlow.swift in Sources */,
+				4ABE1503295A785F000DF8C6 /* InputError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +176,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -221,6 +238,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -244,7 +262,9 @@
 		C7ABA0E5254EA63000B2367D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -253,7 +273,9 @@
 		C7ABA0E6254EA63000B2367D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
