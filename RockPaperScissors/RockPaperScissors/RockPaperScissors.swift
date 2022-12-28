@@ -93,18 +93,20 @@ class RockPaperScissors {
 
 extension RockPaperScissors {
     private enum MookZziPpa: Int {
-        case mook = 1
-        case zzi
-        case ppa
+        case rock = 1
+        case scissors
+        case paper
     }
     
-    func calculateTurn(winner: String) {
+    func calculateTurn(winner: String) -> String {
         if isFirst {
             isFirst = false
         } else {
             print("\(winner)의 턴입니다.")
         }
         displayMookZziPpa(winner: winner)
+        var turn = winner
+        return turn
     }
     
     private func displayMookZziPpa(winner: String) {
@@ -112,20 +114,45 @@ extension RockPaperScissors {
         print(menuMessage, terminator: " ")
     }
     
+    private func compareTwo(_ userChoice: Result<Menu, InputError>, and computerChoice: Menu) -> String? {
+        switch userChoice {
+        case .success(let userMenu):
+            let winner = decideWinner(user: userMenu, computer: computerChoice)
+            return winner
+        case .failure(let error):
+            print(error.rawValue)
+            return nil
+        }
+    }
+    
+    private func decideWinner(user: MookZziPpa, computer: MookZziPpa) -> String {
+        switch (user, computer) {
+        case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
+            return WinnerResult.user
+        case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
+            return WinnerResult.computer
+        case (.rock, .rock), (.scissors, .scissors), (.paper, .paper):
+            return WinnerResult.noWinner
+        default:
+            return ""
+        }
+    }
+    
     func startMookZziPpa(winner: String) {
-        calculateTurn(winner: winner)
+        var mookZziPpaWinner = ""
+        let turn = calculateTurn(winner: winner)
         
         let userChoice = readInput()
         let computerChoice = generateRockPaperScissors()
-        var mookZziPpaWinner = ""
         
-        switch userChoice {
-        case .success(let selectedUserNumber):
-            mookZziPpaWinner = decideWinner(user: selectedUserNumber, computer: computerChoice)
-        case .failure(let error):
-            print(error.rawValue)
-            startMookZziPpa()
-        }
+        compare(userChoice, and: computerChoice)
+//        switch userChoice {
+//        case .success(let selectedUserNumber):
+//            mookZziPpaWinner = decideWinner(user: selectedUserNumber, computer: computerChoice)
+//        case .failure(let error):
+//            print(error.rawValue)
+//            startMookZziPpa()
+//        }
         
         if mookZziPpaWinner == "사용자" {
             self.winner = mookZziPpaWinner
