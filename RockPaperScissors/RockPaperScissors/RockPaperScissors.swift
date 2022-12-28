@@ -25,7 +25,6 @@ class RockPaperScissors {
         }
     
         printResult(winner: winner)
-        startMookZziPpa(winner: winner)
     }
     
     private func displayMenu() {
@@ -80,8 +79,10 @@ class RockPaperScissors {
         switch winner {
         case WinnerResult.user:
             print("이겼습니다!")
+            startMookZziPpa(winner: winner)
         case WinnerResult.computer:
             print("졌습니다!")
+            startMookZziPpa(winner: winner)
         case WinnerResult.noWinner:
             print("비겼습니다!")
             startGame()
