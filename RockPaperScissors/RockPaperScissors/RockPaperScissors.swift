@@ -92,8 +92,9 @@ class RockPaperScissors {
 }
 
 extension RockPaperScissors {
-    private enum MookZziPpa: Int {
-        case rock = 1
+    private enum MookZziPpa: Int, CaseIterable {
+        case end
+        case rock
         case scissors
         case paper
     }
@@ -114,10 +115,29 @@ extension RockPaperScissors {
         print(menuMessage, terminator: " ")
     }
     
-    private func compareTwo(_ userChoice: Result<Menu, InputError>, and computerChoice: Menu) -> String? {
+    private func generateRockPaperScissorsTwo() -> MookZziPpa {
+        let result = MookZziPpa.allCases[Int.random(in: 1...3)]
+        
+        return result
+    }
+    
+    private func readInputTwo() -> Result<MookZziPpa, InputError> {
+        guard let input = readLine(),
+              let number = Int(input),
+              let menu = MookZziPpa(rawValue: number) else {
+            return .failure(.invalidInput)
+        }
+        
+        switch menu {
+        case .end, .scissors, .rock, .paper:
+            return .success(menu)
+        }
+    }
+    
+    private func compareTwo(_ userChoice: Result<MookZziPpa, InputError>, and computerChoice: MookZziPpa) -> String? {
         switch userChoice {
         case .success(let userMenu):
-            let winner = decideWinner(user: userMenu, computer: computerChoice)
+            let winner = decideWinnerTwo(user: userMenu, computer: computerChoice)
             return winner
         case .failure(let error):
             print(error.rawValue)
@@ -125,7 +145,7 @@ extension RockPaperScissors {
         }
     }
     
-    private func decideWinner(user: MookZziPpa, computer: MookZziPpa) -> String {
+    private func decideWinnerTwo(user: MookZziPpa, computer: MookZziPpa) -> String {
         switch (user, computer) {
         case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
             return WinnerResult.user
@@ -139,29 +159,28 @@ extension RockPaperScissors {
     }
     
     func startMookZziPpa(winner: String) {
-        var mookZziPpaWinner = ""
         let turn = calculateTurn(winner: winner)
         
-        let userChoice = readInput()
-        let computerChoice = generateRockPaperScissors()
+        let userChoice = readInputTwo()
+        let computerChoice = generateRockPaperScissorsTwo()
         
-        compare(userChoice, and: computerChoice)
-//        switch userChoice {
-//        case .success(let selectedUserNumber):
-//            mookZziPpaWinner = decideWinner(user: selectedUserNumber, computer: computerChoice)
-//        case .failure(let error):
-//            print(error.rawValue)
-//            startMookZziPpa()
-//        }
+        guard let winner = compareTwo(userChoice, and: computerChoice) else {
+            return startMookZziPpa(winner: turn)
+        } // 향후 수정 필요
         
-        if mookZziPpaWinner == "사용자" {
-            self.winner = mookZziPpaWinner
-            startMookZziPpa()
-        } else if mookZziPpaWinner == "컴퓨터" {
-            self.winner = mookZziPpaWinner
-            startMookZziPpa()
-        } else if mookZziPpaWinner == "무승부"{
-            print("\(winner)의 승리!")
+        printResultTwo(winner: winner, turn: turn)
+    }
+    
+    private func printResultTwo(winner: String, turn: String) {
+        switch winner {
+        case WinnerResult.user:
+            startMookZziPpa(winner: winner)
+        case WinnerResult.computer:
+            startMookZziPpa(winner: winner)
+        case WinnerResult.noWinner:
+            print("\(turn)의 승리!")
+        default:
+            print("게임종료")
         }
     }
 }
