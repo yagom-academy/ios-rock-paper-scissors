@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1CCB4D88295A7A4F0010DB0F /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D87295A7A4F0010DB0F /* RockPaperScissorsGame.swift */; };
-		1CCB4D8C295AF0DF0010DB0F /* ScissorsRockPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D8B295AF0DF0010DB0F /* ScissorsRockPaper.swift */; };
+		1CCB4D8C295AF0DF0010DB0F /* ScissorsRockPaperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D8B295AF0DF0010DB0F /* ScissorsRockPaperType.swift */; };
 		1CCB4D8E295BD8C60010DB0F /* MookZziBbaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D8D295BD8C60010DB0F /* MookZziBbaGame.swift */; };
+		1CCB4D90295C2EC50010DB0F /* MookZziBbaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D8F295C2EC50010DB0F /* MookZziBbaType.swift */; };
+		1CCB4D92295C2EFB0010DB0F /* WinnerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D91295C2EFB0010DB0F /* WinnerType.swift */; };
+		1CCB4D95295C31250010DB0F /* ReturnNumberLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D94295C31250010DB0F /* ReturnNumberLibrary.swift */; };
 		98EA53AF295C2A2700149D58 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA53AE295C2A2700149D58 /* Error.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
@@ -28,8 +31,11 @@
 
 /* Begin PBXFileReference section */
 		1CCB4D87295A7A4F0010DB0F /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
-		1CCB4D8B295AF0DF0010DB0F /* ScissorsRockPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScissorsRockPaper.swift; sourceTree = "<group>"; };
+		1CCB4D8B295AF0DF0010DB0F /* ScissorsRockPaperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScissorsRockPaperType.swift; sourceTree = "<group>"; };
 		1CCB4D8D295BD8C60010DB0F /* MookZziBbaGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MookZziBbaGame.swift; sourceTree = "<group>"; };
+		1CCB4D8F295C2EC50010DB0F /* MookZziBbaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MookZziBbaType.swift; sourceTree = "<group>"; };
+		1CCB4D91295C2EFB0010DB0F /* WinnerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerType.swift; sourceTree = "<group>"; };
+		1CCB4D94295C31250010DB0F /* ReturnNumberLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnNumberLibrary.swift; sourceTree = "<group>"; };
 		98EA53AE295C2A2700149D58 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -46,6 +52,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1CCB4D93295C2F310010DB0F /* Type */ = {
+			isa = PBXGroup;
+			children = (
+				1CCB4D8B295AF0DF0010DB0F /* ScissorsRockPaperType.swift */,
+				1CCB4D8F295C2EC50010DB0F /* MookZziBbaType.swift */,
+				1CCB4D91295C2EFB0010DB0F /* WinnerType.swift */,
+			);
+			path = Type;
+			sourceTree = "<group>";
+		};
 		C7ABA0D4254EA63000B2367D = {
 			isa = PBXGroup;
 			children = (
@@ -65,11 +81,12 @@
 		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
 			isa = PBXGroup;
 			children = (
+				1CCB4D93295C2F310010DB0F /* Type */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				1CCB4D87295A7A4F0010DB0F /* RockPaperScissorsGame.swift */,
-				1CCB4D8B295AF0DF0010DB0F /* ScissorsRockPaper.swift */,
 				1CCB4D8D295BD8C60010DB0F /* MookZziBbaGame.swift */,
 				98EA53AE295C2A2700149D58 /* Error.swift */,
+				1CCB4D94295C31250010DB0F /* ReturnNumberLibrary.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -133,7 +150,10 @@
 			files = (
 				1CCB4D88295A7A4F0010DB0F /* RockPaperScissorsGame.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
-				1CCB4D8C295AF0DF0010DB0F /* ScissorsRockPaper.swift in Sources */,
+				1CCB4D8C295AF0DF0010DB0F /* ScissorsRockPaperType.swift in Sources */,
+				1CCB4D95295C31250010DB0F /* ReturnNumberLibrary.swift in Sources */,
+				1CCB4D92295C2EFB0010DB0F /* WinnerType.swift in Sources */,
+				1CCB4D90295C2EC50010DB0F /* MookZziBbaType.swift in Sources */,
 				98EA53AF295C2A2700149D58 /* Error.swift in Sources */,
 				1CCB4D8E295BD8C60010DB0F /* MookZziBbaGame.swift in Sources */,
 			);

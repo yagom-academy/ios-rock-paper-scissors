@@ -1,17 +1,6 @@
 //  RockPaperScissors - RockPaperScissorsGame.swift
 //  Created by vetto, songjun on 2022.12.27
 
-func makeRandomComputerNumber() -> Int {
-    return Int.random(in: 1...3)
-}
-
-func inputUserNumber() throws -> Int {
-    guard let userInput = readLine(), let userNumber = Int(userInput) else {
-        throw InputError.invalidInput
-    }
-    return userNumber
-}
-
 func printRockPaperScissorsMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 }
@@ -23,7 +12,8 @@ func convertNumberToRockPaperScissors(number: Int) -> ScissorsRockPaper {
     return hand
 }
 
-func decideRPSWinner(_ userHand: ScissorsRockPaper, _ computerHand: ScissorsRockPaper) -> Winner {
+func decideRockPaperScissorWinner(_ userHand: ScissorsRockPaper,
+                                  _ computerHand: ScissorsRockPaper) -> Winner {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
         return Winner.user
@@ -34,7 +24,7 @@ func decideRPSWinner(_ userHand: ScissorsRockPaper, _ computerHand: ScissorsRock
     }
 }
 
-func printGameResult(winner: Winner) {
+func printRockPaperScissorsGameResult(winner: Winner) {
     if winner == .user {
         print("이겼습니다.")
     } else if winner == .computer {
@@ -56,13 +46,13 @@ func startRockPaperScissorsGame() {
         case 1, 2, 3:
             let userHand = convertNumberToRockPaperScissors(number: inputtedNumber)
             let computerHand = convertNumberToRockPaperScissors(number: makeRandomComputerNumber())
-            let winner = decideRPSWinner(userHand, computerHand)
+            let winner = decideRockPaperScissorWinner(userHand, computerHand)
             
             if winner == .draw {
-                printGameResult(winner: winner)
+                printRockPaperScissorsGameResult(winner: winner)
                 startRockPaperScissorsGame()
             } else {
-                printGameResult(winner: winner)
+                printRockPaperScissorsGameResult(winner: winner)
                 startMookZziBbaGame(turn: winner)
             }
         default:

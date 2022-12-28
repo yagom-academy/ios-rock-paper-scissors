@@ -49,7 +49,6 @@ func startMookZziBbaGame(turn: Winner) {
             let turn = decideMookZziBbaWinner(turn: turn, userHand, computerHand).1
             
             switch (result, turn) {
-                
             case (.user, .user):
                 print("사용자 승리")
             case (.computer, .computer):
@@ -61,7 +60,6 @@ func startMookZziBbaGame(turn: Winner) {
                 print("\(turn.rawValue)의 턴입니다.")
                 startMookZziBbaGame(turn: .computer)
             }
-        
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             startMookZziBbaGame(turn: .computer)
