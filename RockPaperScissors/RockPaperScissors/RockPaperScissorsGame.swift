@@ -28,21 +28,15 @@ func convertNumberToHand(number: Int) -> ScissorsRockPaper {
     return hand
 }
 
-func decideWinner(userHand: ScissorsRockPaper, computerHand: ScissorsRockPaper) -> String {
-    let winner: String
-    
+func decideWinner(_ userHand: ScissorsRockPaper, _ computerHand: ScissorsRockPaper) -> Winner {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
-        winner = "사용자"
+        return Winner.user
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        winner = "컴퓨터"
-    case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
-        winner = "무승부"
+        return Winner.computer
     default:
-        print("잘못된 결과입니다.")
-        winner = ""
+        return Winner.draw
     }
-    return winner
 }
 
 func printGameResult(winner: String) {
@@ -61,20 +55,21 @@ func startGame() {
     switch inputtedNumber {
     case 0:
         print("게임 종료")
-    case 1,2,3:
+    case 1, 2, 3:
         let userHand = convertNumberToHand(number: inputtedNumber)
         let computerHand = convertNumberToHand(number: makeRandomComputerNumber())
-        let winner = decideWinner(userHand: userHand, computerHand: computerHand)
+        let winner = decideWinner(userHand, computerHand)
         
         if winner == "무승부" {
             printGameResult(winner: winner)
             startGame()
         } else {
             printGameResult(winner: winner)
+            
+            // 이쪽 로직에서 묵찌빠 실행하기
         }
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startGame()
     }
 }
-
