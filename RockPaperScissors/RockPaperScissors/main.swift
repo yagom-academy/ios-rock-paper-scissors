@@ -88,12 +88,16 @@ func playMukjippa(_ userChoice: inout RockScissorsPaperType, with computerChoice
         userChoice = userNewChoice
         checkMukjippaResult(userChoice: userChoice, computerChoice: randomChoice)
     case .failure(_):
+        changePreviousWinner()
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        if previousWinner == .user {
-            previousWinner = .computer
-        } else {
-            previousWinner = .user
-        }
+    }
+}
+
+func changePreviousWinner() {
+    if previousWinner == .user {
+        previousWinner = .computer
+    } else {
+        previousWinner = .user
     }
 }
 
