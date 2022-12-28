@@ -20,7 +20,6 @@ class CommonGameWorks {
     }
     
     func checkAvailability(input: String?) -> Result<GameMenu, GameError> {
-        
         guard let userInput = input,
               let userHandMotion = GameMenu(rawValue: userInput)
         else { return .failure(.invalidInput) }

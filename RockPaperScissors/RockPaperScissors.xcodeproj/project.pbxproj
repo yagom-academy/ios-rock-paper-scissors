@@ -63,9 +63,9 @@
 		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
 			isa = PBXGroup;
 			children = (
+				C7ABA0E0254EA63000B2367D /* main.swift */,
 				FB40E0E0295C64A600E590DB /* game protocol.swift */,
 				FB40E0E2295C686000E590DB /* RockScissorPaper.swift */,
-				C7ABA0E0254EA63000B2367D /* main.swift */,
 				08D4CDA8295C4EE5009F36AE /* mukjjibba.swift */,
 			);
 			path = RockPaperScissors;

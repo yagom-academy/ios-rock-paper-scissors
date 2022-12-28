@@ -37,7 +37,6 @@ class RockScissorPaper: CommonGameWorks, Game {
     
     func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) {
         guard let user = userInput, let computer = computerInput else { return }
-        
         switch (user, computer) {
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
             printGameResult(gameResult: .win)

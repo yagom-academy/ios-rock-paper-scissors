@@ -14,7 +14,6 @@ class Mukjjibba: CommonGameWorks, Game {
         compare(userHandMotion, with: computerHandMotion)
     }
     
-    
     func checkTurn() -> String {
         if isUserWin {
             return "사용자"
@@ -46,7 +45,6 @@ class Mukjjibba: CommonGameWorks, Game {
     
     func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) {
         guard let user = userInput, let computer = computerInput else { return }
-        
         switch (user, computer) {
         case (.scissor, .scissor), (.rock, .rock), (.paper, .paper) :
             checkMukjjibbaResult()
