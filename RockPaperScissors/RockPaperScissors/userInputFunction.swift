@@ -14,6 +14,5 @@ func choiceRockScissorsPaper() -> Result<Int, RockScissorsPaperError> {
     guard let userChoice = Int(choice), (0...3) ~= userChoice else {
         return .failure(RockScissorsPaperError.invalidRockScissorsPaper)
     }
-    
     return .success(userChoice)
 }
