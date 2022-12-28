@@ -1,41 +1,28 @@
 //
-//  mukjjibba.swift
+//  RockScissorPaper.swift
 //  RockPaperScissors
 //
-//  Created by Riji, Rilla on 2022/12/28.
+//  Created by riji, rilla on 2022/12/28.
 //
 
-
-
-var isUserWin = false
-var mukjjibbaMode = false
-
-
-class Mukjjibba: CommonGameWorks, Game {
+class RockScissorPaper: CommonGameWorks, Game {
     func startGame() {
-        print("")
-    }
-    
-    
-    func checkTurn() -> String {
-        if isUserWin {
-            return "사용자"
-        } else {
-            return "컴퓨터"
-        }
+        printGameMenu()
+        let userInput = checkAvailability(input: getUserInput())
+        let userHandMotion = handleGameError(userInput: userInput)
+        let computerHandMotion = makeRandomHandMotion()
+        compare(userHandMotion, with: computerHandMotion)
     }
     
     func printGameMenu() {
-        let turn = checkTurn()
-        print("[\(turn)]턴 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: " ")
     }
     
     func handleGameError(userInput: Result<GameMenu, GameError>) -> GameMenu? {
         switch userInput {
         case .failure(_):
             print("잘못된 입력입니다. 다시 시도해주세요")
-            isUserWin = false
-            startMukjjibbaGame()
+            startRockScissorPaper()
             return nil
         case .success(let handMotion):
             if handMotion == .endGame {
@@ -50,33 +37,25 @@ class Mukjjibba: CommonGameWorks, Game {
         guard let user = userInput, let computer = computerInput else { return }
         
         switch (user, computer) {
-        case (.scissor, .scissor), (.rock, .rock), (.paper, .paper) :
-            checkMukjjibbaResult()
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
+            printRockScissorPaperGameResult(gameResult: .win)
             isUserWin = true
         case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) :
+            printRockScissorPaperGameResult(gameResult: .lose)
             isUserWin = false
-        default :
-            return
+        default : printRockScissorPaperGameResult(gameResult: .draw)
         }
     }
     
     func printGameResult(gameResult: GameResult) {
         switch gameResult {
         case .win:
-            print("사용자의 승리!")
+            print("이겼습니다!")
         case .lose:
-            print("컴퓨터의 승리!")
-        default :
-            return
-        }
-    }
-    
-    func checkMukjjibbaResult() {
-        if isUserWin {
-            printMukjjibbaGameResult(gameResult: .win)
-        } else {
-            printMukjjibbaGameResult(gameResult: .lose)
+            print("졌습니다!")
+        case .draw:
+            print("비겼습니다!")
+            startRockScissorPaper()
         }
     }
 }
