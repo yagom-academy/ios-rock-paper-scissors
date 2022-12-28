@@ -78,29 +78,40 @@ func informMatchResult(matchResult: MatchResult?) {
     }
 }
 
-func startGame() {
-    var selectGameEnd: Bool = false
-    
-    while !selectGameEnd {
-        printMenu()
-        
-        do {
-            let input = readUserInput()
-            let userNumber = try validateUserInput(userInput: input)
-            if userNumber == 0 {
-                print("게임 종료")
-                selectGameEnd.toggle()
-                continue
-            }
-            let userHand = generateUserHand(validationResult: userNumber)
-            let computerHand = generateComputerHand()
-            let matchResult = compareHandShape(computerHand: computerHand, userHand: userHand)
-    
-            informMatchResult(matchResult: matchResult)
+func playRockPaperScissors() -> GameFlow {
+    printMenu()
+    let input = readUserInput()
+    var userNumber = 0
+    do {
+        userNumber = try validateUserInput(userInput: input)
+        if userNumber == 0 {
+            print("게임 종료")
             
-        } catch {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return GameFlow.gameOver
         }
+    } catch InputError.invalidInput {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return GameFlow.keepPlaying
+    } catch {
+        print(error.localizedDescription)
+        return GameFlow.keepPlaying
+    }
+    
+    let userHand = generateUserHand(validationResult: userNumber)
+    let computerHand = generateComputerHand()
+    
+    let matchResult = compareHandShape(computerHand: computerHand, userHand: userHand)
+    informMatchResult(matchResult: matchResult)
+    
+    return GameFlow.keepPlaying
+}
+
+func startGame() {
+    var gameFlow: GameFlow = .keepPlaying
+    
+    while gameFlow == .keepPlaying {
+
+        gameFlow = playRockPaperScissors()
     }
 }
 
