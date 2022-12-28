@@ -72,24 +72,24 @@ class RockScissorsPaperGameManager {
         }
     }
     
-    func sendWhosTurn(whosTurn: String) -> String {
-        return whosTurn
-    }
-    
-    func informMatchResult(matchResult: MatchResult?) {
+    func informMatchResult(matchResult: MatchResult?) -> String? {
         if let matchResult = matchResult {
             switch matchResult {
             case .win:
                 print("이겼습니다!")
+                return "사용자"
             case .same:
                 print("비겼습니다!")
+                return nil
             case .lose:
                 print("졌습니다!")
+                return "컴퓨터"
             }
         }
+        return nil
     }
     
-    func playRockPaperScissors() -> GameFlow {
+    func playRockPaperScissors() -> (matchResult: MatchResult?, gameState: GameFlow) {
         printMenu()
         let input = readUserInput()
         var userNumber = 0
@@ -97,34 +97,37 @@ class RockScissorsPaperGameManager {
             userNumber = try validateUserInput(userInput: input)
             if userNumber == 0 {
                 print("게임 종료")
-                
-                return GameFlow.gameOver
+                return (nil, .gameOver)
             }
         } catch InputError.invalidInput {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return GameFlow.keepPlaying
+            return (nil, .keepPlaying)
         } catch {
             print(error.localizedDescription)
-            return GameFlow.keepPlaying
+            return (nil, .keepPlaying)
         }
-        
+        // TODO: generateUserHand 이름 바꾸기
         let userHand = generateUserHand(validationResult: userNumber)
         let computerHand = generateComputerHand()
-        
         let matchResult = compareHandShape(computerHand: computerHand, userHand: userHand)
-        informMatchResult(matchResult: matchResult)
         
-        return GameFlow.keepPlaying
+        return (matchResult, .keepPlaying)
     }
-    
-    func startGame() {
-        var gameFlow: GameFlow = .keepPlaying
+   
+    func startGame() -> (whosTurn: String?, gameFlow: GameFlow) {
+        let result = playRockPaperScissors()
         
-        while gameFlow == .keepPlaying {
-            
-            gameFlow = playRockPaperScissors()
+        let matchResult = result.matchResult
+        let gameFlow = result.gameState
+        
+        if gameFlow == .gameOver {
+            return (nil, .gameOver)
         }
+        
+        guard let whosTurn = informMatchResult(matchResult: matchResult) else {
+            return (nil, .keepPlaying)
+        }
+        
+        return (whosTurn, .keepPlaying)
     }
-    
-    
 }
