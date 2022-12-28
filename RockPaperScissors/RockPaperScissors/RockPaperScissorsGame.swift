@@ -39,12 +39,12 @@ func decideWinner(_ userHand: ScissorsRockPaper, _ computerHand: ScissorsRockPap
     }
 }
 
-func printGameResult(winner: String) {
-    if winner == "사용자" {
+func printGameResult(winner: Winner) {
+    if winner == .user {
         print("이겼습니다.")
-    } else if winner == "컴퓨터" {
+    } else if winner == .computer {
         print("졌습니다.")
-    } else if winner == "무승부" {
+    } else {
         print("비겼습니다.")
     }
 }
