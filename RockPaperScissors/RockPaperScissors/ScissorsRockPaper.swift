@@ -21,7 +21,7 @@ enum Winner: String {
     case draw
 }
 
-enum Turn {
-    case userTurn
-    case computerTurn
-}
+//enum Turn {
+//    case userTurn
+//    case computerTurn
+//}

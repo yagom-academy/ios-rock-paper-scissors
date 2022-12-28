@@ -60,7 +60,7 @@ func startGame() {
         let computerHand = convertNumberToRockPaperScissors(number: makeRandomComputerNumber())
         let winner = decideRPSWinner(userHand, computerHand)
         
-        if winner == "무승부" {
+        if winner == .draw {
             printGameResult(winner: winner)
             startGame()
         } else {
