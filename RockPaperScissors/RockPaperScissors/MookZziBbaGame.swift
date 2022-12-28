@@ -1,21 +1,10 @@
 //  RockPaperScissors - MookZziBba.swift
-//  Created by vetto, songjun on 2022.12.28.
+//  Created by vetto, songjun on 2022.12.28
 
 import Foundation
 
 func printTurnAndMenu(turn: Winner) {
     print("[\(turn.rawValue)턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :", terminator: " ")
-}
-
-func inputUserNumber2() -> Int {
-    guard let userInput = readLine() else {
-        return inputUserNumber2()
-    }
-    guard let userNumber = Int(userInput) else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return inputUserNumber2()
-    }
-    return userNumber
 }
 
 func convertNumberToMookZziBba(number: Int) -> MookZziBba {
@@ -45,35 +34,42 @@ func decideMookZziBbaWinner(turn: Winner,
 }
 
 func startMookZziBbaGame(turn: Winner) {
-    printTurnAndMenu(turn: turn)
-    
-    let inputtedNumber = inputUserNumber2()
-    
-    switch inputtedNumber {
-    case 0:
-        print("게임종료")
-    case 1, 2, 3:
-        let userHand = convertNumberToMookZziBba(number: inputtedNumber)
-        let computerHand = convertNumberToMookZziBba(number: makeRandomComputerNumber())
-        let result = decideMookZziBbaWinner(turn: turn, userHand, computerHand).0
-        let turn = decideMookZziBbaWinner(turn: turn, userHand, computerHand).1
+    do {
+        printTurnAndMenu(turn: turn)
         
-        switch (result, turn) {
+        let inputtedNumber = try inputUserNumber()
+        
+        switch inputtedNumber {
+        case 0:
+            print("게임종료")
+        case 1, 2, 3:
+            let userHand = convertNumberToMookZziBba(number: inputtedNumber)
+            let computerHand = convertNumberToMookZziBba(number: makeRandomComputerNumber())
+            let result = decideMookZziBbaWinner(turn: turn, userHand, computerHand).0
+            let turn = decideMookZziBbaWinner(turn: turn, userHand, computerHand).1
             
-        case (.user, .user):
-            print("사용자 승리")
-        case (.computer, .computer):
-            print("컴퓨터 승리")
-        case (.draw, .user):
-            print("\(turn.rawValue)의 턴입니다.")
-            startMookZziBbaGame(turn: .user)
+            switch (result, turn) {
+                
+            case (.user, .user):
+                print("사용자 승리")
+            case (.computer, .computer):
+                print("컴퓨터 승리")
+            case (.draw, .user):
+                print("\(turn.rawValue)의 턴입니다.")
+                startMookZziBbaGame(turn: .user)
+            default:
+                print("\(turn.rawValue)의 턴입니다.")
+                startMookZziBbaGame(turn: .computer)
+            }
+        
         default:
-            print("\(turn.rawValue)의 턴입니다.")
+            print("잘못된 입력입니다. 다시 시도해주세요.")
             startMookZziBbaGame(turn: .computer)
         }
-    
-    default:
+    } catch InputError.invalidInput {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startMookZziBbaGame(turn: .computer)
+    } catch {
+        print("Error")
     }
 }

@@ -5,19 +5,14 @@ func makeRandomComputerNumber() -> Int {
     return Int.random(in: 1...3)
 }
 
-func inputUserNumber() -> Int {
-    printMenu()
-    guard let userInput = readLine() else {
-        return inputUserNumber()
-    }
-    guard let userNumber = Int(userInput) else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return inputUserNumber()
+func inputUserNumber() throws -> Int {
+    guard let userInput = readLine(), let userNumber = Int(userInput) else {
+        throw InputError.invalidInput
     }
     return userNumber
 }
 
-func printMenu() {
+func printRockPaperScissorsMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 }
 
@@ -49,27 +44,35 @@ func printGameResult(winner: Winner) {
     }
 }
 
-func startGame() {
-    let inputtedNumber = inputUserNumber()
-    
-    switch inputtedNumber {
-    case 0:
-        print("게임 종료")
-    case 1, 2, 3:
-        let userHand = convertNumberToRockPaperScissors(number: inputtedNumber)
-        let computerHand = convertNumberToRockPaperScissors(number: makeRandomComputerNumber())
-        let winner = decideRPSWinner(userHand, computerHand)
+func startRockPaperScissorsGame() {
+    do {
+        printRockPaperScissorsMenu()
         
-        if winner == .draw {
-            printGameResult(winner: winner)
-            startGame()
-        } else {
-            printGameResult(winner: winner)
+        let inputtedNumber = try inputUserNumber()
+        
+        switch inputtedNumber {
+        case 0:
+            print("게임 종료")
+        case 1, 2, 3:
+            let userHand = convertNumberToRockPaperScissors(number: inputtedNumber)
+            let computerHand = convertNumberToRockPaperScissors(number: makeRandomComputerNumber())
+            let winner = decideRPSWinner(userHand, computerHand)
             
-            // 이쪽 로직에서 묵찌빠 실행하기
+            if winner == .draw {
+                printGameResult(winner: winner)
+                startRockPaperScissorsGame()
+            } else {
+                printGameResult(winner: winner)
+                startMookZziBbaGame(turn: winner)
+            }
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            startRockPaperScissorsGame()
         }
-    default:
+    } catch InputError.invalidInput {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        startGame()
+        startRockPaperScissorsGame()
+    } catch {
+        print("Error")
     }
 }

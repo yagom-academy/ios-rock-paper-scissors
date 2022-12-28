@@ -3,4 +3,4 @@
 
 //startGame()
 
-startMookZziBbaGame(turn: .user)
+startRockPaperScissorsGame()
