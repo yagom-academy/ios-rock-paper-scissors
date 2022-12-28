@@ -18,13 +18,17 @@ class MookJjiBba: Game {
             return
         }
         
-        guard let computerMookJjiBba = HandSign.convertHandSignType(computerNumber, gameType: .mookJjiBba),
-              let userMookJjiBba = HandSign.convertHandSignType(userNumber, gameType: .mookJjiBba) else {
+        guard let computerMookJjiBba = HandSign.convertHandSignType(computerNumber,
+                                                                    gameType: .mookJjiBba),
+              let userMookJjiBba = HandSign.convertHandSignType(userNumber,
+                                                                gameType: .mookJjiBba)
+        else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return playMookJjiBba()
         }
         
-        let gameResult = GameResult.compareHandSigns(computers: computerMookJjiBba, users: userMookJjiBba)
+        let gameResult = GameResult.compareHandSigns(computers: computerMookJjiBba,
+                                                     users: userMookJjiBba)
         
         if gameResult == .draw {
             judgeWinPlayer()

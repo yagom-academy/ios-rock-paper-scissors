@@ -20,13 +20,17 @@ class RockPaperScissors: Game {
             return
         }
         
-        guard let computerRockPaperScissors = HandSign.convertHandSignType(computerNumber, gameType: .rockPaperScissors),
-              let userRockPaperScissors = HandSign.convertHandSignType(userNumber, gameType: .rockPaperScissors) else {
+        guard let computerRockPaperScissors = HandSign.convertHandSignType(computerNumber,
+                                                                           gameType: .rockPaperScissors),
+              let userRockPaperScissors = HandSign.convertHandSignType(userNumber,
+                                                                       gameType: .rockPaperScissors)
+        else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return playGame()
         }
         
-        let gameResult = GameResult.compareHandSigns(computers: computerRockPaperScissors, users: userRockPaperScissors)
+        let gameResult = GameResult.compareHandSigns(computers: computerRockPaperScissors,
+                                                     users: userRockPaperScissors)
         
         if gameResult == .draw {
             print("비겼습니다!")
