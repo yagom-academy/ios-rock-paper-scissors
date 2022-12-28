@@ -21,7 +21,13 @@ enum RockScissorsPaperScenario {
     case draw
 }
 
+enum PreviousType: String {
+    case user = "사용자"
+    case computer = "컴퓨터"
+}
+
 var isGameEnd = false
+var previousWinner: PreviousType = .user
 
 func printRockScissorsPaper() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: " ")
@@ -53,13 +59,18 @@ func playRockScissorsPaper() {
             if userScenario == .draw {
                 break
             }
-            while true {
+            previousWinner = checkWinner(scenario: userScenario)
+            while !isGameEnd {
                 playMukjippa(&userChoice, with: &computerChoice)
             }
         case .failure(_):
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
     }
+}
+
+func checkWinner(scenario: RockScissorsPaperScenario) -> PreviousType {
+    scenario == .userWin ? .user : .computer
 }
 
 func playMukjippa(_ userChoice: inout RockScissorsPaperType, with computerChoice: inout RockScissorsPaperType) {
@@ -78,24 +89,30 @@ func playMukjippa(_ userChoice: inout RockScissorsPaperType, with computerChoice
         checkMukjippaResult(userChoice: userChoice, computerChoice: randomChoice)
     case .failure(_):
         print("잘못된 입력입니다. 다시 시도해주세요.")
+        if previousWinner == .user {
+            previousWinner = .computer
+        } else {
+            previousWinner = .user
+        }
     }
 }
 
 func checkMukjippaResult(userChoice: RockScissorsPaperType, computerChoice: RockScissorsPaperType) {
     let userScenario = compare(userChoice: userChoice, with: computerChoice)
     if userScenario == .userWin {
+        previousWinner = .user
         print("사용자의 턴입니다.")
     } else if userScenario == .userLose {
+        previousWinner = .computer
         print("컴퓨터의 턴입니다.")
+    } else if userScenario == .draw {
+        print("\(previousWinner.rawValue)의 승리!")
+        isGameEnd = true
     }
 }
 
 func printMukjippa(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) {
-    if isUserWin(userChoice, with: computerChoice) {
-        print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: " ")
-    } else {
-        print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: " ")
-    }
+    print("[\(previousWinner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: " ")
 }
 
 func isGameEnd(userNumber: Int) -> Bool {
