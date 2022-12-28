@@ -36,8 +36,7 @@ func createRandomRockScissorsPaper() -> RockScissorsPaperType {
 }
 
 func playRockScissorsPaper() {
-    
-    let computerChoice = createRandomRockScissorsPaper()
+    var computerChoice = createRandomRockScissorsPaper()
     printRockScissorsPaper()
     
     let rockScissorsPaperResult = choiceRockScissorsPaper(errorType: .invalidRockScissorsPaper)
@@ -47,14 +46,17 @@ func playRockScissorsPaper() {
             print("게임 종료")
             return
         }
-        let (userChoice, computerChoice) = checkRockScissorsPaperResult(userNumber: userNumber, with: computerChoice)
-        playMukjippa(userChoice, with: computerChoice)
+        var userChoice = convertChoiceToRockScissorsPaper(userChoice: userNumber)
+        checkRockScissorsPaperResult(userChoice: userChoice, with: computerChoice)
+        while true {
+            playMukjippa(&userChoice, with: &computerChoice)
+        }
     case .failure(_):
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }
 
-func playMukjippa(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) {
+func playMukjippa(_ userChoice: inout RockScissorsPaperType, with computerChoice: inout RockScissorsPaperType) {
     printMukjippa(userChoice, with: computerChoice)
     let mukjippaResult = choiceRockScissorsPaper(errorType: .invalidMukjippa)
     switch mukjippaResult {
@@ -63,14 +65,23 @@ func playMukjippa(_ userChoice: RockScissorsPaperType, with computerChoice: Rock
             print("게임 종료")
             return
         }
+        let randomChoice = createRandomRockScissorsPaper()
+        computerChoice = randomChoice
+        let userNewChoice = convertChoiceToMukjippa(userChoice: userNumber)
+        userChoice = userNewChoice
+        checkMukjippaResult(userChoice: userChoice, computerChoice: randomChoice)
     case .failure(_):
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }
 
-func checkMukjippaResult(userNumber: Int, computerChoice: RockScissorsPaperType) {
-    let userChoice = convertChoiceToMukjippa(userChoice: userNumber)
-    
+func checkMukjippaResult(userChoice: RockScissorsPaperType, computerChoice: RockScissorsPaperType) {
+    let userScenario = compare(userChoice: userChoice, with: computerChoice)
+    if userScenario == .userWin {
+        print("사용자의 턴입니다.")
+    } else if userScenario == .userLose {
+        print("컴퓨터의 턴입니다.")
+    }
 }
 
 func printMukjippa(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) {
