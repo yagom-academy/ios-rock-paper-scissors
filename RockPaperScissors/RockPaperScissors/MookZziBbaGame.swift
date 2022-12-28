@@ -3,8 +3,8 @@
 
 import Foundation
 
-func printTurnAndMenu(winner: Winner) {
-    print("[\(winner)턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :", terminator: " ")
+func printTurnAndMenu(turn: Winner) {
+    print("[\(turn)턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :", terminator: " ")
 }
 
 func inputUserNumber2() -> Int {
@@ -37,3 +37,18 @@ func decideMookZziBbaWinner(turn: Winner,
     }
 }
 
+func startMookZziBbaGame(turn: Winner) {
+    printTurnAndMenu(turn: turn)
+    
+    let inputtedNumber = inputUserNumber2()
+    
+    switch inputtedNumber {
+    case 0:
+        print("게임종료")
+    case 1, 2, 3:
+        print("묵찌빠 승부")
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        startMookZziBbaGame(turn: .computer)
+    }
+}
