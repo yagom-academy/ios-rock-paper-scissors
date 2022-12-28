@@ -3,7 +3,7 @@
 //  Created by 혜모리, 무리 on 2022.12.27
 //
 
-class MookJjiBba: HandSignGame {
+class MookJjiBba: Game {
     override func choiceUserNumber() -> Int? {
         print("[\(turnOwner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         return super.choiceUserNumber()

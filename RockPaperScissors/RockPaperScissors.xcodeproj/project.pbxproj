@@ -11,7 +11,7 @@
 		4BEA4F31295BD1BD00780EFC /* GameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA4F30295BD1BD00780EFC /* GameType.swift */; };
 		BF368807295BDF3B00604C07 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF368806295BDF3B00604C07 /* Player.swift */; };
 		BF4E7196295ACE09003F9BB0 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7195295ACE09003F9BB0 /* GameResult.swift */; };
-		BF4E7198295B1359003F9BB0 /* HandSignGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7197295B1359003F9BB0 /* HandSignGame.swift */; };
+		BF4E7198295B1359003F9BB0 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7197295B1359003F9BB0 /* Game.swift */; };
 		BF4E719A295B1397003F9BB0 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */; };
 		BF4E719C295B13A4003F9BB0 /* MookJjiBba.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
@@ -34,7 +34,7 @@
 		4BEA4F30295BD1BD00780EFC /* GameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameType.swift; sourceTree = "<group>"; };
 		BF368806295BDF3B00604C07 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		BF4E7195295ACE09003F9BB0 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
-		BF4E7197295B1359003F9BB0 /* HandSignGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandSignGame.swift; sourceTree = "<group>"; };
+		BF4E7197295B1359003F9BB0 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MookJjiBba.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,7 +76,7 @@
 				4BEA4F30295BD1BD00780EFC /* GameType.swift */,
 				4BEA4F2A295AA9FA00780EFC /* HandSign.swift */,
 				BF4E7195295ACE09003F9BB0 /* GameResult.swift */,
-				BF4E7197295B1359003F9BB0 /* HandSignGame.swift */,
+				BF4E7197295B1359003F9BB0 /* Game.swift */,
 				BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */,
 				BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */,
 			);
@@ -145,7 +145,7 @@
 				BF368807295BDF3B00604C07 /* Player.swift in Sources */,
 				BF4E719C295B13A4003F9BB0 /* MookJjiBba.swift in Sources */,
 				4BEA4F31295BD1BD00780EFC /* GameType.swift in Sources */,
-				BF4E7198295B1359003F9BB0 /* HandSignGame.swift in Sources */,
+				BF4E7198295B1359003F9BB0 /* Game.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				BF4E7196295ACE09003F9BB0 /* GameResult.swift in Sources */,
 			);

@@ -1,9 +1,9 @@
 //
-//  RockPaperScissors - HandSignGame.swift
+//  RockPaperScissors - Game.swift
 //  Created by 혜모리, 무리 on 2022.12.27
 //
 
-class HandSignGame {
+class Game {
     var turnOwner: String = ""
     
     func createComputerNumber() -> Int {

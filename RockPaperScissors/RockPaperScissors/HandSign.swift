@@ -6,8 +6,8 @@
 enum HandSign: Int {
     case scissor, rock, paper
      
-    static func convertHandSignType(_ number: Int, gameType: HandSignGameType) -> HandSign? {
-        if gameType == HandSignGameType.rockPaperScissors {
+    static func convertHandSignType(_ number: Int, gameType: GameType) -> HandSign? {
+        if gameType == GameType.rockPaperScissors {
             switch number {
             case 1:
                 return .scissor
