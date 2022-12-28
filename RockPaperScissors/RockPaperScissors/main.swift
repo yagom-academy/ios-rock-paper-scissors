@@ -40,7 +40,7 @@ func playRockScissorsPaper() {
     let computerChoice = createRandomRockScissorsPaper()
     printRockScissorsPaper()
     
-    let rockScissorsPaperResult = choiceRockScissorsPaper()
+    let rockScissorsPaperResult = choiceRockScissorsPaper(errorType: .invalidRockScissorsPaper)
     switch rockScissorsPaperResult {
     case .success(let userNumber):
         if isGameEnd(userNumber: userNumber) {
@@ -56,6 +56,7 @@ func playRockScissorsPaper() {
 
 func playMukjippa(userScenario: RockScissorsPaperScenario) {
     printMukjippa(userScenario: userScenario)
+    let mukjippaResult = choiceRockScissorsPaper(errorType: .invalidMukjippa)
 }
 
 func printMukjippa(userScenario: RockScissorsPaperScenario) {
