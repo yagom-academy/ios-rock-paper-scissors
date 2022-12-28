@@ -9,7 +9,7 @@ enum RockScissorsPaperError: Error {
     case invalidMukjippa
 }
 
-enum RockScissorsPaperType: Int, CaseIterable {
+enum RockScissorsPaperType: Int {
     case rock = 1
     case scissors
     case paper
