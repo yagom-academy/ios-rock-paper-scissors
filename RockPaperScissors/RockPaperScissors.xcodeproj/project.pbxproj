@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6241B6D5295AEBB900211CC0 /* userInputFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6241B6D4295AEBB900211CC0 /* userInputFunction.swift */; };
-		6241B6D7295AEC3300211CC0 /* gameCheckFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6241B6D6295AEC3300211CC0 /* gameCheckFunction.swift */; };
+		623341EB295C7C0600DB642F /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623341EA295C7C0600DB642F /* Type.swift */; };
+		623341ED295C7D0E00DB642F /* RockScissorPapaerFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623341EC295C7D0E00DB642F /* RockScissorPapaerFunction.swift */; };
+		6241B6D5295AEBB900211CC0 /* UserInputFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6241B6D4295AEBB900211CC0 /* UserInputFunction.swift */; };
+		6241B6D7295AEC3300211CC0 /* MukjippaFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6241B6D6295AEC3300211CC0 /* MukjippaFunction.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,8 +27,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6241B6D4295AEBB900211CC0 /* userInputFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userInputFunction.swift; sourceTree = "<group>"; };
-		6241B6D6295AEC3300211CC0 /* gameCheckFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameCheckFunction.swift; sourceTree = "<group>"; };
+		623341EA295C7C0600DB642F /* Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
+		623341EC295C7D0E00DB642F /* RockScissorPapaerFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorPapaerFunction.swift; sourceTree = "<group>"; };
+		6241B6D4295AEBB900211CC0 /* UserInputFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputFunction.swift; sourceTree = "<group>"; };
+		6241B6D6295AEC3300211CC0 /* MukjippaFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukjippaFunction.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,8 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
-				6241B6D4295AEBB900211CC0 /* userInputFunction.swift */,
-				6241B6D6295AEC3300211CC0 /* gameCheckFunction.swift */,
+				6241B6D4295AEBB900211CC0 /* UserInputFunction.swift */,
+				6241B6D6295AEC3300211CC0 /* MukjippaFunction.swift */,
+				623341EA295C7C0600DB642F /* Type.swift */,
+				623341EC295C7D0E00DB642F /* RockScissorPapaerFunction.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -126,8 +132,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
-				6241B6D7295AEC3300211CC0 /* gameCheckFunction.swift in Sources */,
-				6241B6D5295AEBB900211CC0 /* userInputFunction.swift in Sources */,
+				6241B6D7295AEC3300211CC0 /* MukjippaFunction.swift in Sources */,
+				6241B6D5295AEBB900211CC0 /* UserInputFunction.swift in Sources */,
+				623341ED295C7D0E00DB642F /* RockScissorPapaerFunction.swift in Sources */,
+				623341EB295C7C0600DB642F /* Type.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
