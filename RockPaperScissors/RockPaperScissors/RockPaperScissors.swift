@@ -106,8 +106,7 @@ extension RockPaperScissors {
             print("\(winner)의 턴입니다.")
         }
         displayMookZziPpa(winner: winner)
-        var turn = winner
-        return turn
+        return winner
     }
     
     private func displayMookZziPpa(winner: String) {
@@ -159,14 +158,17 @@ extension RockPaperScissors {
     }
     
     func startMookZziPpa(winner: String) {
-        let turn = calculateTurn(winner: winner)
-        
+        var turn = calculateTurn(winner: winner)
         let userChoice = readInputTwo()
         let computerChoice = generateRockPaperScissorsTwo()
         
         guard let winner = compareTwo(userChoice, and: computerChoice) else {
+            if turn == WinnerResult.user {
+                turn = WinnerResult.computer
+            }
+            
             return startMookZziPpa(winner: turn)
-        } // 향후 수정 필요
+        }
         
         printResultTwo(winner: winner, turn: turn)
     }
