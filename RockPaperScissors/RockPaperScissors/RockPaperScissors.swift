@@ -33,11 +33,11 @@ class RockPaperScissors: HandSignGame {
             playRockPaperScissors()
         } else if gameResult == .win {
             print("이겼습니다!")
-            mookJjiBba.turnOwner = "사용자"
+            mookJjiBba.turnOwner = Player.user.rawValue
             mookJjiBba.playMookJjiBba()
         } else if gameResult == .lose {
             print("졌습니다")
-            mookJjiBba.turnOwner = "컴퓨터"
+            mookJjiBba.turnOwner = Player.computer.rawValue
             mookJjiBba.playMookJjiBba()
         }
     }

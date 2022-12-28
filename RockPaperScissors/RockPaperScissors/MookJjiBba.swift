@@ -29,18 +29,18 @@ class MookJjiBba: HandSignGame {
         if gameResult == .draw {
             judgeWinPlayer()
         } else if gameResult == .win {
-            turnOwner = "사용자"
+            turnOwner = Player.user.rawValue
             print("\(turnOwner)의 턴입니다.")
             playMookJjiBba()
         } else if gameResult == .lose {
-            turnOwner = "컴퓨터"
+            turnOwner = Player.computer.rawValue
             print("\(turnOwner)의 턴입니다.")
             playMookJjiBba()
         }
     }
     
     func judgeWinPlayer() {
-        let winner = turnOwner == "사용자" ? "사용자의 승리!" : "컴퓨터의 승리!"
+        let winner = turnOwner == Player.user.rawValue ? "사용자의 승리!" : "컴퓨터의 승리!"
         print(winner)
     }
 }
