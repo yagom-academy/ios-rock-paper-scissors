@@ -12,7 +12,7 @@ enum GameFlow {
 
 enum MatchResult {
     case win
-    case draw
+    case same
     case lose
 }
 

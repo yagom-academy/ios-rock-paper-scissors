@@ -61,7 +61,7 @@ func compareHandShape(computerHand: HandShape?, userHand: HandShape?) -> MatchRe
         (.rock, .paper):
         return .win
     default:
-        return .draw
+        return .same
     }
 }
 
@@ -70,7 +70,7 @@ func informMatchResult(matchResult: MatchResult?) {
         switch matchResult {
         case .win:
             print("이겼습니다!")
-        case .draw:
+        case .same:
             print("비겼습니다!")
         case .lose:
             print("졌습니다!")
@@ -115,4 +115,7 @@ func startGame() {
     }
 }
 
-startGame()
+//startGame()
+
+let mukJiPPaGameManager = MukJiPPaGameManager()
+mukJiPPaGameManager.playMukJiPPa()
