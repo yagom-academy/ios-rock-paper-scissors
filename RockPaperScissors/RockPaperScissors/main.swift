@@ -17,7 +17,7 @@ enum GameResult {
     case win, draw, lose
 }
 
-enum RockScissorPaperGameError : Error {
+enum GameError : Error {
     case invalidInput
 }
 
@@ -38,7 +38,7 @@ func getUserInput() -> String? {
     return input
 }
 
-func checkAvailability(input: String?) -> Result<GameMenu, RockScissorPaperGameError> {
+func checkAvailability(input: String?) -> Result<GameMenu, GameError> {
     
     guard let userInput = input,
           let userHandMotion = GameMenu(rawValue: userInput)
@@ -46,7 +46,7 @@ func checkAvailability(input: String?) -> Result<GameMenu, RockScissorPaperGameE
     return .success(userHandMotion)
 }
 
-func handleGameError(userInput: Result<GameMenu, RockScissorPaperGameError>) -> GameMenu? {
+func handleGameError(userInput: Result<GameMenu, GameError>) -> GameMenu? {
     switch userInput {
     case .failure(_):
         print("잘못된 입력입니다. 다시 시도해주세요")
@@ -72,18 +72,18 @@ func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) {
     
     switch (user, computer) {
     case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
-        printGameResult(gameResult: .win)
+        printRockScissorPaperGameResult(gameResult: .win)
         isUserWin = true
     case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) :
-        printGameResult(gameResult: .lose)
+        printRockScissorPaperGameResult(gameResult: .lose)
         isUserWin = false
-    default : printGameResult(gameResult: .draw)
+    default : printRockScissorPaperGameResult(gameResult: .draw)
     }
 }
 
-func printGameResult(gameResult: GameResult) {
+func printRockScissorPaperGameResult(gameResult: GameResult) {
     switch gameResult {
-    case .win:
+    case .win
         print("이겼습니다!")
     case .lose:
         print("졌습니다!")
