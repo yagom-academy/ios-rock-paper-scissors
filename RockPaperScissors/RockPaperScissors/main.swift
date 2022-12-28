@@ -57,6 +57,20 @@ func playRockScissorsPaper() {
 func playMukjippa(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) {
     printMukjippa(userChoice, with: computerChoice)
     let mukjippaResult = choiceRockScissorsPaper(errorType: .invalidMukjippa)
+    switch mukjippaResult {
+    case .success(let userNumber):
+        if isGameEnd(userNumber: userNumber) {
+            print("게임 종료")
+            return
+        }
+    case .failure(_):
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+}
+
+func checkMukjippaResult(userNumber: Int, computerChoice: RockScissorsPaperType) {
+    let userChoice = convertChoiceToMukjippa(userChoice: userNumber)
+    
 }
 
 func printMukjippa(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) {

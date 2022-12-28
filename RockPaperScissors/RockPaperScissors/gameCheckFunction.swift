@@ -15,6 +15,17 @@ func checkRockScissorsPaperResult(userNumber: Int, with computerChoice: RockScis
 func convertChoiceToRockScissorsPaper(userChoice: Int) -> RockScissorsPaperType {
     switch userChoice {
     case 1:
+        return RockScissorsPaperType.scissors
+    case 2:
+        return RockScissorsPaperType.rock
+    default:
+        return RockScissorsPaperType.paper
+    }
+}
+
+func convertChoiceToMukjippa(userChoice: Int) -> RockScissorsPaperType {
+    switch userChoice {
+    case 1:
         return RockScissorsPaperType.rock
     case 2:
         return RockScissorsPaperType.scissors
