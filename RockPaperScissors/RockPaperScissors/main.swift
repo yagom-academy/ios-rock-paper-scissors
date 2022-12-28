@@ -38,7 +38,7 @@ func generateComputerHand() -> HandShape? {
 
 func generateUserHand(validationResult: Int) -> HandShape? {
     let handShapeList: [HandShape?] = HandShape.allCases
-    
+
     guard let userHand = handShapeList[validationResult - 1] else {
         return nil
     }
