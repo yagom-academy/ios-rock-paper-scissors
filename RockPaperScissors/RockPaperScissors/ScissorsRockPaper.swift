@@ -8,10 +8,11 @@ enum ScissorsRockPaper: Int {
     case wrongHand
 }
 
-enum MookZizBba: Int {
+enum MookZziBba: Int {
     case mook = 1
     case zzi = 2
     case bba = 3
+    case wrongHand
 }
 
 enum Winner: String {

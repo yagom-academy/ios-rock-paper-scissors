@@ -21,7 +21,7 @@ func printMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 }
 
-func convertNumberToHand(number: Int) -> ScissorsRockPaper {
+func convertNumberToRockPaperScissors(number: Int) -> ScissorsRockPaper {
     guard let hand = ScissorsRockPaper(rawValue: number) else {
         return ScissorsRockPaper.wrongHand
     }
@@ -56,9 +56,9 @@ func startGame() {
     case 0:
         print("게임 종료")
     case 1, 2, 3:
-        let userHand = convertNumberToHand(number: inputtedNumber)
-        let computerHand = convertNumberToHand(number: makeRandomComputerNumber())
-        let winner = decideWinner(userHand, computerHand)
+        let userHand = convertNumberToRockPaperScissors(number: inputtedNumber)
+        let computerHand = convertNumberToRockPaperScissors(number: makeRandomComputerNumber())
+        let winner = decideRPSWinner(userHand, computerHand)
         
         if winner == "무승부" {
             printGameResult(winner: winner)

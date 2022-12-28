@@ -19,8 +19,8 @@ func inputUserNumber2() -> Int {
 }
 
 func decideMookZziBbaWinner(turn: Winner,
-                     _ userHand: MookZizBba,
-                     _ computerHand: MookZizBba) -> (Winner, Turn) {
+                     _ userHand: MookZziBba,
+                     _ computerHand: MookZziBba) -> (Winner, Turn) {
     switch (turn, userHand, computerHand) {
     case (.user, .mook, .mook), (.user, .zzi, .zzi), (.user, .bba, .bba):
         return (.user, .userTurn)
@@ -51,4 +51,11 @@ func startMookZziBbaGame(turn: Winner) {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startMookZziBbaGame(turn: .computer)
     }
+}
+
+func convertNumberToMookZziBba(number: Int) -> MookZziBba {
+    guard let hand = MookZziBba(rawValue: number) else {
+        return MookZziBba.wrongHand
+    }
+    return hand
 }
