@@ -1,6 +1,5 @@
 import Foundation
 
-let end = 0, scissors = 1, rock = 2, paper = 3
 let computer = "컴퓨터"
 let user = "사용자"
 var winner: String = ""
@@ -16,8 +15,8 @@ enum CurrentGame {
     case mukChiba
 }
 
-func getRandomNumber() -> Int {
-    return Int.random(in: scissors...paper)
+func createRandomNumber() -> Int {
+    return Int.random(in: 1...3)
 }
 
 func showMenuMessage() {
@@ -36,8 +35,8 @@ func inputUserNumber() -> Int {
     showMenuMessage()
         
     guard let userInput = readLine(),
-          let intUserInput = Int(userInput),
-          intUserInput >= end && intUserInput <= paper else {
+          let userInputNumber = Int(userInput),
+          0...3 ~= userInputNumber else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         
         if currentGame == .mukChiba {
@@ -45,11 +44,12 @@ func inputUserNumber() -> Int {
         }
         return inputUserNumber()
     }
-    return intUserInput
+    return userInputNumber
 }
 
-func compareNumber(number: Int) -> GameResult {
-    let computerNumber = getRandomNumber()
+func compareAandComputer(A number: Int) -> GameResult {
+    let scissors = 1, rock = 2, paper = 3
+    let computerNumber = createRandomNumber()
     let compareNumbers = (user: number, computer: computerNumber)
     
     switch compareNumbers {
@@ -62,51 +62,47 @@ func compareNumber(number: Int) -> GameResult {
     }
 }
 
-func startRockPaperScissors() {
+func startGame() {
     let userInput = inputUserNumber()
     
-    if userInput == 0 {
+    guard userInput != 0 else {
         print("게임종료")
-    } else {
-        let gameResult = compareNumber(number: userInput)
+        return
+    }
+    
+    let gameResult = compareAandComputer(A: userInput)
         
-        switch gameResult {
-        case .computerWin:
+    switch gameResult {
+    case .computerWin:
+        if currentGame == .rockPaperScissors {
             print("졌습니다")
             winner = computer
-            startMukChiBa()
-        case .draw:
+            currentGame = .mukChiba
+            startGame()
+        } else if currentGame == .mukChiba {
+            winner = computer
+            print("\(winner)의 턴입니다")
+            startGame()
+        }
+    case .draw:
+        if currentGame == .rockPaperScissors {
             print("비겼습니다")
-            startRockPaperScissors()
-        case .userWin:
+            startGame()
+        } else if currentGame == .mukChiba {
+            print("\(winner)의 승리!")
+        }
+    case .userWin:
+        if currentGame == .rockPaperScissors {
             print("이겼습니다")
             winner = user
-            startMukChiBa()
+            currentGame = .mukChiba
+            startGame()
+        } else if currentGame == .mukChiba {
+            winner = user
+            print("\(winner)의 턴입니다")
+            startGame()
         }
     }
 }
 
-func startMukChiBa() {
-    currentGame = .mukChiba
-    let userInput = inputUserNumber()
-    
-    if userInput == 0 {
-        print("게임종료")
-    } else {
-        let gameResult = compareNumber(number: userInput)
-        
-        switch gameResult {
-        case .computerWin:
-            winner = computer
-            print("\(winner)의 턴입니다")
-            startMukChiBa()
-        case .draw:
-            print("\(winner)의 승리!")
-        case .userWin:
-            winner = user
-            print("\(winner)의 턴입니다")
-            startMukChiBa()
-        }
-    }
-}
-startRockPaperScissors()
+startGame()
