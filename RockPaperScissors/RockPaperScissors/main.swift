@@ -39,7 +39,7 @@ func generateComputerHand() -> HandShape? {
 func generateUserHand(validationResult: Int) -> HandShape? {
     let handShapeList: [HandShape?] = HandShape.allCases
     
-    guard let userHand = handShapeList[validationResult - 1]  else {
+    guard let userHand = handShapeList[validationResult - 1] else {
         return nil
     }
     
@@ -65,14 +65,27 @@ func compareHandShape(computerHand: HandShape?, userHand: HandShape?) -> MatchRe
     }
 }
 
+func informMatchResult(matchResult: MatchResult?) {
+    if let matchResult = matchResult {
+        switch matchResult {
+        case .win:
+            print("이겼습니다!")
+        case .draw:
+            print("비겼습니다!")
+        case .lose:
+            print("졌습니다!")
+        }
+    }
+}
+
 func startGame() {
     var selectGameEnd: Bool = false
     
     while !selectGameEnd {
         printMenu()
         
-        let input = readUserInput()
         do {
+            let input = readUserInput()
             let userNumber = try validateUserInput(userInput: input)
             if userNumber == 0 {
                 print("게임 종료")
@@ -81,18 +94,11 @@ func startGame() {
             }
             let userHand = generateUserHand(validationResult: userNumber)
             let computerHand = generateComputerHand()
+            let matchResult = compareHandShape(computerHand: computerHand, userHand: userHand)
+    
+            informMatchResult(matchResult: matchResult)
             
-            if let matchResult = compareHandShape(computerHand: computerHand, userHand: userHand) {
-                switch matchResult {
-                case .win:
-                    print("이겼습니다!")
-                case .draw:
-                    print("비겼습니다!")
-                case .lose:
-                    print("졌습니다!")
-                }
-            }
-        }catch {
+        } catch {
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
     }
