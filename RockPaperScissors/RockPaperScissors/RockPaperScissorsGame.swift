@@ -28,7 +28,7 @@ func convertNumberToHand(number: Int) -> ScissorsRockPaper {
     return hand
 }
 
-func decideWinner(_ userHand: ScissorsRockPaper, _ computerHand: ScissorsRockPaper) -> Winner {
+func decideRPSWinner(_ userHand: ScissorsRockPaper, _ computerHand: ScissorsRockPaper) -> Winner {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
         return Winner.user

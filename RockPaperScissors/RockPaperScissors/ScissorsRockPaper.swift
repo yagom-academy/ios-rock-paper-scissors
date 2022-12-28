@@ -10,12 +10,17 @@ enum ScissorsRockPaper: Int {
 
 enum MookZizBba: Int {
     case mook = 1
-    case Zzi = 2
-    case Bba = 3
+    case zzi = 2
+    case bba = 3
 }
 
 enum Winner: String {
     case user = "사용자"
     case computer = "컴퓨터"
     case draw
+}
+
+enum Turn {
+    case userTurn
+    case computerTurn
 }
