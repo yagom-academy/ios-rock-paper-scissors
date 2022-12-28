@@ -18,7 +18,7 @@ func inputUserNumber2() -> Int {
     return userNumber
 }
 
-func decideMZBWinner(turn: Winner,
+func decideMookZziBbaWinner(turn: Winner,
                      _ userHand: MookZizBba,
                      _ computerHand: MookZizBba) -> (Winner, Turn) {
     switch (turn, userHand, computerHand) {
