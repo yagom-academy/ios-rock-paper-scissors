@@ -8,6 +8,7 @@
 
 
 var isUserWin = false
+var mukjjibbaMode = false
 
 func printMukjjibbaMenu() {
     let turn = checkTurn()
@@ -55,4 +56,29 @@ func printMukjjibbaGameResult(gameResult: GameResult) {
     default :
         return
     }
+}
+
+func handleMukjjibbaError(userInput: Result<GameMenu, GameError>) -> GameMenu? {
+    switch userInput {
+    case .failure(_):
+        print("잘못된 입력입니다. 다시 시도해주세요")
+        isUserWin = false
+        startMukjjibbaGame()
+        return nil
+    case .success(let handMotion):
+        if handMotion == .endGame {
+            print("게임종료")
+            return nil
+        }
+        return handMotion
+    }
+}
+
+
+func startMukjjibbaGame() {
+    printMukjjibbaMenu()
+    let userInput = checkAvailability(input: getUserInput())
+    let userHandMotion = handleGameError(userInput: userInput)
+    let computerHandMotion = makeRandomHandMotion()
+    compareMukjjibba(userHandMotion, with: computerHandMotion)
 }

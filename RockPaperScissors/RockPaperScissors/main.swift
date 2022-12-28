@@ -21,15 +21,16 @@ enum GameError : Error {
     case invalidInput
 }
 
-func startGame() {
-    printGameMenu()
+
+func startRockScissorPaper() {
+    printRockScissorPaperMenu()
     let userInput = checkAvailability(input: getUserInput())
     let userHandMotion = handleGameError(userInput: userInput)
     let computerHandMotion = makeRandomHandMotion()
     compare(userHandMotion, with: computerHandMotion)
 }
 
-func printGameMenu() {
+func printRockScissorPaperMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: " ")
 }
 
@@ -50,7 +51,7 @@ func handleGameError(userInput: Result<GameMenu, GameError>) -> GameMenu? {
     switch userInput {
     case .failure(_):
         print("잘못된 입력입니다. 다시 시도해주세요")
-        startGame()
+        startRockScissorPaper()
         return nil
     case .success(let handMotion):
         if handMotion == .endGame {
@@ -83,14 +84,14 @@ func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) {
 
 func printRockScissorPaperGameResult(gameResult: GameResult) {
     switch gameResult {
-    case .win
+    case .win:
         print("이겼습니다!")
     case .lose:
         print("졌습니다!")
     case .draw:
         print("비겼습니다!")
-        startGame()
+        startRockScissorPaper()
     }
 }
 
-startGame()
+startRockScissorPaper()
