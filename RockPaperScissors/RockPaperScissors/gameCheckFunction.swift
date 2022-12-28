@@ -5,18 +5,11 @@
 //  Created by 천승현 on 2022/12/27.
 //
 
-func checkGameResult(userNumber: Int, with computerChoice: RockScissorsPaperType) {
-    guard userNumber != 0 else {
-        print("게임 종료")
-        endFlag = true
-        return
-    }
+func checkRockScissorsPaperResult(userNumber: Int, with computerChoice: RockScissorsPaperType) -> RockScissorsPaperScenario {
     let userChoice = convertChoiceToRockScissorsPaper(userChoice: userNumber)
     let userScenario = compare(userChoice: userChoice, with: computerChoice)
     printResult(userScenario)
-    if (userScenario == .userWin) || (userScenario == .userLose) {
-        endFlag = true
-    }
+    return userScenario
 }
 
 func convertChoiceToRockScissorsPaper(userChoice: Int) -> RockScissorsPaperType {

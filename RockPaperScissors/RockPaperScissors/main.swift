@@ -43,10 +43,18 @@ func playRockScissorsPaper() {
     let rockScissorsPaperResult = choiceRockScissorsPaper()
     switch rockScissorsPaperResult {
     case .success(let userNumber):
-        checkGameResult(userNumber: userNumber, with: computerChoice)
+        if isGameEnd(userNumber: userNumber) {
+            print("게임 종료")
+            return
+        }
+        _ = checkRockScissorsPaperResult(userNumber: userNumber, with: computerChoice)
     case .failure(_):
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
+}
+
+func isGameEnd(userNumber: Int) -> Bool {
+    return userNumber == 0 ? true : false
 }
 
 while !endFlag {
