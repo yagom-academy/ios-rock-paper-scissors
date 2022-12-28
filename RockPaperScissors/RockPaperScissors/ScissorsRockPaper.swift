@@ -14,8 +14,8 @@ enum MookZizBba: Int {
     case Bba = 3
 }
 
-enum Winner {
-    case user
-    case computer
+enum Winner: String {
+    case user = "사용자"
+    case computer = "컴퓨터"
     case draw
 }
