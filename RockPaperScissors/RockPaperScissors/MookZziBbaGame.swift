@@ -66,6 +66,6 @@ func startMookZziBbaGame(turn: Winner) {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         startMookZziBbaGame(turn: .computer)
     } catch {
-        print("Error")
+        print(error)
     }
 }
