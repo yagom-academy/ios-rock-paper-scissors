@@ -6,32 +6,38 @@
 //
 
 enum Menu {
-    case normal
-    case advanced
+    case end
+    case rock
+    case scissors
+    case paper
     
-    var rock: Int {
-        switch self {
-        case .normal:
-            return 2
-        case .advanced:
-            return 1
+    init?(rockPaperScissors: Int) {
+        switch rockPaperScissors {
+        case 0:
+            self = .end
+        case 1:
+            self = .scissors
+        case 2:
+            self = .rock
+        case 3:
+            self = .paper
+        default:
+            return nil
         }
     }
     
-    var scissors: Int {
-        switch self {
-        case .normal:
-            return 1
-        case .advanced:
-            return 2
+    init?(mookZziPpa: Int) {
+        switch mookZziPpa {
+        case 0:
+            self = .end
+        case 1:
+            self = .rock
+        case 2:
+            self = .scissors
+        case 3:
+            self = .paper
+        default:
+            return nil
         }
-    }
-    
-    var end: Int {
-        return 0
-    }
-    
-    var paper: Int {
-        return 3
     }
 }

@@ -7,7 +7,6 @@
 
 class RockPaperScissors {
     var isFirst = true
-    let selectedMenu: Menu
     
     func startGame() {
         displayMenu()
@@ -29,7 +28,7 @@ class RockPaperScissors {
     private func readInput() -> Result<Menu, InputError> {
         guard let input = readLine(),
               let number = Int(input),
-              let menu = Menu(rawValue: number) else {
+              let menu = Menu(rockPaperScissors: number) else {
             return .failure(.invalidInput)
         }
         
@@ -39,13 +38,14 @@ class RockPaperScissors {
         }
     }
     
-    private func generateRockPaperScissors() -> Menu {
-        let result = Menu.allCases[Int.random(in: 1...3)]
+    private func generateRockPaperScissors() -> Menu? {
+        let randomIndex = Int.random(in: 1...3)
+        let result = Menu(rockPaperScissors: randomIndex)
         
         return result
     }
     
-    private func compare(_ userChoice: Result<Menu, InputError>, and computerChoice: Menu) -> String? {
+    private func compare(_ userChoice: Result<Menu, InputError>, and computerChoice: Menu?) -> String? {
         switch userChoice {
         case .success(let userMenu):
             let winner = decideWinner(user: userMenu, computer: computerChoice)
@@ -56,7 +56,7 @@ class RockPaperScissors {
         }
     }
     
-    private func decideWinner(user: Menu, computer: Menu) -> String {
+    private func decideWinner(user: Menu, computer: Menu?) -> String {
         switch (user, computer) {
         case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
             return WinnerResult.user
