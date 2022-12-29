@@ -2,7 +2,7 @@
 //  Created by vetto, songjun on 2022.12.28
 
 func printTurnAndMenu(presentTurn: Winner) {
-    print("[\(presentTurn.rawValue)턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :", terminator: " ")
+    print("[\(presentTurn.name)턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :", terminator: " ")
 }
 
 func convertNumberToMookZziBba(number: Int) -> MookZziBba {
@@ -41,13 +41,13 @@ func startMookZziBbaGame(turn: Winner) {
             
             switch result {
             case .computer:
-                print("\(result.rawValue)의 턴입니다.")
+                print("\(result.name)의 턴입니다.")
                 startMookZziBbaGame(turn: .computer)
             case .user:
-                print("\(result.rawValue)의 턴입니다.")
+                print("\(result.name)의 턴입니다.")
                 startMookZziBbaGame(turn: .user)
             default:
-                print("\(turn.rawValue)의 승리!")
+                print("\(turn.name)의 승리!")
             }
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
