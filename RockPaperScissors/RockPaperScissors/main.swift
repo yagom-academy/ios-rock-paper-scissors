@@ -18,7 +18,6 @@ while gameFlow == .keepPlaying {
         continue
     }
     
-    // TODO: 묵지빠게임 시작
     mukJiPPaGameManager.whosTurn = whosTurn
     
     while gameFlow ==  .keepPlaying {
@@ -28,9 +27,8 @@ while gameFlow == .keepPlaying {
         guard let winner = mukJiPPaResult.whosTurn else {
             continue
         }
-        print(winner)
+        
+        print("\(winner)의 승리!")
         break
     }
-    
-    
 }

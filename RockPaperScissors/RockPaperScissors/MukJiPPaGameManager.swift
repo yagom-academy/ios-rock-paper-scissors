@@ -10,12 +10,8 @@ import Foundation
 class MukJiPPaGameManager: RockScissorsPaperGameManager {
     var whosTurn: String = "***"
     
-    init() {
-        super.init(gameType: .mukJiPPa)
-    }
-    
     override func printMenu() {
-        print("[\(whosTurn) 턴]묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: ": ")
+        print("[\(whosTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: ": ")
     }
     
     func turn(matchResult: MatchResult?) {
@@ -31,21 +27,13 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         case .same:
             print("게임 끝")
         }
-        
-    }
-    
-    func changeTurn() {
-        if self.whosTurn == "사용자" {
-            self.whosTurn = "컴퓨터"
-        } else {
-            self.whosTurn = "사용자"
-        }
     }
     
     func playMukJiPPa() -> (matchResult: MatchResult?, gameFlow: GameFlow) {
         printMenu()
         let input = readUserInput()
         var userNumber = 0
+        
         do {
             userNumber = try validateUserInput(userInput: input)
             if userNumber == 0 {
@@ -54,7 +42,7 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
             }
         } catch InputError.invalidInput {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return (nil, .keepPlaying)
+            return (.lose, .keepPlaying)
         } catch {
             print(error.localizedDescription)
             return (nil, .keepPlaying)
@@ -82,6 +70,7 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
                 return "컴퓨터"
             }
         }
+        
         return nil
     }
     
@@ -94,13 +83,10 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
             return (nil, .gameOver)
         }
         
-        guard let whosTurn = informMatchResult(matchResult: matchResult) else {
+        guard let _ = informMatchResult(matchResult: matchResult) else {
             return (self.whosTurn, .gameOver)
         }
         
         return (nil, .keepPlaying)
-        
     }
-    
-    
 }

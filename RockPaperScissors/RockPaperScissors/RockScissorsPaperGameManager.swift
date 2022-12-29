@@ -1,5 +1,5 @@
 //
-//  GameManager.swift
+//  RockScissorsPaperGameManager.swift
 //  RockPaperScissors
 //
 //  Created by Harry, Andrew on 2022/12/28.
@@ -7,12 +7,6 @@
 import Foundation
 
 class RockScissorsPaperGameManager {
-    let gameType: GameType
-    
-    init(gameType: GameType = .rockScissorsPaper) {
-        self.gameType = gameType
-    }
-    
     func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료: 0>", terminator: ": ")
     }
@@ -106,7 +100,7 @@ class RockScissorsPaperGameManager {
             print(error.localizedDescription)
             return (nil, .keepPlaying)
         }
-        // TODO: generateUserHand 이름 바꾸기
+        
         let userHand = generateUserHand(validationResult: userNumber)
         let computerHand = generateComputerHand()
         let matchResult = compareHandShape(computerHand: computerHand, userHand: userHand)
