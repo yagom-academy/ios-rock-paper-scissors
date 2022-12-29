@@ -64,12 +64,19 @@ func compare(userChoice: RockScissorsPaperType, with computerChoice: RockScissor
 }
 
 func isUserWin(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) -> Bool {
-    if (userChoice == .rock && computerChoice == .scissors) ||
-        (userChoice == .paper && computerChoice == .rock) ||
-        (userChoice == .scissors && computerChoice == .paper) {
+//    if (userChoice == .rock && computerChoice == .scissors) ||
+//        (userChoice == .paper && computerChoice == .rock) ||
+//        (userChoice == .scissors && computerChoice == .paper) {
+//        return true
+//    }
+//    return false
+//
+    switch (userChoice, computerChoice) {
+    case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
         return true
+    default:
+        return false
     }
-    return false
 }
 
 func createRandomRockScissorsPaper() -> RockScissorsPaperType {

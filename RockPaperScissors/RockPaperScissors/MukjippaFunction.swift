@@ -13,6 +13,7 @@ func playMukjippa(_ userChoice: inout RockScissorsPaperType, with computerChoice
     case .success(let userNumber):
         if isGameEnd(userNumber: userNumber) {
             print("게임 종료")
+            isGameEnd = true
             return
         }
         
