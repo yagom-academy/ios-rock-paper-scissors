@@ -13,7 +13,7 @@ class RockPaperScissors {
         displayMenu()
         
         let userChoice = readInput(rule: selectedRule)
-        let computerChoice = generateRockPaperScissors()
+        let computerChoice = generateRockPaperScissors(rule: selectedRule)
         guard let winner = compare(userChoice, and: computerChoice) else {
             return startGame()
         }
@@ -39,9 +39,9 @@ class RockPaperScissors {
         }
     }
     
-    private func generateRockPaperScissors() -> Menu? {
+    private func generateRockPaperScissors(rule: Rule) -> Menu? {
         let randomIndex = Int.random(in: 1...3)
-        let result = Menu(rockPaperScissors: randomIndex)
+        let result = Menu.get(randomIndex, type: rule)
         
         return result
     }
@@ -92,22 +92,15 @@ class RockPaperScissors {
 }
 
 extension RockPaperScissors {
-    private enum MookZziPpa: Int, CaseIterable {
-        case end
-        case rock
-        case scissors
-        case paper
-    }
-    
     func startMookZziPpa(winner: String) {
         var turn = printTurn(winner)
         
         displayMookZziPpa(winner: turn)
         
-        let userChoice = readInput()
-        let computerChoice = generateMookZziPpa()
+        let userChoice = readInput(rule: selectedRule)
+        let computerChoice = generateRockPaperScissors(rule: selectedRule)
         
-        guard let winner = compareMookZziPpa(userChoice, and: computerChoice) else {
+        guard let winner = compare(userChoice, and: computerChoice) else {
             if turn == WinnerResult.user {
                 turn = WinnerResult.computer
             }
