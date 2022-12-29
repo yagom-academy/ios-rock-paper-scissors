@@ -7,11 +7,12 @@
 
 class RockPaperScissors {
     var isFirst = true
+    var selectedRule: Rule
     
     func startGame() {
         displayMenu()
         
-        let userChoice = readInput()
+        let userChoice = readInput(rule: selectedRule)
         let computerChoice = generateRockPaperScissors()
         guard let winner = compare(userChoice, and: computerChoice) else {
             return startGame()
@@ -25,10 +26,10 @@ class RockPaperScissors {
         print(menuMessage, terminator: " ")
     }
     
-    private func readInput() -> Result<Menu, InputError> {
+    private func readInput(rule: Rule) -> Result<Menu, InputError> {
         guard let input = readLine(),
               let number = Int(input),
-              let menu = Menu(rockPaperScissors: number) else {
+              let menu = Menu.get(number, type: rule) else {
             return .failure(.invalidInput)
         }
         
@@ -83,6 +84,10 @@ class RockPaperScissors {
         default:
             print("게임종료")
         }
+    }
+    
+    init(rule: Rule) {
+        self.selectedRule = rule
     }
 }
 
