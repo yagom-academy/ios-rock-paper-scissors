@@ -89,7 +89,7 @@ class RockScissorsPaperGameManager {
         return nil
     }
     
-    func playRockPaperScissors() -> (matchResult: MatchResult?, gameState: GameFlow) {
+    func playRockPaperScissors() -> (matchResult: MatchResult?, gameFlow: GameFlow) {
         printMenu()
         let input = readUserInput()
         var userNumber = 0
@@ -118,7 +118,7 @@ class RockScissorsPaperGameManager {
         let result = playRockPaperScissors()
         
         let matchResult = result.matchResult
-        let gameFlow = result.gameState
+        let gameFlow = result.gameFlow
         
         if gameFlow == .gameOver {
             return (nil, .gameOver)

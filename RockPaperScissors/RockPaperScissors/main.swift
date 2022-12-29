@@ -10,14 +10,27 @@ let mukJiPPaGameManager = MukJiPPaGameManager()
 var gameFlow: GameFlow = .keepPlaying
 
 while gameFlow == .keepPlaying {
-    let result = rockScissorsPaperGameManager.startGame()
+    let rockScissorsPaperResult = rockScissorsPaperGameManager.startGame()
     
-    gameFlow = result.gameFlow
+    gameFlow = rockScissorsPaperResult.gameFlow
         
-    guard let whosTurn = result.whosTurn else {
+    guard let whosTurn = rockScissorsPaperResult.whosTurn else {
         continue
     }
     
     // TODO: 묵지빠게임 시작
-    print(whosTurn)
+    mukJiPPaGameManager.whosTurn = whosTurn
+    
+    while gameFlow ==  .keepPlaying {
+        let mukJiPPaResult = mukJiPPaGameManager.startGame()
+        gameFlow = mukJiPPaResult.gameFlow
+        
+        guard let winner = mukJiPPaResult.whosTurn else {
+            continue
+        }
+        print(winner)
+        break
+    }
+    
+    
 }
