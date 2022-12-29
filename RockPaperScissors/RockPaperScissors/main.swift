@@ -1,10 +1,8 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by Riji,Rilla.
+//  Created by riji, rilla.
 //  Copyright © yagom academy. All rights reserved.
 // 
-
-var isUserWin = false
 
 let game = RockScissorPaper()
 

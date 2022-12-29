@@ -2,14 +2,14 @@
 //  GameProtocol.swift
 //  RockPaperScissors
 //
-//  Created by Riji,Rilla on 2022/12/28.
+//  Created by riji, rilla on 2022/12/28.
 //
 
 protocol GameProtocol {
     func printGameMenu()
     func handleGameError(userInput: Result<GameMenu, GameError>) -> GameMenu?
     func compare(_ userInput: GameMenu?, with computerInput: GameMenu?)
-    func printGameResult(gameResult: GameResult)
+    func printResult(gameResult: GameResult)
     func startGame()
 }
 

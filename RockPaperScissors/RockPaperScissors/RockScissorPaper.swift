@@ -17,7 +17,7 @@ class RockScissorPaper: GameProtocol {
     }
     
     func printGameMenu() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: " ")
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator:" ")
     }
     
     func handleGameError(userInput: Result<GameMenu, GameError>) -> GameMenu? {
@@ -36,27 +36,29 @@ class RockScissorPaper: GameProtocol {
     }
     
     func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) {
-        guard let user = userInput, let computer = computerInput else { return }
+        guard let user = userInput,
+              let computer = computerInput else { return }
         switch (user, computer) {
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
-            printGameResult(gameResult: .win)
-            isUserWin = true
+            printResult(gameResult: .win)
+            mukjjibba.isUserWin = true
         case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) :
-            printGameResult(gameResult: .lose)
-            isUserWin = false
-        default : printGameResult(gameResult: .draw)
+            printResult(gameResult: .lose)
+            mukjjibba.isUserWin = false
+        default :
+            printResult(gameResult: .draw)
         }
     }
     
-    func printGameResult(gameResult: GameResult) {
+    func printResult(gameResult: GameResult) {
         switch gameResult {
         case .win:
             print("이겼습니다!")
-            isUserWin = true
+            mukjjibba.isUserWin = true
             mukjjibba.startGame()
         case .lose:
             print("졌습니다!")
-            isUserWin = false
+            mukjjibba.isUserWin = false
             mukjjibba.startGame()
         case .draw:
             print("비겼습니다!")

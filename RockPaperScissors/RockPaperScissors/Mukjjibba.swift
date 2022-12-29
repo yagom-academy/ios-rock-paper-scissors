@@ -2,10 +2,11 @@
 //  Mukjjibba.swift
 //  RockPaperScissors
 //
-//  Created by Riji, Rilla on 2022/12/28.
+//  Created by riji, rilla on 2022/12/28.
 //
 
 class Mukjjibba: GameProtocol {
+    var isUserWin = false
     func startGame() {
         printGameMenu()
         let userInput = checkAvailability(input: getUserInput())
@@ -24,7 +25,7 @@ class Mukjjibba: GameProtocol {
     
     func printGameMenu() {
         let turn = checkTurn()
-        print("[\(turn)]턴 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+        print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator:" ")
     }
     
     func handleGameError(userInput: Result<GameMenu, GameError>) -> GameMenu? {
@@ -59,7 +60,7 @@ class Mukjjibba: GameProtocol {
         }
     }
     
-    func printGameResult(gameResult: GameResult) {
+    func printResult(gameResult: GameResult) {
         switch gameResult {
         case .win:
             print("사용자의 승리!")
@@ -72,9 +73,9 @@ class Mukjjibba: GameProtocol {
     
     func checkMukjjibbaResult() {
         if isUserWin {
-            printGameResult(gameResult: .win)
+            printResult(gameResult: .win)
         } else {
-            printGameResult(gameResult: .lose)
+            printResult(gameResult: .lose)
         }
     }
 }
