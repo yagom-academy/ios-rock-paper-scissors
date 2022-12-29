@@ -58,40 +58,32 @@ func startGame() {
     }
     
     let gameResult = compareNumbers(userInput: userInput)
-        
-    switch gameResult {
-    case .computerWin:
-        switch currentGame {
-        case .rockPaperScissors:
-            print("졌습니다")
-            winner = GameResult.computerWin.rawValue
-            currentGame = .mukChiba
-            startGame()
-        case .mukChiba:
-            winner = GameResult.computerWin.rawValue
-            print("\(winner)의 턴입니다")
-            startGame()
-        }
-    case .draw:
-        switch currentGame {
-        case .rockPaperScissors:
-            print("비겼습니다")
-            startGame()
-        case .mukChiba:
-            print("\(winner)의 승리!")
-        }
-    case .userWin:
-        switch currentGame {
-        case .rockPaperScissors:
-            print("이겼습니다")
-            winner = GameResult.userWin.rawValue
-            currentGame = .mukChiba
-            startGame()
-        case .mukChiba:
-            winner = GameResult.userWin.rawValue
-            print("\(winner)의 턴입니다")
-            startGame()
-        }
+    let gameResultAndCurrentGame = (result: gameResult, game: currentGame)
+    
+    switch gameResultAndCurrentGame {
+    case (result: .computerWin, game: .rockPaperScissors):
+        print("졌습니다")
+        winner = GameResult.computerWin.rawValue
+        currentGame = .mukChiba
+        startGame()
+    case (result: .computerWin, game: .mukChiba):
+        winner = GameResult.computerWin.rawValue
+        print("\(winner)의 턴입니다")
+        startGame()
+    case (result: .draw, game: .rockPaperScissors):
+        print("비겼습니다")
+        startGame()
+    case (result: .draw, game: .mukChiba):
+        print("\(winner)의 승리!")
+    case (result: .userWin, game: .rockPaperScissors):
+        print("이겼습니다")
+        winner = GameResult.userWin.rawValue
+        currentGame = .mukChiba
+        startGame()
+    case (result: .userWin, game: .mukChiba):
+        winner = GameResult.userWin.rawValue
+        print("\(winner)의 턴입니다")
+        startGame()
     }
 }
 
