@@ -13,6 +13,7 @@
 		1CCB4D90295C2EC50010DB0F /* MookZziBbaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D8F295C2EC50010DB0F /* MookZziBbaType.swift */; };
 		1CCB4D92295C2EFB0010DB0F /* WinnerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D91295C2EFB0010DB0F /* WinnerType.swift */; };
 		1CCB4D95295C31250010DB0F /* ReturnNumberLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D94295C31250010DB0F /* ReturnNumberLibrary.swift */; };
+		1CCB4D97295D63150010DB0F /* TurnType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCB4D96295D63150010DB0F /* TurnType.swift */; };
 		98EA53AF295C2A2700149D58 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA53AE295C2A2700149D58 /* Error.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		1CCB4D8F295C2EC50010DB0F /* MookZziBbaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MookZziBbaType.swift; sourceTree = "<group>"; };
 		1CCB4D91295C2EFB0010DB0F /* WinnerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerType.swift; sourceTree = "<group>"; };
 		1CCB4D94295C31250010DB0F /* ReturnNumberLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnNumberLibrary.swift; sourceTree = "<group>"; };
+		1CCB4D96295D63150010DB0F /* TurnType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnType.swift; sourceTree = "<group>"; };
 		98EA53AE295C2A2700149D58 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				1CCB4D8B295AF0DF0010DB0F /* RockPaperScissorsType.swift */,
 				1CCB4D8F295C2EC50010DB0F /* MookZziBbaType.swift */,
 				1CCB4D91295C2EFB0010DB0F /* WinnerType.swift */,
+				1CCB4D96295D63150010DB0F /* TurnType.swift */,
 			);
 			path = Type;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				1CCB4D90295C2EC50010DB0F /* MookZziBbaType.swift in Sources */,
 				98EA53AF295C2A2700149D58 /* Error.swift in Sources */,
 				1CCB4D8E295BD8C60010DB0F /* MookZziBbaGame.swift in Sources */,
+				1CCB4D97295D63150010DB0F /* TurnType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

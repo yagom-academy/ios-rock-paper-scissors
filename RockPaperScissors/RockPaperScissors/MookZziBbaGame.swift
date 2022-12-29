@@ -14,20 +14,20 @@ func convertNumberToMookZziBba(number: Int) -> MookZziBba {
 
 func decideMookZziBbaWinner(turn: Winner,
                      _ userHand: MookZziBba,
-                     _ computerHand: MookZziBba) -> (Winner, Winner) {
+                     _ computerHand: MookZziBba) -> (Winner, Turn) {
     switch (turn, userHand, computerHand) {
     case (.user, .mook, .mook), (.user, .zzi, .zzi), (.user, .bba, .bba):
-        return (.user, .user)
+        return (.user, .userTurn)
     case (.computer, .mook, .mook), (.computer, .zzi, .zzi), (.computer, .bba, .bba):
-        return (.computer, .computer)
+        return (.computer, .computerTurn)
     case (.user, .mook, .zzi), (.user, .zzi, .bba), (.user, .bba, .mook):
-        return (.draw, .user)
+        return (.draw, .userTurn)
     case (.computer, .mook, .zzi), (.computer, .zzi, .bba), (.computer, .bba, .mook):
-        return (.draw, .computer)
+        return (.draw, .computerTurn)
     case (.user, .zzi, .mook), (.user, .bba, .zzi), (.user, .mook, .bba):
-        return (.draw, .computer)
+        return (.draw, .computerTurn)
     default:
-        return (.draw, .user)
+        return (.draw, .userTurn)
     }
 }
 
@@ -48,11 +48,11 @@ func startMookZziBbaGame(turn: Winner) {
             let turn = resultAndTurn.1
             
             switch (result, turn) {
-            case (.user, .user):
+            case (.user, .userTurn):
                 print("\(turn.rawValue)의 승리!")
-            case (.computer, .computer):
+            case (.computer, .computerTurn):
                 print("\(turn.rawValue)의 승리!")
-            case (.draw, .user):
+            case (.draw, .userTurn):
                 print("\(turn.rawValue)의 턴입니다.")
                 startMookZziBbaGame(turn: .user)
             default:
