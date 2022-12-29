@@ -43,8 +43,9 @@ func startMookZziBbaGame(turn: Winner) {
         case 1, 2, 3:
             let userHand = convertNumberToMookZziBba(number: inputtedNumber)
             let computerHand = convertNumberToMookZziBba(number: makeRandomComputerNumber())
-            let result = decideMookZziBbaWinner(turn: turn, userHand, computerHand).0
-            let turn = decideMookZziBbaWinner(turn: turn, userHand, computerHand).1
+            let resultAndTurn = decideMookZziBbaWinner(turn: turn, userHand, computerHand)
+            let result = resultAndTurn.0
+            let turn = resultAndTurn.1
             
             switch (result, turn) {
             case (.user, .user):
