@@ -4,6 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-let rpsGame = RockPaperScissors()
+//let rpsGame = RockPaperScissors()
+
+let mzpGame = RockPaperScissors(rule: .mookZziPpa)
 
 rpsGame.startGame()

@@ -98,14 +98,18 @@ extension RockPaperScissors {
         let computerChoice = generateRockPaperScissors(rule: selectedRule)
         
         guard let winner = compare(userChoice, and: computerChoice) else {
-            if turn == WinnerResult.user {
-                turn = WinnerResult.computer
-            }
+            changeTurn(turn: &turn)
             
             return startMookZziPpa(winner: turn)
         }
         
         printFinalResult(winner: winner, turn: turn)
+    }
+    
+    private func changeTurn(turn: inout String) {
+        if turn == WinnerResult.user {
+            turn = WinnerResult.computer
+        }
     }
     
     private func printTurn(_ turn: String) -> String {
