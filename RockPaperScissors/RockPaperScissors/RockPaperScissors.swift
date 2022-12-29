@@ -9,7 +9,7 @@ class RockPaperScissors: Game {
         return super.choiceUserNumber()
     }
     
-    func RockPaperScissors(mookJjiBba: MookJjiBba) {
+    func playRockPaperScissors(mookJjiBba: MookJjiBba) {
         let computerNumber = createComputerNumber()
         let userNumber = createUserNumber()
         
@@ -24,7 +24,7 @@ class RockPaperScissors: Game {
                                                                        gameType: .rockPaperScissors)
         else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return RockPaperScissors(mookJjiBba: mookJjiBba)
+            return playRockPaperScissors(mookJjiBba: mookJjiBba)
         }
         
         let gameResult = GameResult.compareHandSigns(computers: computerRockPaperScissors,
@@ -32,7 +32,7 @@ class RockPaperScissors: Game {
         
         if gameResult == .draw {
             print("비겼습니다!")
-            RockPaperScissors(mookJjiBba: mookJjiBba)
+            playRockPaperScissors(mookJjiBba: mookJjiBba)
         } else if gameResult == .win {
             print("이겼습니다!")
             mookJjiBba.turnOwner = .user

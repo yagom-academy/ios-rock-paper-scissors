@@ -6,5 +6,5 @@
 let rockPaperScissorsGame: RockPaperScissors = RockPaperScissors()
 let mookJjiBbaGame: MookJjiBba = MookJjiBba()
 
-rockPaperScissorsGame.RockPaperScissors(mookJjiBba: mookJjiBbaGame)
+rockPaperScissorsGame.playRockPaperScissors(mookJjiBba: mookJjiBbaGame)
 mookJjiBbaGame.playMookJjiBba()

@@ -48,7 +48,7 @@ class MookJjiBba: Game {
         }
     }
     
-    func judgeWinPlayer() {
+    private func judgeWinPlayer() {
         let winner = turnOwner == Player.user ? "사용자의 승리!" : "컴퓨터의 승리!"
         print(winner)
     }
