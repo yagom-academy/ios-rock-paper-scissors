@@ -7,7 +7,7 @@
 
 class RockPaperScissors {
     var isFirst = true
-    var selectedRule: Rule
+    var selectedRule: Rule = .rockpaperscissors
     
     func startGame() {
         displayMenu()
@@ -85,14 +85,11 @@ class RockPaperScissors {
             print("게임종료")
         }
     }
-    
-    init(rule: Rule) {
-        self.selectedRule = rule
-    }
 }
 
 extension RockPaperScissors {
     func startMookZziPpa(winner: String) {
+        self.selectedRule = .mookZziPpa
         var turn = printTurn(winner)
         
         displayMookZziPpa(winner: turn)
