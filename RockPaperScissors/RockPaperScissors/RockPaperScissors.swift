@@ -91,6 +91,7 @@ extension RockPaperScissors {
     func startMookZziPpa(winner: String) {
         self.selectedRule = .mookZziPpa
         var turn = printTurn(winner)
+        isFirst = false
         
         displayMookZziPpa(winner: turn)
         
@@ -113,9 +114,7 @@ extension RockPaperScissors {
     }
     
     private func printTurn(_ turn: String) -> String {
-        if isFirst {
-            isFirst = false
-        } else {
+        if isFirst == false {
             print("\(turn)의 턴입니다.")
         }
 
