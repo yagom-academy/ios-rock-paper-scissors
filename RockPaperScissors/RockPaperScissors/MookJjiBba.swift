@@ -4,8 +4,14 @@
 //
 
 class MookJjiBba: Game {
+    var turnOwner: Player
+    
+    init(turnOwner: Player) {
+        self.turnOwner = turnOwner
+    }
+    
     override func choiceUserNumber() -> Int? {
-        print("[\(turnOwner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        print("[\(turnOwner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         return super.choiceUserNumber()
     }
     
@@ -33,18 +39,18 @@ class MookJjiBba: Game {
         if gameResult == .draw {
             judgeWinPlayer()
         } else if gameResult == .win {
-            turnOwner = Player.user.rawValue
-            print("\(turnOwner)의 턴입니다.")
+            turnOwner = Player.user
+            print("\(turnOwner.rawValue)의 턴입니다.")
             playMookJjiBba()
         } else if gameResult == .lose {
-            turnOwner = Player.computer.rawValue
-            print("\(turnOwner)의 턴입니다.")
+            turnOwner = Player.computer
+            print("\(turnOwner.rawValue)의 턴입니다.")
             playMookJjiBba()
         }
     }
     
     func judgeWinPlayer() {
-        let winner = turnOwner == Player.user.rawValue ? "사용자의 승리!" : "컴퓨터의 승리!"
+        let winner = turnOwner == Player.user ? "사용자의 승리!" : "컴퓨터의 승리!"
         print(winner)
     }
 }

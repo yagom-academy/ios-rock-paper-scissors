@@ -4,8 +4,6 @@
 //
 
 class RockPaperScissors: Game {
-    var mookJjiBba: MookJjiBba = MookJjiBba()
-    
     override func choiceUserNumber() -> Int? {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         return super.choiceUserNumber()
@@ -37,12 +35,10 @@ class RockPaperScissors: Game {
             playGame()
         } else if gameResult == .win {
             print("이겼습니다!")
-            mookJjiBba.turnOwner = Player.user.rawValue
-            mookJjiBba.playMookJjiBba()
+            MookJjiBba(turnOwner: .user).playMookJjiBba()
         } else if gameResult == .lose {
             print("졌습니다")
-            mookJjiBba.turnOwner = Player.computer.rawValue
-            mookJjiBba.playMookJjiBba()
+            MookJjiBba(turnOwner: .computer).playMookJjiBba()
         }
     }
 }

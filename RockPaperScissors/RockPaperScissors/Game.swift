@@ -4,8 +4,6 @@
 //
 
 class Game {
-    var turnOwner: String = ""
-    
     func createComputerNumber() -> Int {
         let computerNumber = Int.random(in: 1...3)
         
