@@ -34,7 +34,7 @@ func printRockPaperScissorsGameResult(winner: Winner) {
     }
 }
 
-func startRockPaperScissorsGame() {
+func startRockPaperScissorsGame() -> Winner?{
     do {
         printRockPaperScissorsMenu()
         
@@ -42,7 +42,7 @@ func startRockPaperScissorsGame() {
         
         switch inputtedNumber {
         case 0:
-            print("게임 종료")
+            return nil
         case 1, 2, 3:
             let userHand = convertNumberToRockPaperScissors(number: inputtedNumber)
             let computerHand = convertNumberToRockPaperScissors(number: makeRandomComputerNumber())
@@ -50,19 +50,20 @@ func startRockPaperScissorsGame() {
             
             if winner == .draw {
                 printRockPaperScissorsGameResult(winner: winner)
-                startRockPaperScissorsGame()
+                return startRockPaperScissorsGame()
             } else {
                 printRockPaperScissorsGameResult(winner: winner)
-                startMookZziBbaGame(turn: winner)
+                return winner
             }
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            startRockPaperScissorsGame()
+            return startRockPaperScissorsGame()
         }
     } catch InputError.invalidInput {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        startRockPaperScissorsGame()
+        return startRockPaperScissorsGame()
     } catch {
         print(error)
+        return nil
     }
 }
