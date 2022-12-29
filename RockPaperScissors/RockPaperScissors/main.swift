@@ -1,19 +1,5 @@
-import Foundation
-
-let computer = "컴퓨터"
-let user = "사용자"
 var winner: String = ""
 var currentGame: CurrentGame = .rockPaperScissors
-
-enum GameResult {
-    case computerWin
-    case draw
-    case userWin
-}
-enum CurrentGame {
-    case rockPaperScissors
-    case mukChiba
-}
 
 func createRandomNumber() -> Int {
     return Int.random(in: 1...3)
@@ -22,9 +8,10 @@ func createRandomNumber() -> Int {
 func showMenuMessage() {
     var menuMessage: String = ""
     
-    if currentGame == .rockPaperScissors {
+    switch currentGame {
+    case .rockPaperScissors:
         menuMessage = "가위(1), 바위(2), 보(3)! <종료: 0> :"
-    } else if currentGame == .mukChiba {
+    case .mukChiba:
         menuMessage = "[\(winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
     }
     
@@ -40,17 +27,17 @@ func inputUserNumber() -> Int {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         
         if currentGame == .mukChiba {
-            winner = computer
+            winner = GameResult.computerWin.rawValue
         }
         return inputUserNumber()
     }
     return userInputNumber
 }
 
-func compareAandComputer(A number: Int) -> GameResult {
+func compareNumbers(userInput: Int) -> GameResult {
     let scissors = 1, rock = 2, paper = 3
     let computerNumber = createRandomNumber()
-    let compareNumbers = (user: number, computer: computerNumber)
+    let compareNumbers = (userNumber: userInput, computerNumber: computerNumber)
     
     switch compareNumbers {
     case (scissors, rock), (rock, paper), (paper, scissors):
@@ -70,35 +57,38 @@ func startGame() {
         return
     }
     
-    let gameResult = compareAandComputer(A: userInput)
+    let gameResult = compareNumbers(userInput: userInput)
         
     switch gameResult {
     case .computerWin:
-        if currentGame == .rockPaperScissors {
+        switch currentGame {
+        case .rockPaperScissors:
             print("졌습니다")
-            winner = computer
+            winner = GameResult.computerWin.rawValue
             currentGame = .mukChiba
             startGame()
-        } else if currentGame == .mukChiba {
-            winner = computer
+        case .mukChiba:
+            winner = GameResult.computerWin.rawValue
             print("\(winner)의 턴입니다")
             startGame()
         }
     case .draw:
-        if currentGame == .rockPaperScissors {
+        switch currentGame {
+        case .rockPaperScissors:
             print("비겼습니다")
             startGame()
-        } else if currentGame == .mukChiba {
+        case .mukChiba:
             print("\(winner)의 승리!")
         }
     case .userWin:
-        if currentGame == .rockPaperScissors {
+        switch currentGame {
+        case .rockPaperScissors:
             print("이겼습니다")
-            winner = user
+            winner = GameResult.userWin.rawValue
             currentGame = .mukChiba
             startGame()
-        } else if currentGame == .mukChiba {
-            winner = user
+        case .mukChiba:
+            winner = GameResult.userWin.rawValue
             print("\(winner)의 턴입니다")
             startGame()
         }
