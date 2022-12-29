@@ -12,22 +12,14 @@ func convertNumberToMookZziBba(number: Int) -> MookZziBba {
     return hand
 }
 
-func decideMookZziBbaWinner(turn: Winner,
-                     _ userHand: MookZziBba,
-                     _ computerHand: MookZziBba) -> (Winner, Turn) {
-    switch (turn, userHand, computerHand) {
-    case (.user, .mook, .mook), (.user, .zzi, .zzi), (.user, .bba, .bba):
-        return (.user, .userTurn)
-    case (.computer, .mook, .mook), (.computer, .zzi, .zzi), (.computer, .bba, .bba):
-        return (.computer, .computerTurn)
-    case (.user, .mook, .zzi), (.user, .zzi, .bba), (.user, .bba, .mook):
-        return (.draw, .userTurn)
-    case (.computer, .mook, .zzi), (.computer, .zzi, .bba), (.computer, .bba, .mook):
-        return (.draw, .computerTurn)
-    case (.user, .zzi, .mook), (.user, .bba, .zzi), (.user, .mook, .bba):
-        return (.draw, .computerTurn)
+func decideMookZziBbaWinner(_ userHand: MookZziBba,_ computerHand: MookZziBba) -> Winner {
+    switch (userHand, computerHand) {
+    case (.zzi, .bba), (.mook, .zzi), (.bba, .mook):
+        return .user
+    case (.zzi, .mook), (.mook, .bba), (.bba, .zzi):
+        return .computer
     default:
-        return (.draw, .userTurn)
+        return .draw
     }
 }
 
@@ -43,21 +35,19 @@ func startMookZziBbaGame(turn: Winner) {
         case 1, 2, 3:
             let userHand = convertNumberToMookZziBba(number: inputtedNumber)
             let computerHand = convertNumberToMookZziBba(number: makeRandomComputerNumber())
-            let resultAndTurn = decideMookZziBbaWinner(turn: turn, userHand, computerHand)
-            let result = resultAndTurn.0
-            let turn = resultAndTurn.1
+            let result = decideMookZziBbaWinner(userHand, computerHand)
             
-            switch (result, turn) {
-            case (.user, .userTurn):
-                print("\(turn.rawValue)의 승리!")
-            case (.computer, .computerTurn):
-                print("\(turn.rawValue)의 승리!")
-            case (.draw, .userTurn):
-                print("\(turn.rawValue)의 턴입니다.")
+            print("사용자 손: \(userHand), 컴퓨터 손: \(computerHand)")
+            
+            switch result {
+            case .computer:
+                print("\(result.rawValue)의 텁입니다.")
+                startMookZziBbaGame(turn: .computer)
+            case .user:
+                print("\(result.rawValue)의 텁입니다.")
                 startMookZziBbaGame(turn: .user)
             default:
-                print("\(turn.rawValue)의 턴입니다.")
-                startMookZziBbaGame(turn: .computer)
+                print("\(turn.rawValue)의 승리!")
             }
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
