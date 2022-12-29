@@ -34,7 +34,7 @@ func printRockPaperScissorsGameResult(winner: Winner) {
     }
 }
 
-func startRockPaperScissorsGame() -> Winner?{
+func startRockPaperScissorsGame() -> Winner? {
     do {
         printRockPaperScissorsMenu()
         

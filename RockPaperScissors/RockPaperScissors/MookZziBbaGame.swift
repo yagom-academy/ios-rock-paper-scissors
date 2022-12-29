@@ -23,6 +23,19 @@ func decideMookZziBbaWinner(_ userHand: MookZziBba,_ computerHand: MookZziBba) -
     }
 }
 
+func printMookZziBbaGameResult(result: Winner, turn: Winner) {
+    switch result {
+    case .computer:
+        print("\(result.name)의 턴입니다.")
+        startMookZziBbaGame(turn: .computer)
+    case .user:
+        print("\(result.name)의 턴입니다.")
+        startMookZziBbaGame(turn: .user)
+    default:
+        print("\(turn.name)의 승리!")
+    }
+}
+
 func startMookZziBbaGame(turn: Winner) {
     do {
         printTurnAndMenu(presentTurn: turn)
@@ -37,18 +50,7 @@ func startMookZziBbaGame(turn: Winner) {
             let computerHand = convertNumberToMookZziBba(number: makeRandomComputerNumber())
             let result = decideMookZziBbaWinner(userHand, computerHand)
             
-            print("사용자 손: \(userHand), 컴퓨터 손: \(computerHand)")
-            
-            switch result {
-            case .computer:
-                print("\(result.name)의 턴입니다.")
-                startMookZziBbaGame(turn: .computer)
-            case .user:
-                print("\(result.name)의 턴입니다.")
-                startMookZziBbaGame(turn: .user)
-            default:
-                print("\(turn.name)의 승리!")
-            }
+            printMookZziBbaGameResult(result: result, turn: turn)
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             startMookZziBbaGame(turn: .computer)
