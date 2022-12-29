@@ -1,8 +1,8 @@
 //  RockPaperScissors - MookZziBba.swift
 //  Created by vetto, songjun on 2022.12.28
 
-func printTurnAndMenu(turn: Winner) {
-    print("[\(turn.rawValue)턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :", terminator: " ")
+func printTurnAndMenu(presentTurn: Winner) {
+    print("[\(presentTurn.rawValue)턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :", terminator: " ")
 }
 
 func convertNumberToMookZziBba(number: Int) -> MookZziBba {
@@ -25,7 +25,7 @@ func decideMookZziBbaWinner(_ userHand: MookZziBba,_ computerHand: MookZziBba) -
 
 func startMookZziBbaGame(turn: Winner) {
     do {
-        printTurnAndMenu(turn: turn)
+        printTurnAndMenu(presentTurn: turn)
         
         let inputtedNumber = try inputUserNumber()
         
