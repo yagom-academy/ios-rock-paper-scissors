@@ -1,11 +1,11 @@
 //
-//  mukjjibba.swift
+//  Mukjjibba.swift
 //  RockPaperScissors
 //
 //  Created by Riji, Rilla on 2022/12/28.
 //
 
-class Mukjjibba: CommonGameWorks, Game {
+class Mukjjibba: GameProtocol {
     func startGame() {
         printGameMenu()
         let userInput = checkAvailability(input: getUserInput())

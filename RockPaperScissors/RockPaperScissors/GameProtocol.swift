@@ -1,11 +1,11 @@
 //
-//  game protocol.swift
+//  GameProtocol.swift
 //  RockPaperScissors
 //
 //  Created by Riji,Rilla on 2022/12/28.
 //
 
-protocol Game {
+protocol GameProtocol {
     func printGameMenu()
     func handleGameError(userInput: Result<GameMenu, GameError>) -> GameMenu?
     func compare(_ userInput: GameMenu?, with computerInput: GameMenu?)
@@ -13,7 +13,7 @@ protocol Game {
     func startGame()
 }
 
-class CommonGameWorks {
+extension GameProtocol {
     func getUserInput() -> String? {
         let input: String? = readLine()
         return input
