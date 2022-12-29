@@ -46,7 +46,8 @@ class Mukjjibba: GameProtocol {
     }
     
     func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) -> GameResult? {
-        guard let user = userInput, let computer = computerInput else { return nil }
+        guard let user = userInput,
+              let computer = computerInput else { return nil }
         switch (user, computer) {
         case (.scissor, .scissor), (.rock, .rock), (.paper, .paper) :
             let result = checkMukjjibbaResult()
