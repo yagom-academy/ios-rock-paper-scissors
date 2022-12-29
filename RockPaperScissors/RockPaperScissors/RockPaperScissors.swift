@@ -7,13 +7,7 @@
 
 class RockPaperScissors {
     var isFirst = true
-
-    private enum Menu: Int, CaseIterable {
-        case end
-        case scissors
-        case rock
-        case paper
-    }
+    let selectedMenu: Menu
     
     func startGame() {
         displayMenu()

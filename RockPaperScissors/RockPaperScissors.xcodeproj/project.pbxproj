@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2645EC6B29598CB4006BCAA3 /* InputError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2645EC6A29598CB4006BCAA3 /* InputError.swift */; };
 		2645EC6D29598D47006BCAA3 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2645EC6C29598D47006BCAA3 /* RockPaperScissors.swift */; };
+		2645EC75295D8FA3006BCAA3 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2645EC74295D8FA3006BCAA3 /* Menu.swift */; };
 		AD4FD6B3295BFC8C00C95189 /* WinnerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FD6B2295BFC8C00C95189 /* WinnerResult.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		2645EC6A29598CB4006BCAA3 /* InputError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputError.swift; sourceTree = "<group>"; };
 		2645EC6C29598D47006BCAA3 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
+		2645EC74295D8FA3006BCAA3 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		AD4FD6B2295BFC8C00C95189 /* WinnerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerResult.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				2645EC6A29598CB4006BCAA3 /* InputError.swift */,
 				2645EC6C29598D47006BCAA3 /* RockPaperScissors.swift */,
 				AD4FD6B2295BFC8C00C95189 /* WinnerResult.swift */,
+				2645EC74295D8FA3006BCAA3 /* Menu.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -132,6 +135,7 @@
 				2645EC6B29598CB4006BCAA3 /* InputError.swift in Sources */,
 				2645EC6D29598D47006BCAA3 /* RockPaperScissors.swift in Sources */,
 				AD4FD6B3295BFC8C00C95189 /* WinnerResult.swift in Sources */,
+				2645EC75295D8FA3006BCAA3 /* Menu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
