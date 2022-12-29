@@ -99,7 +99,7 @@ extension RockPaperScissors {
         
         displayMookZziPpa(winner: turn)
         
-        let userChoice = readMookZziPpa()
+        let userChoice = readInput()
         let computerChoice = generateMookZziPpa()
         
         guard let winner = compareMookZziPpa(userChoice, and: computerChoice) else {
@@ -126,49 +126,6 @@ extension RockPaperScissors {
     private func displayMookZziPpa(winner: String) {
         let menuMessage = "[\(winner)턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :"
         print(menuMessage, terminator: " ")
-    }
-    
-    private func readMookZziPpa() -> Result<MookZziPpa, InputError> {
-        guard let input = readLine(),
-              let number = Int(input),
-              let menu = MookZziPpa(rawValue: number) else {
-            return .failure(.invalidInput)
-        }
-        
-        switch menu {
-        case .end, .scissors, .rock, .paper:
-            return .success(menu)
-        }
-    }
-    
-    private func generateMookZziPpa() -> MookZziPpa {
-        let result = MookZziPpa.allCases[Int.random(in: 1...3)]
-        
-        return result
-    }
-    
-    private func compareMookZziPpa(_ userChoice: Result<MookZziPpa, InputError>, and computerChoice: MookZziPpa) -> String? {
-        switch userChoice {
-        case .success(let userMenu):
-            let winner = decideMookZziPpaWinner(user: userMenu, computer: computerChoice)
-            return winner
-        case .failure(let error):
-            print(error.rawValue)
-            return nil
-        }
-    }
-    
-    private func decideMookZziPpaWinner(user: MookZziPpa, computer: MookZziPpa) -> String {
-        switch (user, computer) {
-        case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
-            return WinnerResult.user
-        case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-            return WinnerResult.computer
-        case (.rock, .rock), (.scissors, .scissors), (.paper, .paper):
-            return WinnerResult.noWinner
-        default:
-            return ""
-        }
     }
     
     private func printFinalResult(winner: String, turn: String) {

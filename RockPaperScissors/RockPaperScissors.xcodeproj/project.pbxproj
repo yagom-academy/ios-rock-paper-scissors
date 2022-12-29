@@ -12,6 +12,7 @@
 		2645EC75295D8FA3006BCAA3 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2645EC74295D8FA3006BCAA3 /* Menu.swift */; };
 		AD4FD6B3295BFC8C00C95189 /* WinnerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FD6B2295BFC8C00C95189 /* WinnerResult.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
+		D0BC3F94295DA3120001AD8E /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BC3F93295DA3120001AD8E /* Rule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,7 @@
 		AD4FD6B2295BFC8C00C95189 /* WinnerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerResult.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D0BC3F93295DA3120001AD8E /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				2645EC6C29598D47006BCAA3 /* RockPaperScissors.swift */,
 				AD4FD6B2295BFC8C00C95189 /* WinnerResult.swift */,
 				2645EC74295D8FA3006BCAA3 /* Menu.swift */,
+				D0BC3F93295DA3120001AD8E /* Rule.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -134,6 +137,7 @@
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				2645EC6B29598CB4006BCAA3 /* InputError.swift in Sources */,
 				2645EC6D29598D47006BCAA3 /* RockPaperScissors.swift in Sources */,
+				D0BC3F94295DA3120001AD8E /* Rule.swift in Sources */,
 				AD4FD6B3295BFC8C00C95189 /* WinnerResult.swift in Sources */,
 				2645EC75295D8FA3006BCAA3 /* Menu.swift in Sources */,
 			);
