@@ -1,80 +1,69 @@
 //  RockPaperScissors - RockPaperScissorsGame.swift
 //  Created by vetto, songjun on 2022.12.27
 
-func makeRandomComputerNumber() -> Int {
-    return Int.random(in: 1...3)
-}
-
-func inputUserNumber() -> Int {
-    printMenu()
-    guard let userInput = readLine() else {
-        return inputUserNumber()
-    }
-    guard let userNumber = Int(userInput) else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return inputUserNumber()
-    }
-    return userNumber
-}
-
-func printMenu() {
+func printRockPaperScissorsMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 }
 
-func convertNumberToHand(number: Int) -> ScissorsRockPaper {
-    guard let hand = ScissorsRockPaper(rawValue: number) else {
-        return ScissorsRockPaper.wrongHand
+func convertNumberToRockPaperScissors(number: Int) -> RockPaperScissors {
+    guard let hand = RockPaperScissors(rawValue: number) else {
+        return RockPaperScissors.wrongHand
     }
     return hand
 }
 
-func decideWinner(userHand: ScissorsRockPaper, computerHand: ScissorsRockPaper) -> String {
-    let winner: String
-    
+func decideRockPaperScissorWinner(_ userHand: RockPaperScissors,
+                                  _ computerHand: RockPaperScissors) -> Winner {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
-        winner = "사용자"
+        return .user
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        winner = "컴퓨터"
-    case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
-        winner = "무승부"
+        return .computer
     default:
-        print("잘못된 결과입니다.")
-        winner = ""
+        return .draw
     }
-    return winner
 }
 
-func printGameResult(winner: String) {
-    if winner == "사용자" {
+func printRockPaperScissorsGameResult(winner: Winner) {
+    if winner == .user {
         print("이겼습니다.")
-    } else if winner == "컴퓨터" {
+    } else if winner == .computer {
         print("졌습니다.")
-    } else if winner == "무승부" {
+    } else {
         print("비겼습니다.")
     }
 }
 
-func startGame() {
-    let inputtedNumber = inputUserNumber()
-    
-    switch inputtedNumber {
-    case 0:
-        print("게임 종료")
-    case 1,2,3:
-        let userHand = convertNumberToHand(number: inputtedNumber)
-        let computerHand = convertNumberToHand(number: makeRandomComputerNumber())
-        let winner = decideWinner(userHand: userHand, computerHand: computerHand)
+func startRockPaperScissorsGame() -> Winner? {
+    do {
+        printRockPaperScissorsMenu()
         
-        if winner == "무승부" {
-            printGameResult(winner: winner)
-            startGame()
-        } else {
-            printGameResult(winner: winner)
+        let inputtedNumber = try inputUserNumber()
+        
+        switch inputtedNumber {
+        case 0:
+            return nil
+        case 1, 2, 3:
+            let userHand = convertNumberToRockPaperScissors(number: inputtedNumber)
+            let computerHand = convertNumberToRockPaperScissors(number: makeRandomComputerNumber())
+            let winner = decideRockPaperScissorWinner(userHand, computerHand)
+            
+            if winner == .draw {
+                printRockPaperScissorsGameResult(winner: winner)
+                return startRockPaperScissorsGame()
+            } else {
+                printRockPaperScissorsGameResult(winner: winner)
+                return winner
+            }
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return startRockPaperScissorsGame()
         }
-    default:
+    } catch InputError.invalidInput {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        startGame()
+        return startRockPaperScissorsGame()
+    } catch {
+        print(error)
+        return nil
     }
 }
-
