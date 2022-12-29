@@ -11,18 +11,16 @@ func playMukjippa(_ userChoice: inout RockScissorsPaperType, with computerChoice
     let mukjippaResult = choiceRockScissorsPaper(errorType: .invalidMukjippa)
     switch mukjippaResult {
     case .success(let userNumber):
-        if isGameEnd(userNumber: userNumber) {
+        if isGameEndSelected(userNumber: userNumber) {
             print("게임 종료")
             isGameEnd = true
             return
         }
         
-        let randomChoice = createRandomRockScissorsPaper()
-        computerChoice = randomChoice
-        let userNewChoice = convertChoiceToMukjippa(userChoice: userNumber)
-        userChoice = userNewChoice
+        computerChoice = createRandomRockScissorsPaper()
+        userChoice = convertChoiceToMukjippa(userChoice: userNumber)
         
-        checkMukjippaResult(userChoice: userChoice, computerChoice: randomChoice)
+        checkMukjippaResult(userChoice: userChoice, computerChoice: computerChoice)
     case .failure(_):
         changePreviousWinner()
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -33,10 +31,10 @@ func checkMukjippaResult(userChoice: RockScissorsPaperType, computerChoice: Rock
     let userScenario = compare(userChoice: userChoice, with: computerChoice)
     if userScenario == .userWin {
         previousWinner = .user
-        print("사용자의 턴입니다.")
+        print(MukjippaTurn.userTurn)
     } else if userScenario == .userLose {
         previousWinner = .computer
-        print("컴퓨터의 턴입니다.")
+        print(MukjippaTurn.computerTurn)
     } else if userScenario == .draw {
         print("\(previousWinner.rawValue)의 승리!")
         isGameEnd = true
@@ -57,8 +55,6 @@ func convertChoiceToMukjippa(userChoice: Int) -> RockScissorsPaperType {
 func changePreviousWinner() {
     if previousWinner == .user {
         previousWinner = .computer
-    } else {
-        previousWinner = .user
     }
 }
 

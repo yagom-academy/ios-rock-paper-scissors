@@ -16,7 +16,7 @@ func playRockScissorsPaper() {
         let rockScissorsPaperResult = choiceRockScissorsPaper(errorType: .invalidRockScissorsPaper)
         switch rockScissorsPaperResult {
         case .success(let userNumber):
-            if isGameEnd(userNumber: userNumber) {
+            if isGameEndSelected(userNumber: userNumber) {
                 print("게임 종료")
                 isGameEnd = true
                 break
@@ -64,13 +64,6 @@ func compare(userChoice: RockScissorsPaperType, with computerChoice: RockScissor
 }
 
 func isUserWin(_ userChoice: RockScissorsPaperType, with computerChoice: RockScissorsPaperType) -> Bool {
-//    if (userChoice == .rock && computerChoice == .scissors) ||
-//        (userChoice == .paper && computerChoice == .rock) ||
-//        (userChoice == .scissors && computerChoice == .paper) {
-//        return true
-//    }
-//    return false
-//
     switch (userChoice, computerChoice) {
     case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
         return true
@@ -88,10 +81,10 @@ func createRandomRockScissorsPaper() -> RockScissorsPaperType {
 }
 
 func checkWinner(scenario: RockScissorsPaperScenario) -> PreviousType {
-    scenario == .userWin ? .user : .computer
+    return scenario == .userWin ? .user : .computer
 }
 
-func isGameEnd(userNumber: Int) -> Bool {
+func isGameEndSelected(userNumber: Int) -> Bool {
     return userNumber == 0 ? true : false
 }
 
