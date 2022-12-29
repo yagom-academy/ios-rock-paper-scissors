@@ -13,7 +13,8 @@ class RockScissorPaper: GameProtocol {
         let userInput = checkAvailability(input: getUserInput())
         let userHandMotion = handleGameError(userInput: userInput)
         let computerHandMotion = makeRandomHandMotion()
-        compare(userHandMotion, with: computerHandMotion)
+        guard let result = compare(userHandMotion, with: computerHandMotion) else { return }
+        printResult(gameResult: result)
     }
     
     func printGameMenu() {
@@ -35,18 +36,18 @@ class RockScissorPaper: GameProtocol {
         }
     }
     
-    func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) {
+    func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) -> GameResult? {
         guard let user = userInput,
-              let computer = computerInput else { return }
+              let computer = computerInput else { return nil }
         switch (user, computer) {
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
-            printResult(gameResult: .win)
             mukjjibba.isUserWin = true
+            return .win
         case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) :
-            printResult(gameResult: .lose)
             mukjjibba.isUserWin = false
+            return .lose
         default :
-            printResult(gameResult: .draw)
+            return .draw
         }
     }
     

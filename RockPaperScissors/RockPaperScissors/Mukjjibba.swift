@@ -12,7 +12,8 @@ class Mukjjibba: GameProtocol {
         let userInput = checkAvailability(input: getUserInput())
         let userHandMotion = handleGameError(userInput: userInput)
         let computerHandMotion = makeRandomHandMotion()
-        compare(userHandMotion, with: computerHandMotion)
+        guard let result = compare(userHandMotion, with: computerHandMotion) else { return }
+        printResult(gameResult: result)
     }
     
     func checkTurn() -> String {
@@ -44,19 +45,22 @@ class Mukjjibba: GameProtocol {
         }
     }
     
-    func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) {
-        guard let user = userInput, let computer = computerInput else { return }
+    func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) -> GameResult? {
+        guard let user = userInput, let computer = computerInput else { return nil }
         switch (user, computer) {
         case (.scissor, .scissor), (.rock, .rock), (.paper, .paper) :
-            checkMukjjibbaResult()
+            let result = checkMukjjibbaResult()
+            return result
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
             isUserWin = true
             startGame()
+            return nil
         case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) :
             isUserWin = false
             startGame()
+            return nil
         default :
-            return
+            return nil
         }
     }
     
@@ -71,11 +75,11 @@ class Mukjjibba: GameProtocol {
         }
     }
     
-    func checkMukjjibbaResult() {
+    func checkMukjjibbaResult() -> GameResult {
         if isUserWin {
-            printResult(gameResult: .win)
+            return .win
         } else {
-            printResult(gameResult: .lose)
+            return .lose
         }
     }
 }

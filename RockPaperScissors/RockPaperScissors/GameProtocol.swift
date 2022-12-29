@@ -8,7 +8,7 @@
 protocol GameProtocol {
     func printGameMenu()
     func handleGameError(userInput: Result<GameMenu, GameError>) -> GameMenu?
-    func compare(_ userInput: GameMenu?, with computerInput: GameMenu?)
+    func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) -> GameResult?
     func printResult(gameResult: GameResult)
     func startGame()
 }
