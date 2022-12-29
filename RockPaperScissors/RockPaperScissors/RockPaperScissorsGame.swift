@@ -18,9 +18,9 @@ func decideRockPaperScissorWinner(_ userHand: ScissorsRockPaper,
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
         return Winner.user
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
-        return Winner.computer
+        return .computer
     default:
-        return Winner.draw
+        return .draw
     }
 }
 
