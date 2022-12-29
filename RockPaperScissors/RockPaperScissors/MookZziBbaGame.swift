@@ -41,10 +41,10 @@ func startMookZziBbaGame(turn: Winner) {
             
             switch result {
             case .computer:
-                print("\(result.rawValue)의 텁입니다.")
+                print("\(result.rawValue)의 턴입니다.")
                 startMookZziBbaGame(turn: .computer)
             case .user:
-                print("\(result.rawValue)의 텁입니다.")
+                print("\(result.rawValue)의 턴입니다.")
                 startMookZziBbaGame(turn: .user)
             default:
                 print("\(turn.rawValue)의 승리!")
