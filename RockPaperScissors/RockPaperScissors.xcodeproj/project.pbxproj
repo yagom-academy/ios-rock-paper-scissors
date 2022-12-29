@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BC65702295D830A00B0AA11 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC65701295D830A00B0AA11 /* GameManager.swift */; };
 		4BEA4F2B295AA9FA00780EFC /* HandSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA4F2A295AA9FA00780EFC /* HandSign.swift */; };
 		4BEA4F31295BD1BD00780EFC /* GameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEA4F30295BD1BD00780EFC /* GameType.swift */; };
 		BF368807295BDF3B00604C07 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF368806295BDF3B00604C07 /* Player.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4BC65701295D830A00B0AA11 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		4BEA4F2A295AA9FA00780EFC /* HandSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandSign.swift; sourceTree = "<group>"; };
 		4BEA4F30295BD1BD00780EFC /* GameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameType.swift; sourceTree = "<group>"; };
 		BF368806295BDF3B00604C07 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				BF4E7197295B1359003F9BB0 /* Game.swift */,
 				BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */,
 				BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */,
+				4BC65701295D830A00B0AA11 /* GameManager.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BEA4F2B295AA9FA00780EFC /* HandSign.swift in Sources */,
+				4BC65702295D830A00B0AA11 /* GameManager.swift in Sources */,
 				BF4E719A295B1397003F9BB0 /* RockPaperScissors.swift in Sources */,
 				BF368807295BDF3B00604C07 /* Player.swift in Sources */,
 				BF4E719C295B13A4003F9BB0 /* MookJjiBba.swift in Sources */,
