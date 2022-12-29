@@ -5,18 +5,18 @@ func printRockPaperScissorsMenu() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 }
 
-func convertNumberToRockPaperScissors(number: Int) -> ScissorsRockPaper {
-    guard let hand = ScissorsRockPaper(rawValue: number) else {
-        return ScissorsRockPaper.wrongHand
+func convertNumberToRockPaperScissors(number: Int) -> RockPaperScissors {
+    guard let hand = RockPaperScissors(rawValue: number) else {
+        return RockPaperScissors.wrongHand
     }
     return hand
 }
 
-func decideRockPaperScissorWinner(_ userHand: ScissorsRockPaper,
-                                  _ computerHand: ScissorsRockPaper) -> Winner {
+func decideRockPaperScissorWinner(_ userHand: RockPaperScissors,
+                                  _ computerHand: RockPaperScissors) -> Winner {
     switch (userHand, computerHand) {
     case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
-        return Winner.user
+        return .user
     case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
         return .computer
     default:
