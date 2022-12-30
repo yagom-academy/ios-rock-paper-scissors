@@ -78,6 +78,7 @@ class RockScissorsPaperGameManager {
                 return .computer
             }
         }
+        
         return nil
     }
     
@@ -132,7 +133,7 @@ class RockScissorsPaperGameManager {
         while gameFlow == .keepPlaying {
             let rockScissorsPaperResult = playRockPaperScissors()
             
-            matchResult = rockScissorsPaperResult.matchResult // lose, win, same
+            matchResult = rockScissorsPaperResult.matchResult
             printMatchResult(matchResult: matchResult)
             gameFlow = rockScissorsPaperResult.gameFlow
         }
@@ -140,8 +141,8 @@ class RockScissorsPaperGameManager {
         guard let turn = informResultToMukJiPPa(matchResult: matchResult) else { return }
         
         let mukJiPPaGameManager = MukJiPPaGameManager()
-        mukJiPPaGameManager.showTurn = turn
         
+        mukJiPPaGameManager.showTurn = turn
         gameFlow = .keepPlaying
         
         while gameFlow == .keepPlaying {
@@ -155,7 +156,6 @@ class RockScissorsPaperGameManager {
             if winner != .gameEnd {
                 continue
             }
-            
             print("\(mukJiPPaGameManager.showTurn.rawValue)의 승리!")
         }
     }

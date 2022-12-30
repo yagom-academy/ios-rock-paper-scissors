@@ -64,7 +64,6 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         let matchResult = result.matchResult
         let gameFlow = result.gameFlow
         
-        
         if gameFlow == .gameOver {
             return (nil, .gameOver)
         }
