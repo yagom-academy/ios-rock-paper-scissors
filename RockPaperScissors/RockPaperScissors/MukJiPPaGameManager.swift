@@ -45,11 +45,13 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
             switch matchResult {
             case .win:
                 self.turn = .user
+                print(MukJiPPaTurn.user.turnMessage())
                 return .user
             case .same:
                 return .gameEnd
             case .lose:
                 self.turn = .computer
+                print(MukJiPPaTurn.computer.turnMessage())
                 return .computer
             }
         }
@@ -57,14 +59,14 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         return .gameEnd
     }
     
-    func startGame() -> (mukJiPPaTurn: MukJiPPaTurn, gameFlow: GameFlow) {
+    func startMukJiPPaGame() -> (mukJiPPaTurn: MukJiPPaTurn?, gameFlow: GameFlow) {
         let result = playMukJiPPa()
         let matchResult = result.matchResult
         let gameFlow = result.gameFlow
         
         
         if gameFlow == .gameOver {
-            return (.gameEnd, .gameOver)
+            return (nil, .gameOver)
         }
         
         let turn = informTurn(matchResult: matchResult)

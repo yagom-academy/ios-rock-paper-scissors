@@ -49,6 +49,7 @@ class RockScissorsPaperGameManager {
     
     func compareHandShape(computerHand: HandShape?, userHand: HandShape?) -> MatchResult? {
         guard let computerHand = computerHand, let userHand = userHand else {
+            print("comapareHandShape 닐 !!!")
             return nil
         }
         
@@ -66,21 +67,31 @@ class RockScissorsPaperGameManager {
         }
     }
     
-    func informMatchResult(matchResult: MatchResult?) -> MukJiPPaTurn? {
+    func informResultToMukJiPPa(matchResult: MatchResult?) -> MukJiPPaTurn? {
         if let matchResult = matchResult {
             switch matchResult {
             case .win:
-                print("이겼습니다!")
                 return .user
             case .same:
-                print("비겼습니다!")
                 return nil
             case .lose:
-                print("졌습니다!")
                 return .computer
             }
         }
         return nil
+    }
+    
+    func printMatchResult(matchResult: MatchResult?) {
+        if let matchResult = matchResult {
+            switch matchResult {
+            case .win:
+                print("이겼습니다!")
+            case .same:
+                print("비겼습니다!")
+            case .lose:
+                print("졌습니다!")
+            }
+        }
     }
     
     func playRockPaperScissors() -> (matchResult: MatchResult?, gameFlow: GameFlow) {
@@ -105,23 +116,46 @@ class RockScissorsPaperGameManager {
         let computerHand = generateComputerHand()
         let matchResult = compareHandShape(computerHand: computerHand, userHand: userHand)
         
-        return (matchResult, .keepPlaying)
+        switch matchResult {
+        case .lose, .win:
+            return (matchResult, .gameOver)
+        default:
+            return (matchResult, .keepPlaying)
+        }
     }
    
-    func startGame() -> (mukJiPPaTurn: MukJiPPaTurn?, gameFlow: GameFlow) {
-        let result = playRockPaperScissors()
+    func startGame() {
+        var gameFlow: GameFlow = .keepPlaying
+        var matchResult: MatchResult?
         
-        let matchResult = result.matchResult
-        let gameFlow = result.gameFlow
-        
-        if gameFlow == .gameOver {
-            return (nil, .gameOver)
+        while gameFlow == .keepPlaying {
+            let rockScissorsPaperResult = playRockPaperScissors()
+            
+            matchResult = rockScissorsPaperResult.matchResult // lose, win, same
+            printMatchResult(matchResult: matchResult)
+            gameFlow = rockScissorsPaperResult.gameFlow
         }
         
-        guard let whosTurn = informMatchResult(matchResult: matchResult) else {
-            return (nil, .keepPlaying)
-        }
+        guard let turn = informResultToMukJiPPa(matchResult: matchResult) else { return }
         
-        return (whosTurn, .keepPlaying)
+        let mukJiPPaGameManager = MukJiPPaGameManager()
+        mukJiPPaGameManager.turn = turn
+        
+        gameFlow = .keepPlaying
+        
+        while gameFlow == .keepPlaying {
+            let mukJiPPaResult = mukJiPPaGameManager.startMukJiPPaGame()
+            gameFlow = mukJiPPaResult.gameFlow
+            
+            guard let winner = mukJiPPaResult.mukJiPPaTurn else {
+                continue
+            }
+            
+            if winner != .gameEnd {
+                continue
+            }
+            
+            print("\(mukJiPPaGameManager.turn.rawValue)의 승리!")
+        }
     }
 }
