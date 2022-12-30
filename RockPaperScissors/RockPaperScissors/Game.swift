@@ -6,7 +6,6 @@
 class Game {
     func createComputerNumber() -> Int {
         let computerNumber = Int.random(in: 1...3)
-        
         return computerNumber
     }
     
@@ -15,7 +14,6 @@ class Game {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return choiceUserNumber()
         }
-
         return Int(userInput)
     }
     
@@ -24,14 +22,12 @@ class Game {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return checkUserNumber(number: choiceUserNumber())
         }
-        
         return userNumber
     }
     
     func createUserNumber() -> Int {
         let userNumber = choiceUserNumber()
         let userNumberCheck = checkUserNumber(number: userNumber)
-        
         return userNumberCheck
     }
 }

@@ -7,7 +7,17 @@ class GameManager {
     var turnOwner: Player?
     let rockPaperScissorsGame: RockPaperScissors = RockPaperScissors()
     let mookJjiBbaGame: MookJjiBba = MookJjiBba()
-
+    
+    func excuteMookJjiBbaGame(player: Player) {
+        turnOwner = player
+        
+        guard let crrentTurnOwner = turnOwner else {
+            return startGame()
+        }
+        
+        mookJjiBbaGame.playMookJjiBba(turnOwner: crrentTurnOwner)
+    }
+    
     func startGame() {
         let rockPaperScissorsGameStatus = rockPaperScissorsGame.playRockPaperScissors()
         
@@ -24,20 +34,10 @@ class GameManager {
             startGame()
         } else if rockPaperScissorsGameResult == .win {
             print("이겼습니다!")
-            turnOwner = .user
-            
-            guard let crrentTurnOwner = turnOwner else {
-                return startGame()
-            }
-            mookJjiBbaGame.playMookJjiBba(turnOwner: crrentTurnOwner)
+            excuteMookJjiBbaGame(player: .user)
         } else if rockPaperScissorsGameResult == .lose {
             print("졌습니다")
-            turnOwner = .computer
-            
-            guard let crrentTurnOwner = turnOwner else {
-                return startGame()
-            }
-            mookJjiBbaGame.playMookJjiBba(turnOwner: crrentTurnOwner)
+            excuteMookJjiBbaGame(player: .computer)
         }
     }
 }

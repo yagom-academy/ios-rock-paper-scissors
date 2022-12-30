@@ -10,13 +10,14 @@ class MookJjiBba: Game {
         guard let mookJjiBbaturnOwner = rockPaperScissorsWinner else {
             return choiceUserNumber()
         }
+        
         print("[\(mookJjiBbaturnOwner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         return super.choiceUserNumber()
     }
     
     func playMookJjiBba(turnOwner: Player) {
         rockPaperScissorsWinner = turnOwner
-        var currentPlayer = turnOwner
+        var currentTurnOwner = turnOwner
         let computerNumber = createComputerNumber()
         let userNumber = createUserNumber()
         
@@ -25,33 +26,34 @@ class MookJjiBba: Game {
             return
         }
         
-        guard let computerMookJjiBba = HandSign.convertNumberToHandSign(computerNumber,
-                                                                    gameType: .mookJjiBba),
-              let userMookJjiBba = HandSign.convertNumberToHandSign(userNumber,
-                                                                gameType: .mookJjiBba)
+        guard let computerMookJjiBba = HandSign.convertNumberToHandSign(from: computerNumber,
+                                                                        at: .mookJjiBba),
+              let userMookJjiBba = HandSign.convertNumberToHandSign(from: userNumber,
+                                                                    at: .mookJjiBba)
         else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return playMookJjiBba(turnOwner: currentPlayer)
+            return playMookJjiBba(turnOwner: currentTurnOwner)
         }
         
         let gameResult = GameResult.compareHandSigns(computers: computerMookJjiBba,
                                                      users: userMookJjiBba)
         
         if gameResult == .draw {
-            judgeWinPlayer(turnOwner: currentPlayer)
+            judgeWinPlayer(turnOwner: currentTurnOwner)
         } else if gameResult == .win {
-            currentPlayer = Player.user
+            currentTurnOwner = Player.user
             print("\(Player.user.rawValue)의 턴입니다.")
-            playMookJjiBba(turnOwner: currentPlayer)
+            playMookJjiBba(turnOwner: currentTurnOwner)
         } else if gameResult == .lose {
-            currentPlayer = Player.computer
+            currentTurnOwner = Player.computer
             print("\(Player.computer.rawValue)의 턴입니다.")
-            playMookJjiBba(turnOwner: currentPlayer)
+            playMookJjiBba(turnOwner: currentTurnOwner)
         }
     }
     
     private func judgeWinPlayer(turnOwner: Player) {
         let winner = turnOwner == Player.user ? "사용자의 승리!" : "컴퓨터의 승리!"
+        
         print(winner)
     }
 }

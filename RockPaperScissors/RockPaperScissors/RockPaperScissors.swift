@@ -20,10 +20,10 @@ class RockPaperScissors: Game {
             return .stop
         }
         
-        guard let computerRockPaperScissors = HandSign.convertNumberToHandSign(computerNumber,
-                                                                               gameType: .rockPaperScissors),
-              let userRockPaperScissors = HandSign.convertNumberToHandSign(userNumber,
-                                                                           gameType: .rockPaperScissors)
+        guard let computerRockPaperScissors = HandSign.convertNumberToHandSign(from: computerNumber,
+                                                                               at: .rockPaperScissors),
+              let userRockPaperScissors = HandSign.convertNumberToHandSign(from: userNumber,
+                                                                           at: .rockPaperScissors)
         else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return playRockPaperScissors()

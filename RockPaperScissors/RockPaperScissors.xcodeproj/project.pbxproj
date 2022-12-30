@@ -77,14 +77,14 @@
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				BF368806295BDF3B00604C07 /* Player.swift */,
-				4BEA4F30295BD1BD00780EFC /* GameType.swift */,
 				4BEA4F2A295AA9FA00780EFC /* HandSign.swift */,
+				4BEA4F30295BD1BD00780EFC /* GameType.swift */,
+				BFDFE429295E763C0048661E /* GameStatus.swift */,
 				BF4E7195295ACE09003F9BB0 /* GameResult.swift */,
 				BF4E7197295B1359003F9BB0 /* Game.swift */,
 				BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */,
 				BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */,
 				4BC65701295D830A00B0AA11 /* GameManager.swift */,
-				BFDFE429295E763C0048661E /* GameStatus.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
