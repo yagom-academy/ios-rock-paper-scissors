@@ -40,23 +40,21 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         return (matchResult, .keepPlaying)
     }
     
-    override func informMatchResult(matchResult: MatchResult?) -> String? {
+    func informTurn(matchResult: MatchResult?) -> MukJiPPaTurn {
         if let matchResult = matchResult {
             switch matchResult {
             case .win:
                 self.turn = "사용자"
-                print("사용자의 턴입니다.")
-                return "사용자"
+                return .user
             case .same:
-                return nil
+                return .gameEnd
             case .lose:
                 self.turn = "컴퓨터"
-                print("컴퓨터의 턴입니다.")
-                return "컴퓨터"
+                return .computer
             }
         }
         
-        return nil
+        return .gameEnd
     }
     
     override func startGame() -> (whosTurn: String?, gameFlow: GameFlow) {
