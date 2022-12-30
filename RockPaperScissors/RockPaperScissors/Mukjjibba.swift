@@ -14,6 +14,7 @@ class Mukjjibba: GameProtocol {
         let computerHandMotion: GameMenu? = makeRandomHandMotion()
         guard let result: GameResult = compare(userHandMotion, with: computerHandMotion) else { return }
         printResult(gameResult: result)
+        
     }
     
     func checkTurn() -> String {
@@ -26,7 +27,7 @@ class Mukjjibba: GameProtocol {
     
     func printGameMenu() {
         let turn: String = checkTurn()
-        print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator:" ")
+        print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
     }
     
     func handleGameError(userInput: Result<GameMenu, GameError>) -> GameMenu? {
@@ -54,10 +55,12 @@ class Mukjjibba: GameProtocol {
             return result
         case (.scissor, .paper), (.rock, .scissor), (.paper, .rock) :
             isUserWin = true
+            printTurn()
             startGame()
             return nil
         case (.scissor, .rock), (.rock, .paper), (.paper, .scissor) :
             isUserWin = false
+            printTurn()
             startGame()
             return nil
         default :
@@ -82,5 +85,10 @@ class Mukjjibba: GameProtocol {
         } else {
             return .lose
         }
+    }
+    
+    func printTurn() {
+        let turn: String = checkTurn()
+        print("\(turn)의 턴입니다.")
     }
 }
