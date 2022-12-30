@@ -7,7 +7,7 @@
 - 사용자는 컴퓨터와 묵찌빠 게임의 선공을 결정하기 위한 가위바위보 게임을 먼저 진행 합니다.
 - 가위바위보 게임에서 이긴 플레이어가 묵찌빠의 선공을 가져갑니다.
 - 묵찌빠의 룰에 따라 게임을 진행하여 승패를 결정합니다.
-- 
+
 ## 3. 팀원
 |혜모리|무리|
 |---|---|
@@ -34,8 +34,13 @@
 - 게임매니저 타입에 게임시작 메소드 추가
 
 ## 5. 시각화된 프로젝트 구조
+<details>
+    <summary>순서도 보기</summary>
+
 <img src="https://github.com/hyemory/ios-rock-paper-scissors/blob/step2/Image/%EB%AC%B5%EC%B0%8C%EB%B9%A0%EA%B2%8C%EC%9E%84.jpg" width="500">
 
+</details>
+    
 ## 6. 실행 화면
 <details>
     <summary>스크린캡쳐 보기</summary>
@@ -97,12 +102,12 @@ HandSign, GameResult 타입을 굳이 인스턴스로 만들지 않고 바로con
 class 키워드로도 타입 메서드를 만들 수 있으나, 추후 다른 곳에서 재정의할 일이 없으므로 static으로 정하였습니다.
 
 ## 8. 참고 링크
- - [switch문 튜플 비교](https://nightohl.tistory.com/entry/Swift-%EA%B8%B0%EC%B4%88-switch-case-%EB%AC%B8)
- - [line-wrapping](https://google.github.io/swift/#line-wrapping)
- - [재귀함수, 반복문 차이](https://hazel-developer.tistory.com/173)
- - [재귀함수, 반복문 차이2](https://yeonjewon.tistory.com/80)
- - [접근제어자](https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html)
- - [타입메소드](https://sujinnaljin.medium.com/swift-static과-class-method-property-효과적으로-사용하기-b336311a923c)
+- [switch문 튜플 비교](https://nightohl.tistory.com/entry/Swift-%EA%B8%B0%EC%B4%88-switch-case-%EB%AC%B8)
+- [line-wrapping](https://google.github.io/swift/#line-wrapping)
+- [재귀함수, 반복문 차이](https://hazel-developer.tistory.com/173)
+- [재귀함수, 반복문 차이2](https://yeonjewon.tistory.com/80)
+- [접근제어자](https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html)
+- [타입메소드](https://sujinnaljin.medium.com/swift-static과-class-method-property-효과적으로-사용하기-b336311a923c)
 
 --- 
 
