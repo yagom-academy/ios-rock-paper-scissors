@@ -3,4 +3,6 @@
 //  Created by 혜모리, 무리 on 2022.12.26
 //
 
-playRockPaperScissors()
+let gameManager: GameManager = GameManager()
+
+gameManager.startGame()
