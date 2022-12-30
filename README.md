@@ -37,7 +37,9 @@
 <img src="https://github.com/hyemory/ios-rock-paper-scissors/blob/step2/Image/%EB%AC%B5%EC%B0%8C%EB%B9%A0%EA%B2%8C%EC%9E%84.jpg" width="500">
 
 ## 6. 실행 화면
-
+<details>
+    <summary>스크린캡쳐 보기</summary>
+    
 #### 6-1. 게임을 시작하게되면 사용자에게 가위바위보에 대한 입력을 받습니다.
 <img src="https://github.com/hyemory/ios-rock-paper-scissors/blob/step2/Image/%EA%B0%80%EC%9C%84%EB%B0%94%EC%9C%84%EB%B3%B4_%EC%8B%9C%EC%9E%91.png" width="400">
 
@@ -71,6 +73,8 @@
 
 - 묵찌빠에서 올바르지 않은 입력을 했을 시 턴은 컴퓨터에게 넘어갑니다.
 <img src="https://github.com/hyemory/ios-rock-paper-scissors/blob/4f85a9197ec52aead2aea7a7051aab45a1fa2bb6/Image/%EB%AC%B5%EC%B0%8C%EB%B9%A0_%EC%82%AC%EC%9A%A9%EC%9E%90%ED%84%B4%EC%9E%98%EB%AA%BB%EC%9E%85%EB%A0%A5%EC%8B%9C.png" width="400">
+
+</details>
 
 ## 7. 트러블 슈팅
 ### 재귀함수에 nil이 입력되어 런타임 오류가 발생
