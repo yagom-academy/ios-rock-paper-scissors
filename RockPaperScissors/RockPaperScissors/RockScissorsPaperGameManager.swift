@@ -66,18 +66,18 @@ class RockScissorsPaperGameManager {
         }
     }
     
-    func informMatchResult(matchResult: MatchResult?) -> String? {
+    func informMatchResult(matchResult: MatchResult?) -> MukJiPPaTurn? {
         if let matchResult = matchResult {
             switch matchResult {
             case .win:
                 print("이겼습니다!")
-                return "사용자"
+                return .user
             case .same:
                 print("비겼습니다!")
                 return nil
             case .lose:
                 print("졌습니다!")
-                return "컴퓨터"
+                return .computer
             }
         }
         return nil
@@ -108,7 +108,7 @@ class RockScissorsPaperGameManager {
         return (matchResult, .keepPlaying)
     }
    
-    func startGame() -> (whosTurn: String?, gameFlow: GameFlow) {
+    func startGame() -> (mukJiPPaTurn: MukJiPPaTurn?, gameFlow: GameFlow) {
         let result = playRockPaperScissors()
         
         let matchResult = result.matchResult
