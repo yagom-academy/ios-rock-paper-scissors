@@ -91,7 +91,7 @@ extension RockPaperScissors {
     func startMookZziPpa(winner: String) {
         self.selectedRule = .mookZziPpa
         var turn = printTurn(winner)
-        isFirst = false
+        changeTrueToFalse(&isFirst)
         
         displayMookZziPpa(winner: turn)
         
@@ -119,6 +119,12 @@ extension RockPaperScissors {
         }
 
         return turn
+    }
+    
+    private func changeTrueToFalse(_ boolean: inout Bool) {
+        if boolean {
+            boolean.toggle()
+        }
     }
     
     private func displayMookZziPpa(winner: String) {
