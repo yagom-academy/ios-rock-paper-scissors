@@ -2,13 +2,13 @@
 
 ## 목차
 1. [소개](#1-소개)
-2. [팀원](#팀원)
-3. [타임라인](#타임라인)
-4. [프로젝트 구조](#프로젝트-구조)
-5. [실행화면(기능 설명)](#실행-화면기능-설명)
-6. [트러블슈팅](#트러블-슈팅)
-7. [참고링크](#참고-링크)
-8. [아쉬운점](#아쉬운-점)
+2. [팀원](#2-팀원)
+3. [타임라인](#3-타임라인)
+4. [프로젝트 구조](#4-프로젝트-구조)
+5. [실행화면(기능 설명)](#5-실행-화면기능-설명)
+6. [트러블슈팅](#6-트러블-슈팅)
+7. [참고링크](#7-참고-링크)
+8. [아쉬운점](#8-아쉬운-점)
 
 <br/>
 
@@ -20,7 +20,7 @@
 **Step02**
 Step01를 진행한 후, 승패가 결정지어지면 묵찌빠 게임으로 넘어갑니다. Step01과 마찬가지로 사용자로부터 0(종료), 1(바위), 2(가위), 3(보) 중 하나의 숫자를 입력받아 묵찌빠 게임을 진행하거나 프로그램을 종료합니다. 게임이 진행된 경우, Step01의 승자가 턴을 갖게 됩니다. 사용자의 패와 컴퓨터의 패가 다른 경우, 승자가 턴을 갖게 되며 다시 묵찌빠 게임을 진행합니다. 사용자의 패와 컴퓨터의 패가 동일한 경우, 턴을 가지고 있는 쪽이 최종 승리합니다.
 
-## 팀원
+## 2. 팀원
 > [팀 회고](https://github.com/Rhode-park/ios-rock-paper-scissors/blob/step02/팀%20회고.md)
 
 |⭐️Rhode|⭐️Rowan|⭐️레옹아범|
@@ -29,7 +29,7 @@ Step01를 진행한 후, 승패가 결정지어지면 묵찌빠 게임으로 넘
 
 </br>
 
-## 타임라인
+## 3. 타임라인
 **프로젝트 진행 기간** 
 - **22.12.26 (월) ~ 22.12.30 (금)** 
 
@@ -43,7 +43,7 @@ Step01를 진행한 후, 승패가 결정지어지면 묵찌빠 게임으로 넘
 
 <br/>
 
-## 프로젝트 구조
+## 4. 프로젝트 구조
 ### 순서도
 <details>
 <summary><strong>STEP01 Flowchart</strong></summary>
@@ -55,7 +55,7 @@ Step01를 진행한 후, 승패가 결정지어지면 묵찌빠 게임으로 넘
 <img src="https://raw.githubusercontent.com/Rhode-park/ios-rock-paper-scissors/step02/image/묵찌빠게임.jpg">
 </details>
 
-## 실행 화면(기능 설명)
+## 5. 실행 화면(기능 설명)
 <details>
 <summary><strong>가위바위보 올바른 값 입력</strong></summary>
     
@@ -115,7 +115,7 @@ Step01를 진행한 후, 승패가 결정지어지면 묵찌빠 게임으로 넘
 
 </br>
 
-## 트러블 슈팅
+## 6. 트러블 슈팅
 ### 게임이 끝났음에도 불구하고 재귀함수로 인해 한번 더 실행되는 문제
 * 트러블 슈팅 전, ```startGame```메소드에서 ```startMookZziPpa```함수를 마지막에 호출하는 형태로 묵찌빠게임을 시작했습니다.
 * 프로그램 실행 시, 가위바위보를 비길 경우 다시 ```startGame```이 호출됩니다. 이후 재호출된 ```startGame```메서드가 종료되면 call stack에 남아있던 이전 ```startGame```의 ```startMookZziPpa```가 실행되어 불필요한 "무승부의 턴입니다."가 출력되는 문제가 있었습니다.
@@ -309,7 +309,7 @@ private func decideWinner(user: Menu, computer: Menu?) -> String {
     }
 ```
 
-## 참고 링크
+## 7. 참고 링크
 > - [Swift 공식문서-Property](https://docs.swift.org/swift-book/LanguageGuide/Properties.html)
 > - [Swift 공식문서-Enumeration](https://docs.swift.org/swift-book/LanguageGuide/Enumerations.html)
 > - [Swift 공식문서-Methods](https://docs.swift.org/swift-book/LanguageGuide/Methods.html)
@@ -317,6 +317,6 @@ private func decideWinner(user: Menu, computer: Menu?) -> String {
 > - [nameSpace-2](https://cocoacasts.com/namespaces-in-swift)
 > - [Foundation 공식문서](https://developer.apple.com/documentation/foundation)
 
-## 아쉬운 점
+## 8. 아쉬운 점
 * enum내에서 타입 메소드가 아닌 타입 프로퍼티를 사용하는게 기존 생각했던 것과 유사했을 것 같은데 타입 메소드를 사용한 것이 아쉬움.
 * 최대한 많이 줄였지만 아직까지도 중첩되는 메소드가 있는 것이 아쉬움.
