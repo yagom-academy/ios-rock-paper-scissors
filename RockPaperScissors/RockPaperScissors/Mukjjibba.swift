@@ -9,10 +9,10 @@ class Mukjjibba: GameProtocol {
     var isUserWin = false
     func startGame() {
         printGameMenu()
-        let userInput = checkAvailability(input: getUserInput())
-        let userHandMotion = handleGameError(userInput: userInput)
-        let computerHandMotion = makeRandomHandMotion()
-        guard let result = compare(userHandMotion, with: computerHandMotion) else { return }
+        let userInput: Result<GameMenu, GameError> = checkAvailability(input: getUserInput())
+        let userHandMotion: GameMenu? = handleGameError(userInput: userInput)
+        let computerHandMotion: GameMenu? = makeRandomHandMotion()
+        guard let result: GameResult = compare(userHandMotion, with: computerHandMotion) else { return }
         printResult(gameResult: result)
     }
     
@@ -25,7 +25,7 @@ class Mukjjibba: GameProtocol {
     }
     
     func printGameMenu() {
-        let turn = checkTurn()
+        let turn: String = checkTurn()
         print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator:" ")
     }
     
@@ -46,8 +46,8 @@ class Mukjjibba: GameProtocol {
     }
     
     func compare(_ userInput: GameMenu?, with computerInput: GameMenu?) -> GameResult? {
-        guard let user = userInput,
-              let computer = computerInput else { return nil }
+        guard let user: GameMenu = userInput,
+              let computer: GameMenu = computerInput else { return nil }
         switch (user, computer) {
         case (.scissor, .scissor), (.rock, .rock), (.paper, .paper) :
             let result = checkMukjjibbaResult()

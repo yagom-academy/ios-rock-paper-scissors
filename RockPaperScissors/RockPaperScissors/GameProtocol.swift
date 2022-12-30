@@ -20,15 +20,15 @@ extension GameProtocol {
     }
     
     func checkAvailability(input: String?) -> Result<GameMenu, GameError> {
-        guard let userInput = input,
-              let userHandMotion = GameMenu(rawValue: userInput)
+        guard let userInput: String = input,
+              let userHandMotion: GameMenu = GameMenu(rawValue: userInput)
         else { return .failure(.invalidInput) }
         return .success(userHandMotion)
     }
     
     func makeRandomHandMotion() -> GameMenu? {
-        guard let computerRandomNumber = ["1", "2", "3"].randomElement() else { return nil }
-        let computerHandMotion = GameMenu(rawValue: computerRandomNumber)
+        guard let computerRandomNumber: String = ["1", "2", "3"].randomElement() else { return nil }
+        let computerHandMotion: GameMenu? = GameMenu(rawValue: computerRandomNumber)
         return computerHandMotion
     }
 }
