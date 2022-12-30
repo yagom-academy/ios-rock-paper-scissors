@@ -22,9 +22,9 @@ enum HandShape: CaseIterable {
     case scissors
 }
 
-enum MukJiPPaTurn {
-    case user
-    case computer
+enum MukJiPPaTurn: String {
+    case user = "사용자"
+    case computer = "컴퓨터"
     case gameEnd
     
     func turnMessage() -> String {
