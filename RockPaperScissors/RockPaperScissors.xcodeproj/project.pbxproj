@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0842CEB6295D691D008F896A /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0842CEB5295D691D008F896A /* GameResult.swift */; };
+		08D4CDA9295C4EE5009F36AE /* Mukjjibba.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D4CDA8295C4EE5009F36AE /* Mukjjibba.swift */; };
+		08E6318C295E7BCB0037B66D /* GameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E6318B295E7BCB0037B66D /* GameError.swift */; };
+		08E6318E295E7BD60037B66D /* GameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E6318D295E7BD60037B66D /* GameMenu.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
+		FB40E0E1295C64A600E590DB /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40E0E0295C64A600E590DB /* GameProtocol.swift */; };
+		FB40E0E3295C686000E590DB /* RockScissorPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB40E0E2295C686000E590DB /* RockScissorPaper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +29,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0842CEB5295D691D008F896A /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		08D4CDA8295C4EE5009F36AE /* Mukjjibba.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mukjjibba.swift; sourceTree = "<group>"; };
+		08E6318B295E7BCB0037B66D /* GameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameError.swift; sourceTree = "<group>"; };
+		08E6318D295E7BD60037B66D /* GameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMenu.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		FB40E0E0295C64A600E590DB /* GameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
+		FB40E0E2295C686000E590DB /* RockScissorPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockScissorPaper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +50,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08E63191295E7C5E0037B66D /* EnumType */ = {
+			isa = PBXGroup;
+			children = (
+				08E6318B295E7BCB0037B66D /* GameError.swift */,
+				08E6318D295E7BD60037B66D /* GameMenu.swift */,
+				0842CEB5295D691D008F896A /* GameResult.swift */,
+			);
+			path = EnumType;
+			sourceTree = "<group>";
+		};
+		08E63192295E7C760037B66D /* ClassType */ = {
+			isa = PBXGroup;
+			children = (
+				FB40E0E2295C686000E590DB /* RockScissorPaper.swift */,
+				08D4CDA8295C4EE5009F36AE /* Mukjjibba.swift */,
+			);
+			path = ClassType;
+			sourceTree = "<group>";
+		};
 		C7ABA0D4254EA63000B2367D = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +89,9 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				08E63192295E7C760037B66D /* ClassType */,
+				08E63191295E7C5E0037B66D /* EnumType */,
+				FB40E0E0295C64A600E590DB /* GameProtocol.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -119,7 +153,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08E6318E295E7BD60037B66D /* GameMenu.swift in Sources */,
+				08E6318C295E7BCB0037B66D /* GameError.swift in Sources */,
+				FB40E0E1295C64A600E590DB /* GameProtocol.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				0842CEB6295D691D008F896A /* GameResult.swift in Sources */,
+				FB40E0E3295C686000E590DB /* RockScissorPaper.swift in Sources */,
+				08D4CDA9295C4EE5009F36AE /* Mukjjibba.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
