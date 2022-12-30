@@ -6,5 +6,5 @@
 //
 
 enum Rule {
-    case rockpaperscissors, mookZziPpa
+    case rockPaperScissors, mookZziPpa
 }

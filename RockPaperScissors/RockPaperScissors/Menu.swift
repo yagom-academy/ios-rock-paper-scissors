@@ -13,7 +13,7 @@ enum Menu {
     case paper
     
     static func get(_ number: Int, type: Rule) -> Menu? {
-        if type == .rockpaperscissors {
+        if type == .rockPaperScissors {
             switch number {
             case 0:
                 return .end

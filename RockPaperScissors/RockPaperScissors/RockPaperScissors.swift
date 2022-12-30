@@ -7,7 +7,7 @@
 
 class RockPaperScissors {
     var isFirst = true
-    var selectedRule: Rule = .rockpaperscissors
+    var selectedRule: Rule = .rockPaperScissors
     
     func startGame() {
         displayMenu()
@@ -32,11 +32,8 @@ class RockPaperScissors {
               let menu = Menu.get(number, type: rule) else {
             return .failure(.invalidInput)
         }
-        
-        switch menu {
-        case .end, .scissors, .rock, .paper:
-            return .success(menu)
-        }
+
+        return .success(menu)
     }
     
     private func generateRockPaperScissors(rule: Rule) -> Menu? {
@@ -89,41 +86,42 @@ class RockPaperScissors {
 
 extension RockPaperScissors {
     func startMookZziPpa(winner: String) {
+        var turn = winner
         self.selectedRule = .mookZziPpa
-        var turn = printTurn(winner)
-        changeTrueToFalse(&isFirst)
         
+        printTurn(winner)
+        changeTrueToFalse()
         displayMookZziPpa(winner: turn)
         
         let userChoice = readInput(rule: selectedRule)
         let computerChoice = generateRockPaperScissors(rule: selectedRule)
         
         guard let winner = compare(userChoice, and: computerChoice) else {
-            changeTurn(turn: &turn)
+            let changedTurn = changeTurn(turn: turn)
             
-            return startMookZziPpa(winner: turn)
+            return startMookZziPpa(winner: changedTurn)
         }
         
         printFinalResult(winner: winner, turn: turn)
     }
     
-    private func changeTurn(turn: inout String) {
+    private func changeTurn(turn: String) -> String {
         if turn == WinnerResult.user {
-            turn = WinnerResult.computer
+            return WinnerResult.computer
         }
-    }
-    
-    private func printTurn(_ turn: String) -> String {
-        if isFirst == false {
-            print("\(turn)의 턴입니다.")
-        }
-
+        
         return turn
     }
     
-    private func changeTrueToFalse(_ boolean: inout Bool) {
-        if boolean {
-            boolean.toggle()
+    private func printTurn(_ turn: String) {
+        if self.isFirst == false {
+            print("\(turn)의 턴입니다.")
+        }
+    }
+    
+    private func changeTrueToFalse() {
+        if self.isFirst {
+            self.isFirst.toggle()
         }
     }
     
