@@ -1,10 +1,9 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by 레옹아범, Rhode, Rowan
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
+let rpsGame = RockPaperScissors()
 
-print("Hello, World!")
-
+rpsGame.startGame()
