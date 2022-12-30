@@ -8,10 +8,10 @@
 import Foundation
 
 class MukJiPPaGameManager: RockScissorsPaperGameManager {
-    var turn: MukJiPPaTurn = .gameEnd
+    var showTurn: MukJiPPaTurn = .gameEnd
     
     override func printMenu() {
-        print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: ": ")
+        print("[\(showTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: ": ")
     }
     
     func playMukJiPPa() -> (matchResult: MatchResult?, gameFlow: GameFlow) {
@@ -44,13 +44,13 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         if let matchResult = matchResult {
             switch matchResult {
             case .win:
-                self.turn = .user
+                self.showTurn = .user
                 print(MukJiPPaTurn.user.turnMessage())
                 return .user
             case .same:
                 return .gameEnd
             case .lose:
-                self.turn = .computer
+                self.showTurn = .computer
                 print(MukJiPPaTurn.computer.turnMessage())
                 return .computer
             }

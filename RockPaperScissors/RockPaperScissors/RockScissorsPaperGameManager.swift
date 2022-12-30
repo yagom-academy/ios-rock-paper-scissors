@@ -139,7 +139,7 @@ class RockScissorsPaperGameManager {
         guard let turn = informResultToMukJiPPa(matchResult: matchResult) else { return }
         
         let mukJiPPaGameManager = MukJiPPaGameManager()
-        mukJiPPaGameManager.turn = turn
+        mukJiPPaGameManager.showTurn = turn
         
         gameFlow = .keepPlaying
         
@@ -155,7 +155,7 @@ class RockScissorsPaperGameManager {
                 continue
             }
             
-            print("\(mukJiPPaGameManager.turn.rawValue)의 승리!")
+            print("\(mukJiPPaGameManager.showTurn.rawValue)의 승리!")
         }
     }
 }
