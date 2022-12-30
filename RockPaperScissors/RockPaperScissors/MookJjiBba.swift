@@ -14,7 +14,7 @@ class MookJjiBba: Game {
         return super.choiceUserNumber()
     }
     
-    func playMookJjiBba() {
+    func playMookJjiBba(turnOwner: Player) {
         let computerNumber = createComputerNumber()
         let userNumber = createUserNumber()
         
@@ -29,7 +29,7 @@ class MookJjiBba: Game {
                                                                 gameType: .mookJjiBba)
         else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return playMookJjiBba()
+            return playMookJjiBba(turnOwner: turnOwner)
         }
         
         let gameResult = GameResult.compareHandSigns(computers: computerMookJjiBba,
@@ -40,11 +40,11 @@ class MookJjiBba: Game {
         } else if gameResult == .win {
             turnOwner = Player.user
             print("\(Player.user.rawValue)의 턴입니다.")
-            playMookJjiBba()
+            playMookJjiBba(turnOwner: turnOwner)
         } else if gameResult == .lose {
             turnOwner = Player.computer
             print("\(Player.computer.rawValue)의 턴입니다.")
-            playMookJjiBba()
+            playMookJjiBba(turnOwner: turnOwner)
         }
     }
     
