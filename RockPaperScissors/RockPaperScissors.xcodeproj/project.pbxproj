@@ -15,6 +15,7 @@
 		BF4E7198295B1359003F9BB0 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7197295B1359003F9BB0 /* Game.swift */; };
 		BF4E719A295B1397003F9BB0 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */; };
 		BF4E719C295B13A4003F9BB0 /* MookJjiBba.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */; };
+		BFDFE42A295E763C0048661E /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDFE429295E763C0048661E /* GameStatus.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		BF4E7197295B1359003F9BB0 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MookJjiBba.swift; sourceTree = "<group>"; };
+		BFDFE429295E763C0048661E /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +84,7 @@
 				BF4E7199295B1397003F9BB0 /* RockPaperScissors.swift */,
 				BF4E719B295B13A4003F9BB0 /* MookJjiBba.swift */,
 				4BC65701295D830A00B0AA11 /* GameManager.swift */,
+				BFDFE429295E763C0048661E /* GameStatus.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 				BF4E719C295B13A4003F9BB0 /* MookJjiBba.swift in Sources */,
 				4BEA4F31295BD1BD00780EFC /* GameType.swift in Sources */,
 				BF4E7198295B1359003F9BB0 /* Game.swift in Sources */,
+				BFDFE42A295E763C0048661E /* GameStatus.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				BF4E7196295ACE09003F9BB0 /* GameResult.swift in Sources */,
 			);
