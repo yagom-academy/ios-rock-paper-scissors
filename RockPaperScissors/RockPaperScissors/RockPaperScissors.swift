@@ -86,7 +86,7 @@ class RockPaperScissors {
 
 extension RockPaperScissors {
     func startMookZziPpa(winner: String) {
-        var turn = winner
+        let turn = winner
         self.selectedRule = .mookZziPpa
         
         printTurn(winner)
