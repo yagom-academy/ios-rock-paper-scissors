@@ -317,6 +317,6 @@ private func decideWinner(user: Menu, computer: Menu?) -> String {
 > - [nameSpace-2](https://cocoacasts.com/namespaces-in-swift)
 > - [Foundation 공식문서](https://developer.apple.com/documentation/foundation)
 
-## 8. 아쉬운 점
+## 아쉬운 점
 * enum내에서 타입 메소드가 아닌 타입 프로퍼티를 사용하는게 기존 생각했던 것과 유사했을 것 같은데 타입 메소드를 사용한 것이 아쉬움.
 * 최대한 많이 줄였지만 아직까지도 중첩되는 메소드가 있는 것이 아쉬움.
