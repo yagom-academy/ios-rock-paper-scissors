@@ -98,6 +98,7 @@ class RockScissorsPaperGameManager {
         printMenu()
         let input = readUserInput()
         var userNumber = 0
+        
         do {
             userNumber = try validateUserInput(userInput: input)
             if userNumber == 0 {
