@@ -10,8 +10,18 @@ import Foundation
 class MukJiPPaGameManager: RockScissorsPaperGameManager {
     var showTurn: MukJiPPaTurn = .gameEnd
     
-    override func printMenu() {
-        print("[\(showTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: ": ")
+    func startMukJiPPaGame() -> (mukJiPPaTurn: MukJiPPaTurn?, gameFlow: GameFlow) {
+        let result = playMukJiPPa()
+        let matchResult = result.matchResult
+        let gameFlow = result.gameFlow
+        
+        if gameFlow == .gameOver {
+            return (nil, .gameOver)
+        }
+        
+        let turn = informTurn(matchResult: matchResult)
+        
+        return sendMukjiPPaResult(turn: turn)
     }
     
     private func playMukJiPPa() -> (matchResult: MatchResult?, gameFlow: GameFlow) {
@@ -71,30 +81,10 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
             return (.computer, .keepPlaying)
         case .gameEnd:
             return (.gameEnd, .gameOver)
+        }
     }
-        
     
-    func startMukJiPPaGame() -> (mukJiPPaTurn: MukJiPPaTurn?, gameFlow: GameFlow) {
-        let result = playMukJiPPa()
-        let matchResult = result.matchResult
-        let gameFlow = result.gameFlow
-        
-        if gameFlow == .gameOver {
-            return (nil, .gameOver)
-        }
-        
-        let turn = informTurn(matchResult: matchResult)
-        
-        
-        return sendMukjiPPaResult(turn: turn)
-        
-//        switch turn {
-//        case .user:
-//            return (.user, .keepPlaying)
-//        case .computer:
-//            return (.computer, .keepPlaying)
-//        case .gameEnd:
-//            return (.gameEnd, .gameOver)
-        }
+    override func printMenu() {
+        print("[\(showTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: ": ")
     }
 }
