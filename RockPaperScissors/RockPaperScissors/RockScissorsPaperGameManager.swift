@@ -49,7 +49,6 @@ class RockScissorsPaperGameManager {
     
     func compareHandShape(computerHand: HandShape?, userHand: HandShape?) -> MatchResult? {
         guard let computerHand = computerHand, let userHand = userHand else {
-            print("comapareHandShape 닐 !!!")
             return nil
         }
         

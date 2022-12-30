@@ -14,7 +14,7 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         print("[\(showTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: ": ")
     }
     
-    func playMukJiPPa() -> (matchResult: MatchResult?, gameFlow: GameFlow) {
+    private func playMukJiPPa() -> (matchResult: MatchResult?, gameFlow: GameFlow) {
         printMenu()
         let input = readUserInput()
         var userNumber = 0
@@ -40,7 +40,7 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         return (matchResult, .keepPlaying)
     }
     
-    func informTurn(matchResult: MatchResult?) -> MukJiPPaTurn {
+    private func informTurn(matchResult: MatchResult?) -> MukJiPPaTurn {
         if let matchResult = matchResult {
             switch matchResult {
             case .win:
