@@ -17,11 +17,12 @@ class Game {
         return Int(userInput)
     }
     
-    private func checkUserNumber(number: Int?) -> Int {
+    func checkUserNumber(number: Int?) -> Int {
         guard let userNumber = number, userNumber >= 0, userNumber <= 3 else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return checkUserNumber(number: choiceUserNumber())
         }
+        
         return userNumber
     }
     

@@ -7,12 +7,21 @@ class MookJjiBba: Game {
     var rockPaperScissorsWinner: Player?
     
     override func choiceUserNumber() -> Int? {
-        guard let mookJjiBbaturnOwner = rockPaperScissorsWinner else {
+        guard let mookJjiBbaTurnOwner = rockPaperScissorsWinner else {
             return choiceUserNumber()
         }
-        
-        print("[\(mookJjiBbaturnOwner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    
+        print("[\(mookJjiBbaTurnOwner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         return super.choiceUserNumber()
+    }
+    
+    override func checkUserNumber(number: Int?) -> Int {
+        guard let userNumber = number, userNumber >= 0, userNumber <= 3 else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            rockPaperScissorsWinner = .computer
+            return checkUserNumber(number: choiceUserNumber())
+        }
+        return userNumber
     }
     
     func playMookJjiBba(turnOwner: Player) {
@@ -42,11 +51,11 @@ class MookJjiBba: Game {
             judgeWinPlayer(turnOwner: currentTurnOwner)
         } else if gameResult == .win {
             currentTurnOwner = Player.user
-            print("\(Player.user.rawValue)의 턴입니다.")
+            print("\(currentTurnOwner.rawValue)의 턴입니다.")
             playMookJjiBba(turnOwner: currentTurnOwner)
         } else if gameResult == .lose {
             currentTurnOwner = Player.computer
-            print("\(Player.computer.rawValue)의 턴입니다.")
+            print("\(currentTurnOwner.rawValue)의 턴입니다.")
             playMookJjiBba(turnOwner: currentTurnOwner)
         }
     }
