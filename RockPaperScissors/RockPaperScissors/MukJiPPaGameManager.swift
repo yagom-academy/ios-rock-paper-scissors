@@ -8,25 +8,10 @@
 import Foundation
 
 class MukJiPPaGameManager: RockScissorsPaperGameManager {
-    var whosTurn: String = "***"
+    var turn: String = ""
     
     override func printMenu() {
-        print("[\(whosTurn) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: ": ")
-    }
-    
-    func turn(matchResult: MatchResult?) {
-        guard let matchResult = matchResult else {
-            return
-        }
-        
-        switch matchResult {
-        case .win:
-            print("사용자 턴")
-        case .lose:
-            print("컴퓨터 턴")
-        case .same:
-            print("게임 끝")
-        }
+        print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>", terminator: ": ")
     }
     
     func playMukJiPPa() -> (matchResult: MatchResult?, gameFlow: GameFlow) {
@@ -59,13 +44,13 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         if let matchResult = matchResult {
             switch matchResult {
             case .win:
-                self.whosTurn = "사용자"
+                self.turn = "사용자"
                 print("사용자의 턴입니다.")
                 return "사용자"
             case .same:
                 return nil
             case .lose:
-                self.whosTurn = "컴퓨터"
+                self.turn = "컴퓨터"
                 print("컴퓨터의 턴입니다.")
                 return "컴퓨터"
             }
@@ -84,7 +69,7 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         }
         
         guard let _ = informMatchResult(matchResult: matchResult) else {
-            return (self.whosTurn, .gameOver)
+            return (self.turn, .gameOver)
         }
         
         return (nil, .keepPlaying)
