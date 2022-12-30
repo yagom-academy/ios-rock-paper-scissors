@@ -59,6 +59,21 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         return .gameEnd
     }
     
+    func sendMukjiPPaResult(turn: MukJiPPaTurn?) -> (mukJiPPaTurn: MukJiPPaTurn?, gameFlow: GameFlow) {
+        guard let turn = turn else {
+            return (nil, .keepPlaying)
+        }
+        
+        switch turn {
+        case .user:
+            return (.user, .keepPlaying)
+        case .computer:
+            return (.computer, .keepPlaying)
+        case .gameEnd:
+            return (.gameEnd, .gameOver)
+    }
+        
+    
     func startMukJiPPaGame() -> (mukJiPPaTurn: MukJiPPaTurn?, gameFlow: GameFlow) {
         let result = playMukJiPPa()
         let matchResult = result.matchResult
@@ -70,13 +85,16 @@ class MukJiPPaGameManager: RockScissorsPaperGameManager {
         
         let turn = informTurn(matchResult: matchResult)
         
-        switch turn {
-        case .user:
-            return (.user, .keepPlaying)
-        case .computer:
-            return (.computer, .keepPlaying)
-        case .gameEnd:
-            return (.gameEnd, .gameOver)
+        
+        return sendMukjiPPaResult(turn: turn)
+        
+//        switch turn {
+//        case .user:
+//            return (.user, .keepPlaying)
+//        case .computer:
+//            return (.computer, .keepPlaying)
+//        case .gameEnd:
+//            return (.gameEnd, .gameOver)
         }
     }
 }

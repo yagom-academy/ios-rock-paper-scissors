@@ -124,7 +124,7 @@ class RockScissorsPaperGameManager {
             return (matchResult, .keepPlaying)
         }
     }
-   
+    
     func startGame() {
         var gameFlow: GameFlow = .keepPlaying
         var matchResult: MatchResult?
