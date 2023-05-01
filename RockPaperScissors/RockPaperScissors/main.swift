@@ -6,5 +6,5 @@
 
 import Foundation
 
-print("Hello, World!")
-
+let andrew = RockPaperScissorsGame()
+andrew.selectMenu()
