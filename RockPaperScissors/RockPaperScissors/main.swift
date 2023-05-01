@@ -8,15 +8,15 @@
 var programRunning = true
 
 while programRunning {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0>")
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
     if let input: String = readLine() {
         switch input {
         case "1":
-            computeGame(userInput: "1")
+            computeGame(userInput: 1)
         case "2":
-            computeGame(userInput: "2")
+            computeGame(userInput: 2)
         case "3":
-            computeGame(userInput: "3")
+            computeGame(userInput: 3)
         case "0":
             programRunning = false
             print("게임 종료")
@@ -26,35 +26,17 @@ while programRunning {
     }
 }
 
-func computeGame(userInput: String) {
+func computeGame(userInput: Int) {
     let computerNumber: Int = Int.random(in: 1...3)
-    print("\(computerNumber)")
-    switch computerNumber {
-    case 1:
-        if userInput == "1" {
-            print("비겼습니다!")
-        }else if userInput == "2" {
-            print("이겼습니다!")
-        }else {
-            print("졌습니다!")
-        }
-    case 2:
-        if userInput == "1" {
-            print("졌습니다!")
-        }else if userInput == "2" {
-            print("비겼습니다!")
-        }else {
-            print("이겼습니다!")
-        }
-    case 3:
-        if userInput == "1" {
-            print("이겼습니다!")
-        }else if userInput == "2" {
-            print("졌습니다!")
-        }else {
-            print("비겼습니다!")
-        }
-    default:
-        print("default")
+    if userInput == computerNumber {
+        print("비겼습니다!")
+    } else if (userInput == 1 && computerNumber == 3)
+                 || (userInput == 2 && computerNumber == 1)
+                 || (userInput == 3 && computerNumber == 2) {
+        print("이겼습니다!")
+        return
+    } else {
+        print("졌습니다!")
+        return
     }
 }
