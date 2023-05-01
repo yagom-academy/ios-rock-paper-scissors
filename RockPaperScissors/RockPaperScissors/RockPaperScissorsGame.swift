@@ -21,10 +21,15 @@ struct RockPaperScissorsGame {
             
             switch menu {
             case .paper, .rock, .scissors:
-                print("가위바위보")
+                let computerPick: String = generateComputerRandomNumber()
+                print(computerPick)
             case .termination:
                 isRunning = false
             }
         }
+    }
+    
+    private func generateComputerRandomNumber() -> String {
+        return String(Int.random(in: 1...3))
     }
 }
