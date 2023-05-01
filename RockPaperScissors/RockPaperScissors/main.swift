@@ -7,30 +7,29 @@
 struct RockPaperScissors {
     func startGame() {
         while true {
+            let computerNumber = Int.random(in: 1...3)
+            
             print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
             
-            guard let input = readLine(), let number = Int(input), 0...3 ~= number else {
+            guard let input = readLine(), let userNumber = Int(input), 0...3 ~= userNumber else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 
                 continue
             }
             
-            let computerNumber = Int.random(in: 1...3)
-            
-            switch number {
-            case 0:
+            if userNumber == 0 {
                 print("게임 종료")
                 
                 return
-            default:
-                guard discrimination(user: number, computer: computerNumber) else {
-                    return
-                }
+            }
+            
+            guard compare(to: userNumber, and: computerNumber) else {
+                return
             }
         }
     }
     
-    func discrimination(user: Int, computer: Int) -> Bool {
+    func compare(to user: Int, and computer: Int) -> Bool {
         if user == computer {
             print("비겼습니다!!")
             return true
