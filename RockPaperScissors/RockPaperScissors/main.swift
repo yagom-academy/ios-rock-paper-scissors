@@ -7,4 +7,4 @@
 import Foundation
 
 let andrew = RockPaperScissorsGame()
-andrew.selectMenu()
+andrew.startGame()
