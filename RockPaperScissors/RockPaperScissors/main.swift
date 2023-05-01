@@ -4,43 +4,53 @@
 //  Copyright © yagom academy. All rights reserved.
 
 enum Choice: Int {
-    case Rock = 0
-    case Paper = 1
-    case Scissors = 2
+    case end = 0
+    case Rock = 1
+    case Paper = 2
+    case Scissors = 3
 }
 
-
 struct RockPaperScissorsGame {
+    private func getUserChoice() -> Choice? {
+        print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+        
+        guard let inputString = readLine(), let inputNumber = Int(inputString) else { return nil }
+        
+        return Choice(rawValue: inputNumber)
+    }
     
-    private
-    func getUserChoice(_ inputMenu: String?) -> Choice? {
-        var userChoice: Choice? = nil
+    private func evaluateWinner(_ userChoice: Choice) {
+        guard let computerChoice = Choice(rawValue: Int.random(in: 1...3)) else { return }
+        let result = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
         
-        switch inputMenu {
-            case "1":
-                userChoice = Choice.Scissors
-            case "2":
-                userChoice = Choice.Rock
-            case "3":
-                userChoice = Choice.Paper
-            case "0":
-                break
+        switch result {
+            case 0:
+                print("비겼습니다!")
+            case 1:
+                print("이겼습니다!")
+            case 2:
+                print("졌습니다!")
             default:
-                print("잘못된 입력입니다. 다시 시도해주세요.")
+                print("잘못된 결과입니다.")
         }
-        
-        return userChoice
     }
     
     func start() {
         while true {
-            print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
+            guard let userChoice = getUserChoice() else {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                continue
+            }
             
-            let inputMenu = readLine()
-            let computerChoice = Choice(rawValue: Int.random(in: 0...2))
+            if userChoice == .end {
+                print("게임 종료")
+                break
+            }
             
-            guard let userChoice = getUserChoice(inputMenu) else { continue }
+            evaluateWinner(userChoice)
         }
     }
-    
 }
+
+let test = RockPaperScissorsGame()
+test.start()
