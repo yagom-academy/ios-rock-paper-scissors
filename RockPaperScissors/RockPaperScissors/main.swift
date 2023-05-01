@@ -5,6 +5,12 @@
 // 
 
 
+enum Game: Int, CaseIterable {
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+}
+
 var programRunning = true
 
 while programRunning {
@@ -12,11 +18,11 @@ while programRunning {
     if let input: String = readLine() {
         switch input {
         case "1":
-            computeGame(userInput: 1)
+            computeGame(userInput: .scissors)
         case "2":
-            computeGame(userInput: 2)
+            computeGame(userInput: .rock)
         case "3":
-            computeGame(userInput: 3)
+            computeGame(userInput: .paper)
         case "0":
             programRunning = false
             print("게임 종료")
@@ -26,17 +32,17 @@ while programRunning {
     }
 }
 
-func computeGame(userInput: Int) {
-    let computerNumber: Int = Int.random(in: 1...3)
+func computeGame(userInput: Game) {
+    guard let computerNumber: Game = Game.allCases.randomElement() else {
+        return
+    }
     if userInput == computerNumber {
         print("비겼습니다!")
-    } else if (userInput == 1 && computerNumber == 3)
-                 || (userInput == 2 && computerNumber == 1)
-                 || (userInput == 3 && computerNumber == 2) {
+    } else if (userInput == .scissors && computerNumber == .paper)
+                 || (userInput == .rock && computerNumber == .scissors)
+                 || (userInput == .paper && computerNumber == .rock) {
         print("이겼습니다!")
-        return
     } else {
         print("졌습니다!")
-        return
     }
 }
