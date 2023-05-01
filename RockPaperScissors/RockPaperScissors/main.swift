@@ -6,51 +6,47 @@
 
 struct RockPaperScissors {
     func startGame() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        let userNumber = inputUser()
-        let computerNumber = Int.random(in: 1...3)
-        print("computerNumber : \(computerNumber)")
-
-        discrimination(user: userNumber, computer: computerNumber)
-    }
-    
-    func inputUser() -> Int {
-        guard let inputValue = readLine(), let intValue = Int(inputValue), 1...3 ~= intValue else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+        while true {
+            print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
             
-            return -1
+            guard let input = readLine(), let number = Int(input), 0...3 ~= number else {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                
+                continue
+            }
+            
+            let computerNumber = Int.random(in: 1...3)
+            
+            switch number {
+            case 0:
+                print("게임 종료")
+                
+                return
+            default:
+                guard discrimination(user: number, computer: computerNumber) else {
+                    return
+                }
+            }
         }
-        
-        return intValue
     }
     
-    func discrimination(user: Int, computer: Int) {
-        var userDefeat: Int
-        var userWin: Int
-        
+    func discrimination(user: Int, computer: Int) -> Bool {
         if user == computer {
-            print("비겼습니다!")
-        }
-        
-        if user == 3 {
-            userDefeat = 1
+            print("비겼습니다!!")
+            return true
+        } else if isUserWin(user, computer) {
+            print("이겼습니다!!")
         } else {
-            userDefeat = user + 1
+            print("졌습니다!!")
         }
         
-        if user == 1 {
-            userWin = 3
-        } else {
-            userWin = user - 1
-        }
-        
-        if userDefeat == computer {
-            print("졌습니다!")
-        }
-        
-        if userWin == computer {
-            print("이겼습니다!")
-        }
+        return false
+    }
+    
+    func isUserWin(_ user: Int, _ computer: Int) -> Bool {
+        return user == 1 && computer == 3
+            || user == 2 && computer == 1
+            || user == 3 && computer == 2
     }
 }
 
