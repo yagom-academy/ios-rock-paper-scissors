@@ -10,17 +10,18 @@ enum Choice: Int {
     case Scissors = 3
 }
 
-struct RockPaperScissorsGame {
+struct RockPaperScissors {
     private func getUserChoice() -> Choice? {
         print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
         
-        guard let inputString = readLine(), let inputNumber = Int(inputString) else { return nil }
+        guard let input = readLine(), let choiceNumber = Int(input) else { return nil }
         
-        return Choice(rawValue: inputNumber)
+        return Choice(rawValue: choiceNumber)
     }
     
     private func evaluateWinner(_ userChoice: Choice) {
         guard let computerChoice = Choice(rawValue: Int.random(in: 1...3)) else { return }
+        
         let result = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
         
         switch result {
@@ -51,6 +52,3 @@ struct RockPaperScissorsGame {
         }
     }
 }
-
-let test = RockPaperScissorsGame()
-test.start()
