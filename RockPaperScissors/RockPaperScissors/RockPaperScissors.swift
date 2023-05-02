@@ -42,9 +42,17 @@ class RockPaperScissors {
     private func getUserChoice(_ type: GameType) -> Choice? {
         printInputMessage(type)
         
-        guard let input = readLine(), let choiceNumber = Int(input) else { return nil }
+        guard let input = readLine(), let choiceNumber = Int(input) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return getUserChoice(type)
+        }
         
-        return Choice(rawValue: choiceNumber)
+        if let choice = Choice(rawValue: choiceNumber) {
+            return choice
+        } else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            return getUserChoice(type)
+        }
     }
     
     private func checkWinner(_ userChoice: Choice) -> Result {
@@ -80,18 +88,7 @@ class RockPaperScissors {
     }
         
     private func isMookJjiBbaGameOver() -> Bool {
-        while true {
-            guard let userChoice = getUserChoice(.mookJjiBba) else {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-                turn = .computer
-                continue
-            }
-            
-            if userChoice == .end {
-                print("게임 종료")
-                return true
-            }
-            
+        while let userChoice = getUserChoice(.mookJjiBba), userChoice != .end {
             let resultMookJjiBba = checkWinner(userChoice)
             handleResult(resultMookJjiBba)
             
@@ -99,47 +96,18 @@ class RockPaperScissors {
                 return true
             }
         }
+        
+        print("게임 종료")
+        return true
     }
-    
-    private func isRockPaperScissorsGameOver() -> Bool {
-        guard let userChoice = getUserChoice(.rockPaperScissors) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            continue
-        }
-        
-        if userChoice == .end {
-            print("게임 종료")
-            break
-        }
-        
-        let result = checkWinner(userChoice)
-        handleResult(result)
-        
-        if result == .draw || result == .invalid {
-            continue
-        }
-    }
-    
+
     func start() {
-        while true {
-            guard let userChoice = getUserChoice(.rockPaperScissors) else {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-                continue
-            }
+        while let userChoice = getUserChoice(.rockPaperScissors), userChoice != .end {
+            handleResult(checkWinner(userChoice))
             
-            if userChoice == .end {
-                print("게임 종료")
-                break
-            }
-            
-            let result = checkWinner(userChoice)
-            handleResult(result)
-            
-            if result == .draw || result == .invalid {
-                continue
-            }
-            
-            if isMookJjiBbaGameOver() break
+            if isMookJjiBbaGameOver() { break }
         }
+        
+        print("게임 종료")
     }
 }
