@@ -32,6 +32,13 @@ func createRandomNumber() -> Int {
 }
 
 func compareRandomNumber(_ userNumber: Int, to randomNumber: Int) {
-    
+    if userNumber == randomNumber {
+        print("비겼습니다!")
+    } else if (userNumber - randomNumber).magnitude == 2 && userNumber < randomNumber {
+        print("이겼습니다!")
+    } else if userNumber < randomNumber {
+        print("졌습니다!")
+    }
 }
 
+feat: 비교함수 생성
