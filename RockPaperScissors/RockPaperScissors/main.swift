@@ -21,7 +21,7 @@ func getUserInput(_ userInput: String, _ computerInput: String) {
     if userInput == HandSign.scissors.rawValue ||
         userInput == HandSign.rock.rawValue ||
         userInput == HandSign.paper.rawValue {
-//        showGameResult(checkRockPaperScissors(with: userInput, computerInput))
+        showGameResult(checkRockPaperScissors(with: userInput, computerInput))
     } else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
@@ -39,5 +39,16 @@ func checkRockPaperScissors(with userInput: String, _ computerInput: String) -> 
         return .lose
     }
 }
-//refactor: 가위바위보 승패 결정 if문에서 switch문으로 변경
+
+func showGameResult(_ result: GameResult) {
+    switch result {
+    case .win:
+        print("이겼습니다")
+    case .lose:
+        print("졌습니다")
+    case .draw:
+        print("비겼습니다")
+    }
+}
+
 showGameMenu()
