@@ -6,13 +6,26 @@
 //
 
 class Player {
-    // 속성(특성)
-    // Player의 현재 가위, 바위, 보 손 모양
-    // Player Type
+    private var currentHandShape: HandShape?
+    private var type: PlayerType
     
-    // 행위(메서드)
-    // 생성자
-    // Player 객체의 현재 손 모양(가위, 바위, 보 중 무엇인지?)을 나타내는 메서드
-    // 현재 Player 객체의 손 모양을 변경하는 메서드
-    // 랜덤한 손 모양 값을 생성해서 내는 메서드
+    init(type: PlayerType) {
+        self.currentHandShape = nil
+        self.type = type
+    }
+    
+    func changeHandShape(to handShape: HandShape) {
+        self.currentHandShape = handShape
+    }
+    
+    func getCurrentHandShape() -> HandShape? {
+        guard let handShape = self.currentHandShape else { return nil }
+        return handShape
+    }
+    
+    func makeRandomHandShape() {
+        let handShapes: [HandShape] = [.rock, .paper, .scissors]
+        guard let randomHandShape = handShapes.randomElement() else { return }
+        changeHandShape(to: randomHandShape)
+    }
 }
