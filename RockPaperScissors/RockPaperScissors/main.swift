@@ -11,18 +11,8 @@ enum RockPaperScissors: Int {
 }
 
 func startGame() {
-    
     let computerNumber = Int.random(in: 1...3)
-    
-    printGameGuide()
-    
-    guard let input = readLine(), let userNumber = Int(input), 0...3 ~= userNumber else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        
-        startGame()
-        
-        return
-    }
+    let userNumber = inputUserNumber()
     
     if userNumber == 0 {
         print("게임 종료")
@@ -30,36 +20,38 @@ func startGame() {
         return
     }
     
-    var userHand: RockPaperScissors
-    var computerhand: RockPaperScissors
-    
-    switch userNumber {
-    case 1:
-        userHand = .scissors
-    case 2:
-        userHand = .rock
-    case 3:
-        userHand = .paper
-    default:
-        return
-    }
-    
-    switch computerNumber {
-    case 1:
-        computerhand = .scissors
-    case 2:
-        computerhand = .rock
-    case 3:
-        computerhand = .paper
-    default:
-        return
-    }
-    
-    compare(to: userHand, and: computerhand)
+    compare(to: changeNumberToEnum(userNumber), and: changeNumberToEnum(computerNumber))
 }
 
-func printGameGuide() {
+func inputUserNumber() -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+    
+    guard let input = readLine(), let userNumber = Int(input), 0...3 ~= userNumber else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        
+        startGame()
+        
+        return -1
+    }
+    
+    return userNumber
+}
+
+func changeNumberToEnum(_ playerNumber: Int) -> RockPaperScissors {
+    var playerHand: RockPaperScissors = RockPaperScissors.paper
+    
+    switch playerNumber {
+    case 1:
+        playerHand = .scissors
+    case 2:
+        playerHand = .rock
+    case 3:
+        playerHand = .paper
+    default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    }
+    
+    return playerHand
 }
 
 func compare(to user: RockPaperScissors, and computer: RockPaperScissors) {
