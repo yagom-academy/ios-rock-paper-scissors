@@ -4,6 +4,12 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
+enum RockPaperScissors: Int {
+    case scissors = 1
+    case rock = 2
+    case paper = 3
+}
+
 func startGame() {
     while true {
         let computerNumber = Int.random(in: 1...3)
@@ -22,13 +28,38 @@ func startGame() {
             return
         }
         
-        guard compare(to: userNumber, and: computerNumber) else {
+        var userHand: RockPaperScissors
+        var computerhand: RockPaperScissors
+        
+        switch userNumber {
+        case 1:
+            userHand = .scissors
+        case 2:
+            userHand = .rock
+        case 3:
+            userHand = .paper
+        default:
+            return
+        }
+        
+        switch computerNumber {
+        case 1:
+            computerhand = .scissors
+        case 2:
+            computerhand = .rock
+        case 3:
+            computerhand = .paper
+        default:
+            return
+        }
+        
+        guard compare(to: userHand, and: computerhand) else {
             return
         }
     }
 }
 
-func compare(to user: Int, and computer: Int) -> Bool {
+func compare(to user: RockPaperScissors, and computer: RockPaperScissors) -> Bool {
     if user == computer {
         print("비겼습니다!!")
         return true
@@ -41,10 +72,10 @@ func compare(to user: Int, and computer: Int) -> Bool {
     return false
 }
 
-func isUserWin(_ user: Int, _ computer: Int) -> Bool {
-    return user == 1 && computer == 3
-        || user == 2 && computer == 1
-        || user == 3 && computer == 2
+func isUserWin(_ user: RockPaperScissors, _ computer: RockPaperScissors) -> Bool {
+    return user == .scissors && computer == .paper
+    || user == .rock && computer == .scissors
+    || user == .paper && computer == .rock
 }
 
 startGame()
