@@ -1,10 +1,6 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by myungsun, Yetti.
 //  Copyright © yagom academy. All rights reserved.
 // 
-
-import Foundation
-
-print("Hello, World!")
 
