@@ -51,22 +51,34 @@ class RockPaperScissors {
         guard let computerChoice = Choice(rawValue: Int.random(in: 1...3)) else { return .invalid }
         
         let resultValue = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
-        let result: Result
         
         switch resultValue {
             case 0:
-                result = .draw
+                return .draw
             case 1:
-                result = .win
+                return .win
             case 2:
-                result = .lose
+                return .lose
             default:
-                result = .invalid
+                return .invalid
         }
-        
-        return result
     }
     
+    private func handleResult(_ result: Result) {
+        switch result {
+            case .win:
+                turn = .user
+                print("이겼습니다!")
+            case .lose:
+                turn = .computer
+                print("졌습니다!")
+            case .draw:
+                print("비겼습니다!")
+            case .invalid:
+                print("잘못된 결과입니다.")
+        }
+    }
+        
     private func isMookJjiBbaGameOver() -> Bool {
         while true {
             guard let userChoice = getUserChoice(.mookJjiBba) else {
@@ -81,21 +93,30 @@ class RockPaperScissors {
             }
             
             let resultMookJjiBba = checkWinner(userChoice)
+            handleResult(resultMookJjiBba)
             
-            switch resultMookJjiBba {
-            case .win:
-                turn = .user
-            case .lose:
-                turn = .computer
-            case .draw, .invalid:
-                if turn == .user {
-                    print("사용자의 승리!")
-                }
-                else {
-                    print("컴퓨터의 승리!")
-                }
+            if resultMookJjiBba == .draw || resultMookJjiBba == .invalid {
                 return true
             }
+        }
+    }
+    
+    private func isRockPaperScissorsGameOver() -> Bool {
+        guard let userChoice = getUserChoice(.rockPaperScissors) else {
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            continue
+        }
+        
+        if userChoice == .end {
+            print("게임 종료")
+            break
+        }
+        
+        let result = checkWinner(userChoice)
+        handleResult(result)
+        
+        if result == .draw || result == .invalid {
+            continue
         }
     }
     
@@ -112,22 +133,13 @@ class RockPaperScissors {
             }
             
             let result = checkWinner(userChoice)
+            handleResult(result)
             
-            switch result {
-                case .win:
-                    turn = .user
-                    print("이겼습니다!")
-                case .lose:
-                    turn = .computer
-                    print("졌습니다!")
-                case .draw, .invalid:
-                    continue
+            if result == .draw || result == .invalid {
+                continue
             }
             
-            // mookJjiBba
-            if isMookJjiBbaGameOver() {
-                break
-            }
+            if isMookJjiBbaGameOver() break
         }
     }
 }
