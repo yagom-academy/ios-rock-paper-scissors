@@ -33,7 +33,7 @@ class RockPaperScissors {
     var turn: Turn = .user
     
     private func printInputMessage(_ type: GameType) {
-        var message = type == .rockPaperScissors ? "가위(1), 바위(2), 보(3)! <종료 : 0>" :
+        let message = type == .rockPaperScissors ? "가위(1), 바위(2), 보(3)! <종료 : 0>" :
                                                 "[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>"
         
         print(message, terminator: " : ")
@@ -55,20 +55,48 @@ class RockPaperScissors {
         
         switch resultValue {
             case 0:
-                print("비겼습니다!")
                 result = .draw
             case 1:
-                print("이겼습니다!")
                 result = .win
             case 2:
-                print("졌습니다!")
                 result = .lose
             default:
-                print("잘못된 결과입니다.")
                 result = .invalid
         }
         
         return result
+    }
+    
+    private func isMookJjiBbaGameOver() -> Bool {
+        while true {
+            guard let userChoice = getUserChoice(.mookJjiBba) else {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                turn = .computer
+                continue
+            }
+            
+            if userChoice == .end {
+                print("게임 종료")
+                return true
+            }
+            
+            let resultMookJjiBba = checkWinner(userChoice)
+            
+            switch resultMookJjiBba {
+            case .win:
+                turn = .user
+            case .lose:
+                turn = .computer
+            case .draw, .invalid:
+                if turn == .user {
+                    print("사용자의 승리!")
+                }
+                else {
+                    print("컴퓨터의 승리!")
+                }
+                return true
+            }
+        }
     }
     
     func start() {
@@ -88,12 +116,18 @@ class RockPaperScissors {
             switch result {
                 case .win:
                     turn = .user
+                    print("이겼습니다!")
                 case .lose:
                     turn = .computer
+                    print("졌습니다!")
                 case .draw, .invalid:
                     continue
             }
+            
             // mookJjiBba
+            if isMookJjiBbaGameOver() {
+                break
+            }
         }
     }
 }
