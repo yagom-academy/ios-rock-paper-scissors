@@ -42,17 +42,12 @@ class RockPaperScissors {
     private func getUserChoice(_ type: GameType) -> Choice? {
         printInputMessage(type)
         
-        guard let input = readLine(), let choiceNumber = Int(input) else {
+        guard let input = readLine(), let choiceNumber = Int(input), let choice = Choice(rawValue: choiceNumber) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             return getUserChoice(type)
         }
         
-        if let choice = Choice(rawValue: choiceNumber) {
-            return choice
-        } else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return getUserChoice(type)
-        }
+        return choice
     }
     
     private func checkWinner(_ userChoice: Choice) -> Result {
@@ -92,9 +87,7 @@ class RockPaperScissors {
             let resultMookJjiBba = checkWinner(userChoice)
             handleResult(resultMookJjiBba)
             
-            if resultMookJjiBba == .draw || resultMookJjiBba == .invalid {
-                return true
-            }
+            if resultMookJjiBba == .draw || resultMookJjiBba == .invalid { return true }
         }
         
         print("게임 종료")
