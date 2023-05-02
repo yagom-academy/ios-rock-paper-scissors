@@ -8,22 +8,25 @@ import Foundation
 
 print("Hello, World!")
 
-func inputMenu() {
+func inputMenu() -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0>: ", terminator: "")
-    let userNumber = readLine()
+    guard let inputNumber = readLine() else {
+        print("error2")
+        return 0
+    }
     
-    switch userNumber {
-    case "1":
-        print("case1")
-    case "2":
-        print("case2")
-    case "3":
-        print("case3")
-    case "0":
+            
+    if inputNumber == "0" {
         print("게임 종료")
-    default:
+    }
+    if inputNumber != "1" || inputNumber != "2" || inputNumber != "3" {
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
+    guard let userNumber = Int(inputNumber) else {
+        print("error3")
+        return 0
+    }
+    return userNumber
 }
 
 func createRandomNumber() -> Int {
@@ -38,7 +41,8 @@ func compareRandomNumber(_ userNumber: Int, to randomNumber: Int) {
         print("이겼습니다!")
     } else if userNumber < randomNumber {
         print("졌습니다!")
+    } else {
+        print("error")
     }
 }
 
-feat: 비교함수 생성
