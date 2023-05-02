@@ -4,6 +4,46 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
+enum HandShape: CaseIterable {
+	case scissors
+	case rock
+	case paper
+}
+
+enum GameResult {
+	case win
+	case draw
+	case lose
+}
+
+func playRockScissorsPaper() {
+	var isRunningStart = true
+
+	while isRunningStart {
+		let inputUserMenu = inputUserNumber()
+		
+		if inputUserMenu == 0 { break }
+		
+		let selectInputUserNumber = inputUserMenu-1
+		let selectRandomNumber = generateRandomNumber()-1
+		
+		let handShape = HandShape.allCases[selectInputUserNumber]
+		let randomHandShape = HandShape.allCases[selectRandomNumber]
+		
+		switch competeResult(user: handShape, computer: randomHandShape){
+		case .draw:
+			print("비겼습니다!")
+		case .lose:
+			print("졌습니다!")
+			isRunningStart = false
+		case .win:
+			print("이겼습니다!")
+			isRunningStart = false
+		}
+	}
+	print("게임 종료")
+}
+
 func inputUserNumber() -> Int {
 	var outputNumber = 0
 	var isNotCorrectNumber = true
@@ -32,37 +72,15 @@ func generateRandomNumber() -> Int {
 	return Int.random(in: 1...3)
 }
 
-enum HandShape: CaseIterable {
-	case scissors
-	case rock
-	case paper
-}
-
-enum GameResult {
-	case win
-	case draw
-	case lose
-}
-
-func competeResult(userHandShape: HandShape, computerHandShape: HandShape) -> GameResult {
-    switch (userHandShape, computerHandShape) {
-    case (.scissors, .scissors):
+func competeResult(user: HandShape, computer: HandShape) -> GameResult {
+    switch (user, computer) {
+    case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
         return .draw
-    case (.scissors, .rock):
+    case (.scissors, .rock), (.rock, .paper), (.paper, .scissors):
         return .lose
-    case (.scissors, .paper):
-        return .win
-    case (.rock, .rock):
-        return .draw
-    case (.rock, .scissors):
-        return .lose
-    case (.rock, .paper):
-        return .win
-    case (.paper, .paper):
-        return .draw
-    case (.paper, .scissors):
-        return .lose
-    case (.paper, .rock):
+    case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
         return .win
     }
 }
+
+playRockScissorsPaper()
