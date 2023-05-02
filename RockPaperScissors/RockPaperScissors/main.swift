@@ -27,17 +27,17 @@ func getUserInput(_ userInput: String, _ computerInput: String) {
     }
 }
 
-
-func checkRockPaperScissors(with userInput: String, _ computerInput: String) {
-    if userInput == computerInput {
-        print("비겼습니다!")
-    } else if userInput == "1" && computerInput == "3" ||
-                userInput == "2" && computerInput == "1" ||
-                userInput == "3" && computerInput == "2" {
-        print("이겼습니다!")
-    } else {
-        print("졌습니다!")
+func checkRockPaperScissors(with userInput: String, _ computerInput: String) -> GameResult {
+    switch (userInput, computerInput) {
+    case (userInput, computerInput) where userInput == computerInput:
+        return .draw
+    case (HandSign.scissors.rawValue, HandSign.paper.rawValue),
+        (HandSign.rock.rawValue, HandSign.scissors.rawValue),
+        (HandSign.paper.rawValue, HandSign.rock.rawValue):
+        return .win
+    default:
+        return .lose
     }
 }
-
+//refactor: 가위바위보 승패 결정 if문에서 switch문으로 변경
 showGameMenu()
