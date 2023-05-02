@@ -16,13 +16,11 @@ func compareRockPaperScissors(between computerRockPaperScissors: RockPaperScisso
         return "비겼습니다!"
     }
 
-    switch playerRockPaperScissors {
-    case .scissors:
-        return computerRockPaperScissors == RockPaperScissors.paper ? "이겼습니다!" : "졌습니다!"
-    case .rock:
-        return computerRockPaperScissors == RockPaperScissors.scissors ? "이겼습니다!" : "졌습니다!"
-    case .paper:
-        return computerRockPaperScissors == RockPaperScissors.rock ? "이겼습니다!" : "졌습니다!"
+    switch (computerRockPaperScissors, playerRockPaperScissors) {
+    case (.paper, .scissors), (.scissors, .rock), (.rock, .paper):
+        return "이겼습니다!"
+    default:
+        return "졌습니다!"
     }
 }
 
