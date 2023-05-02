@@ -5,8 +5,6 @@
 //  Created by Daehoon Lee on 2023/05/01.
 //
 
-import Foundation
-
 struct RockPaperScissorsGame {
     func startGame() {
         var isRunning: Bool = true
@@ -22,7 +20,7 @@ struct RockPaperScissorsGame {
             switch menu {
             case .paper, .rock, .scissors:
                 let computer: String = generateComputerRandomNumber()
-                comparePick(with: (user, computer))
+                comparePick(user, computer)
             case .termination:
                 isRunning = false
             }
@@ -33,12 +31,14 @@ struct RockPaperScissorsGame {
         return String(Int.random(in: 1...3))
     }
     
-    private func comparePick(with pair: (user: String, computer: String)) {
-        let winningPair = [("2", "1"), ("1", "3"), ("3", "2")]
+    private func comparePick(_ user: String, _ computer: String) {
+        let winningPair: [(user: Menu, computer: Menu)] = [(.rock, .scissors),
+                                                           (.scissors, .paper),
+                                                           (.paper, .rock)]
         
-        if winningPair.contains(where: {$0 == pair}) {
+        if winningPair.contains(where: { $0.user.rawValue == user && $0.computer.rawValue == computer }) {
             print("이겼습니다!")
-        } else if pair.user == pair.computer {
+        } else if user == computer {
             print("비겼습니다!")
         } else {
             print("졌습니다!")
