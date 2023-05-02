@@ -10,18 +10,20 @@ enum RockPaperScissors: Int {
     case paper = 3
 }
 
-func compareRockPaperScissors(between computerRockPaperScissors: RockPaperScissors, and playerRockPaperScissors: RockPaperScissors) -> String {
-    
-    if computerRockPaperScissors == playerRockPaperScissors {
-        return "비겼습니다!"
-    }
+func compareRockPaperScissors(between computerRockPaperScissors: RockPaperScissors, and playerRockPaperScissors: RockPaperScissors) -> Bool {
+    var isGameOver: Bool = true
 
     switch (computerRockPaperScissors, playerRockPaperScissors) {
     case (.paper, .scissors), (.scissors, .rock), (.rock, .paper):
-        return "이겼습니다!"
+        print("이겼습니다!")
+    case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
+        print("졌습니다!")
     default:
-        return "졌습니다!"
+        print("비겼습니다!")
+        isGameOver = false
     }
+    
+    return isGameOver
 }
 
 func getUserInput() -> String {
@@ -41,7 +43,7 @@ func checkUserInput(_ userInput: String) -> Bool {
               let computerRockPaperScissors = RockPaperScissors(rawValue: Int.random(in: 1...3)) else {
             return isGameInProgress
         }
-        print(compareRockPaperScissors(between: computerRockPaperScissors, and: playerRockPaperScissors))
+        isGameInProgress = !compareRockPaperScissors(between: computerRockPaperScissors, and: playerRockPaperScissors)
     case "0":
         isGameInProgress = false
         print("게임 종료")
