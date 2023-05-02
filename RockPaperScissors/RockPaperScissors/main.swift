@@ -18,11 +18,12 @@ func showGameMenu() {
 }
 
 func getUserInput(_ userInput: String, _ computerInput: String) {
-    if userInput == HandSign.scissors.rawValue ||
-        userInput == HandSign.rock.rawValue ||
-        userInput == HandSign.paper.rawValue {
-        showGameResult(checkRockPaperScissors(with: userInput, computerInput))
-    } else {
+    switch userInput {
+    case HandSign.scissors.rawValue,
+        HandSign.rock.rawValue,
+        HandSign.paper.rawValue:
+        showGameResult(about: checkRockPaperScissors(with: userInput, computerInput))
+    default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
     }
 }
@@ -40,7 +41,7 @@ func checkRockPaperScissors(with userInput: String, _ computerInput: String) -> 
     }
 }
 
-func showGameResult(_ result: GameResult) {
+func showGameResult(about result: GameResult) {
     switch result {
     case .win:
         print("이겼습니다")
