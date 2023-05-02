@@ -5,4 +5,3 @@
 
 let rockPaperScissors = RockPaperScissors()
 rockPaperScissors.start()
-
