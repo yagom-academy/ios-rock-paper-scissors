@@ -8,6 +8,10 @@
 struct FunnyGame {
     func startGame() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        selectMenu()
+    }
+    
+    private func selectMenu() {
         guard let input: String = readLine() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             startGame()
@@ -28,7 +32,7 @@ struct FunnyGame {
             startGame()
         }
     }
-
+    
     private func makeRival() throws -> HandOptions {
         guard let rivalHand: HandOptions = HandOptions.allCases.randomElement() else {
             throw Errors.invalidRival
