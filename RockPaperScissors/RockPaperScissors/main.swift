@@ -4,11 +4,14 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-enum Menu: String, CaseIterable {
+enum HandOptions: String, CaseIterable {
     case scissors = "1"
     case rock = "2"
     case paper = "3"
-    case exit = "0"
+}
+
+enum Errors: Error {
+    case invalidRival
 }
 
 func startGame() {
@@ -18,15 +21,14 @@ func startGame() {
         startGame()
         return
     }
-    
     switch input {
-    case Menu.scissors.rawValue:
-        playGame(with: .scissors)
-    case Menu.rock.rawValue:
-        playGame(with: .rock)
-    case Menu.paper.rawValue:
-        playGame(with: .paper)
-    case Menu.exit.rawValue:
+    case HandOptions.scissors.rawValue:
+        compareHand(HandOptions.scissors, with: HandOptions.rock)
+    case HandOptions.rock.rawValue:
+        compareHand(HandOptions.rock, with: HandOptions.paper)
+    case HandOptions.paper.rawValue:
+        compareHand(HandOptions.paper, with: HandOptions.scissors)
+    case "0":
         print("게임 종료")
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -34,20 +36,28 @@ func startGame() {
     }
 }
 
-func playGame(with userHand: Menu) {
-    guard let rivalHand: Menu = Menu.allCases.randomElement() else {
+func makeRival() throws -> HandOptions {
+    guard let rivalHand: HandOptions = HandOptions.allCases.randomElement() else {
+        throw Errors.invalidRival
+    }
+    return rivalHand
+}
+
+func compareHand(_ userHand: HandOptions, with trialHand: HandOptions) {
+    let rivalHand: HandOptions
+    do {
+        rivalHand = try makeRival()
+    } catch {
+        print("가위바위보가 성립하지 않습니다.")
         return
     }
+    let result = rivalHand == userHand ? "비겼습니다." :
+    rivalHand == trialHand ? "졌습니다." :
+    "이겼습니다!"
+    print("\(result)")
     
-    if userHand == rivalHand {
-        print("비겼습니다!")
+    if result == "비겼습니다." {
         startGame()
-    } else if (userHand == .scissors && rivalHand == .paper)
-                 || (userHand == .rock && rivalHand == .scissors)
-                 || (userHand == .paper && rivalHand == .rock) {
-        print("이겼습니다!")
-    } else {
-        print("졌습니다!")
     }
 }
 
