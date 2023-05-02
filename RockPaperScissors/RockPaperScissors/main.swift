@@ -43,3 +43,26 @@ enum GameResult {
 	case draw
 	case lose
 }
+
+func competeResult(userHandShape: HandShape, computerHandShape: HandShape) -> GameResult {
+    switch (userHandShape, computerHandShape) {
+    case (.scissors, .scissors):
+        return .draw
+    case (.scissors, .rock):
+        return .lose
+    case (.scissors, .paper):
+        return .win
+    case (.rock, .rock):
+        return .draw
+    case (.rock, .scissors):
+        return .lose
+    case (.rock, .paper):
+        return .win
+    case (.paper, .paper):
+        return .draw
+    case (.paper, .scissors):
+        return .lose
+    case (.paper, .rock):
+        return .win
+    }
+}
