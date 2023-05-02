@@ -24,15 +24,19 @@ func compareRockPaperScissors(between computerRockPaperScissors: RockPaperScisso
     }
 }
 
-func getUserInput() -> Bool {
+func getUserInput() -> String {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+    guard let input = readLine() else { return "" }
+    
+    return input
+}
+
+func checkUserInput(_ userInput: String) -> Bool {
     var isGameInProgress: Bool = true
     
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-    guard let input = readLine() else { return isGameInProgress }
-
-    switch input {
+    switch userInput {
     case "1", "2", "3":
-        guard let inputNumber = Int(input),
+        guard let inputNumber = Int(userInput),
               let playerRockPaperScissors = RockPaperScissors(rawValue: inputNumber),
               let computerRockPaperScissors = RockPaperScissors(rawValue: Int.random(in: 1...3)) else {
             return isGameInProgress
@@ -51,7 +55,8 @@ func startGame() {
     var isGameInProgress: Bool = true
     
     repeat {
-        isGameInProgress = getUserInput()
+        let userInput = getUserInput()
+        isGameInProgress = checkUserInput(userInput)
     } while isGameInProgress
 }
 
