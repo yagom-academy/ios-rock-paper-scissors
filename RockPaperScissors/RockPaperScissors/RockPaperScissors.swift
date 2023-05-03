@@ -8,29 +8,26 @@
 struct RockPaperScissors {
     var isGameStart: Bool = true
     var isPlayerTurn: Bool = true
+    var userNumber: Int = 0
     
     mutating func start() throws {
         while isGameStart {
             do {
-                try inputfirstMenu()
+                try printfirstMenu()
             } catch UserCardsError.error {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
             }
         }
     }
     
-    mutating func inputfirstMenu() throws {
+    mutating func printfirstMenu() throws {
         print("가위(1), 바위(2), 보(3)! <종료 : 0>: ", terminator: "")
-        guard let inputNumber = readLine(),
-              let user = Int(inputNumber),
-              let userCards: UserCards = UserCards(rawValue: user) else {
-            throw UserCardsError.error
-        }
+        let userCards: UserCards = try input()
 
         switch userCards {
         case .rock, .scissors, .paper:
-            compareCard(user, createRandomNumber())
-            try inputfirstMenu()
+            compareCard(userNumber, createRandomNumber())
+            try printfirstMenu()
         case .exit:
             print("게임 종료")
             self.isGameStart = false
@@ -60,28 +57,31 @@ struct RockPaperScissors {
             print("오류1")
         }
     }
-
-    func decideTurn(_ isPlayerTurn: Bool) {
-        
-        
+    
+    mutating func input() throws -> UserCards {
+        guard let inputNumber = readLine(),
+              let user = Int(inputNumber),
+              let userCards: UserCards = UserCards(rawValue: user) else {
+            throw UserCardsError.error
+        }
+        self.userNumber = user
+        return userCards
     }
 
-    mutating func inputSecondMenu(_ isPlayerTurn: Bool) {
+    mutating func printSecondMenu () throws {
         var whosTurn: String
         
         if isPlayerTurn == true {
-            whosTurn = "사용자 턴"
+            whosTurn = "사용자"
         } else {
-            whosTurn = "컴퓨터 턴"
+            whosTurn = "컴퓨터"
         }
-        print("[\(whosTurn)] 묵(1), 찌(2), 빠(3)! <종료 : 0>: ", terminator: "")
-        guard let card = readLine(),
-              let cardNumber = Int(card),
-              let userCards: UserCards = UserCards(rawValue: cardNumber) else {
-            return
-        }
+        print("[\(whosTurn)] 턴 묵(1), 찌(2), 빠(3)! <종료 : 0>: ", terminator: "")
+        let userCards: UserCards = try input()
+        
         switch userCards {
         case .rock, .scissors, .paper:
+            compareSecondCard(userCards, createRandomNumber(), whosTurn)
             print("패 비교")
         case .exit:
             print("게임 종료")
@@ -90,13 +90,17 @@ struct RockPaperScissors {
         }
     }
     
-    func compareSecondCard(_ card: Int, _ randomNumber: Int, _ whosTurn: String) {
+    func compareSecondCard(_ card: UserCards, _ randomNumber: Int, _ whosTurn: String) {
+        let randomNumber = UserCards(rawValue: randomNumber)
+        
         if card == randomNumber {
             print("\(whosTurn)의 승리!")
+        } else if whosTurn == "사용자"{
+            print("\(whosTurn)의 턴입니다.")
         } else {
-            whosTurn
             print("\(whosTurn)의 턴입니다.")
         }
-        
     }
 }
+
+feat: 중복되는 부분을 input()에 통합 생성, 변수명 수정
