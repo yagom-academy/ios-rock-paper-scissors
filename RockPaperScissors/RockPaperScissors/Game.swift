@@ -7,5 +7,6 @@
 
 enum Game {
     case rockPaperScissors
-    case mukjjippa
+    case mukJjiPpa
+    case termination
 }

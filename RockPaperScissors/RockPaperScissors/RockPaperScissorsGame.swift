@@ -6,27 +6,22 @@
 //
 
 class RockPaperScissorsGame {
-    private var turn: Player = .user
-    private var matchResult: Result = .win
-    private var selectedGame: Game = .rockPaperScissors
-    private var isRunning: Bool = true
+    private var turn: Player
+    private var matchResult: Result
+    private var selectedGame: Game
     
-    func playGame() {
-        while isRunning {
-            if selectedGame == .rockPaperScissors {
-                playRockPaperScissors()
-            } else {
-                playMukJjiPpa()
-            }
-        }
+    init(turn: Player, matchResult: Result, selectedGame: Game) {
+        self.turn = turn
+        self.matchResult = matchResult
+        self.selectedGame = selectedGame
     }
     
-    private func playRockPaperScissors() {
+    func playRockPaperScissors() -> (Player, Game) {
         print("가위(1), 바위(2), 보(3)! <종료 : 0>:", terminator: " ")
         
         guard let user = readLine(), let menu = RockPaperScissorsMenu(rawValue: user) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            return
+            return (.user, .rockPaperScissors)
         }
         
         switch menu {
@@ -35,27 +30,10 @@ class RockPaperScissorsGame {
             compareRockPaperScissors(user, computer)
             printResult()
         case .termination:
-            isRunning = false
-        }
-    }
-    
-    private func playMukJjiPpa() {
-        print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>:", terminator: " ")
-        
-        guard let user = readLine(), let menu = MukJjiPpaMenu(rawValue: user) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            turn = .computer
-            return
+            return (.user, .termination)
         }
         
-        switch menu {
-        case .paper, .rock, .scissors:
-            let computer: String = generateComputerRandomNumber()
-            compareMukJjiPpa(user, computer)
-            printResult()
-        case .termination:
-            isRunning = false
-        }
+        return (turn, selectedGame)
     }
     
     private func generateComputerRandomNumber() -> String {
@@ -78,35 +56,14 @@ class RockPaperScissorsGame {
         }
     }
     
-    private func compareMukJjiPpa(_ user: String, _ computer: String) {
-        print(MukJjiPpaMenu(rawValue: user)!, MukJjiPpaMenu(rawValue: computer)!)
-        let winningPair: [(user: MukJjiPpaMenu, computer: MukJjiPpaMenu)] = [(.rock, .scissors),
-                                                                             (.scissors, .paper),
-                                                                             (.paper, .rock)]
-        
-        if winningPair.contains(where: { $0.user.rawValue == user && $0.computer.rawValue == computer }) {
-            matchResult = .win
-            turn = .user
-        } else if user == computer {
-            matchResult = .draw
-        } else {
-            matchResult = .lose
-            turn = .computer
-        }
-    }
-    
     private func printResult() {
-        switch (selectedGame, matchResult) {
-        case (Game.rockPaperScissors, Result.win), (Game.rockPaperScissors, Result.lose):
+        switch matchResult {
+        case .win, .lose:
             print("\(matchResult.rawValue)")
-            selectedGame = .mukjjippa
-        case (Game.rockPaperScissors, _):
+            selectedGame = .mukJjiPpa
+        case .draw :
             print("\(matchResult.rawValue)")
-        case (_, Result.draw):
-            print("\(turn.rawValue)의 승리!")
-            isRunning = false
-        default:
-            print("\(turn.rawValue)의 턴입니다.")
         }
     }
+
 }

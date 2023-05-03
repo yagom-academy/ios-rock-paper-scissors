@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-let andrew = RockPaperScissorsGame()
+let andrew = GameManager()
 andrew.playGame()
