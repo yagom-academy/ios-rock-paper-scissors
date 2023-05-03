@@ -12,6 +12,8 @@ class RockPaperScissorsManager {
         case paper = 3
     }
     
+    var winner: String = "미정"
+    
     func startGame() {
         let computerNumber = Int.random(in: 1...3)
         
@@ -66,8 +68,10 @@ class RockPaperScissorsManager {
             startGame()
         } else if isUserWin(userHand, computerHand) {
             print("이겼습니다!!")
+            winner = "사용자"
         } else {
             print("졌습니다!!")
+            winner = "컴퓨터"
         }
     }
     

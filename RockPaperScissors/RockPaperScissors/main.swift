@@ -4,7 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-
-
 let rpsManager = RockPaperScissorsManager()
 rpsManager.startGame()
+
+let mjpManager = MukJiPpaManager()
+mjpManager.startGame()

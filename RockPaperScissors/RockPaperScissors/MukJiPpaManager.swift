@@ -12,6 +12,8 @@ class MukJiPpaManager {
         case ppa = 3
     }
     
+    var player: String = rpsManager.winner
+    
     func startGame() {
         let computerNumber = Int.random(in: 1...3)
         
@@ -30,7 +32,7 @@ class MukJiPpaManager {
             compare(userHand, and: computerHand)
         } catch ConsoleError.inputError {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            
+            changeTurn()
             startGame()
         } catch {
             print("알 수 없는 에러가 발생했습니다.")
@@ -38,7 +40,7 @@ class MukJiPpaManager {
     }
     
     func inputUserNumber() throws -> Int {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+        print("[\(player) 턴] 가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         guard let input = readLine(), let userNumber = Int(input), 0...3 ~= userNumber else {
             throw ConsoleError.inputError
@@ -62,19 +64,32 @@ class MukJiPpaManager {
     
     func compare(_ userHand: MukJiPpa, and computerHand: MukJiPpa) {
         if userHand == computerHand {
-            print("비겼습니다!!")
+            print("\(player)의 승리")
+        } else if bringTurn(userHand, computerHand) {
+            print("\(player)의 턴입니다.")
             startGame()
-        } else if isUserWin(userHand, computerHand) {
-            print("이겼습니다!!")
         } else {
-            print("졌습니다!!")
+            changeTurn()
+            print("\(player)의 턴입니다.")
+            startGame()
         }
     }
     
-    func isUserWin(_ user: MukJiPpa, _ computer: MukJiPpa) -> Bool {
-        return user == .muk && computer == .ppa
-        || user == .ji && computer == .muk
-        || user == .ppa && computer == .ji
+    func bringTurn(_ user: MukJiPpa, _ computer: MukJiPpa) -> Bool {
+        return user == .muk && computer == .ji
+        || user == .ji && computer == .ppa
+        || user == .ppa && computer == .muk
+    }
+    
+    func changeTurn() {
+        switch player {
+        case "사용자":
+            player = "컴퓨터"
+        case "컴퓨터":
+            player = "사용자"
+        default:
+            return
+        }
     }
 }
 
