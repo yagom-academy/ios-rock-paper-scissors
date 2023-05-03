@@ -12,15 +12,13 @@ class MukJiPpaManager {
         case ppa = 3
     }
     
-    var player: Player
+    private var player: Player
     
     init(player: Player) {
         self.player = player
     }
     
     func startGame() {
-        let computerNumber = Int.random(in: 1...3)
-        
         do {
             let userNumber = try inputUserNumber()
             
@@ -31,7 +29,7 @@ class MukJiPpaManager {
             }
             
             let userHand = try convertEnum(of: userNumber)
-            let computerHand = try convertEnum(of: computerNumber)
+            let computerHand = try convertEnum(of: Int.random(in: 1...3))
             
             compare(userHand, and: computerHand)
         } catch ConsoleError.inputError {
@@ -69,7 +67,7 @@ class MukJiPpaManager {
     private func compare(_ userHand: MukJiPpa, and computerHand: MukJiPpa) {
         if userHand == computerHand {
             print("\(player.rawValue)의 승리")
-        } else if bringTurn(userHand, computerHand) {
+        } else if isUserTurn(userHand, computerHand) {
             print("\(player.rawValue)의 턴입니다.")
             startGame()
         } else {
@@ -79,7 +77,7 @@ class MukJiPpaManager {
         }
     }
     
-    private func bringTurn(_ user: MukJiPpa, _ computer: MukJiPpa) -> Bool {
+    private func isUserTurn(_ user: MukJiPpa, _ computer: MukJiPpa) -> Bool {
         return user == .muk && computer == .ji
         || user == .ji && computer == .ppa
         || user == .ppa && computer == .muk

@@ -12,11 +12,7 @@ class RockPaperScissorsManager {
         case paper = 3
     }
     
-    var winner: Player = .user
-    
     func startGame() {
-        let computerNumber = Int.random(in: 1...3)
-        
         do {
             let userNumber = try inputUserNumber()
             
@@ -27,7 +23,7 @@ class RockPaperScissorsManager {
             }
             
             let userHand = try convertEnum(of: userNumber)
-            let computerHand = try convertEnum(of: computerNumber)
+            let computerHand = try convertEnum(of: Int.random(in: 1...3))
             
             compare(userHand, and: computerHand)
         } catch ConsoleError.inputError {
@@ -68,12 +64,11 @@ class RockPaperScissorsManager {
             startGame()
         } else if isUserWin(userHand, computerHand) {
             print("이겼습니다!!")
-            let mjpManager = MukJiPpaManager(player: winner)
+            let mjpManager = MukJiPpaManager(player: .user)
             mjpManager.startGame()
         } else {
             print("졌습니다!!")
-            winner = .computer
-            let mjpManager = MukJiPpaManager(player: winner)
+            let mjpManager = MukJiPpaManager(player: .computer)
             mjpManager.startGame()
         }
     }
