@@ -1,5 +1,5 @@
 //
-//  Player.swift
+//  GamePlayer.swift
 //  RockPaperScissors
 //
 //  Created by myungsun, Yetti on 2023/05/02.
