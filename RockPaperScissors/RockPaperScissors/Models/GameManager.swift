@@ -37,7 +37,7 @@ class GameManager {
         startMukChiPa(winner, computer, user)
     }
     
-    func startMukChiPa(_ winner: PlayerType, _ computer: GamePlayer, _ user: GamePlayer) {
+    private func startMukChiPa(_ winner: PlayerType, _ computer: GamePlayer, _ user: GamePlayer) {
         let handShapes: [HandShape] = [.rock, .scissors, .paper]
         let computer: GamePlayer = computer
         let user: GamePlayer = user
@@ -62,7 +62,7 @@ class GameManager {
                 let userHandShape = handShapes[gameOptionNumber - 1]
                 guard let winner = getGameResult(computerHandShape, userHandShape).player else {
                     isGameOn = false
-                    showGameWinner(with: currentTurnOwner)
+                    showMukChiPaGameWinner(with: currentTurnOwner)
                     return
                 }
                 isGameOn = !getGameResult(computerHandShape, userHandShape).isGameOn
@@ -108,7 +108,7 @@ class GameManager {
         }
     }
     
-    private func showGameWinner(with currentTurnOwner: PlayerType) {
+    private func showMukChiPaGameWinner(with currentTurnOwner: PlayerType) {
         print("\(currentTurnOwner.rawValue)의 승리!")
     }
     
