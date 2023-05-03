@@ -1,33 +1,10 @@
-enum Choice: Int {
-    case end = 0
-    case rock = 1
-    case paper = 2
-    case scissors = 3
-}
-
-enum Result {
-    case win
-    case lose
-    case draw
-    case invalid
-}
-
-enum Turn: String {
-    case computer = "컴퓨터"
-    case user = "사용자"
-}
-
-enum GameMode {
-    case rockPaperScissors
-    case mookJjiBba
-}
-
-class RockPaperScissors {
+class Game {
     var turn: Turn = .user
     
     private func printInputMessage(for mode: GameMode) {
-        let message = mode == .rockPaperScissors ? "가위(1), 바위(2), 보(3)! <종료 : 0>" :
-        "[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>"
+        let message = mode == .rockPaperScissors
+            ? "가위(1), 바위(2), 보(3)! <종료 : 0>"
+            : "[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>"
         
         print(message, terminator: " : ")
     }
@@ -47,7 +24,7 @@ class RockPaperScissors {
         return choice
     }
     
-    private func checkWinner(_ userChoice: Choice) -> Result {
+    private func determineWinner(_ userChoice: Choice) -> Result {
         guard let computerChoice = Choice(rawValue: Int.random(in: 1...3)) else { return .invalid }
         
         let resultValue = (userChoice.rawValue - computerChoice.rawValue + 3) % 3
@@ -88,7 +65,7 @@ class RockPaperScissors {
         }
     }
         
-    private func startMookJjiBba() {
+    private func playMookJjiBba() {
         while true {
             let userChoice = getUserChoice(for: .mookJjiBba)
             
@@ -97,8 +74,7 @@ class RockPaperScissors {
                 break
             }
             
-            
-            let result = checkWinner(userChoice)
+            let result = determineWinner(userChoice)
             displayResult(result, for: .mookJjiBba)
                         
             if result == .draw {
@@ -117,11 +93,11 @@ class RockPaperScissors {
                 break
             }
             
-            let resultRockPaperScissors = checkWinner(userChoice)
+            let resultRockPaperScissors = determineWinner(userChoice)
             displayResult(resultRockPaperScissors, for: .rockPaperScissors)
             
             if resultRockPaperScissors != .draw {
-                startMookJjiBba()
+                playMookJjiBba()
                 break
             }
         }
