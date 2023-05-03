@@ -7,13 +7,13 @@
 
 enum GameError: Error {
     case menuNotFound
-    case unknownError
+    case unknown
     
     var errorMessage: String {
         switch self {
         case .menuNotFound:
             return "잘못된 입력입니다. 다시 시도해주세요."
-        case .unknownError:
+        case .unknown:
             return "알 수 없는 오류입니다."
         }
     }

@@ -52,31 +52,30 @@ struct RockPaperScissorsGame {
             let gameResult = try playGame(menu)
             
             print(gameResult.message)
-            
             if gameResult == .draw { startGame() }
         } catch GameError.menuNotFound {
-            print("\(GameError.menuNotFound.errorMessage)")
+            print(GameError.menuNotFound.errorMessage)
             startGame()
         } catch {
-            print("\(GameError.unknownError.errorMessage)")
+            print(GameError.unknown.errorMessage)
         }
     }
 
     private func inputMenu() throws -> Menu {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-        
         guard let inputValue = readLine(),
-              let menu = Menu(rawValue: inputValue)
-        else { throw GameError.menuNotFound }
+              let menu = Menu(rawValue: inputValue) else {
+            throw GameError.menuNotFound
+        }
             
         return menu
     }
 
     private func playGame(_ usersChoice: Menu) throws -> Result {
         guard usersChoice != .exit else { return .exit }
-        guard let computersChoice = Menu(rawValue: String(Int.random(in: 1...3)))
-        else { throw GameError.unknownError }
-
+        guard let computersChoice = Menu(rawValue: String(Int.random(in: 1...3))) else {
+            throw GameError.unknown
+        }
         if usersChoice == computersChoice {
             return .draw
         } else if usersChoice.winningOpponent == computersChoice {
