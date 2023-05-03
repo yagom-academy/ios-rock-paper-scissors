@@ -25,22 +25,23 @@ enum GameMode {
 class RockPaperScissors {
     var turn: Turn = .user
     
-    private func printInputMessage(_ type: GameMode) {
-        let message = type == .rockPaperScissors ? "가위(1), 바위(2), 보(3)! <종료 : 0>" :
+    private func printInputMessage(for mode: GameMode) {
+        let message = mode == .rockPaperScissors ? "가위(1), 바위(2), 보(3)! <종료 : 0>" :
         "[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>"
         
         print(message, terminator: " : ")
     }
     
-    private func getUserChoice(_ mode: GameMode) -> Choice? {
-        printInputMessage(mode)
+    private func getUserChoice(for mode: GameMode) -> Choice {
+        printInputMessage(for: mode)
         
-        guard let input = readLine(), let choiceNumber = Int(input), let choice = Choice(rawValue: choiceNumber) else {
+        guard let input = readLine(), let choiceNumber = Int(input),
+              let choice = Choice(rawValue: choiceNumber) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             
             if mode == .mookJjiBba { turn = .computer }
             
-            return getUserChoice(mode)
+            return getUserChoice(for: mode)
         }
         
         return choice
@@ -63,7 +64,7 @@ class RockPaperScissors {
         }
     }
     
-    private func handleResult(_ result: Result, mode: GameMode) {
+    private func displayResult(_ result: Result, for mode: GameMode) {
         let messages: [Result: String] = [
             .win: "이겼습니다!",
             .lose: "졌습니다!",
@@ -87,23 +88,34 @@ class RockPaperScissors {
     }
         
     private func startMookJjiBba() {
-        while let userChoice = getUserChoice(.mookJjiBba), userChoice != .end {
-            let resultMookJjiBba = checkWinner(userChoice)
-            handleResult(resultMookJjiBba, mode: .mookJjiBba)
-                        
-            if resultMookJjiBba == .draw {
-                print("\(turn.rawValue)의 승리!")
+        while true {
+            let userChoice = getUserChoice(for: .mookJjiBba)
+            
+            if userChoice == .end {
                 break
-            } else if resultMookJjiBba == .invalid {
+            }
+            
+            
+            let result = checkWinner(userChoice)
+            displayResult(result, for: .mookJjiBba)
+                        
+            if result == .draw {
+                print("\(turn.rawValue)의 승리!")
                 break
             }
         }
     }
-
+    
     func start() {
-        while let userChoice = getUserChoice(.rockPaperScissors), userChoice != .end {
+        while true {
+            let userChoice = getUserChoice(for: .rockPaperScissors)
+            
+            if userChoice == .end {
+                break
+            }
+            
             let resultRockPaperScissors = checkWinner(userChoice)
-            handleResult(resultRockPaperScissors, mode: .rockPaperScissors)
+            displayResult(resultRockPaperScissors, for: .rockPaperScissors)
             
             if resultRockPaperScissors != .draw {
                 startMookJjiBba()
