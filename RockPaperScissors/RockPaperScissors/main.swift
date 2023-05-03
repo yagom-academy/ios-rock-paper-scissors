@@ -6,4 +6,4 @@
 
 let gameManager = GameManager()
 
-gameManager.startGame()
+gameManager.startRockPaperScissors()

@@ -6,7 +6,7 @@
 //
 
 class GameManager {
-    func startGame() {
+    func startRockPaperScissors() {
         let computer: GamePlayer = GamePlayer(type: .computer)
         let user: GamePlayer = GamePlayer(type: .person)
         let handShapes: [HandShape] = [.scissors, .rock, .paper]
