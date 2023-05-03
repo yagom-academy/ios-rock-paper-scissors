@@ -6,6 +6,3 @@
 
 let rpsManager = RockPaperScissorsManager()
 rpsManager.startGame()
-
-let mjpManager = MukJiPpaManager()
-mjpManager.startGame()

@@ -12,7 +12,7 @@ class RockPaperScissorsManager {
         case paper = 3
     }
     
-    var winner: String = "미정"
+    var winner: Player = .user
     
     func startGame() {
         let computerNumber = Int.random(in: 1...3)
@@ -39,7 +39,7 @@ class RockPaperScissorsManager {
         }
     }
     
-    func inputUserNumber() throws -> Int {
+    private func inputUserNumber() throws -> Int {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         
         guard let input = readLine(), let userNumber = Int(input), 0...3 ~= userNumber else {
@@ -49,7 +49,7 @@ class RockPaperScissorsManager {
         return userNumber
     }
     
-    func convertEnum(of number: Int) throws -> RockPaperScissors {
+    private func convertEnum(of number: Int) throws -> RockPaperScissors {
         switch number {
         case 1:
             return .scissors
@@ -62,20 +62,23 @@ class RockPaperScissorsManager {
         }
     }
     
-    func compare(_ userHand: RockPaperScissors, and computerHand: RockPaperScissors) {
+    private func compare(_ userHand: RockPaperScissors, and computerHand: RockPaperScissors) {
         if userHand == computerHand {
             print("비겼습니다!!")
             startGame()
         } else if isUserWin(userHand, computerHand) {
             print("이겼습니다!!")
-            winner = "사용자"
+            let mjpManager = MukJiPpaManager(player: winner)
+            mjpManager.startGame()
         } else {
             print("졌습니다!!")
-            winner = "컴퓨터"
+            winner = .computer
+            let mjpManager = MukJiPpaManager(player: winner)
+            mjpManager.startGame()
         }
     }
     
-    func isUserWin(_ user: RockPaperScissors, _ computer: RockPaperScissors) -> Bool {
+    private func isUserWin(_ user: RockPaperScissors, _ computer: RockPaperScissors) -> Bool {
         return user == .scissors && computer == .paper
         || user == .rock && computer == .scissors
         || user == .paper && computer == .rock
