@@ -7,15 +7,17 @@
 
 struct RockPaperScissors {
     func showGameMenu() {
-        let gameEnd: String = "0"
         
         print("가위(1), 바위(2), 보(3)! <종료 :0> : ", terminator: "")
         
         guard let userInput: String = readLine() else { return }
         
-        guard userInput != gameEnd else { return print("게임종료") }
-        
+        checkGameEnd(userInput)
         getUserInput(userInput, makeComputerInput())
+    }
+    
+    private func checkGameEnd(_ userInput: String) {
+        guard userInput != "0" else { return print("게임종료") }
     }
     
     private func makeComputerInput() -> String {
@@ -60,4 +62,3 @@ struct RockPaperScissors {
         }
     }
 }
-
