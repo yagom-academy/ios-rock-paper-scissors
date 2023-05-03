@@ -6,13 +6,22 @@
 //
 
 struct RockPaperScissorsGame {
-    typealias gameType = (rockScissorsPaper: Menu, mukJjiPpa: Menu)
-    let choices: Dictionary<String, gameType> = [
-        "0": (rockScissorsPaper: .exit, mukJjiPpa: .exit),
-        "1": (rockScissorsPaper: .scissors, mukJjiPpa: .rock),
-        "2": (rockScissorsPaper: .rock, mukJjiPpa: .scissors),
-        "3": (rockScissorsPaper: .paper, mukJjiPpa: .paper)
-    ]
+    var choices: Dictionary<String, Menu> {
+        switch isFirstGame {
+        case true:
+            return ["0": .exit, "1": .scissors, "2": .rock, "3": .paper]
+        case false:
+            return ["0": .exit, "1": .rock, "2": .scissors, "3": .paper]
+        }
+    }
+    var printMessage: String {
+        switch isFirstGame {
+        case true:
+            return "가위(1), 바위(2), 보(3)! <종료 : 0> :"
+        case false:
+            return "[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
+        }
+    }
     
     enum Menu: String {
         case scissors
@@ -53,73 +62,71 @@ struct RockPaperScissorsGame {
             }
         }
     }
+    
 
-    func startGame() {
+    var isFirstGame: Bool = true
+    var turn: String = ""
+    
+    mutating func startGame() {
         do {
             let menu = try inputMenu()
             let gameResult = try playGame(menu)
+            let resultMessage = getResultMessage(gameResult)
             
-            print(gameResult.message)
-            if gameResult == .draw { startGame() }
+            print(resultMessage)
+            guard gameResult != .exit else { return }
+            guard !(!isFirstGame && gameResult == .draw) else { return }
+            
+            if isFirstGame && (gameResult == .win || gameResult == .lose) {
+                isFirstGame = false
+            }
+            startGame()
         } catch GameError.menuNotFound {
             print(GameError.menuNotFound.errorMessage)
+            if !isFirstGame {
+                turn = "컴퓨터"
+            }
             startGame()
         } catch {
             print(GameError.unknown.errorMessage)
         }
     }
+    
+    private func getResultMessage(_ result: Result) -> String {
+        if isFirstGame || result == .exit {
+            return result.message
+        } else if result == .draw {
+            return "\(turn)의 승리!"
+        } else {
+            return "\(turn)의 턴입니다."
+        }
+    }
 
     private func inputMenu() throws -> Menu {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+        print(printMessage, terminator: " ")
         guard let inputValue = readLine(),
-              let menu = choices[inputValue]?.rockScissorsPaper else {
+              let menu = choices[inputValue] else {
             throw GameError.menuNotFound
         }
-            
+        
         return menu
     }
 
-    private func playGame(_ usersChoice: Menu) throws -> Result {
+    private mutating func playGame(_ usersChoice: Menu) throws -> Result {
         guard usersChoice != .exit else { return .exit }
-        guard let computersChoice = choices[String(Int.random(in: 1...3))]?.rockScissorsPaper else {
+        guard let computersChoice = choices[String(Int.random(in: 1...3))] else {
             throw GameError.unknown
         }
+        print("사용자: \(usersChoice)")
+        print("컴퓨터: \(computersChoice)")
         if usersChoice == computersChoice {
             return .draw
         } else if usersChoice.winningOpponent == computersChoice {
+            turn = "사용자"
             return .win
         } else {
-            return .lose
-        }
-    }
-    
-    var turn: String {
-        willSet(newValue) {
-            print("\(newValue)의 턴입니다.")
-        }
-    }
-    
-    mutating func playMukJjiPpaGame() {
-        do {
-            let menu = try inputMenu()
-            let gameResult = try playGame(menu)
-            
-            guard gameResult != .draw else {
-                print("\(turn)의 승리!")
-                return
-            }
-            if gameResult != .lose {
-                turn = "사용자"
-            } else {
-                turn = "컴퓨터"
-            }
-            playMukJjiPpaGame()
-        } catch GameError.menuNotFound {
-            print(GameError.menuNotFound.errorMessage)
             turn = "컴퓨터"
-            playMukJjiPpaGame()
-        } catch {
-            print(GameError.unknown.errorMessage)
+            return .lose
         }
     }
 }
