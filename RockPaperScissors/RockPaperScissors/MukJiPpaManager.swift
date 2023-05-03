@@ -68,10 +68,11 @@ class MukJiPpaManager {
         if userHand == computerHand {
             print("\(player.rawValue)의 승리")
         } else if isUserTurn(userHand, computerHand) {
+            player = .user
             print("\(player.rawValue)의 턴입니다.")
             startGame()
         } else {
-            changeTurn()
+            player = .computer
             print("\(player.rawValue)의 턴입니다.")
             startGame()
         }
@@ -81,14 +82,6 @@ class MukJiPpaManager {
         return user == .muk && computer == .ji
         || user == .ji && computer == .ppa
         || user == .ppa && computer == .muk
-    }
-    
-    private func changeTurn() {
-        if player == .user {
-            player = .computer
-        } else {
-            player = .user
-        }
     }
 }
 
