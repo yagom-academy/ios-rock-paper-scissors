@@ -15,12 +15,11 @@ struct RockPaperScissors {
         
         guard userInput != gameEnd else { return print("게임종료") }
         
-        compareInput(userInput)
+        getUserInput(userInput, makeComputerInput())
     }
     
-    private func compareInput(_ userInput: String) {
-        let computerInput: String = String(Int.random(in: 1...3))
-        getUserInput(userInput, computerInput)
+    private func makeComputerInput() -> String {
+        return String(Int.random(in: 1...3))
     }
     
     private func getUserInput(_ userInput: String, _ computerInput: String) {
