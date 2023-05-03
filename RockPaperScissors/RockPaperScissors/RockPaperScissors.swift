@@ -61,23 +61,42 @@ struct RockPaperScissors {
         }
     }
 
-    func decideTurn(_ user: Int, _ computer: Int) {
-        var isWinner: Bool = true
-        guard let user == 1 || user == -2 else {
-            isWinner = false
-            return
-        }
+    func decideTurn(_ isPlayerTurn: Bool) {
+        
+        
     }
 
-    func inputSecondMenu(_ isWinner: Bool) {
+    mutating func inputSecondMenu(_ isPlayerTurn: Bool) {
         var whosTurn: String
         
-        if isWinner == true {
+        if isPlayerTurn == true {
             whosTurn = "사용자 턴"
         } else {
             whosTurn = "컴퓨터 턴"
         }
         print("[\(whosTurn)] 묵(1), 찌(2), 빠(3)! <종료 : 0>: ", terminator: "")
-        let card = readLine()
+        guard let card = readLine(),
+              let cardNumber = Int(card),
+              let userCards: UserCards = UserCards(rawValue: cardNumber) else {
+            return
+        }
+        switch userCards {
+        case .rock, .scissors, .paper:
+            print("패 비교")
+        case .exit:
+            print("게임 종료")
+        default:
+            print("패 넘김")
+        }
+    }
+    
+    func compareSecondCard(_ card: Int, _ randomNumber: Int, _ whosTurn: String) {
+        if card == randomNumber {
+            print("\(whosTurn)의 승리!")
+        } else {
+            whosTurn
+            print("\(whosTurn)의 턴입니다.")
+        }
+        
     }
 }
