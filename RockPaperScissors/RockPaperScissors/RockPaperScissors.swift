@@ -73,6 +73,7 @@ class RockPaperScissors {
         ]
         
         if mode == .rockPaperScissors {
+            turn = result == .win ? .user : .computer
             print(messages[result] ?? "잘못된 결과입니다.")
         } else {
             if result == .win {
@@ -92,6 +93,7 @@ class RockPaperScissors {
             let userChoice = getUserChoice(for: .mookJjiBba)
             
             if userChoice == .end {
+                print("게임 종료")
                 break
             }
             
@@ -111,6 +113,7 @@ class RockPaperScissors {
             let userChoice = getUserChoice(for: .rockPaperScissors)
             
             if userChoice == .end {
+                print("게임 종료")
                 break
             }
             
@@ -122,7 +125,5 @@ class RockPaperScissors {
                 break
             }
         }
-        
-        print("게임 종료")
     }
 }
