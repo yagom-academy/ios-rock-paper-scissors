@@ -29,8 +29,8 @@ class GameManager {
                 print("게임 종료")
             case 1...3:
                 let userHandShape = handShapes[gameOptionNumber - 1]
-                let resultMessage = getGameResult(computerHandShape, userHandShape).1
-                isGameOn = getGameResult(computerHandShape, userHandShape).0
+                let resultMessage = getGameResult(computerHandShape, userHandShape).resultMessage
+                isGameOn = getGameResult(computerHandShape, userHandShape).isGameOn
                 
                 user.changeHandShape(to: userHandShape)
                 print("\(resultMessage)")
@@ -40,14 +40,15 @@ class GameManager {
         }
     }
     
-    private func getGameResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (Bool, String) {
-        if computerHandShape == userHandShape {
+    private func getGameResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String) {
+        switch (computerHandShape, userHandShape) {
+        case let (computerHandShape, userHandShape) where computerHandShape == userHandShape:
             return (true, "비겼습니다.")
-        } else if (computerHandShape == .rock && userHandShape == .paper) ||
-                    (computerHandShape == .paper && userHandShape == .scissors) ||
-                    (computerHandShape == .scissors && userHandShape == .rock) {
+            
+        case (.rock, .paper), (.paper, .scissors), (.scissors, .rock):
             return (false, "이겼습니다!")
-        } else {
+            
+        default:
             return (false, "졌습니다!")
         }
     }
