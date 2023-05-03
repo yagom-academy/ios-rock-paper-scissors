@@ -5,20 +5,17 @@
 //  Created by yyss99 on 2023/05/03.
 //
 
+let muckJjiBba = MuckJjiBba()
+
 struct RockPaperScissors {
     func showGameMenu() {
-        
         print("가위(1), 바위(2), 보(3)! <종료 :0> : ", terminator: "")
         
         guard let userInput: String = readLine() else { return }
+        guard userInput != "0" else { return print("게임종료") }
         let computerInput = makeComputerInput()
         
-        checkGameEnd(userInput)
         getUserInput(userInput, computerInput)
-    }
-    
-    private func checkGameEnd(_ userInput: String) {
-        guard userInput != "0" else { return print("게임종료") }
     }
     
     private func makeComputerInput() -> String {
@@ -55,10 +52,10 @@ struct RockPaperScissors {
         switch result {
         case .win:
             print("이겼습니다.")
-            
+            muckJjiBba.getUserMuckJjiBbaInput(when: .win)
         case .lose:
             print("졌습니다.")
-            
+            muckJjiBba.getUserMuckJjiBbaInput(when: .lose)
         case .draw:
             print("비겼습니다")
             showGameMenu()

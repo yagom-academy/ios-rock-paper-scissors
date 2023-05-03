@@ -8,31 +8,28 @@
 struct MuckJjiBba {
     func getUserMuckJjiBbaInput(when userGameResult: GameResult) {
         if userGameResult == .win {
-            print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :", terminator: "")
+            print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
         } else {
-            print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> :", terminator: "")
+            print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
         }
         
         guard let userInput: String = readLine() else { return }
-        checkGameEnd(userInput)
-        //checkVaildInput()
-    }
-    
-    private func checkGameEnd(_ userInput: String) {
         guard userInput != "0" else { return print("게임 종료") }
+        let computerInput = makeComputerInput()
+        
+        checkValidInput(with: userInput, computerInput, userGameResult)
     }
     
     private func makeComputerInput() -> String {
         return String(Int.random(in: 1...3))
     }
     
-    private func checkVaildInput(with userInput: String, _ computerInput: String, _ gameResult: GameResult) {
+    private func checkValidInput(with userInput: String, _ computerInput: String, _ gameResult: GameResult) {
         switch userInput {
         case MuckJjiBbaSign.jji.rawValue,
             MuckJjiBbaSign.muck.rawValue,
             MuckJjiBbaSign.bba.rawValue:
             checkMuckJjiBbaGameResult(with: userInput, computerInput, gameResult: gameResult)
-            break
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             getUserMuckJjiBbaInput(when: .lose)
@@ -55,8 +52,10 @@ struct MuckJjiBba {
         case (MuckJjiBbaSign.jji.rawValue, MuckJjiBbaSign.bba.rawValue),
             (MuckJjiBbaSign.muck.rawValue, MuckJjiBbaSign.jji.rawValue),
             (MuckJjiBbaSign.bba.rawValue, MuckJjiBbaSign.muck.rawValue):
+            print("사용자의 턴입니다.")
             return .win
         default:
+            print("컴퓨터의 턴입니다.")
             return .lose
         }
     }
