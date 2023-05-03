@@ -5,7 +5,10 @@
 //  Created by Daehoon Lee on 2023/05/01.
 //
 
-struct RockPaperScissorsGame {
+class RockPaperScissorsGame {
+    private var turn: Player = .user
+    private var matchResult: Result = .win
+    
     func startGame() {
         var isRunning: Bool = true
         
@@ -37,11 +40,13 @@ struct RockPaperScissorsGame {
                                                            (.paper, .rock)]
         
         if winningPair.contains(where: { $0.user.rawValue == user && $0.computer.rawValue == computer }) {
-            print("이겼습니다!")
+            matchResult = .win
+            turn = .user
         } else if user == computer {
-            print("비겼습니다!")
+            matchResult = .draw
         } else {
-            print("졌습니다!")
+            matchResult = .lose
+            turn = .computer
         }
     }
 }
