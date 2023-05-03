@@ -33,8 +33,46 @@ class GameManager {
                 print("\(resultMessage)")
             }
         }
+        guard let winner = winner else { return }
+        startMukChiPa(winner, computer, user)
     }
-
+    
+    func startMukChiPa(_ winner: PlayerType, _ computer: GamePlayer, _ user: GamePlayer) {
+        let handShapes: [HandShape] = [.rock, .scissors, .paper]
+        let computer: GamePlayer = computer
+        let user: GamePlayer = user
+        let endOption: Int = 0
+        var currentTurnOwner: PlayerType = winner
+        var isGameOn: Bool = true
+        
+        while isGameOn {
+            guard let gameOptionNumber = inputGameOptionNumber(gameType: .mukChiPa, currentTurnOwner) else {
+                currentTurnOwner = .computer
+                continue
+            }
+            
+            computer.makeRandomHandShape()
+            guard let computerHandShape = computer.getCurrentHandShape() else { continue }
+            
+            switch gameOptionNumber {
+            case endOption:
+                isGameOn = false
+                print("게임종료")
+            default:
+                let userHandShape = handShapes[gameOptionNumber - 1]
+                guard let winner = getGameResult(computerHandShape, userHandShape).player else {
+                    isGameOn = false
+                    print("\(currentTurnOwner.rawValue)의 승리!")
+                    return
+                }
+                isGameOn = !getGameResult(computerHandShape, userHandShape).isGameOn
+                user.changeHandShape(to: userHandShape)
+                currentTurnOwner = winner
+                print("\(currentTurnOwner.rawValue)의 턴입니다.")
+            }
+        }
+    }
+    
     private func getGameResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String, player: PlayerType?) {
         switch (computerHandShape, userHandShape) {
         case let (computerHandShape, userHandShape) where computerHandShape == userHandShape:
