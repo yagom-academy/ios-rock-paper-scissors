@@ -20,11 +20,11 @@ struct FunnyGame {
         
         switch input {
         case HandOptions.scissors.rawValue:
-            compareHand(HandOptions.scissors, with: HandOptions.rock)
+            compareHand(with: HandOptions.scissors)
         case HandOptions.rock.rawValue:
-            compareHand(HandOptions.rock, with: HandOptions.paper)
+            compareHand(with: HandOptions.rock)
         case HandOptions.paper.rawValue:
-            compareHand(HandOptions.paper, with: HandOptions.scissors)
+            compareHand(with: HandOptions.paper)
         case "0":
             print("게임 종료")
         default:
@@ -41,7 +41,7 @@ struct FunnyGame {
         return rivalHand
     }
 
-    private func compareHand(_ userHand: HandOptions, with trialHand: HandOptions) {
+    private func compareHand(with userHand: HandOptions) {
         let rivalHand: HandOptions
         
         do {
@@ -51,13 +51,15 @@ struct FunnyGame {
             return
         }
         
-        let result = rivalHand == userHand ? "비겼습니다." :
-        rivalHand == trialHand ? "졌습니다." :
-        "이겼습니다!"
-        print("\(result)")
-        
-        if result == "비겼습니다." {
+        if userHand == rivalHand {
+            print("비겼습니다!")
             startGame()
+        } else if (userHand == .scissors && rivalHand == .paper)
+                    || (userHand == .rock && rivalHand == .scissors)
+                    || (userHand == .paper && rivalHand == .rock) {
+            print("이겼습니다!")
+        } else {
+            print("졌습니다!")
         }
     }
 }
