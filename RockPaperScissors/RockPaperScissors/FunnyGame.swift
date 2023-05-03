@@ -6,14 +6,14 @@
 //
 
 struct FunnyGame {
-    private var winner: String = ""
+    var secondGame = SecondGame()
     
-    mutating func startGame() {
+    func startGame() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         selectMenu()
     }
     
-    private mutating func selectMenu() {
+    private func selectMenu() {
         guard let input: String = readLine() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             startGame()
@@ -43,7 +43,7 @@ struct FunnyGame {
         return rivalHand
     }
 
-    private mutating func compareHand(with userHand: HandOptions) {
+    private func compareHand(with userHand: HandOptions) {
         let rivalHand: HandOptions
         
         do {
@@ -61,15 +61,11 @@ struct FunnyGame {
                     || (userHand == .paper && rivalHand == .rock) {
             print("이겼습니다!")
             winner = "사용자"
-            startMukjjipa()
+            secondGame.startMukjjipa()
         } else {
             print("졌습니다!")
             winner = "컴퓨터"
-            startMukjjipa()
+            secondGame.startMukjjipa()
         }
-    }
-    
-    func startMukjjipa() {
-        print("[\(winner) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
     }
 }
