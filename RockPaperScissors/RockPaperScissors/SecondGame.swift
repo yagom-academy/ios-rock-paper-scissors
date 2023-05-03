@@ -19,11 +19,11 @@ struct SecondGame {
         
         switch input {
         case MukjjipaOptions.muk.rawValue:
-            compareHand(with: .muk)
+            compareTwoHand(with: .muk)
         case MukjjipaOptions.jji.rawValue:
-            compareHand(with: .jji)
+            compareTwoHand(with: .jji)
         case MukjjipaOptions.pa.rawValue:
-            compareHand(with: .pa)
+            compareTwoHand(with: .pa)
         case "0":
             print("게임 종료")
         default:
@@ -33,7 +33,7 @@ struct SecondGame {
         }
     }
     
-    private func makeRival() throws -> MukjjipaOptions {
+    private func makeSecondRival() throws -> MukjjipaOptions {
         guard let rivalHand: MukjjipaOptions = MukjjipaOptions.allCases.randomElement() else {
             throw Errors.invalidRival
         }
@@ -41,11 +41,11 @@ struct SecondGame {
         return rivalHand
     }
     
-    private func compareHand(with userHand: MukjjipaOptions) {
+    private func compareTwoHand(with userHand: MukjjipaOptions) {
         let rivalHand: MukjjipaOptions
         
         do {
-            rivalHand = try makeRival()
+            rivalHand = try makeSecondRival()
         } catch {
             print("가위바위보가 성립하지 않습니다.")
             return

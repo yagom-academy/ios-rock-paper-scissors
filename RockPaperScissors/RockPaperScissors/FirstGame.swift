@@ -1,11 +1,11 @@
 //
-//  FunnyGame.swift
+//  FirstGame.swift
 //  RockPaperScissors
 //
 //  Created by EtialMoon & Serena on 2023/05/02.
 //
 
-struct FunnyGame {
+struct FirstGame {
     var secondGame = SecondGame()
     
     func startGame() {
@@ -16,7 +16,6 @@ struct FunnyGame {
     private func selectMenu() {
         guard let input: String = readLine() else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            startGame()
             return
         }
         
