@@ -11,9 +11,10 @@ struct RockPaperScissors {
         print("가위(1), 바위(2), 보(3)! <종료 :0> : ", terminator: "")
         
         guard let userInput: String = readLine() else { return }
+        let computerInput = makeComputerInput()
         
         checkGameEnd(userInput)
-        getUserInput(userInput, makeComputerInput())
+        getUserInput(userInput, computerInput)
     }
     
     private func checkGameEnd(_ userInput: String) {

@@ -14,7 +14,15 @@ struct MuckJjiBba {
         }
         
         guard let userInput: String = readLine() else { return }
-        //checkGameEnd(userInput)
-        //checVaildInput()
+        checkGameEnd(userInput)
+        //checkVaildInput()
+    }
+    
+    private func checkGameEnd(_ userInput: String) {
+        guard userInput != "0" else { return print("게임 종료") }
+    }
+    
+    private func makeComputerInput() -> String {
+        return String(Int.random(in: 1...3))
     }
 }
