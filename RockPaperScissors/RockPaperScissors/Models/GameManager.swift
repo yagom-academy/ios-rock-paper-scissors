@@ -11,6 +11,7 @@ class GameManager {
         let user: GamePlayer = GamePlayer(type: .person)
         let handShapes: [HandShape] = [.scissors, .rock, .paper]
         var isGameOn: Bool = true
+        var winner: PlayerType?
         
         while isGameOn {
             guard let gameOptionNumber = inputGameOptionNumber(gameType: .rockPaperScissors) else { continue }
@@ -26,21 +27,22 @@ class GameManager {
                 let userHandShape = handShapes[gameOptionNumber - 1]
                 let resultMessage = getGameResult(computerHandShape, userHandShape).resultMessage
                 isGameOn = getGameResult(computerHandShape, userHandShape).isGameOn
+                winner = getGameResult(computerHandShape, userHandShape).player
                 
                 user.changeHandShape(to: userHandShape)
                 print("\(resultMessage)")
             }
         }
     }
-    
-    private func getGameResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String) {
+
+    private func getGameResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String, player: PlayerType?) {
         switch (computerHandShape, userHandShape) {
         case let (computerHandShape, userHandShape) where computerHandShape == userHandShape:
-            return (true, "비겼습니다.")
+            return (true, "비겼습니다.", nil)
         case (.rock, .paper), (.paper, .scissors), (.scissors, .rock):
-            return (false, "이겼습니다!")
+            return (false, "이겼습니다!", .person)
         default:
-            return (false, "졌습니다!")
+            return (false, "졌습니다!", .computer)
         }
     }
     
