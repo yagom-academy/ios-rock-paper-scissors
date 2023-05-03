@@ -26,23 +26,32 @@ struct RockPaperScissorsGame {
         }
     }
 
-    enum Result: String {
-        case win = "이겼습니다!"
-        case lose = "졌습니다!"
-        case draw = "비겼습니다!"
+    enum Result {
+        case win
+        case lose
+        case draw
+        case exit
+        
+        var message: String {
+            switch self {
+            case .win:
+                return "이겼습니다!"
+            case .lose:
+                return "졌습니다!"
+            case .draw:
+                return "비겼습니다!"
+            case .exit:
+                return "게임 종료"
+            }
+        }
     }
 
     func startGame() {
         do {
             let menu = try inputMenu()
-            
-            guard menu != .exit else {
-                print("게임 종료")
-                return
-            }
             let gameResult = try playGame(menu)
             
-            print(gameResult.rawValue)
+            print(gameResult.message)
             
             if gameResult == .draw { startGame() }
         } catch GameError.menuNotFound {
@@ -64,6 +73,7 @@ struct RockPaperScissorsGame {
     }
 
     private func playGame(_ usersChoice: Menu) throws -> Result {
+        guard usersChoice != .exit else { return .exit }
         guard let computersChoice = Menu(rawValue: String(Int.random(in: 1...3)))
         else { throw GameError.unknownError }
 
