@@ -1,10 +1,8 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
-// 
+//  last modified by maxhyunm, Mary
+//
 
-import Foundation
-
-print("Hello, World!")
-
+RockPaperScissorsGame().startGame()
