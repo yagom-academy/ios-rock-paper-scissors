@@ -15,16 +15,15 @@ enum UserCards: Int {
 
 enum UserCardsError: Error {
     case error
-    case exit
 }
 
-while true {
+var isGameStart: Bool = true
+
+while isGameStart {
     do {
         try inputMenu()
     } catch UserCardsError.error {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-    } catch UserCardsError.exit {
-        break
     }
 }
 
@@ -42,10 +41,10 @@ func inputMenu() throws {
         try inputMenu()
     case .exit:
         print("게임 종료")
-        throw UserCardsError.exit
+        isGameStart = false
     }
-
 }
+
 func createRandomNumber() -> Int {
     let randomNumber = Int.random(in: 1...3)
     print(randomNumber)
