@@ -92,5 +92,35 @@ struct RockPaperScissorsGame {
             return .lose
         }
     }
+    
+    var turn: String {
+        willSet(newValue) {
+            print("\(newValue)의 턴입니다.")
+        }
+    }
+    
+    mutating func playMukJjiPpaGame() {
+        do {
+            let menu = try inputMenu()
+            let gameResult = try playGame(menu)
+            
+            guard gameResult != .draw else {
+                print("\(turn)의 승리!")
+                return
+            }
+            if gameResult != .lose {
+                turn = "사용자"
+            } else {
+                turn = "컴퓨터"
+            }
+            playMukJjiPpaGame()
+        } catch GameError.menuNotFound {
+            print(GameError.menuNotFound.errorMessage)
+            turn = "컴퓨터"
+            playMukJjiPpaGame()
+        } catch {
+            print(GameError.unknown.errorMessage)
+        }
+    }
 }
 
