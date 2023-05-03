@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-let teamMoons = FunnyGame()
+var teamMoons = FunnyGame()
 teamMoons.startGame()
