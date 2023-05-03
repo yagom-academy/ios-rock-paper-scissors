@@ -13,7 +13,7 @@ class GameManager {
         var isGameOn: Bool = true
         
         while isGameOn {
-            guard let gameOptionNumber = inputGameOptionNumber() else { continue }
+            guard let gameOptionNumber = inputGameOptionNumber(gameType: .rockPaperScissors) else { continue }
             
             computer.makeRandomHandShape()
             guard let computerHandShape = computer.getCurrentHandShape() else { continue }
@@ -44,9 +44,10 @@ class GameManager {
         }
     }
     
-    private func inputGameOptionNumber() -> Int? {
+    private func inputGameOptionNumber(gameType: GameType, _ currentPlayer: PlayerType? = nil) -> Int? {
         let validOptionRange: ClosedRange<Int> = 0...3
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+        showGameMessageWith(gameType, currentPlayer)
+        
         guard let gameOption = readLine(),
               let gameOptionNumber = Int(gameOption),
               validOptionRange.contains(gameOptionNumber) else {
@@ -55,5 +56,15 @@ class GameManager {
         }
         
         return gameOptionNumber
+    }
+    
+    private func showGameMessageWith(_ gameType: GameType, _ currentPlayer: PlayerType?) {
+        switch gameType {
+        case .rockPaperScissors:
+            print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+        case .mukChiPa:
+            guard let currentPlayer = currentPlayer else { return }
+            print("[\(currentPlayer.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+        }
     }
 }
