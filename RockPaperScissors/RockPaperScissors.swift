@@ -2,7 +2,7 @@
 //  RockPaperScissors.swift
 //  RockPaperScissors
 //
-//  Created by Yeseul Jang on 2023/05/03.
+//  Created by yyss99 on 2023/05/03.
 //
 
 struct RockPaperScissors {

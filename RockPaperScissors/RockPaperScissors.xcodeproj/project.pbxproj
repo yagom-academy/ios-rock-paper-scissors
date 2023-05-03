@@ -63,8 +63,8 @@
 		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
 			isa = PBXGroup;
 			children = (
-				0AC858A72A01F68B000379E5 /* RockPaperScissors.swift */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				0AC858A72A01F68B000379E5 /* RockPaperScissors.swift */,
 				63BD36E82A00DB6E00498185 /* HandSign.swift */,
 				0AC858A52A00DD47000379E5 /* GameResult.swift */,
 			);
