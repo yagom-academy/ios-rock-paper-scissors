@@ -7,8 +7,8 @@
 
 class GameManager {
     func startGame() {
-        let computer: Player = Player(type: .computer)
-        let user: Player = Player(type: .person)
+        let computer: GamePlayer = GamePlayer(type: .computer)
+        let user: GamePlayer = GamePlayer(type: .person)
         let handShapes: [HandShape] = [.scissors, .rock, .paper]
         var isGameOn: Bool = true
         

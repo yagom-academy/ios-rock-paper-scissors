@@ -5,7 +5,7 @@
 //  Created by myungsun, Yetti on 2023/05/02.
 //
 
-class Player {
+class GamePlayer {
     private var currentHandShape: HandShape?
     private var type: PlayerType
     
