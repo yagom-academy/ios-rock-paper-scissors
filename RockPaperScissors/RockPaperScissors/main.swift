@@ -5,4 +5,4 @@
 //
 
 let andrew = RockPaperScissorsGame()
-andrew.startGame()
+andrew.playGame()

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7854578F29FFBE6600085655 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7854578E29FFBE6600085655 /* Menu.swift */; };
 		7854579129FFBF7500085655 /* RockPaperScissorsGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7854579029FFBF7500085655 /* RockPaperScissorsGame.swift */; };
+		92B88B092A0257A900F6DF42 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B88B082A0257A900F6DF42 /* Game.swift */; };
 		AC26FB772A0209AA004F2666 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26FB762A0209AA004F2666 /* Player.swift */; };
 		AC26FB7A2A0209D8004F2666 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC26FB792A0209D8004F2666 /* Result.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		7854578E29FFBE6600085655 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		7854579029FFBF7500085655 /* RockPaperScissorsGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsGame.swift; sourceTree = "<group>"; };
+		92B88B082A0257A900F6DF42 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		AC26FB762A0209AA004F2666 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		AC26FB792A0209D8004F2666 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +72,7 @@
 				7854578E29FFBE6600085655 /* Menu.swift */,
 				AC26FB762A0209AA004F2666 /* Player.swift */,
 				AC26FB792A0209D8004F2666 /* Result.swift */,
+				92B88B082A0257A900F6DF42 /* Game.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -133,6 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC26FB772A0209AA004F2666 /* Player.swift in Sources */,
+				92B88B092A0257A900F6DF42 /* Game.swift in Sources */,
 				AC26FB7A2A0209D8004F2666 /* Result.swift in Sources */,
 				7854579129FFBF7500085655 /* RockPaperScissorsGame.swift in Sources */,
 				7854578F29FFBE6600085655 /* Menu.swift in Sources */,

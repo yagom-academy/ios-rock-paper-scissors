@@ -11,3 +11,10 @@ enum Menu: String {
     case paper = "3"
     case termination = "0"
 }
+
+enum mukjjippaMenu: String {
+    case rock = "1"
+    case scissors = "2"
+    case paper = "3"
+    case termination = "0"
+}
