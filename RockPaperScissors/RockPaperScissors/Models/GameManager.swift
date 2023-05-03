@@ -62,13 +62,13 @@ class GameManager {
                 let userHandShape = handShapes[gameOptionNumber - 1]
                 guard let winner = getGameResult(computerHandShape, userHandShape).player else {
                     isGameOn = false
-                    print("\(currentTurnOwner.rawValue)의 승리!")
+                    showGameWinner(with: currentTurnOwner)
                     return
                 }
                 isGameOn = !getGameResult(computerHandShape, userHandShape).isGameOn
                 user.changeHandShape(to: userHandShape)
                 currentTurnOwner = winner
-                print("\(currentTurnOwner.rawValue)의 턴입니다.")
+                showCurrentPlayerTurn(with: currentTurnOwner)
             }
         }
     }
@@ -106,5 +106,13 @@ class GameManager {
             guard let currentPlayer = currentPlayer else { return }
             print("[\(currentPlayer.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
         }
+    }
+    
+    private func showGameWinner(with currentTurnOwner: PlayerType) {
+        print("\(currentTurnOwner.rawValue)의 승리!")
+    }
+    
+    private func showCurrentPlayerTurn(with currentTurnOwner: PlayerType) {
+        print("\(currentTurnOwner.rawValue)의 턴입니다.")
     }
 }
