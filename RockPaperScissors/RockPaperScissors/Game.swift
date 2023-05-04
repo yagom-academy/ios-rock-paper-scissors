@@ -41,7 +41,7 @@ class Game {
         }
     }
     
-    private func displayResult(_ result: Result, for mode: GameMode) {
+    private func printResult(_ result: Result, for mode: GameMode) {
         if mode == .rockPaperScissors {
             turn = result == .win ? .user : .computer
             print(result.message)
