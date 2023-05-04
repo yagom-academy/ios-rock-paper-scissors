@@ -5,22 +5,25 @@
 //  Created by 5조 on 2023/05/04.
 //
 
+
 class RockPaperScissorsGame {
     
-    func compare(_ computerRockPaperScissors: RockPaperScissors, and playerRockPaperScissors: RockPaperScissors) -> Bool {
-        var isGameOver: Bool = true
-
+    func compare(_ computerRockPaperScissors: RockPaperScissors, and playerRockPaperScissors: RockPaperScissors) -> GameResult? {
+        var gameResult: GameResult?
+        
         switch (computerRockPaperScissors, playerRockPaperScissors) {
         case (.paper, .scissors), (.scissors, .rock), (.rock, .paper):
+            gameResult = .victory
             print("이겼습니다!")
         case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
+            gameResult = .defeat
             print("졌습니다!")
         default:
+            gameResult = nil
             print("비겼습니다!")
-            isGameOver = false
         }
         
-        return isGameOver
+        return gameResult
     }
 
     func getUserInput() -> String {
@@ -30,32 +33,39 @@ class RockPaperScissorsGame {
         return input
     }
 
-    func checkUserInput(_ userInput: String) -> Bool {
-        var isGameInProgress: Bool = true
+    func checkUserInput(_ userInput: String) -> GameResult? {
         let gameOver: String = "0"
+        var gameResult: GameResult?
         
         switch userInput {
         case "1", "2", "3":
             guard let playerRockPaperScissors = RockPaperScissors(rawValue: userInput),
                   let computerRockPaperScissors = RockPaperScissors(rawValue: "\(Int.random(in: 1...3))") else {
-                return isGameInProgress
+                return nil
             }
-            isGameInProgress = !compare(computerRockPaperScissors, and: playerRockPaperScissors)
+            gameResult = compare(computerRockPaperScissors, and: playerRockPaperScissors)
         case gameOver:
-            isGameInProgress = false
+            gameResult = .gameOver
             print("게임 종료")
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
-        return isGameInProgress
+        return gameResult
     }
 
-    func startGame() {
+    func startGame() -> GameResult {
         var isGameInProgress: Bool = true
+        var gameResult: GameResult?
         
         repeat {
             let userInput = getUserInput()
-            isGameInProgress = checkUserInput(userInput)
+            gameResult = checkUserInput(userInput)
+            isGameInProgress = gameResult == nil ? true : false
         } while isGameInProgress
+        
+        guard let gameResult = gameResult else { return GameResult.gameOver }
+        
+        return gameResult
     }
 }
+

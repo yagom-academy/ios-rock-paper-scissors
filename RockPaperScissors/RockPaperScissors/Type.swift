@@ -17,13 +17,9 @@ enum MukJiPpa: String {
     case ppa = "3"
 }
 
-enum Turn: String {
-    case user = "사용자"
-    case computer = "컴퓨터"
-    case error = "게임 종료"
+enum GameResult: String {
+    case victory = "승리"
+    case defeat = "패배"
+    case gameOver = "게임 종료"
 }
 
-enum GameMode {
-    case rockPaperScissors
-    case mukJiPpa
-}
