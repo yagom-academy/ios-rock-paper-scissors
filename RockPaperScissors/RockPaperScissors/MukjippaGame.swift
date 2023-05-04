@@ -6,55 +6,48 @@
 //
 
 class MukjippaGame {
-    var turn: String = ""
-    
-    func compare(_ computerMukjippa: MukJiPpa, and playerMukjippa: MukJiPpa) -> Bool {
-        var isGameOver: Bool = false
+    private var turn: String = ""
+    private var isGameInProgress: Bool = true
+
+    private func compare(_ computerMukjippa: MukJiPpa, and playerMukjippa: MukJiPpa) {
         
         switch (computerMukjippa, playerMukjippa) {
         case (.ppa, .ji), (.ji, .muk), (.muk, .ppa):
-            turn = "사용자"
+            self.turn = "사용자"
             print("\(turn)의 턴 입니다")
         case (.ji, .ppa), (.muk, .ji), (.ppa, .muk):
-            turn = "컴퓨터"
+            self.turn = "컴퓨터"
             print("\(turn)의 턴 입니다")
         default:
             print("\(turn)의 승리!")
-            isGameOver = true
+            self.isGameInProgress = false
         }
-        
-        return isGameOver
     }
     
-    func getUserInput() -> String {
+    private func getUserInput() -> String {
         print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
         guard let input = readLine() else { return "" }
         
         return input
     }
     
-    func checkUserInput(_ userInput: String) -> Bool {
-        var isGameInProgress: Bool = true
+    private func checkUserInput(_ userInput: String) {
         let gameOver: String = "0"
         
         switch userInput {
         case "1", "2", "3":
             guard let playerMukjippa = MukJiPpa(rawValue: userInput),
-                  let computerMukjippa = MukJiPpa(rawValue: "\(Int.random(in: 1...3))") else {
-                return isGameInProgress
-            }
-            isGameInProgress = !compare(computerMukjippa, and: playerMukjippa)
+                  let computerMukjippa = MukJiPpa(rawValue: "\(Int.random(in: 1...3))") else { return }
+            compare(computerMukjippa, and: playerMukjippa)
         case gameOver:
-            isGameInProgress = false
+            self.isGameInProgress = false
             print("게임 종료")
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
-        return isGameInProgress
     }
     
-    func checkRockPaperScissorsGameResult(_ gameResult: GameResult) -> Bool {
-        var isGameOver: Bool = false
+    private func checkRockPaperScissorsGameResult(_ gameResult: GameResult) {
         
         switch gameResult {
         case .victory:
@@ -62,25 +55,19 @@ class MukjippaGame {
         case .defeat:
             self.turn = "컴퓨터"
         case .gameOver:
-            isGameOver = true
+            self.isGameInProgress = false
         }
-        
-        return isGameOver
     }
 
     func startGame() {
-        var isGameInProgress: Bool = true
-        
         let rpsGame = RockPaperScissorsGame()
         let gameResult: GameResult = rpsGame.startGame()
         
-        if checkRockPaperScissorsGameResult(gameResult) {
-            return
-        }
+        checkRockPaperScissorsGameResult(gameResult)
         
-        repeat {
+        while self.isGameInProgress {
             let userInput = getUserInput()
-            isGameInProgress = checkUserInput(userInput)
-        } while isGameInProgress
+            checkUserInput(userInput)
+        }
     }
 }
