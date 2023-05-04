@@ -4,20 +4,15 @@
 //
 //  Created by 5조 on 2023/05/04.
 //
-enum Turn: String {
-    case user = "사용자"
-    case computer = "컴퓨터"
-}
-
 
 class MukjippaGame {
     var turn: Turn
-    
+
     init(turn: Turn) {
         self.turn = turn
     }
     
-    func compare(_ computerMukjippa: Mukjippa, and playerMukjippa: Mukjippa) -> Bool {
+    func compare(_ computerMukjippa: MukJiPpa, and playerMukjippa: MukJiPpa) -> Bool {
         var isGameOver: Bool = false
 
         switch (computerMukjippa, playerMukjippa) {
@@ -48,8 +43,8 @@ class MukjippaGame {
         
         switch userInput {
         case "1", "2", "3":
-            guard let playerMukjippa = Mukjippa(rawValue: userInput),
-                  let computerMukjippa = Mukjippa(rawValue: "\(Int.random(in: 1...3))") else {
+            guard let playerMukjippa = MukJiPpa(rawValue: userInput),
+                  let computerMukjippa = MukJiPpa(rawValue: "\(Int.random(in: 1...3))") else {
                 return isGameInProgress
             }
             isGameInProgress = !compare(computerMukjippa, and: playerMukjippa)
