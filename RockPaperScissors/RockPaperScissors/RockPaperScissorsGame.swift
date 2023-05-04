@@ -5,18 +5,8 @@
 //  Created by Daehoon Lee on 2023/05/01.
 //
 
-class RockPaperScissorsGame {
-    private var turn: Player
-    private var matchResult: Result
-    private var selectedGame: Game
-    
-    init(turn: Player, matchResult: Result, selectedGame: Game) {
-        self.turn = turn
-        self.matchResult = matchResult
-        self.selectedGame = selectedGame
-    }
-    
-    func playRockPaperScissors() -> (Player, Game) {
+class RockPaperScissorsGame: GameBase {
+    func playRockPaperScissors() -> (Player, GameList) {
         print("가위(1), 바위(2), 보(3)! <종료 : 0>:", terminator: " ")
         
         guard let user = readLine(), let menu = RockPaperScissorsMenu(rawValue: user) else {
@@ -34,10 +24,6 @@ class RockPaperScissorsGame {
         }
         
         return (turn, selectedGame)
-    }
-    
-    private func generateComputerRandomNumber() -> String {
-        return String(Int.random(in: 1...3))
     }
     
     private func compareRockPaperScissors(_ user: String, _ computer: String) {

@@ -7,14 +7,13 @@
 
 class GameManager {
     private var turn: Player = .user
-    private var matchResult: Result = .win
-    private var selectedGame: Game = .rockPaperScissors
+    private var selectedGame: GameList = .rockPaperScissors
     private var rockPaperScissorsGame: RockPaperScissorsGame
     private var mukJjiPpaGame: MukJjiPpaGame
     
     init() {
-        rockPaperScissorsGame = RockPaperScissorsGame(turn: turn, matchResult: matchResult, selectedGame: selectedGame)
-        mukJjiPpaGame = MukJjiPpaGame(turn: turn, matchResult: matchResult, selectedGame: selectedGame)
+        rockPaperScissorsGame = RockPaperScissorsGame(turn: turn, selectedGame: selectedGame)
+        mukJjiPpaGame = MukJjiPpaGame(turn: turn, selectedGame: selectedGame)
     }
     
     func playGame() {

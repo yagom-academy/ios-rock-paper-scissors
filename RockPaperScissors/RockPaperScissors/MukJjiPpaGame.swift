@@ -5,18 +5,8 @@
 //  Created by Yena on 2023/05/03.
 //
 
-class MukJjiPpaGame {
-    private var turn: Player
-    private var matchResult: Result
-    private var selectedGame: Game
-    
-    init(turn: Player, matchResult: Result, selectedGame: Game) {
-        self.turn = turn
-        self.matchResult = matchResult
-        self.selectedGame = selectedGame
-    }
-    
-    func playMukJjiPpa(_ time: Player) -> (Player, Game) {
+class MukJjiPpaGame: GameBase {
+    func playMukJjiPpa(_ time: Player) -> (Player, GameList) {
         turn = time
         
         print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>:", terminator: " ")
@@ -36,13 +26,7 @@ class MukJjiPpaGame {
         }
     }
     
-    private func generateComputerRandomNumber() -> String {
-        return "1"
-        //return String(Int.random(in: 1...3))
-    }
-    
     private func compareMukJjiPpa(_ user: String, _ computer: String) {
-        print(MukJjiPpaMenu(rawValue: user)!, MukJjiPpaMenu(rawValue: computer)!)
         let winningPair: [(user: MukJjiPpaMenu, computer: MukJjiPpaMenu)] = [(.rock, .scissors),
                                                                              (.scissors, .paper),
                                                                              (.paper, .rock)]
@@ -58,7 +42,7 @@ class MukJjiPpaGame {
         }
     }
     
-    private func printResult() -> Game {
+    private func printResult() -> GameList {
         switch matchResult {
         case .win, .lose:
             print("\(turn.rawValue)의 턴입니다.")
