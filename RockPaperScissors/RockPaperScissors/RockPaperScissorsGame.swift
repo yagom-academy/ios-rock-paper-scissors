@@ -6,23 +6,6 @@
 //
 
 struct RockPaperScissorsGame {
-    var choices: Dictionary<String, Menu> {
-        switch isFirstGame {
-        case true:
-            return ["0": .exit, "1": .scissors, "2": .rock, "3": .paper]
-        case false:
-            return ["0": .exit, "1": .rock, "2": .scissors, "3": .paper]
-        }
-    }
-    var printMessage: String {
-        switch isFirstGame {
-        case true:
-            return "가위(1), 바위(2), 보(3)! <종료 : 0> :"
-        case false:
-            return "[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
-        }
-    }
-    
     enum Menu: String {
         case scissors
         case rock
@@ -63,7 +46,22 @@ struct RockPaperScissorsGame {
         }
     }
     
-
+    var choices: Dictionary<String, Menu> {
+        switch isFirstGame {
+        case true:
+            return ["0": .exit, "1": .scissors, "2": .rock, "3": .paper]
+        case false:
+            return ["0": .exit, "1": .rock, "2": .scissors, "3": .paper]
+        }
+    }
+    var printMessage: String {
+        switch isFirstGame {
+        case true:
+            return "가위(1), 바위(2), 보(3)! <종료 : 0> :"
+        case false:
+            return "[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :"
+        }
+    }
     var isFirstGame: Bool = true
     var turn: String = ""
     
@@ -71,12 +69,12 @@ struct RockPaperScissorsGame {
         do {
             let menu = try inputMenu()
             let gameResult = try playGame(menu)
-            let resultMessage = getResultMessage(gameResult)
+            let resultMessage = selectResultMessage(gameResult)
             
             print(resultMessage)
+            
             guard gameResult != .exit else { return }
             guard !(!isFirstGame && gameResult == .draw) else { return }
-            
             if isFirstGame && (gameResult == .win || gameResult == .lose) {
                 isFirstGame = false
             }
@@ -92,7 +90,7 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func getResultMessage(_ result: Result) -> String {
+    private func selectResultMessage(_ result: Result) -> String {
         if isFirstGame || result == .exit {
             return result.message
         } else if result == .draw {
