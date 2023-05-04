@@ -2,7 +2,7 @@
 //  Menu.swift
 //  RockPaperScissors
 //
-//  Created by Daehoon Lee on 2023/05/01.
+//  Created by 민다훈 on 2023/05/01.
 //
 
 enum RockPaperScissorsMenu: String {

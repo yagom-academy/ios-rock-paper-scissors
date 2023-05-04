@@ -2,34 +2,36 @@
 //  RockPaperScissorsGame.swift
 //  RockPaperScissors
 //
-//  Created by Daehoon Lee on 2023/05/01.
+//  Created by 민다훈 on 2023/05/01.
 //
 
 class RockPaperScissorsGame: GameBase {
-    func playRockPaperScissors() -> (Player, GameList) {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0>:", terminator: " ")
-        
-        guard let user = readLine(), let menu = RockPaperScissorsMenu(rawValue: user) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return (.user, .rockPaperScissors)
+    func playRockPaperScissors() -> (Player, Result) {
+        while matchResult == .draw {
+            print("가위(1), 바위(2), 보(3)! <종료 : 0>:", terminator: " ")
+            
+            guard let user = readLine(), let menu = RockPaperScissorsMenu(rawValue: user) else {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                continue
+            }
+            
+            switch menu {
+            case .paper, .rock, .scissors:
+                let computer: String = generateComputerRandomNumber()
+                compareRockPaperScissors(user, computer)
+                printResult()
+            case .termination:
+                matchResult = .giveUp
+            }
         }
         
-        switch menu {
-        case .paper, .rock, .scissors:
-            let computer: String = generateComputerRandomNumber()
-            compareRockPaperScissors(user, computer)
-            printResult()
-        case .termination:
-            return (.user, .termination)
-        }
-        
-        return (turn, selectedGame)
+        return (turn, matchResult)
     }
     
     private func compareRockPaperScissors(_ user: String, _ computer: String) {
         let winningPair: [(user: RockPaperScissorsMenu, computer: RockPaperScissorsMenu)] = [(.rock, .scissors),
-                                                           (.scissors, .paper),
-                                                           (.paper, .rock)]
+                                                                                             (.scissors, .paper),
+                                                                                             (.paper, .rock)]
         
         if winningPair.contains(where: { $0.user.rawValue == user && $0.computer.rawValue == computer }) {
             matchResult = .win
@@ -44,12 +46,10 @@ class RockPaperScissorsGame: GameBase {
     
     private func printResult() {
         switch matchResult {
-        case .win, .lose:
+        case .draw:
             print("\(matchResult.rawValue)")
-            selectedGame = .mukJjiPpa
-        case .draw :
-            print("\(matchResult.rawValue)")
+        default:
+            break
         }
     }
-
 }

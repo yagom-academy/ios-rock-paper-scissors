@@ -2,7 +2,7 @@
 //  Player.swift
 //  RockPaperScissors
 //
-//  Created by Yena on 2023/05/03.
+//  Created by 민다훈 on 2023/05/03.
 //
 
 enum Player: String {

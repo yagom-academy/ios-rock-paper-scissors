@@ -2,28 +2,31 @@
 //  MukJjiPpaGame.swift
 //  RockPaperScissors
 //
-//  Created by Yena on 2023/05/03.
+//  Created by 민다훈 on 2023/05/03.
 //
 
 class MukJjiPpaGame: GameBase {
-    func playMukJjiPpa(_ time: Player) -> (Player, GameList) {
-        turn = time
-        
-        print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>:", terminator: " ")
-        
-        guard let user = readLine(), let menu = MukJjiPpaMenu(rawValue: user) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            return (.computer, .mukJjiPpa)
+    func playMukJjiPpa() -> (winner: Player, status: Result) {
+        while matchResult != .draw && matchResult != .giveUp {            
+            print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>:", terminator: " ")
+            
+            guard let user = readLine(), let menu = MukJjiPpaMenu(rawValue: user) else {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                turn = .computer
+                continue
+            }
+            
+            switch menu {
+            case .paper, .rock, .scissors:
+                let computer: String = generateComputerRandomNumber()
+                compareMukJjiPpa(user, computer)
+                printResult()
+            case .termination:
+                matchResult = .giveUp
+            }
         }
         
-        switch menu {
-        case .paper, .rock, .scissors:
-            let computer: String = generateComputerRandomNumber()
-            compareMukJjiPpa(user, computer)
-            return (turn, printResult())
-        case .termination:
-            return (turn, .termination)
-        }
+        return (turn, matchResult)
     }
     
     private func compareMukJjiPpa(_ user: String, _ computer: String) {
@@ -42,14 +45,12 @@ class MukJjiPpaGame: GameBase {
         }
     }
     
-    private func printResult() -> GameList {
+    private func printResult() {
         switch matchResult {
         case .win, .lose:
             print("\(turn.rawValue)의 턴입니다.")
-            return .mukJjiPpa
-        case .draw:
-            print("\(turn.rawValue)의 승리!")
-            return .termination
+        default:
+            break
         }
     }
 }

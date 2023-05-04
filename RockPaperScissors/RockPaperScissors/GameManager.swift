@@ -2,27 +2,33 @@
 //  GameManager.swift
 //  RockPaperScissors
 //
-//  Created by Yena on 2023/05/03.
+//  Created by 민다훈 on 2023/05/03.
 //
 
 class GameManager {
-    private var turn: Player = .user
-    private var selectedGame: GameList = .rockPaperScissors
-    private var rockPaperScissorsGame: RockPaperScissorsGame
-    private var mukJjiPpaGame: MukJjiPpaGame
-    
-    init() {
-        rockPaperScissorsGame = RockPaperScissorsGame(turn: turn, selectedGame: selectedGame)
-        mukJjiPpaGame = MukJjiPpaGame(turn: turn, selectedGame: selectedGame)
-    }
+    private var turn: Player?
+    private var matchResult: Result?
+    private var rockPaperScissorsGame: RockPaperScissorsGame = RockPaperScissorsGame(turn: .user, matchResult: .draw)
+    private var mukJjiPpaGame: MukJjiPpaGame?
     
     func playGame() {
-        while selectedGame != .termination {
-            if selectedGame == .rockPaperScissors {
-                (turn, selectedGame) = rockPaperScissorsGame.playRockPaperScissors()
-            } else {
-                (turn, selectedGame) = mukJjiPpaGame.playMukJjiPpa(turn)
-            }
+        (turn, matchResult) = rockPaperScissorsGame.playRockPaperScissors()
+        
+        guard let owner = turn, let result = matchResult, result != .giveUp
+        else {
+            print("게임 종료")
+            return
         }
+        
+        print("\(result.rawValue)")
+        mukJjiPpaGame = MukJjiPpaGame(turn: owner, matchResult: result)
+        
+        guard let player = mukJjiPpaGame?.playMukJjiPpa(), player.status != .giveUp
+        else {
+            print("게임 종료")
+            return
+        }
+        
+        print("\(player.winner.rawValue)의 승리!")
     }
 }
