@@ -6,21 +6,20 @@
 //
 
 
-class RockPaperScissorsGame {
+struct RockPaperScissorsGame {
     var gameResult: GameResult?
     var isGameInProgress: Bool = true
     
-    private func compare(_ computerRockPaperScissors: RockPaperScissors, and playerRockPaperScissors: RockPaperScissors) {
-        
+    private mutating func compare(_ computerRockPaperScissors: RockPaperScissors, and playerRockPaperScissors: RockPaperScissors) {
         switch (computerRockPaperScissors, playerRockPaperScissors) {
         case (.paper, .scissors), (.scissors, .rock), (.rock, .paper):
-            self.gameResult = .victory
+            gameResult = .victory
             print("이겼습니다!")
         case (.scissors, .paper), (.rock, .scissors), (.paper, .rock):
-            self.gameResult = .defeat
+            gameResult = .defeat
             print("졌습니다!")
         default:
-            self.gameResult = nil
+            gameResult = nil
             print("비겼습니다!")
         }
     }
@@ -32,7 +31,7 @@ class RockPaperScissorsGame {
         return input
     }
 
-    private func checkUserInput(_ userInput: String) {
+    private mutating func checkUserInput(_ userInput: String) {
         let gameOver: String = "0"
         
         switch userInput {
@@ -48,8 +47,7 @@ class RockPaperScissorsGame {
         }
     }
 
-    func startGame() -> GameResult {
-        
+    mutating func startGame() -> GameResult {
         repeat {
             let userInput = getUserInput()
             checkUserInput(userInput)

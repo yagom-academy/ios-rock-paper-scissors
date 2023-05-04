@@ -5,22 +5,21 @@
 //  Created by 5조 on 2023/05/04.
 //
 
-class MukjippaGame {
+struct MukJiPpaGame {
     private var turn: String = ""
     private var isGameInProgress: Bool = true
 
-    private func compare(_ computerMukjippa: MukJiPpa, and playerMukjippa: MukJiPpa) {
-        
+    private mutating func compare(_ computerMukjippa: MukJiPpa, and playerMukjippa: MukJiPpa) {
         switch (computerMukjippa, playerMukjippa) {
         case (.ppa, .ji), (.ji, .muk), (.muk, .ppa):
-            self.turn = "사용자"
+            turn = "사용자"
             print("\(turn)의 턴 입니다")
         case (.ji, .ppa), (.muk, .ji), (.ppa, .muk):
-            self.turn = "컴퓨터"
+            turn = "컴퓨터"
             print("\(turn)의 턴 입니다")
         default:
             print("\(turn)의 승리!")
-            self.isGameInProgress = false
+            isGameInProgress = false
         }
     }
     
@@ -31,7 +30,7 @@ class MukjippaGame {
         return input
     }
     
-    private func checkUserInput(_ userInput: String) {
+    private mutating func checkUserInput(_ userInput: String) {
         let gameOver: String = "0"
         
         switch userInput {
@@ -40,29 +39,27 @@ class MukjippaGame {
                   let computerMukjippa = MukJiPpa(rawValue: "\(Int.random(in: 1...3))") else { return }
             compare(computerMukjippa, and: playerMukjippa)
         case gameOver:
-            self.isGameInProgress = false
+            isGameInProgress = false
             print("게임 종료")
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
     }
     
-    private func checkRockPaperScissorsGameResult(_ gameResult: GameResult) {
-        
+    private mutating func checkRockPaperScissorsGameResult(_ gameResult: GameResult) {
         switch gameResult {
         case .victory:
-            self.turn = "사용자"
+            turn = "사용자"
         case .defeat:
-            self.turn = "컴퓨터"
+            turn = "컴퓨터"
         case .gameOver:
-            self.isGameInProgress = false
+            isGameInProgress = false
         }
     }
 
-    func startGame() {
-        let rpsGame = RockPaperScissorsGame()
-        let gameResult: GameResult = rpsGame.startGame()
-        
+    mutating func startGame() {
+        var rockPaperScissorsGame = RockPaperScissorsGame()
+        let gameResult: GameResult = rockPaperScissorsGame.startGame()
         checkRockPaperScissorsGameResult(gameResult)
         
         while self.isGameInProgress {

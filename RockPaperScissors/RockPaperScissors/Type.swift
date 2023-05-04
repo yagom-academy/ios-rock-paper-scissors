@@ -22,4 +22,3 @@ enum GameResult: String {
     case defeat = "패배"
     case gameOver = "게임 종료"
 }
-

@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-let test = MukjippaGame()
-test.startGame()
+var game = MukJiPpaGame()
+game.startGame()
