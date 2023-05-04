@@ -33,7 +33,7 @@ struct MukJjiPaGame {
         }
     }
     
-    private func makeSecondRival() -> MukJjiPaOptions? {
+    private func createSecondRival() -> MukJjiPaOptions? {
         guard let rivalHand: MukJjiPaOptions = MukJjiPaOptions.allCases.randomElement() else {
             return nil
         }
@@ -42,7 +42,7 @@ struct MukJjiPaGame {
     }
     
     private func decideVictory(with userHand: MukJjiPaOptions) {
-        guard let rivalHand: MukJjiPaOptions = makeSecondRival() else {
+        guard let rivalHand: MukJjiPaOptions = createSecondRival() else {
             return
         }
         

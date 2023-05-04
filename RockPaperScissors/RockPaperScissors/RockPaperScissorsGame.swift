@@ -34,7 +34,7 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func makeRival() -> HandOptions? {
+    private func createRival() -> HandOptions? {
         guard let rivalHand: HandOptions = HandOptions.allCases.randomElement() else {
             return nil
         }
@@ -43,7 +43,7 @@ struct RockPaperScissorsGame {
     }
 
     private func decideVictory(with userHand: HandOptions) {
-        guard let rivalHand: HandOptions = makeRival() else {
+        guard let rivalHand: HandOptions = createRival() else {
             return
         }
         
