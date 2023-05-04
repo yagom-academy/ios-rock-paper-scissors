@@ -6,7 +6,15 @@
 //
 
 class GameManager {
-    func startRockPaperScissors() {
+    func startGame() {
+        let (winner, computer, user) = startRockPaperScissors()
+        guard let winner = winner,
+              let computer = computer,
+              let user = user  else { return }
+        startMukChiPa(winner, computer, user)
+    }
+    
+    private func startRockPaperScissors() -> (winner: PlayerType?, computer: GamePlayer?, user: GamePlayer?) {
         let computer: GamePlayer = GamePlayer(type: .computer)
         let user: GamePlayer = GamePlayer(type: .person)
         let handShapes: [HandShape] = [.scissors, .rock, .paper]
@@ -21,20 +29,19 @@ class GameManager {
             
             switch gameOptionNumber {
             case 0:
-                isGameOn = false
                 print("게임 종료")
+                return (nil, nil, nil)
             default:
                 let userHandShape = handShapes[gameOptionNumber - 1]
                 let resultMessage = getGameResult(computerHandShape, userHandShape).resultMessage
                 isGameOn = getGameResult(computerHandShape, userHandShape).isGameOn
-                winner = getGameResult(computerHandShape, userHandShape).player
+                winner = getGameResult(computerHandShape, userHandShape).winner
                 
                 user.changeHandShape(to: userHandShape)
                 print("\(resultMessage)")
             }
         }
-        guard let winner = winner else { return }
-        startMukChiPa(winner, computer, user)
+        return (winner, computer, user)
     }
     
     private func startMukChiPa(_ winner: PlayerType, _ computer: GamePlayer, _ user: GamePlayer) {
@@ -60,7 +67,7 @@ class GameManager {
                 print("게임종료")
             default:
                 let userHandShape = handShapes[gameOptionNumber - 1]
-                guard let winner = getGameResult(computerHandShape, userHandShape).player else {
+                guard let winner = getGameResult(computerHandShape, userHandShape).winner else {
                     isGameOn = false
                     showMukChiPaGameWinner(with: currentTurnOwner)
                     return
@@ -73,7 +80,7 @@ class GameManager {
         }
     }
     
-    private func getGameResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String, player: PlayerType?) {
+    private func getGameResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String, winner: PlayerType?) {
         let gameResult: GameResult = compareHandShapeWith(computerHandShape, userHandShape)
         
         switch gameResult {
@@ -97,9 +104,9 @@ class GameManager {
         }
     }
     
-    private func inputGameOptionNumber(gameType: GameType, _ currentPlayer: PlayerType? = nil) -> Int? {
+    private func inputGameOptionNumber(gameType: GameType, _ currentTurnOwner: PlayerType? = nil) -> Int? {
         let validOptionRange: ClosedRange<Int> = 0...3
-        showGameMessageWith(gameType, currentPlayer)
+        showGameMessageWith(gameType, currentTurnOwner)
         
         guard let gameOption = readLine(),
               let gameOptionNumber = Int(gameOption),
@@ -111,13 +118,13 @@ class GameManager {
         return gameOptionNumber
     }
     
-    private func showGameMessageWith(_ gameType: GameType, _ currentPlayer: PlayerType?) {
+    private func showGameMessageWith(_ gameType: GameType, _ currentTurnOwner: PlayerType?) {
         switch gameType {
         case .rockPaperScissors:
             print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
         case .mukChiPa:
-            guard let currentPlayer = currentPlayer else { return }
-            print("[\(currentPlayer.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+            guard let currentTurnOwner = currentTurnOwner else { return }
+            print("[\(currentTurnOwner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
         }
     }
     
