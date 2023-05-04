@@ -2,7 +2,7 @@
 //  RockPaperScissorsManager.swift
 //  RockPaperScissors
 //
-//  Created by redmango1446 on 2023/05/03.
+//  Created by redmango, 비모 on 2023/05/03.
 //
 
 class RockPaperScissorsManager {
@@ -59,18 +59,23 @@ class RockPaperScissorsManager {
     }
     
     private func compare(_ userHand: RockPaperScissors, and computerHand: RockPaperScissors) {
+        var winner: Player = .undecided
+        
         if userHand == computerHand {
             print("비겼습니다!!")
             startGame()
+            
+            return
         } else if isUserWin(userHand, computerHand) {
             print("이겼습니다!!")
-            let mjpManager = MukJiPpaManager(player: .user)
-            mjpManager.startGame()
+            winner = .user
         } else {
             print("졌습니다!!")
-            let mjpManager = MukJiPpaManager(player: .computer)
-            mjpManager.startGame()
+            winner = .computer
         }
+        
+        let mjpManager = MukJiPpaManager(currentPlayer: winner)
+        mjpManager.startGame()
     }
     
     private func isUserWin(_ user: RockPaperScissors, _ computer: RockPaperScissors) -> Bool {

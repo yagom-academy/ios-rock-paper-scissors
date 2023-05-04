@@ -2,7 +2,7 @@
 //  MukJiPpaManager.swift
 //  MukJiPpa
 //
-//  Created by redmango1446 on 2023/05/03.
+//  Created by redmango, 비모 on 2023/05/03.
 //
 
 class MukJiPpaManager {
@@ -12,10 +12,10 @@ class MukJiPpaManager {
         case ppa = 3
     }
     
-    private var player: Player
+    private var currentPlayer: Player
     
-    init(player: Player) {
-        self.player = player
+    init(currentPlayer: Player) {
+        self.currentPlayer = currentPlayer
     }
     
     func startGame() {
@@ -34,7 +34,7 @@ class MukJiPpaManager {
             compare(userHand, and: computerHand)
         } catch ConsoleError.inputError {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            player = .computer
+            currentPlayer = .computer
             startGame()
         } catch {
             print("알 수 없는 에러가 발생했습니다.")
@@ -42,7 +42,7 @@ class MukJiPpaManager {
     }
     
     private func inputUserNumber() throws -> Int {
-        print("[\(player.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+        print("[\(currentPlayer.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
         
         guard let input = readLine(), let userNumber = Int(input), 0...3 ~= userNumber else {
             throw ConsoleError.inputError
@@ -66,14 +66,14 @@ class MukJiPpaManager {
     
     private func compare(_ userHand: MukJiPpa, and computerHand: MukJiPpa) {
         if userHand == computerHand {
-            print("\(player.rawValue)의 승리")
+            print("\(currentPlayer.rawValue)의 승리")
         } else if isUserTurn(userHand, computerHand) {
-            player = .user
-            print("\(player.rawValue)의 턴입니다.")
+            currentPlayer = .user
+            print("\(currentPlayer.rawValue)의 턴입니다.")
             startGame()
         } else {
-            player = .computer
-            print("\(player.rawValue)의 턴입니다.")
+            currentPlayer = .computer
+            print("\(currentPlayer.rawValue)의 턴입니다.")
             startGame()
         }
     }
