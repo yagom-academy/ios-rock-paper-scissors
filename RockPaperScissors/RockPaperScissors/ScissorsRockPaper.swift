@@ -13,33 +13,18 @@ enum GameResult {
     case end, again, next
 }
 
-class ScissorsRockPaper {    
+final class ScissorsRockPaper: HandShapeGamePreparation {    
     private var computer: HandShape?
     private var user: HandShape?
     var srpResult: GameResult?
     
-    func startSRP() {
+    func start() {
         while self.srpResult == .again {
-            printMenu()
+            printMenu(text: "가위(1), 바위(2), 보(3)! <종료 : 0> :")
             self.computer = generateComputerHandShape()
             let menu = getMenuFromUser()
             executeMenu(by: menu)
         }
-    }
-    
-    private func printMenu() {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-    }
-    
-    func generateComputerHandShape() -> HandShape? {
-        return HandShape(rawValue: Int.random(in: 1...3))
-    }
-    
-    func getMenuFromUser() -> Int? {
-        guard let menu = readLine(), let menuNumber = Int(menu) else {
-            return nil
-        }
-        return menuNumber
     }
     
     private func executeMenu(by menuNumber: Int?) {
@@ -55,12 +40,7 @@ class ScissorsRockPaper {
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
     }
-    
-    func convertHandShape(from shapeNumber: Int?) -> HandShape? {
-        guard let shapeNumber = shapeNumber else { return nil }
-        return HandShape(rawValue: shapeNumber)
-    }
-    
+     
     func judgeGameSRP(_ user: HandShape?, with computer: HandShape?) -> GameResult {
         switch (user, computer) {
         case (.scissors, .scissors), (.rock, .rock), (.paper, .paper):
