@@ -34,21 +34,16 @@ struct FirstGame {
         }
     }
     
-    private func makeRival() throws -> HandOptions {
+    private func makeRival() -> HandOptions? {
         guard let rivalHand: HandOptions = HandOptions.allCases.randomElement() else {
-            throw Errors.invalidRival
+            return nil
         }
-        
+
         return rivalHand
     }
 
     private func compareHand(with userHand: HandOptions) {
-        let rivalHand: HandOptions
-        
-        do {
-            rivalHand = try makeRival()
-        } catch {
-            print("가위바위보가 성립하지 않습니다.")
+        guard let rivalHand: HandOptions = makeRival() else {
             return
         }
         

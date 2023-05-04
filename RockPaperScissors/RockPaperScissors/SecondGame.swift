@@ -33,21 +33,16 @@ struct SecondGame {
         }
     }
     
-    private func makeSecondRival() throws -> MukjjipaOptions {
+    private func makeSecondRival() -> MukjjipaOptions? {
         guard let rivalHand: MukjjipaOptions = MukjjipaOptions.allCases.randomElement() else {
-            throw Errors.invalidRival
+            return nil
         }
         
         return rivalHand
     }
     
     private func compareTwoHand(with userHand: MukjjipaOptions) {
-        let rivalHand: MukjjipaOptions
-        
-        do {
-            rivalHand = try makeSecondRival()
-        } catch {
-            print("가위바위보가 성립하지 않습니다.")
+        guard let rivalHand: MukjjipaOptions = makeSecondRival() else {
             return
         }
         
