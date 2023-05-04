@@ -1,4 +1,4 @@
-class Game {
+final class GameManager {
     var turn: Turn = .user
     
     private func printInputMessage(for mode: GameMode) {
@@ -52,7 +52,7 @@ class Game {
                 turn = .computer
             } else {
                 return
-            }
+        }
             
             print("\(turn.rawValue)의 턴입니다.")
         }
@@ -68,7 +68,7 @@ class Game {
             }
             
             let result = determineWinner(userChoice)
-            displayResult(result, for: .mookJjiBba)
+            printResult(result, for: .mookJjiBba)
                         
             if result == .draw {
                 print("\(turn.rawValue)의 승리!")
@@ -87,7 +87,7 @@ class Game {
             }
             
             let resultRockPaperScissors = determineWinner(userChoice)
-            displayResult(resultRockPaperScissors, for: .rockPaperScissors)
+            printResult(resultRockPaperScissors, for: .rockPaperScissors)
             
             if resultRockPaperScissors != .draw {
                 playMookJjiBba()

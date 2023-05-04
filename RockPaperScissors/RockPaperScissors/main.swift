@@ -3,5 +3,5 @@
 //  Created by yagom.
 //  Copyright © yagom academy. All rights reserved.
 
-let game = Game()
-game.start()
+let gameManager = GameManager()
+gameManager.start()
