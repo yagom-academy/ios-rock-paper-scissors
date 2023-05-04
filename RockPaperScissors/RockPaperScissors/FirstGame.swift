@@ -15,7 +15,7 @@ struct FirstGame {
     
     private func selectMenu() {
         guard let input: String = readLine() else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(ErrorMessages.invalidAccess.rawValue)
             return
         }
         
@@ -29,7 +29,7 @@ struct FirstGame {
         case "0":
             print("게임 종료")
         default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
+            print(ErrorMessages.invalidInput.rawValue)
             startGame()
         }
     }
