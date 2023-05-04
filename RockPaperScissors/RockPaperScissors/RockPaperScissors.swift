@@ -6,22 +6,22 @@
 //
 
 struct RockPaperScissors {
-    var isGameStart: Bool
+    var isFirstGameStart: Bool
     var userNumber: Int
     var turnDictionary: [Bool: String]
     var whoseTurn: String?
 
-    init(isGameStart: Bool, userNumber: Int, turnDictionary: [Bool : String], whoesTurn: String) {
-        self.isGameStart = isGameStart
+    init(isFirstGameStart: Bool, userNumber: Int, turnDictionary: [Bool : String], whoesTurn: String) {
+        self.isFirstGameStart = isFirstGameStart
         self.userNumber = userNumber
         self.turnDictionary = turnDictionary
         self.whoseTurn = whoesTurn
     }
     
-    mutating func start() throws {
-        while isGameStart {
+    mutating func startFirst() throws {
+        while isFirstGameStart {
             do {
-                try startFirstGame()
+                try startSecondGame()
             } catch UserCardsError.error {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
             }
@@ -35,10 +35,9 @@ struct RockPaperScissors {
         switch userCards {
         case .rock, .scissors, .paper:
             try compareFirstCard(userNumber, createRandomNumber())
-            try startFirstGame()
         case .exit:
             print("게임 종료")
-            self.isGameStart = false
+            self.isFirstGameStart = false
         }
     }
 
@@ -73,7 +72,7 @@ struct RockPaperScissors {
         switch difference {
         case 0:
             print("\(self.whoseTurn ?? "error")의 승리!")
-            isGameStart = false
+            isFirstGameStart = false
         case -1, 2:
             print("컴퓨터: \(computer)")
             if whoseTurn != self.turnDictionary[true] {
@@ -103,7 +102,7 @@ struct RockPaperScissors {
     }
 
     mutating func startSecondGame() throws {
-        while isGameStart {
+        while isFirstGameStart {
             print("[\(self.whoseTurn ?? "에러4") 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>: ", terminator: "")
             let userCards: UserCards = try input()
         
@@ -112,7 +111,7 @@ struct RockPaperScissors {
                 compareSecondCard(userNumber, createRandomNumber())
             case .exit:
                 print("게임 종료")
-                self.isGameStart = false
+                self.isFirstGameStart = false
             }
         }
     }
