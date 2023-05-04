@@ -5,4 +5,4 @@
 // 
 
 let funnyGame = RockPaperScissorsGame()
-funnyGame.startGame()
+funnyGame.startRockPaperScissors()

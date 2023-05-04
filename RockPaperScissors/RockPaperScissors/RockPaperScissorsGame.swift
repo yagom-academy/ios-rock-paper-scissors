@@ -8,7 +8,7 @@
 struct RockPaperScissorsGame {
     private let nextGame = MukJjiPaGame()
     
-    func startGame() {
+    func startRockPaperScissors() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         selectMenu()
     }
@@ -30,7 +30,7 @@ struct RockPaperScissorsGame {
             print("게임 종료")
         default:
             print(ErrorMessages.invalidInput.rawValue)
-            startGame()
+            startRockPaperScissors()
         }
     }
     
@@ -49,7 +49,7 @@ struct RockPaperScissorsGame {
         
         if userHand == rivalHand {
             print("비겼습니다!")
-            startGame()
+            startRockPaperScissors()
         } else if (userHand == .scissors && rivalHand == .paper)
                     || (userHand == .rock && rivalHand == .scissors)
                     || (userHand == .paper && rivalHand == .rock) {
