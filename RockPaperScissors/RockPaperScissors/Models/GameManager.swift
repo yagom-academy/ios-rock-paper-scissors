@@ -74,13 +74,26 @@ class GameManager {
     }
     
     private func getGameResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String, player: PlayerType?) {
+        let gameResult: GameResult = compareHandShapeWith(computerHandShape, userHandShape)
+        
+        switch gameResult {
+        case .draw:
+            return (true, "비겼습니다.", nil)
+        case .win:
+            return (false, "이겼습니다!", .person)
+        case .lose:
+            return (false, "졌습니다!", .computer)
+        }
+    }
+    
+    private func compareHandShapeWith(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> GameResult {
         switch (computerHandShape, userHandShape) {
         case let (computerHandShape, userHandShape) where computerHandShape == userHandShape:
-            return (true, "비겼습니다.", nil)
+            return .draw
         case (.rock, .paper), (.paper, .scissors), (.scissors, .rock):
-            return (false, "이겼습니다!", .person)
+            return .win
         default:
-            return (false, "졌습니다!", .computer)
+            return .lose
         }
     }
     
