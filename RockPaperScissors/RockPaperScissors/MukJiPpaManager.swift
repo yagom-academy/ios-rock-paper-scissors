@@ -28,9 +28,14 @@ class MukJiPpaManager {
                 return
             }
             
-            let userHand = try convertEnum(of: userNumber)
-            let computerHand = try convertEnum(of: Int.random(in: 1...3))
+            guard let userHand = MukJiPpa(rawValue: userNumber) else {
+                throw ConsoleError.inputError
+            }
             
+            guard let computerHand = MukJiPpa(rawValue: Int.random(in: 1...3)) else {
+                throw ConsoleError.inputError
+            }
+        
             compare(userHand, and: computerHand)
         } catch ConsoleError.inputError {
             print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -49,19 +54,6 @@ class MukJiPpaManager {
         }
         
         return userNumber
-    }
-    
-    private func convertEnum(of number: Int) throws -> MukJiPpa {
-        switch number {
-        case 1:
-            return .muk
-        case 2:
-            return .ji
-        case 3:
-            return .ppa
-        default:
-            throw ConsoleError.inputError
-        }
     }
     
     private func compare(_ userHand: MukJiPpa, and computerHand: MukJiPpa) {

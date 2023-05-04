@@ -22,8 +22,13 @@ class RockPaperScissorsManager {
                 return
             }
             
-            let userHand = try convertEnum(of: userNumber)
-            let computerHand = try convertEnum(of: Int.random(in: 1...3))
+            guard let userHand = RockPaperScissors(rawValue: userNumber) else {
+                throw ConsoleError.inputError
+            }
+            
+            guard let computerHand = RockPaperScissors(rawValue: Int.random(in: 1...3)) else {
+                throw ConsoleError.inputError
+            }
             
             compare(userHand, and: computerHand)
         } catch ConsoleError.inputError {
@@ -43,19 +48,6 @@ class RockPaperScissorsManager {
         }
         
         return userNumber
-    }
-    
-    private func convertEnum(of number: Int) throws -> RockPaperScissors {
-        switch number {
-        case 1:
-            return .scissors
-        case 2:
-            return .rock
-        case 3:
-            return .paper
-        default:
-            throw ConsoleError.inputError
-        }
     }
     
     private func compare(_ userHand: RockPaperScissors, and computerHand: RockPaperScissors) {
