@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-let scissorsRockPaper = ScissorsRockPaper()
-scissorsRockPaper.start()
+let mjp = MukJjiPpa(turn: .user)
+mjp.startMJP()
