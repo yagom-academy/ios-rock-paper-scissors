@@ -42,16 +42,9 @@ class Game {
     }
     
     private func displayResult(_ result: Result, for mode: GameMode) {
-        let messages: [Result: String] = [
-            .win: "이겼습니다!",
-            .lose: "졌습니다!",
-            .draw: "비겼습니다!",
-            .invalid: "잘못된 결과입니다."
-        ]
-        
         if mode == .rockPaperScissors {
             turn = result == .win ? .user : .computer
-            print(messages[result] ?? "잘못된 결과입니다.")
+            print(result.message)
         } else {
             if result == .win {
                 turn = .user

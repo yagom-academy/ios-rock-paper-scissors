@@ -10,6 +10,19 @@ enum Result {
     case lose
     case draw
     case invalid
+    
+    var message: String {
+        switch self {
+            case .win:
+                return "이겼습니다!"
+            case .lose:
+                return "졌습니다!"
+            case .draw:
+                return "비겼습니다!"
+            case .invalid:
+                return "잘못된 결과입니다."
+        }
+    }
 }
 
 enum Turn: String {
