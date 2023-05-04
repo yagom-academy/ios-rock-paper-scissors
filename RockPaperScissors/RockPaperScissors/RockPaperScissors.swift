@@ -90,17 +90,34 @@ struct RockPaperScissors {
         }
     }
     
-    func compareSecondCard(_ card: UserCards, _ randomNumber: Int, _ whosTurn: String) {
+    func compareSecondCard(_ card: UserCards, _ randomNumber: Int, _ whosTurn: String) -> String {
         let randomNumber = UserCards(rawValue: randomNumber)
         
         if card == randomNumber {
             print("\(whosTurn)의 승리!")
-        } else if whosTurn == "사용자"{
-            print("\(whosTurn)의 턴입니다.")
         } else {
+            changeTurn(<#T##isPlayerTurn: Bool##Bool#>)
+        }
+    }
+    
+    mutating func changeTurn(_ isPlayerTurn: Bool) {
+        if isPlayerTurn == true {
+            isPlayerTurn = false
+        } else {
+            isPlayerTurn = true
+        }
+        printTurn(<#T##card: UserCards##UserCards#>, <#T##whosTurn: String##String#>)
+    }
+    
+    mutating func printTurn(_ card: UserCards, _ whosTurn: String) {
+        switch card {
+        case .rock, .scissors, .paper:
             print("\(whosTurn)의 턴입니다.")
+            printSecondMenu()
+        default:
+            printSecondMenu()
         }
     }
 }
 
-feat: 중복되는 부분을 input()에 통합 생성, 변수명 수정
+feat: 턴 변경함수, 턴 출력함수 추가, 두 번째 비교함수 수정
