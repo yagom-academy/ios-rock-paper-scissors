@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 
-let game = Game()
-game.start()
+let scissorsRockPaper = ScissorsRockPaper()
+scissorsRockPaper.start()

@@ -13,7 +13,7 @@ enum GameResult {
     case end, again
 }
 
-final class Game {
+final class ScissorsRockPaper {
     
     private var computer: HandShape?
     private var user: HandShape?
