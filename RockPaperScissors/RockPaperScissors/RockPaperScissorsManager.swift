@@ -5,7 +5,7 @@
 //  Created by redmango, 비모 on 2023/05/03.
 //
 
-class RockPaperScissorsManager {
+struct RockPaperScissorsManager {
     enum RockPaperScissors: Int {
         case scissors = 1
         case rock = 2

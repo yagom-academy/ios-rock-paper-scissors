@@ -59,15 +59,16 @@ class MukJiPpaManager {
     private func compare(_ userHand: MukJiPpa, and computerHand: MukJiPpa) {
         if userHand == computerHand {
             print("\(currentPlayer.rawValue)의 승리")
+            
+            return
         } else if isUserTurn(userHand, computerHand) {
             currentPlayer = .user
-            print("\(currentPlayer.rawValue)의 턴입니다.")
-            startGame()
         } else {
             currentPlayer = .computer
-            print("\(currentPlayer.rawValue)의 턴입니다.")
-            startGame()
         }
+        
+        print("\(currentPlayer.rawValue)의 턴입니다.")
+        startGame()
     }
     
     private func isUserTurn(_ user: MukJiPpa, _ computer: MukJiPpa) -> Bool {
