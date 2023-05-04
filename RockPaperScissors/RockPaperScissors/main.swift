@@ -4,5 +4,5 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-var teamMoons = FirstGame()
-teamMoons.startGame()
+let funnyGame = RockPaperScissorsGame()
+funnyGame.startGame()

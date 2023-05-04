@@ -1,12 +1,12 @@
 //
-//  FirstGame.swift
+//  RockPaperScissorsGame.swift
 //  RockPaperScissors
 //
 //  Created by EtialMoon & Serena on 2023/05/02.
 //
 
-struct FirstGame {
-    var secondGame = SecondGame()
+struct RockPaperScissorsGame {
+    private let nextGame = MukJjiPaGame()
     
     func startGame() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -21,11 +21,11 @@ struct FirstGame {
         
         switch input {
         case HandOptions.scissors.rawValue:
-            compareHand(with: HandOptions.scissors)
+            decideVictory(with: HandOptions.scissors)
         case HandOptions.rock.rawValue:
-            compareHand(with: HandOptions.rock)
+            decideVictory(with: HandOptions.rock)
         case HandOptions.paper.rawValue:
-            compareHand(with: HandOptions.paper)
+            decideVictory(with: HandOptions.paper)
         case "0":
             print("게임 종료")
         default:
@@ -42,7 +42,7 @@ struct FirstGame {
         return rivalHand
     }
 
-    private func compareHand(with userHand: HandOptions) {
+    private func decideVictory(with userHand: HandOptions) {
         guard let rivalHand: HandOptions = makeRival() else {
             return
         }
@@ -55,11 +55,11 @@ struct FirstGame {
                     || (userHand == .paper && rivalHand == .rock) {
             print("이겼습니다!")
             winner = "사용자"
-            secondGame.startMukjjipa()
+            nextGame.startMukJjiPa()
         } else {
             print("졌습니다!")
             winner = "컴퓨터"
-            secondGame.startMukjjipa()
+            nextGame.startMukJjiPa()
         }
     }
 }

@@ -13,7 +13,7 @@ enum HandOptions: String, CaseIterable {
     case paper = "3"
 }
 
-enum MukjjipaOptions: String, CaseIterable {
+enum MukJjiPaOptions: String, CaseIterable {
     case muk = "1"
     case jji = "2"
     case pa = "3"
