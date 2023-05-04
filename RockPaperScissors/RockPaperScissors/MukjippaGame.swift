@@ -4,27 +4,39 @@
 //
 //  Created by 5조 on 2023/05/04.
 //
+enum Turn: String {
+    case user = "사용자"
+    case computer = "컴퓨터"
+}
+
 
 class MukjippaGame {
+    var turn: Turn
+    
+    init(turn: Turn) {
+        self.turn = turn
+    }
     
     func compare(_ computerMukjippa: Mukjippa, and playerMukjippa: Mukjippa) -> Bool {
-        var isGameOver: Bool = true
+        var isGameOver: Bool = false
 
         switch (computerMukjippa, playerMukjippa) {
         case (.ppa, .ji), (.ji, .muk), (.muk, .ppa):
-            print("이겼습니다!")
+            turn = .user
+            print("\(turn)의 턴 입니다")
         case (.ji, .ppa), (.muk, .ji), (.ppa, .muk):
-            print("졌습니다!")
+            turn = .computer
+            print("\(turn)의 턴 입니다")
         default:
-            print("비겼습니다!")
-            isGameOver = false
+            print("\(turn)의 승리!")
+            isGameOver = true
         }
         
         return isGameOver
     }
 
     func getUserInput() -> String {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+        print("[\(turn) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
         guard let input = readLine() else { return "" }
         
         return input
