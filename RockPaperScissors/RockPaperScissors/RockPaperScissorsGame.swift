@@ -115,8 +115,6 @@ struct RockPaperScissorsGame {
         guard let computersChoice = choices[String(Int.random(in: 1...3))] else {
             throw GameError.unknown
         }
-        print("사용자: \(usersChoice)")
-        print("컴퓨터: \(computersChoice)")
         if usersChoice == computersChoice {
             return .draw
         } else if usersChoice.winningOpponent == computersChoice {
