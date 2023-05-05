@@ -13,7 +13,10 @@ struct RockPaperScissors {
         showGameMenu()
         
         guard let userInput = readLine(),
-              validate(userInput) else { return }
+              validate(userInput) else {
+            print("게임종료")
+            return
+        }
         
         guard let userHandSign = HandSign(rawValue: userInput) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
