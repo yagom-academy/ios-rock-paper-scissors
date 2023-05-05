@@ -9,7 +9,7 @@ enum PlayerType {
     case computer
     case person
     
-    var playerName: String {
+    var description: String {
         switch self {
         case .computer:
             return "컴퓨터"
