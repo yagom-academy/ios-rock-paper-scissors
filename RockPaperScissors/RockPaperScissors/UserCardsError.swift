@@ -7,7 +7,7 @@
 
 enum UserCardsError: Error {
     case firstGameInputError
-    case secondGameInputError
-    case error
+    case SecondGameInputError
+
 }
 
