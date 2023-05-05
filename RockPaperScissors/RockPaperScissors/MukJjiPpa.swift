@@ -12,10 +12,10 @@ final class MukJjiPpa: HandShapeGamePreparation {
     
     init(from rockPaperScissorsResult: GameResult) {
         self.gameResult = rockPaperScissorsResult
-        switch self.gameResult {
-        case .next(let turn):
+        
+        if case let .next(turn) = self.gameResult {
             self.turn = turn
-        default:
+        } else {
             self.turn = .none
         }
     }
