@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F1124152A023EE30013615F /* ScissorsRockPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1124142A023EE30013615F /* ScissorsRockPaper.swift */; };
+		1F1124152A023EE30013615F /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1124142A023EE30013615F /* RockPaperScissors.swift */; };
 		3C33AB2F2A03D6090009FA60 /* MukJjiPpa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C33AB2E2A03D6090009FA60 /* MukJjiPpa.swift */; };
 		3C33AB312A03FDB40009FA60 /* HandShapeGamePreparation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C33AB302A03FDB40009FA60 /* HandShapeGamePreparation.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
@@ -26,7 +26,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F1124142A023EE30013615F /* ScissorsRockPaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScissorsRockPaper.swift; sourceTree = "<group>"; };
+		1F1124142A023EE30013615F /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		3C33AB2E2A03D6090009FA60 /* MukJjiPpa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukJjiPpa.swift; sourceTree = "<group>"; };
 		3C33AB302A03FDB40009FA60 /* HandShapeGamePreparation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandShapeGamePreparation.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +65,7 @@
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				3C33AB302A03FDB40009FA60 /* HandShapeGamePreparation.swift */,
-				1F1124142A023EE30013615F /* ScissorsRockPaper.swift */,
+				1F1124142A023EE30013615F /* RockPaperScissors.swift */,
 				3C33AB2E2A03D6090009FA60 /* MukJjiPpa.swift */,
 			);
 			path = RockPaperScissors;
@@ -128,7 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F1124152A023EE30013615F /* ScissorsRockPaper.swift in Sources */,
+				1F1124152A023EE30013615F /* RockPaperScissors.swift in Sources */,
 				3C33AB2F2A03D6090009FA60 /* MukJjiPpa.swift in Sources */,
 				3C33AB312A03FDB40009FA60 /* HandShapeGamePreparation.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,

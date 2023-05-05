@@ -5,34 +5,43 @@
 //  Created by Minsup, Whales on 2023/05/04.
 //
 
-enum Turn: String {
-    case user = "사용자", computer = "컴퓨터"
-}
-
 final class MukJjiPpa: HandShapeGamePreparation {
-    var turn: Turn
-    var computer: HandShape?
-    var user: HandShape?
-    var gameResult: GameResult?
+    private var computer: HandShape?
+    private var gameResult: GameResult
+    private var turn: Turn
     
-    init(turn: Turn) {
-        self.turn = turn
+    init(from rockPaperScissorsResult: GameResult) {
+        self.gameResult = rockPaperScissorsResult
+        switch self.gameResult {
+        case .next(let turn):
+            self.turn = turn
+        default:
+            self.turn = .none
+        }
     }
     
     func start() {
-        
+        while gameResult != .end {
+            printMenu(text: "[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :")
+            self.computer = generateComputerHandShape()
+            let menu = getMenuFromUser()
+            executeMenu(by: menu)
+        }
     }
     
-    private func executeMenuMJP(by menuNumber: Int?) {
+    private func executeMenu(by menuNumber: Int?) {
         switch menuNumber {
         case 0:
             print("게임 종료")
+            self.gameResult = .end
         case 1, 2, 3:
             if let user = convertHandShape(from: menuNumber) {
                 self.gameResult = judgeGame(user, with: computer)
             }
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
+            self.turn = .computer
+            self.gameResult = .again
         }
     }
     
