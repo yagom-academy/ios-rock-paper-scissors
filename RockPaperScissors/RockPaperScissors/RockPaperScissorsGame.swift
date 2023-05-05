@@ -15,7 +15,7 @@ struct RockPaperScissorsGame {
     
     private func selectMenu() {
         guard let input: String = readLine() else {
-            print(ErrorMessages.invalidAccess.rawValue)
+            print(ErrorMessages.invalidAccess.description)
             return
         }
         
@@ -29,7 +29,7 @@ struct RockPaperScissorsGame {
         case "0":
             print("게임 종료")
         default:
-            print(ErrorMessages.invalidInput.rawValue)
+            print(ErrorMessages.invalidInput.description)
             startRockPaperScissors()
         }
     }

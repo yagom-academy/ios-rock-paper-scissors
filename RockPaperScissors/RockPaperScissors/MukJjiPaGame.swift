@@ -13,7 +13,7 @@ struct MukJjiPaGame {
     
     private func choiceMukJjiPaMenu() {
         guard let input: String = readLine() else {
-            print(ErrorMessages.invalidAccess.rawValue)
+            print(ErrorMessages.invalidAccess.description)
             return
         }
         
@@ -27,7 +27,7 @@ struct MukJjiPaGame {
         case "0":
             print("게임 종료")
         default:
-            print(ErrorMessages.invalidInput.rawValue)
+            print(ErrorMessages.invalidInput.description)
             winner = "컴퓨터"
             startMukJjiPa()
         }

@@ -8,4 +8,13 @@
 enum ErrorMessages: String {
     case invalidAccess = "정상적인 접근이 아닙니다."
     case invalidInput = "잘못된 입력입니다. 다시 시도해주세요."
+    
+    var description: String {
+        switch self {
+        case .invalidAccess:
+            return self.rawValue
+        case .invalidInput:
+            return self.rawValue
+        }
+    }
 }
