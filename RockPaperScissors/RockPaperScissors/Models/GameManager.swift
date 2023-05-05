@@ -124,15 +124,15 @@ class GameManager {
             print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
         case .mukChiPa:
             guard let currentTurnOwner = currentTurnOwner else { return }
-            print("[\(currentTurnOwner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+            print("[\(currentTurnOwner.playerName) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
         }
     }
     
     private func showMukChiPaGameWinner(with currentTurnOwner: PlayerType) {
-        print("\(currentTurnOwner.rawValue)의 승리!")
+        print("\(currentTurnOwner.playerName)의 승리!")
     }
     
     private func showCurrentPlayerTurn(with currentTurnOwner: PlayerType) {
-        print("\(currentTurnOwner.rawValue)의 턴입니다.")
+        print("\(currentTurnOwner.playerName)의 턴입니다.")
     }
 }
