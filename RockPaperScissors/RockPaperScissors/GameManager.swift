@@ -20,7 +20,7 @@ class GameManager {
             return
         }
         
-        print("\(result.rawValue)")
+        print("\(result.koreanMessage)")
         mukJjiPpaGame = MukJjiPpaGame(turn: owner, matchResult: result)
         
         guard let player = mukJjiPpaGame?.playMukJjiPpa(), player.status != .giveUp
@@ -29,6 +29,6 @@ class GameManager {
             return
         }
         
-        print("\(player.winner.rawValue)의 승리!")
+        print("\(player.winner.koreanMessage)의 승리!")
     }
 }

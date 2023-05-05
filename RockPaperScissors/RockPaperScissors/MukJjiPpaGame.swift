@@ -8,7 +8,7 @@
 class MukJjiPpaGame: GameBase {
     func playMukJjiPpa() -> (winner: Player, status: Result) {
         while matchResult != .draw && matchResult != .giveUp {            
-            print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>:", terminator: " ")
+            print("[\(turn.koreanMessage) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>:", terminator: " ")
             
             guard let user = readLine(), let menu = MukJjiPpaMenu(rawValue: user) else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -48,7 +48,7 @@ class MukJjiPpaGame: GameBase {
     private func printResult() {
         switch matchResult {
         case .win, .lose:
-            print("\(turn.rawValue)의 턴입니다.")
+            print("\(turn.koreanMessage)의 턴입니다.")
         default:
             break
         }

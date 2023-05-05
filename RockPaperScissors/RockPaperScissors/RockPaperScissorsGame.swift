@@ -47,7 +47,7 @@ class RockPaperScissorsGame: GameBase {
     private func printResult() {
         switch matchResult {
         case .draw:
-            print("\(matchResult.rawValue)")
+            print("\(matchResult.koreanMessage)")
         default:
             break
         }
