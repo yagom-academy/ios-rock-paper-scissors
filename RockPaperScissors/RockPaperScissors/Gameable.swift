@@ -6,9 +6,10 @@
 //
 
 protocol Gameable {
-    var turn: Player { get set }
-    var matchResult: Result { get set }
+    var turn: Player { get }
+    var matchResult: Result { get }
     
+    func playGame(user index: Int)
     func generateComputerRandomNumber() -> Int
     func printResult()
 }

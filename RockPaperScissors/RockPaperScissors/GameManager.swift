@@ -12,23 +12,11 @@ class GameManager {
     private var mukJjiPpaGame: MukJjiPpaGame?
     
     func playGame() {
-        (turn, matchResult) = rockPaperScissorsGame.playRockPaperScissors()
+        (turn, matchResult) = rockPaperScissorsGame.startRockPaperScissors()
         
-        guard let owner = turn, let result = matchResult, result != .giveUp
-        else {
-            print("게임 종료")
-            return
-        }
-        
-        print("\(result.koreanMessage)")
+        guard let owner = turn, let result = matchResult, result != .giveUp else { return }
+                
         mukJjiPpaGame = MukJjiPpaGame(turn: owner, matchResult: result)
-        
-        guard let player = mukJjiPpaGame?.playMukJjiPpa(), player.status != .giveUp
-        else {
-            print("게임 종료")
-            return
-        }
-        
-        print("\(player.winner.koreanMessage)의 승리!")
+        mukJjiPpaGame?.startMukJjiPpa()
     }
 }

@@ -5,8 +5,16 @@
 //  Created by 민다훈 on 2023/05/03.
 //
 
-class MukJjiPpaGame: GameBase {
-    func playMukJjiPpa() -> (winner: Player, status: Result) {
+class MukJjiPpaGame: Gameable {
+    var turn: Player
+    var matchResult: Result
+
+    init(turn: Player, matchResult: Result) {
+        self.turn = turn
+        self.matchResult = matchResult
+    }
+
+    func startMukJjiPpa() {
         while matchResult != .draw && matchResult != .giveUp {            
             print("[\(turn.koreanMessage) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>:", terminator: " ")
             
@@ -19,19 +27,21 @@ class MukJjiPpaGame: GameBase {
                 continue
             }
             
-            let user: MukJjiPpaMenu = MukJjiPpaMenu.allCases[index]
-            
-            switch user {
-            case .paper, .rock, .scissors:
-                let computer: MukJjiPpaMenu = MukJjiPpaMenu.allCases[generateComputerRandomNumber()]
-                compareMukJjiPpa(user, computer)
-                printResult()
-            case .termination:
-                matchResult = .giveUp
-            }
+            playGame(user: index)
+            printResult()
         }
+    }
+    
+    func playGame(user index: Int) {
+        let user: MukJjiPpaMenu = MukJjiPpaMenu.allCases[index]
         
-        return (turn, matchResult)
+        switch user {
+        case .paper, .rock, .scissors:
+            let computer: MukJjiPpaMenu = MukJjiPpaMenu.allCases[generateComputerRandomNumber()]
+            compareMukJjiPpa(user, computer)
+        case .termination:
+            matchResult = .giveUp
+        }
     }
     
     private func compareMukJjiPpa(_ user: MukJjiPpaMenu, _ computer: MukJjiPpaMenu) {
@@ -50,12 +60,14 @@ class MukJjiPpaGame: GameBase {
         }
     }
     
-    private func printResult() {
+    func printResult() {
         switch matchResult {
         case .win, .lose:
             print("\(turn.koreanMessage)의 턴입니다.")
-        default:
-            break
+        case .draw:
+            print("\(turn.koreanMessage)의 승리!")
+        case .giveUp:
+            print("게임 종료")
         }
     }
 }
