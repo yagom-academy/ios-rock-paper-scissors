@@ -33,9 +33,9 @@ class GameManager {
                 return (nil, nil, nil)
             default:
                 let userHandShape = handShapes[gameOptionNumber - 1]
-                let resultMessage = getGameResult(computerHandShape, userHandShape).resultMessage
-                isGameOn = getGameResult(computerHandShape, userHandShape).isGameOn
-                winner = getGameResult(computerHandShape, userHandShape).winner
+                let resultMessage = getRockPaperScissorsResult(computerHandShape, userHandShape).resultMessage
+                isGameOn = getRockPaperScissorsResult(computerHandShape, userHandShape).isGameOn
+                winner = getRockPaperScissorsResult(computerHandShape, userHandShape).winner
                 
                 user.changeHandShape(to: userHandShape)
                 print("\(resultMessage)")
@@ -67,12 +67,9 @@ class GameManager {
                 print("게임종료")
             default:
                 let userHandShape = handShapes[gameOptionNumber - 1]
-                guard let winner = getGameResult(computerHandShape, userHandShape).winner else {
-                    isGameOn = false
-                    showMukChiPaGameWinner(with: currentTurnOwner)
-                    return
-                }
-                isGameOn = !getGameResult(computerHandShape, userHandShape).isGameOn
+
+                guard let winner = getMukChiPaResult(computerHandShape, userHandShape, currentTurnOwner) else { return }
+                isGameOn = !getRockPaperScissorsResult(computerHandShape, userHandShape).isGameOn
                 user.changeHandShape(to: userHandShape)
                 currentTurnOwner = winner
                 showCurrentPlayerTurn(with: currentTurnOwner)
@@ -80,7 +77,7 @@ class GameManager {
         }
     }
     
-    private func getGameResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String, winner: PlayerType?) {
+    private func getRockPaperScissorsResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String, winner: PlayerType?) {
         let gameResult: GameResult = compareHandShapeWith(computerHandShape, userHandShape)
         
         switch gameResult {
@@ -102,6 +99,14 @@ class GameManager {
         default:
             return .lose
         }
+    }
+    
+    private func getMukChiPaResult(_ computerHandShape: HandShape, _ userHandShape: HandShape, _ currentTurnOwner: PlayerType) -> PlayerType? {
+        guard let winner = getRockPaperScissorsResult(computerHandShape, userHandShape).winner else {
+            showMukChiPaGameWinner(with: currentTurnOwner)
+            return nil
+        }
+        return winner
     }
     
     private func inputGameOptionNumber(gameType: GameType, _ currentTurnOwner: PlayerType? = nil) -> Int? {
