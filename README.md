@@ -42,7 +42,7 @@
 1️⃣ **가위바위보와 묵찌빠 입력** <br> <br>
 🔒 **문제점** <br>
 처음 가위바위보를 할 때와 묵찌빠 게임을 진행할 때 전달받는 값이 달라지기 때문에, 하나의 Dictionary 안에 타입을 지정한 튜플을 배치해 `rockScissorsPaper`일 경우와 `mukJjiPpa`일 경우 다른 내용을 반환하도록 구현하였습니다. 하지만 이렇게 처리하니 함수 내에 조건문이 추가되어 코드가 다소 복잡해지는 단점이 있었습니다.
-``` swift=
+``` swift
 typealias gameType = (rockScissorsPaper: Menu, mukJjiPpa: Menu)
      let choices: Dictionary<String, gameType> = [
          "0": (rockScissorsPaper: .exit, mukJjiPpa: .exit),
@@ -51,7 +51,7 @@ typealias gameType = (rockScissorsPaper: Menu, mukJjiPpa: Menu)
          "3": (rockScissorsPaper: .paper, mukJjiPpa: .paper)
      ]
 ```
-``` swift=
+``` swift
 guard let computersMenu = choices[String(Int.random(in: 1...3))] else {
              throw GameError.unknown
          }
@@ -64,7 +64,7 @@ if isFirstGame {
 
 🔑 **해결방법** <br>
 연산 프로퍼티와 switch문을 활용하여 `isFirstGame` 여부에 따라 다른 값을 리턴하도록 변경하였습니다. 함수 내부에서 조건문이 생략될 수 있어 코드가 훨씬 간결해졌습니다.
-``` swift=
+``` swift
 var choices: Dictionary<String, Menu> {
          switch isFirstGame {
          case true:
@@ -74,7 +74,7 @@ var choices: Dictionary<String, Menu> {
          }
      }
 ```
-``` swift=
+``` swift
 guard let computersChoice = choices[String(Int.random(in: 1...3))] else {
              throw GameError.unknown
          }
@@ -84,7 +84,7 @@ guard let computersChoice = choices[String(Int.random(in: 1...3))] else {
 2️⃣ **메시지 출력** <br> <br>
 🔒 **문제점 1** <br>
 처음에는 `turn` 변수에 willSet을 활용해 정보가 바뀔 때마다 메시지를 출력하도록 구현했습니다. 하지만 이렇게 되면 묵찌빠가 처음 실행되는 첫 번째 게임에서도 "OOO의 턴입니다" 라는 메시지를 출력하는 오류가 발생했습니다.
-``` swift=
+``` swift
 var turn: String {
          willSet(newValue) {
              print("\(newValue)의 턴입니다.")
@@ -94,14 +94,14 @@ var turn: String {
 
 🔒 **문제점 2** <br>
 `Result` 타입의 원시값을 이용하여 결과 메세지를 출력하도록 구현하였습니다. 하지만 이렇게 하니 `gameResult.rawValue` 가 어떤 것을 의미하는지 한 눈에 알기 어려웠습니다.
-``` swift=
+``` swift
 enum Result: String {
     case win = "이겼습니다!"
     case lose = "졌습니다!"
     case draw = "비겼습니다!"
 }
 ```
-``` swift=
+``` swift
 func startGame() {
     ...
     print(gameResult.rawValue)
@@ -112,7 +112,7 @@ func startGame() {
 
 🔑 **해결방법** <br>
 `Result` 타입에 메소드를 추가하여 의미가 모호한 표현을 줄이고, 상태에 따라 알맞는 메세지를 리턴할 수 있도록 구현했습니다.
-``` swift=
+``` swift
 enum Result {
         case win
         case lose
@@ -137,7 +137,7 @@ enum Result {
         }
     }
 ```
-``` swift=
+``` swift
 func startGame() {
     ...
     let resultMessage = gameResult.selectMessage(
