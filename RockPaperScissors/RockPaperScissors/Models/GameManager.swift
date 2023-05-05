@@ -6,6 +6,21 @@
 //
 
 class GameManager {
+    private let computer: GamePlayer = GamePlayer(type: .computer)
+    private let user: GamePlayer = GamePlayer(type: .person)
+    private let endOption: Int = 0
+    private var isGameOn: Bool = true
+    private var winner: PlayerType?
+    private var currentGameType: GameType = .rockPaperScissors
+    private var handShapes: [HandShape] {
+        switch currentGameType {
+        case .rockPaperScissors:
+            return [.scissors, .rock, .paper]
+        case .mukChiPa:
+            return [.rock, .scissors, .paper]
+        }
+    }
+    
     func startGame() {
         let (winner, computer, user) = startRockPaperScissors()
         guard let winner = winner,
@@ -15,13 +30,6 @@ class GameManager {
     }
     
     private func startRockPaperScissors() -> (winner: PlayerType?, computer: GamePlayer?, user: GamePlayer?) {
-        let computer: GamePlayer = GamePlayer(type: .computer)
-        let user: GamePlayer = GamePlayer(type: .person)
-        let handShapes: [HandShape] = [.scissors, .rock, .paper]
-        let endOption: Int = 0
-        var isGameOn: Bool = true
-        var winner: PlayerType?
-        
         while isGameOn {
             guard let gameOptionNumber = inputGameOptionNumber(gameType: .rockPaperScissors) else { continue }
             
@@ -46,13 +54,10 @@ class GameManager {
     }
     
     private func startMukChiPa(_ winner: PlayerType, _ computer: GamePlayer, _ user: GamePlayer) {
-        let handShapes: [HandShape] = [.rock, .scissors, .paper]
-        let computer: GamePlayer = computer
-        let user: GamePlayer = user
-        let endOption: Int = 0
         var currentTurnOwner: PlayerType = winner
-        var isGameOn: Bool = true
-        
+        currentGameType = .mukChiPa
+        isGameOn = true
+
         while isGameOn {
             guard let gameOptionNumber = inputGameOptionNumber(gameType: .mukChiPa, currentTurnOwner) else {
                 currentTurnOwner = .computer
