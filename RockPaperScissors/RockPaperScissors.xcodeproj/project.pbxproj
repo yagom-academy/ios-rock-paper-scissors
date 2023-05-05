@@ -70,12 +70,12 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
+				BA9028C22A04CF0200357E96 /* Mukjippa.swift */,
+				BA9028C02A04CEF000357E96 /* RockScissorsPaper.swift */,
+				BA9028C42A04CF2600357E96 /* GameLogic.swift */,
 				BA9028BA2A04CE9400357E96 /* HandShape.swift */,
 				BA9028BC2A04CEB000357E96 /* GameResult.swift */,
 				BA9028BE2A04CEBD00357E96 /* GameTurn.swift */,
-				BA9028C02A04CEF000357E96 /* RockScissorsPaper.swift */,
-				BA9028C22A04CF0200357E96 /* Mukjippa.swift */,
-				BA9028C42A04CF2600357E96 /* GameLogic.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";

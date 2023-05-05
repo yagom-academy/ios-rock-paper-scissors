@@ -5,18 +5,17 @@
 //  Created by Minseong Kang on 2023/05/05.
 //
 
-func playRockScissorsPaper() -> GameTurns {
+func playRockScissorsPaper() -> GameTurn {
 	var gameResult = GameResult.draw
-	var gameTurn = GameTurns.gameEnd
+	var gameTurn = GameTurn.gameEnd
 	
 	while gameResult == .draw {
 		let userChoice = inputUserNumberAtRockScissorsPaper()
 		
-		if userChoice == 0 {
-			print("게임 종료")
-			return gameTurn
-		}
-		
+        if checkGameEnd(with: userChoice) {
+            return gameTurn
+        }
+        
 		let handShape = receiveHandShapeElement(index: userChoice)
 		guard let randomHandShape = generateRandomHandShape() else {
 			continue

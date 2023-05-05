@@ -5,6 +5,14 @@
 //  Created by Minseong Kang on 2023/05/05.
 //
 
+func checkGameEnd(with inputNumber: Int) -> Bool {
+    guard inputNumber == 0 else {
+        return false
+    }
+    print("게임종료")
+    return true
+}
+
 func generateRandomHandShape() -> HandShape? {
 	return HandShape.allCases.randomElement()
 }
@@ -24,7 +32,7 @@ func receiveGameResult(user: HandShape, computer: HandShape) -> GameResult {
 	}
 }
 
-func determinGameTurn(with gameResult: GameResult) -> GameTurns{
+func determinGameTurn(with gameResult: GameResult) -> GameTurn{
 	switch gameResult {
 	case .draw:
 		return .gameEnd
