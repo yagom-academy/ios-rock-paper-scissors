@@ -77,5 +77,3 @@ class MukJiPpaManager {
         || user == .ppa && computer == .muk
     }
 }
-
-

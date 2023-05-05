@@ -76,4 +76,3 @@ struct RockPaperScissorsManager {
         || user == .paper && computer == .rock
     }
 }
-
