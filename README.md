@@ -48,15 +48,15 @@
 
 | 사용자 승리 | 컴퓨터 승리 | 
 |:--:|:--:|
-|<img src="https://i.imgur.com/UzjmQSu.gif" height="400" width="600">|<img src="https://i.imgur.com/ZIItc9r.gif" height="400" width="600">
+|<img src="https://i.imgur.com/UzjmQSu.gif" height="400" width="300">|<img src="https://i.imgur.com/ZIItc9r.gif" height="400" width="300">
 
 | 잘못된 입력 | 무승부 |
 |:--:|:--:|
-|<img src="https://i.imgur.com/RRZRey5.gif" height="400" width="600">|<img src="https://i.imgur.com/rijNZz1.gif" height="400" width="600">
+|<img src="https://i.imgur.com/RRZRey5.gif" height="400" width="300">|<img src="https://i.imgur.com/rijNZz1.gif" height="400" width="300">
 
 | 턴 변경 시점 |
 |:--:|
-|<img src="https://i.imgur.com/cHFCs8U.gif" height="500" width="600">|
+|<img src="https://i.imgur.com/cHFCs8U.gif" height="500" width="300">|
 
 ---
 
