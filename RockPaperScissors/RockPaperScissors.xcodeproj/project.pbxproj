@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B9DC745A2A01F28900A7C6BF /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC74592A01F28900A7C6BF /* Game.swift */; };
+		B9DC745A2A01F28900A7C6BF /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC74592A01F28900A7C6BF /* GameManager.swift */; };
 		B9DC745C2A01F37C00A7C6BF /* GameEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC745B2A01F37C00A7C6BF /* GameEnums.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
@@ -25,7 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B9DC74592A01F28900A7C6BF /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		B9DC74592A01F28900A7C6BF /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		B9DC745B2A01F37C00A7C6BF /* GameEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnums.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				C7ABA0E0254EA63000B2367D /* main.swift */,
-				B9DC74592A01F28900A7C6BF /* Game.swift */,
+				B9DC74592A01F28900A7C6BF /* GameManager.swift */,
 				B9DC745B2A01F37C00A7C6BF /* GameEnums.swift */,
 			);
 			path = RockPaperScissors;
@@ -125,7 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9DC745A2A01F28900A7C6BF /* Game.swift in Sources */,
+				B9DC745A2A01F28900A7C6BF /* GameManager.swift in Sources */,
 				B9DC745C2A01F37C00A7C6BF /* GameEnums.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 			);
