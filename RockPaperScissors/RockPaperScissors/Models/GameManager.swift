@@ -32,9 +32,7 @@ class GameManager {
     private func startRockPaperScissors() -> (winner: PlayerType?, computer: GamePlayer?, user: GamePlayer?) {
         while isGameOn {
             guard let gameOptionNumber = inputGameOptionNumber(gameType: .rockPaperScissors) else { continue }
-            
-            computer.makeRandomHandShape()
-            guard let computerHandShape = computer.getCurrentHandShape() else { continue }
+            guard let computerHandShape = makeComputerHandShape(computer) else { continue }
             
             switch gameOptionNumber {
             case endOption:
@@ -63,9 +61,7 @@ class GameManager {
                 currentTurnOwner = .computer
                 continue
             }
-            
-            computer.makeRandomHandShape()
-            guard let computerHandShape = computer.getCurrentHandShape() else { continue }
+            guard let computerHandShape = makeComputerHandShape(computer) else { continue }
             
             switch gameOptionNumber {
             case endOption:
@@ -82,6 +78,12 @@ class GameManager {
         }
     }
     
+    private func makeComputerHandShape(_ computer: GamePlayer) -> HandShape? {
+        computer.makeRandomHandShape()
+        guard let computerHandShape = computer.getCurrentHandShape() else { return nil }
+        return computerHandShape
+    }
+
     private func getRockPaperScissorsResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String, winner: PlayerType?) {
         let gameResult: GameResult = compare(computerHandShape, with: userHandShape)
         
