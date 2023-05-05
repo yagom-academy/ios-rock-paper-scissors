@@ -6,57 +6,55 @@
 //
 
 struct MuckJjiBba {
-    func getUserMuckJjiBbaInput(when userGameResult: GameResult) {
-        if userGameResult == .win {
-            print("[사용자 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
-        } else {
-            print("[컴퓨터 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
-        }
-        
-        guard let userInput: String = readLine() else { return }
-        guard userInput != "0" else { return print("게임 종료") }
-        let computerInput = makeComputerInput()
-        
-        checkValidInput(with: userInput, computerInput, userGameResult)
-    }
     
-    private func makeComputerInput() -> String {
-        return String(Int.random(in: 1...3))
-    }
-    
-    private func checkValidInput(with userInput: String, _ computerInput: String, _ gameResult: GameResult) {
-        switch userInput {
-        case MuckJjiBbaSign.jji.rawValue,
-            MuckJjiBbaSign.muck.rawValue,
-            MuckJjiBbaSign.bba.rawValue:
-            checkMuckJjiBbaGameResult(with: userInput, computerInput, gameResult: gameResult)
-        default:
+    func startGame(_ gameResult: GameResult) {
+        showMuckJjiBbaGameMenu(gameResult)
+        
+        guard let userInput = readLine(),
+              validate(userInput) else { return }
+        
+        guard let userMuckJjiBbaSign = MuckJjiBbaSign(rawValue: userInput) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
-            getUserMuckJjiBbaInput(when: .lose)
+            startGame(.lose)
+            return
+        }
+        let computerMuckJjiBbaSign = makeComputerMuckJjiBbaSign()
+        checkMuckJjiBbaGameResult(userMuckJjiBbaSign, computerMuckJjiBbaSign, gameResult)
+    }
+    
+    private func showMuckJjiBbaGameMenu(_ gameResult: GameResult) {
+        print("[\(gameResult.rawValue)의 턴] 묵(1), 찌(2), 빠(3)! <종료: 0> : ", terminator: "")
+    }
+    
+    private func validate(_ userInput: String) -> Bool {
+        return userInput != "0"
+    }
+    
+    private func makeComputerMuckJjiBbaSign() -> MuckJjiBbaSign {
+        return MuckJjiBbaSign.allCases[Int.random(in: 0...2)]
+    }
+    
+    private func checkMuckJjiBbaGameResult(_ userInput: MuckJjiBbaSign, _ computerInput: MuckJjiBbaSign, _ gameResult: GameResult) {
+        if userInput == computerInput {
+            print("\(gameResult.rawValue) 승리!")
+        } else {
+            startGame(changeMuckJjiBbaTurn(userInput, computerInput))
         }
     }
     
-    private func checkMuckJjiBbaGameResult(with userInput: String, _ computerInput: String, gameResult: GameResult) {
-        switch userInput {
-        case computerInput where gameResult == .win:
-            print("사용자 승리!")
-        case computerInput where gameResult == .lose:
-            print("컴퓨터 승리!")
-        default:
-            getUserMuckJjiBbaInput(when: checkMuckJjiBbaTurn(with: userInput, computerInput))
-        }
-    }
-    
-    private func checkMuckJjiBbaTurn(with userInput: String, _ computerInput: String) -> GameResult {
-        switch (userInput, computerInput) {
-        case (MuckJjiBbaSign.jji.rawValue, MuckJjiBbaSign.bba.rawValue),
-            (MuckJjiBbaSign.muck.rawValue, MuckJjiBbaSign.jji.rawValue),
-            (MuckJjiBbaSign.bba.rawValue, MuckJjiBbaSign.muck.rawValue):
-            print("사용자의 턴입니다.")
+    private func changeMuckJjiBbaTurn(_ userInput: MuckJjiBbaSign, _ computerInput: MuckJjiBbaSign) -> GameResult {
+        if (userInput == .jji && computerInput == .bba) ||
+            (userInput == .muck && computerInput == .jji) ||
+            (userInput == .bba && computerInput == .muck) {
+            showPlayerTurn(.win)
             return .win
-        default:
-            print("컴퓨터의 턴입니다.")
+        } else {
+            showPlayerTurn(.lose)
             return .lose
         }
+    }
+    
+    private func showPlayerTurn(_ gameResult: GameResult){
+        print("\(gameResult.rawValue)의 턴")
     }
 }

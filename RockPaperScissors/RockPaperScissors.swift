@@ -20,7 +20,6 @@ struct RockPaperScissors {
             startGame()
             return
         }
-        
         let computerHandSign = makeComputerHandSign()
         let rockPaperScissorsGameResult = checkRockPaperScissorsGameResult(userHandSign, computerHandSign)
         showGameResult(rockPaperScissorsGameResult)
@@ -55,10 +54,10 @@ struct RockPaperScissors {
         switch result {
         case .win:
             print("이겼습니다.")
-            muckJjiBba.getUserMuckJjiBbaInput(when: .win)
+            muckJjiBba.startGame(.win)
         case .lose:
             print("졌습니다.")
-            muckJjiBba.getUserMuckJjiBbaInput(when: .lose)
+            muckJjiBba.startGame(.lose)
         case .draw:
             print("비겼습니다")
             startGame()
