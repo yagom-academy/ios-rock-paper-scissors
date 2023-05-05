@@ -5,5 +5,5 @@
 //  last modified by maxhyunm, Mary
 //
 
-var result = RockPaperScissorsGame()
+var result = MukJjiPpaGame()
 result.startGame()

@@ -1,11 +1,11 @@
 //
-//  RockPaperScissorsGame.swift
+//  MukJjiPpaGame.swift
 //  RockPaperScissors
 //
 //  Created by maxhyunm, Mary on 2023/05/02.
 //
 
-struct RockPaperScissorsGame {
+struct MukJjiPpaGame {
     enum Menu: String {
         case scissors
         case rock
@@ -32,14 +32,14 @@ struct RockPaperScissorsGame {
         case draw
         case exit
         
-        var message: String {
+        func selectMessage(isFirstGame: Bool, turn: String) -> String {
             switch self {
             case .win:
-                return "이겼습니다!"
+                return isFirstGame ? "이겼습니다!" : "\(turn)의 턴입니다."
             case .lose:
-                return "졌습니다!"
+                return isFirstGame ? "졌습니다!" : "\(turn)의 턴입니다."
             case .draw:
-                return "비겼습니다!"
+                return isFirstGame ? "비겼습니다!" : "\(turn)의 승리!"
             case .exit:
                 return "게임 종료"
             }
@@ -54,7 +54,7 @@ struct RockPaperScissorsGame {
             return ["0": .exit, "1": .rock, "2": .scissors, "3": .paper]
         }
     }
-    var printMessage: String {
+    var menuMessage: String {
         switch isFirstGame {
         case true:
             return "가위(1), 바위(2), 보(3)! <종료 : 0> :"
@@ -69,12 +69,12 @@ struct RockPaperScissorsGame {
         do {
             let menu = try inputMenu()
             let gameResult = try playGame(menu)
-            let resultMessage = selectResultMessage(gameResult)
+            let resultMessage = gameResult.selectMessage(isFirstGame: isFirstGame, turn: turn)
             
             print(resultMessage)
             
-            guard gameResult != .exit else { return }
-            guard !(!isFirstGame && gameResult == .draw) else { return }
+            guard gameResult != .exit,
+                  !(!isFirstGame && gameResult == .draw) else { return }
             if isFirstGame && (gameResult == .win || gameResult == .lose) {
                 isFirstGame = false
             }
@@ -90,18 +90,8 @@ struct RockPaperScissorsGame {
         }
     }
     
-    private func selectResultMessage(_ result: Result) -> String {
-        if isFirstGame || result == .exit {
-            return result.message
-        } else if result == .draw {
-            return "\(turn)의 승리!"
-        } else {
-            return "\(turn)의 턴입니다."
-        }
-    }
-
     private func inputMenu() throws -> Menu {
-        print(printMessage, terminator: " ")
+        print(menuMessage, terminator: " ")
         guard let inputValue = readLine(),
               let menu = choices[inputValue] else {
             throw GameError.menuNotFound
