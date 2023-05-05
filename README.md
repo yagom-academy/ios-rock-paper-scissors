@@ -31,34 +31,32 @@
 
 ---
 
-## 👀 시각화된 프로젝트 구조 (파일트리 안알려줌)
+## 👀 시각화된 프로젝트 구조
 
-순서도
 | 가위바위보 |
 |:--:|
 |<img height="800" width="500" src="https://i.imgur.com/zkXx1i9.png">
 
 |묵찌빠 (사용자 승리) 묵찌빠 (컴퓨터 승리) |
 |:--:|
-|<img height="800" width="500" src="https://i.imgur.com/r3gRdbC.png">
+|<img height="800" width="1000" src="https://i.imgur.com/r3gRdbC.png">
 </p>
 
 
 
 ## 💻 실행 화면
 
-짤   사용자 승리 컴퓨터 승리 예외 처리
 | 사용자 승리 | 컴퓨터 승리 | 
 |:--:|:--:|
-|<img src="https://i.imgur.com/UzjmQSu.gif" height="400" width="1700">|<img src="https://i.imgur.com/ZIItc9r.gif" height="400" width="1700">
+|<img src="https://i.imgur.com/UzjmQSu.gif" height="400" width="600">|<img src="https://i.imgur.com/ZIItc9r.gif" height="400" width="600">
 
 | 잘못된 입력 | 무승부 |
 |:--:|:--:|
-|<img src="https://i.imgur.com/RRZRey5.gif" height="400" width="1700">|<img src="https://i.imgur.com/rijNZz1.gif" height="400" width="1700">
+|<img src="https://i.imgur.com/RRZRey5.gif" height="400" width="600">|<img src="https://i.imgur.com/rijNZz1.gif" height="400" width="600">
 
 | 턴 변경 시점 |
 |:--:|
-|<img src="https://i.imgur.com/cHFCs8U.gif" height="500" width="1000">|
+|<img src="https://i.imgur.com/cHFCs8U.gif" height="500" width="600">|
 
 ---
 
