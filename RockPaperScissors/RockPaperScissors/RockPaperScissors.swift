@@ -34,20 +34,18 @@ struct RockPaperScissors {
     }
 
     mutating func startFirstGame() throws {
-        while isFirstGame {
-            print("가위(1), 바위(2), 보(3)! <종료 : 0>: ", terminator: "")
-            let input = readLine()
-            guard let inputString = input,
-                  let user = Int(inputString),
-                  let userCards = UserCards(rawValue: user) else { throw UserCardsError.firstGameInputError}
+        print("가위(1), 바위(2), 보(3)! <종료 : 0>: ", terminator: "")
+        let input = readLine()
+        guard let inputString = input,
+              let user = Int(inputString),
+              let userCards = UserCards(rawValue: user) else { throw UserCardsError.firstGameInputError}
             
-            switch userCards {
-            case .rock, .scissors, .paper:
-                compareFirstCard(user, createRandomNumber())
-            case .exit:
-                print("게임 종료")
-                isFirstGame = false
-            }
+        switch userCards {
+        case .rock, .scissors, .paper:
+            compareFirstCard(user, createRandomNumber())
+        case .exit:
+            print("게임 종료")
+            isFirstGame = false
         }
     }
     
@@ -73,20 +71,18 @@ struct RockPaperScissors {
     }
     
     mutating func startSecondGame() throws {
-        while isSecondGame {
-            print("[\(self.whoseTurn ?? "오류2") 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>: ", terminator: "")
-            let input = readLine()
-            guard let inputString = input,
-                  let user = Int(inputString),
-                  let userCards = UserCards(rawValue: user) else { throw UserCardsError.SecondGameInputError}
+        print("[\(self.whoseTurn ?? "오류2") 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>: ", terminator: "")
+        let input = readLine()
+        guard let inputString = input,
+              let user = Int(inputString),
+              let userCards = UserCards(rawValue: user) else { throw UserCardsError.SecondGameInputError}
             
-            switch userCards {
-            case .rock, .scissors, .paper:
-                compareSecondCard(user, createRandomNumber())
-            case .exit:
-                print("게임 종료")
-                isSecondGame = false
-            }
+        switch userCards {
+        case .rock, .scissors, .paper:
+            compareSecondCard(user, createRandomNumber())
+        case .exit:
+            print("게임 종료")
+            isSecondGame = false
         }
     }
     
