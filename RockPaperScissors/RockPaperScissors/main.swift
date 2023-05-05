@@ -5,4 +5,5 @@
 // 
 
 let newGame = RockPaperScissors()
-newGame.showGameMenu()
+newGame.startGame()
+

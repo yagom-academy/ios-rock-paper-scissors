@@ -2,10 +2,11 @@
 //  GameResult.swift
 //  RockPaperScissors
 //
-//  Created by yyss99 on 2023/05/02.
+//  Created by yyss99, Hemg on 2023/05/02.
 //
-enum GameResult {
-    case win
-    case lose
+
+enum GameResult: String {
+    case win = "사용자"
+    case lose = "컴퓨터"
     case draw
 }
