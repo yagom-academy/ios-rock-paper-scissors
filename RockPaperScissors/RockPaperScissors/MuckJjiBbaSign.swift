@@ -2,7 +2,7 @@
 //  MuckJjiBbaSign.swift
 //  RockPaperScissors
 //
-//  Created by hemg on 2023/05/03.
+//  Created by yyss99, Hemg on 2023/05/03.
 //
 
 enum MuckJjiBbaSign: String {

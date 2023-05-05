@@ -2,7 +2,7 @@
 //  RockPaperScissors.swift
 //  RockPaperScissors
 //
-//  Created by yyss99 on 2023/05/03.
+//  Created by yyss99, Hemg on 2023/05/03.
 //
 
 let muckJjiBba = MuckJjiBba()
@@ -12,30 +12,29 @@ struct RockPaperScissors {
     func startGame() {
         showGameMenu()
         
-        guard let a = a() else { return }
-        guard let userHandSign = HandSign(rawValue: a) else {
+        guard let userInput = readLine(),
+              validate(userInput) else { return }
+        
+        guard let userHandSign = HandSign(rawValue: userInput) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             startGame()
             return
         }
-        let computerInput = makeComputerInput()
-        let rockPaperScissorsGameResult = checkRockPaperScissorsGameResult(userHandSign, computerInput)
+        
+        let computerHandSign = makeComputerHandSign()
+        let rockPaperScissorsGameResult = checkRockPaperScissorsGameResult(userHandSign, computerHandSign)
         showGameResult(rockPaperScissorsGameResult)
     }
     
-    func showGameMenu() {
+    private func showGameMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 :0> : ", terminator: "")
     }
     
-    func a() -> String? {
-        guard let input = readLine(), input != "0" else {
-            print("게임종료")
-            return nil
-        }
-        return input
+    private func validate(_ userInput: String) -> Bool {
+        return userInput != "0"
     }
     
-    private func makeComputerInput() -> HandSign {
+    private func makeComputerHandSign() -> HandSign {
         return HandSign.allCases[Int.random(in: 0...2)]
     }
     
@@ -62,7 +61,7 @@ struct RockPaperScissors {
             muckJjiBba.getUserMuckJjiBbaInput(when: .lose)
         case .draw:
             print("비겼습니다")
-            showGameMenu()
+            startGame()
         }
     }
 }
