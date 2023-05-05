@@ -78,7 +78,7 @@ class GameManager {
     }
     
     private func getRockPaperScissorsResult(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> (isGameOn: Bool, resultMessage: String, winner: PlayerType?) {
-        let gameResult: GameResult = compareHandShapeWith(computerHandShape, userHandShape)
+        let gameResult: GameResult = compare(computerHandShape, with: userHandShape)
         
         switch gameResult {
         case .draw:
@@ -90,7 +90,7 @@ class GameManager {
         }
     }
     
-    private func compareHandShapeWith(_ computerHandShape: HandShape, _ userHandShape: HandShape) -> GameResult {
+    private func compare(_ computerHandShape: HandShape, with userHandShape: HandShape) -> GameResult {
         switch (computerHandShape, userHandShape) {
         case let (computerHandShape, userHandShape) where computerHandShape == userHandShape:
             return .draw
