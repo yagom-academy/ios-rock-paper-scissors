@@ -14,7 +14,7 @@ class GameBase {
         self.matchResult = matchResult
     }
     
-    func generateComputerRandomNumber() -> String {
-        return String(Int.random(in: 1...3))
+    func generateComputerRandomNumber() -> Int {
+        return Int.random(in: 1...3)
     }
 }

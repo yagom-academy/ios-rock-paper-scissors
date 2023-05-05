@@ -10,14 +10,19 @@ class RockPaperScissorsGame: GameBase {
         while matchResult == .draw {
             print("가위(1), 바위(2), 보(3)! <종료 : 0>:", terminator: " ")
             
-            guard let user = readLine(), let menu = RockPaperScissorsMenu(rawValue: user) else {
+            guard let input = readLine(),
+                  let index = Int(input),
+                  RockPaperScissorsMenu.allCases.indices.contains(index)
+            else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 continue
             }
             
-            switch menu {
+            let user: RockPaperScissorsMenu = RockPaperScissorsMenu.allCases[index]
+            
+            switch user {
             case .paper, .rock, .scissors:
-                let computer: String = generateComputerRandomNumber()
+                let computer: RockPaperScissorsMenu = RockPaperScissorsMenu.allCases[generateComputerRandomNumber()]
                 compareRockPaperScissors(user, computer)
                 printResult()
             case .termination:
@@ -28,12 +33,12 @@ class RockPaperScissorsGame: GameBase {
         return (turn, matchResult)
     }
     
-    private func compareRockPaperScissors(_ user: String, _ computer: String) {
+    private func compareRockPaperScissors(_ user: RockPaperScissorsMenu, _ computer: RockPaperScissorsMenu) {
         let winningPair: [(user: RockPaperScissorsMenu, computer: RockPaperScissorsMenu)] = [(.rock, .scissors),
                                                                                              (.scissors, .paper),
                                                                                              (.paper, .rock)]
         
-        if winningPair.contains(where: { $0.user.rawValue == user && $0.computer.rawValue == computer }) {
+        if winningPair.contains(where: { $0.user == user && $0.computer == computer }) {
             matchResult = .win
             turn = .user
         } else if user == computer {

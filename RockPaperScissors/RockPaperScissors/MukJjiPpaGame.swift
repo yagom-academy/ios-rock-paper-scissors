@@ -10,15 +10,20 @@ class MukJjiPpaGame: GameBase {
         while matchResult != .draw && matchResult != .giveUp {            
             print("[\(turn.koreanMessage) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>:", terminator: " ")
             
-            guard let user = readLine(), let menu = MukJjiPpaMenu(rawValue: user) else {
+            guard let input = readLine(),
+                  let index = Int(input),
+                  MukJjiPpaMenu.allCases.indices.contains(index)
+            else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 turn = .computer
                 continue
             }
             
-            switch menu {
+            let user: MukJjiPpaMenu = MukJjiPpaMenu.allCases[index]
+            
+            switch user {
             case .paper, .rock, .scissors:
-                let computer: String = generateComputerRandomNumber()
+                let computer: MukJjiPpaMenu = MukJjiPpaMenu.allCases[generateComputerRandomNumber()]
                 compareMukJjiPpa(user, computer)
                 printResult()
             case .termination:
@@ -29,12 +34,12 @@ class MukJjiPpaGame: GameBase {
         return (turn, matchResult)
     }
     
-    private func compareMukJjiPpa(_ user: String, _ computer: String) {
+    private func compareMukJjiPpa(_ user: MukJjiPpaMenu, _ computer: MukJjiPpaMenu) {
         let winningPair: [(user: MukJjiPpaMenu, computer: MukJjiPpaMenu)] = [(.rock, .scissors),
                                                                              (.scissors, .paper),
                                                                              (.paper, .rock)]
         
-        if winningPair.contains(where: { $0.user.rawValue == user && $0.computer.rawValue == computer }) {
+        if winningPair.contains(where: { $0.user == user && $0.computer == computer }) {
             matchResult = .win
             turn = .user
         } else if user == computer {
