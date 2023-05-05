@@ -48,11 +48,8 @@ func inputUserNumberAtRockScissorsPaper() -> Int {
 		print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
 		guard let userInput = readLine(),
-			  let covertUserInput = Int(userInput) else {
-			print("잘못된 입력입니다. 다시 시도해주세요.")
-			continue
-		}
-		guard (0...3).contains(covertUserInput) else {
+			  let covertUserInput = Int(userInput),
+              (0...3).contains(covertUserInput) else {
 			print("잘못된 입력입니다. 다시 시도해주세요.")
 			continue
 		}
