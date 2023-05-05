@@ -18,6 +18,7 @@ class GameManager {
         let computer: GamePlayer = GamePlayer(type: .computer)
         let user: GamePlayer = GamePlayer(type: .person)
         let handShapes: [HandShape] = [.scissors, .rock, .paper]
+        let endOption: Int = 0
         var isGameOn: Bool = true
         var winner: PlayerType?
         
@@ -28,7 +29,7 @@ class GameManager {
             guard let computerHandShape = computer.getCurrentHandShape() else { continue }
             
             switch gameOptionNumber {
-            case 0:
+            case endOption:
                 print("게임 종료")
                 return (nil, nil, nil)
             default:
@@ -38,7 +39,7 @@ class GameManager {
                 winner = getRockPaperScissorsResult(computerHandShape, userHandShape).winner
                 
                 user.changeHandShape(to: userHandShape)
-                print("\(resultMessage)")
+                print(resultMessage)
             }
         }
         return (winner, computer, user)
@@ -67,9 +68,8 @@ class GameManager {
                 print("게임종료")
             default:
                 let userHandShape = handShapes[gameOptionNumber - 1]
-
                 guard let winner = getMukChiPaResult(computerHandShape, userHandShape, currentTurnOwner) else { return }
-                isGameOn = !getRockPaperScissorsResult(computerHandShape, userHandShape).isGameOn
+                
                 user.changeHandShape(to: userHandShape)
                 currentTurnOwner = winner
                 showCurrentPlayerTurn(with: currentTurnOwner)
