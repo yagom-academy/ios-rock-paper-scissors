@@ -1,6 +1,6 @@
 # 가위바위보-묵찌빠 게임
 
-## 목차
+## 🔎 목차
 
 1. [제목](#1.)
 2. [소개](#2.)
@@ -14,12 +14,12 @@
 ------
 
 <a id="1."></a>
-## 1. 제목: RockScissorPaper & MukJjiPa Game
+## 👑 1. 제목: RockScissorPaper & MukJjiPa Game
 
 <br>
 
 <a id="2."></a>
-## 2. 소개
+## 📢 2. 소개
         사용자에게 1,2,3을 입력받아 가위바위보 게임을 진행합니다.
         가위바위보 게임의 승자가 선으로 묵찌빠 게임을 진행하여 최종 승자를 결정합니다.
         사용자가 0을 입력하면 게임이 종료됩니다.
@@ -27,7 +27,7 @@
 <br>
 
 <a id="3."></a>
-## 3. 팀원: EtialMoon🌙, Serena 🐷
+## 🌟 3. 팀원: EtialMoon🌙, Serena 🐷
 | [EtialMoon🌙](https://github.com/hojun-jo) | [Serena 🐷](https://github.com/serena0720) |
 | :--------: | :--------: |
 | <Img src = "https://i.imgur.com/hSdYobS.jpg" width="150"/>|  <Img src = "https://i.imgur.com/q0XdY1F.jpg" width="150"/>|
