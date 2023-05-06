@@ -12,15 +12,11 @@ func playRockScissorsPaper() -> GameTurn {
 	while gameResult == .draw {
 		let userChoice = inputUserNumberAtRockScissorsPaper()
 		
-        if checkGameEnd(with: userChoice) {
-            return gameTurn
-        }
+        guard let randomHandShape = generateRandomHandShape(),
+              checkGameEnd(with: userChoice) else { return gameTurn }
         
 		let handShape = receiveHandShapeElement(index: userChoice)
-		guard let randomHandShape = generateRandomHandShape() else {
-			continue
-		}
-		
+        
 		gameResult = receiveGameResult(user: handShape, computer: randomHandShape)
 		
 		showGameResult(with: gameResult)
@@ -48,12 +44,12 @@ func inputUserNumberAtRockScissorsPaper() -> Int {
 		print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
 
 		guard let userInput = readLine(),
-			  let covertUserInput = Int(userInput),
-              (0...3).contains(covertUserInput) else {
+			  let userInput = Int(userInput),
+              (0...3).contains(userInput) else {
 			print("잘못된 입력입니다. 다시 시도해주세요.")
 			continue
 		}
-		return covertUserInput
+		return userInput
 	}
 }
 

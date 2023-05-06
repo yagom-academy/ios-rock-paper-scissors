@@ -6,7 +6,18 @@
 //
 
 enum GameTurn: String {
-	case user = "사용자"
-	case computer = "컴퓨터"
-	case gameEnd
+	case user
+	case computer
+    case gameEnd
+    
+    var description: String {
+        switch self {
+        case .user:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        case .gameEnd:
+            return ""
+        }
+    }
 }

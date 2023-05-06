@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D822C0F2A0652BD00DB1A4E /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D822C0E2A0652BD00DB1A4E /* GameStatus.swift */; };
 		BA9028BB2A04CE9400357E96 /* HandShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9028BA2A04CE9400357E96 /* HandShape.swift */; };
 		BA9028BD2A04CEB000357E96 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9028BC2A04CEB000357E96 /* GameResult.swift */; };
 		BA9028BF2A04CEBD00357E96 /* GameTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9028BE2A04CEBD00357E96 /* GameTurn.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D822C0E2A0652BD00DB1A4E /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		BA9028BA2A04CE9400357E96 /* HandShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandShape.swift; sourceTree = "<group>"; };
 		BA9028BC2A04CEB000357E96 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		BA9028BE2A04CEBD00357E96 /* GameTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTurn.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				BA9028BA2A04CE9400357E96 /* HandShape.swift */,
 				BA9028BC2A04CEB000357E96 /* GameResult.swift */,
 				BA9028BE2A04CEBD00357E96 /* GameTurn.swift */,
+				3D822C0E2A0652BD00DB1A4E /* GameStatus.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA9028BF2A04CEBD00357E96 /* GameTurn.swift in Sources */,
+				3D822C0F2A0652BD00DB1A4E /* GameStatus.swift in Sources */,
 				BA9028C12A04CEF000357E96 /* RockScissorsPaper.swift in Sources */,
 				BA9028C32A04CF0200357E96 /* MukJjiBba.swift in Sources */,
 				BA9028BB2A04CE9400357E96 /* HandShape.swift in Sources */,
