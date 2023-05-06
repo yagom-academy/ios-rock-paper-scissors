@@ -8,4 +8,13 @@
 enum PlayerType {
     case computer
     case person
+    
+    var description: String {
+        switch self {
+        case .computer:
+            return "컴퓨터"
+        case .person:
+            return "사용자"
+        }
+    }
 }
