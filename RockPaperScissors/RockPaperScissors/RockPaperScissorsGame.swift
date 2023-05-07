@@ -7,8 +7,7 @@
 
 
 struct RockPaperScissorsGame {
-    var gameResult: GameResult?
-    var isGameInProgress: Bool = true
+    private var gameResult: GameResult?
     
     private mutating func compare(_ computerRockPaperScissors: RockPaperScissors, and playerRockPaperScissors: RockPaperScissors) {
         switch (computerRockPaperScissors, playerRockPaperScissors) {
@@ -31,15 +30,15 @@ struct RockPaperScissorsGame {
         return input
     }
 
-    private mutating func checkUserInput(_ userInput: String) {
-        let gameOver: String = "0"
+    private mutating func resultsThroughUserInput(_ userInput: String) {
         
         switch userInput {
         case "1", "2", "3":
-            guard let playerRockPaperScissors = RockPaperScissors(rawValue: userInput),
-                  let computerRockPaperScissors = RockPaperScissors(rawValue: "\(Int.random(in: 1...3))") else { return }
+            guard let userInput = Int(userInput),
+                  let playerRockPaperScissors = RockPaperScissors(rawValue: userInput),
+                  let computerRockPaperScissors = RockPaperScissors(rawValue: Int.random(in: 1...3)) else { return }
             compare(computerRockPaperScissors, and: playerRockPaperScissors)
-        case gameOver:
+        case "0":
             gameResult = .gameOver
             print("게임 종료")
         default:
@@ -50,9 +49,8 @@ struct RockPaperScissorsGame {
     mutating func startGame() -> GameResult {
         repeat {
             let userInput = getUserInput()
-            checkUserInput(userInput)
-            isGameInProgress = gameResult == nil ? true : false
-        } while isGameInProgress
+            resultsThroughUserInput(userInput)
+        } while gameResult == nil ? true : false
         
         guard let gameResult = gameResult else { return GameResult.gameOver }
         

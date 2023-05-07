@@ -5,16 +5,16 @@
 //  Created by 5조 on 2023/05/04.
 //
 
-enum RockPaperScissors: String {
-    case scissors = "1"
-    case rock = "2"
-    case paper = "3"
+enum RockPaperScissors: Int {
+    case scissors = 1
+    case rock
+    case paper
 }
 
-enum MukJiPpa: String {
-    case muk = "1"
-    case ji = "2"
-    case ppa = "3"
+enum MukJiPpa: Int {
+    case muk = 1
+    case ji
+    case ppa
 }
 
 enum GameResult: String {

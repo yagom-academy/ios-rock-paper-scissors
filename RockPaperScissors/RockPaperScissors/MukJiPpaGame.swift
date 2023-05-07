@@ -8,7 +8,7 @@
 struct MukJiPpaGame {
     private var turn: String = ""
     private var isGameInProgress: Bool = true
-
+    
     private mutating func compare(_ computerMukjippa: MukJiPpa, and playerMukjippa: MukJiPpa) {
         switch (computerMukjippa, playerMukjippa) {
         case (.ppa, .ji), (.ji, .muk), (.muk, .ppa):
@@ -30,15 +30,15 @@ struct MukJiPpaGame {
         return input
     }
     
-    private mutating func checkUserInput(_ userInput: String) {
-        let gameOver: String = "0"
+    private mutating func resultsThroughUserInput(_ userInput: String) {
         
         switch userInput {
         case "1", "2", "3":
-            guard let playerMukjippa = MukJiPpa(rawValue: userInput),
-                  let computerMukjippa = MukJiPpa(rawValue: "\(Int.random(in: 1...3))") else { return }
+            guard let userInput = Int(userInput),
+                  let playerMukjippa = MukJiPpa(rawValue: userInput),
+                  let computerMukjippa = MukJiPpa(rawValue: Int.random(in: 1...3)) else { return }
             compare(computerMukjippa, and: playerMukjippa)
-        case gameOver:
+        case "0":
             isGameInProgress = false
             print("게임 종료")
         default:
@@ -56,7 +56,7 @@ struct MukJiPpaGame {
             isGameInProgress = false
         }
     }
-
+    
     mutating func startGame() {
         var rockPaperScissorsGame = RockPaperScissorsGame()
         let gameResult: GameResult = rockPaperScissorsGame.startGame()
@@ -64,7 +64,7 @@ struct MukJiPpaGame {
         
         while self.isGameInProgress {
             let userInput = getUserInput()
-            checkUserInput(userInput)
+            resultsThroughUserInput(userInput)
         }
     }
 }
