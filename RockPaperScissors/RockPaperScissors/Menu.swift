@@ -2,12 +2,19 @@
 //  Menu.swift
 //  RockPaperScissors
 //
-//  Created by Daehoon Lee on 2023/05/01.
+//  Created by 민다훈 on 2023/05/01.
 //
 
-enum Menu: String {
-    case scissors = "1"
-    case rock = "2"
-    case paper = "3"
-    case termination = "0"
+enum RockPaperScissorsMenu: CaseIterable {
+    case termination
+    case scissors
+    case rock
+    case paper
+}
+
+enum MukJjiPpaMenu: CaseIterable {
+    case termination
+    case muk
+    case jji
+    case ppa
 }
