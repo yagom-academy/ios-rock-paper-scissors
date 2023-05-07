@@ -36,7 +36,7 @@ class MukJjiPpaGame: Gameable {
         let user: MukJjiPpaMenu = MukJjiPpaMenu.allCases[index]
         
         switch user {
-        case .paper, .rock, .scissors:
+        case .ppa, .muk, .jji:
             let computer: MukJjiPpaMenu = MukJjiPpaMenu.allCases[generateComputerRandomNumber()]
             compareMukJjiPpa(user, computer)
         case .termination:
@@ -45,9 +45,9 @@ class MukJjiPpaGame: Gameable {
     }
     
     private func compareMukJjiPpa(_ user: MukJjiPpaMenu, _ computer: MukJjiPpaMenu) {
-        let winningPair: [(user: MukJjiPpaMenu, computer: MukJjiPpaMenu)] = [(.rock, .scissors),
-                                                                             (.scissors, .paper),
-                                                                             (.paper, .rock)]
+        let winningPair: [(user: MukJjiPpaMenu, computer: MukJjiPpaMenu)] = [(.muk, .jji),
+                                                                             (.jji, .ppa),
+                                                                             (.ppa, .muk)]
         
         if winningPair.contains(where: { $0.user == user && $0.computer == computer }) {
             matchResult = .win

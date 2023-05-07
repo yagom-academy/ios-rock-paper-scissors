@@ -14,7 +14,7 @@ enum RockPaperScissorsMenu: CaseIterable {
 
 enum MukJjiPpaMenu: CaseIterable {
     case termination
-    case rock
-    case scissors
-    case paper
+    case muk
+    case jji
+    case ppa
 }

@@ -62,6 +62,6 @@ class RockPaperScissorsGame: Gameable {
     }
     
     func printResult() {
-        print("\(matchResult.koreanMessage)")
+        print(matchResult.koreanMessage)
     }
 }
