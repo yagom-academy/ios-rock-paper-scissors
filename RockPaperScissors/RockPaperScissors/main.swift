@@ -6,5 +6,8 @@
 
 import Foundation
 
-print("Hello, World!")
+func getRandomNumber() -> Int {
+    return Int.random(in: 1...3)
+}
+
 
