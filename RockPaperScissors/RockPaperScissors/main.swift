@@ -18,7 +18,7 @@ func startGame() {
         }
         switch userChoice {
         case "1", "2", "3":
-            break
+            isPlaying = makeResult(userChoice: userChoice)
         case "0":
             print("게임을 종료합니다.")
             return
@@ -26,6 +26,33 @@ func startGame() {
             print("잘못된 입력입니다. 다시 시도해주세요.")
         }
     }
+}
+
+func makeResult(userChoice: String) -> Bool {
+    let computerChoice: String = String(Int.random(in: 1...3))
+    
+    print(computerChoice)
+    
+    guard computerChoice != userChoice else {
+        print("비겼습니다.")
+        return true
+    }
+    
+    if (computerChoice == "1" && userChoice == "3") ||
+        (computerChoice == "2" && userChoice == "1") ||
+        (computerChoice == "3" && userChoice == "2") {
+        print("패배")
+        return false
+    }
+    
+    if (computerChoice == "3" && userChoice == "1") ||
+        (computerChoice == "1" && userChoice == "2") ||
+        (computerChoice == "2" && userChoice == "3") {
+        print("승리")
+        return false
+    }
+    
+    return true
 }
 
 startGame()
