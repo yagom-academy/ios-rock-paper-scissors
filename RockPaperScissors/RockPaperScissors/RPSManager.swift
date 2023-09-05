@@ -5,8 +5,6 @@
 //  Created by 김형철 on 2023/09/05.
 //
 
-import Foundation
-
 struct RPSManager {
     private var computerCard: RockPaperScissors?
     private var userCard: RockPaperScissors?
@@ -32,7 +30,7 @@ struct RPSManager {
         if userChoice == 0 {
             print("게임종료")
             return
-        } else if userChoice >= 0 && userChoice < 4 {
+        } else if userChoice > 0 && userChoice < 4 {
             if computerCard == userCard {
                 print("비겼습니다!")
                 playGame()
