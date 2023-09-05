@@ -10,15 +10,17 @@ func getRandomNumber() -> Int {
 
 
 func contendUserAndComputer(_ userChoice: Int, _ computerChoice: Int) -> Bool {
-    if (userChoice == 1 && computerChoice == 3) || (userChoice == 2 && computerChoice == 1) || (userChoice == 3 && computerChoice == 2) {
-        print("이겼습니다!")
+    switch (userChoice, computerChoice) {
+    case (1,3), (2,1), (3,2):
+        print("이겼습니다.")
         return true
-    } else if userChoice == computerChoice {
-        print("비겼습니다!")
+    case let (user, computer) where user == computer:
+        print("비겼습니다.")
         return false
-    } else {
-        print("졌습니다!")
-        return false
+    default:
+        print("졌습니다.")
+        return true
+
     }
 }
 
