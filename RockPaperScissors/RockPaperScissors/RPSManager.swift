@@ -8,19 +8,16 @@
 import Foundation
 
 struct RPSManager {
-    var computerCard = RockPaperScissors(rawValue: Int.random(in: 1...3))
-    var userCard : RockPaperScissors?
+    private var computerCard: RockPaperScissors?
+    private var userCard: RockPaperScissors?
     
-    func inputUserNumber(number: String?) -> Int {
+    private func inputUserNumber(number: String?) -> Int {
         guard let number = number, let number = Int(number) else { return 4 }
-        
-        guard number < 4, number >= 0 else {
-            return 4 }
         
         return number
     }
     
-    func printMenu() {
+    private func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
     
@@ -32,24 +29,29 @@ struct RPSManager {
         userCard = RockPaperScissors(rawValue: userChoice)
         computerCard = RockPaperScissors(rawValue: Int.random(in: 1...3))
         
-        if computerCard == userCard {
-            print("비겼습니다!")
-            playGame()
-        } else if computerCard == .paper && userCard == .rock {
-            print("졌습니다!")
+        if userChoice == 0 {
+            print("게임종료")
             return
-        } else if computerCard == .rock && userCard == .scissors {
-            print("졌습니다!")
-            return
-        } else if computerCard == .scissors && userCard == .paper {
-            print("졌습니다!")
-            return
-        } else if userChoice == 0 {
-            print("게임 종료")
-            return
+        } else if userChoice >= 0 && userChoice < 4 {
+            if computerCard == userCard {
+                print("비겼습니다!")
+                playGame()
+            } else if computerCard == .paper && userCard == .rock {
+                print("졌습니다!")
+                return
+            } else if computerCard == .rock && userCard == .scissors {
+                print("졌습니다!")
+                return
+            } else if computerCard == .scissors && userCard == .paper {
+                print("졌습니다!")
+                return
+            } else {
+                print("이겼습니다!")
+                return
+            }
         } else {
-            print("이겼습니다!")
-            return
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            playGame()
         }
     }
 }

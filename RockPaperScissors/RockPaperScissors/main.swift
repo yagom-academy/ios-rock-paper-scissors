@@ -6,8 +6,8 @@
 
 import Foundation
 
-var a = RPSManager()
+var manager = RPSManager()
 
-a.playGame()
+manager.playGame()
 
 
