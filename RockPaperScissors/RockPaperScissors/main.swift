@@ -7,14 +7,12 @@
 import Foundation
 
 enum RockPaperScissors {
-    case rock, paper, scissors
+    case rock, paper, scissors, nothing
 }
-
-var userHand: RockPaperScissors = .rock
 
 enum Result {
     case win, draw, lose, exit
-    
+
     var result: String {
         switch self {
         case .win:
@@ -40,6 +38,21 @@ enum InputError: LocalizedError {
     }
 }
 
+var userHand: RockPaperScissors = .nothing
+var computerHand: RockPaperScissors = .nothing
+var gameResult: Result = .draw
+
+func playGame() {
+    do {
+        try readUserInput()
+    } catch {
+        print(error.localizedDescription)
+        playGame()
+    }
+    makeComputerHand()
+    makeResult()
+}
+
 func readUserInput() throws {
     print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
     
@@ -54,30 +67,30 @@ func readUserInput() throws {
         throw InputError.wrongInput
     }
     
+    try makeUserHand(user: user)
+}
+
+func makeUserHand(user: Int) throws {
     switch user {
     case 0:
         print("게임종료")
         break
     case 1:
         userHand = .scissors
-        playRockPaperScissors(userHand: userHand)
         break
     case 2:
         userHand = .rock
-        playRockPaperScissors(userHand: userHand)
         break
     case 3:
         userHand = .paper
-        playRockPaperScissors(userHand: userHand)
         break
     default:
         throw InputError.wrongInput
     }
 }
 
-func playRockPaperScissors(userHand: RockPaperScissors) {
+func makeComputerHand() {
     let selectComputerHand = Int.random(in: 1...3)
-    var computerHand: RockPaperScissors = .rock
     
     switch selectComputerHand {
     case 1:
@@ -89,24 +102,20 @@ func playRockPaperScissors(userHand: RockPaperScissors) {
     default:
         break
     }
-    
+}
+
+func makeResult() {
     if computerHand == userHand {
-        print("비겼습니다!")
-        runProgram()
+        gameResult = .draw
+        print(gameResult.result)
+        playGame()
     } else if computerHand == .rock && userHand == .paper || computerHand == .scissors && userHand == .rock || computerHand == .paper && userHand == .scissors {
-        print("이겼습니다!")
+        gameResult = .win
+        print(gameResult.result)
     } else {
-        print("졌습니다!")
+        gameResult = .lose
+        print(gameResult.result)
     }
 }
 
-func runProgram() {
-    do {
-        try readUserInput()
-    } catch {
-        print(error.localizedDescription)
-        runProgram()
-    }
-}
-
-runProgram()
+playGame()
