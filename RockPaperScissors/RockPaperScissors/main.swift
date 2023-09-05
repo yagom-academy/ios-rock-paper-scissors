@@ -23,17 +23,21 @@ func compareUserPickAndComputerPick(_ userChoice: Int, _ computerChoice: Int) ->
     }
 }
 
+func selectMenu() -> Int {
+    print("가위(1), 바위(2), 보(3)!<종료: 0> :", terminator: " ")
+    guard let input = readLine(), let userChoice = Int(input) else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return selectMenu()
+    }
+    return userChoice
+}
+
 func playRockPaperScissors() {
     let isRunning = true
     let computerChoice = getRandomNumber()
     
     while isRunning {
-        print("가위(1), 바위(2), 보(3)!<종료: 0> :", terminator: " ")
-
-        guard let input = readLine(), let userChoice = Int(input) else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            continue
-        }
+        let userChoice = selectMenu()
         
         if userChoice == 0 {
             print("게임 종료")
