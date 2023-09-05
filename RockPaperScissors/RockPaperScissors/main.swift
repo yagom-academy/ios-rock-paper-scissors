@@ -37,15 +37,15 @@ func makeResult(userChoice: String) -> Bool {
         return true
     }
     
-    if (computerChoice == "1" && userChoice == "3") ||
-        (computerChoice == "2" && userChoice == "1") ||
-        (computerChoice == "3" && userChoice == "2") {
-        print("졌습니다!")
-        return false
-    } else {
+    guard (computerChoice == "1" && userChoice == "3") ||
+            (computerChoice == "2" && userChoice == "1") ||
+            (computerChoice == "3" && userChoice == "2") else {
         print("이겼습니다!")
         return false
     }
+    
+    print("졌습니다!")
+    return false
 }
 
 startGame()
