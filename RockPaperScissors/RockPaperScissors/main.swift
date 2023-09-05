@@ -6,3 +6,8 @@
 
 import Foundation
 
+var a = RPSManager()
+
+a.playGame()
+
+
