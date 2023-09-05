@@ -26,15 +26,16 @@ func contendUserAndComputer(_ userChoice: Int, _ computerChoice: Int) -> Bool {
 
 
 func playRockPaperScissors() {
-    while true {
-        let computerChoice = getRandomNumber()
+    let isRunning = true
+    let computerChoice = getRandomNumber()
+    
+    while isRunning {
         print("가위(1), 바위(2), 보(3)!<종료: 0> :", terminator: " ")
 
         guard let input = readLine(), let userChoice = Int(input) else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             continue
         }
-
         if userChoice >= 1 && userChoice <= 3 {
           let result = contendUserAndComputer(userChoice, computerChoice)
             if result == true {
