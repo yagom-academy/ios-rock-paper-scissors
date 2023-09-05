@@ -4,40 +4,6 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
-enum RockPaperScissors {
-    case rock, paper, scissors, nothing
-}
-
-enum Result {
-    case win, draw, lose, exit
-
-    var result: String {
-        switch self {
-        case .win:
-            return "이겼습니다!"
-        case .lose:
-            return "졌습니다!"
-        case .draw:
-            return "비겼습니다!"
-        case .exit:
-            return "게임종료"
-        }
-    }
-}
-
-enum InputError: LocalizedError {
-    case wrongInput
-    
-    var errorDescription: String? {
-        switch self {
-        case .wrongInput:
-            return "잘못된 입력입니다. 다시 시도해주세요."
-        }
-    }
-}
-
 var userHand: RockPaperScissors = .nothing
 var computerHand: RockPaperScissors = .nothing
 var gameResult: Result = .draw
@@ -45,12 +11,12 @@ var gameResult: Result = .draw
 func playGame() {
     do {
         try readUserInput()
+        makeComputerHand()
+        makeResult()
     } catch {
         print(error.localizedDescription)
         playGame()
     }
-    makeComputerHand()
-    makeResult()
 }
 
 func readUserInput() throws {
@@ -73,17 +39,13 @@ func readUserInput() throws {
 func makeUserHand(user: Int) throws {
     switch user {
     case 0:
-        print("게임종료")
-        break
+        userHand = .nothing
     case 1:
         userHand = .scissors
-        break
     case 2:
         userHand = .rock
-        break
     case 3:
         userHand = .paper
-        break
     default:
         throw InputError.wrongInput
     }
@@ -109,8 +71,11 @@ func makeResult() {
         gameResult = .draw
         print(gameResult.result)
         playGame()
-    } else if computerHand == .rock && userHand == .paper || computerHand == .scissors && userHand == .rock || computerHand == .paper && userHand == .scissors {
+    } else if (computerHand == .rock && userHand == .paper) || (computerHand == .scissors && userHand == .rock) || (computerHand == .paper && userHand == .scissors) {
         gameResult = .win
+        print(gameResult.result)
+    } else if userHand == .nothing {
+        gameResult = .exit
         print(gameResult.result)
     } else {
         gameResult = .lose
