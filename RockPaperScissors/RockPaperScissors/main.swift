@@ -1,35 +1,35 @@
 //
 //  RockPaperScissors - main.swift
-//  Created by yagom. 
+//  Created by Hisop, 쥬봉이
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
-
-func startGame() {
-    var isPlaying: Bool = true
-    
-    while isPlaying {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-        
-        guard let userChoice = readLine() else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            continue
-        }
-        
-        switch userChoice {
-        case "1", "2", "3":
-            isPlaying = makeResult(userChoice: userChoice)
-        case "0":
-            print("게임 종료")
-            return
-        default:
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-        }
+@discardableResult
+func startGame(isContinous: Bool) -> Bool {
+    guard isContinous else {
+        return false
     }
+
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+
+    guard let userChoice = readLine() else {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return startGame(isContinous: true)
+    }
+    
+    switch userChoice {
+    case "1", "2", "3":
+        startGame(isContinous: compareWithComputer(userChoice: userChoice))
+    case "0":
+        print("게임 종료")
+        break
+    default:
+        startGame(isContinous: true)
+    }
+    return false
 }
 
-func makeResult(userChoice: String) -> Bool {
+func compareWithComputer(userChoice: String) -> Bool {
     let computerChoice: String = String(Int.random(in: 1...3))
     
     guard computerChoice != userChoice else {
@@ -48,4 +48,4 @@ func makeResult(userChoice: String) -> Bool {
     return false
 }
 
-startGame()
+startGame(isContinous: true)
