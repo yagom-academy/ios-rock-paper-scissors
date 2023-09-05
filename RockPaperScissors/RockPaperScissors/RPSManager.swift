@@ -19,17 +19,17 @@ struct RPSManager {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
     
-    mutating func test123(com: RockPaperScissors?, user: RockPaperScissors?) {
-        if com == userCard {
+    mutating func compareValues(_ computerValue: RockPaperScissors?, _ userValue: RockPaperScissors?) {
+        if computerValue == userValue {
             print("비겼습니다!")
             playGame()
-        } else if com == .paper && user == .rock {
+        } else if computerValue == .paper && userValue == .rock {
             print("졌습니다!")
             return
-        } else if com == .rock && user == .scissors {
+        } else if computerValue == .rock && userValue == .scissors {
             print("졌습니다!")
             return
-        } else if com == .scissors && user == .paper {
+        } else if computerValue == .scissors && userValue == .paper {
             print("졌습니다!")
             return
         } else {
@@ -50,7 +50,7 @@ struct RPSManager {
             print("게임종료")
             return
         } else if userChoice > 0 && userChoice < 4 {
-            test123(com: computerCard, user: userCard)
+            compareValues(computerCard, userCard)
             return
         } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
