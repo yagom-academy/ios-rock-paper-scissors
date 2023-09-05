@@ -71,8 +71,7 @@ func readUserInput() throws {
         playRockPaperScissors(userHand: userHand)
         break
     default:
-        print("잘못된 입력입니다.")
-        break
+        throw InputError.wrongInput
     }
 }
 
@@ -93,6 +92,7 @@ func playRockPaperScissors(userHand: RockPaperScissors) {
     
     if computerHand == userHand {
         print("비겼습니다!")
+        runProgram()
     } else if computerHand == .rock && userHand == .paper || computerHand == .scissors && userHand == .rock || computerHand == .paper && userHand == .scissors {
         print("이겼습니다!")
     } else {
@@ -100,4 +100,13 @@ func playRockPaperScissors(userHand: RockPaperScissors) {
     }
 }
 
-try readUserInput()
+func runProgram() {
+    do {
+        try readUserInput()
+    } catch {
+        print(error.localizedDescription)
+        runProgram()
+    }
+}
+
+runProgram()
