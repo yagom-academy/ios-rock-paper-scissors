@@ -8,10 +8,10 @@
 import Foundation
 
 enum RockPaperScissors {
-    case rock, paper, scissors, nothing
+    case rock, paper, scissors, exit
 }
 
-enum Result {
+enum gameResult {
     case win, draw, lose, exit
 
     var result: String {
@@ -28,13 +28,10 @@ enum Result {
     }
 }
 
-enum InputError: LocalizedError {
+enum InputError: Error {
     case wrongInput
-    
-    var errorDescription: String? {
-        switch self {
-        case .wrongInput:
-            return "잘못된 입력입니다. 다시 시도해주세요."
-        }
-    }
+    case nothingInputError
+    case notNumberError
+    case outOfRangeError
 }
+
