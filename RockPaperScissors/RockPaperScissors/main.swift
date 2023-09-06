@@ -7,6 +7,7 @@
 var userHand: RockPaperScissors = .exit
 var computerHand: RockPaperScissors = .exit
 var rockPaperScissorsResult: gameResult = .draw
+let randomNumberRange = 1...3
 
 func playGame() {
         generateUserHand()
@@ -57,7 +58,7 @@ func convertToUserHand(user: Int) throws {
 }
 
 func generateComputerHand() {
-    let randomComputerHand = Int.random(in: 1...3)
+    let randomComputerHand = Int.random(in: randomNumberRange)
     
     switch randomComputerHand {
     case 1:
@@ -67,7 +68,7 @@ func generateComputerHand() {
     case 3:
         computerHand = .paper
     default:
-        break
+        computerHand = .exit
     }
 }
 
