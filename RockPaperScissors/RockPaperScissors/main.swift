@@ -10,9 +10,9 @@ var rockPaperScissorsResult: gameResult = .draw
 let randomNumberRange = 1...3
 
 func playGame() {
-        generateUserHand()
-        generateComputerHand()
-        generateResult()
+    generateUserHand()
+    generateComputerHand()
+    generateResult()
 }
 
 func generateUserHand() {
