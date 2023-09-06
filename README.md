@@ -1,6 +1,13 @@
-## iOS 커리어 스타터 캠프
+# ✊ 묵찌빠 게임
+> 가위바위보 중 한 가지를 입력받아 컴퓨터와 비교하여 결과를 출력하는 게임
+## 🙋‍♂️ 팀원
+|Kiseok|Morgan|
+|:---:|:---:|
+<img src="https://github.com/devjoon/IOS_Weekend_Study_10th_GroupB/assets/101351216/7ba2fc8c-c3f9-4df3-ab1e-72a66363c9b2" width="200" height="200"/>|<img src="https://avatars.githubusercontent.com/u/101351216?v=4" width="200" height="200"/>
+|[Kiseok(GitHub)](https://github.com/carti1108)|[Morgan(GitHub)](https://github.com/devjoon)|\
+## 📈 시각화 구조
+> Flow Chart (Step 1)
+<img src="https://github.com/devjoon/ios-rock-paper-scissors/assets/101351216/74cd832b-5820-4db7-9f69-6102946454be" width="430" height="700"/>
 
-### 묵찌빠 프로젝트 저장소
-
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
-
+---
+추후 추가예정
