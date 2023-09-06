@@ -9,17 +9,22 @@ var computerHand: RockPaperScissors = .exit
 var rockPaperScissorsResult: gameResult = .draw
 
 func playGame() {
-    do {
-        try readUserInput()
+        generateUserHand()
         generateComputerHand()
         generateResult()
+}
+
+func generateUserHand() {
+    do {
+        let userInput = try readUserInput()
+        try convertToUserHand(user: userInput)
     } catch {
-        print("잘못된 입력입니다 다시 입력해주세요")
-        playGame()
+        print("잘못된 입력입니다. 다시 시도해주세요")
+        generateUserHand()
     }
 }
 
-func readUserInput() throws {
+func readUserInput() throws -> Int {
     print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
     
     guard let userInput = readLine() else {
@@ -33,10 +38,10 @@ func readUserInput() throws {
         throw InputError.outOfRangeError
     }
     
-    try generateUserHand(user: user)
+    return user
 }
 
-func generateUserHand(user: Int) throws {
+func convertToUserHand(user: Int) throws {
     switch user {
     case 0:
         userHand = .exit
