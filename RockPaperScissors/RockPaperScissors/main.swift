@@ -18,31 +18,30 @@ enum Choice: String, CaseIterable {
     case scissors
 }
 
-@discardableResult
-func startGame(isContinous: Bool) -> Bool {
-    guard isContinous else {
-        return false
-    }
-
-    guard let userChoice = readLine() else {
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return startGame(isContinous: true)
+func playRoundOne(result: RoundResult) {
+    guard result != .userWin, result != .computerWin else {
+        displayRoundOneResult(result: result)
+        return
     }
     
-    switch userChoice {
-    case "1", "2", "3":
-        startGame(isContinous: true)
-//        startGame(isContinous: decideVictory(userChoice: userChoice))
-    case "0":
+    displayRoundOneResult(result: result)
+    
+    let userInput = readLine()
+    
+    guard userInput != "0" else {
         print("게임 종료")
-        break
-    default:
-        startGame(isContinous: true)
+        return
     }
-    return false
+    
+    guard let userChoice = mappingUserChoice(userInput: userInput, round: 1) else {
+        playRoundOne(result: .invalidInput)
+        return
+    }
+    
+    playRoundOne(result: decideVictory(userChoice: userChoice))
 }
 
-func mappingUserChoice(userInput: String, round: Int) -> Choice?  {
+func mappingUserChoice(userInput: String?, round: Int) -> Choice?  {
     if round == 1 {
         switch userInput {
         case "1":
@@ -119,4 +118,4 @@ func displayRoundTwoResult(result: RoundResult, turn: RoundResult) {
     print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
 }
 
-startGame(isContinous: true)
+playRoundOne(result: .skip)
