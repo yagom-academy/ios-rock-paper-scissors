@@ -13,7 +13,7 @@ func compareUserPickAndComputerPick(_ userChoice: Int, _ computerChoice: Int) ->
     case (1,3), (2,1), (3,2):
         print("이겼습니다!")
         return true
-    case let (user, computer) where user == computer:
+    case (userChoice, computerChoice) where userChoice == computerChoice:
         print("비겼습니다!")
         return false
     default:
@@ -37,8 +37,7 @@ func playRockPaperScissors() {
     let isRunning = true
     
     while isRunning {
-        let computerChoice = getRandomNumber() // 컴퓨터의 패를 매번 새로 선택
-        print(computerChoice)
+        let computerChoice = getRandomNumber()
         let userChoice = selectMenu()
         
         if userChoice == 0 {
