@@ -9,28 +9,29 @@ import Foundation
 
 struct MukChiPa {
     func playMukChiPa() {
-        printMukChiPaSelect(winner: turn)
+        printMukChiPaMenu(winner: turn)
         generateUserHand()
         generateComputerHand()
         generateResult()
     }
     
-    private func generateUserHand() {
+    func generateUserHand() {
         do {
             let userInput = try readUserInput()
             try convertToUserHand(user: userInput)
         } catch {
             print("잘못된 입력입니다. 다시 시도해주세요")
             printTurn(player: Player.computer)
-            playMukChiPa()
+            printMukChiPaMenu(winner: turn)
+            generateUserHand()
         }
     }
     
-    private func printMukChiPaSelect(winner: Player) {
+    func printMukChiPaMenu(winner: Player) {
         print("[\(winner.player) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
     }
     
-    private func readUserInput() throws -> Int {
+    func readUserInput() throws -> Int {
         guard let userInput = readLine() else {
             throw InputError.nothingInputError
         }
@@ -45,7 +46,7 @@ struct MukChiPa {
         return user
     }
     
-    private func convertToUserHand(user: Int) throws {
+    func convertToUserHand(user: Int) throws {
         switch user {
         case 0:
             userHand = .exit
@@ -60,7 +61,7 @@ struct MukChiPa {
         }
     }
     
-    private func generateComputerHand() {
+    func generateComputerHand() {
         let randomComputerHand = Int.random(in: 1...3)
         
         switch randomComputerHand {
@@ -75,7 +76,7 @@ struct MukChiPa {
         }
     }
     
-    private func generateResult() {
+    func generateResult() {
         if computerHand == userHand {
             print("\(turn.player)의 승리!")
             return
@@ -91,8 +92,9 @@ struct MukChiPa {
         }
     }
     
-    private func printTurn(player: Player) {
+    func printTurn(player: Player) {
         var playerTurn: Player
+        
         switch player {
         case .user:
             playerTurn = .user
