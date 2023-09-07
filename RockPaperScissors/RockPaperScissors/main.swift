@@ -4,7 +4,8 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-import Foundation
+var manager = RockPaperScissorsManager()
 
-print("Hello, World!")
+manager.playGame()
+
 
