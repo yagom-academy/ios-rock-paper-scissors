@@ -9,19 +9,24 @@ struct RockPaperScissorsManager {
     private var computerCard: RockPaperScissors?
     private var userCard: RockPaperScissors?
     
-    private func inputUserNumber() throws -> Int {
-        let stringNumber = readLine()
-        
-        guard let stringNumber = stringNumber, let number = Int(stringNumber) else { throw InputError.wrongNumber }
-        
-        return number
+    private func inputUserNumber() -> Int {
+        while true {
+            let stringNumber = readLine()
+            
+            if let stringNumber = stringNumber, let number = Int(stringNumber) {
+                return number
+            } else {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                printMenu()
+            }
+        }
     }
     
     private func printMenu() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
     
-    private mutating func compareValues(_ computerValue: RockPaperScissors?, _ userValue: RockPaperScissors?) {
+    private mutating func compareValues(computerValue: RockPaperScissors?, userValue: RockPaperScissors?) {
         if computerValue == userValue {
             print("비겼습니다!")
             playGame()
@@ -39,27 +44,20 @@ struct RockPaperScissorsManager {
     mutating func playGame() {
         printMenu()
         
-        do {
-            let userChoice = try inputUserNumber()
-            
-            userCard = RockPaperScissors(rawValue: userChoice)
-            computerCard = RockPaperScissors(rawValue: Int.random(in: 1...3))
-            
-            if userChoice == 0 {
-                print("게임종료")
-                return
-            } else if userChoice > 0 && userChoice < 4 {
-                compareValues(computerCard, userCard)
-                return
-            } else {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
-                playGame()
-            }
-        } catch InputError.wrongNumber {
+        let userChoice = inputUserNumber()
+        
+        userCard = RockPaperScissors(rawValue: userChoice)
+        computerCard = RockPaperScissors(rawValue: Int.random(in: 1...3))
+        
+        if userChoice == 0 {
+            print("게임종료")
+            return
+        } else if userChoice > 0 && userChoice < 4 {
+            compareValues(computerValue: computerCard, userValue: userCard)
+            return
+        } else {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             playGame()
-        } catch {
-            print(error)
         }
     }
 }
