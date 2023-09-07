@@ -20,7 +20,10 @@ enum Choice: String, CaseIterable {
 
 func playRoundOne(result: RoundResult) {
     guard result != .userWin, result != .computerWin else {
+        var winner = result
+        
         displayRoundOneResult(result: result)
+        playRoundTwo(result: result, turn: &winner)
         return
     }
     
@@ -39,6 +42,34 @@ func playRoundOne(result: RoundResult) {
     }
     
     playRoundOne(result: decideVictory(userChoice: userChoice))
+}
+
+func playRoundTwo(result: RoundResult, turn: inout RoundResult) {
+    guard result != .draw else {
+        displayRoundTwoResult(result: result, turn: turn)
+        return
+    }
+    
+    if result == .userWin || result == .computerWin {
+        turn = result
+    }
+    
+    displayRoundTwoResult(result: result, turn: turn)
+        
+    let userInput = readLine()
+    
+    guard userInput != "0" else {
+        print("게임 종료")
+        return
+    }
+    
+    guard let userChoice = mappingUserChoice(userInput: userInput, round: 2) else {
+        turn = .computerWin
+        playRoundTwo(result: .invalidInput, turn: &turn)
+        return
+    }
+    
+    playRoundTwo(result: decideVictory(userChoice: userChoice), turn: &turn)
 }
 
 func mappingUserChoice(userInput: String?, round: Int) -> Choice?  {
