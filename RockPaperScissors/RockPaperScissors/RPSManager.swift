@@ -29,7 +29,7 @@ struct RockPaperScissorsManager {
     private mutating func compareValues(computerValue: RockPaperScissors?, userValue: RockPaperScissors?) {
         if computerValue == userValue {
             print("비겼습니다!")
-            playGame()
+            startGame()
         } else if computerValue == .paper && userValue == .rock ||
                     computerValue == .rock && userValue == .scissors ||
                     computerValue == .scissors && userValue == .paper {
@@ -41,7 +41,21 @@ struct RockPaperScissorsManager {
         }
     }
     
-    mutating func playGame() {
+    private mutating func playingGame(with userNumber: Int) {
+        switch userNumber {
+        case 0:
+            print("게임종료")
+            return
+        case 1...3:
+            compareValues(computerValue: userCard, userValue: computerCard)
+            return
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            startGame()
+        }
+    }
+    
+    mutating func startGame() {
         printMenu()
         
         let userChoice = inputUserNumber()
@@ -49,15 +63,6 @@ struct RockPaperScissorsManager {
         userCard = RockPaperScissors(rawValue: userChoice)
         computerCard = RockPaperScissors(rawValue: Int.random(in: 1...3))
         
-        if userChoice == 0 {
-            print("게임종료")
-            return
-        } else if userChoice > 0 && userChoice < 4 {
-            compareValues(computerValue: computerCard, userValue: userCard)
-            return
-        } else {
-            print("잘못된 입력입니다. 다시 시도해주세요.")
-            playGame()
-        }
+        playingGame(with: userChoice)
     }
 }

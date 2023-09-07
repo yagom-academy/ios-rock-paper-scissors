@@ -6,6 +6,6 @@
 
 var manager = RockPaperScissorsManager()
 
-manager.playGame()
+manager.startGame()
 
 
