@@ -8,8 +8,8 @@ enum RoundResult: String {
     case userWin = "사용자"
     case computerWin = "컴퓨터"
     case draw
-    case skip
     case invalidInput
+    case gameStart
 }
 
 enum Choice: String, CaseIterable {
@@ -128,7 +128,7 @@ func displayRoundOneResult(result: RoundResult) {
         print("비겼습니다!")
     case .invalidInput:
         print("잘못된 입력입니다. 다시 시도해주세요.")
-    case .skip:
+    case .gameStart:
         break
     }
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -143,10 +143,10 @@ func displayRoundTwoResult(result: RoundResult, turn: RoundResult) {
         return
     case .invalidInput:
         print("잘못된 입력입니다. 다시 시도해주세요.")
-    case .skip:
+    default :
         break
     }
     print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
 }
 
-playRoundOne(result: .skip)
+playRoundOne(result: .gameStart)
