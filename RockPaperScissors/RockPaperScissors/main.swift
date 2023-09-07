@@ -4,6 +4,53 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
+enum RoundResult: String {
+    case userWin = "사용자"
+    case computerWin = "컴퓨터"
+    case draw
+    case skip
+    case invalidInput
+}
+
+enum Choice: String, CaseIterable {
+    case rock
+    case paper
+    case scissors
+}
+
+func displayRoundOneResult(result: RoundResult) {
+    switch result {
+    case .userWin:
+        print("이겼습니다!")
+        return
+    case .computerWin:
+        print("졌습니다!")
+        return
+    case .draw:
+        print("비겼습니다!")
+    case .invalidInput:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    case .skip:
+        break
+    }
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
+}
+
+func displayRoundTwoResult(result: RoundResult, turn: RoundResult) {
+    switch result {
+    case .userWin, .computerWin:
+        print("\(result.rawValue)의 턴입니다.")
+    case .draw:
+        print("\(turn.rawValue)의 승리!")
+        return
+    case .invalidInput:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    case .skip:
+        break
+    }
+    print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+}
+
 @discardableResult
 func startGame(isContinous: Bool) -> Bool {
     guard isContinous else {
