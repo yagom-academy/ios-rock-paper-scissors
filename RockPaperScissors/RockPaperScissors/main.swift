@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-var manager = RPSManager()
+var manager = RockPaperScissorsManager()
 
 manager.playGame()
 

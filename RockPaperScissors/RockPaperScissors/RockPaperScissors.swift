@@ -2,7 +2,7 @@
 //  RockPaperScissors.swift
 //  RockPaperScissors
 //
-//  Created by 김형철 on 2023/09/05.
+//  Created by Charles, Toy on 2023/09/05.
 //
 
 enum RockPaperScissors: Int {

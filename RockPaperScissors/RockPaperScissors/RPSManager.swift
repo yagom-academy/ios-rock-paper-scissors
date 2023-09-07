@@ -2,15 +2,15 @@
 //  RPSManger.swift
 //  RockPaperScissors
 //
-//  Created by 김형철 on 2023/09/05.
+//  Created by Charles, Toy on 2023/09/05.
 //
 
-struct RPSManager {
+struct RockPaperScissorsManager {
     private var computerCard: RockPaperScissors?
     private var userCard: RockPaperScissors?
     
-    private func inputUserNumber(number: String?) -> Int {
-        guard let number = number, let number = Int(number) else { return 4 }
+    private func inputUserNumber(into stringNumber: String?) -> Int {
+        guard let stringNumber = stringNumber, let number = Int(stringNumber) else { return 4 }
         
         return number
     }
@@ -19,17 +19,13 @@ struct RPSManager {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     }
     
-    mutating func compareValues(_ computerValue: RockPaperScissors?, _ userValue: RockPaperScissors?) {
+    private mutating func compareValues(_ computerValue: RockPaperScissors?, _ userValue: RockPaperScissors?) {
         if computerValue == userValue {
             print("비겼습니다!")
             playGame()
-        } else if computerValue == .paper && userValue == .rock {
-            print("졌습니다!")
-            return
-        } else if computerValue == .rock && userValue == .scissors {
-            print("졌습니다!")
-            return
-        } else if computerValue == .scissors && userValue == .paper {
+        } else if computerValue == .paper && userValue == .rock ||
+                    computerValue == .rock && userValue == .scissors ||
+                    computerValue == .scissors && userValue == .paper {
             print("졌습니다!")
             return
         } else {
@@ -41,7 +37,7 @@ struct RPSManager {
     mutating func playGame() {
         printMenu()
         
-        let userChoice = inputUserNumber(number: readLine())
+        let userChoice = inputUserNumber(into: readLine())
         
         userCard = RockPaperScissors(rawValue: userChoice)
         computerCard = RockPaperScissors(rawValue: Int.random(in: 1...3))
