@@ -7,7 +7,7 @@
 |[Kiseok(GitHub)](https://github.com/carti1108)|[Morgan(GitHub)](https://github.com/devjoon)|\
 ## 📈 시각화 구조
 > Flow Chart (Step 1)
-<img src="https://github.com/devjoon/ios-rock-paper-scissors/assets/101351216/74cd832b-5820-4db7-9f69-6102946454be" width="430" height="700"/>
+<img src="https://github.com/devjoon/ios-rock-paper-scissors/assets/101351216/c475c4c3-cf37-4fca-ad78-adf45749577d" width="450" height="1000"/>
 
 ---
 추후 추가예정
