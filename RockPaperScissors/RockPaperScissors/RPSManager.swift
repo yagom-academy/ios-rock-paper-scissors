@@ -9,8 +9,10 @@ struct RockPaperScissorsManager {
     private var computerCard: RockPaperScissors?
     private var userCard: RockPaperScissors?
     
-    private func inputUserNumber(into stringNumber: String?) -> Int {
-        guard let stringNumber = stringNumber, let number = Int(stringNumber) else { return 4 }
+    private func inputUserNumber() throws -> Int {
+        let stringNumber = readLine()
+        
+        guard let stringNumber = stringNumber, let number = Int(stringNumber) else { throw InputError.wrongNumber }
         
         return number
     }
@@ -37,20 +39,27 @@ struct RockPaperScissorsManager {
     mutating func playGame() {
         printMenu()
         
-        let userChoice = inputUserNumber(into: readLine())
-        
-        userCard = RockPaperScissors(rawValue: userChoice)
-        computerCard = RockPaperScissors(rawValue: Int.random(in: 1...3))
-        
-        if userChoice == 0 {
-            print("게임종료")
-            return
-        } else if userChoice > 0 && userChoice < 4 {
-            compareValues(computerCard, userCard)
-            return
-        } else {
+        do {
+            let userChoice = try inputUserNumber()
+            
+            userCard = RockPaperScissors(rawValue: userChoice)
+            computerCard = RockPaperScissors(rawValue: Int.random(in: 1...3))
+            
+            if userChoice == 0 {
+                print("게임종료")
+                return
+            } else if userChoice > 0 && userChoice < 4 {
+                compareValues(computerCard, userCard)
+                return
+            } else {
+                print("잘못된 입력입니다. 다시 시도해주세요.")
+                playGame()
+            }
+        } catch InputError.wrongNumber {
             print("잘못된 입력입니다. 다시 시도해주세요.")
             playGame()
+        } catch {
+            print(error)
         }
     }
 }
