@@ -1,37 +1,36 @@
 //
-//  RockPaperScissors - main.swift
-//  Created by Kiseok, Morgan.
-//  Copyright © yagom academy. All rights reserved.
-// 
+//  mukChiPaStruct.swift
+//  RockPaperScissors
+//
+//  Created by 박기석 on 2023/09/07.
+//
 
-var userHand: RockPaperScissors = .exit
-var computerHand: RockPaperScissors = .exit
-var rockPaperScissorsResult: gameResult = .draw
-let randomNumberRange = 1...3
-var turn = Player.nobody
+import Foundation
 
-struct RockPaperScissorsGame {
-    let mukChiPaGame = MukChiPa()
-    
-    func playGame() {
+struct MukChiPa {
+    func playMukChiPa() {
+        printMukChiPaSelect(winner: turn)
         generateUserHand()
         generateComputerHand()
         generateResult()
     }
     
-    func generateUserHand() {
+    private func generateUserHand() {
         do {
             let userInput = try readUserInput()
             try convertToUserHand(user: userInput)
         } catch {
             print("잘못된 입력입니다. 다시 시도해주세요")
-            generateUserHand()
+            printTurn(player: Player.computer)
+            playMukChiPa()
         }
     }
     
-    func readUserInput() throws -> Int {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
-        
+    private func printMukChiPaSelect(winner: Player) {
+        print("[\(winner.player) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
+    }
+    
+    private func readUserInput() throws -> Int {
         guard let userInput = readLine() else {
             throw InputError.nothingInputError
         }
@@ -46,14 +45,14 @@ struct RockPaperScissorsGame {
         return user
     }
     
-    func convertToUserHand(user: Int) throws {
+    private func convertToUserHand(user: Int) throws {
         switch user {
         case 0:
             userHand = .exit
         case 1:
-            userHand = .scissors
-        case 2:
             userHand = .rock
+        case 2:
+            userHand = .scissors
         case 3:
             userHand = .paper
         default:
@@ -61,43 +60,49 @@ struct RockPaperScissorsGame {
         }
     }
     
-    func generateComputerHand() {
-        let randomComputerHand = Int.random(in: randomNumberRange)
+    private func generateComputerHand() {
+        let randomComputerHand = Int.random(in: 1...3)
         
         switch randomComputerHand {
         case 1:
-            computerHand = .scissors
-        case 2:
             computerHand = .rock
+        case 2:
+            computerHand = .scissors
         case 3:
             computerHand = .paper
         default:
-            computerHand = .exit
+            break
         }
     }
     
-    func generateResult() {
+    private func generateResult() {
         if computerHand == userHand {
-            rockPaperScissorsResult = .draw
-            print(rockPaperScissorsResult.result)
-            playGame()
+            print("\(turn.player)의 승리!")
+            return
         } else if (computerHand == .rock && userHand == .paper) || (computerHand == .scissors && userHand == .rock) || (computerHand == .paper && userHand == .scissors) {
-            rockPaperScissorsResult = .win
-            turn = Player.user
-            print(rockPaperScissorsResult.result)
-            mukChiPaGame.playMukChiPa()
+            printTurn(player: Player.user)
+            playMukChiPa()
         } else if userHand == .exit {
             rockPaperScissorsResult = .exit
             print(rockPaperScissorsResult.result)
         } else {
-            rockPaperScissorsResult = .lose
-            turn = Player.computer
-            print(rockPaperScissorsResult.result)
-            mukChiPaGame.playMukChiPa()
+            printTurn(player: Player.computer)
+            playMukChiPa()
         }
     }
+    
+    private func printTurn(player: Player) {
+        var playerTurn: Player
+        switch player {
+        case .user:
+            playerTurn = .user
+        case .computer:
+            playerTurn = .computer
+        case .nobody:
+            return
+        }
+        
+        print("\(playerTurn.player)의 턴입니다.")
+        turn = playerTurn
+    }
 }
-
-let rockPaperScissorsGame = RockPaperScissorsGame()
-rockPaperScissorsGame.playGame()
-

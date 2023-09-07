@@ -11,6 +11,23 @@ enum RockPaperScissors {
     case rock, paper, scissors, exit
 }
 
+enum Player {
+    case user
+    case computer
+    case nobody
+    
+    var player: String {
+        switch self {
+        case .user:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        case .nobody:
+            return "nobody"
+        }
+    }
+}
+
 enum gameResult {
     case win, draw, lose, exit
 
