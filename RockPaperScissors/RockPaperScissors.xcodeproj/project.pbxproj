@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CC4A2E72AAA014100F7FECE /*  MukchippaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4A2E62AAA014100F7FECE /*  MukchippaManager.swift */; };
+		3CC4A2E92AAA04C600F7FECE /* Mukchippa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CC4A2E82AAA04C600F7FECE /* Mukchippa.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 		DC9024D22AA6C09400D44FF8 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9024D12AA6C09400D44FF8 /* RockPaperScissors.swift */; };
 		DC9024D42AA6C0A400D44FF8 /* RPSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9024D32AA6C0A400D44FF8 /* RPSManager.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3CC4A2E62AAA014100F7FECE /*  MukchippaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " MukchippaManager.swift"; sourceTree = "<group>"; };
+		3CC4A2E82AAA04C600F7FECE /* Mukchippa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mukchippa.swift; sourceTree = "<group>"; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		DC9024D12AA6C09400D44FF8 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 				DC9024D12AA6C09400D44FF8 /* RockPaperScissors.swift */,
 				DC9024D32AA6C0A400D44FF8 /* RPSManager.swift */,
+				3CC4A2E82AAA04C600F7FECE /* Mukchippa.swift */,
+				3CC4A2E62AAA014100F7FECE /*  MukchippaManager.swift */,
 			);
 			path = RockPaperScissors;
 			sourceTree = "<group>";
@@ -127,7 +133,9 @@
 			files = (
 				DC9024D22AA6C09400D44FF8 /* RockPaperScissors.swift in Sources */,
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
+				3CC4A2E92AAA04C600F7FECE /* Mukchippa.swift in Sources */,
 				DC9024D42AA6C0A400D44FF8 /* RPSManager.swift in Sources */,
+				3CC4A2E72AAA014100F7FECE /*  MukchippaManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
