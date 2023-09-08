@@ -16,7 +16,7 @@ struct MukJjiBba {
         case 3:
             return .bba
         default:
-            return .unknown
+            return .quit
         }
     }
     

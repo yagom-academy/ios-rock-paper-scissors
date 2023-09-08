@@ -18,7 +18,7 @@ struct RockPaperScissors {
         case 3:
             return .scissors
         default:
-            return .unknown
+            return .quit
         }
     }
     

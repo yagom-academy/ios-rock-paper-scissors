@@ -9,5 +9,4 @@ enum MukJjiBbaChoice: Int {
     case jji = 2
     case bba = 3
     case quit = 0
-    case unknown = -1
 }

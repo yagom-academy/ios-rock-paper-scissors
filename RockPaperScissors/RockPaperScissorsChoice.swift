@@ -9,5 +9,4 @@ enum RockPaperScissorsChoice: Int {
     case paper = 2
     case scissors = 3
     case quit = 0
-    case unknown = -1
 }
