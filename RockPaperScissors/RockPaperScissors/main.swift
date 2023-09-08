@@ -4,13 +4,19 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-var userHand: RockPaperScissors = .exit
-var computerHand: RockPaperScissors = .exit
-var rockPaperScissorsResult: GameResult = .draw
 let randomNumberRange = 1...3
 
 struct RockPaperScissorsGame {
-    var mukChiPaGame = MukChiPa(turn: .nobody)
+    var userHand: RockPaperScissors
+    var computerHand: RockPaperScissors
+    var rockPaperScissorsResult: GameResult
+    var mukChiPaGame = MukChiPa(turn: .nobody, userHand: .exit, computerHand: .exit, rockPaperScissorsResult: .exit)
+    
+    init(userHand: RockPaperScissors, computerHand: RockPaperScissors, rockPaperScissorsResult: GameResult) {
+        self.userHand = userHand
+        self.computerHand = computerHand
+        self.rockPaperScissorsResult = rockPaperScissorsResult
+    }
     
     mutating func playGame() {
         generateUserHand()
@@ -18,7 +24,7 @@ struct RockPaperScissorsGame {
         generateResult()
     }
     
-    func generateUserHand() {
+    mutating func generateUserHand() {
         do {
             let userInput = try readUserInput()
             try convertToUserHand(user: userInput)
@@ -45,7 +51,7 @@ struct RockPaperScissorsGame {
         return user
     }
     
-    func convertToUserHand(user: Int) throws {
+    mutating func convertToUserHand(user: Int) throws {
         switch user {
         case 0:
             userHand = .exit
@@ -60,7 +66,7 @@ struct RockPaperScissorsGame {
         }
     }
     
-    func generateComputerHand() {
+    mutating func generateComputerHand() {
         let randomComputerHand = Int.random(in: randomNumberRange)
         
         switch randomComputerHand {
@@ -97,6 +103,6 @@ struct RockPaperScissorsGame {
     }
 }
 
-var rockPaperScissorsGame = RockPaperScissorsGame()
+var rockPaperScissorsGame = RockPaperScissorsGame(userHand: .exit, computerHand: .exit, rockPaperScissorsResult: .exit)
 rockPaperScissorsGame.playGame()
 

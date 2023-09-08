@@ -8,9 +8,15 @@
 
 struct MukChiPa {
     var turn: Player
+    var userHand: RockPaperScissors
+    var computerHand: RockPaperScissors
+    var rockPaperScissorsResult: GameResult
     
-    init(turn: Player) {
+    init(turn: Player, userHand: RockPaperScissors, computerHand: RockPaperScissors, rockPaperScissorsResult: GameResult) {
         self.turn = turn
+        self.userHand = userHand
+        self.computerHand = computerHand
+        self.rockPaperScissorsResult = rockPaperScissorsResult
     }
     
     mutating func playMukChiPa() {
@@ -51,7 +57,7 @@ struct MukChiPa {
         return user
     }
     
-    func convertToUserHand(user: Int) throws {
+    mutating func convertToUserHand(user: Int) throws {
         switch user {
         case 0:
             userHand = .exit
@@ -82,7 +88,7 @@ struct MukChiPa {
         turn = playerTurn
     }
     
-    func generateComputerHand() {
+    mutating func generateComputerHand() {
         let randomComputerHand = Int.random(in: randomNumberRange)
         
         switch randomComputerHand {
