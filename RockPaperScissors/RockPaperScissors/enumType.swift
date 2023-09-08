@@ -5,16 +5,32 @@
 //  Created by Kiseok, Morgan on 2023/09/05.
 //
 
-import Foundation
 
 enum RockPaperScissors {
     case rock, paper, scissors, exit
 }
 
-enum gameResult {
+enum Player {
+    case user
+    case computer
+    case nobody
+    
+    var description: String {
+        switch self {
+        case .user:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        case .nobody:
+            return "nobody"
+        }
+    }
+}
+
+enum GameResult {
     case win, draw, lose, exit
 
-    var result: String {
+    var description: String {
         switch self {
         case .win:
             return "이겼습니다!"

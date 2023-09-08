@@ -1,27 +1,33 @@
 //
-//  RockPaperScissors - main.swift
-//  Created by Kiseok, Morgan.
-//  Copyright © yagom academy. All rights reserved.
-// 
+//  mukChiPaStruct.swift
+//  RockPaperScissors
+//
+//  Created by Morgan, Kiseok. on 2023/09/07.
+//
 
-let randomNumberRange = 1...3
 
-struct RockPaperScissorsGame {
+struct MukChiPa {
+    var turn: Player
     var userHand: RockPaperScissors
     var computerHand: RockPaperScissors
     var rockPaperScissorsResult: GameResult
-    var mukChiPaGame = MukChiPa(turn: .nobody, userHand: .exit, computerHand: .exit, rockPaperScissorsResult: .exit)
     
-    init(userHand: RockPaperScissors, computerHand: RockPaperScissors, rockPaperScissorsResult: GameResult) {
+    init(turn: Player, userHand: RockPaperScissors, computerHand: RockPaperScissors, rockPaperScissorsResult: GameResult) {
+        self.turn = turn
         self.userHand = userHand
         self.computerHand = computerHand
         self.rockPaperScissorsResult = rockPaperScissorsResult
     }
     
-    mutating func playGame() {
+    mutating func playMukChiPa() {
+        printMukChiPaMenu(winner: turn)
         generateUserHand()
         generateComputerHand()
         generateResult()
+    }
+    
+    func printMukChiPaMenu(winner: Player) {
+        print("[\(winner.description) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
     }
     
     mutating func generateUserHand() {
@@ -30,13 +36,13 @@ struct RockPaperScissorsGame {
             try convertToUserHand(user: userInput)
         } catch {
             print("잘못된 입력입니다. 다시 시도해주세요")
+            printTurn(player: Player.computer)
+            printMukChiPaMenu(winner: turn)
             generateUserHand()
         }
     }
     
     func readUserInput() throws -> Int {
-        print("가위(1), 바위(2), 보(3)! <종료 : 0>", terminator: " : ")
-        
         guard let userInput = readLine() else {
             throw InputError.nothingInputError
         }
@@ -56,9 +62,9 @@ struct RockPaperScissorsGame {
         case 0:
             userHand = .exit
         case 1:
-            userHand = .scissors
-        case 2:
             userHand = .rock
+        case 2:
+            userHand = .scissors
         case 3:
             userHand = .paper
         default:
@@ -66,43 +72,50 @@ struct RockPaperScissorsGame {
         }
     }
     
+    mutating func printTurn(player: Player) {
+        var playerTurn: Player
+        
+        switch player {
+        case .user:
+            playerTurn = .user
+        case .computer:
+            playerTurn = .computer
+        case .nobody:
+            return
+        }
+        
+        print("\(playerTurn.description)의 턴입니다.")
+        turn = playerTurn
+    }
+    
     mutating func generateComputerHand() {
         let randomComputerHand = Int.random(in: randomNumberRange)
         
         switch randomComputerHand {
         case 1:
-            computerHand = .scissors
-        case 2:
             computerHand = .rock
+        case 2:
+            computerHand = .scissors
         case 3:
             computerHand = .paper
         default:
-            computerHand = .exit
+            break
         }
     }
     
     mutating func generateResult() {
         if computerHand == userHand {
-            rockPaperScissorsResult = .draw
-            print(rockPaperScissorsResult.description)
-            playGame()
+            print("\(turn.description)의 승리!")
+            return
         } else if (computerHand == .rock && userHand == .paper) || (computerHand == .scissors && userHand == .rock) || (computerHand == .paper && userHand == .scissors) {
-            rockPaperScissorsResult = .win
-            mukChiPaGame.turn = .user
-            print(rockPaperScissorsResult.description)
-            mukChiPaGame.playMukChiPa()
+            printTurn(player: .user)
+            playMukChiPa()
         } else if userHand == .exit {
             rockPaperScissorsResult = .exit
             print(rockPaperScissorsResult.description)
         } else {
-            rockPaperScissorsResult = .lose
-            mukChiPaGame.turn = .computer
-            print(rockPaperScissorsResult.description)
-            mukChiPaGame.playMukChiPa()
+            printTurn(player: .computer)
+            playMukChiPa()
         }
     }
 }
-
-var rockPaperScissorsGame = RockPaperScissorsGame(userHand: .exit, computerHand: .exit, rockPaperScissorsResult: .exit)
-rockPaperScissorsGame.playGame()
-
