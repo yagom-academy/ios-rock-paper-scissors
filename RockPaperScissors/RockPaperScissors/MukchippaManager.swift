@@ -50,4 +50,19 @@ struct MukchippaManager {
             isUserTurn = true
         }
     }
+    
+    private mutating func branchProcessingNumber(with userNumber: Int) {
+        switch userNumber {
+        case 0:
+            print("게임종료")
+            return
+        case 1...3:
+            compareValues()
+            return
+        default:
+            print("잘못된 입력입니다. 다시 시도해주세요.")
+            isUserTurn = false
+        }
+    }
+    
 }
