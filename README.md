@@ -3,13 +3,13 @@
 > 이후로 묵찌빠 게임을 진행하여 승리하는 게임입니다.
 
 ## 📚 목차
-1. [팀원](https://github.com/devjoon/ios-rock-paper-scissors/blob/step2_branch/README.md#%EF%B8%8F-%ED%8C%80%EC%9B%90)
-2. [타임 라인](https://github.com/devjoon/ios-rock-paper-scissors/blob/step2_branch/README.md#%EF%B8%8F-%ED%83%80%EC%9E%84%EB%9D%BC%EC%9D%B8)
-3. [시각화된 프로젝트 구조](https://github.com/devjoon/ios-rock-paper-scissors/blob/step2_branch/README.md#-%EC%8B%9C%EA%B0%81%ED%99%94%EB%90%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0)
-4. [실행화면](https://github.com/devjoon/ios-rock-paper-scissors/blob/step2_branch/README.md#%EF%B8%8F-%EC%8B%A4%ED%96%89-%ED%99%94%EB%A9%B4%EA%B8%B0%EB%8A%A5-%EC%84%A4%EB%AA%85)
-5. [트러블 슈팅](https://github.com/devjoon/ios-rock-paper-scissors/blob/step2_branch/README.md#-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)
-6. [참고 링크](https://github.com/devjoon/ios-rock-paper-scissors/blob/step2_branch/README.md#-%EC%B0%B8%EA%B3%A0-%EB%A7%81%ED%81%AC)
-7. [팀 회고](https://github.com/devjoon/ios-rock-paper-scissors/blob/step2_branch/README.md#%EF%B8%8F-%ED%8C%80-%ED%9A%8C%EA%B3%A0)
+1. [팀원](#-🙋‍♂️-팀원)
+2. [타임 라인](#-🗓️-타임라인)
+3. [시각화된 프로젝트 구조](#-📈-시각화된-프로젝트-구조)
+4. [실행화면](#-⚙️-실행-화면(기능-설명))
+5. [트러블 슈팅](#-🔍-트러블-슈팅)
+6. [참고 링크](#-🍎-참고-링크)
+7. [팀 회고](#-🤼‍♂️-팀-회고)
 
 ## 🙋‍♂️ 팀원
 |Kiseok|Morgan|
