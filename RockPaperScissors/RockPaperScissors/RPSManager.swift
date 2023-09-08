@@ -35,10 +35,10 @@ struct RockPaperScissorsManager {
                     computerValue == .rock && userValue == .scissors ||
                     computerValue == .scissors && userValue == .paper {
             print("졌습니다!")
-            mukchippa.isWinOrLose = false
+            mukchippa.isUserTurn = false
             return
         } else {
-            mukchippa.isWinOrLose = true
+            mukchippa.isUserTurn = true
             print("이겼습니다!")
             return
         }

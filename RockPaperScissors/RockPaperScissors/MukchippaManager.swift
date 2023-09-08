@@ -6,8 +6,7 @@
 //
 
 struct MukchippaManager {
-    private var isUserTurn = true
-    var isWinOrLose = true
+    var isUserTurn = true
     
     private func printMenu(turn: String) {
         print("[\(turn)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
@@ -21,8 +20,17 @@ struct MukchippaManager {
                 return number
             } else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
-                isWinOrLose = false
+                isUserTurn = false
+                checkPlayerTurn()
             }
+        }
+    }
+    
+    private mutating func checkPlayerTurn() {
+        if isUserTurn {
+            printMenu(turn: "사용자")
+        } else {
+            printMenu(turn: "컴퓨터")
         }
     }
 }
