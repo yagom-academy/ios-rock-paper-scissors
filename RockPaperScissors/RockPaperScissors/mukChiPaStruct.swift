@@ -20,6 +20,10 @@ struct MukChiPa {
         generateResult()
     }
     
+    func printMukChiPaMenu(winner: Player) {
+        print("[\(winner.playerDescription) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
+    }
+    
     mutating func generateUserHand() {
         do {
             let userInput = try readUserInput()
@@ -62,6 +66,22 @@ struct MukChiPa {
         }
     }
     
+    mutating func printTurn(player: Player) {
+        var playerTurn: Player
+        
+        switch player {
+        case .user:
+            playerTurn = .user
+        case .computer:
+            playerTurn = .computer
+        case .nobody:
+            return
+        }
+        
+        print("\(playerTurn.playerDescription)의 턴입니다.")
+        turn = playerTurn
+    }
+    
     func generateComputerHand() {
         let randomComputerHand = Int.random(in: randomNumberRange)
         
@@ -91,25 +111,5 @@ struct MukChiPa {
             printTurn(player: .computer)
             playMukChiPa()
         }
-    }
-    
-    mutating func printTurn(player: Player) {
-        var playerTurn: Player
-        
-        switch player {
-        case .user:
-            playerTurn = .user
-        case .computer:
-            playerTurn = .computer
-        case .nobody:
-            return
-        }
-        
-        print("\(playerTurn.playerDescription)의 턴입니다.")
-        turn = playerTurn
-    }
-    
-    func printMukChiPaMenu(winner: Player) {
-        print("[\(winner.playerDescription) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
     }
 }
