@@ -4,7 +4,7 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-enum RoundResult: String {
+enum GameProgress: String {
     case userWin = "사용자"
     case computerWin = "컴퓨터"
     case draw
@@ -12,22 +12,22 @@ enum RoundResult: String {
     case gameStart
 }
 
-enum Choice: String, CaseIterable {
+enum RockPaperScissors: String, CaseIterable {
     case rock
     case paper
     case scissors
 }
 
-func playRoundOne(result: RoundResult) {
-    guard result != .userWin, result != .computerWin else {
-        var winner = result
+func playRockPaperScissorsGame(progress: GameProgress) {
+    guard progress != .userWin, progress != .computerWin else {
+        var winner = progress
         
-        displayRoundOneResult(result: result)
-        playRoundTwo(result: result, turn: &winner)
+        displayResult(progress: progress)
+        playMukchippaGame(progress: progress, turn: &winner)
         return
     }
     
-    displayRoundOneResult(result: result)
+    displayResult(progress: progress)
     
     let userInput = readLine()
     
@@ -37,24 +37,24 @@ func playRoundOne(result: RoundResult) {
     }
     
     guard let userChoice = mappingUserChoice(userInput: userInput, round: 1) else {
-        playRoundOne(result: .invalidInput)
+        playRockPaperScissorsGame(progress: .invalidInput)
         return
     }
     
-    playRoundOne(result: decideVictory(userChoice: userChoice))
+    playRockPaperScissorsGame(progress: decideVictory(userChoice: userChoice))
 }
 
-func playRoundTwo(result: RoundResult, turn: inout RoundResult) {
-    guard result != .draw else {
-        displayRoundTwoResult(result: result, turn: turn)
+func playMukchippaGame(progress: GameProgress, turn: inout GameProgress) {
+    guard progress != .draw else {
+        displayResult(progress: progress, turn: turn)
         return
     }
     
-    if result == .userWin || result == .computerWin {
-        turn = result
+    if progress == .userWin || progress == .computerWin {
+        turn = progress
     }
     
-    displayRoundTwoResult(result: result, turn: turn)
+    displayResult(progress: progress, turn: turn)
         
     let userInput = readLine()
     
@@ -65,14 +65,14 @@ func playRoundTwo(result: RoundResult, turn: inout RoundResult) {
     
     guard let userChoice = mappingUserChoice(userInput: userInput, round: 2) else {
         turn = .computerWin
-        playRoundTwo(result: .invalidInput, turn: &turn)
+        playMukchippaGame(progress: .invalidInput, turn: &turn)
         return
     }
     
-    playRoundTwo(result: decideVictory(userChoice: userChoice), turn: &turn)
+    playMukchippaGame(progress: decideVictory(userChoice: userChoice), turn: &turn)
 }
 
-func mappingUserChoice(userInput: String?, round: Int) -> Choice?  {
+func mappingUserChoice(userInput: String?, round: Int) -> RockPaperScissors?  {
     if round == 1 {
         switch userInput {
         case "1":
@@ -98,8 +98,8 @@ func mappingUserChoice(userInput: String?, round: Int) -> Choice?  {
     }
 }
 
-func decideVictory(userChoice: Choice) -> RoundResult {
-    guard let computerChoice = Choice.allCases.randomElement() else {
+func decideVictory(userChoice: RockPaperScissors) -> GameProgress {
+    guard let computerChoice = RockPaperScissors.allCases.randomElement() else {
         return .invalidInput
     }
     
@@ -116,8 +116,8 @@ func decideVictory(userChoice: Choice) -> RoundResult {
     return .computerWin
 }
 
-func displayRoundOneResult(result: RoundResult) {
-    switch result {
+func displayResult(progress: GameProgress) {
+    switch progress {
     case .userWin:
         print("이겼습니다!")
         return
@@ -134,10 +134,10 @@ func displayRoundOneResult(result: RoundResult) {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
 }
 
-func displayRoundTwoResult(result: RoundResult, turn: RoundResult) {
-    switch result {
+func displayResult(progress: GameProgress, turn: GameProgress) {
+    switch progress {
     case .userWin, .computerWin:
-        print("\(result.rawValue)의 턴입니다.")
+        print("\(progress.rawValue)의 턴입니다.")
     case .draw:
         print("\(turn.rawValue)의 승리!")
         return
@@ -149,4 +149,4 @@ func displayRoundTwoResult(result: RoundResult, turn: RoundResult) {
     print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
 }
 
-playRoundOne(result: .gameStart)
+playRockPaperScissorsGame(progress: .gameStart)
