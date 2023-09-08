@@ -90,7 +90,7 @@ struct RockPaperScissorsGame {
             print(rockPaperScissorsResult.resultDescription)
         } else {
             rockPaperScissorsResult = .lose
-            mukChiPaGame.turn = .user
+            mukChiPaGame.turn = .computer
             print(rockPaperScissorsResult.resultDescription)
             mukChiPaGame.playMukChiPa()
         }
