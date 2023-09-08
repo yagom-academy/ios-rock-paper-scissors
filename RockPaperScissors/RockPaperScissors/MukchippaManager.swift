@@ -45,9 +45,11 @@ struct MukchippaManager {
                   computerCard == .chi && userCard == .ppa {
             print("컴퓨터의 터입니다.")
             isUserTurn = false
+            startMukchippa()
         } else {
             print("사용자의 턴입니다.")
             isUserTurn = true
+            startMukchippa()
         }
     }
     
@@ -62,7 +64,18 @@ struct MukchippaManager {
         default:
             print("잘못된 입력입니다. 다시 시도해주세요.")
             isUserTurn = false
+            startMukchippa()
         }
     }
     
+    mutating func startMukchippa() {
+        checkPlayerTurn()
+        
+        let user = inputUserNumber()
+        
+        userCard = Mukchippa(rawValue: user)
+        computerCard = Mukchippa(rawValue: Int.random(in: 1...3))
+
+        branchProcessingNumber(with: user)
+    }
 }

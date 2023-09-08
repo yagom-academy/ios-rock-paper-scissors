@@ -36,10 +36,12 @@ struct RockPaperScissorsManager {
                     computerValue == .scissors && userValue == .paper {
             print("졌습니다!")
             mukchippa.isUserTurn = false
+            mukchippa.startMukchippa()
             return
         } else {
-            mukchippa.isUserTurn = true
             print("이겼습니다!")
+            mukchippa.isUserTurn = true
+            mukchippa.startMukchippa()
             return
         }
     }
