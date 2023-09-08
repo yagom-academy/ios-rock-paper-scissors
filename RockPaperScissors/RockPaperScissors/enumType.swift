@@ -5,7 +5,6 @@
 //  Created by Kiseok, Morgan on 2023/09/05.
 //
 
-import Foundation
 
 enum RockPaperScissors {
     case rock, paper, scissors, exit
@@ -16,7 +15,7 @@ enum Player {
     case computer
     case nobody
     
-    var player: String {
+    var playerDescription: String {
         switch self {
         case .user:
             return "사용자"
@@ -28,10 +27,10 @@ enum Player {
     }
 }
 
-enum gameResult {
+enum GameResult {
     case win, draw, lose, exit
 
-    var result: String {
+    var resultDescription: String {
         switch self {
         case .win:
             return "이겼습니다!"

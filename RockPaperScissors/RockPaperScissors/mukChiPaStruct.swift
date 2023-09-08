@@ -2,10 +2,9 @@
 //  mukChiPaStruct.swift
 //  RockPaperScissors
 //
-//  Created by 박기석 on 2023/09/07.
+//  Created by Morgan, Kiseok. on 2023/09/07.
 //
 
-import Foundation
 
 struct MukChiPa {
     func playMukChiPa() {
@@ -28,7 +27,7 @@ struct MukChiPa {
     }
     
     func printMukChiPaMenu(winner: Player) {
-        print("[\(winner.player) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
+        print("[\(winner.playerDescription) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
     }
     
     func readUserInput() throws -> Int {
@@ -78,14 +77,14 @@ struct MukChiPa {
     
     func generateResult() {
         if computerHand == userHand {
-            print("\(turn.player)의 승리!")
+            print("\(turn.playerDescription)의 승리!")
             return
         } else if (computerHand == .rock && userHand == .paper) || (computerHand == .scissors && userHand == .rock) || (computerHand == .paper && userHand == .scissors) {
             printTurn(player: Player.user)
             playMukChiPa()
         } else if userHand == .exit {
             rockPaperScissorsResult = .exit
-            print(rockPaperScissorsResult.result)
+            print(rockPaperScissorsResult.resultDescription)
         } else {
             printTurn(player: Player.computer)
             playMukChiPa()
@@ -104,7 +103,7 @@ struct MukChiPa {
             return
         }
         
-        print("\(playerTurn.player)의 턴입니다.")
+        print("\(playerTurn.playerDescription)의 턴입니다.")
         turn = playerTurn
     }
 }
