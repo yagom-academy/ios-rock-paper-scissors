@@ -4,72 +4,119 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-enum GameProgress: String {
-    case userWin = "사용자"
-    case computerWin = "컴퓨터"
+enum PrintOptions {
+    case roundStart
+    case roundWin
     case draw
+    case gameWin
+    case gameEnd
     case invalidInput
-    case gameStart
 }
 
-enum RockPaperScissors: String, CaseIterable {
+enum Winner: String {
+    case user = "사용자"
+    case computer = "컴퓨터"
+    case none
+}
+
+enum RockPaperScissors: CaseIterable {
     case rock
     case paper
     case scissors
 }
 
-func playRockPaperScissorsGame(progress: GameProgress) {
-    guard progress != .userWin, progress != .computerWin else {
-        var winner = progress
-        
-        displayResult(progress: progress)
-        playMukchippaGame(progress: progress, turn: &winner)
-        return
-    }
-    
-    displayResult(progress: progress)
+func playRockPaperScissorsGame() {
+    displayRockPaperScissorsGame(printOption: .roundStart, winner: .none)
     
     let userInput = readLine()
     
     guard userInput != "0" else {
-        print("게임 종료")
+        displayRockPaperScissorsGame(printOption: .gameEnd, winner: .none)
         return
     }
     
     guard let userChoice = mappingUserChoice(userInput: userInput, round: 1) else {
-        playRockPaperScissorsGame(progress: .invalidInput)
+        displayRockPaperScissorsGame(printOption: .invalidInput, winner: .none)
+        playRockPaperScissorsGame()
         return
     }
     
-    playRockPaperScissorsGame(progress: decideVictory(userChoice: userChoice))
+    let winner = decideVictory(userChoice: userChoice)
+    
+    guard winner != .none else {
+        displayRockPaperScissorsGame(printOption: .draw, winner: .none)
+        playRockPaperScissorsGame()
+        return
+    }
+    
+    displayRockPaperScissorsGame(printOption: .roundWin, winner: winner)
+    playMukchippaGame(winner: winner)
 }
 
-func playMukchippaGame(progress: GameProgress, turn: inout GameProgress) {
-    guard progress != .draw else {
-        displayResult(progress: progress, turn: turn)
+func displayRockPaperScissorsGame(printOption: PrintOptions, winner: Winner) {
+    switch printOption {
+    case .roundStart:
+        print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         return
+    case .roundWin:
+        if winner == .user {
+            print("이겼습니다!")
+        } else {
+            print("졌습니다!")
+        }
+    case .draw:
+        print("비겼습니다!")
+    case .invalidInput:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    case .gameEnd:
+        print("게임 종료")
+    default:
+        break
     }
+}
+
+func playMukchippaGame(winner: Winner) {
+    displayMukchippaGame(printOption: .roundStart, winner: winner)
     
-    if progress == .userWin || progress == .computerWin {
-        turn = progress
-    }
-    
-    displayResult(progress: progress, turn: turn)
-        
     let userInput = readLine()
     
     guard userInput != "0" else {
-        print("게임 종료")
+        displayMukchippaGame(printOption: .gameEnd, winner: .none)
         return
     }
     
     guard let userChoice = mappingUserChoice(userInput: userInput, round: 2) else {
-        turn = .computerWin
-        playMukchippaGame(progress: .invalidInput, turn: &turn)
+        displayMukchippaGame(printOption: .invalidInput, winner: .none)
+        playMukchippaGame(winner: .computer)
         return
     }
     
-    playMukchippaGame(progress: decideVictory(userChoice: userChoice), turn: &turn)
+    let roundWinner = decideVictory(userChoice: userChoice)
+    
+    guard roundWinner != .none else {
+        displayMukchippaGame(printOption: .gameWin, winner: winner)
+        return
+    }
+    
+    displayMukchippaGame(printOption: .roundWin, winner: roundWinner)
+    playMukchippaGame(winner: roundWinner)
+}
+
+func displayMukchippaGame(printOption: PrintOptions, winner: Winner) {
+    switch printOption {
+    case .roundStart:
+        print("[\(winner.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
+    case .roundWin:
+        print("\(winner.rawValue)의 턴입니다.")
+    case .gameWin:
+        print("\(winner.rawValue)의 승리!")
+    case .invalidInput:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+    case .gameEnd:
+        print("게임 종료")
+    default:
+        break
+    }
 }
 
 func mappingUserChoice(userInput: String?, round: Int) -> RockPaperScissors?  {
@@ -98,55 +145,20 @@ func mappingUserChoice(userInput: String?, round: Int) -> RockPaperScissors?  {
     }
 }
 
-func decideVictory(userChoice: RockPaperScissors) -> GameProgress {
-    guard let computerChoice = RockPaperScissors.allCases.randomElement() else {
-        return .invalidInput
-    }
+func decideVictory(userChoice: RockPaperScissors) -> Winner {
+    let computerChoice = RockPaperScissors.allCases.randomElement()
     
     guard computerChoice != userChoice else {
-        return .draw
+        return .none
     }
     
     guard (computerChoice == .scissors && userChoice == .paper) ||
             (computerChoice == .rock && userChoice == .scissors) ||
             (computerChoice == .paper && userChoice == .rock) else {
-        return .userWin
+        return .user
     }
     
-    return .computerWin
+    return .computer
 }
 
-func displayResult(progress: GameProgress) {
-    switch progress {
-    case .userWin:
-        print("이겼습니다!")
-        return
-    case .computerWin:
-        print("졌습니다!")
-        return
-    case .draw:
-        print("비겼습니다!")
-    case .invalidInput:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-    case .gameStart:
-        break
-    }
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
-}
-
-func displayResult(progress: GameProgress, turn: GameProgress) {
-    switch progress {
-    case .userWin, .computerWin:
-        print("\(progress.rawValue)의 턴입니다.")
-    case .draw:
-        print("\(turn.rawValue)의 승리!")
-        return
-    case .invalidInput:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-    default :
-        break
-    }
-    print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> : ", terminator: "")
-}
-
-playRockPaperScissorsGame(progress: .gameStart)
+playRockPaperScissorsGame()
