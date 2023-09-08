@@ -8,6 +8,7 @@
 struct RockPaperScissorsManager {
     private var computerCard: RockPaperScissors?
     private var userCard: RockPaperScissors?
+    private var mukchippa = MukchippaManager()
     
     private func inputUserNumber() -> Int {
         while true {
@@ -34,8 +35,10 @@ struct RockPaperScissorsManager {
                     computerValue == .rock && userValue == .scissors ||
                     computerValue == .scissors && userValue == .paper {
             print("졌습니다!")
+            mukchippa.isWinOrLose = false
             return
         } else {
+            mukchippa.isWinOrLose = true
             print("이겼습니다!")
             return
         }
