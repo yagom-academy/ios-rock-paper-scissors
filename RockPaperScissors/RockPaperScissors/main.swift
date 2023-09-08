@@ -12,7 +12,7 @@ let randomNumberRange = 1...3
 struct RockPaperScissorsGame {
     var mukChiPaGame = MukChiPa()
     
-    func playGame() {
+    mutating func playGame() {
         generateUserHand()
         generateComputerHand()
         generateResult()
@@ -75,7 +75,7 @@ struct RockPaperScissorsGame {
         }
     }
     
-    func generateResult() {
+    mutating func generateResult() {
         if computerHand == userHand {
             rockPaperScissorsResult = .draw
             print(rockPaperScissorsResult.resultDescription)
@@ -97,6 +97,6 @@ struct RockPaperScissorsGame {
     }
 }
 
-let rockPaperScissorsGame = RockPaperScissorsGame()
+var rockPaperScissorsGame = RockPaperScissorsGame()
 rockPaperScissorsGame.playGame()
 

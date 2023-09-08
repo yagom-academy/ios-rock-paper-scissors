@@ -13,14 +13,14 @@ struct MukChiPa {
         turn = .nobody
     }
     
-    func playMukChiPa() {
+    mutating func playMukChiPa() {
         printMukChiPaMenu(winner: turn)
         generateUserHand()
         generateComputerHand()
         generateResult()
     }
     
-    func generateUserHand() {
+    mutating func generateUserHand() {
         do {
             let userInput = try readUserInput()
             try convertToUserHand(user: userInput)
@@ -81,7 +81,7 @@ struct MukChiPa {
         }
     }
     
-    func generateResult() {
+    mutating func generateResult() {
         if computerHand == userHand {
             print("\(turn.playerDescription)의 승리!")
             return
