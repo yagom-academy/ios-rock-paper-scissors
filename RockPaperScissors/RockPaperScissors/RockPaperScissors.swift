@@ -7,7 +7,22 @@
 struct RockPaperScissors {
     private var nextGame = MukJjiBba()
     
-    mutating func compareUserPickAndComputerPick(_ userChoice: RockPaperScissorsChoice, _ computerChoice: RockPaperScissorsChoice) {
+    func generateRandomNumber() -> RockPaperScissorsChoice {
+        let randomNumber = Int.random(in: 1...3)
+        
+        switch randomNumber {
+        case 1:
+            return .rock
+        case 2:
+            return .paper
+        case 3:
+            return .scissors
+        default:
+            return .unknown
+        }
+    }
+    
+    func compareUserPickAndComputerPick(_ userChoice: RockPaperScissorsChoice, _ computerChoice: RockPaperScissorsChoice) {
         switch (userChoice, computerChoice) {
         case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
             print("이겼습니다!")
@@ -17,14 +32,17 @@ struct RockPaperScissors {
             print("비겼습니다!")
             playRockPaperScissors()
         default:
-            turn = "컴퓨터"
             print("졌습니다!")
+            turn = "컴퓨터"
             nextGame.playMukChiBbaGame()
         }
     }
     
     private func selectMenu() -> RockPaperScissorsChoice {
-        while true {
+        let isRunning = true
+        
+        while isRunning {
+            
             print("가위(1), 바위(2), 보(3)!<종료 : 0> :", terminator: " ")
             
             guard let input = readLine(), let userChoice =  RockPaperScissorsChoice(rawValue: Int(input) ?? -1)  else {
@@ -35,18 +53,17 @@ struct RockPaperScissors {
         }
     }
     
-    mutating func playRockPaperScissors() {
+    func playRockPaperScissors() {
         let isRunning = true
         
         while isRunning {
-            let computerChoice = RockPaperScissorsChoice(rawValue: getRandomNumber()) ?? .rock
+            let computerChoice = generateRandomNumber()
             let userChoice = selectMenu()
             
             if userChoice == .quit {
                 print("게임 종료")
                 break
             }
-            
             compareUserPickAndComputerPick(userChoice, computerChoice)
             break
         }

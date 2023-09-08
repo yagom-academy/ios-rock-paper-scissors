@@ -5,8 +5,22 @@
 //
 
 struct MukJjiBba {
+    func generateRandomNumber() -> MukJjiBbaChoice {
+        let randomNumber = Int.random(in: 1...3)
+        
+        switch randomNumber {
+        case 1:
+            return .muk
+        case 2:
+            return .jji
+        case 3:
+            return .bba
+        default:
+            return .unknown
+        }
+    }
     
-    mutating func compareUserPickAndComputerPick(_ userChoice: MukJjiBbaChoice, _ computerChoice: MukJjiBbaChoice) {
+    func compareUserPickAndComputerPick(_ userChoice: MukJjiBbaChoice, _ computerChoice: MukJjiBbaChoice) {
         switch (userChoice, computerChoice) {
         case (.muk,.bba), (.jji,.muk), (.bba,.jji):
             turn = "컴퓨터"
@@ -21,8 +35,11 @@ struct MukJjiBba {
         }
     }
     
-    mutating func selectMenu() -> MukJjiBbaChoice {
-        while true {
+    func selectMenu() -> MukJjiBbaChoice {
+        let isRunning = true
+        
+        while isRunning {
+            
             print("[\(turn) 턴]묵(1), 찌(2), 빠(3)!<종료 : 0> :", terminator: " ")
             
             guard let input = readLine(), let userChoice = MukJjiBbaChoice(rawValue: Int(input) ?? -1) else {
@@ -34,18 +51,17 @@ struct MukJjiBba {
         }
     }
     
-    mutating func playMukChiBbaGame() {
+    func playMukChiBbaGame() {
         let isRunning = true
         
         while isRunning {
-            let computerChoice = MukJjiBbaChoice(rawValue: getRandomNumber()) ?? .muk
+            let computerChoice = generateRandomNumber()
             let userChoice = selectMenu()
             
             if userChoice == .quit {
                 print("게임 종료")
                 break
             }
-            
             compareUserPickAndComputerPick(userChoice, computerChoice)
             break
         }
