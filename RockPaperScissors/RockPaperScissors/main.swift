@@ -10,7 +10,7 @@ var rockPaperScissorsResult: GameResult = .draw
 let randomNumberRange = 1...3
 
 struct RockPaperScissorsGame {
-    var mukChiPaGame = MukChiPa()
+    var mukChiPaGame = MukChiPa(turn: .nobody)
     
     mutating func playGame() {
         generateUserHand()

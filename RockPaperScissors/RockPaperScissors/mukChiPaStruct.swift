@@ -9,8 +9,8 @@
 struct MukChiPa {
     var turn: Player
     
-    init() {
-        turn = .nobody
+    init(turn: Player) {
+        self.turn = turn
     }
     
     mutating func playMukChiPa() {
