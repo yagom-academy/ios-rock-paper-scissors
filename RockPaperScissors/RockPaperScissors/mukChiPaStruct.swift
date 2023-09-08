@@ -82,13 +82,13 @@ struct MukChiPa {
             print("\(turn.playerDescription)의 승리!")
             return
         } else if (computerHand == .rock && userHand == .paper) || (computerHand == .scissors && userHand == .rock) || (computerHand == .paper && userHand == .scissors) {
-            printTurn(player: Player.user)
+            printTurn(player: .user)
             playMukChiPa()
         } else if userHand == .exit {
             rockPaperScissorsResult = .exit
             print(rockPaperScissorsResult.resultDescription)
         } else {
-            printTurn(player: Player.computer)
+            printTurn(player: .computer)
             playMukChiPa()
         }
     }
