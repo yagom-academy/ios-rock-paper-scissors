@@ -1,5 +1,5 @@
 //
-//  MukChiBbaChoice.swift
+//  MukJjiBbaChoice.swift
 //  Created by uemu, mireu.
 //  Copyright © yagom academy. All rights reserved.
 //

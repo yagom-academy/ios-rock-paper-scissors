@@ -5,7 +5,7 @@
 //
 
 struct RockPaperScissors {
-    private var nextGame = MukJjiBbaGame()
+    private var nextGame = MukJjiBba()
     
     mutating func compareUserPickAndComputerPick(_ userChoice: RockPaperScissorsChoice, _ computerChoice: RockPaperScissorsChoice) {
         switch (userChoice, computerChoice) {
@@ -25,7 +25,7 @@ struct RockPaperScissors {
     
     private func selectMenu() -> RockPaperScissorsChoice {
         while true {
-            print("가위(1), 바위(2), 보(3)!<종료: 0> :", terminator: " ")
+            print("가위(1), 바위(2), 보(3)!<종료 : 0> :", terminator: " ")
             
             guard let input = readLine(), let userChoice =  RockPaperScissorsChoice(rawValue: Int(input) ?? -1)  else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
@@ -43,7 +43,7 @@ struct RockPaperScissors {
             let userChoice = selectMenu()
             
             if userChoice == .quit {
-                print("게임종료")
+                print("게임 종료")
                 break
             }
             

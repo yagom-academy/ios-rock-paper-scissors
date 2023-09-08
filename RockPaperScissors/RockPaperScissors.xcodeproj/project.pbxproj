@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		4E2CEBFC2AAAE851009D8A95 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2CEBFB2AAAE851009D8A95 /* RockPaperScissors.swift */; };
 		4E2CEC002AAAEE9F009D8A95 /* RandomNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2CEBFF2AAAEE9F009D8A95 /* RandomNumber.swift */; };
-		659C64ED2AAAE52300E0934A /* MukChiBbaChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C64EC2AAAE52300E0934A /* MukChiBbaChoice.swift */; };
+		659C64ED2AAAE52300E0934A /* MukJjiBbaChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C64EC2AAAE52300E0934A /* MukJjiBbaChoice.swift */; };
 		659C64EF2AAAE59300E0934A /* RockPaperScissorsChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C64EE2AAAE59300E0934A /* RockPaperScissorsChoice.swift */; };
-		659C64F12AAAECDF00E0934A /* MukChiBbaGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C64F02AAAECDF00E0934A /* MukChiBbaGame.swift */; };
+		659C64F12AAAECDF00E0934A /* MukJjiBba.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C64F02AAAECDF00E0934A /* MukJjiBba.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,9 +30,9 @@
 /* Begin PBXFileReference section */
 		4E2CEBFB2AAAE851009D8A95 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		4E2CEBFF2AAAEE9F009D8A95 /* RandomNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumber.swift; sourceTree = "<group>"; };
-		659C64EC2AAAE52300E0934A /* MukChiBbaChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukChiBbaChoice.swift; sourceTree = SOURCE_ROOT; };
+		659C64EC2AAAE52300E0934A /* MukJjiBbaChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukJjiBbaChoice.swift; sourceTree = SOURCE_ROOT; };
 		659C64EE2AAAE59300E0934A /* RockPaperScissorsChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsChoice.swift; sourceTree = SOURCE_ROOT; };
-		659C64F02AAAECDF00E0934A /* MukChiBbaGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukChiBbaGame.swift; sourceTree = SOURCE_ROOT; };
+		659C64F02AAAECDF00E0934A /* MukJjiBba.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukJjiBba.swift; sourceTree = SOURCE_ROOT; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ABA0E0254EA63000B2367D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,9 +67,9 @@
 		C7ABA0DF254EA63000B2367D /* RockPaperScissors */ = {
 			isa = PBXGroup;
 			children = (
-				659C64F02AAAECDF00E0934A /* MukChiBbaGame.swift */,
+				659C64F02AAAECDF00E0934A /* MukJjiBba.swift */,
 				659C64EE2AAAE59300E0934A /* RockPaperScissorsChoice.swift */,
-				659C64EC2AAAE52300E0934A /* MukChiBbaChoice.swift */,
+				659C64EC2AAAE52300E0934A /* MukJjiBbaChoice.swift */,
 				4E2CEBFB2AAAE851009D8A95 /* RockPaperScissors.swift */,
 				4E2CEBFF2AAAEE9F009D8A95 /* RandomNumber.swift */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
@@ -135,8 +135,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
-				659C64F12AAAECDF00E0934A /* MukChiBbaGame.swift in Sources */,
-				659C64ED2AAAE52300E0934A /* MukChiBbaChoice.swift in Sources */,
+				659C64F12AAAECDF00E0934A /* MukJjiBba.swift in Sources */,
+				659C64ED2AAAE52300E0934A /* MukJjiBbaChoice.swift in Sources */,
 				4E2CEBFC2AAAE851009D8A95 /* RockPaperScissors.swift in Sources */,
 				659C64EF2AAAE59300E0934A /* RockPaperScissorsChoice.swift in Sources */,
 				4E2CEC002AAAEE9F009D8A95 /* RandomNumber.swift in Sources */,

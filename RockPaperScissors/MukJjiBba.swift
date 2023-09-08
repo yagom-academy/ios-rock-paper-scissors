@@ -1,10 +1,10 @@
 //
-//  MukChiBbaGame.swift
+//  MukJjiBba.swift
 //  Created by uemu, mireu.
 //  Copyright © yagom academy. All rights reserved.
 //
 
-struct MukJjiBbaGame {
+struct MukJjiBba {
     
     mutating func compareUserPickAndComputerPick(_ userChoice: MukJjiBbaChoice, _ computerChoice: MukJjiBbaChoice) {
         switch (userChoice, computerChoice) {
@@ -23,7 +23,8 @@ struct MukJjiBbaGame {
     
     mutating func selectMenu() -> MukJjiBbaChoice {
         while true {
-            print("[\(turn)턴]묵(1), 찌(2), 빠(3)! :", terminator: " ")
+            print("[\(turn) 턴]묵(1), 찌(2), 빠(3)!<종료 : 0> :", terminator: " ")
+            
             guard let input = readLine(), let userChoice = MukJjiBbaChoice(rawValue: Int(input) ?? -1) else {
                 print("잘못된 입력입니다. 컴퓨터의 턴으로 넘깁니다.")
                 turn = "컴퓨터"
@@ -41,12 +42,12 @@ struct MukJjiBbaGame {
             let userChoice = selectMenu()
             
             if userChoice == .quit {
-                print("게임종료")
+                print("게임 종료")
                 break
             }
+            
             compareUserPickAndComputerPick(userChoice, computerChoice)
             break
         }
     }
 }
-
