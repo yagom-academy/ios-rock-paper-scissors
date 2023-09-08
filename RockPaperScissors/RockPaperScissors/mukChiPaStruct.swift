@@ -7,6 +7,12 @@
 
 
 struct MukChiPa {
+    var turn: Player
+    
+    init() {
+        turn = .nobody
+    }
+    
     func playMukChiPa() {
         printMukChiPaMenu(winner: turn)
         generateUserHand()
@@ -91,7 +97,7 @@ struct MukChiPa {
         }
     }
     
-    func printTurn(player: Player) {
+    mutating func printTurn(player: Player) {
         var playerTurn: Player
         
         switch player {

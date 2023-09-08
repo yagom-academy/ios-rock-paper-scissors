@@ -8,10 +8,9 @@ var userHand: RockPaperScissors = .exit
 var computerHand: RockPaperScissors = .exit
 var rockPaperScissorsResult: GameResult = .draw
 let randomNumberRange = 1...3
-var turn = Player.nobody
 
 struct RockPaperScissorsGame {
-    let mukChiPaGame = MukChiPa()
+    var mukChiPaGame = MukChiPa()
     
     func playGame() {
         generateUserHand()
@@ -83,7 +82,7 @@ struct RockPaperScissorsGame {
             playGame()
         } else if (computerHand == .rock && userHand == .paper) || (computerHand == .scissors && userHand == .rock) || (computerHand == .paper && userHand == .scissors) {
             rockPaperScissorsResult = .win
-            turn = Player.user
+            mukChiPaGame.turn = .user
             print(rockPaperScissorsResult.resultDescription)
             mukChiPaGame.playMukChiPa()
         } else if userHand == .exit {
@@ -91,7 +90,7 @@ struct RockPaperScissorsGame {
             print(rockPaperScissorsResult.resultDescription)
         } else {
             rockPaperScissorsResult = .lose
-            turn = Player.computer
+            mukChiPaGame.turn = .user
             print(rockPaperScissorsResult.resultDescription)
             mukChiPaGame.playMukChiPa()
         }
