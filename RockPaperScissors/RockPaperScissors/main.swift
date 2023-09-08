@@ -78,20 +78,20 @@ struct RockPaperScissorsGame {
     mutating func generateResult() {
         if computerHand == userHand {
             rockPaperScissorsResult = .draw
-            print(rockPaperScissorsResult.resultDescription)
+            print(rockPaperScissorsResult.description)
             playGame()
         } else if (computerHand == .rock && userHand == .paper) || (computerHand == .scissors && userHand == .rock) || (computerHand == .paper && userHand == .scissors) {
             rockPaperScissorsResult = .win
             mukChiPaGame.turn = .user
-            print(rockPaperScissorsResult.resultDescription)
+            print(rockPaperScissorsResult.description)
             mukChiPaGame.playMukChiPa()
         } else if userHand == .exit {
             rockPaperScissorsResult = .exit
-            print(rockPaperScissorsResult.resultDescription)
+            print(rockPaperScissorsResult.description)
         } else {
             rockPaperScissorsResult = .lose
             mukChiPaGame.turn = .computer
-            print(rockPaperScissorsResult.resultDescription)
+            print(rockPaperScissorsResult.description)
             mukChiPaGame.playMukChiPa()
         }
     }

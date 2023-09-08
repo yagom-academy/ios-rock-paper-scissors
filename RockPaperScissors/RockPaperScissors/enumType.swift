@@ -15,7 +15,7 @@ enum Player {
     case computer
     case nobody
     
-    var playerDescription: String {
+    var description: String {
         switch self {
         case .user:
             return "사용자"
@@ -30,7 +30,7 @@ enum Player {
 enum GameResult {
     case win, draw, lose, exit
 
-    var resultDescription: String {
+    var description: String {
         switch self {
         case .win:
             return "이겼습니다!"

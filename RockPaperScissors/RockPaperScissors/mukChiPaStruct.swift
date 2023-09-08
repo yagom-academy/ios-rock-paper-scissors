@@ -21,7 +21,7 @@ struct MukChiPa {
     }
     
     func printMukChiPaMenu(winner: Player) {
-        print("[\(winner.playerDescription) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
+        print("[\(winner.description) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
     }
     
     mutating func generateUserHand() {
@@ -78,7 +78,7 @@ struct MukChiPa {
             return
         }
         
-        print("\(playerTurn.playerDescription)의 턴입니다.")
+        print("\(playerTurn.description)의 턴입니다.")
         turn = playerTurn
     }
     
@@ -99,14 +99,14 @@ struct MukChiPa {
     
     mutating func generateResult() {
         if computerHand == userHand {
-            print("\(turn.playerDescription)의 승리!")
+            print("\(turn.description)의 승리!")
             return
         } else if (computerHand == .rock && userHand == .paper) || (computerHand == .scissors && userHand == .rock) || (computerHand == .paper && userHand == .scissors) {
             printTurn(player: .user)
             playMukChiPa()
         } else if userHand == .exit {
             rockPaperScissorsResult = .exit
-            print(rockPaperScissorsResult.resultDescription)
+            print(rockPaperScissorsResult.description)
         } else {
             printTurn(player: .computer)
             playMukChiPa()
