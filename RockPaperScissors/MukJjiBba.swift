@@ -5,6 +5,8 @@
 //
 
 struct MukJjiBba {
+    private var turn: CurrentTurn = .user
+    
     func generateRandomNumber() -> MukJjiBbaChoice {
         let randomNumber = Int.random(in: 1...3)
         
@@ -20,14 +22,14 @@ struct MukJjiBba {
         }
     }
     
-    func compareUserPickAndComputerPick(_ userChoice: MukJjiBbaChoice, _ computerChoice: MukJjiBbaChoice) {
+    mutating func compareUserPickAndComputerPick(_ userChoice: MukJjiBbaChoice, _ computerChoice: MukJjiBbaChoice) {
         switch (userChoice, computerChoice) {
         case (.muk,.bba), (.jji,.muk), (.bba,.jji):
-            turn = "컴퓨터"
+            turn = .user
             print("\(turn)의 턴입니다.")
             playMukChiBbaGame()
         case (.muk,.jji), (.jji,.bba), (.bba,.muk):
-            turn = "사용자"
+            turn = .computer
             print("\(turn)의 턴입니다.")
             playMukChiBbaGame()
         default:
@@ -35,7 +37,7 @@ struct MukJjiBba {
         }
     }
     
-    func selectMenu() -> MukJjiBbaChoice {
+    mutating func selectMenu() -> MukJjiBbaChoice {
         let isRunning = true
         
         while isRunning {
@@ -44,14 +46,14 @@ struct MukJjiBba {
             
             guard let input = readLine(), let userChoice = MukJjiBbaChoice(rawValue: Int(input) ?? -1) else {
                 print("잘못된 입력입니다. 컴퓨터의 턴으로 넘깁니다.")
-                turn = "컴퓨터"
+                turn = .computer
                 continue
             }
             return userChoice
         }
     }
     
-    func playMukChiBbaGame() {
+    mutating func playMukChiBbaGame() {
         let isRunning = true
         
         while isRunning {

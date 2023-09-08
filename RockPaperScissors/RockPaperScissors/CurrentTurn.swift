@@ -1,8 +1,7 @@
 //
 //  CurrentTurn.swift
-//  RockPaperScissors
-//
-//  Created by Lee minyeol on 2023/09/08.
+//  Created by uemu, mireu.
+//  Copyright © yagom academy. All rights reserved.
 //
 
 enum CurrentTurn: CustomStringConvertible {

@@ -6,6 +6,7 @@
 
 struct RockPaperScissors {
     private var nextGame = MukJjiBba()
+    private var turn: CurrentTurn = .user
     
     func generateRandomNumber() -> RockPaperScissorsChoice {
         let randomNumber = Int.random(in: 1...3)
@@ -22,18 +23,18 @@ struct RockPaperScissors {
         }
     }
     
-    func compareUserPickAndComputerPick(_ userChoice: RockPaperScissorsChoice, _ computerChoice: RockPaperScissorsChoice) {
+    mutating func compareUserPickAndComputerPick(_ userChoice: RockPaperScissorsChoice, _ computerChoice: RockPaperScissorsChoice) {
         switch (userChoice, computerChoice) {
         case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
             print("이겼습니다!")
-            turn = "사용자"
+            turn = .user
             nextGame.playMukChiBbaGame()
         case (.rock, .rock), (.paper, .paper), (.scissors, .scissors):
             print("비겼습니다!")
             playRockPaperScissors()
         default:
             print("졌습니다!")
-            turn = "컴퓨터"
+            turn = .computer
             nextGame.playMukChiBbaGame()
         }
     }
@@ -42,7 +43,6 @@ struct RockPaperScissors {
         let isRunning = true
         
         while isRunning {
-            
             print("가위(1), 바위(2), 보(3)!<종료 : 0> :", terminator: " ")
             
             guard let input = readLine(), let userChoice =  RockPaperScissorsChoice(rawValue: Int(input) ?? -1)  else {
@@ -53,7 +53,7 @@ struct RockPaperScissors {
         }
     }
     
-    func playRockPaperScissors() {
+    mutating func playRockPaperScissors() {
         let isRunning = true
         
         while isRunning {
