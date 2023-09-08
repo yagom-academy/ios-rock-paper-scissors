@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E2CEBFC2AAAE851009D8A95 /* RockPaperScissors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2CEBFB2AAAE851009D8A95 /* RockPaperScissors.swift */; };
 		659C64ED2AAAE52300E0934A /* MukChiBbaChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C64EC2AAAE52300E0934A /* MukChiBbaChoice.swift */; };
 		659C64EF2AAAE59300E0934A /* RockPaperScissorsChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C64EE2AAAE59300E0934A /* RockPaperScissorsChoice.swift */; };
 		C7ABA0E1254EA63000B2367D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ABA0E0254EA63000B2367D /* main.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4E2CEBFB2AAAE851009D8A95 /* RockPaperScissors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissors.swift; sourceTree = "<group>"; };
 		659C64EC2AAAE52300E0934A /* MukChiBbaChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MukChiBbaChoice.swift; sourceTree = SOURCE_ROOT; };
 		659C64EE2AAAE59300E0934A /* RockPaperScissorsChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsChoice.swift; sourceTree = SOURCE_ROOT; };
 		C7ABA0DD254EA63000B2367D /* RockPaperScissors */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RockPaperScissors; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +65,7 @@
 			children = (
 				659C64EE2AAAE59300E0934A /* RockPaperScissorsChoice.swift */,
 				659C64EC2AAAE52300E0934A /* MukChiBbaChoice.swift */,
+				4E2CEBFB2AAAE851009D8A95 /* RockPaperScissors.swift */,
 				C7ABA0E0254EA63000B2367D /* main.swift */,
 			);
 			path = RockPaperScissors;
@@ -127,6 +130,7 @@
 			files = (
 				C7ABA0E1254EA63000B2367D /* main.swift in Sources */,
 				659C64ED2AAAE52300E0934A /* MukChiBbaChoice.swift in Sources */,
+				4E2CEBFC2AAAE851009D8A95 /* RockPaperScissors.swift in Sources */,
 				659C64EF2AAAE59300E0934A /* RockPaperScissorsChoice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
