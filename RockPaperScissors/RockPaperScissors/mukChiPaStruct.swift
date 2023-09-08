@@ -32,10 +32,6 @@ struct MukChiPa {
         }
     }
     
-    func printMukChiPaMenu(winner: Player) {
-        print("[\(winner.playerDescription) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
-    }
-    
     func readUserInput() throws -> Int {
         guard let userInput = readLine() else {
             throw InputError.nothingInputError
@@ -67,7 +63,7 @@ struct MukChiPa {
     }
     
     func generateComputerHand() {
-        let randomComputerHand = Int.random(in: 1...3)
+        let randomComputerHand = Int.random(in: randomNumberRange)
         
         switch randomComputerHand {
         case 1:
@@ -111,5 +107,9 @@ struct MukChiPa {
         
         print("\(playerTurn.playerDescription)의 턴입니다.")
         turn = playerTurn
+    }
+    
+    func printMukChiPaMenu(winner: Player) {
+        print("[\(winner.playerDescription) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0>", terminator: " : ")
     }
 }
