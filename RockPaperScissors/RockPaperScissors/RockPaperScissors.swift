@@ -8,7 +8,7 @@ struct RockPaperScissors {
     private var nextGame = MukJjiBba()
     private var turn: CurrentTurn = .user
     
-    func generateRandomNumber() -> RockPaperScissorsChoice {
+    func generateRandomRockPaperScissorsChoice() -> RockPaperScissorsChoice {
         let randomNumber = Int.random(in: 1...3)
         
         switch randomNumber {
@@ -45,8 +45,10 @@ struct RockPaperScissors {
         while isRunning {
             print("가위(1), 바위(2), 보(3)!<종료 : 0> :", terminator: " ")
             
-            guard let input = readLine(), let userChoice =  RockPaperScissorsChoice(rawValue: Int(input) ?? -1)  else {
-                print("잘못된 입력입니다. 다시 시도해주세요.")
+            guard let input = readLine(),
+                  let inputIntegerValue = Int(input),
+                  let userChoice =  RockPaperScissorsChoice(rawValue: inputIntegerValue)  else {
+                print("잘못된 입력입니다. 컴퓨터의 턴으로 넘깁니다.")
                 continue
             }
             return userChoice
@@ -57,7 +59,7 @@ struct RockPaperScissors {
         let isRunning = true
         
         while isRunning {
-            let computerChoice = generateRandomNumber()
+            let computerChoice = generateRandomRockPaperScissorsChoice()
             let userChoice = selectMenu()
             
             if userChoice == .quit {

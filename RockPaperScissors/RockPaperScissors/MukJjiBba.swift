@@ -7,7 +7,7 @@
 struct MukJjiBba {
     private var turn: CurrentTurn = .user
     
-    func generateRandomNumber() -> MukJjiBbaChoice {
+    func generateRandomMujjiBbaChoice() -> MukJjiBbaChoice {
         let randomNumber = Int.random(in: 1...3)
         
         switch randomNumber {
@@ -44,7 +44,9 @@ struct MukJjiBba {
             
             print("[\(turn) 턴]묵(1), 찌(2), 빠(3)!<종료 : 0> :", terminator: " ")
             
-            guard let input = readLine(), let userChoice = MukJjiBbaChoice(rawValue: Int(input) ?? -1) else {
+            guard let input = readLine(),
+                  let inputIntegerValue = Int(input),
+                  let userChoice =  MukJjiBbaChoice(rawValue: inputIntegerValue)  else {
                 print("잘못된 입력입니다. 컴퓨터의 턴으로 넘깁니다.")
                 turn = .computer
                 continue
@@ -57,7 +59,7 @@ struct MukJjiBba {
         let isRunning = true
         
         while isRunning {
-            let computerChoice = generateRandomNumber()
+            let computerChoice = generateRandomMujjiBbaChoice()
             let userChoice = selectMenu()
             
             if userChoice == .quit {
