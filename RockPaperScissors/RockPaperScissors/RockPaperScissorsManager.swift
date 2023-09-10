@@ -8,7 +8,7 @@
 struct RockPaperScissorsManager {
     private var computerCard: RockPaperScissors?
     private var userCard: RockPaperScissors?
-    private var mukchippa = MukchippaManager()
+    private var mukchippa: MukchippaManager = MukchippaManager()
     
     private func inputUserNumber() -> Int {
         while true {

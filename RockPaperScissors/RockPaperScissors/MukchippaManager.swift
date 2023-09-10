@@ -6,7 +6,7 @@
 //
 
 struct MukchippaManager {
-    var isUserTurn = true
+    var isUserTurn: Bool = true
     private var computerCard: Mukchippa?
     private var userCard: Mukchippa?
     
