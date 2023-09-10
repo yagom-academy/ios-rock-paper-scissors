@@ -4,8 +4,15 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-var manager = RockPaperScissorsManager()
+var rockPaperScissorsmanager = RockPaperScissorsManager()
+var mukchippaManager = MukchippaManager()
 
-manager.startGame()
+rockPaperScissorsmanager.startGame()
 
-
+if rockPaperScissorsmanager.isWinOrLose {
+    mukchippaManager.isUserTurn = true
+    mukchippaManager.startMukchippa()
+} else {
+    mukchippaManager.isUserTurn = false
+    mukchippaManager.startMukchippa()
+}

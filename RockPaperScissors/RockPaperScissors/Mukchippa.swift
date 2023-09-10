@@ -9,5 +9,3 @@ enum Mukchippa: Int {
     case chi
     case ppa
 }
-
-
