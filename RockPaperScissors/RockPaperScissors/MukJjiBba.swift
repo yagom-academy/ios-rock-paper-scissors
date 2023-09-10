@@ -7,7 +7,7 @@
 struct MukJjiBba {
     private var turn: CurrentTurn = .user
     
-    func generateRandomMujjiBbaChoice() -> MukJjiBbaChoice {
+    private func generateRandomMujjiBbaChoice() -> MukJjiBbaChoice {
         let randomNumber = Int.random(in: 1...3)
         
         switch randomNumber {
@@ -22,7 +22,7 @@ struct MukJjiBba {
         }
     }
     
-    mutating func compareUserPickAndComputerPick(_ userChoice: MukJjiBbaChoice, _ computerChoice: MukJjiBbaChoice) {
+    mutating private func compareUserPickAndComputerPick(_ userChoice: MukJjiBbaChoice, _ computerChoice: MukJjiBbaChoice) {
         switch (userChoice, computerChoice) {
         case (.muk,.bba), (.jji,.muk), (.bba,.jji):
             turn = .user
@@ -37,7 +37,7 @@ struct MukJjiBba {
         }
     }
     
-    mutating func selectMenu() -> MukJjiBbaChoice {
+    mutating private func selectMenu() -> MukJjiBbaChoice {
         let isRunning = true
         
         while isRunning {

@@ -8,7 +8,7 @@ struct RockPaperScissors {
     private var nextGame = MukJjiBba()
     private var turn: CurrentTurn = .user
     
-    func generateRandomRockPaperScissorsChoice() -> RockPaperScissorsChoice {
+    private func generateRandomRockPaperScissorsChoice() -> RockPaperScissorsChoice {
         let randomNumber = Int.random(in: 1...3)
         
         switch randomNumber {
@@ -23,7 +23,7 @@ struct RockPaperScissors {
         }
     }
     
-    mutating func compareUserPickAndComputerPick(_ userChoice: RockPaperScissorsChoice, _ computerChoice: RockPaperScissorsChoice) {
+    mutating private func compareUserPickAndComputerPick(_ userChoice: RockPaperScissorsChoice, _ computerChoice: RockPaperScissorsChoice) {
         switch (userChoice, computerChoice) {
         case (.rock, .scissors), (.paper, .rock), (.scissors, .paper):
             print("이겼습니다!")
