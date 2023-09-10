@@ -10,8 +10,8 @@ struct MukchippaManager {
     private var computerCard: Mukchippa?
     private var userCard: Mukchippa?
     
-    private func printMenu(turn: String) {
-        print("[\(turn)턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+    private func printMenu() {
+        print("[\(checkUserTurn(to: isUserTurn))턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
     }
     
     private mutating func inputUserNumber() -> Int {
@@ -23,16 +23,16 @@ struct MukchippaManager {
             } else {
                 print("잘못된 입력입니다. 다시 시도해주세요.")
                 isUserTurn = false
-                checkPlayerTurn()
+                printMenu()
             }
         }
     }
     
-    private mutating func checkPlayerTurn() {
+    private func checkUserTurn(to isUserTurn: Bool) -> String {
         if isUserTurn {
-            printMenu(turn: "사용자")
+            return "사용자"
         } else {
-            printMenu(turn: "컴퓨터")
+            return "컴퓨터"
         }
     }
     
@@ -69,7 +69,7 @@ struct MukchippaManager {
     }
     
     mutating func startMukchippa() {
-        checkPlayerTurn()
+        printMenu()
         
         let user = inputUserNumber()
         
