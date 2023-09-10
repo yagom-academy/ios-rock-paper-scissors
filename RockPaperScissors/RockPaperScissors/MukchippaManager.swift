@@ -43,7 +43,7 @@ struct MukchippaManager {
         } else if computerCard == .ppa && userCard == .muk ||
                   computerCard == .muk && userCard == .chi ||
                   computerCard == .chi && userCard == .ppa {
-            print("컴퓨터의 터입니다.")
+            print("컴퓨터의 턴입니다.")
             isUserTurn = false
             startMukchippa()
         } else {
@@ -53,7 +53,7 @@ struct MukchippaManager {
         }
     }
     
-    private mutating func branchProcessingNumber(with userNumber: Int) {
+    private mutating func playMukchippa(with userNumber: Int) {
         switch userNumber {
         case 0:
             print("게임종료")
@@ -76,6 +76,6 @@ struct MukchippaManager {
         userCard = Mukchippa(rawValue: user)
         computerCard = Mukchippa(rawValue: Int.random(in: 1...3))
 
-        branchProcessingNumber(with: user)
+        playMukchippa(with: user)
     }
 }
