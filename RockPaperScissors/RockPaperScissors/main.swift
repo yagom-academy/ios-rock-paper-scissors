@@ -16,7 +16,7 @@ func run() {
         case "1", "2", "3":
             showResult(userInput: safeUserInput)
         case "0":
-            print("프린트 종료")
+            print("게임 종료")
         default:
             print("잘못된 입력입니다. 다시 시도하여 주세요.")
         }
