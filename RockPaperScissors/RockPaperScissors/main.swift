@@ -25,7 +25,7 @@ func run() {
     }
 }
 
-func showResult(userInput: String){
+func showResult(userInput: String) {
     let computerChoice = String(Int.random(in: 1...3))
     
     print("컴퓨터 : \(computerChoice)")
