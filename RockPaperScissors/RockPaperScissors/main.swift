@@ -42,14 +42,14 @@ func calculateGameResult(userHand: Hand, computerHand: Hand) -> GameResult {
 func playRockPaperScissor() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     
-    guard let userHand = readLine() else {
+    guard let userInput = readLine() else {
         print("잘못된 입력입니다. 프로그램을 종료합니다.")
         return
     }
     
-    switch userHand {
+    switch userInput {
     case "0":
-        print("프로그램을 종료합니다.")
+        print("게임 종료")
         return
     case "1"..."3":
         break
@@ -58,14 +58,22 @@ func playRockPaperScissor() {
         return playRockPaperScissor()
     }
     
-    let computerNumber = String(Int.random(in: 1...3))
+    guard let userNumber = Int(userInput) else {
+        return
+    }
+    let computerNumber = Int.random(in: 1...3)
     
-    if userHand == "1" && computerNumber == "3" || userHand == "2" && computerNumber == "1" || userHand == "3" && computerNumber == "2" {
+    let userHand = convertNumberToHand(number: userNumber)
+    let computerHand = convertNumberToHand(number: computerNumber)
+    
+    switch calculateGameResult(userHand: userHand, computerHand: computerHand) {
+    case .Win:
         print("이겼습니다!")
-    } else if userHand == "1" && computerNumber == "2" || userHand == "2" && computerNumber == "3" || userHand == "3" && computerNumber == "1" {
-        print("졌습니다!")
-    } else {
+    case .Draw:
         print("비겼습니다!")
+        return playRockPaperScissor()
+    case .Lose:
+        print("졌습니다!")
     }
 }
 
