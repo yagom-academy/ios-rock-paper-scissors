@@ -26,6 +26,9 @@ func playRockPaperScissor() {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return playRockPaperScissor()
     }
+    
+    let computerNumber = Int.random(in: 1...3)
+    
 }
 
 playRockPaperScissor()
