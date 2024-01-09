@@ -19,6 +19,9 @@ func playRockPaperScissor() {
     }
     
     switch userHand {
+    case "0":
+        print("프로그램을 종료합니다.")
+        return
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return playRockPaperScissor()
