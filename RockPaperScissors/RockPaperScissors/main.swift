@@ -27,12 +27,13 @@ func run() {
 
 func showResult(userInput: String) {
     let computerChoice = String(Int.random(in: 1...3))
+    let isWin: Bool = (userInput == "1" && computerChoice == "3") || (userInput == "2" && computerChoice == "1") || (userInput == "3" && computerChoice == "2")
     
     print("컴퓨터 : \(computerChoice)")
     
     if userInput == computerChoice {
         print("비겼습니다!")
-    } else if (userInput == "1" && computerChoice == "3") || (userInput == "2" && computerChoice == "1") || (userInput == "3" && computerChoice == "2") {
+    } else if isWin {
         print("이겼습니다!")
     } else {
         print("졌습니다.")
