@@ -18,6 +18,16 @@ enum Hand {
     case Paper
 }
 
+func convertNumberToHand(number: Int) -> Hand {
+    if number == 1 {
+        return Hand.Scissor
+    } else if number == 2 {
+        return Hand.Rock
+    }
+    
+    return Hand.Paper
+}
+
 func playRockPaperScissor() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     
