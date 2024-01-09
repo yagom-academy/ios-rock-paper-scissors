@@ -6,12 +6,8 @@
 
 import Foundation
 
-func printRockPaperScissor() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-}
-
 func playRockPaperScissor() {
-    printRockPaperScissor()
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     
     guard let userHand = readLine() else {
         print("잘못된 입력입니다. 프로그램을 종료합니다.")
