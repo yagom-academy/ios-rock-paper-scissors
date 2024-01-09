@@ -28,6 +28,17 @@ func convertNumberToHand(number: Int) -> Hand {
     return Hand.Paper
 }
 
+func calculateGameResult(userHand: Hand, computerHand: Hand) -> GameResult {
+    switch (userHand, computerHand) {
+    case (.Scissor, .Paper), (.Rock, .Scissor), (.Paper, .Rock):
+        return .Win
+    case (.Scissor, .Scissor), (.Rock, .Rock), (.Paper, .Paper):
+        return .Draw
+    default:
+        return .Lose
+    }
+}
+
 func playRockPaperScissor() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     
