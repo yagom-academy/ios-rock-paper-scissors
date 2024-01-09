@@ -22,13 +22,22 @@ func playRockPaperScissor() {
     case "0":
         print("프로그램을 종료합니다.")
         return
+    case "1"..."3":
+        break
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return playRockPaperScissor()
     }
     
-    let computerNumber = Int.random(in: 1...3)
+    let computerNumber = String(Int.random(in: 1...3))
     
+    if userHand == "1" && computerNumber == "3" || userHand == "2" && computerNumber == "1" || userHand == "3" && computerNumber == "2" {
+        print("이겼습니다!")
+    } else if userHand == "1" && computerNumber == "2" || userHand == "2" && computerNumber == "3" || userHand == "3" && computerNumber == "1" {
+        print("졌습니다!")
+    } else {
+        print("비겼습니다!")
+    }
 }
 
 playRockPaperScissor()
