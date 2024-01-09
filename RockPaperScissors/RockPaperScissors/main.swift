@@ -6,6 +6,18 @@
 
 import Foundation
 
+enum GameResult {
+    case Win
+    case Draw
+    case Lose
+}
+
+enum Hand {
+    case Scissor
+    case Rock
+    case Paper
+}
+
 func playRockPaperScissor() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     
