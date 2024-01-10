@@ -26,7 +26,7 @@ func gameRun() {
         }
         
         if (!isNumber(safeUserInput)) {
-            print("0-3까지의 수를 입력해주세요")
+            print("0-3까지의 수를 입력해주세요.")
         }
         
         if (safeUserInput == "0") {
@@ -34,16 +34,20 @@ func gameRun() {
             return
         }
         
-        let computerChoice = makeComputerChoice()
-        
-        switch (safeUserInput, computerChoice) {
-        case (_, _) where safeUserInput == computerChoice:
-            print("비겼습니다!")
-        case ("1", "3"), ("2", "1"), ("3", "2"):
-            print("이겼습니다")
-        default:
-            print("졌습니다.")
-        }
+        judgeGame(userChoice: safeUserInput)
+    }
+}
+
+func judgeGame(userChoice: String) {
+    let computerChoice = makeComputerChoice()
+    
+    switch (userChoice, computerChoice) {
+    case (_, _) where userChoice == computerChoice:
+        print("비겼습니다!")
+    case ("1", "3"), ("2", "1"), ("3", "2"):
+        print("이겼습니다!")
+    default:
+        print("졌습니다!")
     }
 }
 
