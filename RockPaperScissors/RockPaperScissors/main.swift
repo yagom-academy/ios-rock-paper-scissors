@@ -4,14 +4,13 @@
 //  Copyright © yagom academy. All rights reserved.
 //
 struct errorCode {
-    static let outOfRange = -1
-    static let wrongInput = -2
+    static let wrongInput = -1
 }
 
-struct Gesture {
-    static let scissors = 1
-    static let rock = 2
-    static let paper = 3
+enum Gesture: Int {
+    case scissors = 1
+    case rock = 2
+    case paper = 3
 }
 
 func computerPlay() -> Int {
@@ -37,9 +36,6 @@ func userInput() -> Int {
 
 func rockScissorsPaper() {
     var repeatFlag: Bool = false
-    let scissors:Int = Gesture.scissors
-    let rock:Int = Gesture.rock
-    let paper:Int = Gesture.paper
     
     repeat {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
@@ -51,15 +47,22 @@ func rockScissorsPaper() {
             return
         }
         
-        switch computerNumber {
-        case Gesture.scissors:
-            repeatFlag = gameResult(userInput: userInput, gameCase: [scissors, paper])
-        case Gesture.rock:
-            repeatFlag = gameResult(userInput: userInput, gameCase: [paper, scissors])
-        case Gesture.paper:
-            repeatFlag = gameResult(userInput: userInput, gameCase: [scissors, rock])
-        default:
+        if userInput == errorCode.wrongInput {
+            print("공백 들어오는지 체크")
             repeatFlag = true
+            continue
+        }
+        
+        guard let gesture = Gesture(rawValue: computerNumber) else {
+            return
+        }
+        switch gesture {
+        case .scissors:
+            repeatFlag = gameResult(userInput: userInput, gameCase: [.scissors, .paper])
+        case .rock:
+            repeatFlag = gameResult(userInput: userInput, gameCase: [.paper, .scissors])
+        case .paper:
+            repeatFlag = gameResult(userInput: userInput, gameCase: [.scissors, .rock])
         }
     } while repeatFlag
 }
@@ -72,9 +75,10 @@ func executeGame(userInput: Int) -> Bool {
     return true
 }
 
-func gameResult(userInput: Int, gameCase: Array<Int>) -> Bool {
-    let userWin = gameCase[0] == userInput
-    let userLose = gameCase[1] == userInput
+func gameResult(userInput: Int, gameCase: [Gesture]) -> Bool {
+    let userGesture = Gesture(rawValue: userInput)
+    let userWin = gameCase[0] == userGesture
+    let userLose = gameCase[1] == userGesture
     
     if userWin {
         print("이겼습니다!")
