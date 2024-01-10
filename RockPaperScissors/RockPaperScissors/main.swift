@@ -13,6 +13,15 @@ enum Gesture: Int {
     case paper = 3
 }
 
+enum MookZziPpaGesture: Int {
+    case mook = 1
+    case zzi = 2
+    case ppa = 3
+}
+enum Player: String {
+    case computer = "컴퓨터"
+    case user = "유저"
+}
 func computerPlay() -> Int {
     let computerSelect = Int.random(in: 1...3)
     
@@ -75,6 +84,8 @@ func executeGame(userInput: Int) -> Bool {
     return true
 }
 
+var turnHolder = Player.user
+
 func gameResult(userInput: Int, gameCase: [Gesture]) -> Bool {
     let userGesture = Gesture(rawValue: userInput)
     let userWin = gameCase[0] == userGesture
@@ -82,9 +93,12 @@ func gameResult(userInput: Int, gameCase: [Gesture]) -> Bool {
     
     if userWin {
         print("이겼습니다!")
+        playMookZziPpa(turnHolder: turnHolder)
         return false
     } else if userLose {
         print("졌습니다!")
+        turnHolder = Player.computer
+        playMookZziPpa(turnHolder: turnHolder)
         return false
     } else {
         print("비겼습니다!")
@@ -93,3 +107,80 @@ func gameResult(userInput: Int, gameCase: [Gesture]) -> Bool {
 }
 
 rockScissorsPaper()
+
+func playMookZziPpa(turnHolder: Player) {
+    var turn = turnHolder
+
+    print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>:")
+    
+    //묵찌빠
+
+    let computerNumber = computerPlay()
+    print("[컴퓨터가 고른 수: \(computerNumber) ]")
+    let userInput = userInput()
+
+    
+    let gesture = [0, 1, 2, 3]
+    
+
+    //잘못된 입력을 한 경우 컴퓨터에게 턴을 넘긴다.
+    guard gesture.contains(0), gesture.contains(1), gesture.contains(2), gesture.contains(3) else {
+        turn = Player.computer
+        print("잘못된 입력으로 컴퓨터에게 턴을 넘깁니다.")
+        return
+    }
+    
+    //턴잡이가 이겼을때
+    if userInput == MookZziPpaGesture.zzi.rawValue && computerNumber == MookZziPpaGesture.ppa.rawValue {
+        turn = Player.user
+        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
+        print("\(turn.rawValue)의 턴입니다.")
+        playMookZziPpa(turnHolder: turn)
+    }
+    if userInput == MookZziPpaGesture.mook.rawValue && computerNumber == MookZziPpaGesture.zzi.rawValue {
+        turn = Player.user
+        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
+        print("\(turn.rawValue)의 턴입니다.")
+        playMookZziPpa(turnHolder: turn)
+    }
+    if userInput == MookZziPpaGesture.ppa.rawValue && computerNumber == MookZziPpaGesture.mook.rawValue {
+        turn = Player.user
+        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
+        print("\(turn.rawValue)의 턴입니다.")
+        playMookZziPpa(turnHolder: turn)
+    }
+    
+    //턴잡이가 졌을때
+    if userInput == MookZziPpaGesture.zzi.rawValue && computerNumber == MookZziPpaGesture.mook.rawValue {
+        turn = Player.computer
+        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
+        print("\(turn.rawValue)의 턴입니다.")
+        playMookZziPpa(turnHolder: turn)
+    }
+    if userInput == MookZziPpaGesture.mook.rawValue && computerNumber == MookZziPpaGesture.ppa.rawValue {
+        turn = Player.computer
+        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
+        print("\(turn.rawValue)의 턴입니다.")
+        playMookZziPpa(turnHolder: turn)
+    }
+    if userInput == MookZziPpaGesture.ppa.rawValue && computerNumber == MookZziPpaGesture.zzi.rawValue {
+        turn = Player.computer
+        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
+        print("\(turn.rawValue)의 턴입니다.")
+        playMookZziPpa(turnHolder: turn)
+    }
+    
+    // 비겼을때 턴을 가진 사람의 승리 판정 후 게임 종료.
+    if userInput == MookZziPpaGesture.zzi.rawValue && computerNumber == MookZziPpaGesture.zzi.rawValue {
+        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
+        print("\(turn.rawValue)의 승리!")
+    }
+    if userInput == MookZziPpaGesture.mook.rawValue && computerNumber == MookZziPpaGesture.mook.rawValue {
+        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
+        print("\(turn.rawValue)의 승리!")
+    }
+    if userInput == MookZziPpaGesture.ppa.rawValue && computerNumber == MookZziPpaGesture.ppa.rawValue {
+        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
+        print("\(turn.rawValue)의 승리!")
+    }
+}
