@@ -17,25 +17,25 @@ func gameRun() {
     
     let userInput = readLine()
     
-    if let safeUserInput = userInput {
-        //
-        if(safeUserInput == "0") {
-            print("게임 종료")
-            return
-        }
-        
-        let computerChoice = makeComputerChoice()
-        
-        switch (safeUserInput, computerChoice) {
-        case (_, _) where safeUserInput == computerChoice:
-            print("비겼습니다!")
-        case ("1", "3"), ("2", "1"), ("3", "2"):
-            print("이겼습니다")
-        default:
-            print("졌습니다.")
-        }
-    } else{
+    guard let safeUserInput = userInput else {
         print("잘못된 입력입니다. 다시 시도하여 주세요.")
+        return
+    }
+    
+    if (safeUserInput == "0") {
+        print("게임 종료")
+        return
+    }
+    
+    let computerChoice = makeComputerChoice()
+    
+    switch (safeUserInput, computerChoice) {
+    case (_, _) where safeUserInput == computerChoice:
+        print("비겼습니다!")
+    case ("1", "3"), ("2", "1"), ("3", "2"):
+        print("이겼습니다")
+    default:
+        print("졌습니다.")
     }
 }
 
