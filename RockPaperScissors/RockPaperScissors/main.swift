@@ -4,29 +4,28 @@
 //  Copyright © yagom academy. All rights reserved.
 // 
 
-let inputList: Array<Int> = [0, 1, 2, 3]
+//let inputList: Array<Int> = [0, 1, 2, 3]
 
 struct errorCode {
     static let outOfRange = -1
     static let wrongInput = -2
 }
 
-enum Gesture: Int {
-    case scissors = 1
-    case rock = 2
-    case paper = 3
+struct Gesture {
+    static let scissors = 1
+    static let rock = 2
+    static let paper = 3
 }
 
 func computerPlay() -> Int {
-    let menuList = inputList[1...3]
+    let computerSelect = Int.random(in: 1...3)
     
-    guard let computerSelect = menuList.randomElement() else {
-        return errorCode.outOfRange
-    }
     return computerSelect
 }
 
 func userInput() -> Int {
+    let inputList: Array<Int> = [0, 1, 2, 3]
+    
     guard let input = readLine(), !input.isEmpty else {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return errorCode.wrongInput
@@ -41,26 +40,24 @@ func userInput() -> Int {
 
 func rockScissorsPaper() {
     var repeatFlag: Bool = false
-    let scissors:Int = Gesture.scissors.rawValue
-    let rock:Int = Gesture.rock.rawValue
-    let paper:Int = Gesture.paper.rawValue
+    let scissors:Int = Gesture.scissors
+    let rock:Int = Gesture.rock
+    let paper:Int = Gesture.paper
     
     repeat {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         let computerNumber = computerPlay()
         let userInput = userInput()
         
-        guard let rpsValue = Gesture(rawValue: computerNumber) else {
-            return
-        }
-        
-        switch rpsValue {
-        case .scissors:
+        switch computerNumber {
+        case Gesture.scissors:
             repeatFlag = gameResult(userInput: userInput, gameCase: [scissors, paper])
-        case .rock:
+        case Gesture.rock:
             repeatFlag = gameResult(userInput: userInput, gameCase: [paper, scissors])
-        case .paper:
+        case Gesture.paper:
             repeatFlag = gameResult(userInput: userInput, gameCase: [scissors, rock])
+        default:
+            repeatFlag = true
         }
     } while repeatFlag
 }
