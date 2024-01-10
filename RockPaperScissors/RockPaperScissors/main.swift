@@ -51,7 +51,7 @@ func playRockPaperScissor() {
     case "0":
         print("게임 종료")
         return
-    case "1"..."3":
+    case "1", "2", "3":
         break
     default:
         print("잘못된 입력입니다. 다시 시도해주세요.")
