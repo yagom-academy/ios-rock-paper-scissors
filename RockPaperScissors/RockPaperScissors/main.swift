@@ -2,10 +2,7 @@
 //  RockPaperScissors - main.swift
 //  Created by yagom. 
 //  Copyright © yagom academy. All rights reserved.
-// 
-
-//let inputList: Array<Int> = [0, 1, 2, 3]
-
+//
 struct errorCode {
     static let outOfRange = -1
     static let wrongInput = -2
@@ -48,6 +45,11 @@ func rockScissorsPaper() {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> : ", terminator: "")
         let computerNumber = computerPlay()
         let userInput = userInput()
+
+        guard executeGame(userInput: userInput) else {
+            repeatFlag = false
+            return
+        }
         
         switch computerNumber {
         case Gesture.scissors:
@@ -62,14 +64,17 @@ func rockScissorsPaper() {
     } while repeatFlag
 }
 
-func gameResult(userInput: Int, gameCase: Array<Int>) -> Bool {
-    let userWin = gameCase[0] == userInput
-    let userLose = gameCase[1] == userInput
-    
+func executeGame(userInput: Int) -> Bool {
     if userInput == 0 {
         print("게임 종료")
         return false
     }
+    return true
+}
+
+func gameResult(userInput: Int, gameCase: Array<Int>) -> Bool {
+    let userWin = gameCase[0] == userInput
+    let userLose = gameCase[1] == userInput
     
     if userWin {
         print("이겼습니다!")
