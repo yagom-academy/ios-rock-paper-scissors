@@ -5,12 +5,7 @@
 // 
 
 import Foundation
-//
-//enum GameResult {
-//    case draw
-//    case win
-//    case lose
-//}
+
 let regex = #"^[0-3]"#
 func isNumber(_ input: String) -> Bool {
     return input.range(of: regex, options: .regularExpression) != nil
@@ -30,7 +25,7 @@ func gameRun() {
             return
         }
         
-        if(!isNumber(safeUserInput)) {
+        if (!isNumber(safeUserInput)) {
             print("0-3까지의 수를 입력해주세요")
         }
         
@@ -52,24 +47,9 @@ func gameRun() {
     }
 }
 
-//func showResult(userInput: String) {
-//    let gameResult = makeComputerChoice(userInput: userInput)
-//    switch gameResult {
-//    case .draw:
-//        print("비겼습니다!")
-//    case .win:
-//        print("이겼습니다!")
-//    case .lose:
-//        print("졌습니다.")
-//    default:
-//        return
-//    }
-//}
-
 func makeComputerChoice() -> String {
     let computerChoice = String(Int.random(in: 1...3))
     return String(computerChoice)
 }
-
 
 gameRun()
