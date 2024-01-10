@@ -18,12 +18,12 @@ enum Hand {
 
 func convertNumberToHand(number: Int) -> Hand {
     if number == 1 {
-        return Hand.Scissor
+        return .Scissor
     } else if number == 2 {
-        return Hand.Rock
+        return .Rock
     }
     
-    return Hand.Paper
+    return .Paper
 }
 
 func calculateGameResult(userHand: Hand, computerHand: Hand) -> GameResult {
