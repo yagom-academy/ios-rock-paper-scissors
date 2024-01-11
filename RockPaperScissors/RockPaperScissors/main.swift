@@ -27,6 +27,7 @@ func gameRun() {
         
         if (!isNumber(safeUserInput)) {
             print("0-3까지의 수를 입력해주세요.")
+            continue
         }
         
         if (safeUserInput == "0") {
@@ -35,6 +36,8 @@ func gameRun() {
         }
         
         judgeGame(userChoice: safeUserInput)
+        
+        loopFlag = false
     }
 }
 
