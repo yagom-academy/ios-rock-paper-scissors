@@ -24,7 +24,6 @@ enum Player: String {
 }
 func computerPlay() -> Int {
     let computerSelect = Int.random(in: 1...3)
-    
     return computerSelect
 }
 
@@ -144,7 +143,7 @@ func judgeMookZzi(user: Int, computer: Int, turn: Player) {
     }
     
     if (user == zzi && computer == zzi) || (user == mook && computer == mook) || (user == ppa && computer == ppa) {
-        print("\(whoseTurn.rawValue)의 승리!")
+        checkTurn(turn: whoseTurn, user: user, computer: computer)
     }
 }
 
