@@ -13,11 +13,11 @@ enum GameResult {
 }
 
 enum GameState {
-    case rsp
-    case mjb
+    case rockScissorPaper
+    case mukChiba
 }
 
-var gameState: GameState = .rsp
+var gameState: GameState = .rockScissorPaper
 
 let regex = #"^[0-3]$"#
 func isNumber(_ input: String) -> Bool {
@@ -58,7 +58,7 @@ func gameRun() {
             continue
         } else {
             loopFlag = false
-            gameState = .mjb
+            gameState = .mukChiba
             whoseTurn = gameResult == .win ? "user" : "computer"
             runGameStep2()
         }
@@ -79,18 +79,15 @@ func printResult(gameResult: GameResult) {
 func judgeGame(userChoice: String, computerChoice: String) -> GameResult {
     switch (userChoice, computerChoice) {
     case (_, _) where userChoice == computerChoice:
-//        print("비겼습니다!")
         return .draw
     case ("1", "3"), ("2", "1"), ("3", "2") :
-//        print("이겼습니다!")
-        if gameState == .rsp {
+        if gameState == .rockScissorPaper {
             return .win
         } else {
             return .lose
         }
     default:
-//        print("졌습니다!")
-        if gameState == .rsp {
+        if gameState == .rockScissorPaper {
             return .lose
         } else {
             return .win
@@ -106,9 +103,6 @@ func makeComputerChoice() -> String {
 var whoseTurn = "computer"
 
 func runGameStep2() {
-    // 게임 진행
-    // 컴퓨터의 임의의 수를 뽑는다
-    
     var loopFlag = true
     
     while loopFlag {
@@ -132,12 +126,6 @@ func runGameStep2() {
             return
         }
         
-        // if 컴퓨터가 이겼다면
-        // 컴퓨터의 턴이며 값이 같을 경우, whoseTurn이 컴퓨터일 때,
-//        if (whoseTurn == "computer" && userChoice == computerChoice) {
-//            
-//        }
-        
         let computerChoice = makeComputerChoice()
         let gameResult = judgeGame(userChoice: userChoice, computerChoice: computerChoice)
         
@@ -154,25 +142,6 @@ func runGameStep2() {
             print(whoseTurn == "computer" ? "컴퓨터의 승리!" : "사용자의 승리!")
             loopFlag = false
         }
-        
-        // else if 사용자가 이겼다면
-        
-        // else 잘못된 입력인 경우
-        // 컴퓨터에게 턴을 넘긴다
-        
-        // 사용자에게 0부터 3까지 입력 받는다
-        // 결과를 출력한다
-        
-        // if 사용자 == 컴퓨터
-        // 현재 턴을 차지한 자가 승리한다
-        
-        // else if 사용자 != 컴퓨터
-        // if 사용자 패랑 컴퓨터 패를 비교한다
-        // 묵찌빠 다시 실행한다
-        
-        // else if 입력이 0인 경우
-        // 게임 종료
-        
     }
 }
 
