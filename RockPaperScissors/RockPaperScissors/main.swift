@@ -99,6 +99,11 @@ func playMukChiPpa(currentTurn: Turn) {
     default:
         return playMukChiPpa(currentTurn: .Computer)
     }
+    
+    guard let userNumber = Int(userInput) else {
+        return
+    }
+    let computerNumber = Int.random(in: 1...3)
 }
 
 playRockPaperScissor()
