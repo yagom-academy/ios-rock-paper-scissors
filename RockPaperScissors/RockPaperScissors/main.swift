@@ -6,7 +6,7 @@
 
 import Foundation
 
-let regex = #"^[0-3]"#
+let regex = #"^[0-3]$"#
 func isNumber(_ input: String) -> Bool {
     return input.range(of: regex, options: .regularExpression) != nil
 }
