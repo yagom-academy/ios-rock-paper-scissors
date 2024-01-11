@@ -16,6 +16,11 @@ enum Hand {
     case Paper
 }
 
+enum Turn {
+    case User
+    case Computer
+}
+
 func convertNumberToHand(number: Int) -> Hand {
     if number == 1 {
         return .Scissor
