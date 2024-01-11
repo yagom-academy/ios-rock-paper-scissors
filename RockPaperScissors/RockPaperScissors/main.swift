@@ -46,7 +46,7 @@ func playRockPaperScissor() {
     print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
     
     guard let userInput = readLine() else {
-        print("잘못된 입력입니다. 프로그램을 종료합니다.")
+        print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
         return
     }
     
@@ -84,6 +84,11 @@ func playRockPaperScissor() {
 
 func playMukChiPpa(currentTurn: Turn) {
     print("[\(currentTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: "")
+    
+    guard let userInput = readLine() else {
+        print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
+        return
+    }
 }
 
 playRockPaperScissor()
