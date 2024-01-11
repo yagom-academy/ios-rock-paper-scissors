@@ -21,7 +21,7 @@ enum Turn: String {
     case Computer = "컴퓨터"
 }
 
-func convertNumberToHand(number: Int) -> Hand {
+func convertRockPaperScissorNumberToHand(number: Int) -> Hand {
     if number == 1 {
         return .Scissor
     } else if number == 2 {
