@@ -6,6 +6,12 @@
 
 import Foundation
 
+enum GameResult {
+    case draw
+    case win
+    case lose
+}
+
 let regex = #"^[0-3]$"#
 func isNumber(_ input: String) -> Bool {
     return input.range(of: regex, options: .regularExpression) != nil
@@ -35,22 +41,43 @@ func gameRun() {
             return
         }
         
-        judgeGame(userChoice: safeUserInput)
+        let computerChoice = makeComputerChoice()
+        let gameResult = judgeGame(userChoice: safeUserInput, computerChoice: computerChoice)
         
-        loopFlag = false
+        print("컴퓨터: \(computerChoice)")
+        printResult(gameResult: gameResult)
+        
+        if gameResult == .draw {
+            continue
+        } else {
+            loopFlag = false
+            runGameStep2()
+        }
     }
 }
 
-func judgeGame(userChoice: String) {
-    let computerChoice = makeComputerChoice()
-    
+func printResult(gameResult: GameResult) {
+    switch gameResult {
+    case .draw:
+        print("비겼습니다!")
+    case .win:
+        print("이겼습니다!")
+    case .lose:
+        print("졌습니다!")
+    }
+}
+
+func judgeGame(userChoice: String, computerChoice: String) -> GameResult {
     switch (userChoice, computerChoice) {
     case (_, _) where userChoice == computerChoice:
-        print("비겼습니다!")
+//        print("비겼습니다!")
+        return .draw
     case ("1", "3"), ("2", "1"), ("3", "2"):
-        print("이겼습니다!")
+//        print("이겼습니다!")
+        return .win
     default:
-        print("졌습니다!")
+//        print("졌습니다!")
+        return .lose
     }
 }
 
@@ -64,7 +91,6 @@ var whoseTurn = "computer"
 func runGameStep2() {
     // 게임 진행
     // 컴퓨터의 임의의 수를 뽑는다
-    let computerChoice = makeComputerChoice()
     
     var loopFlag = true
     
@@ -94,14 +120,22 @@ func runGameStep2() {
 //        if (whoseTurn == "computer" && userChoice == computerChoice) {
 //            
 //        }
-        if (userChoice == computerChoice) {
-            if whoseTurn == "computer" {
-                print("컴퓨터의 승리!")
-            } else {
-                print("사용자의 승리!")
-            }
-        } else {
-            
+        
+        let computerChoice = makeComputerChoice()
+        let gameResult = judgeGame(userChoice: userChoice, computerChoice: computerChoice)
+        
+        print("컴퓨터: \(computerChoice)")
+        
+        switch gameResult {
+        case .win:
+            whoseTurn = "user"
+            print("\(whoseTurn)의 턴입니다.")
+        case .lose:
+            whoseTurn = "computer"
+            print("\(whoseTurn)의 턴입니다.")
+        default:
+            print(whoseTurn == "computer" ? "컴퓨터의 승리!" : "사용자의 승리!")
+            loopFlag = false
         }
         
         // else if 사용자가 이겼다면
@@ -122,7 +156,6 @@ func runGameStep2() {
         // else if 입력이 0인 경우
         // 게임 종료
         
-        loopFlag = false
     }
 }
 
