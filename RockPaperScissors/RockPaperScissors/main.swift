@@ -6,6 +6,11 @@
 
 import Foundation
 
+enum GamePlayer: String {
+    case player = "사용자"
+    case computer = "컴퓨터"
+}
+
 enum GameResult {
     case draw
     case win
@@ -18,36 +23,35 @@ enum GameState {
 }
 
 var gameState: GameState = .rockScissorPaper
-var whoseTurn = "computer"
+var whoseTurn: GamePlayer = .computer
 
-let regex = #"^[0-3]$"#
-
-func gameRun() {
+func runGameFirstStep() {
     var loopFlag = true
+    let regex = #"^[0-3]$"#
     
     while loopFlag {
         print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
         
         let playerInput = readLine()
         
-        guard let safePlayerInput = playerInput else {
+        guard let playerInputChoice = playerInput else {
             print("잘못된 입력입니다. 다시 시도하여 주세요.")
             loopFlag = false
             return
         }
         
-        if (!isValidInput(safePlayerInput)) {
+        if (!isValidInput(input: playerInputChoice, regex: regex)) {
             print("0-3까지의 수를 입력해주세요.")
             continue
         }
         
-        if (safePlayerInput == "0") {
+        if (playerInputChoice == "0") {
             print("게임 종료")
             return
         }
         
         let computerChoice = makeComputerChoice()
-        let gameResult = judgeRockScissorPaper(playerChoice: safePlayerInput, computerChoice: computerChoice)
+        let gameResult = judgeRockScissorPaper(playerChoice: playerInputChoice, computerChoice: computerChoice)
         
         print("컴퓨터: \(computerChoice)")
         printResult(gameResult: gameResult)
@@ -57,17 +61,18 @@ func gameRun() {
         } else {
             loopFlag = false
             gameState = .mukChiba
-            whoseTurn = gameResult == .win ? "player" : "computer"
-            runGameStep2()
+            whoseTurn = gameResult == .win ? .player : .computer
+            runGameSecondStep()
         }
     }
 }
 
-func runGameStep2() {
+func runGameSecondStep() {
     var loopFlag = true
+    let regex = #"^[0-3]$"#
     
     while loopFlag {
-        print("[\(whoseTurn)의 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+        print("[\(whoseTurn.rawValue)의 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
         
         let playerSecondInput = readLine()
         
@@ -77,7 +82,7 @@ func runGameStep2() {
             return
         }
         
-        if (!isValidInput(playerSecondChoice)) {
+        if (!isValidInput(input: playerSecondChoice, regex: regex)) {
             print("0-3까지의 수를 입력해주세요.")
             continue
         }
@@ -94,19 +99,19 @@ func runGameStep2() {
         
         switch gameResult {
         case .win:
-            whoseTurn = "player"
-            print("\(whoseTurn)의 턴입니다.")
+            whoseTurn = .player
+            print("\(whoseTurn.rawValue)의 턴입니다.")
         case .lose:
-            whoseTurn = "computer"
-            print("\(whoseTurn)의 턴입니다.")
+            whoseTurn = .computer
+            print("\(whoseTurn.rawValue)의 턴입니다.")
         default:
-            print(whoseTurn == "computer" ? "컴퓨터의 승리!" : "player(사용자)의 승리!")
+            print("\(whoseTurn.rawValue)의 승리!")
             loopFlag = false
         }
     }
 }
 
-func isValidInput(_ input: String) -> Bool {
+func isValidInput(input: String, regex: String) -> Bool {
     return input.range(of: regex, options: .regularExpression) != nil
 }
 
@@ -148,4 +153,4 @@ func printResult(gameResult: GameResult) {
     }
 }
 
-gameRun()
+runGameFirstStep()
