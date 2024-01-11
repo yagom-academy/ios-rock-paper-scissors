@@ -89,6 +89,11 @@ func playMukChiPpa(currentTurn: Turn) {
         print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
         return
     }
+    
+    switch userInput {
+    default:
+        return playMukChiPpa(currentTurn: .Computer)
+    }
 }
 
 playRockPaperScissor()
