@@ -110,20 +110,12 @@ rockScissorsPaper()
 
 func playMookZziPpa(turnHolder: Player) {
     var turn = turnHolder
-
-    print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>:")
-    
-    //묵찌빠
-
     let computerNumber = computerPlay()
-    print("[컴퓨터가 고른 수: \(computerNumber) ]")
-    let userInput = userInput()
-
     
+    print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>:")
+    let userInput = userInput()
     let gesture = [0, 1, 2, 3]
     
-
-    //잘못된 입력을 한 경우 컴퓨터에게 턴을 넘긴다.
     guard gesture.contains(userInput) else {
         turn = Player.computer
         print("잘못된 입력으로 컴퓨터에게 턴을 넘깁니다.")
@@ -131,57 +123,37 @@ func playMookZziPpa(turnHolder: Player) {
         return
     }
     
-    //턴잡이가 이겼을때
-    if userInput == MookZziPpaGesture.zzi.rawValue && computerNumber == MookZziPpaGesture.ppa.rawValue {
-        turn = Player.user
-        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
-        print("\(turn.rawValue)의 턴입니다.")
-        playMookZziPpa(turnHolder: turn)
+    judgeMookZzi(user: userInput, computer: computerNumber, turn: turn)
+    
+}
+
+func judgeMookZzi(user: Int, computer: Int, turn: Player) {
+    var whoseTurn = turn
+    let mook = MookZziPpaGesture.mook.rawValue
+    let zzi = MookZziPpaGesture.zzi.rawValue
+    let ppa = MookZziPpaGesture.ppa.rawValue
+    
+    if (user == zzi && computer == ppa) || (user == mook && computer == zzi) || (user == ppa && computer == mook) {
+        whoseTurn = Player.user
+        checkTurn(turn: whoseTurn, user: user, computer: computer)
     }
-    if userInput == MookZziPpaGesture.mook.rawValue && computerNumber == MookZziPpaGesture.zzi.rawValue {
-        turn = Player.user
-        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
-        print("\(turn.rawValue)의 턴입니다.")
-        playMookZziPpa(turnHolder: turn)
-    }
-    if userInput == MookZziPpaGesture.ppa.rawValue && computerNumber == MookZziPpaGesture.mook.rawValue {
-        turn = Player.user
-        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
-        print("\(turn.rawValue)의 턴입니다.")
-        playMookZziPpa(turnHolder: turn)
+
+    if (user == zzi && computer == mook) || (user == mook && computer == ppa) || (user == ppa && computer == zzi) {
+        whoseTurn = Player.computer
+        checkTurn(turn: whoseTurn, user: user, computer: computer)
     }
     
-    //턴잡이가 졌을때
-    if userInput == MookZziPpaGesture.zzi.rawValue && computerNumber == MookZziPpaGesture.mook.rawValue {
-        turn = Player.computer
-        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
-        print("\(turn.rawValue)의 턴입니다.")
-        playMookZziPpa(turnHolder: turn)
-    }
-    if userInput == MookZziPpaGesture.mook.rawValue && computerNumber == MookZziPpaGesture.ppa.rawValue {
-        turn = Player.computer
-        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
-        print("\(turn.rawValue)의 턴입니다.")
-        playMookZziPpa(turnHolder: turn)
-    }
-    if userInput == MookZziPpaGesture.ppa.rawValue && computerNumber == MookZziPpaGesture.zzi.rawValue {
-        turn = Player.computer
-        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
-        print("\(turn.rawValue)의 턴입니다.")
-        playMookZziPpa(turnHolder: turn)
-    }
-    
-    // 비겼을때 턴을 가진 사람의 승리 판정 후 게임 종료.
-    if userInput == MookZziPpaGesture.zzi.rawValue && computerNumber == MookZziPpaGesture.zzi.rawValue {
-        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
-        print("\(turn.rawValue)의 승리!")
-    }
-    if userInput == MookZziPpaGesture.mook.rawValue && computerNumber == MookZziPpaGesture.mook.rawValue {
-        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
-        print("\(turn.rawValue)의 승리!")
-    }
-    if userInput == MookZziPpaGesture.ppa.rawValue && computerNumber == MookZziPpaGesture.ppa.rawValue {
-        print("유저입력: \(userInput), 컴퓨터입력: \(computerNumber)")
-        print("\(turn.rawValue)의 승리!")
+    if (user == zzi && computer == zzi) || (user == mook && computer == mook) || (user == ppa && computer == ppa) {
+        print("\(whoseTurn.rawValue)의 승리!")
     }
 }
+
+func checkTurn(turn: Player, user: Int, computer: Int) {
+    if user == computer {
+        print("\(turn.rawValue)의 승리!")
+    } else {
+        print("\(turn.rawValue)의 턴입니다.")
+        playMookZziPpa(turnHolder: turn)
+    }
+}
+
