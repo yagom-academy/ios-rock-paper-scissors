@@ -21,6 +21,11 @@ enum Turn: String {
     case Computer = "컴퓨터"
 }
 
+enum InputError: Error {
+    case EOF
+    case InvalidInput
+}
+
 func convertRockPaperScissorNumberToHand(number: Int) -> Hand {
     if number == 1 {
         return .Scissor
@@ -52,23 +57,40 @@ func calculateGameResult(userHand: Hand, computerHand: Hand) -> GameResult {
     }
 }
 
-func playRockPaperScissor() {
-    print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
-    
+func readUserInput() throws -> String {
     guard let userInput = readLine() else {
-        print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
-        return
+        throw InputError.EOF
     }
     
     switch userInput {
-    case "0":
-        print("게임 종료")
-        return
-    case "1", "2", "3":
-        break
+    case "0", "1", "2", "3":
+        return userInput
     default:
+        throw InputError.InvalidInput
+    }
+}
+
+func playRockPaperScissor() {
+    print("가위(1), 바위(2), 보(3)! <종료 : 0> :", terminator: " ")
+    
+    let userInput: String
+    
+    do {
+        userInput = try readUserInput()
+    } catch InputError.EOF {
+        print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
+        return
+    } catch InputError.InvalidInput {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return playRockPaperScissor()
+    } catch {
+        print("Unexpected Error: \(error).")
+        return
+    }
+    
+    if userInput == "0" {
+        print("게임 종료")
+        return
     }
     
     guard let userNumber = Int(userInput) else {
@@ -95,20 +117,24 @@ func playRockPaperScissor() {
 func playMukChiPpa(currentTurn: Turn) {
     print("[\(currentTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
     
-    guard let userInput = readLine() else {
+    let userInput: String
+    
+    do {
+        userInput = try readUserInput()
+    } catch InputError.EOF {
         print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
+        return
+    }  catch InputError.InvalidInput {
+        print("잘못된 입력입니다. 다시 시도해주세요.")
+        return playMukChiPpa(currentTurn: .Computer)
+    } catch {
+        print("Unexpected Error: \(error).")
         return
     }
     
-    switch userInput {
-    case "0":
+    if userInput == "0" {
         print("게임 종료")
         return
-    case "1", "2", "3":
-        break
-    default:
-        print("잘못된 입력입니다. 다시 시도해주세요.")
-        return playMukChiPpa(currentTurn: .Computer)
     }
     
     guard let userNumber = Int(userInput) else {
