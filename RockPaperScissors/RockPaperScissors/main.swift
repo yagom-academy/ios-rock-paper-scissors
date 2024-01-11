@@ -13,7 +13,7 @@ enum Gesture: Int {
     case paper = 3
 }
 
-enum MookZziPpaGesture: Int {
+enum MukchippaGesture: Int {
     case mook = 1
     case zzi = 2
     case ppa = 3
@@ -92,12 +92,12 @@ func gameResult(userInput: Int, gameCase: [Gesture]) -> Bool {
     
     if userWin {
         print("이겼습니다!")
-        playMookZziPpa(turnHolder: turnHolder)
+        playMukchippa(turnHolder: turnHolder)
         return false
     } else if userLose {
         print("졌습니다!")
         turnHolder = Player.computer
-        playMookZziPpa(turnHolder: turnHolder)
+        playMukchippa(turnHolder: turnHolder)
         return false
     } else {
         print("비겼습니다!")
@@ -107,7 +107,7 @@ func gameResult(userInput: Int, gameCase: [Gesture]) -> Bool {
 
 rockScissorsPaper()
 
-func playMookZziPpa(turnHolder: Player) {
+func playMukchippa(turnHolder: Player) {
     var turn = turnHolder
     let computerNumber = computerPlay()
     
@@ -118,31 +118,31 @@ func playMookZziPpa(turnHolder: Player) {
     guard gesture.contains(userInput) else {
         turn = Player.computer
         print("잘못된 입력으로 컴퓨터에게 턴을 넘깁니다.")
-        playMookZziPpa(turnHolder: turn)
+        playMukchippa(turnHolder: turn)
         return
     }
     
-    judgeMookZzi(user: userInput, computer: computerNumber, turn: turn)
+    judgeMukchippa(user: userInput, computer: computerNumber, turn: turn)
     
 }
 
-func judgeMookZzi(user: Int, computer: Int, turn: Player) {
+func judgeMukchippa(user: Int, computer: Int, turn: Player) {
     var whoseTurn = turn
-    let mook = MookZziPpaGesture.mook.rawValue
-    let zzi = MookZziPpaGesture.zzi.rawValue
-    let ppa = MookZziPpaGesture.ppa.rawValue
+    let muk = MukchippaGesture.mook.rawValue
+    let chi = MukchippaGesture.zzi.rawValue
+    let ppa = MukchippaGesture.ppa.rawValue
     
-    if (user == zzi && computer == ppa) || (user == mook && computer == zzi) || (user == ppa && computer == mook) {
+    if (user == chi && computer == ppa) || (user == muk && computer == chi) || (user == ppa && computer == muk) {
         whoseTurn = Player.user
         checkTurn(turn: whoseTurn, user: user, computer: computer)
     }
 
-    if (user == zzi && computer == mook) || (user == mook && computer == ppa) || (user == ppa && computer == zzi) {
+    if (user == chi && computer == muk) || (user == muk && computer == ppa) || (user == ppa && computer == chi) {
         whoseTurn = Player.computer
         checkTurn(turn: whoseTurn, user: user, computer: computer)
     }
     
-    if (user == zzi && computer == zzi) || (user == mook && computer == mook) || (user == ppa && computer == ppa) {
+    if (user == chi && computer == chi) || (user == muk && computer == muk) || (user == ppa && computer == ppa) {
         checkTurn(turn: whoseTurn, user: user, computer: computer)
     }
 }
@@ -152,7 +152,7 @@ func checkTurn(turn: Player, user: Int, computer: Int) {
         print("\(turn.rawValue)의 승리!")
     } else {
         print("\(turn.rawValue)의 턴입니다.")
-        playMookZziPpa(turnHolder: turn)
+        playMukchippa(turnHolder: turn)
     }
 }
 
