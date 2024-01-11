@@ -12,6 +12,13 @@ enum GameResult {
     case lose
 }
 
+enum GameState {
+    case rsp
+    case mjb
+}
+
+var gameState: GameState = .rsp
+
 let regex = #"^[0-3]$"#
 func isNumber(_ input: String) -> Bool {
     return input.range(of: regex, options: .regularExpression) != nil
@@ -51,6 +58,8 @@ func gameRun() {
             continue
         } else {
             loopFlag = false
+            gameState = .mjb
+            whoseTurn = gameResult == .win ? "user" : "computer"
             runGameStep2()
         }
     }
@@ -72,12 +81,20 @@ func judgeGame(userChoice: String, computerChoice: String) -> GameResult {
     case (_, _) where userChoice == computerChoice:
 //        print("비겼습니다!")
         return .draw
-    case ("1", "3"), ("2", "1"), ("3", "2"):
+    case ("1", "3"), ("2", "1"), ("3", "2") :
 //        print("이겼습니다!")
-        return .win
+        if gameState == .rsp {
+            return .win
+        } else {
+            return .lose
+        }
     default:
 //        print("졌습니다!")
-        return .lose
+        if gameState == .rsp {
+            return .lose
+        } else {
+            return .win
+        }
     }
 }
 
