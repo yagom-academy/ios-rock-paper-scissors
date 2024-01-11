@@ -124,6 +124,8 @@ func playMukChiPpa(currentTurn: Turn) {
     case .Draw:
         print("\(currentTurn.rawValue)의 승리!")
         return
+    case .Lose:
+        return playMukChiPpa(currentTurn: .Computer)
     }
 }
 
