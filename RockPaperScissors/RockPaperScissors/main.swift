@@ -91,6 +91,11 @@ func playMukChiPpa(currentTurn: Turn) {
     }
     
     switch userInput {
+    case "0":
+        print("게임 종료")
+        return
+    case "1", "2", "3":
+        break
     default:
         return playMukChiPpa(currentTurn: .Computer)
     }
