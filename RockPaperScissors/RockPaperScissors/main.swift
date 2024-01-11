@@ -107,6 +107,7 @@ func playMukChiPpa(currentTurn: Turn) {
     case "1", "2", "3":
         break
     default:
+        print("잘못된 입력입니다. 다시 시도해주세요.")
         return playMukChiPpa(currentTurn: .Computer)
     }
     
