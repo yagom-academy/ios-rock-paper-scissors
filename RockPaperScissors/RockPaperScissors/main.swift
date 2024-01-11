@@ -72,11 +72,13 @@ func playRockPaperScissor() {
     switch calculateGameResult(userHand: userHand, computerHand: computerHand) {
     case .Win:
         print("이겼습니다!")
+        return playMukChiPpa(currentTurn: .User)
     case .Draw:
         print("비겼습니다!")
         return playRockPaperScissor()
     case .Lose:
         print("졌습니다!")
+        return playMukChiPpa(currentTurn: .Computer)
     }
 }
 
