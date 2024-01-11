@@ -16,9 +16,9 @@ enum Hand {
     case Paper
 }
 
-enum Turn {
-    case User
-    case Computer
+enum Turn: String {
+    case User = "사용자"
+    case Computer = "컴퓨터"
 }
 
 func convertNumberToHand(number: Int) -> Hand {
@@ -78,6 +78,10 @@ func playRockPaperScissor() {
     case .Lose:
         print("졌습니다!")
     }
+}
+
+func playMukChiPpa(currentTurn: Turn) {
+    print("[\(currentTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: "")
 }
 
 playRockPaperScissor()
