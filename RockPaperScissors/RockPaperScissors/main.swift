@@ -114,6 +114,9 @@ func playMukChiPpa(currentTurn: Turn) {
         return
     }
     let computerNumber = Int.random(in: 1...3)
+    
+    let userHand = convertMukChiPpaNumberToHand(number: userNumber)
+    let computerHand = convertMukChiPpaNumberToHand(number: computerNumber)
 }
 
 playRockPaperScissor()
