@@ -117,6 +117,11 @@ func playMukChiPpa(currentTurn: Turn) {
     
     let userHand = convertMukChiPpaNumberToHand(number: userNumber)
     let computerHand = convertMukChiPpaNumberToHand(number: computerNumber)
+    
+    switch calculateGameResult(userHand: userHand, computerHand: computerHand) {
+    case .Win:
+        return playMukChiPpa(currentTurn: .User)
+    }
 }
 
 playRockPaperScissor()
