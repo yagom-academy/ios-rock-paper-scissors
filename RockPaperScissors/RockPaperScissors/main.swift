@@ -124,9 +124,10 @@ func playMookZziPpa(turnHolder: Player) {
     
 
     //잘못된 입력을 한 경우 컴퓨터에게 턴을 넘긴다.
-    guard gesture.contains(0), gesture.contains(1), gesture.contains(2), gesture.contains(3) else {
+    guard gesture.contains(userInput) else {
         turn = Player.computer
         print("잘못된 입력으로 컴퓨터에게 턴을 넘깁니다.")
+        playMookZziPpa(turnHolder: turn)
         return
     }
     
