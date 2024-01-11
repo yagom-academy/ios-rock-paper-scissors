@@ -31,6 +31,16 @@ func convertRockPaperScissorNumberToHand(number: Int) -> Hand {
     return .Paper
 }
 
+func convertMukChiPpaNumberToHand(number: Int) -> Hand {
+    if number == 1 {
+        return .Rock
+    } else if number == 2 {
+        return .Scissor
+    }
+    
+    return .Paper
+}
+
 func calculateGameResult(userHand: Hand, computerHand: Hand) -> GameResult {
     switch (userHand, computerHand) {
     case (.Scissor, .Paper), (.Rock, .Scissor), (.Paper, .Rock):
@@ -66,8 +76,8 @@ func playRockPaperScissor() {
     }
     let computerNumber = Int.random(in: 1...3)
     
-    let userHand = convertNumberToHand(number: userNumber)
-    let computerHand = convertNumberToHand(number: computerNumber)
+    let userHand = convertRockPaperScissorNumberToHand(number: userNumber)
+    let computerHand = convertRockPaperScissorNumberToHand(number: computerNumber)
     
     switch calculateGameResult(userHand: userHand, computerHand: computerHand) {
     case .Win:
