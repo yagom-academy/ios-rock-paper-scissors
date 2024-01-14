@@ -13,9 +13,17 @@ enum Gesture: Int {
     case paper = 3
 }
 
+enum MukchippaGesture: Int {
+    case muk = 1
+    case chi = 2
+    case ppa = 3
+}
+enum Player: String {
+    case computer = "컴퓨터"
+    case user = "유저"
+}
 func computerPlay() -> Int {
     let computerSelect = Int.random(in: 1...3)
-    
     return computerSelect
 }
 
@@ -76,15 +84,20 @@ func executeGame(userInput: Int) -> Bool {
 }
 
 func gameResult(userInput: Int, gameCase: [Gesture]) -> Bool {
+    
+    var turnHolder = Player.user
     let userGesture = Gesture(rawValue: userInput)
     let userWin = gameCase[0] == userGesture
     let userLose = gameCase[1] == userGesture
     
     if userWin {
         print("이겼습니다!")
+        playMukchippa(turnHolder: turnHolder)
         return false
     } else if userLose {
         print("졌습니다!")
+        turnHolder = Player.computer
+        playMukchippa(turnHolder: turnHolder)
         return false
     } else {
         print("비겼습니다!")
@@ -93,3 +106,53 @@ func gameResult(userInput: Int, gameCase: [Gesture]) -> Bool {
 }
 
 rockScissorsPaper()
+
+func playMukchippa(turnHolder: Player) {
+    var turn = turnHolder
+    let computerNumber = computerPlay()
+    
+    print("[\(turn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료: 0>:")
+    let userInput = userInput()
+    let gesture = [0, 1, 2, 3]
+    
+    guard gesture.contains(userInput) else {
+        turn = Player.computer
+        print("잘못된 입력으로 컴퓨터에게 턴을 넘깁니다.")
+        playMukchippa(turnHolder: turn)
+        return
+    }
+    
+    judgeMukchippa(user: userInput, computer: computerNumber, turn: turn)
+    
+}
+
+func judgeMukchippa(user: Int, computer: Int, turn: Player) {
+    var whoseTurn = turn
+    let muk = MukchippaGesture.muk.rawValue
+    let chi = MukchippaGesture.chi.rawValue
+    let ppa = MukchippaGesture.ppa.rawValue
+    
+    if (user == chi && computer == ppa) || (user == muk && computer == chi) || (user == ppa && computer == muk) {
+        whoseTurn = Player.user
+        checkTurn(turn: whoseTurn, user: user, computer: computer)
+    }
+
+    if (user == chi && computer == muk) || (user == muk && computer == ppa) || (user == ppa && computer == chi) {
+        whoseTurn = Player.computer
+        checkTurn(turn: whoseTurn, user: user, computer: computer)
+    }
+    
+    if (user == chi && computer == chi) || (user == muk && computer == muk) || (user == ppa && computer == ppa) {
+        checkTurn(turn: whoseTurn, user: user, computer: computer)
+    }
+}
+
+func checkTurn(turn: Player, user: Int, computer: Int) {
+    if user == computer {
+        print("\(turn.rawValue)의 승리!")
+    } else {
+        print("\(turn.rawValue)의 턴입니다.")
+        playMukchippa(turnHolder: turn)
+    }
+}
+
