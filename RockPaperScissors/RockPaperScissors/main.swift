@@ -36,23 +36,25 @@ enum InputError: Error {
 }
 
 func convertRockPaperScissorNumberToHand(number: Int) -> Hand {
-    if number == 1 {
+    switch number {
+    case 1:
         return .scissor
-    } else if number == 2 {
+    case 2:
         return .rock
+    default:
+        return .paper
     }
-    
-    return .paper
 }
 
 func convertMukChiPpaNumberToHand(number: Int) -> Hand {
-    if number == 1 {
+    switch number {
+    case 1:
         return .rock
-    } else if number == 2 {
+    case 2:
         return .scissor
+    default:
+        return .paper
     }
-    
-    return .paper
 }
 
 func calculateGameResult(userHand: Hand, computerHand: Hand) -> GameResult {
