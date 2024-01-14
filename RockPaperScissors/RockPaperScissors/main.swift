@@ -88,14 +88,11 @@ func playRockPaperScissor() {
         return
     }
     
-    if userInput == "0" {
+    guard let userNumber = Int(userInput), userNumber != 0 else {
         print("게임 종료")
         return
     }
     
-    guard let userNumber = Int(userInput) else {
-        return
-    }
     let computerNumber = Int.random(in: 1...3)
     
     let userHand = convertRockPaperScissorNumberToHand(number: userNumber)
@@ -132,12 +129,8 @@ func playMukChiPpa(currentTurn: Turn) {
         return
     }
     
-    if userInput == "0" {
+    guard let userNumber = Int(userInput), userNumber != 0 else {
         print("게임 종료")
-        return
-    }
-    
-    guard let userNumber = Int(userInput) else {
         return
     }
     let computerNumber = Int.random(in: 1...3)
