@@ -22,7 +22,7 @@ enum Turn: String {
 }
 
 enum InputError: Error {
-    case eof
+    case reachEndOfFile
     case invalidInput
 }
 
@@ -59,7 +59,7 @@ func calculateGameResult(userHand: Hand, computerHand: Hand) -> GameResult {
 
 func readUserInput() throws -> String {
     guard let userInput = readLine() else {
-        throw InputError.eof
+        throw InputError.reachEndOfFile
     }
     
     switch userInput {
@@ -77,7 +77,7 @@ func playRockPaperScissor() {
     
     do {
         userInput = try readUserInput()
-    } catch InputError.eof {
+    } catch InputError.reachEndOfFile {
         print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
         return
     } catch InputError.invalidInput {
@@ -121,7 +121,7 @@ func playMukChiPpa(currentTurn: Turn) {
     
     do {
         userInput = try readUserInput()
-    } catch InputError.eof{
+    } catch InputError.reachEndOfFile{
         print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
         return
     }  catch InputError.invalidInput {
