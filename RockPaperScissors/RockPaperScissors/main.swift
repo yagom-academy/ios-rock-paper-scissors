@@ -5,68 +5,68 @@
 // 
 
 enum GameResult {
-    case Win
-    case Draw
-    case Lose
+    case win
+    case draw
+    case lose
 }
 
 enum Hand {
-    case Scissor
-    case Rock
-    case Paper
+    case scissor
+    case rock
+    case paper
 }
 
 enum Turn: String {
-    case User = "사용자"
-    case Computer = "컴퓨터"
+    case user = "사용자"
+    case computer = "컴퓨터"
 }
 
 enum InputError: Error {
-    case EOF
-    case InvalidInput
+    case eof
+    case invalidInput
 }
 
 func convertRockPaperScissorNumberToHand(number: Int) -> Hand {
     if number == 1 {
-        return .Scissor
+        return .scissor
     } else if number == 2 {
-        return .Rock
+        return .rock
     }
     
-    return .Paper
+    return .paper
 }
 
 func convertMukChiPpaNumberToHand(number: Int) -> Hand {
     if number == 1 {
-        return .Rock
+        return .rock
     } else if number == 2 {
-        return .Scissor
+        return .scissor
     }
     
-    return .Paper
+    return .paper
 }
 
 func calculateGameResult(userHand: Hand, computerHand: Hand) -> GameResult {
     switch (userHand, computerHand) {
-    case (.Scissor, .Paper), (.Rock, .Scissor), (.Paper, .Rock):
-        return .Win
-    case (.Scissor, .Scissor), (.Rock, .Rock), (.Paper, .Paper):
-        return .Draw
+    case (.scissor, .paper), (.rock, .scissor), (.paper, .rock):
+        return .win
+    case (.scissor, .scissor), (.rock, .rock), (.paper, .paper):
+        return .draw
     default:
-        return .Lose
+        return .lose
     }
 }
 
 func readUserInput() throws -> String {
     guard let userInput = readLine() else {
-        throw InputError.EOF
+        throw InputError.eof
     }
     
     switch userInput {
     case "0", "1", "2", "3":
         return userInput
     default:
-        throw InputError.InvalidInput
+        throw InputError.invalidInput
     }
 }
 
@@ -77,10 +77,10 @@ func playRockPaperScissor() {
     
     do {
         userInput = try readUserInput()
-    } catch InputError.EOF {
+    } catch InputError.eof {
         print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
         return
-    } catch InputError.InvalidInput {
+    } catch InputError.invalidInput {
         print("잘못된 입력입니다. 다시 시도해주세요.")
         return playRockPaperScissor()
     } catch {
@@ -102,15 +102,15 @@ func playRockPaperScissor() {
     let computerHand = convertRockPaperScissorNumberToHand(number: computerNumber)
     
     switch calculateGameResult(userHand: userHand, computerHand: computerHand) {
-    case .Win:
+    case .win:
         print("이겼습니다!")
-        return playMukChiPpa(currentTurn: .User)
-    case .Draw:
+        return playMukChiPpa(currentTurn: .user)
+    case .draw:
         print("비겼습니다!")
         return playRockPaperScissor()
-    case .Lose:
+    case .lose:
         print("졌습니다!")
-        return playMukChiPpa(currentTurn: .Computer)
+        return playMukChiPpa(currentTurn: .computer)
     }
 }
 
@@ -121,12 +121,12 @@ func playMukChiPpa(currentTurn: Turn) {
     
     do {
         userInput = try readUserInput()
-    } catch InputError.EOF {
+    } catch InputError.eof{
         print("유효하지 않은 입력입니다. 프로그램을 종료합니다.")
         return
-    }  catch InputError.InvalidInput {
+    }  catch InputError.invalidInput {
         print("잘못된 입력입니다. 다시 시도해주세요.")
-        return playMukChiPpa(currentTurn: .Computer)
+        return playMukChiPpa(currentTurn: .computer)
     } catch {
         print("Unexpected Error: \(error).")
         return
@@ -146,15 +146,15 @@ func playMukChiPpa(currentTurn: Turn) {
     let computerHand = convertMukChiPpaNumberToHand(number: computerNumber)
     
     switch calculateGameResult(userHand: userHand, computerHand: computerHand) {
-    case .Win:
+    case .win:
         print("사용자의 턴입니다.")
-        return playMukChiPpa(currentTurn: .User)
-    case .Draw:
+        return playMukChiPpa(currentTurn: .user)
+    case .draw:
         print("\(currentTurn.rawValue)의 승리!")
         return
-    case .Lose:
+    case .lose:
         print("컴퓨터의 턴입니다.")
-        return playMukChiPpa(currentTurn: .Computer)
+        return playMukChiPpa(currentTurn: .computer)
     }
 }
 
