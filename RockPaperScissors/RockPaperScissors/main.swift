@@ -16,9 +16,18 @@ enum Hand {
     case paper
 }
 
-enum Turn: String {
-    case user = "사용자"
-    case computer = "컴퓨터"
+enum Turn {
+    case user
+    case computer
+    
+    var name: String {
+        switch self {
+        case .user:
+            return "사용자"
+        case .computer:
+            return "컴퓨터"
+        }
+    }
 }
 
 enum InputError: Error {
@@ -112,7 +121,7 @@ func playRockPaperScissor() {
 }
 
 func playMukChiPpa(currentTurn: Turn) {
-    print("[\(currentTurn.rawValue) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
+    print("[\(currentTurn.name) 턴] 묵(1), 찌(2), 빠(3)! <종료 : 0> :", terminator: " ")
     
     let userInput: String
     
@@ -143,7 +152,7 @@ func playMukChiPpa(currentTurn: Turn) {
         print("사용자의 턴입니다.")
         return playMukChiPpa(currentTurn: .user)
     case .draw:
-        print("\(currentTurn.rawValue)의 승리!")
+        print("\(currentTurn.name)의 승리!")
         return
     case .lose:
         print("컴퓨터의 턴입니다.")
