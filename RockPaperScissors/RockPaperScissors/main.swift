@@ -14,8 +14,8 @@ enum Gesture: Int {
 }
 
 enum MukchippaGesture: Int {
-    case mook = 1
-    case zzi = 2
+    case muk = 1
+    case chi = 2
     case ppa = 3
 }
 enum Player: String {
@@ -83,9 +83,9 @@ func executeGame(userInput: Int) -> Bool {
     return true
 }
 
-var turnHolder = Player.user
-
 func gameResult(userInput: Int, gameCase: [Gesture]) -> Bool {
+    
+    var turnHolder = Player.user
     let userGesture = Gesture(rawValue: userInput)
     let userWin = gameCase[0] == userGesture
     let userLose = gameCase[1] == userGesture
@@ -128,8 +128,8 @@ func playMukchippa(turnHolder: Player) {
 
 func judgeMukchippa(user: Int, computer: Int, turn: Player) {
     var whoseTurn = turn
-    let muk = MukchippaGesture.mook.rawValue
-    let chi = MukchippaGesture.zzi.rawValue
+    let muk = MukchippaGesture.muk.rawValue
+    let chi = MukchippaGesture.chi.rawValue
     let ppa = MukchippaGesture.ppa.rawValue
     
     if (user == chi && computer == ppa) || (user == muk && computer == chi) || (user == ppa && computer == muk) {
